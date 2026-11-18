@@ -66,7 +66,7 @@ function serverState(cfg,now=new Date()){
 function fmtMin(n){const h=Math.floor(n/60),m=n%60;return EN?(h?`${h} h ${m} min`:`${m} min`):(h?`${h} ч ${m} мин`:`${m} мин`)}
 
 async function main(){
-  const C=await (await fetch('content.json?v=20261118225558')).json(), cfg=C.config;
+  const C=await (await fetch('content.json?v=20261118225847')).json(), cfg=C.config;
   document.querySelectorAll('[data-k]').forEach(e=>{e.textContent=e.dataset.k in C?C[e.dataset.k]:cfg[e.dataset.k]||''});
   // IP и Discord
   const ipBtn=$('#copyip');
@@ -237,14 +237,14 @@ function renderMap(C){
   let vb={x:-ext,y:-ext,w:2*ext,h:2*ext};
   const apply=()=>{const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1; vb.h=vb.w*ar;
     svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`); svg.style.setProperty('--k',vb.w/Math.max(1,svg.clientWidth));};
-  const fitAll=()=>{const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1; let x0=-R,x1=R,z0=-R,z1=R; M.far.forEach(p=>{x0=Math.min(x0,p.x-500);x1=Math.max(x1,p.x+500);z0=Math.min(z0,p.z-500);z1=Math.max(z1,p.z+500)});
+  const fitAll=()=>{const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1; let x0=-R,x1=R,z0=-R,z1=R; M.far.forEach(p=>{x0=Math.min(x0,p.x-1700);x1=Math.max(x1,p.x+1700);z0=Math.min(z0,p.z-700);z1=Math.max(z1,p.z+700)});
     const nw=Math.max(x1-x0,(z1-z0)/ar)*1.05; vb={x:(x0+x1)/2-nw/2,y:(z0+z1)/2-nw*ar/2,w:nw,h:nw*ar}; if(!layers.far){layers.far=true;g.far.style.display='';const b=host.querySelector('[data-l="far"]');b&&b.classList.add('on')} apply()};
   { const b=host.querySelector('#mAll'); if(b) b.onclick=e=>{e.stopPropagation();fitAll()}; }
   const reset=()=>{const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1, s=2*ext; vb=ar>1?{x:-ext,y:-ext*ar,w:s,h:s*ar}:{x:-ext/ar,y:-ext,w:s/ar,h:s};apply()};
   const toWorld=(cx,cy)=>{const r=svg.getBoundingClientRect();return [vb.x+(cx-r.left)/r.width*vb.w, vb.y+(cy-r.top)/r.height*vb.h]};
   const zoom=(f,cx,cy)=>{const nw=Math.min(14*ext,Math.max(120,vb.w*f)); f=nw/vb.w; const [wx,wy]=toWorld(cx,cy);
     vb.x=wx-(wx-vb.x)*f; vb.y=wy-(wy-vb.y)*f; vb.w=nw; apply()};
-  host.querySelector('.mzoom').onclick=e=>{const z=+e.target.dataset.z; if(isNaN(z))return; if(!z)return reset();
+  host.querySelector('.mzoom').onclick=e=>{const z=+e.target.dataset.z; if(isNaN(z))return; if(!z)return M.far.length?fitAll():reset();
     const r=svg.getBoundingClientRect(); zoom(z,r.left+r.width/2,r.top+r.height/2)};
   svg.addEventListener('wheel',e=>{e.preventDefault();zoom(e.deltaY>0?1.2:1/1.2,e.clientX,e.clientY)},{passive:false});
   const pts=new Map(); let last=null, moved=0;
@@ -257,7 +257,7 @@ function renderMap(C){
   const up=e=>{pts.delete(e.pointerId);if(pts.size<2)last=null};
   svg.addEventListener('pointerup',up); svg.addEventListener('pointercancel',up);
   svg.addEventListener('click',e=>{if(moved>4){e.stopPropagation();e.preventDefault()}},true);
-  addEventListener('resize',apply); reset();
+  addEventListener('resize',apply); M.far.length?fitAll():reset();
 }
 function renderNow(C){
   const g=$('#nowGrid'); if(!g) return; const cfg=C.config, s=serverState(cfg);
