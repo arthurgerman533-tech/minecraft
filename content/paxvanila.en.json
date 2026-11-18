@@ -414,28 +414,44 @@
    "id": "predtechi",
    "title": "Age of the Forerunners",
    "subtitle": "What came before Romulus",
-   "file": "ранние_цивилизации.md"
+   "file": "ранние_цивилизации.md",
+   "cover": "lore_predtechi.jpg"
   },
   {
    "id": "srednie",
    "title": "Middle Ages",
    "subtitle": "Chronicle of the Romuli, years 0–1962",
-   "file": "средние_эпохи.md"
+   "file": "средние_эпохи.md",
+   "cover": "lore_srednie.jpg"
   },
   {
    "id": "pozdnie",
    "title": "Late Ages: the future",
    "subtitle": "After 1962: robots and AI, cyberpunk, the Interserver War, the Moon, Mars, the Dyson sphere, the stars and the end of time",
-   "file": "поздние_эпохи.md"
+   "file": "поздние_эпохи.md",
+   "cover": "lore_pozdnie.jpg"
   },
   {
    "id": "cataclysms",
    "title": "Cataclysms",
    "subtitle": "Chronicle of the Monolith",
-   "file": "катаклизмы.md"
+   "file": "катаклизмы.md",
+   "cover": "lore_cataclysms.jpg"
   },
-    {"id": "front", "title": "The Front Chronicle", "subtitle": "Three recordings from the Far Sector, 5000 blocks from 0, 0", "file": "хроника_фронта.md"},
-    {"id": "old_records", "title": "The Old Recordings", "subtitle": "Prologue to the Front Chronicle: the world before this world, server ZAG533, Day 517", "file": "старые_записи.md"}
+  {
+   "id": "front",
+   "title": "The Front Chronicle",
+   "subtitle": "Three recordings from the Far Sector, 5000 blocks from 0, 0",
+   "file": "хроника_фронта.md",
+   "cover": "lore_front.jpg"
+  },
+  {
+   "id": "old_records",
+   "title": "The Old Recordings",
+   "subtitle": "Prologue to the Front Chronicle: the world before this world, server ZAG533, Day 517",
+   "file": "старые_записи.md",
+   "cover": "lore_old_records.jpg"
+  }
  ],
  "guides": [
   {

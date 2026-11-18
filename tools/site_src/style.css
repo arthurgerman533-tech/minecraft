@@ -209,3 +209,7 @@ table.wxtable small{color:var(--muted)}
 .btn.boosty{border-color:#f15f2c;color:#f15f2c}
 .btn.boosty:hover{background:#f15f2c;color:#fff}
 .supportcard{grid-column:1/-1;margin-top:16px}
+
+.lorecover{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--radius);margin:0 0 1.2em;box-shadow:var(--shadow)}
+.card img.cv{display:block;width:calc(100% + 36px);margin:-18px -18px 12px;aspect-ratio:16/9;object-fit:cover;border-radius:var(--radius) var(--radius) 0 0}
+.doc article img{max-width:100%;height:auto;border-radius:10px}

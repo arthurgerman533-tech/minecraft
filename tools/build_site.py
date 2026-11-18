@@ -240,8 +240,9 @@ def build(lang, out):
             body, toc = render_lore(f.read(), links)
         toc_html = "".join(f'<a class="h{lv}" href="#{i}">{t}</a>' for lv, t, i in toc if lv <= 2 or len(toc) < 40)
         write(os.path.join("lore", f"{l['id']}.html"),
-              PAGE.format(title=f"{l['title']} — PaxVanila", desc=html.escape(l["subtitle"]), nav=nav, toc=toc_html, body=body), 1)
-        cards.append(f'<a href="lore/{l["id"]}.html"><div class="card"><h3>📜 {html.escape(l["title"])}</h3><p>{html.escape(l["subtitle"])}</p></div></a>')
+              PAGE.format(title=f"{l['title']} — PaxVanila", desc=html.escape(l["subtitle"]), nav=nav, toc=toc_html,
+                          body=(f'<img class="lorecover" src="../img/{l["cover"]}" alt="">' if l.get("cover") else "") + body), 1)
+        cards.append(f'<a href="lore/{l["id"]}.html"><div class="card">' + (f'<img class="cv" src="img/{l["cover"]}" alt="" loading="lazy">' if l.get("cover") else "") + f'<h3>📜 {html.escape(l["title"])}</h3><p>{html.escape(l["subtitle"])}</p></div></a>')
     # гайды (та же вёрстка, папка guides/)
     for g in C.get("guides", []):
         with open(src_file(GUIDES, lang, g["file"]), encoding="utf-8") as f:
@@ -290,6 +291,13 @@ def main():
         shutil.rmtree(DOCS)
     os.makedirs(DOCS)
     open(os.path.join(DOCS, ".nojekyll"), "w").close()
+    # пластинки «Архив Монолита»: ресурспак (ссылка в server.properties) → docs/rp/, датапак → docs/files/
+    disc_dir = os.path.join(ROOT, "пластинки")
+    if os.path.isdir(disc_dir):
+        os.makedirs(os.path.join(DOCS, "rp"), exist_ok=True); os.makedirs(os.path.join(DOCS, "files"), exist_ok=True)
+        for fn in os.listdir(disc_dir):
+            if fn.endswith(".zip"):
+                shutil.copy(os.path.join(disc_dir, fn), os.path.join(DOCS, "rp" if "_RP_" in fn else "files", fn))
     built = {}
     for lang in LANGS:
         built[lang] = build(lang, DOCS if lang == "ru" else os.path.join(DOCS, lang))
