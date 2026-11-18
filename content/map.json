@@ -1,293 +1,565 @@
 {
-  "_comment": "Карта мира для сайта и приложения. Координаты в блоках Minecraft: x растёт на восток, z на юг, Монолит в 0,0. Державы и древние места это СХЕМА по лору, а не реальные постройки: поправь x/z, когда на сервере появятся настоящие столицы. Реальные города Towny кладутся в content/map_towns.json командой python3 tools/towny_map.py <папка Towny/data> (файл необязателен). Текст: ru и en рядом.",
-  "places": [
-    {"id": "monolith", "kind": "monolith", "x": 0, "z": 0,
-     "name": {"ru": "Монолит", "en": "The Monolith"},
-     "text": {"ru": "Башня в центре мира и спавн. Под ней главные врата и Медная Печать. В радиусе 80 блоков нельзя ставить приваты.", "en": "The tower at the centre of the world and the spawn. Beneath it lie the great gates and the Copper Seal. No claims within 80 blocks."}}
-  ],
-  "powers": [
-    {"id": "romea", "x": -260, "z": 160, "color": "#b0362b", "bloc": "pax",
-     "name": {"ru": "Ромея", "en": "Romea"},
-     "text": {"ru": "Хранители печати у самого Монолита. Наследие: пакт за 50$, фокус SPQR.", "en": "Keepers of the seal, right by the Monolith. Heritage: pacts for $50, the SPQR focus."}},
-    {"id": "carthage", "x": -150, "z": 950, "color": "#d08a1e", "bloc": "pax",
-     "name": {"ru": "Карфаген", "en": "Carthage"},
-     "text": {"ru": "Торговая держава на южном берегу. Наследие: +25$ в день, дешёвые осадные орудия.", "en": "A trading power on the southern coast. Heritage: +$25 a day, cheaper siege engines."}},
-    {"id": "hellas", "x": -850, "z": 650, "color": "#2f7fb5", "bloc": "pax",
-     "name": {"ru": "Эллада", "en": "Hellas"},
-     "text": {"ru": "Морская лига юго-западных островов. Наследие: дыхание под водой.", "en": "A maritime league of the south-western isles. Heritage: water breathing."}},
-    {"id": "gaul", "x": -1100, "z": -150, "color": "#3f8a3a", "bloc": "pax",
-     "name": {"ru": "Галлия", "en": "Gaul"},
-     "text": {"ru": "Леса и священные рощи запада. Наследие: осенний урожай, регенерация дома.", "en": "Forests and sacred groves of the west. Heritage: autumn harvest, regeneration at home."}},
-    {"id": "islands", "x": -1350, "z": -950, "color": "#3aa6a0", "bloc": "pax",
-     "name": {"ru": "Островной Союз", "en": "The Island Union"},
-     "text": {"ru": "Республика мореходов в северо-западном океане. Наследие: половина дани как вассал.", "en": "A republic of seafarers in the north-western ocean. Heritage: half tribute as a vassal."}},
-    {"id": "germany", "x": 450, "z": -900, "color": "#5c5f66", "bloc": "steppe",
-     "name": {"ru": "Германия", "en": "Germany"},
-     "text": {"ru": "Железо и уголь севера. Наследие: скорость дома, +100$ в день с фокусом.", "en": "Iron and coal of the north. Heritage: speed at home, +$100 a day with its focus."}},
-    {"id": "north", "x": 350, "z": -1650, "color": "#8fb3d9", "bloc": "steppe",
-     "name": {"ru": "Северное Царство", "en": "The Northern Tsardom"},
-     "text": {"ru": "Снега дальнего севера. Наследие: нет зимнего холода, метель 1942.", "en": "The snows of the far north. Heritage: no winter cold, the Blizzard of 1942."}},
-    {"id": "dacia", "x": 950, "z": -250, "color": "#b5652f", "bloc": "steppe",
-     "name": {"ru": "Дакия", "en": "Dacia"},
-     "text": {"ru": "Горы и медные рудники востока, бывший Каэр-Брун. Наследие: спешка в шахтах.", "en": "Mountains and copper mines of the east, once Caer-Brun. Heritage: haste in the mines."}},
-    {"id": "horde", "x": 1050, "z": 850, "color": "#c9a227", "bloc": "steppe",
-     "name": {"ru": "Орда", "en": "The Horde"},
-     "text": {"ru": "Великая степь юго-востока. Наследие: скорость в дикой местности.", "en": "The great steppe of the south-east. Heritage: speed in the wilds."}},
-    {"id": "scythia", "x": 1650, "z": 250, "color": "#7a4a8c", "bloc": "steppe",
-     "name": {"ru": "Скифия", "en": "Scythia"},
-     "text": {"ru": "Курганы дальнего востока. Наследие: +20$ в день за город, дань вассалов 15%.", "en": "The kurgans of the far east. Heritage: +$20 a day per town, 15% vassal tribute."}}
-  ],
-  "ancient": [
-    {"id": "urkadim", "x": 600, "z": 450,
-     "name": {"ru": "Ур-Кадим", "en": "Ur-Kadim"},
-     "text": {"ru": "Глиняные города между двумя реками, первая цивилизация. Позже здесь вырастет Нео-Кадим.", "en": "Clay cities between two rivers, the first civilization. Neo-Kadim will later rise here."}},
-    {"id": "neferu", "x": 450, "z": 1400,
-     "name": {"ru": "Нэферу", "en": "Neferu"},
-     "text": {"ru": "Держава Солнца в песках южнее двух рек. Пирамиды солнценосцев.", "en": "The Kingdom of the Sun in the sands south of the two rivers. The pyramids of the sun-bearers."}},
-    {"id": "thalassia", "x": -1600, "z": 350,
-     "name": {"ru": "Талассия", "en": "Thalassia"},
-     "text": {"ru": "Сто островов Западного моря, ушедшие под воду. Дворец Кносарион.", "en": "The hundred isles of the Western Sea, now sunk beneath the waves. The palace of Knossarion."}},
-    {"id": "caertal", "x": 1250, "z": -650,
-     "name": {"ru": "Каэр-Тал", "en": "Caer-Tal"},
-     "text": {"ru": "Семь «Зелёных городов» Медного Союза в горах. Залы испытаний и кузницы големов.", "en": "The seven «Green Cities» of the Copper Union in the mountains. Trial chambers and golem forges."}},
-    {"id": "deep", "x": -550, "z": -600,
-     "name": {"ru": "Древний город", "en": "The Ancient City"},
-     "text": {"ru": "Глубоко под землёй: Безмолвные, скалк и Хранитель.", "en": "Deep underground: the Silent, the sculk and the Warden."}}
-  ],
-  "far": [
-    {"id": "far_sector", "x": 5000, "z": 0,
-     "name": {"ru": "Дальний сектор «Деревня»", "en": "The Far Sector «Village»"},
-     "text": {"ru": "Около 5000 блоков от 0, 0, далеко за самой широкой границей мира. Здесь шла «Хроника фронта»: Война за деревню, Гулаг и порох, Война и мир. Клятва PAX сюда не доходит, правил войны здесь нет. Из этих трёх войн выросли законы войны PaxVanila.", "en": "About 5000 blocks from 0, 0, far beyond the widest world border. This is where the «Front Chronicle» happened: the War for the Village, Gulag and Gunpowder, War and Peace. The PAX oath does not reach here and there are no rules of war. The war laws of PaxVanila grew out of these three wars."},
-     "lore": "front"}
-  ],
-  "lore": [
-   {
-    "id": "romul_hill",
-    "x": -330,
-    "z": 60,
-    "cat": "legend",
-    "name": {
-     "ru": "Холм Ромула",
-     "en": "Romulus' Hill"
-    },
-    "text": {
-     "ru": "753 до н.э.: молния бьёт в холм, где Ромул ставит Ромею.",
-     "en": "753 BC: lightning strikes the hill where Romulus founds Romea."
-    }
+ "_comment": "Карта мира для сайта и приложения. Координаты в блоках Minecraft: x растёт на восток, z на юг, Монолит в 0,0. Державы и древние места это СХЕМА по лору, а не реальные постройки: поправь x/z, когда на сервере появятся настоящие столицы. Реальные города Towny кладутся в content/map_towns.json командой python3 tools/towny_map.py <папка Towny/data> (файл необязателен). Текст: ru и en рядом.",
+ "places": [
+  {
+   "id": "monolith",
+   "kind": "monolith",
+   "x": 0,
+   "z": 0,
+   "name": {
+    "ru": "Монолит",
+    "en": "The Monolith"
    },
-   {
-    "id": "talassia_harbors",
-    "x": -1600,
-    "z": 450,
-    "cat": "cataclysm",
-    "name": {
-     "ru": "Гавани Талассии",
-     "en": "Harbours of Thalassia"
-    },
-    "text": {
-     "ru": "2354 до н.э.: Великий шторм забирает гавани.",
-     "en": "2354 BC: the Great Storm takes the harbours."
-    }
-   },
-   {
-    "id": "neferu_drought",
-    "x": 700,
-    "z": 1150,
-    "cat": "cataclysm",
-    "name": {
-     "ru": "Высохшие реки",
-     "en": "The dried rivers"
-    },
-    "text": {
-     "ru": "1835 до н.э.: засуха, пески Нэферу пьют реки досуха.",
-     "en": "1835 BC: drought, the sands of Neferu drink the rivers dry."
-    }
-   },
-   {
-    "id": "carthage_fleet",
-    "x": -330,
-    "z": 1300,
-    "cat": "battle",
-    "name": {
-     "ru": "Гибель флота Карфагена",
-     "en": "Fall of the Carthaginian fleet"
-    },
-    "text": {
-     "ru": "264 до н.э.: буря топит флот Карфагена.",
-     "en": "264 BC: a storm sinks the fleet of Carthage."
-    }
-   },
-   {
-    "id": "dacia_quake",
-    "x": 1050,
-    "z": -150,
-    "cat": "cataclysm",
-    "name": {
-     "ru": "Рухнувшие рудники",
-     "en": "The collapsed mines"
-    },
-    "text": {
-     "ru": "117 год: землетрясение рушит рудники Дакии.",
-     "en": "Year 117: an earthquake brings down the mines of Dacia."
-    }
-   },
-   {
-    "id": "horde_storm",
-    "x": 1300,
-    "z": 1050,
-    "cat": "battle",
-    "name": {
-     "ru": "Выход Орды",
-     "en": "The coming of the Horde"
-    },
-    "text": {
-     "ru": "375 год: из песчаной бури выходит Степная Орда.",
-     "en": "Year 375: the Steppe Horde rides out of a sandstorm."
-    }
-   },
-   {
-    "id": "winter_wall",
-    "x": -520,
-    "z": 430,
-    "cat": "battle",
-    "name": {
-     "ru": "Стены Ромеи, 1241",
-     "en": "Walls of Romea, 1241"
-    },
-    "text": {
-     "ru": "Метель останавливает Орду у стен Ромеи.",
-     "en": "A blizzard stops the Horde at the walls of Romea."
-    }
-   },
-   {
-    "id": "star_shard",
-    "x": 380,
-    "z": 160,
-    "cat": "legend",
-    "name": {
-     "ru": "Первый Звёздный осколок",
-     "en": "The first Star Shard"
-    },
-    "text": {
-     "ru": "1500 год: звёздный дождь, найден первый осколок.",
-     "en": "Year 1500: a meteor shower, the first shard is found."
-    }
-   },
-   {
-    "id": "fog_galleons",
-    "x": -1750,
-    "z": -450,
-    "cat": "legend",
-    "name": {
-     "ru": "Туман Безымянных",
-     "en": "Fog of the Nameless"
-    },
-    "text": {
-     "ru": "1700 год: галеоны пропадают в тумане.",
-     "en": "Year 1700: galleons vanish in the fog."
-    }
-   },
-   {
-    "id": "trenches",
-    "x": 150,
-    "z": -500,
-    "cat": "battle",
-    "name": {
-     "ru": "Окопы Века стали",
-     "en": "Trenches of the Age of Steel"
-    },
-    "text": {
-     "ru": "1914 год: молнии над окопами.",
-     "en": "1914: lightning over the trenches."
-    }
-   },
-   {
-    "id": "reich_winter",
-    "x": 400,
-    "z": -1350,
-    "cat": "battle",
-    "name": {
-     "ru": "Зима 1942",
-     "en": "Winter of 1942"
-    },
-    "text": {
-     "ru": "Метель ломает наступление Рейха.",
-     "en": "A blizzard breaks the Reich's offensive."
-    }
-   },
-   {
-    "id": "front_village",
-    "x": 4900,
-    "z": -120,
-    "cat": "front",
-    "name": {
-     "ru": "Деревня",
-     "en": "The Village"
-    },
-    "text": {
-     "ru": "Запись 1: «Война за деревню». Счёт 0 : 3, операция «Ещё разок».",
-     "en": "Record 1: «War for the Village». Score 0 : 3, operation «One More Time»."
-    }
-   },
-   {
-    "id": "front_gulag",
-    "x": 5080,
-    "z": 60,
-    "cat": "front",
-    "name": {
-     "ru": "Гулаг",
-     "en": "The Gulag"
-    },
-    "text": {
-     "ru": "Запись 2: первый лагерь Дальнего сектора. Заключённый Telorfind, статья «покушение».",
-     "en": "Record 2: the first camp of the Far Sector. Prisoner Telorfind."
-    }
-   },
-   {
-    "id": "front_metro",
-    "x": 4950,
-    "z": 140,
-    "cat": "front",
-    "name": {
-     "ru": "Объект «Метро»",
-     "en": "Object «Metro»"
-    },
-    "text": {
-     "ru": "23.01.2021: ледяной подземный ход через весь сектор. Вход не найден.",
-     "en": "23.01.2021: an icy tunnel under the whole sector. The entrance is lost."
-    }
-   },
-   {
-    "id": "front_powder",
-    "x": 5150,
-    "z": -80,
-    "cat": "front",
-    "name": {
-     "ru": "Пропавший порох",
-     "en": "The missing gunpowder"
-    },
-    "text": {
-     "ru": "Склад пуст. «Где порох? Сезон 2».",
-     "en": "The store is empty. «Where is the gunpowder? Season 2»."
-    }
-   },
-   {
-    "id": "front_sky",
-    "x": 5000,
-    "z": -320,
-    "cat": "front",
-    "name": {
-     "ru": "Небесные острова",
-     "en": "The Sky Islands"
-    },
-    "text": {
-     "ru": "Запись 3: три армии на островах в небе. «Жёлтых осталось 0».",
-     "en": "Record 3: three armies on islands in the sky. «Yellow: 0 left»."
-    }
+   "text": {
+    "ru": "Башня в центре мира и спавн. Под ней главные врата и Медная Печать. В радиусе 80 блоков нельзя ставить приваты.",
+    "en": "The tower at the centre of the world and the spawn. Beneath it lie the great gates and the Copper Seal. No claims within 80 blocks."
    }
-  ],
-  "blocs": {
-    "pax": {"ru": "Союз PAX (запад)", "en": "PAX Union (west)"},
-    "steppe": {"ru": "Степной Пакт (восток)", "en": "Steppe Pact (east)"}
   }
+ ],
+ "powers": [
+  {
+   "id": "romea",
+   "x": -260,
+   "z": 160,
+   "color": "#b0362b",
+   "bloc": "pax",
+   "name": {
+    "ru": "Ромея",
+    "en": "Romea"
+   },
+   "text": {
+    "ru": "Хранители печати у самого Монолита. Наследие: пакт за 50$, фокус SPQR.",
+    "en": "Keepers of the seal, right by the Monolith. Heritage: pacts for $50, the SPQR focus."
+   }
+  },
+  {
+   "id": "carthage",
+   "x": -150,
+   "z": 950,
+   "color": "#d08a1e",
+   "bloc": "pax",
+   "name": {
+    "ru": "Карфаген",
+    "en": "Carthage"
+   },
+   "text": {
+    "ru": "Торговая держава на южном берегу. Наследие: +25$ в день, дешёвые осадные орудия.",
+    "en": "A trading power on the southern coast. Heritage: +$25 a day, cheaper siege engines."
+   }
+  },
+  {
+   "id": "hellas",
+   "x": -850,
+   "z": 650,
+   "color": "#2f7fb5",
+   "bloc": "pax",
+   "name": {
+    "ru": "Эллада",
+    "en": "Hellas"
+   },
+   "text": {
+    "ru": "Морская лига юго-западных островов. Наследие: дыхание под водой.",
+    "en": "A maritime league of the south-western isles. Heritage: water breathing."
+   }
+  },
+  {
+   "id": "gaul",
+   "x": -1100,
+   "z": -150,
+   "color": "#3f8a3a",
+   "bloc": "pax",
+   "name": {
+    "ru": "Галлия",
+    "en": "Gaul"
+   },
+   "text": {
+    "ru": "Леса и священные рощи запада. Наследие: осенний урожай, регенерация дома.",
+    "en": "Forests and sacred groves of the west. Heritage: autumn harvest, regeneration at home."
+   }
+  },
+  {
+   "id": "islands",
+   "x": -1350,
+   "z": -950,
+   "color": "#3aa6a0",
+   "bloc": "pax",
+   "name": {
+    "ru": "Островной Союз",
+    "en": "The Island Union"
+   },
+   "text": {
+    "ru": "Республика мореходов в северо-западном океане. Наследие: половина дани как вассал.",
+    "en": "A republic of seafarers in the north-western ocean. Heritage: half tribute as a vassal."
+   }
+  },
+  {
+   "id": "germany",
+   "x": 450,
+   "z": -900,
+   "color": "#5c5f66",
+   "bloc": "steppe",
+   "name": {
+    "ru": "Германия",
+    "en": "Germany"
+   },
+   "text": {
+    "ru": "Железо и уголь севера. Наследие: скорость дома, +100$ в день с фокусом.",
+    "en": "Iron and coal of the north. Heritage: speed at home, +$100 a day with its focus."
+   }
+  },
+  {
+   "id": "north",
+   "x": 350,
+   "z": -1650,
+   "color": "#8fb3d9",
+   "bloc": "steppe",
+   "name": {
+    "ru": "Северное Царство",
+    "en": "The Northern Tsardom"
+   },
+   "text": {
+    "ru": "Снега дальнего севера. Наследие: нет зимнего холода, метель 1942.",
+    "en": "The snows of the far north. Heritage: no winter cold, the Blizzard of 1942."
+   }
+  },
+  {
+   "id": "dacia",
+   "x": 950,
+   "z": -250,
+   "color": "#b5652f",
+   "bloc": "steppe",
+   "name": {
+    "ru": "Дакия",
+    "en": "Dacia"
+   },
+   "text": {
+    "ru": "Горы и медные рудники востока, бывший Каэр-Брун. Наследие: спешка в шахтах.",
+    "en": "Mountains and copper mines of the east, once Caer-Brun. Heritage: haste in the mines."
+   }
+  },
+  {
+   "id": "horde",
+   "x": 1050,
+   "z": 850,
+   "color": "#c9a227",
+   "bloc": "steppe",
+   "name": {
+    "ru": "Орда",
+    "en": "The Horde"
+   },
+   "text": {
+    "ru": "Великая степь юго-востока. Наследие: скорость в дикой местности.",
+    "en": "The great steppe of the south-east. Heritage: speed in the wilds."
+   }
+  },
+  {
+   "id": "scythia",
+   "x": 1650,
+   "z": 250,
+   "color": "#7a4a8c",
+   "bloc": "steppe",
+   "name": {
+    "ru": "Скифия",
+    "en": "Scythia"
+   },
+   "text": {
+    "ru": "Курганы дальнего востока. Наследие: +20$ в день за город, дань вассалов 15%.",
+    "en": "The kurgans of the far east. Heritage: +$20 a day per town, 15% vassal tribute."
+   }
+  }
+ ],
+ "ancient": [
+  {
+   "id": "urkadim",
+   "x": 600,
+   "z": 450,
+   "name": {
+    "ru": "Ур-Кадим",
+    "en": "Ur-Kadim"
+   },
+   "text": {
+    "ru": "Глиняные города между двумя реками, первая цивилизация. Позже здесь вырастет Нео-Кадим.",
+    "en": "Clay cities between two rivers, the first civilization. Neo-Kadim will later rise here."
+   }
+  },
+  {
+   "id": "neferu",
+   "x": 450,
+   "z": 1400,
+   "name": {
+    "ru": "Нэферу",
+    "en": "Neferu"
+   },
+   "text": {
+    "ru": "Держава Солнца в песках южнее двух рек. Пирамиды солнценосцев.",
+    "en": "The Kingdom of the Sun in the sands south of the two rivers. The pyramids of the sun-bearers."
+   }
+  },
+  {
+   "id": "thalassia",
+   "x": -1600,
+   "z": 350,
+   "name": {
+    "ru": "Талассия",
+    "en": "Thalassia"
+   },
+   "text": {
+    "ru": "Сто островов Западного моря, ушедшие под воду. Дворец Кносарион.",
+    "en": "The hundred isles of the Western Sea, now sunk beneath the waves. The palace of Knossarion."
+   }
+  },
+  {
+   "id": "caertal",
+   "x": 1250,
+   "z": -650,
+   "name": {
+    "ru": "Каэр-Тал",
+    "en": "Caer-Tal"
+   },
+   "text": {
+    "ru": "Семь «Зелёных городов» Медного Союза в горах. Залы испытаний и кузницы големов.",
+    "en": "The seven «Green Cities» of the Copper Union in the mountains. Trial chambers and golem forges."
+   }
+  },
+  {
+   "id": "deep",
+   "x": -550,
+   "z": -600,
+   "name": {
+    "ru": "Древний город",
+    "en": "The Ancient City"
+   },
+   "text": {
+    "ru": "Глубоко под землёй: Безмолвные, скалк и Хранитель.",
+    "en": "Deep underground: the Silent, the sculk and the Warden."
+   }
+  }
+ ],
+ "far": [
+  {
+   "id": "far_sector",
+   "x": 5000,
+   "z": 0,
+   "name": {
+    "ru": "Дальний сектор «Деревня»",
+    "en": "The Far Sector «Village»"
+   },
+   "text": {
+    "ru": "Около 5000 блоков от 0, 0, далеко за самой широкой границей мира. Здесь шла «Хроника фронта»: Война за деревню, Гулаг и порох, Война и мир. Клятва PAX сюда не доходит, правил войны здесь нет. Из этих трёх войн выросли законы войны PaxVanila.",
+    "en": "About 5000 blocks from 0, 0, far beyond the widest world border. This is where the «Front Chronicle» happened: the War for the Village, Gulag and Gunpowder, War and Peace. The PAX oath does not reach here and there are no rules of war. The war laws of PaxVanila grew out of these three wars."
+   },
+   "lore": "front"
+  },
+  {
+   "id": "old_cartographers",
+   "x": -6200,
+   "z": 600,
+   "name": {
+    "ru": "Мир Картографов",
+    "en": "World of the Cartographers"
+   },
+   "text": {
+    "ru": "Запись А «С нуля по жизни». Одиночки начинали с нуля: курятник, огород, лодка. Они первыми нарисовали карту всего мира и повесили её на стену.",
+    "en": "Record A «From scratch». Loners started from nothing: a chicken coop, a garden, a boat. They were the first to draw a map of the whole world and hang it on a wall."
+   },
+   "lore": "old_records",
+   "kind": "old"
+  },
+  {
+   "id": "old_village",
+   "x": -4600,
+   "z": -4300,
+   "name": {
+    "ru": "Мир Деревни",
+    "en": "World of the Village"
+   },
+   "text": {
+    "ru": "Запись Б «С Адским Бананом». Мирные строители жили рядом с жителями деревни и ни с кем не воевали. Их первый дом из брёвен достроили до заката.",
+    "en": "Record B «With Hellish Banana». Peaceful builders lived beside the villagers and fought no one. They finished their first log house before sunset."
+   },
+   "lore": "old_records",
+   "kind": "old"
+  },
+  {
+   "id": "old_wizards",
+   "x": 6855,
+   "z": 6689,
+   "name": {
+    "ru": "Мир Чародеев",
+    "en": "World of the Wizards"
+   },
+   "text": {
+    "ru": "Запись В «С нубом». Искатели Незера и грибных островов. Здесь, на x 6855, z 6689, впервые записали летопись сундука: 64 лазурита и 24 золота забраны.",
+    "en": "Record C «With a noob». Seekers of the Nether and mushroom islands. Here, at x 6855, z 6689, the first chest log was written: 64 lapis and 24 gold taken."
+   },
+   "lore": "old_records",
+   "kind": "old"
+  },
+  {
+   "id": "old_zag533",
+   "x": 900,
+   "z": -6800,
+   "name": {
+    "ru": "Мир ZAG533",
+    "en": "World of ZAG533"
+   },
+   "text": {
+    "ru": "Запись Г «Майн», «День 517». Крепостники: каменные стены, первая тюрьма с огнём за решёткой, замок над рекой. После динамита мир сам откатился назад.",
+    "en": "Record D «Mine», «Day 517». Fortress builders: stone walls, the first prison with fire behind bars, a castle over a river. After the TNT the world rolled itself back."
+   },
+   "lore": "old_records",
+   "kind": "old"
+  },
+  {
+   "id": "old_sandcity",
+   "x": -1200,
+   "z": 7000,
+   "name": {
+    "ru": "Мир Песчаного города",
+    "en": "World of the Sand City"
+   },
+   "text": {
+    "ru": "Запись Д «Строим город». Градостроители пустыни: склад со стеной из рамок, синий зал из призмарина, башня из песчаника. «Игра сохранена».",
+    "en": "Record E «Building a city». Desert city builders: a store with a wall of item frames, a blue prismarine hall, a sandstone tower. «Game saved»."
+   },
+   "lore": "old_records",
+   "kind": "old"
+  }
+ ],
+ "lore": [
+  {
+   "id": "romul_hill",
+   "x": -330,
+   "z": 60,
+   "cat": "legend",
+   "name": {
+    "ru": "Холм Ромула",
+    "en": "Romulus' Hill"
+   },
+   "text": {
+    "ru": "753 до н.э.: молния бьёт в холм, где Ромул ставит Ромею.",
+    "en": "753 BC: lightning strikes the hill where Romulus founds Romea."
+   }
+  },
+  {
+   "id": "talassia_harbors",
+   "x": -1600,
+   "z": 450,
+   "cat": "cataclysm",
+   "name": {
+    "ru": "Гавани Талассии",
+    "en": "Harbours of Thalassia"
+   },
+   "text": {
+    "ru": "2354 до н.э.: Великий шторм забирает гавани.",
+    "en": "2354 BC: the Great Storm takes the harbours."
+   }
+  },
+  {
+   "id": "neferu_drought",
+   "x": 700,
+   "z": 1150,
+   "cat": "cataclysm",
+   "name": {
+    "ru": "Высохшие реки",
+    "en": "The dried rivers"
+   },
+   "text": {
+    "ru": "1835 до н.э.: засуха, пески Нэферу пьют реки досуха.",
+    "en": "1835 BC: drought, the sands of Neferu drink the rivers dry."
+   }
+  },
+  {
+   "id": "carthage_fleet",
+   "x": -330,
+   "z": 1300,
+   "cat": "battle",
+   "name": {
+    "ru": "Гибель флота Карфагена",
+    "en": "Fall of the Carthaginian fleet"
+   },
+   "text": {
+    "ru": "264 до н.э.: буря топит флот Карфагена.",
+    "en": "264 BC: a storm sinks the fleet of Carthage."
+   }
+  },
+  {
+   "id": "dacia_quake",
+   "x": 1050,
+   "z": -150,
+   "cat": "cataclysm",
+   "name": {
+    "ru": "Рухнувшие рудники",
+    "en": "The collapsed mines"
+   },
+   "text": {
+    "ru": "117 год: землетрясение рушит рудники Дакии.",
+    "en": "Year 117: an earthquake brings down the mines of Dacia."
+   }
+  },
+  {
+   "id": "horde_storm",
+   "x": 1300,
+   "z": 1050,
+   "cat": "battle",
+   "name": {
+    "ru": "Выход Орды",
+    "en": "The coming of the Horde"
+   },
+   "text": {
+    "ru": "375 год: из песчаной бури выходит Степная Орда.",
+    "en": "Year 375: the Steppe Horde rides out of a sandstorm."
+   }
+  },
+  {
+   "id": "winter_wall",
+   "x": -520,
+   "z": 430,
+   "cat": "battle",
+   "name": {
+    "ru": "Стены Ромеи, 1241",
+    "en": "Walls of Romea, 1241"
+   },
+   "text": {
+    "ru": "Метель останавливает Орду у стен Ромеи.",
+    "en": "A blizzard stops the Horde at the walls of Romea."
+   }
+  },
+  {
+   "id": "star_shard",
+   "x": 380,
+   "z": 160,
+   "cat": "legend",
+   "name": {
+    "ru": "Первый Звёздный осколок",
+    "en": "The first Star Shard"
+   },
+   "text": {
+    "ru": "1500 год: звёздный дождь, найден первый осколок.",
+    "en": "Year 1500: a meteor shower, the first shard is found."
+   }
+  },
+  {
+   "id": "fog_galleons",
+   "x": -1750,
+   "z": -450,
+   "cat": "legend",
+   "name": {
+    "ru": "Туман Безымянных",
+    "en": "Fog of the Nameless"
+   },
+   "text": {
+    "ru": "1700 год: галеоны пропадают в тумане.",
+    "en": "Year 1700: galleons vanish in the fog."
+   }
+  },
+  {
+   "id": "trenches",
+   "x": 150,
+   "z": -500,
+   "cat": "battle",
+   "name": {
+    "ru": "Окопы Века стали",
+    "en": "Trenches of the Age of Steel"
+   },
+   "text": {
+    "ru": "1914 год: молнии над окопами.",
+    "en": "1914: lightning over the trenches."
+   }
+  },
+  {
+   "id": "reich_winter",
+   "x": 400,
+   "z": -1350,
+   "cat": "battle",
+   "name": {
+    "ru": "Зима 1942",
+    "en": "Winter of 1942"
+   },
+   "text": {
+    "ru": "Метель ломает наступление Рейха.",
+    "en": "A blizzard breaks the Reich's offensive."
+   }
+  },
+  {
+   "id": "front_village",
+   "x": 4900,
+   "z": -120,
+   "cat": "front",
+   "name": {
+    "ru": "Деревня",
+    "en": "The Village"
+   },
+   "text": {
+    "ru": "Запись 1: «Война за деревню». Счёт 0 : 3, операция «Ещё разок».",
+    "en": "Record 1: «War for the Village». Score 0 : 3, operation «One More Time»."
+   }
+  },
+  {
+   "id": "front_gulag",
+   "x": 5080,
+   "z": 60,
+   "cat": "front",
+   "name": {
+    "ru": "Гулаг",
+    "en": "The Gulag"
+   },
+   "text": {
+    "ru": "Запись 2: первый лагерь Дальнего сектора. Заключённый Telorfind, статья «покушение».",
+    "en": "Record 2: the first camp of the Far Sector. Prisoner Telorfind."
+   }
+  },
+  {
+   "id": "front_metro",
+   "x": 4950,
+   "z": 140,
+   "cat": "front",
+   "name": {
+    "ru": "Объект «Метро»",
+    "en": "Object «Metro»"
+   },
+   "text": {
+    "ru": "23.01.2021: ледяной подземный ход через весь сектор. Вход не найден.",
+    "en": "23.01.2021: an icy tunnel under the whole sector. The entrance is lost."
+   }
+  },
+  {
+   "id": "front_powder",
+   "x": 5150,
+   "z": -80,
+   "cat": "front",
+   "name": {
+    "ru": "Пропавший порох",
+    "en": "The missing gunpowder"
+   },
+   "text": {
+    "ru": "Склад пуст. «Где порох? Сезон 2».",
+    "en": "The store is empty. «Where is the gunpowder? Season 2»."
+   }
+  },
+  {
+   "id": "front_sky",
+   "x": 5000,
+   "z": -320,
+   "cat": "front",
+   "name": {
+    "ru": "Небесные острова",
+    "en": "The Sky Islands"
+   },
+   "text": {
+    "ru": "Запись 3: три армии на островах в небе. «Жёлтых осталось 0».",
+    "en": "Record 3: three armies on islands in the sky. «Yellow: 0 left»."
+   }
+  }
+ ],
+ "blocs": {
+  "pax": {
+   "ru": "Союз PAX (запад)",
+   "en": "PAX Union (west)"
+  },
+  "steppe": {
+   "ru": "Степной Пакт (восток)",
+   "en": "Steppe Pact (east)"
+  }
+ }
 }

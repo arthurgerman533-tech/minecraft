@@ -175,7 +175,7 @@ function renderMap(C){
   host.innerHTML=`<div class="mtools">
      <div class="chips" id="mLayers">
        <button data-l="powers" class="on">${T('Державы','Powers')}</button><button data-l="ancient" class="on">${T('Древние места','Ancient sites')}</button>
-       <button data-l="towns" class="on">${T('Города','Towns')}${M.towns.length?' ('+M.towns.length+')':''}</button><button data-l="grid" class="on">${T('Сетка','Grid')}</button>${M.lore.length?`<button data-l="lore" class="on">${T('Метки лора','Lore tags')} (${M.lore.length})</button>`:''}${M.far.length?`<button data-l="far" class="on">${T('Дальний сектор','Far Sector')}</button>`:''}</div>
+       <button data-l="towns" class="on">${T('Города','Towns')}${M.towns.length?' ('+M.towns.length+')':''}</button><button data-l="grid" class="on">${T('Сетка','Grid')}</button>${M.lore.length?`<button data-l="lore" class="on">${T('Метки лора','Lore tags')} (${M.lore.length})</button>`:''}${M.far.length?`<button data-l="far" class="on">${T('За границей','Beyond the border')}</button>`:''}</div>
      <div class="chips" id="mRings"><span class="lbl">${T('Граница','Border')}</span>${rings.map(r=>`<button data-r="${r[0]}">${r[1]}</button>`).join('')}</div>
    </div>
    <div class="mbox"><svg id="msvg" role="img" aria-label="${T('Карта мира PaxVanila','PaxVanila world map')}"></svg>
@@ -211,17 +211,17 @@ function renderMap(C){
     (t.blocks||[]).forEach(([cx,cz])=>el('rect',{x:cx*16,y:cz*16,width:16,height:16,fill:col,class:'tb'},a));
     el('circle',{cx:t.x,cy:t.z,r:10,fill:col,class:'twd'},a); el('text',{x:t.x,y:t.z+30,class:'tt'},a).textContent=t.name;
     a.onclick=()=>pick({...t,text:(t.nation?T('Нация: ','Nation: ')+t.nation+'. ':'')+T('Занято чанков: ','Claimed chunks: ')+(t.blocks||[]).length},T('город','town'));});
-  const LC={legend:['✦',T('легенда','legend')],cataclysm:['⚡',T('катаклизм','cataclysm')],battle:['⚔',T('битва','battle')],front:['☠',T('Хроника фронта','Front Chronicle')]};
+  const LC={legend:['✦',T('легенда','legend')],cataclysm:['⚡',T('катаклизм','cataclysm')],battle:['⚔',T('битва','battle')],front:['☠',T('Хроника фронта','Front Chronicle')],old:['◉',T('Старые записи','Old Recordings')]};
   M.lore.forEach(p=>{const c=LC[p.cat]||['•',''], a=el('g',{class:'lt c-'+p.cat,tabindex:0},g.lore);
     el('circle',{cx:p.x,cy:p.z,r:9,class:'ld'},a); const tx=el('text',{x:p.x,y:p.z-14,class:'ltx'},a); tx.textContent=c[0]+' '+p.name;
-    const go=()=>pick({...p,lore:p.cat==='front'?'front':''},c[1]); a.onclick=go; a.onkeydown=e=>{if(e.key==='Enter')go()};});
-  M.far.forEach(p=>{const a=el('g',{class:'far',tabindex:0},g.far), d=Math.hypot(p.x,p.z)||1, ex=p.x/d*R, ez=p.z/d*R;
+    const go=()=>pick({...p,lore:p.lore||(p.cat==='front'?'front':'')},c[1]); a.onclick=go; a.onkeydown=e=>{if(e.key==='Enter')go()};});
+  M.far.forEach(p=>{const a=el('g',{class:'far'+(p.kind?' k-'+p.kind:''),tabindex:0},g.far), d=Math.hypot(p.x,p.z)||1, ex=p.x/d*R, ez=p.z/d*R;
     el('line',{x1:ex,y1:ez,x2:p.x,y2:p.z,class:'fl'},a);
-    el('text',{x:ex+(p.x-ex)*0.12,y:ez+(p.z-ez)*0.12-14,class:'fh'},a).textContent=T('за границей → ','beyond the border → ')+Math.round(d)+T(' бл.',' bl.');
+    el('text',{x:ex+(p.x-ex)*(p.kind?0.4:0.12),y:ez+(p.z-ez)*(p.kind?0.4:0.12)-14,class:'fh'},a).textContent=T('за границей → ','beyond the border → ')+Math.round(d)+T(' бл.',' bl.');
     el('circle',{cx:p.x,cy:p.z,r:160,class:'fa'},a);
     el('path',{d:`M${p.x-60} ${p.z-60}L${p.x+60} ${p.z+60}M${p.x+60} ${p.z-60}L${p.x-60} ${p.z+60}`,class:'fx'},a);
     el('text',{x:p.x,y:p.z+200,class:'ft'},a).textContent=p.name;
-    const go=()=>{pick(p,T('за границей мира','beyond the border'));const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1, nw=Math.max(vb.w,(d+900)/Math.min(1,1/ar));vb={x:p.x/2-nw/2,y:p.z/2-nw*ar/2,w:nw,h:nw*ar};apply()};
+    const go=()=>{pick(p,p.kind==='old'?T('другой мир · Старые записи','another world · Old Recordings'):T('за границей мира','beyond the border'));const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1, x0=Math.min(-R,p.x-400), x1=Math.max(R,p.x+400), z0=Math.min(-R,p.z-400), z1=Math.max(R,p.z+400), nw=Math.max(x1-x0,(z1-z0)/ar)*1.08;vb={x:(x0+x1)/2-nw/2,y:(z0+z1)/2-nw*ar/2,w:nw,h:nw*ar};apply()};
     a.onclick=go; a.onkeydown=e=>{if(e.key==='Enter')go()};
     if(p.lore) info.dataset.far=p.lore;});
   M.places.forEach(p=>{const a=el('g',{class:'mono',tabindex:0},g.top);
