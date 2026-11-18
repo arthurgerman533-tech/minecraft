@@ -31,7 +31,7 @@ void main() {
     expect(s.week, 4);
     expect(s.warPhase, 'Великая война');
     s = serverState(c, DateTime.utc(2026, 12, 6, 16)); // день 35
-    expect(s.season, seasons[1]);
+    expect(s.season, seasons[1].$1);
     s = serverState(c, DateTime.utc(2026, 10, 30));
     expect(s.started, false);
     expect(s.untilDays, 3);
