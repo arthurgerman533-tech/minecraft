@@ -125,6 +125,7 @@ def load_map(lang):
     loc = lambda v: v.get(lang) or v.get("ru", "") if isinstance(v, dict) else v
     out = {k: [{kk: loc(vv) if kk in ("name", "text") else vv for kk, vv in it.items()} for it in M[k]]
            for k in ("places", "powers", "ancient")}
+    out["lore"] = [{kk: loc(vv) if kk in ("name", "text") else vv for kk, vv in it.items()} for it in M.get("lore", [])]
     out["far"] = [{kk: loc(vv) if kk in ("name", "text") else vv for kk, vv in it.items()} for it in M.get("far", [])]
     out["blocs"] = {k: loc(v) for k, v in M["blocs"].items()}
     out["towns"], out["townsDate"] = [], ""

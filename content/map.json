@@ -60,6 +60,232 @@
      "text": {"ru": "Около 5000 блоков от 0, 0, далеко за самой широкой границей мира. Здесь шла «Хроника фронта»: Война за деревню, Гулаг и порох, Война и мир. Клятва PAX сюда не доходит, правил войны здесь нет. Из этих трёх войн выросли законы войны PaxVanila.", "en": "About 5000 blocks from 0, 0, far beyond the widest world border. This is where the «Front Chronicle» happened: the War for the Village, Gulag and Gunpowder, War and Peace. The PAX oath does not reach here and there are no rules of war. The war laws of PaxVanila grew out of these three wars."},
      "lore": "front"}
   ],
+  "lore": [
+   {
+    "id": "romul_hill",
+    "x": -330,
+    "z": 60,
+    "cat": "legend",
+    "name": {
+     "ru": "Холм Ромула",
+     "en": "Romulus' Hill"
+    },
+    "text": {
+     "ru": "753 до н.э.: молния бьёт в холм, где Ромул ставит Ромею.",
+     "en": "753 BC: lightning strikes the hill where Romulus founds Romea."
+    }
+   },
+   {
+    "id": "talassia_harbors",
+    "x": -1600,
+    "z": 450,
+    "cat": "cataclysm",
+    "name": {
+     "ru": "Гавани Талассии",
+     "en": "Harbours of Thalassia"
+    },
+    "text": {
+     "ru": "2354 до н.э.: Великий шторм забирает гавани.",
+     "en": "2354 BC: the Great Storm takes the harbours."
+    }
+   },
+   {
+    "id": "neferu_drought",
+    "x": 700,
+    "z": 1150,
+    "cat": "cataclysm",
+    "name": {
+     "ru": "Высохшие реки",
+     "en": "The dried rivers"
+    },
+    "text": {
+     "ru": "1835 до н.э.: засуха, пески Нэферу пьют реки досуха.",
+     "en": "1835 BC: drought, the sands of Neferu drink the rivers dry."
+    }
+   },
+   {
+    "id": "carthage_fleet",
+    "x": -330,
+    "z": 1300,
+    "cat": "battle",
+    "name": {
+     "ru": "Гибель флота Карфагена",
+     "en": "Fall of the Carthaginian fleet"
+    },
+    "text": {
+     "ru": "264 до н.э.: буря топит флот Карфагена.",
+     "en": "264 BC: a storm sinks the fleet of Carthage."
+    }
+   },
+   {
+    "id": "dacia_quake",
+    "x": 1050,
+    "z": -150,
+    "cat": "cataclysm",
+    "name": {
+     "ru": "Рухнувшие рудники",
+     "en": "The collapsed mines"
+    },
+    "text": {
+     "ru": "117 год: землетрясение рушит рудники Дакии.",
+     "en": "Year 117: an earthquake brings down the mines of Dacia."
+    }
+   },
+   {
+    "id": "horde_storm",
+    "x": 1300,
+    "z": 1050,
+    "cat": "battle",
+    "name": {
+     "ru": "Выход Орды",
+     "en": "The coming of the Horde"
+    },
+    "text": {
+     "ru": "375 год: из песчаной бури выходит Степная Орда.",
+     "en": "Year 375: the Steppe Horde rides out of a sandstorm."
+    }
+   },
+   {
+    "id": "winter_wall",
+    "x": -520,
+    "z": 430,
+    "cat": "battle",
+    "name": {
+     "ru": "Стены Ромеи, 1241",
+     "en": "Walls of Romea, 1241"
+    },
+    "text": {
+     "ru": "Метель останавливает Орду у стен Ромеи.",
+     "en": "A blizzard stops the Horde at the walls of Romea."
+    }
+   },
+   {
+    "id": "star_shard",
+    "x": 380,
+    "z": 160,
+    "cat": "legend",
+    "name": {
+     "ru": "Первый Звёздный осколок",
+     "en": "The first Star Shard"
+    },
+    "text": {
+     "ru": "1500 год: звёздный дождь, найден первый осколок.",
+     "en": "Year 1500: a meteor shower, the first shard is found."
+    }
+   },
+   {
+    "id": "fog_galleons",
+    "x": -1750,
+    "z": -450,
+    "cat": "legend",
+    "name": {
+     "ru": "Туман Безымянных",
+     "en": "Fog of the Nameless"
+    },
+    "text": {
+     "ru": "1700 год: галеоны пропадают в тумане.",
+     "en": "Year 1700: galleons vanish in the fog."
+    }
+   },
+   {
+    "id": "trenches",
+    "x": 150,
+    "z": -500,
+    "cat": "battle",
+    "name": {
+     "ru": "Окопы Века стали",
+     "en": "Trenches of the Age of Steel"
+    },
+    "text": {
+     "ru": "1914 год: молнии над окопами.",
+     "en": "1914: lightning over the trenches."
+    }
+   },
+   {
+    "id": "reich_winter",
+    "x": 400,
+    "z": -1350,
+    "cat": "battle",
+    "name": {
+     "ru": "Зима 1942",
+     "en": "Winter of 1942"
+    },
+    "text": {
+     "ru": "Метель ломает наступление Рейха.",
+     "en": "A blizzard breaks the Reich's offensive."
+    }
+   },
+   {
+    "id": "front_village",
+    "x": 4900,
+    "z": -120,
+    "cat": "front",
+    "name": {
+     "ru": "Деревня",
+     "en": "The Village"
+    },
+    "text": {
+     "ru": "Запись 1: «Война за деревню». Счёт 0 : 3, операция «Ещё разок».",
+     "en": "Record 1: «War for the Village». Score 0 : 3, operation «One More Time»."
+    }
+   },
+   {
+    "id": "front_gulag",
+    "x": 5080,
+    "z": 60,
+    "cat": "front",
+    "name": {
+     "ru": "Гулаг",
+     "en": "The Gulag"
+    },
+    "text": {
+     "ru": "Запись 2: первый лагерь Дальнего сектора. Заключённый Telorfind, статья «покушение».",
+     "en": "Record 2: the first camp of the Far Sector. Prisoner Telorfind."
+    }
+   },
+   {
+    "id": "front_metro",
+    "x": 4950,
+    "z": 140,
+    "cat": "front",
+    "name": {
+     "ru": "Объект «Метро»",
+     "en": "Object «Metro»"
+    },
+    "text": {
+     "ru": "23.01.2021: ледяной подземный ход через весь сектор. Вход не найден.",
+     "en": "23.01.2021: an icy tunnel under the whole sector. The entrance is lost."
+    }
+   },
+   {
+    "id": "front_powder",
+    "x": 5150,
+    "z": -80,
+    "cat": "front",
+    "name": {
+     "ru": "Пропавший порох",
+     "en": "The missing gunpowder"
+    },
+    "text": {
+     "ru": "Склад пуст. «Где порох? Сезон 2».",
+     "en": "The store is empty. «Where is the gunpowder? Season 2»."
+    }
+   },
+   {
+    "id": "front_sky",
+    "x": 5000,
+    "z": -320,
+    "cat": "front",
+    "name": {
+     "ru": "Небесные острова",
+     "en": "The Sky Islands"
+    },
+    "text": {
+     "ru": "Запись 3: три армии на островах в небе. «Жёлтых осталось 0».",
+     "en": "Record 3: three armies on islands in the sky. «Yellow: 0 left»."
+    }
+   }
+  ],
   "blocs": {
     "pax": {"ru": "Союз PAX (запад)", "en": "PAX Union (west)"},
     "steppe": {"ru": "Степной Пакт (восток)", "en": "Steppe Pact (east)"}
