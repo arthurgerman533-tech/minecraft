@@ -41,3 +41,7 @@ server/_backup_*/
 # --- Прочее ---
 __pycache__/
 *.pyc
+
+# APK кладёт на сайт GitHub Actions (static.yml), в git не храним
+docs/files/*.apk
+docs/en/files/*.apk

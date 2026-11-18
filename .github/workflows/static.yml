@@ -8,6 +8,10 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  # После новой сборки APK — выложить его копию на сайт (files/PaxVanila.apk)
+  workflow_run:
+    workflows: ["Android APK"]
+    types: [completed]
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -31,6 +35,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: APK на сайт (зеркало)
+        run: |
+          mkdir -p docs/files
+          mkdir -p docs/en/files
+          if curl -fsSL -o docs/files/PaxVanila.apk "https://github.com/${{ github.repository }}/releases/download/app-latest/PaxVanila.apk"; then cp docs/files/PaxVanila.apk docs/en/files/; else echo "APK ещё нет"; fi
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

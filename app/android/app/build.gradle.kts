@@ -29,11 +29,25 @@ android {
         versionName = flutter.versionName
     }
 
+    // Постоянная подпись: если заданы переменные PAX_KEYSTORE* (секреты GitHub, см. app/RELEASE.md),
+    // APK подписывается одним и тем же ключом и обновления ставятся поверх старой версии.
+    // Без них — отладочная подпись (ключ меняется от сборки к сборке).
+    val paxKeystore = System.getenv("PAX_KEYSTORE")
+    val paxSigned = paxKeystore != null && file(paxKeystore).exists()
+    signingConfigs {
+        if (paxSigned) {
+            create("pax") {
+                storeFile = file(paxKeystore!!)
+                storePassword = System.getenv("PAX_KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("PAX_KEY_ALIAS") ?: "paxvanila"
+                keyPassword = System.getenv("PAX_KEY_PASSWORD") ?: System.getenv("PAX_KEYSTORE_PASSWORD")
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = if (paxSigned) signingConfigs.getByName("pax") else signingConfigs.getByName("debug")
         }
     }
 }

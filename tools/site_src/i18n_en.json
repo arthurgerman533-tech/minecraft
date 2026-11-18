@@ -274,5 +274,41 @@
  [
   "Если хотите помочь с хостингом и развитием сервера, это можно сделать на Boosty.",
   "If you want to help with hosting and development, you can do it on Boosty."
+ ],
+ [
+  "⬇️ Запасная ссылка на APK",
+  "⬇️ Backup APK link"
+ ],
+ [
+  "Если пишет «Приложение не установлено», удалите старую версию PaxVanila и поставьте заново.",
+  "If it says “App not installed”, uninstall the old PaxVanila and install again."
+ ],
+ [
+  "<h4>📱 Xiaomi, Redmi, POCO</h4>",
+  "<h4>📱 Xiaomi, Redmi, POCO</h4>"
+ ],
+ [
+  "Качайте в <b>Chrome</b>, а не в «Mi Браузере» и не из Telegram: они часто обрывают или блокируют загрузку. Если не качает основная ссылка, нажмите «Запасная ссылка на APK».",
+  "Download in <b>Chrome</b>, not in Mi Browser or Telegram: they often cut or block downloads. If the main link fails, tap “Backup APK link”."
+ ],
+ [
+  "Откройте «Файлы» (Проводник) → «Загрузки» → <b>PaxVanila.apk</b>.",
+  "Open Files (File Manager) → Downloads → <b>PaxVanila.apk</b>."
+ ],
+ [
+  "Телефон спросит про неизвестные источники: «Настройки» → включите «Разрешить установку из этого источника» для Chrome или Проводника, затем «Назад».",
+  "The phone will ask about unknown sources: Settings → turn on “Allow from this source” for Chrome or File Manager, then Back."
+ ],
+ [
+  "Если установщик Xiaomi проверяет приложение и предупреждает, нажмите «Всё равно установить» или «Продолжить». Если просит войти в Mi-аккаунт, войдите или ставьте через Chrome.",
+  "If the Xiaomi installer scans the app and warns you, tap “Install anyway” or “Continue”. If it asks for a Mi account, sign in or install via Chrome."
+ ],
+ [
+  "Если пишет «Заблокировано Play Защитой»: «Подробнее» → «Всё равно установить». Если не помогает: Play Маркет → аватар → Play Защита → ⚙ → на время выключите «Проверять приложения».",
+  "If it says “Blocked by Play Protect”: More details → Install anyway. If that fails: Play Store → avatar → Play Protect → ⚙ → temporarily turn off “Scan apps”."
+ ],
+ [
+  "Не получилось совсем? Поставьте сайт как приложение: Chrome → меню ⋮ → «Установить приложение». Это работает на любом телефоне.",
+  "Still no luck? Install the site as an app: Chrome → menu ⋮ → Install app. It works on any phone."
  ]
 ]

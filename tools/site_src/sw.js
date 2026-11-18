@@ -6,10 +6,11 @@ self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.
 self.addEventListener('fetch',e=>{
   const u=new URL(e.request.url);
   if(e.request.method!=='GET') return;
-  if(u.origin!==location.origin){ // статус сервера и шрифты: сеть, без кэша статуса
-    if(u.hostname.includes('mcsrvstat')) return;
+  if(/\.apk$/i.test(u.pathname)) return; // APK качаем напрямую, мимо кэша
+  if(u.origin!==location.origin){ // кэшируем только шрифты; статус, GitHub и живые данные — всегда из сети
+    if(!/fonts\.(googleapis|gstatic)\.com$/.test(u.hostname)) return;
     e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{const cp=res.clone();caches.open(V).then(c=>c.put(e.request,cp));return res}).catch(()=>r)));
     return;
   }
-  e.respondWith(fetch(e.request).then(res=>{const cp=res.clone();caches.open(V).then(c=>c.put(e.request,cp));return res}).catch(()=>caches.match(e.request,{ignoreSearch:true})));
+  e.respondWith(fetch(e.request).then(res=>{if(res.ok){const cp=res.clone();caches.open(V).then(c=>c.put(e.request,cp))}return res}).catch(()=>caches.match(e.request,{ignoreSearch:true})));
 });

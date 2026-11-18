@@ -79,6 +79,7 @@ async function main(){
       const f=r&&(r.assets||[]).find(x=>/\.apk$/i.test(x.name)); if(f){apk.href=f.browser_download_url;apk.hidden=false;
         apk.textContent=T('⬇️ Скачать APK для Android','⬇️ Download APK for Android')+` (${Math.round(f.size/1048576)} MB)`}}).catch(()=>{});
   }
+  const apk2=$('#apk2'); if(apk2&&!isIOS) fetch('files/PaxVanila.apk',{method:'HEAD',cache:'no-store'}).then(r=>{if(r.ok){apk2.hidden=false;const n=+r.headers.get('content-length');if(n)apk2.textContent+=` (${Math.round(n/1048576)} MB)`}}).catch(()=>{});
   const jl=$('#joinList'); if(jl) jl.innerHTML=C.join.map(x=>`<li>${esc(x)}</li>`).join('')+(cfg.serverAddress?`<li>${T('Адрес','Address')}: ${code(cfg.serverAddress)}</li>`:'');
   const st=serverState(cfg);
   const wg=$('#weekGrid'); if(wg) wg.innerHTML=C.weeks.map(w=>`<div class="week${st.started&&st.week===w.n?' cur':''}">
