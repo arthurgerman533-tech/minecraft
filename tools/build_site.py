@@ -118,6 +118,23 @@ def load_content(lang):
     return T
 
 
+def load_map(lang):
+    """content/map.json (схема по лору, ru/en рядом) + content/map_towns.json (реальные города Towny, если есть)."""
+    with open(os.path.join(ROOT, "content", "map.json"), encoding="utf-8") as f:
+        M = json.load(f)
+    loc = lambda v: v.get(lang) or v.get("ru", "") if isinstance(v, dict) else v
+    out = {k: [{kk: loc(vv) if kk in ("name", "text") else vv for kk, vv in it.items()} for it in M[k]]
+           for k in ("places", "powers", "ancient")}
+    out["blocs"] = {k: loc(v) for k, v in M["blocs"].items()}
+    out["towns"], out["townsDate"] = [], ""
+    tp = os.path.join(ROOT, "content", "map_towns.json")
+    if os.path.exists(tp):
+        with open(tp, encoding="utf-8") as f:
+            T = json.load(f)
+        out["towns"], out["townsDate"] = T.get("towns", []), T.get("generated", "")
+    return out
+
+
 def src_file(base, lang, fname):
     """Перевод лежит в <папка>/<lang>/<тот же файл>; если его нет — русский оригинал."""
     if lang != "ru":
@@ -152,6 +169,7 @@ def lang_switch(html_text, lang, depth, page):
 
 def build(lang, out):
     C = load_content(lang)
+    C["map"] = load_map(lang)
     tr = translator(lang)
     for d in ("", "img", "icons", "lore", "guides", "files"):
         os.makedirs(os.path.join(out, d), exist_ok=True)

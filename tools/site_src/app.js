@@ -73,7 +73,87 @@ async function main(){
   if(ct){draw('');$('#q').oninput=e=>draw(e.target.value)}
   const ll=$('#loreList'); if(ll) ll.innerHTML=C.lore.map(l=>`<a href="lore/${l.id}.html"><div class="card"><h3>📜 ${esc(l.title)}</h3><p>${esc(l.subtitle)}</p></div></a>`).join('')+
     (C.guides||[]).map(g=>`<a href="guides/${g.id}.html"><div class="card"><h3>🧭 ${esc(g.title)}</h3><p>${esc(g.subtitle)}</p></div></a>`).join('');
+  renderMap(C);
   checkStatus(cfg);
+}
+// ---- карта мира (данные: C.map из content/map.json и content/map_towns.json) ----
+function renderMap(C){
+  const host=$('#pxmap'); if(!host||!C.map) return;
+  const M=C.map, cfg=C.config, b=cfg.border, st=serverState(cfg);
+  const rings=[['start',T('Старт','Start')],['w1',T('Н1','W1')],['w2',T('Н2','W2')],['w3',T('Н3','W3')],['w5',T('Н5','W5')],['w6',T('Н6','W6')]];
+  const R=b.w6, ext=R*1.12, NS='http://www.w3.org/2000/svg';
+  const layers={powers:true,ancient:true,towns:true,grid:true};
+  let sel=st.started?null:'w6';
+  host.innerHTML=`<div class="mtools">
+     <div class="chips" id="mLayers">
+       <button data-l="powers" class="on">${T('Державы','Powers')}</button><button data-l="ancient" class="on">${T('Древние места','Ancient sites')}</button>
+       <button data-l="towns" class="on">${T('Города','Towns')}${M.towns.length?' ('+M.towns.length+')':''}</button><button data-l="grid" class="on">${T('Сетка','Grid')}</button></div>
+     <div class="chips" id="mRings"><span class="lbl">${T('Граница','Border')}</span>${rings.map(r=>`<button data-r="${r[0]}">${r[1]}</button>`).join('')}</div>
+   </div>
+   <div class="mbox"><svg id="msvg" role="img" aria-label="${T('Карта мира PaxVanila','PaxVanila world map')}"></svg>
+     <div class="mzoom"><button data-z="0.67" aria-label="${T('Приблизить','Zoom in')}">+</button><button data-z="1.5" aria-label="${T('Отдалить','Zoom out')}">−</button><button data-z="0" aria-label="${T('Сбросить','Reset')}">⟲</button></div>
+     <div class="mcoord" id="mcoord">X 0 · Z 0</div><div class="mcomp">${T('С','N')}↑</div></div>
+   <div class="minfo" id="minfo"></div>
+   <p class="mnote">${T('Державы и древние места показаны схемой по лору: настоящие столицы строят игроки.','Powers and ancient sites are a schematic based on the lore: the real capitals are built by players.')}
+     ${M.towns.length?T(' Города Towny выгружены ',' Towny towns exported ')+esc(M.townsDate)+'.':T(' Реальные города появятся после открытия сервера.',' Real towns will appear after the server opens.')}
+     ${cfg.mapUrl?` <a class="btn" href="${esc(cfg.mapUrl)}" target="_blank" rel="noopener">🗺️ ${T('Живая карта BlueMap','Live BlueMap')}</a>`:''}</p>`;
+  const svg=$('#msvg'), el=(n,a,p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e};
+  const cp=el('clipPath',{id:'mclip'},el('defs',{})); el('circle',{cx:0,cy:0,r:R},cp);
+  const g={}; ['base','grid','powers','rings','ancient','towns','top'].forEach(k=>g[k]=el('g',{class:'g-'+k}));
+  el('circle',{cx:0,cy:0,r:R,class:'land'},g.base); g.grid.setAttribute('clip-path','url(#mclip)');
+  for(let v=-2000;v<=2000;v+=500){ if(Math.abs(v)>R) continue;
+    el('line',{x1:v,y1:-R,x2:v,y2:R,class:'gl'+(v?'':' axis')},g.grid); el('line',{x1:-R,y1:v,x2:R,y2:v,class:'gl'+(v?'':' axis')},g.grid);
+    if(v) {el('text',{x:v,y:-6,class:'gt'},g.grid).textContent=v; el('text',{x:6,y:v,class:'gt'},g.grid).textContent=v;} }
+  const ringEls={};
+  rings.forEach(([k,l])=>{const r=b[k]; const c=el('circle',{cx:0,cy:0,r,class:'ring','data-r':k},g.rings);
+    const t=el('text',{x:r*.7071,y:-r*.7071,class:'rt'+(k==='start'?' st':'')},g.rings); t.textContent=`${l} · ${r}`; ringEls[k]=[c,t];});
+  if(st.started){el('circle',{cx:0,cy:0,r:st.radius,class:'ring now'},g.rings);
+    el('text',{x:0,y:st.radius,class:'rt now'},g.rings).textContent=T('Сейчас ','Now ')+st.radius;}
+  el('circle',{cx:0,cy:0,r:80,class:'spawnz'},g.top);
+  const info=$('#minfo');
+  const pick=(o,kind)=>{info.innerHTML=`<b>${esc(o.name)}</b> <span class="mk">${esc(kind)}</span> <code>X ${o.x} · Z ${o.z}</code><div>${esc(o.text||'')}</div>`};
+  M.powers.forEach(p=>{const a=el('g',{class:'pw',tabindex:0},g.powers);
+    el('circle',{cx:p.x,cy:p.z,r:230,fill:p.color,class:'pwa'},a); el('circle',{cx:p.x,cy:p.z,r:26,fill:p.color,class:'pwd'},a);
+    el('text',{x:p.x,y:p.z+60,class:'pt'},a).textContent=p.name;
+    a.onclick=()=>pick(p,M.blocs[p.bloc]||''); a.onkeydown=e=>{if(e.key==='Enter')pick(p,M.blocs[p.bloc]||'')};});
+  M.ancient.forEach(p=>{const a=el('g',{class:'an',tabindex:0},g.ancient);
+    el('rect',{x:p.x-22,y:p.z-22,width:44,height:44,transform:`rotate(45 ${p.x} ${p.z})`,class:'and'},a);
+    el('text',{x:p.x,y:p.z+62,class:'at'},a).textContent=p.name; a.onclick=()=>pick(p,T('Предтечи','Forerunners'));});
+  M.towns.forEach(t=>{const a=el('g',{class:'tw',tabindex:0},g.towns); const col=t.color||'#9a6b12';
+    (t.blocks||[]).forEach(([cx,cz])=>el('rect',{x:cx*16,y:cz*16,width:16,height:16,fill:col,class:'tb'},a));
+    el('circle',{cx:t.x,cy:t.z,r:10,fill:col,class:'twd'},a); el('text',{x:t.x,y:t.z+30,class:'tt'},a).textContent=t.name;
+    a.onclick=()=>pick({...t,text:(t.nation?T('Нация: ','Nation: ')+t.nation+'. ':'')+T('Занято чанков: ','Claimed chunks: ')+(t.blocks||[]).length},T('город','town'));});
+  M.places.forEach(p=>{const a=el('g',{class:'mono',tabindex:0},g.top);
+    el('rect',{x:p.x-18,y:p.z-18,width:36,height:36,class:'md'},a); el('text',{x:p.x,y:p.z-34,class:'mt'},a).textContent=p.name;
+    a.onclick=()=>pick(p,T('центр мира','world centre'));});
+  pick(M.places[0],T('центр мира','world centre'));
+  // слои и кольца
+  $('#mLayers').onclick=e=>{const k=e.target.dataset.l;if(!k)return;layers[k]=!layers[k];e.target.classList.toggle('on',layers[k]);g[k].style.display=layers[k]?'':'none'};
+  const markRing=()=>{document.querySelectorAll('#mRings button').forEach(x=>x.classList.toggle('on',x.dataset.r===sel));
+    for(const k in ringEls) ringEls[k].forEach(e=>e.classList.toggle('sel',k===sel));};
+  $('#mRings').onclick=e=>{const k=e.target.dataset.r;if(!k)return;sel=sel===k?null:k;markRing()}; markRing();
+  // приближение и перетаскивание (viewBox в блоках)
+  let vb={x:-ext,y:-ext,w:2*ext,h:2*ext};
+  const apply=()=>{const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1; vb.h=vb.w*ar;
+    svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`); svg.style.setProperty('--k',vb.w/Math.max(1,svg.clientWidth));};
+  const reset=()=>{const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1, s=2*ext; vb=ar>1?{x:-ext,y:-ext*ar,w:s,h:s*ar}:{x:-ext/ar,y:-ext,w:s/ar,h:s};apply()};
+  const toWorld=(cx,cy)=>{const r=svg.getBoundingClientRect();return [vb.x+(cx-r.left)/r.width*vb.w, vb.y+(cy-r.top)/r.height*vb.h]};
+  const zoom=(f,cx,cy)=>{const nw=Math.min(6*ext,Math.max(120,vb.w*f)); f=nw/vb.w; const [wx,wy]=toWorld(cx,cy);
+    vb.x=wx-(wx-vb.x)*f; vb.y=wy-(wy-vb.y)*f; vb.w=nw; apply()};
+  host.querySelector('.mzoom').onclick=e=>{const z=+e.target.dataset.z; if(isNaN(z))return; if(!z)return reset();
+    const r=svg.getBoundingClientRect(); zoom(z,r.left+r.width/2,r.top+r.height/2)};
+  svg.addEventListener('wheel',e=>{e.preventDefault();zoom(e.deltaY>0?1.2:1/1.2,e.clientX,e.clientY)},{passive:false});
+  const pts=new Map(); let last=null, moved=0;
+  svg.addEventListener('pointerdown',e=>{pts.set(e.pointerId,[e.clientX,e.clientY]);moved=0;last=null});
+  svg.addEventListener('pointermove',e=>{const [wx,wy]=toWorld(e.clientX,e.clientY); $('#mcoord').textContent=`X ${Math.round(wx)} · Z ${Math.round(wy)}`;
+    if(!pts.has(e.pointerId))return; const p0=pts.get(e.pointerId); pts.set(e.pointerId,[e.clientX,e.clientY]);
+    if(pts.size===1){const r=svg.getBoundingClientRect(),dx=e.clientX-p0[0],dy=e.clientY-p0[1];moved+=Math.abs(dx)+Math.abs(dy);
+      if(moved>4){svg.setPointerCapture(e.pointerId);vb.x-=dx/r.width*vb.w;vb.y-=dy/r.height*vb.h;apply()}}
+    else if(pts.size===2){const [a,c]=[...pts.values()],d=Math.hypot(a[0]-c[0],a[1]-c[1]); if(last)zoom(last/d,(a[0]+c[0])/2,(a[1]+c[1])/2); last=d; moved=99}});
+  const up=e=>{pts.delete(e.pointerId);if(pts.size<2)last=null};
+  svg.addEventListener('pointerup',up); svg.addEventListener('pointercancel',up);
+  svg.addEventListener('click',e=>{if(moved>4){e.stopPropagation();e.preventDefault()}},true);
+  addEventListener('resize',apply); reset();
 }
 function renderNow(C){
   const g=$('#nowGrid'); if(!g) return; const cfg=C.config, s=serverState(cfg);

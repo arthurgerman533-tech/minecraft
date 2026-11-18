@@ -3,7 +3,7 @@
   "_comment": "Заполни перед публикацией: адрес сервера, ссылку на Discord и дату /paxborder start (ISO, МСК). Пустые значения — сайт и приложение пишут «скоро».",
   "serverName": "PaxVanila",
   "serverAddress": "",
-  "discordUrl": "",
+  "discordUrl": "https://discord.gg/sN9TnBFec",
   "mapUrl": "",
   "launchDate": "",
   "version": "Java 26.2",

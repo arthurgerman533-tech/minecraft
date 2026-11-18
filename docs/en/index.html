@@ -17,7 +17,7 @@
 <header class="top"><div class="wrap">
   <a class="brand" href="./"><img src="icons/icon-192.png" alt="">PaxVanila</a>
   <nav class="main">
-    <a href="#now">Now</a><a href="#join">How to join</a><a href="#weeks">Weeks</a><a href="#mech">Mechanics</a><a href="#rules">Rules</a><a href="#cmds">Commands</a><a href="lore.html">Lore</a><a href="guides/fokusy.html">Guide</a>
+    <a href="#now">Now</a><a href="#join">How to join</a><a href="#weeks">Weeks</a><a href="#map">Map</a><a href="#mech">Mechanics</a><a href="#rules">Rules</a><a href="#cmds">Commands</a><a href="lore.html">Lore</a><a href="guides/fokusy.html">Guide</a>
   </nav>
   <a class="iconbtn" id="lang" href="../" hreflang="ru" title="Русский">RU</a>
   <button class="iconbtn" id="theme" title="Theme" aria-label="Switch theme">☾</button>
@@ -29,7 +29,7 @@
   <p class="lead" data-k="tagline"></p>
   <div class="cta">
     <button class="btn primary" id="copyip"><span>📋</span><span class="ip" id="ipText">Address soon</span></button>
-    <a class="btn" id="discord" href="#" target="_blank" rel="noopener">💬 Discord</a>
+    <a class="btn" id="discord" href="#" target="_blank" rel="noopener">💬 Our Discord</a>
     <a class="btn" href="lore.html">📜 World lore</a>
     <button class="btn" id="install" hidden>📲 Install</button>
   </div>
@@ -58,23 +58,29 @@
   <div class="weeks" id="weekGrid"></div>
 </div></section>
 
-<section id="mech" class="alt"><div class="wrap">
+<section id="map" class="alt"><div class="wrap">
+  <div class="kicker">World</div><h2>World map</h2>
+  <p class="sub">The Monolith at the centre, the world border week by week and the powers of the lore. Drag the map with a finger or the mouse, zoom with the wheel, a pinch or the buttons.</p>
+  <div class="pxmap" id="pxmap"></div>
+</div></section>
+
+<section id="mech"><div class="wrap">
   <div class="kicker">How it all works</div><h2>Mechanics</h2>
   <div class="grid" id="mechGrid"></div>
 </div></section>
 
-<section id="rules"><div class="wrap">
+<section id="rules" class="alt"><div class="wrap">
   <div class="kicker">Short and fair</div><h2>Rules</h2>
   <div class="rules" id="ruleList"></div>
 </div></section>
 
-<section id="cmds" class="alt"><div class="wrap">
+<section id="cmds"><div class="wrap">
   <div class="kicker">Reference</div><h2>Commands</h2>
   <input class="search" id="q" type="search" placeholder="Find a command: claim, war, money…" autocomplete="off">
   <table class="cmd" id="cmdTable"></table>
 </div></section>
 
-<section id="lore"><div class="wrap">
+<section id="lore" class="alt"><div class="wrap">
   <div class="kicker">World history</div><h2>PaxVanila lore</h2>
   <p class="sub">From the Nameless and the Forerunners to the last sun. Everything you see on the server, the tower, the cataclysms, the shards, is part of one story.</p>
   <div class="lorelist" id="loreList"></div>

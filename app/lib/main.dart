@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'content.dart';
 import 'screens/lore.dart';
+import 'screens/map.dart';
 import 'screens/mechanics.dart';
 import 'screens/more.dart';
 import 'screens/now.dart';
@@ -108,12 +109,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int tab = 0;
-  List<String> get titles => ['PaxVanila', t('Недели', 'Weeks'), t('Механики', 'Mechanics'), t('Лор', 'Lore'), t('Ещё', 'More')];
+  List<String> get titles => ['PaxVanila', t('Недели', 'Weeks'), t('Карта мира', 'World map'), t('Механики', 'Mechanics'), t('Лор', 'Lore'), t('Ещё', 'More')];
 
   @override
   Widget build(BuildContext context) {
     final c = widget.content;
-    final pages = [NowScreen(content: c), WeeksScreen(content: c), MechanicsScreen(content: c), LoreList(content: c), MoreScreen(content: c, onLang: widget.onLang)];
+    final pages = [NowScreen(content: c), WeeksScreen(content: c), MapScreen(content: c), MechanicsScreen(content: c), LoreList(content: c), MoreScreen(content: c, onLang: widget.onLang)];
     return Scaffold(
       appBar: AppBar(
         title: Text(titles[tab], style: const TextStyle(fontWeight: FontWeight.w700, letterSpacing: .5)),
@@ -125,10 +126,12 @@ class _HomeState extends State<Home> {
       body: IndexedStack(index: tab, children: pages),
       bottomNavigationBar: NavigationBar(
         selectedIndex: tab,
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         onDestinationSelected: (i) => setState(() => tab = i),
         destinations: [
           NavigationDestination(icon: const Icon(Icons.public_outlined), selectedIcon: const Icon(Icons.public), label: t('Сейчас', 'Now')),
           NavigationDestination(icon: const Icon(Icons.calendar_month_outlined), selectedIcon: const Icon(Icons.calendar_month), label: t('Недели', 'Weeks')),
+          NavigationDestination(icon: const Icon(Icons.map_outlined), selectedIcon: const Icon(Icons.map), label: t('Карта', 'Map')),
           NavigationDestination(icon: const Icon(Icons.shield_outlined), selectedIcon: const Icon(Icons.shield), label: t('Механики', 'Mechanics')),
           NavigationDestination(icon: const Icon(Icons.auto_stories_outlined), selectedIcon: const Icon(Icons.auto_stories), label: t('Лор', 'Lore')),
           NavigationDestination(icon: const Icon(Icons.menu), label: t('Ещё', 'More')),

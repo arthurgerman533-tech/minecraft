@@ -2,6 +2,9 @@
 
 Minecraft-сервер (Paper 26.2) про государства и войны: Towny + свои скрипты Skript и датапаки.
 
+Discord: https://discord.gg/sN9TnBFec · Сайт: https://arthurgerman533-tech.github.io/minecraft/
+
+- `content/map.json` — карта мира для сайта и приложения (схема по лору); реальные города Towny: `python3 tools/towny_map.py <plugins/Towny/data>`, потом `python3 tools/build_site.py`.
 - `ЗАПУСК_СЕРВЕРА.txt` — чек-лист первого запуска и календарь недель.
 - `server/plugins/Skript/scripts/` — скрипты (бордер, ивенты недель, Великая война, дипломатия, фокусы, сезоны, приваты, осада, помощники, башня, Discord).
 - `server/*_README.txt` — описание каждой системы.

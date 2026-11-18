@@ -108,3 +108,44 @@ table.cmd code{white-space:normal;word-break:break-word}
 [hidden]{display:none!important}
 .doc article{min-width:0}.doc article table code{white-space:normal;word-break:normal}@media(max-width:600px){.doc article table{font-size:.85rem}.doc article td,.doc article th{padding:6px 8px}}
 a.iconbtn{display:inline-grid;place-items:center;text-decoration:none;font:700 .8rem/1 Inter,system-ui,sans-serif;letter-spacing:.04em;padding:0 8px}header.top .iconbtn+.iconbtn{margin-left:0}
+/* карта мира */
+.pxmap{--k:1}
+.mtools{display:flex;flex-wrap:wrap;gap:8px 16px;margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chips .lbl{color:var(--muted);font-size:.85rem;margin-right:2px}
+.chips button{border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:999px;padding:6px 12px;font:600 .85rem Inter,system-ui,sans-serif;cursor:pointer}
+.chips button.on{background:var(--gold);border-color:var(--gold);color:var(--ongold)}
+.mbox{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:color-mix(in srgb,#2f7fb5 16%,var(--bg));box-shadow:var(--shadow)}
+#msvg{display:block;width:100%;height:min(72vh,620px);touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+#msvg:active{cursor:grabbing}
+#msvg *{vector-effect:non-scaling-stroke}
+#msvg text{font-family:Inter,system-ui,sans-serif;text-anchor:middle;paint-order:stroke;stroke:var(--bg);stroke-width:3px;stroke-linejoin:round;fill:var(--ink)}
+#msvg .land{fill:color-mix(in srgb,#6f9a4a 22%,var(--bg));stroke:var(--line)}
+#msvg .gl{stroke:var(--line);stroke-width:1;opacity:.7}#msvg .gl.axis{stroke:var(--muted);opacity:.5;stroke-dasharray:4 4}
+#msvg .gt{font-size:calc(var(--k)*10px);fill:var(--muted);text-anchor:start}
+#msvg .ring{fill:none;stroke:var(--gold);stroke-width:1.2;stroke-dasharray:6 5;opacity:.55}
+#msvg .ring.sel{stroke-width:3;opacity:1;stroke-dasharray:none}
+#msvg .ring.now{stroke:var(--bad);stroke-width:3;opacity:1;stroke-dasharray:none}
+#msvg .rt{font-size:calc(var(--k)*11px);fill:var(--gold);font-weight:700;text-anchor:start;dominant-baseline:text-after-edge;opacity:.8}
+#msvg .rt.sel{opacity:1;font-size:calc(var(--k)*13px)}#msvg .rt.now{fill:var(--bad);opacity:1;dominant-baseline:text-before-edge}
+#msvg .spawnz{fill:var(--gold);fill-opacity:.12;stroke:var(--gold);stroke-dasharray:3 3}
+#msvg .pw,#msvg .an,#msvg .tw,#msvg .mono{cursor:pointer;outline:none}
+#msvg .pwa{fill-opacity:.2;stroke:none}
+#msvg .pw:hover .pwa,#msvg .pw:focus .pwa{fill-opacity:.36}
+#msvg .pwd{stroke:var(--bg);stroke-width:2}
+#msvg .pt{font-size:calc(var(--k)*14px);font-weight:700;dominant-baseline:hanging}
+#msvg .and{fill:var(--accent);fill-opacity:.85;stroke:var(--bg);stroke-width:1.5}
+#msvg .at{font-size:calc(var(--k)*12px);font-style:italic;fill:var(--accent);dominant-baseline:hanging}
+#msvg .tb{fill-opacity:.55;stroke:none}#msvg .twd{stroke:var(--bg);stroke-width:2}
+#msvg .tt{font-size:calc(var(--k)*12px);font-weight:600;dominant-baseline:hanging}
+#msvg .md{fill:var(--ink);stroke:var(--gold);stroke-width:3}
+#msvg .mt{font-size:calc(var(--k)*15px);font-weight:700;fill:var(--gold)}
+.mzoom{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px}
+.mzoom button{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:1.2rem;cursor:pointer;box-shadow:var(--shadow)}
+.mcoord,.mcomp{position:absolute;bottom:8px;background:color-mix(in srgb,var(--card) 85%,transparent);border:1px solid var(--line);border-radius:8px;padding:3px 8px;font:600 .78rem ui-monospace,Consolas,monospace;color:var(--muted)}
+.mcoord{left:8px}.mcomp{right:8px}
+.minfo{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin-top:10px;min-height:3.2em}
+.minfo b{font-family:"Cormorant SC",Georgia,serif;font-size:1.2rem}.minfo .mk{color:var(--muted);font-size:.85rem;margin:0 6px}
+.minfo div{color:var(--muted);margin-top:4px}
+.mnote{color:var(--muted);font-size:.9rem;margin-top:10px}.mnote .btn{margin-top:8px;padding:8px 14px}
+#msvg .rt.st{opacity:0}#msvg .rt.st.sel{opacity:1}

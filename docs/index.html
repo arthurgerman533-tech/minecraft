@@ -17,7 +17,7 @@
 <header class="top"><div class="wrap">
   <a class="brand" href="./"><img src="icons/icon-192.png" alt="">PaxVanila</a>
   <nav class="main">
-    <a href="#now">Сейчас</a><a href="#join">Как зайти</a><a href="#weeks">Недели</a><a href="#mech">Механики</a><a href="#rules">Правила</a><a href="#cmds">Команды</a><a href="lore.html">Лор</a><a href="guides/fokusy.html">Гайд</a>
+    <a href="#now">Сейчас</a><a href="#join">Как зайти</a><a href="#weeks">Недели</a><a href="#map">Карта</a><a href="#mech">Механики</a><a href="#rules">Правила</a><a href="#cmds">Команды</a><a href="lore.html">Лор</a><a href="guides/fokusy.html">Гайд</a>
   </nav>
   <a class="iconbtn" id="lang" href="en/" hreflang="en" title="English">EN</a>
   <button class="iconbtn" id="theme" title="Тема" aria-label="Сменить тему">☾</button>
@@ -29,7 +29,7 @@
   <p class="lead" data-k="tagline"></p>
   <div class="cta">
     <button class="btn primary" id="copyip"><span>📋</span><span class="ip" id="ipText">Адрес скоро</span></button>
-    <a class="btn" id="discord" href="#" target="_blank" rel="noopener">💬 Discord</a>
+    <a class="btn" id="discord" href="#" target="_blank" rel="noopener">💬 Наш Discord</a>
     <a class="btn" href="lore.html">📜 Лор мира</a>
     <button class="btn" id="install" hidden>📲 Установить</button>
   </div>
@@ -58,23 +58,29 @@
   <div class="weeks" id="weekGrid"></div>
 </div></section>
 
-<section id="mech" class="alt"><div class="wrap">
+<section id="map" class="alt"><div class="wrap">
+  <div class="kicker">Мир</div><h2>Карта мира</h2>
+  <p class="sub">Монолит в центре, границы мира по неделям и державы лора. Двигай карту пальцем или мышью, приближай колёсиком, щипком или кнопками.</p>
+  <div class="pxmap" id="pxmap"></div>
+</div></section>
+
+<section id="mech"><div class="wrap">
   <div class="kicker">Как всё устроено</div><h2>Механики</h2>
   <div class="grid" id="mechGrid"></div>
 </div></section>
 
-<section id="rules"><div class="wrap">
+<section id="rules" class="alt"><div class="wrap">
   <div class="kicker">Коротко и честно</div><h2>Правила</h2>
   <div class="rules" id="ruleList"></div>
 </div></section>
 
-<section id="cmds" class="alt"><div class="wrap">
+<section id="cmds"><div class="wrap">
   <div class="kicker">Справочник</div><h2>Команды</h2>
   <input class="search" id="q" type="search" placeholder="Найти команду: claim, война, деньги…" autocomplete="off">
   <table class="cmd" id="cmdTable"></table>
 </div></section>
 
-<section id="lore"><div class="wrap">
+<section id="lore" class="alt"><div class="wrap">
   <div class="kicker">История мира</div><h2>Лор PaxVanila</h2>
   <p class="sub">От Безымянных и Предтеч до последнего солнца. Всё, что вы видите на сервере — башня, катаклизмы, осколки — часть одной истории.</p>
   <div class="lorelist" id="loreList"></div>

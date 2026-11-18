@@ -1,4 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:paxvanila/screens/map.dart';
+import 'dart:convert';
+import 'dart:io';
 import 'package:paxvanila/calendar.dart';
 import 'package:paxvanila/content.dart';
 import 'package:paxvanila/md.dart';
@@ -50,5 +54,23 @@ void main() {
         [BlockType.h1, BlockType.p, BlockType.quote, BlockType.table, BlockType.ul, BlockType.hr]);
     expect(b[3].rows, [['a', 'b'], ['1', '2']]);
     expect(b[4].items, ['один', 'два']);
+  });
+
+  testWidgets('карта мира рисуется и выбирает точку', (tester) async {
+    final c = Content(jsonDecode(File('assets/content.json').readAsStringSync()));
+    expect(c.map.powers.length, 10);
+    tester.view.physicalSize = const Size(400, 1400);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: MapScreen(content: c))));
+    await tester.pumpAndSettle();
+    expect(find.text('Монолит'), findsOneWidget);
+    expect(find.byType(CustomPaint), findsWidgets);
+    // тап по Карфагену (x -150, z 950) выбирает его
+    final box = tester.getRect(find.byType(InteractiveViewer));
+    final k = box.width / (2 * 2000 * 1.12);
+    await tester.tapAt(box.topLeft + Offset((-150 + 2240) * k, (950 + 2240) * k));
+    await tester.pumpAndSettle();
+    expect(find.text('Карфаген'), findsOneWidget);
   });
 }

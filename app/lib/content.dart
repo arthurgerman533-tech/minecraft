@@ -58,6 +58,36 @@ class LoreDoc {
   String get asset => 'assets/$dir$assetSuffix/$id.md';
 }
 
+/// Карта мира: content/map.json (+ map_towns.json), см. tools/build_site.py.
+class MapPoint {
+  final String id, name, text, color, bloc;
+  final double x, z;
+  final List<List<int>> blocks;
+  MapPoint(Map<String, dynamic> j)
+      : id = j['id'] ?? j['name'] ?? '',
+        name = j['name'] ?? '',
+        text = j['text'] ?? '',
+        color = j['color'] ?? '',
+        bloc = j['bloc'] ?? '',
+        x = (j['x'] as num).toDouble(),
+        z = (j['z'] as num).toDouble(),
+        blocks = [for (final b in (j['blocks'] ?? []) as List) List<int>.from(b)];
+}
+
+class WorldMap {
+  final List<MapPoint> places, powers, ancient, towns;
+  final Map<String, String> blocs;
+  final String townsDate;
+  WorldMap(Map<String, dynamic> j)
+      : places = _pts(j['places']),
+        powers = _pts(j['powers']),
+        ancient = _pts(j['ancient']),
+        towns = _pts(j['towns']),
+        blocs = Map<String, String>.from(j['blocs'] ?? {}),
+        townsDate = j['townsDate'] ?? '';
+  static List<MapPoint> _pts(dynamic l) => [for (final e in (l ?? []) as List) MapPoint(e)];
+}
+
 class Content {
   final Config config;
   final String tagline;
@@ -67,6 +97,7 @@ class Content {
   final List<String> join;
   final List<LoreDoc> lore;
   final List<LoreDoc> guides;
+  final WorldMap map;
 
   Content(Map<String, dynamic> j)
       : config = Config(j['config']),
@@ -76,7 +107,8 @@ class Content {
         rules = (j['rules'] as List).map((e) => Rule(e)).toList(),
         join = List<String>.from(j['join']),
         lore = (j['lore'] as List).map((e) => LoreDoc(e)).toList(),
-        guides = ((j['guides'] ?? []) as List).map((e) => LoreDoc(e, dir: 'guides')).toList();
+        guides = ((j['guides'] ?? []) as List).map((e) => LoreDoc(e, dir: 'guides')).toList(),
+        map = WorldMap(j['map'] ?? {});
 
   /// Все команды без повторов: (команда, раздел, иконка).
   List<(String, String, String)> get commands {
