@@ -1,0 +1,635 @@
+# PaxVanila — ПРОИСХОЖДЕНИЕ: раса и народ каждого игрока + личные фокусы. Добавлено 2026-11-18.
+# Нужны: Skript 2.17+, skript-reflect, Towny, Vault-экономика (как у осадной лавки).
+# Использует функции paxfocus.sk: focusNationOf, focusAtHome, herIs.
+#
+# Раса — это кровь одной из пяти цивилизаций Предтеч (лор: ранние_цивилизации.md).
+# У каждой расы есть плюс, минус и ветка из 3 личных фокусов.
+# Народ — одна из 10 держав лора. Он даёт свой личный фокус «Наследник» и бонус «Земляки»,
+# если ваш народ совпадает с наследием вашей нации (/focus heritage).
+#
+#   /origin                    — ваше происхождение и прогресс
+#   /origin races | peoples    — список рас или народов
+#   /origin race <id>          — выбрать расу (первый раз бесплатно)
+#   /origin people <id>        — выбрать народ (первый раз бесплатно)
+#   /origin focus <p1|p2|p3|nar> — начать личный фокус (платите со своего счёта)
+#   /origin admin reset <ник>  — сбросить игроку всё (право paxorigin.admin)
+#
+# Защита от обхода: выбор сохраняется по UUID (выход из нации и перезаход его не меняют).
+# Сменить расу или народ можно не чаще раза в 7 дней и за 1000$, при смене расы
+# личные фокусы расы сбрасываются, при смене народа — фокус «Наследник».
+# Одновременно идёт только один личный фокус. Эффекты действуют, пока вы онлайн.
+#
+# Расы (id: плюс / минус / p1 / p2 / p3):
+#   kadim    Дети Глины (Ур-Кадим)    +10$ в день | в бою на чужой земле без бонусов
+#            p1 Писцы: ещё +15$ в день | p2 Глиняные стены: Сопротивление I на земле нации | p3 Первый город: Регенерация I в своём городе
+#   neferu   Солнцерождённые (Нэферу) Огнестойкость в Незере | ночью на поверхности Слабость I
+#            p1 Пески: Скорость I в пустыне и пустошах | p2 Око Солнца: днём под небом Скорость I | p3 Солнценосец: днём под небом Сила I
+#   thalassa Дети Волны (Талассия)    дыхание под водой | в пустыне и Незере Слабость I
+#            p1 Течения: Грация дельфина в воде | p2 Глубины: Ночное зрение в воде | p3 Морской Владыка: Сила I в воде
+#   caertal  Медная кровь (Каэр-Тал)  Спешка I ниже Y=0 и выше Y=100 | в воде Утомление I
+#            p1 Кузня: Сопротивление I ниже Y=0 | p2 Мастер: Спешка II ниже Y=0 | p3 Медное сердце: +2 сердца здоровья
+#   deep     Безмолвные (Народ Глубин) Ночное зрение ниже Y=0 | днём под небом Слабость I
+#            p1 Тихий шаг: Скорость I ниже Y=0 | p2 Камень: Сопротивление I ниже Y=0 | p3 Эхо: ниже Y=0 чужие игроки в 16 блоках светятся
+#
+# Народы (фокус nar «Наследник»): rome, carthage, hellas, dacia, germania, gallia, horde, scythia, north, isles.
+# Земляки: если ваш народ = наследие вашей нации, +10$ в день.
+
+import:
+	com.palmergames.bukkit.towny.TownyAPI
+
+options:
+	change_cost: 1000
+	change_days: 7
+	kadim_income: 10
+	kadim_p1_income: 15
+	kin_income: 10
+	carthage_income: 20
+
+# ---------- расы ----------
+
+function orRaceIds() :: texts:
+	return "kadim", "neferu", "thalassa", "caertal" and "deep"
+
+function orRaceName(r: text) :: text:
+	if {_r} is "kadim":
+		return "Дети Глины"
+	if {_r} is "neferu":
+		return "Солнцерождённые"
+	if {_r} is "thalassa":
+		return "Дети Волны"
+	if {_r} is "caertal":
+		return "Медная кровь"
+	if {_r} is "deep":
+		return "Безмолвные"
+	return "?"
+
+function orRaceLore(r: text) :: text:
+	if {_r} is "kadim":
+		return "потомки Ур-Кадима, строители глиняных городов и торговцы"
+	if {_r} is "neferu":
+		return "потомки Нэферу, народ Солнца из пустыни"
+	if {_r} is "thalassa":
+		return "потомки Талассии, морские люди ста островов"
+	if {_r} is "caertal":
+		return "потомки Медного Союза, мастера гор, меди и големов"
+	if {_r} is "deep":
+		return "потомки Народа Глубин, живущие под землёй"
+	return ""
+
+function orRacePlus(r: text) :: text:
+	if {_r} is "kadim":
+		return "+{@kadim_income}$ в день на ваш счёт"
+	if {_r} is "neferu":
+		return "Огнестойкость в Незере"
+	if {_r} is "thalassa":
+		return "дыхание под водой"
+	if {_r} is "caertal":
+		return "Спешка I ниже Y=0 и выше Y=100"
+	if {_r} is "deep":
+		return "Ночное зрение ниже Y=0"
+	return ""
+
+function orRaceMinus(r: text) :: text:
+	if {_r} is "kadim":
+		return "нет боевых бонусов"
+	if {_r} is "neferu":
+		return "ночью на поверхности Слабость I"
+	if {_r} is "thalassa":
+		return "в пустыне и Незере Слабость I"
+	if {_r} is "caertal":
+		return "в воде Утомление I"
+	if {_r} is "deep":
+		return "днём под открытым небом Слабость I"
+	return ""
+
+# личные фокусы: p1, p2, p3 (ветка расы) и nar (народ)
+function orFocusName(r: text, id: text) :: text:
+	if {_id} is "nar":
+		return "Наследник"
+	if {_r} is "kadim":
+		if {_id} is "p1":
+			return "Писцы"
+		if {_id} is "p2":
+			return "Глиняные стены"
+		return "Первый город"
+	if {_r} is "neferu":
+		if {_id} is "p1":
+			return "Пески"
+		if {_id} is "p2":
+			return "Око Солнца"
+		return "Солнценосец"
+	if {_r} is "thalassa":
+		if {_id} is "p1":
+			return "Течения"
+		if {_id} is "p2":
+			return "Глубины"
+		return "Морской Владыка"
+	if {_r} is "caertal":
+		if {_id} is "p1":
+			return "Кузня"
+		if {_id} is "p2":
+			return "Мастер"
+		return "Медное сердце"
+	if {_id} is "p1":
+		return "Тихий шаг"
+	if {_id} is "p2":
+		return "Камень"
+	return "Эхо"
+
+function orFocusDesc(r: text, id: text) :: text:
+	if {_r} is "kadim":
+		if {_id} is "p1":
+			return "ещё +{@kadim_p1_income}$ в день"
+		if {_id} is "p2":
+			return "Сопротивление I на земле вашей нации"
+		return "Регенерация I в вашем городе"
+	if {_r} is "neferu":
+		if {_id} is "p1":
+			return "Скорость I в пустыне и пустошах"
+		if {_id} is "p2":
+			return "днём под открытым небом Скорость I"
+		return "днём под открытым небом Сила I"
+	if {_r} is "thalassa":
+		if {_id} is "p1":
+			return "Грация дельфина в воде"
+		if {_id} is "p2":
+			return "Ночное зрение в воде"
+		return "Сила I в воде"
+	if {_r} is "caertal":
+		if {_id} is "p1":
+			return "Сопротивление I ниже Y=0"
+		if {_id} is "p2":
+			return "Спешка II ниже Y=0"
+		return "+2 сердца здоровья"
+	if {_id} is "p1":
+		return "Скорость I ниже Y=0"
+	if {_id} is "p2":
+		return "Сопротивление I ниже Y=0"
+	return "ниже Y=0 чужие игроки в 16 блоках подсвечиваются"
+
+function orFocusCost(id: text) :: number:
+	if {_id} is "p1":
+		return 300
+	if {_id} is "p2":
+		return 600
+	if {_id} is "p3":
+		return 1200
+	return 1000
+
+function orFocusHours(id: text) :: number:
+	if {_id} is "p1":
+		return 6
+	if {_id} is "p2":
+		return 12
+	return 24
+
+function orFocusReq(id: text) :: text:
+	if {_id} is "p2":
+		return "p1"
+	if {_id} is "p3":
+		return "p2"
+	if {_id} is "nar":
+		return "p1"
+	return ""
+
+# ---------- народы ----------
+
+function orPeopleIds() :: texts:
+	return "rome", "carthage", "hellas", "dacia", "germania", "gallia", "horde", "scythia", "north" and "isles"
+
+function orPeopleDesc(h: text) :: text:
+	if {_h} is "rome":
+		return "Сопротивление I на земле нации во время боя"
+	if {_h} is "carthage":
+		return "+{@carthage_income}$ в день"
+	if {_h} is "hellas":
+		return "Грация дельфина в воде"
+	if {_h} is "dacia":
+		return "Спешка I ниже Y=40"
+	if {_h} is "germania":
+		return "Скорость I на земле нации"
+	if {_h} is "gallia":
+		return "Регенерация I в вашем городе"
+	if {_h} is "horde":
+		return "Скорость I в дикой местности"
+	if {_h} is "scythia":
+		return "+10$ в день за каждый город нации (до 50$)"
+	if {_h} is "north":
+		return "Сопротивление I в снежных биомах"
+	if {_h} is "isles":
+		return "дыхание под водой"
+	return ""
+
+function orPeopleName(h: text) :: text:
+	if {_h} is "rome":
+		return "Ромея"
+	if {_h} is "carthage":
+		return "Карфаген"
+	if {_h} is "hellas":
+		return "Эллада"
+	if {_h} is "dacia":
+		return "Дакия"
+	if {_h} is "germania":
+		return "Германия"
+	if {_h} is "gallia":
+		return "Галлия"
+	if {_h} is "horde":
+		return "Орда"
+	if {_h} is "scythia":
+		return "Скифия"
+	if {_h} is "north":
+		return "Северное Царство"
+	if {_h} is "isles":
+		return "Островной Союз"
+	return "?"
+
+# ---------- служебное ----------
+
+function orDone(p: player, id: text) :: boolean:
+	if {origin::done::%uuid of {_p}%::%{_id}%} is true:
+		return true
+	return false
+
+function orInMyTown(p: player) :: boolean:
+	set {_r} to TownyAPI.getInstance().getResident({_p})
+	if {_r} is not set:
+		return false
+	set {_mine} to {_r}.getTownOrNull()
+	if {_mine} is not set:
+		return false
+	set {_t} to TownyAPI.getInstance().getTown(location of {_p})
+	if {_t} is not set:
+		return false
+	if "%{_t}.getName()%" is "%{_mine}.getName()%":
+		return true
+	return false
+
+function orOpenSky(p: player) :: boolean:
+	set {_l} to location of {_p}
+	set {_hy} to {_l}.getWorld().getHighestBlockYAt({_l})
+	if y-coordinate of {_p} >= {_hy}:
+		return true
+	return false
+
+function orDay(p: player) :: boolean:
+	set {_w} to world of {_p}
+	set {_tk} to {_w}.getTime()
+	if {_tk} < 12300:
+		return true
+	return false
+
+function orNether(p: player) :: boolean:
+	if "%world of {_p}%" contains "nether":
+		return true
+	return false
+
+function orComplete(p: player):
+	set {_u} to uuid of {_p}
+	set {_id} to {origin::cur::%{_u}%}
+	delete {origin::cur::%{_u}%}
+	delete {origin::end::%{_u}%}
+	if {_id} is not set:
+		stop
+	set {origin::done::%{_u}%::%{_id}%} to true
+	set {_r} to {origin::race::%{_u}%} ? "kadim"
+	if {_id} is "nar":
+		set {_h} to {origin::people::%{_u}%} ? "rome"
+		send "&6&l[Происхождение] &eФокус «Наследник %orPeopleName({_h})%» завершён: %orPeopleDesc({_h})%." to {_p}
+	else:
+		send "&6&l[Происхождение] &eФокус «%orFocusName({_r}, {_id})%» завершён: %orFocusDesc({_r}, {_id})%." to {_p}
+
+# ---------- тики ----------
+
+on join:
+	set {_u} to uuid of player
+	if {origin::race::%{_u}%} is not set:
+		wait 5 seconds
+		send "&6[Происхождение] &eВыберите расу и народ: &f/origin races&e, &f/origin peoples&e. Это бесплатно и даёт личные бонусы." to player
+
+every 1 minute:
+	loop all players:
+		set {_u} to uuid of loop-player
+		if {origin::end::%{_u}%} is set:
+			if {origin::end::%{_u}%} <= now:
+				orComplete(loop-player)
+
+every 30 minutes:
+	loop all players:
+		set {_u} to uuid of loop-player
+		set {_pay} to true
+		if {origin::paid::%{_u}%} is set:
+			if difference between {origin::paid::%{_u}%} and now < 1 day:
+				set {_pay} to false
+		if {_pay} is true:
+			set {_sum} to 0
+			if {origin::race::%{_u}%} is "kadim":
+				add {@kadim_income} to {_sum}
+				if orDone(loop-player, "p1") is true:
+					add {@kadim_p1_income} to {_sum}
+			set {_h} to {origin::people::%{_u}%}
+			if {_h} is set:
+				set {_nm} to focusNationOf(loop-player)
+				if {_nm} is set:
+					if herIs({_nm}, {_h}) is true:
+						add {@kin_income} to {_sum}
+				if orDone(loop-player, "nar") is true:
+					if {_h} is "carthage":
+						add {@carthage_income} to {_sum}
+					if {_h} is "scythia":
+						if {_nm} is set:
+							set {_n} to TownyAPI.getInstance().getNation({_nm})
+							if {_n} is set:
+								set {_sc} to {_n}.getTowns().size() * 10
+								if {_sc} > 50:
+									set {_sc} to 50
+								add {_sc} to {_sum}
+			if {_sum} > 0:
+				set {origin::paid::%{_u}%} to now
+				add {_sum} to loop-player's balance
+				send "&6[Происхождение] &e+%{_sum}%$ за день (раса и народ)." to loop-player
+
+every 5 seconds:
+	loop all players:
+		set {_p} to loop-player
+		set {_u} to uuid of {_p}
+		set {_r} to {origin::race::%{_u}%}
+		set {_h} to {origin::people::%{_u}%}
+		if {_r} is set:
+			set {_y} to y-coordinate of {_p}
+			set {_water} to false
+			if block at {_p} is water:
+				set {_water} to true
+			set {_p1} to orDone({_p}, "p1")
+			set {_p2} to orDone({_p}, "p2")
+			set {_p3} to orDone({_p}, "p3")
+			if {_r} is "kadim":
+				set {_nm} to focusNationOf({_p})
+				if {_p2} is true:
+					if {_nm} is set:
+						if focusAtHome({_p}, {_nm}) is true:
+							apply resistance of tier 1 to {_p} for 7 seconds
+				if {_p3} is true:
+					if orInMyTown({_p}) is true:
+						apply regeneration of tier 1 to {_p} for 7 seconds
+			else if {_r} is "neferu":
+				if orNether({_p}) is true:
+					apply fire resistance to {_p} for 7 seconds
+				else:
+					set {_sky} to orOpenSky({_p})
+					set {_day} to orDay({_p})
+					if {_sky} is true:
+						if {_day} is false:
+							apply weakness of tier 1 to {_p} for 7 seconds
+						else:
+							if {_p2} is true:
+								apply speed of tier 1 to {_p} for 7 seconds
+							if {_p3} is true:
+								apply strength of tier 1 to {_p} for 7 seconds
+					if {_p1} is true:
+						set {_b} to "%biome at {_p}%"
+						if {_b} contains "desert":
+							apply speed of tier 1 to {_p} for 7 seconds
+						else if {_b} contains "badlands":
+							apply speed of tier 1 to {_p} for 7 seconds
+			else if {_r} is "thalassa":
+				if {_water} is true:
+					apply water breathing to {_p} for 7 seconds
+					if {_p1} is true:
+						apply dolphins grace to {_p} for 7 seconds
+					if {_p2} is true:
+						apply night vision to {_p} for 15 seconds
+					if {_p3} is true:
+						apply strength of tier 1 to {_p} for 7 seconds
+				if orNether({_p}) is true:
+					apply weakness of tier 1 to {_p} for 7 seconds
+				else if "%biome at {_p}%" contains "desert":
+					apply weakness of tier 1 to {_p} for 7 seconds
+			else if {_r} is "caertal":
+				if {_y} < 0:
+					if {_p2} is true:
+						apply haste of tier 2 to {_p} for 7 seconds
+					else:
+						apply haste of tier 1 to {_p} for 7 seconds
+					if {_p1} is true:
+						apply resistance of tier 1 to {_p} for 7 seconds
+				else if {_y} > 100:
+					apply haste of tier 1 to {_p} for 7 seconds
+				if {_water} is true:
+					apply mining fatigue of tier 1 to {_p} for 7 seconds
+				if {_p3} is true:
+					# долгий эффект, чтобы не сбрасывать здоровье каждые 5 секунд
+					if {_p} does not have health boost:
+						apply health boost of tier 1 to {_p} for 1 hour
+			else if {_r} is "deep":
+				if {_y} < 0:
+					apply night vision to {_p} for 15 seconds
+					if {_p1} is true:
+						apply speed of tier 1 to {_p} for 7 seconds
+					if {_p2} is true:
+						apply resistance of tier 1 to {_p} for 7 seconds
+					if {_p3} is true:
+						set {_mn} to focusNationOf({_p})
+						loop all players in radius 16 around {_p}:
+							if loop-player-2 is not {_p}:
+								set {_on} to focusNationOf(loop-player-2)
+								set {_same} to false
+								if {_mn} is set:
+									if {_on} is set:
+										if {_on} is {_mn}:
+											set {_same} to true
+								if {_same} is false:
+									apply glowing to loop-player-2 for 7 seconds
+				else if orDay({_p}) is true:
+					if orOpenSky({_p}) is true:
+						apply weakness of tier 1 to {_p} for 7 seconds
+		# фокус народа «Наследник»
+		if {_h} is set:
+			if orDone({_p}, "nar") is true:
+				set {_nm} to focusNationOf({_p})
+				if {_h} is "rome":
+					if {_nm} is set:
+						if {pax::nhot::%{_nm}%} is set:
+							if focusAtHome({_p}, {_nm}) is true:
+								apply resistance of tier 1 to {_p} for 7 seconds
+				else if {_h} is "hellas":
+					if block at {_p} is water:
+						apply dolphins grace to {_p} for 7 seconds
+				else if {_h} is "isles":
+					if block at {_p} is water:
+						apply water breathing to {_p} for 7 seconds
+				else if {_h} is "dacia":
+					if y-coordinate of {_p} < 40:
+						apply haste of tier 1 to {_p} for 7 seconds
+				else if {_h} is "germania":
+					if {_nm} is set:
+						if focusAtHome({_p}, {_nm}) is true:
+							apply speed of tier 1 to {_p} for 7 seconds
+				else if {_h} is "gallia":
+					if orInMyTown({_p}) is true:
+						apply regeneration of tier 1 to {_p} for 7 seconds
+				else if {_h} is "horde":
+					if TownyAPI.getInstance().getTown(location of {_p}) is not set:
+						apply speed of tier 1 to {_p} for 7 seconds
+				else if {_h} is "north":
+					set {_b} to "%biome at {_p}%"
+					if {_b} contains "snow":
+						apply resistance of tier 1 to {_p} for 7 seconds
+					else if {_b} contains "frozen":
+						apply resistance of tier 1 to {_p} for 7 seconds
+					else if {_b} contains "ice":
+						apply resistance of tier 1 to {_p} for 7 seconds
+
+# ---------- команда ----------
+
+command /origin [<text>] [<text>] [<text>]:
+	aliases: /происхождение, /раса, /race
+	trigger:
+		if arg-1 is "admin":
+			if executor does not have permission "paxorigin.admin":
+				send "&cНет прав."
+				stop
+			if arg-2 is not "reset":
+				send "&c/origin admin reset <ник>"
+				stop
+			set {_t} to (arg-3 ? "") parsed as offline player
+			if {_t} is not set:
+				send "&cИгрок не найден."
+				stop
+			set {_u} to uuid of {_t}
+			delete {origin::race::%{_u}%}
+			delete {origin::people::%{_u}%}
+			delete {origin::cur::%{_u}%}
+			delete {origin::end::%{_u}%}
+			delete {origin::done::%{_u}%::*}
+			delete {origin::changed::%{_u}%}
+			send "&eПроисхождение %arg-3% сброшено."
+			stop
+		if executor is not a player:
+			send "&cКоманда для игроков."
+			stop
+		set {_u} to uuid of player
+		set {_r} to {origin::race::%{_u}%}
+		set {_h} to {origin::people::%{_u}%}
+		if arg-1 is "races":
+			send "&6&l— Расы (кровь Предтеч) —"
+			loop orRaceIds():
+				send "&e%loop-value% &6%orRaceName(loop-value)%&7: %orRaceLore(loop-value)%."
+				send "   &a+ %orRacePlus(loop-value)%  &c− %orRaceMinus(loop-value)%"
+			send "&7Выбрать: &f/origin race <id>"
+			stop
+		if arg-1 is "peoples":
+			send "&6&l— Народы (фокус «Наследник») —"
+			loop orPeopleIds():
+				send "&e%loop-value% &6%orPeopleName(loop-value)%&7: %orPeopleDesc(loop-value)%"
+			send "&7Выбрать: &f/origin people <id>&7. Если народ совпадает с наследием вашей нации: +{@kin_income}$ в день."
+			stop
+		if arg-1 is "race" or "people":
+			set {_id} to arg-2 ? ""
+			if arg-1 is "race":
+				if orRaceIds() does not contain {_id}:
+					send "&cНет такой расы. Список: /origin races"
+					stop
+				set {_old} to {_r}
+			else:
+				if orPeopleIds() does not contain {_id}:
+					send "&cНет такого народа. Список: /origin peoples"
+					stop
+				set {_old} to {_h}
+			if {_old} is {_id}:
+				send "&eУ вас уже это выбрано."
+				stop
+			if {_old} is set:
+				if {origin::changed::%{_u}%} is set:
+					if difference between {origin::changed::%{_u}%} and now < {@change_days} days:
+						send "&cМенять расу или народ можно раз в {@change_days} дней."
+						stop
+				if arg-3 is not "confirm":
+					send "&eСмена стоит {@change_cost}$ и сбрасывает связанные личные фокусы. Подтвердите: &f/origin %arg-1% %{_id}% confirm"
+					stop
+				if player's balance < {@change_cost}:
+					send "&cНужно {@change_cost}$, у вас %player's balance%$."
+					stop
+				remove {@change_cost} from player's balance
+				set {origin::changed::%{_u}%} to now
+				set {_cur} to {origin::cur::%{_u}%} ? ""
+				if arg-1 is "race":
+					delete {origin::done::%{_u}%::p1}
+					delete {origin::done::%{_u}%::p2}
+					delete {origin::done::%{_u}%::p3}
+					remove health boost from player
+					if {_cur} is not "nar":
+						delete {origin::cur::%{_u}%}
+						delete {origin::end::%{_u}%}
+				else:
+					delete {origin::done::%{_u}%::nar}
+					if {_cur} is "nar":
+						delete {origin::cur::%{_u}%}
+						delete {origin::end::%{_u}%}
+			if arg-1 is "race":
+				set {origin::race::%{_u}%} to {_id}
+				broadcast "&6[Происхождение] &e%player% &7теперь из рода &6%orRaceName({_id})%&7."
+			else:
+				set {origin::people::%{_u}%} to {_id}
+				broadcast "&6[Происхождение] &e%player% &7теперь принадлежит народу &6%orPeopleName({_id})%&7."
+			stop
+		if arg-1 is "focus":
+			set {_id} to arg-2 ? ""
+			if ("p1", "p2", "p3" and "nar") does not contain {_id}:
+				send "&c/origin focus <p1|p2|p3|nar>"
+				stop
+			if {_r} is not set:
+				send "&cСначала выберите расу: /origin races"
+				stop
+			if {_id} is "nar":
+				if {_h} is not set:
+					send "&cСначала выберите народ: /origin peoples"
+					stop
+			if {origin::cur::%{_u}%} is set:
+				send "&cУ вас уже идёт личный фокус."
+				stop
+			if orDone(player, {_id}) is true:
+				send "&eЭтот фокус уже изучен."
+				stop
+			set {_req} to orFocusReq({_id})
+			if {_req} is not "":
+				if orDone(player, {_req}) is false:
+					send "&cСначала завершите фокус %{_req}%."
+					stop
+			set {_cost} to orFocusCost({_id})
+			if player's balance < {_cost}:
+				send "&cНужно %{_cost}%$, у вас %player's balance%$."
+				stop
+			remove {_cost} from player's balance
+			set {origin::cur::%{_u}%} to {_id}
+			set {_hrs} to orFocusHours({_id})
+			set {origin::end::%{_u}%} to now
+			add ("%{_hrs}% hours" parsed as timespan) to {origin::end::%{_u}%}
+			send "&6[Происхождение] &eФокус начат, будет готов через %{_hrs}% ч. (время идёт и когда вы офлайн)."
+			stop
+		# сводка
+		send "&6&l— Ваше происхождение —"
+		if {_r} is set:
+			send "&eРаса: &6%orRaceName({_r})% &7(%orRaceLore({_r})%)"
+			send "   &a+ %orRacePlus({_r})%  &c− %orRaceMinus({_r})%"
+			loop "p1", "p2" and "p3":
+				set {_st} to "&8○"
+				if orDone(player, loop-value) is true:
+					set {_st} to "&a✔"
+				else if {origin::cur::%{_u}%} is loop-value:
+					set {_st} to "&e⌛"
+				send "   %{_st}% &f%loop-value% &e%orFocusName({_r}, loop-value)%&7: %orFocusDesc({_r}, loop-value)% &8(%orFocusCost(loop-value)%$, %orFocusHours(loop-value)% ч)"
+		else:
+			send "&eРаса не выбрана: &f/origin races"
+		if {_h} is set:
+			send "&eНарод: &6%orPeopleName({_h})%"
+			set {_st} to "&8○"
+			if orDone(player, "nar") is true:
+				set {_st} to "&a✔"
+			else if {origin::cur::%{_u}%} is "nar":
+				set {_st} to "&e⌛"
+			send "   %{_st}% &fnar &eНаследник&7: %orPeopleDesc({_h})% &8(1000$, 24 ч, нужен p1)"
+		else:
+			send "&eНарод не выбран: &f/origin peoples"
+		if {origin::end::%{_u}%} is set:
+			send "&7Текущий фокус закончится: %{origin::end::%{_u}%}%"
+		send "&7Начать: &f/origin focus <id>"

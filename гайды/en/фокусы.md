@@ -1,4 +1,4 @@
-# National focus guide
+# Focus guide: nations, heritage, race and people
 
 Focuses are a nation's long-term decisions, as in Hearts of Iron. The nation leader picks a focus, pays from the nation's treasury and waits. When the timer runs out, the whole nation gets the bonus for good. Only one focus runs at a time.
 
@@ -72,6 +72,41 @@ A nation can take one heritage, and each heritage goes to one nation only. First
 | `isles` | Island Union | if you become a vassal, you pay half the tribute | **Republic of Seafarers**: Dolphin's Grace and Water Breathing |
 
 The lore explains why: Romulus and the Treaty at the Monolith, the Golden Caravan of Carthage, the copper of Dacia, the Horde out of the sandstorm, the blizzards of 1241 and 1942. Read «Middle Ages».
+
+## Race and people: personal focuses
+
+This is a choice made by **each player**, not by the nation. Your race and people belong to you, not to your town: if you change nations, they stay with you. Command: `/origin`.
+
+- **Race** is the blood of one of the five Forerunner civilizations. It has a strength, a weakness and a branch of three personal focuses `p1 → p2 → p3`.
+- **People** is one of the ten powers of the lore. It unlocks the personal focus `nar`, «Heir» (needs `p1`).
+- The first choice is free. You can change your race or people for 1000$, at most once every 7 days. Changing race resets `p1–p3`, changing people resets `nar`.
+- Personal focuses are paid from **your own** balance, not the treasury: `p1` 300$ and 6 hours, `p2` 600$ and 12 hours, `p3` 1200$ and 24 hours, `nar` 1000$ and 24 hours. One personal focus runs at a time, and time passes while you are offline too. Personal focuses do not block national ones.
+- Effects work while you are online and combine with national ones like everything else: money adds up, and of two identical effects the strongest applies.
+
+| id | Race | Strength | Weakness | p1 | p2 | p3 |
+|---|---|---|---|---|---|---|
+| `kadim` | Children of Clay (Ur-Kadim) | +10$ a day | no combat bonuses | **Scribes**: another +15$ a day | **Clay Walls**: Resistance I on your nation's land | **First City**: Regeneration I in your own town |
+| `neferu` | Sunborn (Neferu) | Fire Resistance in the Nether | Weakness I on the surface at night | **Sands**: Speed I in deserts and badlands | **Eye of the Sun**: Speed I by day under open sky | **Sun-bearer**: Strength I by day under open sky |
+| `thalassa` | Children of the Wave (Thalassia) | Water Breathing | Weakness I in deserts and the Nether | **Currents**: Dolphin's Grace | **Depths**: Night Vision in water | **Sea Lord**: Strength I in water |
+| `caertal` | Copper Blood (Caer-Tal) | Haste I below Y=0 and above Y=100 | Mining Fatigue I in water | **Forge**: Resistance I below Y=0 | **Master**: Haste II below Y=0 | **Copper Heart**: +2 hearts |
+| `deep` | The Silent (Deep Folk) | Night Vision below Y=0 | Weakness I by day under open sky | **Quiet Step**: Speed I below Y=0 | **Stone**: Resistance I below Y=0 | **Echo**: below Y=0, foreign players within 16 blocks glow |
+
+| id | People | «Heir» focus |
+|---|---|---|
+| `rome` | Romea | Resistance I on your nation's land during a battle |
+| `carthage` | Carthage | +20$ a day |
+| `hellas` | Hellas | Dolphin's Grace in water |
+| `dacia` | Dacia | Haste I below Y=40 |
+| `germania` | Germania | Speed I on your nation's land |
+| `gallia` | Gaul | Regeneration I in your own town |
+| `horde` | The Horde | Speed I in the wilderness |
+| `scythia` | Scythia | +10$ a day per town of your nation (up to 50$) |
+| `north` | The Northern Tsardom | Resistance I in snowy biomes |
+| `isles` | The Island Union | Water Breathing |
+
+**Kinsfolk.** If your people matches your nation's heritage (for example, you are from Romea and your nation took the `rome` heritage), you get another +10$ a day. So nations gain from inviting their «kinsfolk».
+
+What to choose: Copper Blood suits miners and builders, Children of the Wave suit sea nations, the Sunborn suit raiders and desert dwellers, Children of Clay suit savers, and the Silent suit those who fight underground and in caves.
 
 ## What to take and when
 

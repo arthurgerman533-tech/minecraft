@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Focus guide — PaxVanila</title><meta name="description" content="Every focus and heritage, what to take before the war, ready-made builds"><meta name="theme-color" content="#14110d">
+<title>Focus guide — PaxVanila</title><meta name="description" content="Every focus, heritage, race and people, what to take before the war, ready-made builds"><meta name="theme-color" content="#14110d">
 <link rel="manifest" href="../manifest.webmanifest"><link rel="icon" href="../icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css"></head><body>
 <header class="top"><div class="wrap"><a class="brand" href="../"><img src="../icons/icon-192.png" alt="">PaxVanila</a>
 <nav class="main"><a href="../lore/predtechi.html">Age of the Forerunners</a><a href="../lore/srednie.html">Middle Ages</a><a href="../lore/pozdnie.html">Late Ages: the future</a><a href="../lore/cataclysms.html">Cataclysms</a></nav><a class="iconbtn" id="lang" href="../../guides/fokusy.html" hreflang="ru" title="Русский">RU</a><button class="iconbtn" id="theme" aria-label="Switch theme">☾</button></div></header>
-<div class="wrap doc"><aside><details open><summary>Contents</summary><a class="h1" href="#national-focus-guide">National focus guide</a><a class="h2" href="#how-it-works">How it works</a><a class="h2" href="#three-branches">Three branches</a><a class="h2" href="#heritage-the-tenth-focus">Heritage: the tenth focus</a><a class="h2" href="#what-to-take-and-when">What to take and when</a><a class="h2" href="#ready-made-builds">Ready-made builds</a><a class="h2" href="#faq">FAQ</a></details></aside><article><h1 id="national-focus-guide">National focus guide</h1>
+<div class="wrap doc"><aside><details open><summary>Contents</summary><a class="h1" href="#focus-guide-nations-heritage-race-and-people">Focus guide: nations, heritage, race and people</a><a class="h2" href="#how-it-works">How it works</a><a class="h2" href="#three-branches">Three branches</a><a class="h2" href="#heritage-the-tenth-focus">Heritage: the tenth focus</a><a class="h2" href="#race-and-people-personal-focuses">Race and people: personal focuses</a><a class="h2" href="#what-to-take-and-when">What to take and when</a><a class="h2" href="#ready-made-builds">Ready-made builds</a><a class="h2" href="#faq">FAQ</a></details></aside><article><h1 id="focus-guide-nations-heritage-race-and-people">Focus guide: nations, heritage, race and people</h1>
 <p>Focuses are a nation's long-term decisions, as in Hearts of Iron. The nation leader picks a focus, pays from the nation's treasury and waits. When the timer runs out, the whole nation gets the bonus for good. Only one focus runs at a time.</p>
 <h2 id="how-it-works">How it works</h2>
 <table>
@@ -234,6 +234,138 @@
 </tbody>
 </table>
 <p>The lore explains why: Romulus and the Treaty at the Monolith, the Golden Caravan of Carthage, the copper of Dacia, the Horde out of the sandstorm, the blizzards of 1241 and 1942. Read «Middle Ages».</p>
+<h2 id="race-and-people-personal-focuses">Race and people: personal focuses</h2>
+<p>This is a choice made by <strong>each player</strong>, not by the nation. Your race and people belong to you, not to your town: if you change nations, they stay with you. Command: <code>/origin</code>.</p>
+<ul>
+<li><strong>Race</strong> is the blood of one of the five Forerunner civilizations. It has a strength, a weakness and a branch of three personal focuses <code>p1 → p2 → p3</code>.</li>
+<li><strong>People</strong> is one of the ten powers of the lore. It unlocks the personal focus <code>nar</code>, «Heir» (needs <code>p1</code>).</li>
+<li>The first choice is free. You can change your race or people for 1000$, at most once every 7 days. Changing race resets <code>p1–p3</code>, changing people resets <code>nar</code>.</li>
+<li>Personal focuses are paid from <strong>your own</strong> balance, not the treasury: <code>p1</code> 300$ and 6 hours, <code>p2</code> 600$ and 12 hours, <code>p3</code> 1200$ and 24 hours, <code>nar</code> 1000$ and 24 hours. One personal focus runs at a time, and time passes while you are offline too. Personal focuses do not block national ones.</li>
+<li>Effects work while you are online and combine with national ones like everything else: money adds up, and of two identical effects the strongest applies.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>Race</th>
+<th>Strength</th>
+<th>Weakness</th>
+<th>p1</th>
+<th>p2</th>
+<th>p3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kadim</code></td>
+<td>Children of Clay (Ur-Kadim)</td>
+<td>+10$ a day</td>
+<td>no combat bonuses</td>
+<td><strong>Scribes</strong>: another +15$ a day</td>
+<td><strong>Clay Walls</strong>: Resistance I on your nation's land</td>
+<td><strong>First City</strong>: Regeneration I in your own town</td>
+</tr>
+<tr>
+<td><code>neferu</code></td>
+<td>Sunborn (Neferu)</td>
+<td>Fire Resistance in the Nether</td>
+<td>Weakness I on the surface at night</td>
+<td><strong>Sands</strong>: Speed I in deserts and badlands</td>
+<td><strong>Eye of the Sun</strong>: Speed I by day under open sky</td>
+<td><strong>Sun-bearer</strong>: Strength I by day under open sky</td>
+</tr>
+<tr>
+<td><code>thalassa</code></td>
+<td>Children of the Wave (Thalassia)</td>
+<td>Water Breathing</td>
+<td>Weakness I in deserts and the Nether</td>
+<td><strong>Currents</strong>: Dolphin's Grace</td>
+<td><strong>Depths</strong>: Night Vision in water</td>
+<td><strong>Sea Lord</strong>: Strength I in water</td>
+</tr>
+<tr>
+<td><code>caertal</code></td>
+<td>Copper Blood (Caer-Tal)</td>
+<td>Haste I below Y=0 and above Y=100</td>
+<td>Mining Fatigue I in water</td>
+<td><strong>Forge</strong>: Resistance I below Y=0</td>
+<td><strong>Master</strong>: Haste II below Y=0</td>
+<td><strong>Copper Heart</strong>: +2 hearts</td>
+</tr>
+<tr>
+<td><code>deep</code></td>
+<td>The Silent (Deep Folk)</td>
+<td>Night Vision below Y=0</td>
+<td>Weakness I by day under open sky</td>
+<td><strong>Quiet Step</strong>: Speed I below Y=0</td>
+<td><strong>Stone</strong>: Resistance I below Y=0</td>
+<td><strong>Echo</strong>: below Y=0, foreign players within 16 blocks glow</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>People</th>
+<th>«Heir» focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rome</code></td>
+<td>Romea</td>
+<td>Resistance I on your nation's land during a battle</td>
+</tr>
+<tr>
+<td><code>carthage</code></td>
+<td>Carthage</td>
+<td>+20$ a day</td>
+</tr>
+<tr>
+<td><code>hellas</code></td>
+<td>Hellas</td>
+<td>Dolphin's Grace in water</td>
+</tr>
+<tr>
+<td><code>dacia</code></td>
+<td>Dacia</td>
+<td>Haste I below Y=40</td>
+</tr>
+<tr>
+<td><code>germania</code></td>
+<td>Germania</td>
+<td>Speed I on your nation's land</td>
+</tr>
+<tr>
+<td><code>gallia</code></td>
+<td>Gaul</td>
+<td>Regeneration I in your own town</td>
+</tr>
+<tr>
+<td><code>horde</code></td>
+<td>The Horde</td>
+<td>Speed I in the wilderness</td>
+</tr>
+<tr>
+<td><code>scythia</code></td>
+<td>Scythia</td>
+<td>+10$ a day per town of your nation (up to 50$)</td>
+</tr>
+<tr>
+<td><code>north</code></td>
+<td>The Northern Tsardom</td>
+<td>Resistance I in snowy biomes</td>
+</tr>
+<tr>
+<td><code>isles</code></td>
+<td>The Island Union</td>
+<td>Water Breathing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Kinsfolk.</strong> If your people matches your nation's heritage (for example, you are from Romea and your nation took the <code>rome</code> heritage), you get another +10$ a day. So nations gain from inviting their «kinsfolk».</p>
+<p>What to choose: Copper Blood suits miners and builders, Children of the Wave suit sea nations, the Sunborn suit raiders and desert dwellers, Children of Clay suit savers, and the Silent suit those who fight underground and in caves.</p>
 <h2 id="what-to-take-and-when">What to take and when</h2>
 <p>The server runs in weeks. The border grows, and in week 4 (day 21) the Great War begins: day 21 is Formation, day 23 Mobilisation, day 24 the war itself, day 28 peace. You will not get everything: a full branch takes 3 days, and all the focuses you can take (nine of them, because Total War and Hegemony exclude each other) take about 9 days and 13,500$.</p>
 <p><strong>Week 1.</strong> The treasury is empty. Take your heritage right away, it is free. The first focus is usually <code>eco1</code> (Trade Routes): it pays for itself in five days and funds everything else. If your nation has many builders, start with <code>ind1</code>.</p>

@@ -226,6 +226,30 @@
    ]
   },
   {
+   "id": "origin",
+   "icon": "🧬",
+   "title": "Race and people",
+   "summary": "Every player chooses a race (the blood of one of the five Forerunner civilizations) and a people (one of the 10 powers of the lore). A race has a strength, a weakness and three personal focuses; a people has its own «Heir» focus.",
+   "points": [
+    "The first choice is free. Changing costs 1000$, at most once every 7 days, and resets the related personal focuses.",
+    "Children of Clay (Ur-Kadim): +10$ a day. Focuses: another +15$ a day, Resistance I on your nation's land, Regeneration I in your own town.",
+    "Sunborn (Neferu): Fire Resistance in the Nether, but Weakness I on the surface at night. Focuses: Speed in deserts, Speed I by day under open sky, then Strength I.",
+    "Children of the Wave (Thalassia): Water Breathing, but Weakness I in deserts and the Nether. Focuses: Dolphin's Grace, Night Vision and Strength I in water.",
+    "Copper Blood (Caer-Tal): Haste I below Y=0 and above Y=100, but Mining Fatigue I in water. Focuses: Resistance and Haste II below Y=0, +2 hearts.",
+    "The Silent (Deep Folk): Night Vision below Y=0, but Weakness I by day under open sky. Focuses: Speed and Resistance below Y=0, nearby enemies glow.",
+    "Personal focuses: p1 300$ and 6 h, p2 600$ and 12 h, p3 1200$ and 24 h, the people's «Heir» 1000$ and 24 h (needs p1). Paid from your own balance; time runs while you are offline too.",
+    "Kinsfolk: if your people matches your nation's heritage, +10$ a day."
+   ],
+   "commands": [
+    "/origin",
+    "/origin races",
+    "/origin peoples",
+    "/origin race <id>",
+    "/origin people <id>",
+    "/origin focus <p1|p2|p3|nar>"
+   ]
+  },
+  {
    "id": "siege",
    "icon": "💣",
    "title": "Siege weapons",
@@ -414,7 +438,7 @@
   {
    "id": "fokusy",
    "title": "Focus guide",
-   "subtitle": "Every focus and heritage, what to take before the war, ready-made builds",
+   "subtitle": "Every focus, heritage, race and people, what to take before the war, ready-made builds",
    "file": "фокусы.md"
   }
  ]
