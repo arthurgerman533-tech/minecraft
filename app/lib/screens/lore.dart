@@ -3,6 +3,7 @@ import 'package:flutter/services.dart' show rootBundle;
 
 import '../content.dart';
 import '../md.dart';
+import '../i18n.dart';
 
 class LoreList extends StatelessWidget {
   final Content content;
@@ -14,7 +15,7 @@ class LoreList extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 32),
       children: [
-        Text('Читать по порядку: Предтечи → Средние эпохи → Поздние эпохи. Катаклизмы — отдельная летопись.',
+        Text(t('Читать по порядку: Предтечи → Средние эпохи → Поздние эпохи (будущее мира: роботы, Луна, Марс, звёзды). Катаклизмы — отдельная летопись.', 'Read in order: Forerunners → Middle Ages → Late Ages (the future of the world: robots, the Moon, Mars, the stars). Cataclysms is a separate chronicle.'),
             style: th.textTheme.bodyMedium!.copyWith(color: th.colorScheme.onSurfaceVariant)),
         const SizedBox(height: 12),
         for (final d in content.lore)
@@ -69,7 +70,7 @@ class _LoreReaderState extends State<LoreReader> {
           : Drawer(
               child: SafeArea(
                 child: ListView(children: [
-                  const ListTile(title: Text('Оглавление', style: TextStyle(fontWeight: FontWeight.w700))),
+                  ListTile(title: Text(t('Оглавление', 'Contents'), style: const TextStyle(fontWeight: FontWeight.w700))),
                   for (final h in heads)
                     Builder(
                       builder: (ctx) => ListTile(

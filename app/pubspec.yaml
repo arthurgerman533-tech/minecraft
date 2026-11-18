@@ -66,6 +66,9 @@ flutter:
     - assets/img/
     - assets/lore/
     - assets/guides/
+    - assets/content.en.json
+    - assets/lore_en/
+    - assets/guides_en/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

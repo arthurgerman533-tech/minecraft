@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../i18n.dart';
 
 class Kicker extends StatelessWidget {
   final String text;
@@ -26,7 +27,7 @@ class CmdChip extends StatelessWidget {
         Clipboard.setData(ClipboardData(text: cmd));
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
-          ..showSnackBar(SnackBar(content: Text('Скопировано: $cmd'), duration: const Duration(seconds: 1)));
+          ..showSnackBar(SnackBar(content: Text('${t('Скопировано', 'Copied')}: $cmd'), duration: const Duration(seconds: 1)));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -46,6 +47,6 @@ Widget cmdWrap(List<String> cmds) =>
 Future<void> openUrl(BuildContext context, String url) async {
   final ok = url.isNotEmpty && await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
   if (!ok && context.mounted) {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Ссылка появится перед открытием сервера')));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t('Ссылка появится перед открытием сервера', 'The link will appear before the server launches'))));
   }
 }

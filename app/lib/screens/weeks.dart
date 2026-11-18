@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../calendar.dart';
 import '../content.dart';
 import 'widgets.dart';
+import '../i18n.dart';
 
 class WeeksScreen extends StatelessWidget {
   final Content content;
@@ -15,7 +16,7 @@ class WeeksScreen extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 32),
       children: [
-        Text('Граница мира растёт понемногу каждый день. Каждая неделя открывает новое.',
+        Text(t('Граница мира растёт понемногу каждый день. Каждая неделя открывает новое.', 'The world border grows a little every day. Every week unlocks something new.'),
             style: th.textTheme.bodyMedium!.copyWith(color: th.colorScheme.onSurfaceVariant)),
         const SizedBox(height: 12),
         for (final w in content.weeks)
@@ -31,7 +32,7 @@ class WeeksScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(14),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Text('Неделя ${w.n} · ${w.days} · граница ${w.border}${st.started && st.week == w.n ? ' · сейчас' : ''}',
+                    Text('${t('Неделя', 'Week')} ${w.n} · ${w.days} · ${t('граница', 'border')} ${w.border}${st.started && st.week == w.n ? t(' · сейчас', ' · now') : ''}',
                         style: th.textTheme.labelMedium!.copyWith(color: th.colorScheme.primary, fontWeight: FontWeight.w700)),
                     const SizedBox(height: 4),
                     Text(w.title, style: th.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w700)),

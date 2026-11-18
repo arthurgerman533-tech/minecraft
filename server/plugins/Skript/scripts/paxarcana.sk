@@ -1,0 +1,507 @@
+# PaxVanila — «Арканум»: оружие Монолита и награды за серию убийств. Нужны: Skript, skript-reflect, Towny.
+# Добавлено 2026-11-18. Свои предметы, рецепты, баланс и эффекты (частицы и звуки), без клиентских модов.
+#
+# Крафт — у «Звёздного алтаря»: любой магнетит (lodestone) в радиусе 4 блоков.
+#   /arcana                — список оружия и рецептов, что у вас уже есть
+#   /arcana craft <id>     — создать (ингредиенты списываются из инвентаря)
+#   /arcana info <id>      — что умеет оружие
+#   /arcana admin give <id> [игрок]   (право paxarcana.admin)
+#
+# Оружие (ПКМ — приём, Shift+ПКМ — сильный приём):
+#   staff  Посох Ойры           ПКМ: Луч Стража (6 урона, 24 блока, перезарядка 3 с)
+#                               Shift+ПКМ: Небесные врата — руны в небе и 14 лучей света по площади (5 урона каждый, 120 с)
+#   blade  Клинок Шестой строки удар: 25% — руна (+3 урона). ПКМ: рывок на 7 блоков, 4 урона всем на пути (8 с)
+#   orb    Вихрь Безымянных     ПКМ: портал-воронка на 3 с тянет всех в радиусе 7, затем схлопывается (7 урона, 60 с)
+#   drone  Разведдрон           ПКМ: 15 с подсвечивает чужих игроков в радиусе 64 (одноразовый)
+#   strike Целеуказатель        ПКМ по точке до 120 блоков: через 4 с авиаудар, 8 взрывов без разрушений (одноразовый)
+#
+# Серия убийств (без смерти): 3 игрока — Разведдрон, 5 — Целеуказатель авиаудара. Смерть сбрасывает серию.
+#
+# Правила сервера соблюдаются сами: урон наносится от имени игрока (entity.damage(x, игрок)), поэтому
+# Towny (PvP в городах), защита новичков 48 ч (paxwar.sk) и приваты (paxclaims.sk) его отменяют, как обычный удар.
+# Блоки не ломаются никогда. Звёздный осколок и Безымянный обломок — добыча катаклизмов (датапак paxweather).
+
+import:
+	org.bukkit.Particle
+	com.palmergames.bukkit.towny.TownyAPI
+
+options:
+	altar_radius: 4
+	staff_beam_cd: 3
+	staff_beam_dmg: 6
+	staff_gate_cd: 120
+	staff_gate_dmg: 5
+	blade_dash_cd: 8
+	blade_dash_dmg: 4
+	blade_rune_dmg: 3
+	orb_cd: 60
+	orb_dmg: 7
+	streak_drone: 3
+	streak_strike: 5
+	strike_dmg: 8
+
+# ---------- предметы ----------
+
+function arcIds() :: texts:
+	return "staff", "blade", "orb", "drone" and "strike"
+
+function arcName(id: text) :: text:
+	if {_id} is "staff":
+		return "Посох Ойры"
+	if {_id} is "blade":
+		return "Клинок Шестой строки"
+	if {_id} is "orb":
+		return "Вихрь Безымянных"
+	if {_id} is "drone":
+		return "Разведдрон"
+	if {_id} is "strike":
+		return "Целеуказатель авиаудара"
+	return ""
+
+function arcItem(id: text) :: item:
+	if {_id} is "staff":
+		return 1 blaze rod named "&b&lПосох Ойры" with lore "&7Посох первого Стража. Монолит отвечает ему." and "&fПКМ: &bЛуч Стража" and "&fShift+ПКМ: &bНебесные врата" and "&8pax-arcana:staff"
+	if {_id} is "blade":
+		return 1 netherite sword named "&d&lКлинок Шестой строки" with lore "&7Выкован из трещины на уровне шестой строки." and "&fУдар: &dруна (+{@blade_rune_dmg} урона, 25%%)" and "&fПКМ: &dрывок" and "&8pax-arcana:blade"
+	if {_id} is "orb":
+		return 1 heart of the sea named "&5&lВихрь Безымянных" with lore "&7Внутри шумит туман, в котором пропадали флоты." and "&fПКМ: &5портал-воронка" and "&8pax-arcana:orb"
+	if {_id} is "drone":
+		return 1 recovery compass named "&a&lРазведдрон" with lore "&7Одноразовый. Подсвечивает чужих игроков в радиусе 64." and "&fПКМ: &aзапустить" and "&8pax-arcana:drone"
+	if {_id} is "strike":
+		return 1 spyglass named "&c&lЦелеуказатель авиаудара" with lore "&7Одноразовый. Отметьте точку до 120 блоков." and "&fПКМ: &cвызвать удар" and "&8pax-arcana:strike"
+	return air
+
+function arcId(i: item) :: text:
+	loop lore of {_i}:
+		set {_u} to uncolored loop-value
+		if {_u} starts with "pax-arcana:":
+			return subtext of {_u} from characters 12 to length of {_u}
+	return ""
+
+function arcDesc(id: text) :: text:
+	if {_id} is "staff":
+		return "ПКМ — луч на 24 блока ({@staff_beam_dmg} урона). Shift+ПКМ — Небесные врата: руны в небе над целью и 14 лучей света в радиусе 7 ({@staff_gate_dmg} урона каждый, перезарядка {@staff_gate_cd} с)."
+	if {_id} is "blade":
+		return "Каждый удар с шансом 25%% вспыхивает руной (+{@blade_rune_dmg} урона). ПКМ — рывок на 7 блоков, {@blade_dash_dmg} урона всем на пути (перезарядка {@blade_dash_cd} с)."
+	if {_id} is "orb":
+		return "ПКМ — портал в точке взгляда: 3 секунды тянет всех в радиусе 7, затем схлопывается ({@orb_dmg} урона, перезарядка {@orb_cd} с)."
+	if {_id} is "drone":
+		return "Награда за {@streak_drone} убийства подряд или крафт. 15 секунд подсвечивает чужих игроков в радиусе 64."
+	if {_id} is "strike":
+		return "Награда за {@streak_strike} убийств подряд. Отметьте точку: через 4 секунды 8 взрывов в радиусе 6 ({@strike_dmg} урона, блоки не ломаются)."
+	return ""
+
+# ---------- рецепты: «материал|количество», осколки и обломки — особые ----------
+
+function arcRecipe(id: text) :: texts:
+	if {_id} is "staff":
+		return "shard|8", "nether star|1", "gold block|4" and "blaze rod|1"
+	if {_id} is "blade":
+		return "netherite ingot|2", "shard|4", "echo shard|2" and "diamond|8"
+	if {_id} is "orb":
+		return "heart of the sea|1", "wreck|4", "ender eye|2" and "shard|4"
+	if {_id} is "drone":
+		return "iron ingot|6", "redstone|4", "phantom membrane|2" and "shard|1"
+	return ""
+
+function arcIngName(k: text) :: text:
+	if {_k} is "shard":
+		return "Звёздный осколок"
+	if {_k} is "wreck":
+		return "Безымянный обломок"
+	return {_k}
+
+# сколько у игрока ингредиента k
+function arcCount(p: player, k: text) :: number:
+	set {_c} to 0
+	if {_k} is "shard" or "wreck":
+		loop items in {_p}'s inventory:
+			if arcIsSpecial(loop-item, {_k}) is true:
+				add item amount of loop-item to {_c}
+		return {_c}
+	set {_t} to {_k} parsed as item type
+	if {_t} is not set:
+		return 0
+	loop items in {_p}'s inventory:
+		if loop-item is {_t}:
+			if arcId(loop-item) is "":
+				add item amount of loop-item to {_c}
+	return {_c}
+
+# Звёздный осколок — аметистовый осколок с описанием, Безымянный обломок — бумага с описанием (датапак paxweather).
+function arcIsSpecial(i: item, k: text) :: boolean:
+	if lore of {_i} is not set:
+		return false
+	if {_k} is "shard":
+		if {_i} is amethyst shard:
+			return true
+	if {_k} is "wreck":
+		if {_i} is paper:
+			return true
+	return false
+
+function arcTake(p: player, k: text, n: number):
+	set {_left} to {_n}
+	if {_k} is "shard" or "wreck":
+		loop items in {_p}'s inventory:
+			if {_left} > 0:
+				if arcIsSpecial(loop-item, {_k}) is true:
+					set {_one} to loop-item
+					set {_a} to min(item amount of loop-item, {_left})
+					remove {_a} of {_one} from {_p}'s inventory
+					remove {_a} from {_left}
+		stop
+	set {_t} to {_k} parsed as item type
+	remove {_n} of {_t} from {_p}'s inventory
+
+function arcNearAltar(p: player) :: boolean:
+	loop blocks in radius {@altar_radius} around {_p}:
+		if loop-block is lodestone:
+			return true
+	return false
+
+# ---------- эффекты ----------
+
+function arcFx(l: location, p: text, n: number, s: number):
+	set {_w} to world of {_l}
+	{_w}.spawnParticle(Particle.valueOf({_p}), {_l}, {_n}, {_s}, {_s}, {_s}, 0.02)
+
+# кольцо частиц радиусом r вокруг точки (горизонтально)
+function arcRing(c: location, r: number, p: text, pts: number, turn: number):
+	loop {_pts} times:
+		set {_a} to (loop-number * 360 / {_pts}) + {_turn}
+		set {_l} to {_c}.clone().add({_r} * cos({_a}), 0, {_r} * sin({_a}))
+		arcFx({_l}, {_p}, 1, 0)
+
+# вертикальный столб частиц от точки вниз на h блоков
+function arcPillar(top: location, h: number, p: text):
+	loop {_h} times:
+		set {_l} to {_top}.clone().add(0, 0 - loop-number, 0)
+		arcFx({_l}, {_p}, 2, 0.05)
+
+# урон всем живым в радиусе r от лица игрока (правила PvP проверят Towny / paxwar / paxclaims)
+function arcHurt(src: player, c: location, r: number, dmg: number):
+	set {_ents} to (world of {_c}).getNearbyEntities({_c}, {_r}, {_r}, {_r})
+	loop ...{_ents}:
+		set {_en} to loop-value
+		if {_en} is a living entity:
+			if {_en} is not {_src}:
+				if {_en} is not an armor stand:
+					{_en}.damage({_dmg}, {_src})
+
+function arcReady(p: player, k: text, cd: number) :: boolean:
+	set {_last} to {-arc::cd::%uuid of {_p}%::%{_k}%}
+	if {_last} is set:
+		if difference between {_last} and now < {_cd} seconds:
+			send action bar "&cПерезарядка: %{_k}%" to {_p}
+			return false
+	set {-arc::cd::%uuid of {_p}%::%{_k}%} to now
+	return true
+
+# ---------- приёмы ----------
+
+function arcBeam(p: player):
+	set {_e} to {_p}'s eye location
+	set {_v} to {_e}.getDirection().multiply(0.5)
+	play sound "block.beacon.power_select" with volume 0.8 and pitch 1.6 at {_e}
+	set {_l} to {_e}.clone()
+	loop 48 times:
+		set {_l} to {_l}.add({_v})
+		if block at {_l} is solid:
+			arcFx({_l}, "END_ROD", 12, 0.2)
+			stop
+		arcFx({_l}, "END_ROD", 1, 0)
+		if mod(loop-number, 4) is 0:
+			arcFx({_l}, "ELECTRIC_SPARK", 2, 0.1)
+		set {_ents} to (world of {_l}).getNearbyEntities({_l}, 0.8, 0.8, 0.8)
+		loop ...{_ents}:
+			set {_en} to loop-value-2
+			if {_en} is a living entity:
+				if {_en} is not {_p}:
+					if {_en} is not an armor stand:
+						{_en}.damage({@staff_beam_dmg}, {_p})
+						arcFx({_l}, "FIREWORK", 1, 0)
+						arcFx({_l}, "ENCHANTED_HIT", 20, 0.3)
+						stop
+
+function arcGate(p: player):
+	set {_b} to {_p}.getTargetBlockExact(60)
+	if {_b} is not set:
+		send "&cПосмотрите на землю не дальше 60 блоков." to {_p}
+		delete {-arc::cd::%uuid of {_p}%::gate}
+		stop
+	set {_g} to location of {_b}
+	set {_g} to {_g}.add(0.5, 1, 0.5)
+	set {_sky} to {_g}.clone().add(0, 14, 0)
+	broadcast "&b✦ %name of {_p}% открывает Небесные врата!" in world of {_p}
+	play sound "block.end_portal.spawn" with volume 1.5 and pitch 1.2 at {_sky}
+	# 1) руны в небе: три кольца, которые вращаются 2 секунды
+	loop 20 times:
+		set {_turn} to loop-number * 9
+		arcRing({_sky}, 7, "END_ROD", 48, {_turn})
+		arcRing({_sky}, 4.5, "ENCHANT", 36, 0 - {_turn})
+		arcRing({_sky}, 2, "SOUL_FIRE_FLAME", 20, {_turn} * 2)
+		wait 2 ticks
+	play sound "block.beacon.activate" with volume 2 and pitch 0.7 at {_g}
+	# 2) дождь лучей
+	loop 14 times:
+		set {_x} to random number between -7 and 7
+		set {_z} to random number between -7 and 7
+		set {_hit} to {_g}.clone().add({_x}, 0, {_z})
+		set {_top} to {_hit}.clone().add(0, 14, 0)
+		arcPillar({_top}, 14, "END_ROD")
+		arcRing({_hit}, 1.2, "GLOW", 14, 0)
+		arcFx({_hit}, "SONIC_BOOM", 1, 0)
+		play sound "entity.lightning_bolt.impact" with volume 0.9 and pitch 1.4 at {_hit}
+		arcHurt({_p}, {_hit}, 1.6, {@staff_gate_dmg})
+		wait 5 ticks
+	arcRing({_g}, 7, "END_ROD", 60, 0)
+
+function arcDash(p: player):
+	set {_v} to ({_p}'s eye location).getDirection().setY(0.15).normalize().multiply(1.7)
+	{_p}.setVelocity({_v})
+	play sound "entity.breeze.wind_burst" with volume 1 and pitch 1.2 at {_p}
+	loop 8 times:
+		set {_l} to location of {_p}
+		arcFx({_l}.clone().add(0, 1, 0), "SWEEP_ATTACK", 2, 0.3)
+		arcFx({_l}.clone().add(0, 1, 0), "WITCH", 6, 0.3)
+		set {_ents} to (world of {_l}).getNearbyEntities({_l}, 1.6, 1.6, 1.6)
+		loop ...{_ents}:
+			set {_en} to loop-value-2
+			if {_en} is a living entity:
+				if {_en} is not {_p}:
+					if {_en} is not an armor stand:
+						if {-arc::dashhit::%uuid of {_p}%::%uuid of {_en}%} is not set:
+							set {-arc::dashhit::%uuid of {_p}%::%uuid of {_en}%} to true
+							{_en}.damage({@blade_dash_dmg}, {_p})
+		wait 1 tick
+	delete {-arc::dashhit::%uuid of {_p}%::*}
+
+function arcVortex(p: player):
+	set {_b} to {_p}.getTargetBlockExact(20)
+	if {_b} is set:
+		set {_c} to location of {_b}
+		set {_c} to {_c}.add(0.5, 1.5, 0.5)
+	else:
+		set {_c} to ({_p}'s eye location).add(({_p}'s eye location).getDirection().multiply(12))
+	play sound "block.portal.trigger" with volume 1.2 and pitch 1.5 at {_c}
+	loop 30 times:
+		set {_k} to loop-number
+		arcRing({_c}, 3 - ({_k} / 15), "REVERSE_PORTAL", 24, {_k} * 18)
+		arcRing({_c}.clone().add(0, 0.6, 0), 2, "PORTAL", 16, 0 - ({_k} * 24))
+		arcFx({_c}, "SQUID_INK", 3, 0.2)
+		set {_ents} to (world of {_c}).getNearbyEntities({_c}, 7, 7, 7)
+		loop ...{_ents}:
+			set {_en} to loop-value-2
+			if {_en} is a living entity:
+				if {_en} is not {_p}:
+					if {_en} is not an armor stand:
+						set {_pull} to {_c}.toVector().subtract({_en}.getLocation().toVector())
+						if {_pull}.length() > 0.8:
+							{_en}.setVelocity({_pull}.normalize().multiply(0.35))
+		wait 2 ticks
+	arcFx({_c}, "EXPLOSION_EMITTER", 1, 0)
+	arcFx({_c}, "REVERSE_PORTAL", 80, 1.5)
+	play sound "entity.warden.sonic_boom" with volume 1.2 and pitch 0.8 at {_c}
+	arcHurt({_p}, {_c}, 3, {@orb_dmg})
+
+function arcDrone(p: player):
+	set {_mn} to ""
+	set {_r} to TownyAPI.getInstance().getResident({_p})
+	if {_r} is set:
+		set {_n} to {_r}.getNationOrNull()
+		if {_n} is set:
+			set {_mn} to "%{_n}.getName()%"
+	play sound "entity.bee.loop_aggressive" with volume 1 and pitch 1.6 at {_p}
+	set {_found} to 0
+	loop all players in radius 64 around {_p}:
+		if loop-player is not {_p}:
+			set {_on} to ""
+			set {_r2} to TownyAPI.getInstance().getResident(loop-player)
+			if {_r2} is set:
+				set {_n2} to {_r2}.getNationOrNull()
+				if {_n2} is set:
+					set {_on} to "%{_n2}.getName()%"
+			set {_enemy} to true
+			if {_mn} is not "":
+				if {_on} is {_mn}:
+					set {_enemy} to false
+			if {_enemy} is true:
+				apply glowing to loop-player for 15 seconds
+				add 1 to {_found}
+	send "&a[Разведдрон] Замечено чужих игроков: &f%{_found}%" to {_p}
+	loop 15 times:
+		arcRing((location of {_p}).add(0, 3.2, 0), 1.2, "END_ROD", 10, loop-number * 30)
+		wait 4 ticks
+
+function arcStrike(p: player):
+	set {_b} to {_p}.getTargetBlockExact(120)
+	if {_b} is not set:
+		send "&cНет цели в пределах 120 блоков. Целеуказатель не потрачен." to {_p}
+		give {_p} arcItem("strike")
+		stop
+	set {_c} to location of {_b}
+	set {_c} to {_c}.add(0.5, 1, 0.5)
+	loop all players in radius 80 around {_c}:
+		send title "&c⚠ АВИАУДАР" with subtitle "&7через 4 секунды" to loop-player for 3 seconds
+		play sound "block.note_block.bell" with volume 1 and pitch 0.5 to loop-player
+	send "&c[Авиаудар] Цель отмечена: %round(x-coordinate of {_c})% %round(y-coordinate of {_c})% %round(z-coordinate of {_c})%" to {_p}
+	loop 20 times:
+		arcPillar({_c}.clone().add(0, 24, 0), 24, "CAMPFIRE_SIGNAL_SMOKE")
+		arcRing({_c}, 6, "FLAME", 40, loop-number * 6)
+		wait 4 ticks
+	play sound "entity.phantom.swoop" with volume 2 and pitch 0.5 at {_c}
+	loop 8 times:
+		set {_hit} to {_c}.clone().add(random number between -6 and 6, 0, random number between -6 and 6)
+		arcFx({_hit}, "EXPLOSION_EMITTER", 1, 0)
+		arcFx({_hit}, "LARGE_SMOKE", 20, 1)
+		play sound "entity.generic.explode" with volume 2.5 and pitch 0.8 at {_hit}
+		arcHurt({_p}, {_hit}, 4, {@strike_dmg})
+		wait 6 ticks
+
+# ---------- события ----------
+
+on right click:
+	if "%event.getHand()%" is "OFF_HAND":
+		stop
+	set {_id} to arcId(player's tool)
+	if {_id} is "":
+		stop
+	cancel event
+	if {_id} is "staff":
+		if player is sneaking:
+			if arcReady(player, "gate", {@staff_gate_cd}) is true:
+				arcGate(player)
+		else if arcReady(player, "beam", {@staff_beam_cd}) is true:
+			arcBeam(player)
+	else if {_id} is "blade":
+		if arcReady(player, "dash", {@blade_dash_cd}) is true:
+			arcDash(player)
+	else if {_id} is "orb":
+		if arcReady(player, "orb", {@orb_cd}) is true:
+			arcVortex(player)
+	else if {_id} is "drone":
+		set player's tool to air
+		arcDrone(player)
+	else if {_id} is "strike":
+		set player's tool to air
+		arcStrike(player)
+
+on damage:
+	attacker is a player
+	arcId(attacker's tool) is "blade"
+	chance of 25%:
+		increase damage by {@blade_rune_dmg}
+		set {_l} to location of victim
+		arcFx({_l}.clone().add(0, 1, 0), "ENCHANTED_HIT", 18, 0.4)
+		arcRing({_l}.clone().add(0, 0.2, 0), 1, "WITCH", 12, 0)
+		play sound "block.amethyst_block.resonate" with volume 1 and pitch 1.5 at {_l}
+
+# серия убийств
+on death of player:
+	delete {-arc::streak::%uuid of victim%}
+	attacker is a player
+	attacker is not victim
+	add 1 to {-arc::streak::%uuid of attacker%}
+	set {_s} to {-arc::streak::%uuid of attacker%}
+	if {_s} is {@streak_drone}:
+		give attacker arcItem("drone")
+		send "&a[Серия %{_s}%] Награда: Разведдрон." to attacker
+	if {_s} is {@streak_strike}:
+		give attacker arcItem("strike")
+		send "&c[Серия %{_s}%] Награда: Целеуказатель авиаудара!" to attacker
+		broadcast "&c⚔ %name of attacker% — серия из %{_s}% убийств, у него авиаудар!"
+
+on quit:
+	delete {-arc::streak::%uuid of player%}
+	delete {-arc::cd::%uuid of player%::*}
+
+# ---------- крафт ----------
+
+function arcCraftAnim(p: player, id: text):
+	set {_c} to location of {_p}
+	play sound "block.beacon.activate" with volume 1 and pitch 1.4 at {_c}
+	loop 30 times:
+		set {_h} to loop-number / 12
+		arcRing({_c}.clone().add(0, {_h}, 0), 1.4, "ENCHANT", 12, loop-number * 24)
+		arcRing({_c}.clone().add(0, {_h}, 0), 1.6, "END_ROD", 3, loop-number * 24)
+		wait 2 ticks
+	arcFx({_c}.clone().add(0, 1.2, 0), "TOTEM_OF_UNDYING", 60, 0.6)
+	play sound "ui.toast.challenge_complete" with volume 1 at {_c}
+	send title "&d✦ %arcName({_id})% ✦" with subtitle "&7Монолит признал вас" to {_p} for 3 seconds
+
+command /arcana [<text>] [<text>] [<text>] [<text>]:
+	aliases: /арканум
+	trigger:
+		if arg-1 is not set:
+			send "&d&l✦ Арканум — оружие Монолита ✦"
+			send "&7Крафт у Звёздного алтаря (магнетит в радиусе {@altar_radius} блоков): &f/arcana craft <id>"
+			loop arcIds():
+				set {_r::*} to arcRecipe(loop-value)
+				if {_r::1} is "":
+					send "&f%loop-value% &e%arcName(loop-value)% &7— только за серию из {@streak_strike} убийств"
+				else:
+					set {_line} to ""
+					loop {_r::*}:
+						set {_part::*} to loop-value-2 split at "|"
+						set {_have} to arcCount(player, {_part::1})
+						set {_col} to "&c"
+						if {_have} >= ({_part::2} parsed as number):
+							set {_col} to "&a"
+						set {_seg} to arcIngName({_part::1})
+						set {_line} to "%{_line}% %{_col}%• %{_seg}% %{_have}%/%{_part::2}%"
+					send "&f%loop-value% &e%arcName(loop-value)%&7:%{_line}%"
+				delete {_r::*}
+			send "&7Подробно: &f/arcana info <id>"
+			stop
+		if arg-1 is "info":
+			if arcName(arg-2 ? "") is "":
+				send "&cНет такого оружия. Список: /arcana"
+				stop
+			send "&e%arcName(arg-2)%&7: %arcDesc(arg-2)%"
+			stop
+		if arg-1 is "craft":
+			set {_id} to arg-2 ? ""
+			set {_r::*} to arcRecipe({_id})
+			if arcName({_id}) is "":
+				send "&cНет такого оружия. Список: /arcana"
+				stop
+			if {_r::1} is "":
+				send "&cЭто не крафтится: только награда за серию убийств."
+				stop
+			if arcNearAltar(player) is false:
+				send "&cНужен Звёздный алтарь: магнетит (lodestone) в радиусе {@altar_radius} блоков."
+				stop
+			if player can't hold 1 structure void:
+				send "&cОсвободите слот в инвентаре."
+				stop
+			loop {_r::*}:
+				set {_part::*} to loop-value split at "|"
+				if arcCount(player, {_part::1}) < ({_part::2} parsed as number):
+					send "&cНе хватает: %arcIngName({_part::1})% (%arcCount(player, {_part::1})%/%{_part::2}%)."
+					stop
+			loop {_r::*}:
+				set {_part::*} to loop-value split at "|"
+				arcTake(player, {_part::1}, {_part::2} parsed as number)
+			arcCraftAnim(player, {_id})
+			give player arcItem({_id})
+			broadcast "&d✦ %name of player% создаёт «%arcName({_id})%»."
+			stop
+		if arg-1 is "admin":
+			if player doesn't have permission "paxarcana.admin":
+				send "&cНет прав."
+				stop
+			if arg-2 is "give":
+				if arcName(arg-3 ? "") is "":
+					send "&7/arcana admin give <staff|blade|orb|drone|strike> [игрок]"
+					stop
+				set {_t} to player
+				if arg-4 is set:
+					set {_t} to arg-4 parsed as player
+				if {_t} is not set:
+					send "&cИгрок не найден."
+					stop
+				give {_t} arcItem(arg-3)
+				send "&aВыдано: %arcName(arg-3)% → %name of {_t}%"
+				stop
+		send "&7/arcana | /arcana craft <id> | /arcana info <id>"

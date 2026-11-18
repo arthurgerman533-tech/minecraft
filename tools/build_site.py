@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 build_site.py — собирает сайт PaxVanila (docs/, для GitHub Pages) и ассеты приложения (app/assets/)
-из одного источника: content/paxvanila.json + лор/*.md + обложки/*.png.
+из одного источника: content/paxvanila.json (+ paxvanila.en.json) + лор/*.md (+ лор/en/) + гайды/ + обложки/*.png.
 
     pip install markdown pillow
     python tools/build_site.py
@@ -98,110 +98,179 @@ PAGE = """<!doctype html>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css"></head><body>
 <header class="top"><div class="wrap"><a class="brand" href="../"><img src="../icons/icon-192.png" alt="">PaxVanila</a>
-<nav class="main">{nav}</nav><button class="iconbtn" id="theme" aria-label="Сменить тему">☾</button></div></header>
+<nav class="main">{nav}</nav><a class="iconbtn" id="lang" href="__LANGURL__" hreflang="__LANGCODE__" title="__LANGTITLE__">__LANGLABEL__</a><button class="iconbtn" id="theme" aria-label="Сменить тему">☾</button></div></header>
 <div class="wrap doc"><aside><details open><summary>Оглавление</summary>{toc}</details></aside><article>{body}</article></div>
 <footer><div class="wrap"><a href="../">← На главную</a> · <a href="../lore.html">Весь лор</a></div></footer>
 <script src="../app.js"></script></body></html>"""
 
+LANGS = ("ru", "en")
 
-def main():
+
+def load_content(lang):
     with open(os.path.join(ROOT, "content", "paxvanila.json"), encoding="utf-8") as f:
         C = json.load(f)
+    if lang == "ru":
+        return C
+    with open(os.path.join(ROOT, "content", f"paxvanila.{lang}.json"), encoding="utf-8") as f:
+        T = json.load(f)
+    T.pop("_comment", None)
+    T["config"] = C["config"]  # адрес, даты, граница — общие
+    return T
 
-    if os.path.isdir(DOCS):
-        shutil.rmtree(DOCS)
+
+def src_file(base, lang, fname):
+    """Перевод лежит в <папка>/<lang>/<тот же файл>; если его нет — русский оригинал."""
+    if lang != "ru":
+        p = os.path.join(base, lang, fname)
+        if os.path.exists(p):
+            return p
+    return os.path.join(base, fname)
+
+
+def translator(lang):
+    if lang == "ru":
+        return lambda s: s
+    with open(os.path.join(SRC, f"i18n_{lang}.json"), encoding="utf-8") as f:
+        pairs = json.load(f)
+
+    def tr(s):
+        for a, b in pairs:
+            s = s.replace(a, b)
+        return s
+    return tr
+
+
+def lang_switch(html_text, lang, depth, page):
+    """Кнопка RU/EN ведёт на ту же страницу на другом языке. depth — глубина страницы внутри языка."""
+    if lang == "ru":
+        url, code, label, title = "../" * depth + "en/" + page, "en", "EN", "English"
+    else:
+        url, code, label, title = "../" * (depth + 1) + page, "ru", "RU", "Русский"
+    return (html_text.replace("__LANGURL__", url or "./").replace("__LANGCODE__", code)
+            .replace("__LANGLABEL__", label).replace("__LANGTITLE__", title))
+
+
+def build(lang, out):
+    C = load_content(lang)
+    tr = translator(lang)
     for d in ("", "img", "icons", "lore", "guides", "files"):
-        os.makedirs(os.path.join(DOCS, d), exist_ok=True)
+        os.makedirs(os.path.join(out, d), exist_ok=True)
+
+    def write(rel, text, depth=0):
+        with open(os.path.join(out, rel), "w", encoding="utf-8") as f:
+            f.write(lang_switch(tr(text), lang, depth, rel.replace(os.sep, "/").replace("index.html", "")))
 
     # статика
-    for fn in ("index.html", "style.css", "app.js"):
-        shutil.copy(os.path.join(SRC, fn), os.path.join(DOCS, fn))
-    with open(os.path.join(DOCS, "content.json"), "w", encoding="utf-8") as f:
+    idx = open(os.path.join(SRC, "index.html"), encoding="utf-8").read()
+    write("index.html", idx)
+    for fn in ("style.css", "app.js"):
+        shutil.copy(os.path.join(SRC, fn), os.path.join(out, fn))
+    with open(os.path.join(out, "content.json"), "w", encoding="utf-8") as f:
         json.dump(C, f, ensure_ascii=False)
-    open(os.path.join(DOCS, ".nojekyll"), "w").close()
 
-    # картинки: обложки 1920 → 1280 jpg
-    for fn in sorted(os.listdir(COVERS)):
-        if fn.endswith(".png"):
-            im = Image.open(os.path.join(COVERS, fn)).convert("RGB")
-            im.thumbnail((1280, 720))
-            im.save(os.path.join(DOCS, "img", fn.replace(".png", ".jpg")), quality=82, optimize=True)
-
-    # иконки
-    for s in (192, 512):
-        make_icon(s).save(os.path.join(DOCS, "icons", f"icon-{s}.png"))
-        make_icon(s, maskable=True).save(os.path.join(DOCS, "icons", f"maskable-{s}.png"))
+    # картинки: обложки 1920 → 1280 jpg (для en — копия)
+    if lang == "ru":
+        for fn in sorted(os.listdir(COVERS)):
+            if fn.endswith(".png"):
+                im = Image.open(os.path.join(COVERS, fn)).convert("RGB")
+                im.thumbnail((1280, 720))
+                im.save(os.path.join(out, "img", fn.replace(".png", ".jpg")), quality=82, optimize=True)
+        for s in (192, 512):
+            make_icon(s).save(os.path.join(out, "icons", f"icon-{s}.png"))
+            make_icon(s, maskable=True).save(os.path.join(out, "icons", f"maskable-{s}.png"))
+    else:
+        for d in ("img", "icons"):
+            for fn in os.listdir(os.path.join(DOCS, d)):
+                shutil.copy(os.path.join(DOCS, d, fn), os.path.join(out, d, fn))
 
     # клиентская сборка
     mr = os.path.join(ROOT, "PaxVanila_Client_26.2", "PaxVanila_Client_26.2.mrpack")
     if os.path.exists(mr):
-        shutil.copy(mr, os.path.join(DOCS, "files"))
+        shutil.copy(mr, os.path.join(out, "files"))
+    elif os.path.exists(os.path.join(DOCS, "files", "PaxVanila_Client_26.2.mrpack")) and lang != "ru":
+        shutil.copy(os.path.join(DOCS, "files", "PaxVanila_Client_26.2.mrpack"), os.path.join(out, "files"))
 
     # лор
     links = {l["file"]: f"{l['id']}.html" for l in C["lore"]}
     nav = "".join(f'<a href="{l["id"]}.html">{html.escape(l["title"])}</a>' for l in C["lore"])
     cards = []
     for l in C["lore"]:
-        with open(os.path.join(LORE, l["file"]), encoding="utf-8") as f:
+        with open(src_file(LORE, lang, l["file"]), encoding="utf-8") as f:
             body, toc = render_lore(f.read(), links)
         toc_html = "".join(f'<a class="h{lv}" href="#{i}">{t}</a>' for lv, t, i in toc if lv <= 2 or len(toc) < 40)
-        with open(os.path.join(DOCS, "lore", f"{l['id']}.html"), "w", encoding="utf-8") as f:
-            f.write(PAGE.format(title=f"{l['title']} — PaxVanila", desc=html.escape(l["subtitle"]), nav=nav, toc=toc_html, body=body))
+        write(os.path.join("lore", f"{l['id']}.html"),
+              PAGE.format(title=f"{l['title']} — PaxVanila", desc=html.escape(l["subtitle"]), nav=nav, toc=toc_html, body=body), 1)
         cards.append(f'<a href="lore/{l["id"]}.html"><div class="card"><h3>📜 {html.escape(l["title"])}</h3><p>{html.escape(l["subtitle"])}</p></div></a>')
-    # гайды (та же вёрстка, папка docs/guides/)
+    # гайды (та же вёрстка, папка guides/)
     for g in C.get("guides", []):
-        with open(os.path.join(GUIDES, g["file"]), encoding="utf-8") as f:
+        with open(src_file(GUIDES, lang, g["file"]), encoding="utf-8") as f:
             body, toc = render_lore(f.read(), links)
         toc_html = "".join(f'<a class="h{lv}" href="#{i}">{t}</a>' for lv, t, i in toc if lv <= 2)
-        with open(os.path.join(DOCS, "guides", f"{g['id']}.html"), "w", encoding="utf-8") as f:
-            f.write(PAGE.format(title=f"{g['title']} — PaxVanila", desc=html.escape(g["subtitle"]), nav=nav.replace('href="', 'href="../lore/'), toc=toc_html, body=body))
+        write(os.path.join("guides", f"{g['id']}.html"),
+              PAGE.format(title=f"{g['title']} — PaxVanila", desc=html.escape(g["subtitle"]), nav=nav.replace('href="', 'href="../lore/'), toc=toc_html, body=body), 1)
         cards.append(f'<a href="guides/{g["id"]}.html"><div class="card"><h3>🧭 {html.escape(g["title"])}</h3><p>{html.escape(g["subtitle"])}</p></div></a>')
     # политика конфиденциальности (нужна по URL для Google Play и App Store)
-    with open(os.path.join(SRC, "privacy.md"), encoding="utf-8") as f:
+    pv = "privacy.md" if lang == "ru" else f"privacy.{lang}.md"
+    with open(os.path.join(SRC, pv), encoding="utf-8") as f:
         body, _ = render_lore(f.read(), {})
-    with open(os.path.join(DOCS, "privacy.html"), "w", encoding="utf-8") as f:
-        f.write(PAGE.replace("../", "").replace('href="lore.html">Весь лор', 'href="lore.html">Лор')
-                .format(title="Конфиденциальность — PaxVanila", desc="Политика конфиденциальности сайта и приложения PaxVanila", nav=nav.replace('href="', 'href="lore/'), toc="", body=body))
-    idx = open(os.path.join(SRC, "index.html"), encoding="utf-8").read()
+    privacy_title = "Конфиденциальность — PaxVanila" if lang == "ru" else "Privacy — PaxVanila"
+    write("privacy.html", PAGE.replace("../", "").replace('href="lore.html">Весь лор', 'href="lore.html">Лор')
+          .format(title=privacy_title, desc="PaxVanila privacy policy", nav=nav.replace('href="', 'href="lore/'), toc="", body=body))
     lore_index = re.sub(r"<div class=\"hero\">.*?</footer>",
                         '<section><div class="wrap"><div class="kicker">История мира</div><h1>Лор PaxVanila</h1>'
                         '<p class="sub">Читать по порядку: Предтечи → Средние эпохи → Поздние эпохи (будущее мира: от роботов 1962 года до Луны, Марса и звёзд). Катаклизмы — отдельная летопись.</p>'
                         f'<div class="lorelist">{"".join(cards)}</div></div></section><footer><div class="wrap"><a href="./">← На главную</a></div></footer>',
                         idx, flags=re.S)
-    with open(os.path.join(DOCS, "lore.html"), "w", encoding="utf-8") as f:
-        f.write(lore_index.replace("<title>PaxVanila</title>", "<title>Лор — PaxVanila</title>"))
+    write("lore.html", lore_index.replace("<title>PaxVanila</title>", "<title>Лор — PaxVanila</title>"))
 
     # PWA
     manifest = {
-        "name": "PaxVanila", "short_name": "PaxVanila", "lang": "ru", "start_url": "./", "scope": "./",
+        "name": "PaxVanila", "short_name": "PaxVanila", "lang": lang, "start_url": "./", "scope": "./",
         "display": "standalone", "background_color": "#14110d", "theme_color": "#14110d",
-        "description": "Геополитический Minecraft-сервер: статус, календарь недель, механики, правила и лор.",
+        "description": "Геополитический Minecraft-сервер: статус, календарь недель, механики, правила и лор." if lang == "ru"
+        else "Geopolitical Minecraft server: status, weekly calendar, mechanics, rules and lore.",
         "icons": [{"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png"},
                   {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png"},
                   {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}]}
-    with open(os.path.join(DOCS, "manifest.webmanifest"), "w", encoding="utf-8") as f:
+    with open(os.path.join(out, "manifest.webmanifest"), "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=1)
     core = ["./", "index.html", "lore.html", "style.css", "app.js", "content.json", "icons/icon-192.png"] + \
-           [f"lore/{l['id']}.html" for l in C["lore"]] + [f"guides/{g['id']}.html" for g in C.get("guides", [])] + ["privacy.html"] + [f"img/{w['image'].replace('.png', '.jpg')}" for w in C["weeks"]] + ["img/about.jpg"]
+           [f"lore/{l['id']}.html" for l in C["lore"]] + [f"guides/{g['id']}.html" for g in C.get("guides", [])] + ["privacy.html"] + \
+           [f"img/{w['image'].replace('.png', '.jpg')}" for w in C["weeks"]] + ["img/about.jpg"]
     sw = open(os.path.join(SRC, "sw.js"), encoding="utf-8").read()
-    sw = sw.replace("__VERSION__", time.strftime("%Y%m%d%H%M")).replace("__CORE__", json.dumps(core, ensure_ascii=False))
-    with open(os.path.join(DOCS, "sw.js"), "w", encoding="utf-8") as f:
+    sw = sw.replace("__VERSION__", lang + time.strftime("%Y%m%d%H%M")).replace("__CORE__", json.dumps(core, ensure_ascii=False))
+    with open(os.path.join(out, "sw.js"), "w", encoding="utf-8") as f:
         f.write(sw)
+    return C
 
-    # ассеты приложения
+
+def main():
+    if os.path.isdir(DOCS):
+        shutil.rmtree(DOCS)
+    os.makedirs(DOCS)
+    open(os.path.join(DOCS, ".nojekyll"), "w").close()
+    built = {}
+    for lang in LANGS:
+        built[lang] = build(lang, DOCS if lang == "ru" else os.path.join(DOCS, lang))
+
+    # ассеты приложения: content.json + lore/ + guides/ (ru), content.<lang>.json + lore_<lang>/ + guides_<lang>/
     if os.path.isdir(os.path.join(ROOT, "app")):
-        for d in ("", "lore", "guides", "img"):
-            os.makedirs(os.path.join(APP_ASSETS, d), exist_ok=True)
-        shutil.copy(os.path.join(DOCS, "content.json"), os.path.join(APP_ASSETS, "content.json"))
-        for l in C["lore"]:
-            shutil.copy(os.path.join(LORE, l["file"]), os.path.join(APP_ASSETS, "lore", f"{l['id']}.md"))
-        for g in C.get("guides", []):
-            shutil.copy(os.path.join(GUIDES, g["file"]), os.path.join(APP_ASSETS, "guides", f"{g['id']}.md"))
+        for lang, C in built.items():
+            sfx = "" if lang == "ru" else f"_{lang}"
+            for d in ("", "lore" + sfx, "guides" + sfx, "img"):
+                os.makedirs(os.path.join(APP_ASSETS, d), exist_ok=True)
+            name = "content.json" if lang == "ru" else f"content.{lang}.json"
+            with open(os.path.join(APP_ASSETS, name), "w", encoding="utf-8") as f:
+                json.dump(C, f, ensure_ascii=False)
+            for l in C["lore"]:
+                shutil.copy(src_file(LORE, lang, l["file"]), os.path.join(APP_ASSETS, "lore" + sfx, f"{l['id']}.md"))
+            for g in C.get("guides", []):
+                shutil.copy(src_file(GUIDES, lang, g["file"]), os.path.join(APP_ASSETS, "guides" + sfx, f"{g['id']}.md"))
         for fn in os.listdir(os.path.join(DOCS, "img")):
             shutil.copy(os.path.join(DOCS, "img", fn), os.path.join(APP_ASSETS, "img", fn))
         make_icon(1024).convert("RGB").save(os.path.join(APP_ASSETS, "icon.png"))
         make_icon(1024, maskable=True, bg=False).save(os.path.join(APP_ASSETS, "icon_fg.png"))
-    print("Готово: docs/ (сайт) и app/assets/ (приложение).")
+    print("Готово: docs/ (сайт, русский), docs/en/ (английский) и app/assets/ (приложение).")
 
 
 if __name__ == "__main__":

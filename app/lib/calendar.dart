@@ -1,4 +1,5 @@
 import 'content.dart';
+import 'i18n.dart';
 
 /// Та же логика, что в paxborder.sk / paxwar.sk / paxseasons.sk и на сайте (app.js).
 int radiusForDay(BorderCfg b, int d) {
@@ -13,10 +14,10 @@ int radiusForDay(BorderCfg b, int d) {
 }
 
 const seasons = [
-  'Весна «Посевная»',
-  'Лето «Экспедиции»',
-  'Осень «Сбор урожая»',
-  'Зима «Зимняя кампания»',
+  ('Весна «Посевная»', 'Spring «Sowing»'),
+  ('Лето «Экспедиции»', 'Summer «Expeditions»'),
+  ('Осень «Сбор урожая»', 'Autumn «Harvest»'),
+  ('Зима «Зимняя кампания»', 'Winter «Winter Campaign»'),
 ];
 
 class ServerState {
@@ -49,20 +50,20 @@ ServerState serverState(Config cfg, [DateTime? now]) {
   st.week = day >= 35 ? 6 : day >= 28 ? 5 : day >= 21 ? 4 : day >= 14 ? 3 : day >= 7 ? 2 : 1;
   st.radius = radiusForDay(cfg.border, day);
   st.tomorrow = radiusForDay(cfg.border, day + 1);
-  st.season = day >= 28 ? seasons[((day - 28) ~/ 7) % 4] : null;
+  st.season = day >= 28 ? (() { final s = seasons[((day - 28) ~/ 7) % 4]; return t(s.$1, s.$2); })() : null;
   st.warPhase = day >= 28
-      ? 'Мир, итоги войны'
+      ? t('Мир, итоги войны', 'Peace, war results')
       : day >= 24
-          ? 'Великая война'
+          ? t('Великая война', 'The Great War')
           : day >= 23
-              ? 'Мобилизация'
+              ? t('Мобилизация', 'Mobilisation')
               : day >= 21
-                  ? 'Формирование наций'
+                  ? t('Формирование наций', 'Nations forming')
                   : null;
   return st;
 }
 
 String fmtMinutes(int n) {
   final h = n ~/ 60, m = n % 60;
-  return h > 0 ? '$h ч $m мин' : '$m мин';
+  return h > 0 ? t('$h ч $m мин', '$h h $m min') : t('$m мин', '$m min');
 }

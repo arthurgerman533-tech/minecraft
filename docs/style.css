@@ -107,3 +107,4 @@ table.cmd code{white-space:normal;word-break:break-word}
 .iconbtn{font-size:1.1rem;line-height:1}
 [hidden]{display:none!important}
 .doc article{min-width:0}.doc article table code{white-space:normal;word-break:normal}@media(max-width:600px){.doc article table{font-size:.85rem}.doc article td,.doc article th{padding:6px 8px}}
+a.iconbtn{display:inline-grid;place-items:center;text-decoration:none;font:700 .8rem/1 Inter,system-ui,sans-serif;letter-spacing:.04em;padding:0 8px}header.top .iconbtn+.iconbtn{margin-left:0}

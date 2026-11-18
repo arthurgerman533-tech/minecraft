@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Focus guide — PaxVanila</title><meta name="description" content="Every focus and heritage, what to take before the war, ready-made builds"><meta name="theme-color" content="#14110d">
+<link rel="manifest" href="../manifest.webmanifest"><link rel="icon" href="../icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css"></head><body>
+<header class="top"><div class="wrap"><a class="brand" href="../"><img src="../icons/icon-192.png" alt="">PaxVanila</a>
+<nav class="main"><a href="../lore/predtechi.html">Age of the Forerunners</a><a href="../lore/srednie.html">Middle Ages</a><a href="../lore/pozdnie.html">Late Ages: the future</a><a href="../lore/cataclysms.html">Cataclysms</a></nav><a class="iconbtn" id="lang" href="../../guides/fokusy.html" hreflang="ru" title="Русский">RU</a><button class="iconbtn" id="theme" aria-label="Switch theme">☾</button></div></header>
+<div class="wrap doc"><aside><details open><summary>Contents</summary><a class="h1" href="#national-focus-guide">National focus guide</a><a class="h2" href="#how-it-works">How it works</a><a class="h2" href="#three-branches">Three branches</a><a class="h2" href="#heritage-the-tenth-focus">Heritage: the tenth focus</a><a class="h2" href="#what-to-take-and-when">What to take and when</a><a class="h2" href="#ready-made-builds">Ready-made builds</a><a class="h2" href="#faq">FAQ</a></details></aside><article><h1 id="national-focus-guide">National focus guide</h1>
+<p>Focuses are a nation's long-term decisions, as in Hearts of Iron. The nation leader picks a focus, pays from the nation's treasury and waits. When the timer runs out, the whole nation gets the bonus for good. Only one focus runs at a time.</p>
+<h2 id="how-it-works">How it works</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Who</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/focus</code></td>
+<td>any resident</td>
+<td>the focus tree and your nation's progress</td>
+</tr>
+<tr>
+<td><code>/focus start &lt;id&gt;</code></td>
+<td>nation leader</td>
+<td>start a focus</td>
+</tr>
+<tr>
+<td><code>/focus heritage</code></td>
+<td>anyone</td>
+<td>list of heritages and who took them</td>
+</tr>
+<tr>
+<td><code>/focus heritage &lt;id&gt;</code></td>
+<td>nation leader</td>
+<td>pick a heritage (once)</td>
+</tr>
+<tr>
+<td><code>/focus kit</code></td>
+<td>every resident</td>
+<td>collect the «Mobilisation» gear (once)</td>
+</tr>
+</tbody>
+</table>
+<p>Cost and time depend on the tier:</p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Cost</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>500$</td>
+<td>12 h</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1500$</td>
+<td>24 h</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3000$</td>
+<td>36 h</td>
+</tr>
+</tbody>
+</table>
+<p>Each focus in a branch needs the one before it. The timer keeps running when nobody is online, so start a focus before you go to sleep.</p>
+<h2 id="three-branches">Three branches</h2>
+<h3 id="industry-for-builders">Industry, for builders</h3>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>Focus</th>
+<th>Bonus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ind1</code></td>
+<td>Industrialisation</td>
+<td>+16 chunks for every town in the nation, including towns that join later</td>
+</tr>
+<tr>
+<td><code>ind2</code></td>
+<td>Miners' Guilds</td>
+<td>Haste I on your territory</td>
+</tr>
+<tr>
+<td><code>ind3</code></td>
+<td>War Economy</td>
+<td>+150$ into the nation treasury every day</td>
+</tr>
+</tbody>
+</table>
+<h3 id="army-for-fighters">Army, for fighters</h3>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>Focus</th>
+<th>Bonus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mil1</code></td>
+<td>Mobilisation</td>
+<td>iron armour, a sword and food for every resident (<code>/focus kit</code>)</td>
+</tr>
+<tr>
+<td><code>mil2</code></td>
+<td>Fortifications</td>
+<td>Resistance I on your territory while the nation is in battle</td>
+</tr>
+<tr>
+<td><code>mil3</code></td>
+<td>Total War</td>
+<td>Speed I and Strength I everywhere while the nation is in battle</td>
+</tr>
+</tbody>
+</table>
+<h3 id="economy-for-negotiators">Economy, for negotiators</h3>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>Focus</th>
+<th>Bonus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>eco1</code></td>
+<td>Trade Routes</td>
+<td>+100$ into the nation treasury every day</td>
+</tr>
+<tr>
+<td><code>eco2</code></td>
+<td>Diplomatic Corps</td>
+<td>non-aggression pacts (<code>/dip pact</code>) are free for the nation</td>
+</tr>
+<tr>
+<td><code>eco3</code></td>
+<td>Hegemony</td>
+<td>double tribute from vassals: 20% of their treasury, up to 1000$ a day</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total War and Hegemony exclude each other.</strong> The nation chooses: win with the sword, or keep its neighbours as vassals.</p>
+<p>«In battle» means the nation is currently «hot» in <code>/paxwar</code>: a war is declared, it is prime time (17:00–22:00 Moscow time), and defenders are online.</p>
+<h2 id="heritage-the-tenth-focus">Heritage: the tenth focus</h2>
+<p>The nation leader picks one of the ten powers from the lore. The heritage gives a permanent bonus straight away and unlocks the unique focus <code>her</code> (tier 2: 1500$ and 24 hours, needs any tier 1 focus).</p>
+<p>A nation can take one heritage, and each heritage goes to one nation only. First come, first served. You cannot change your choice yourself, only the admins can reset it.</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>Power</th>
+<th>Bonus straight away</th>
+<th>Heritage focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rome</code></td>
+<td>Romea</td>
+<td>a pact costs 50$ instead of 100$</td>
+<td><strong>SPQR</strong>: +1 war point for each enemy killed on your land</td>
+</tr>
+<tr>
+<td><code>carthage</code></td>
+<td>Carthage</td>
+<td>+25$ into the treasury a day</td>
+<td><strong>Guns of Gaius</strong>: siege weapons (<code>/siege</code>) 25% cheaper</td>
+</tr>
+<tr>
+<td><code>hellas</code></td>
+<td>Hellas</td>
+<td>Water Breathing in water</td>
+<td><strong>Sea League</strong>: Dolphin's Grace as well</td>
+</tr>
+<tr>
+<td><code>dacia</code></td>
+<td>Dacia</td>
+<td>Haste I below Y=40</td>
+<td><strong>Copper of Caer-Tal</strong>: Haste II on your territory</td>
+</tr>
+<tr>
+<td><code>germania</code></td>
+<td>Germania</td>
+<td>Speed I on your territory</td>
+<td><strong>Iron and Coal</strong>: +100$ into the treasury a day</td>
+</tr>
+<tr>
+<td><code>gallia</code></td>
+<td>Gallia</td>
+<td>autumn harvest pays 60$ instead of 40$</td>
+<td><strong>Sacred Groves</strong>: Regeneration I at home during battle</td>
+</tr>
+<tr>
+<td><code>horde</code></td>
+<td>Horde</td>
+<td>Speed I in the wilderness</td>
+<td><strong>Out of the Sandstorm</strong>: Strength I on foreign land during battle</td>
+</tr>
+<tr>
+<td><code>scythia</code></td>
+<td>Scythia</td>
+<td>+20$ a day per town (up to 100$)</td>
+<td><strong>Royal Kurgans</strong>: vassal tribute 15% instead of 10%</td>
+</tr>
+<tr>
+<td><code>north</code></td>
+<td>Northern Kingdom</td>
+<td>winter cold on foreign land does not affect you</td>
+<td><strong>Blizzard of 1942</strong>: in winter, enemies on your land get Slowness II</td>
+</tr>
+<tr>
+<td><code>isles</code></td>
+<td>Island Union</td>
+<td>if you become a vassal, you pay half the tribute</td>
+<td><strong>Republic of Seafarers</strong>: Dolphin's Grace and Water Breathing</td>
+</tr>
+</tbody>
+</table>
+<p>The lore explains why: Romulus and the Treaty at the Monolith, the Golden Caravan of Carthage, the copper of Dacia, the Horde out of the sandstorm, the blizzards of 1241 and 1942. Read «Middle Ages».</p>
+<h2 id="what-to-take-and-when">What to take and when</h2>
+<p>The server runs in weeks. The border grows, and in week 4 (day 21) the Great War begins: day 21 is Formation, day 23 Mobilisation, day 24 the war itself, day 28 peace. You will not get everything: a full branch takes 3 days, and all the focuses you can take (nine of them, because Total War and Hegemony exclude each other) take about 9 days and 13,500$.</p>
+<p><strong>Week 1.</strong> The treasury is empty. Take your heritage right away, it is free. The first focus is usually <code>eco1</code> (Trade Routes): it pays for itself in five days and funds everything else. If your nation has many builders, start with <code>ind1</code>.</p>
+<p><strong>Weeks 2–3.</strong> Decide who you are. If you are preparing for war, <code>mil1</code> and <code>mil2</code> should be done by day 23. If you want vassals, take the economy branch towards <code>eco3</code>. This is a good time for the heritage focus, once the treasury has its first 1500$.</p>
+<p><strong>Week 4, the war.</strong> Total War on day 24 is the strongest, but it costs 3000$ and 36 hours. Start it no later than day 22.</p>
+<p><strong>After the war.</strong> Seasons change every week. Gallia earns in autumn, the North is strongest in winter.</p>
+<h2 id="ready-made-builds">Ready-made builds</h2>
+<p><strong>Empire.</strong> Romea or Germania. Order: <code>eco1</code> → <code>mil1</code> → <code>her</code> → <code>mil2</code> → <code>mil3</code>. Sign cheap pacts with those you leave alone, and hit one neighbour in prime time.</p>
+<p><strong>Merchant republic.</strong> Carthage or Scythia. Order: <code>eco1</code> → <code>ind1</code> → <code>eco2</code> → <code>her</code> → <code>eco3</code>. Scythia with Hegemony and the Kurgans takes 30% of a vassal's treasury a day (up to 1000$).</p>
+<p><strong>Fortress.</strong> Dacia or Gallia. Order: <code>ind1</code> → <code>ind2</code> → <code>mil1</code> → <code>mil2</code> → <code>her</code>. You are expensive to storm: Resistance, Regeneration, and Haste to repair the walls.</p>
+<p><strong>Nomads.</strong> The Horde. Order: <code>mil1</code> → <code>her</code> → <code>mil2</code> → <code>mil3</code>. Fast raids through the wilderness, Strength on foreign land.</p>
+<p><strong>The sea.</strong> Hellas or the Isles. Order: <code>eco1</code> → <code>her</code> → <code>ind1</code>. Underwater temples, ports and the Caravan. The Isles are not afraid of becoming a vassal: the tribute is halved.</p>
+<p><strong>The North.</strong> Order: <code>ind1</code> → <code>mil1</code> → <code>her</code> → <code>mil2</code>. Hold on in summer, attack in winter: you do not feel the cold, and an enemy on your land has it twice as bad.</p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Can I cancel a focus?</strong> No. Choose when the treasury has enough for the next one.</p>
+<p><strong>What happens if the nation is disbanded?</strong> Its focuses go with it, and its heritage is freed within 30 minutes.</p>
+<p><strong>I joined the nation later. Do I get the bonuses?</strong> Yes. Effects and income are shared by the whole nation, and <code>ind1</code> gives chunks to new towns too. The <code>/focus kit</code> gear is given once per player, for good, even if you change nations.</p>
+<p><strong>Do bonuses stack?</strong> Money stacks: Germania with <code>eco1</code>, <code>ind3</code> and its own focus gets 350$ a day. Effects of the same kind do not stack, the strongest applies: Dacia with its heritage focus has Haste II at home even if it took <code>ind2</code>.</p></article></div>
+<footer><div class="wrap"><a href="../">← Home</a> · <a href="../lore.html">All lore</a></div></footer>
+<script src="../app.js"></script></body></html>

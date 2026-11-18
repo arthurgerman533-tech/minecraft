@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../content.dart';
+import '../i18n.dart';
 import 'lore.dart';
 import 'widgets.dart';
 
 class MoreScreen extends StatelessWidget {
   final Content content;
-  const MoreScreen({super.key, required this.content});
+  final VoidCallback onLang;
+  const MoreScreen({super.key, required this.content, required this.onLang});
 
   void push(BuildContext ctx, String title, Widget body) =>
       Navigator.of(ctx).push(MaterialPageRoute(builder: (_) => Scaffold(appBar: AppBar(title: Text(title)), body: body)));
@@ -14,9 +16,9 @@ class MoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cfg = content.config;
-    Widget tile(IconData i, String t, String s, VoidCallback onTap) => Padding(
+    Widget tile(IconData i, String title, String s, VoidCallback onTap) => Padding(
           padding: const EdgeInsets.only(bottom: 10),
-          child: Card(child: ListTile(leading: Icon(i), title: Text(t, style: const TextStyle(fontWeight: FontWeight.w600)), subtitle: Text(s), trailing: const Icon(Icons.chevron_right), onTap: onTap)),
+          child: Card(child: ListTile(leading: Icon(i), title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600)), subtitle: Text(s), trailing: const Icon(Icons.chevron_right), onTap: onTap)),
         );
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 32),
@@ -24,16 +26,17 @@ class MoreScreen extends StatelessWidget {
         for (final g in content.guides)
           tile(Icons.menu_book_outlined, g.title, g.subtitle,
               () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => LoreReader(doc: g)))),
-        tile(Icons.gavel_outlined, 'Правила', 'Честная игра, войны, ивенты', () => push(context, 'Правила', RulesView(content: content))),
-        tile(Icons.terminal, 'Команды', 'Поиск по всем командам сервера', () => push(context, 'Команды', CommandsView(content: content))),
-        tile(Icons.forum_outlined, 'Discord', 'Новости, объявления войн, катаклизмы', () => openUrl(context, cfg.discordUrl)),
-        if (cfg.mapUrl.isNotEmpty) tile(Icons.map_outlined, 'Карта мира', 'Территории наций на BlueMap', () => openUrl(context, cfg.mapUrl)),
-        tile(Icons.privacy_tip_outlined, 'Конфиденциальность', 'Приложение не собирает данные', () => push(context, 'Конфиденциальность', const PrivacyView())),
-        tile(Icons.info_outline, 'О приложении', 'PaxVanila · фанатский сервер', () => showAboutDialog(
+        tile(Icons.translate, t('Язык: русский', 'Language: English'), t('Switch to English', 'Переключить на русский'), onLang),
+        tile(Icons.gavel_outlined, t('Правила', 'Rules'), t('Честная игра, войны, ивенты', 'Fair play, wars, events'), () => push(context, t('Правила', 'Rules'), RulesView(content: content))),
+        tile(Icons.terminal, t('Команды', 'Commands'), t('Поиск по всем командам сервера', 'Search all server commands'), () => push(context, t('Команды', 'Commands'), CommandsView(content: content))),
+        tile(Icons.forum_outlined, 'Discord', t('Новости, объявления войн, катаклизмы', 'News, war declarations, cataclysms'), () => openUrl(context, cfg.discordUrl)),
+        if (cfg.mapUrl.isNotEmpty) tile(Icons.map_outlined, t('Карта мира', 'World map'), t('Территории наций на BlueMap', 'Nation territories on BlueMap'), () => openUrl(context, cfg.mapUrl)),
+        tile(Icons.privacy_tip_outlined, t('Конфиденциальность', 'Privacy'), t('Приложение не собирает данные', 'The app collects no data'), () => push(context, t('Конфиденциальность', 'Privacy'), const PrivacyView())),
+        tile(Icons.info_outline, t('О приложении', 'About'), t('PaxVanila · фанатский сервер', 'PaxVanila · fan server'), () => showAboutDialog(
               context: context,
               applicationName: 'PaxVanila',
               applicationVersion: '1.0.0',
-              children: const [Text('Неофициальное приложение Minecraft-сервера PaxVanila. Не связано с Mojang и Microsoft.')],
+              children: [Text(t('Неофициальное приложение Minecraft-сервера PaxVanila. Не связано с Mojang и Microsoft.', 'Unofficial app of the PaxVanila Minecraft server. Not affiliated with Mojang or Microsoft.'))],
             )),
       ],
     );
@@ -83,13 +86,13 @@ class _CommandsViewState extends State<CommandsView> {
       Padding(
         padding: const EdgeInsets.all(16),
         child: TextField(
-          decoration: const InputDecoration(prefixIcon: Icon(Icons.search), hintText: 'claim, война, деньги…', border: OutlineInputBorder()),
+          decoration: InputDecoration(prefixIcon: const Icon(Icons.search), hintText: t('claim, война, деньги…', 'claim, war, money…'), border: const OutlineInputBorder()),
           onChanged: (v) => setState(() => q = v),
         ),
       ),
       Expanded(
         child: list.isEmpty
-            ? const Center(child: Text('Ничего не найдено'))
+            ? Center(child: Text(t('Ничего не найдено', 'Nothing found')))
             : ListView.builder(
                 itemCount: list.length,
                 itemBuilder: (_, i) => ListTile(
@@ -105,9 +108,9 @@ class _CommandsViewState extends State<CommandsView> {
 class PrivacyView extends StatelessWidget {
   const PrivacyView({super.key});
   @override
-  Widget build(BuildContext context) => const SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: Text(privacyText),
+  Widget build(BuildContext context) => SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Text(isEn ? privacyTextEn : privacyText),
       );
 }
 
@@ -117,8 +120,21 @@ const privacyText = '''Политика конфиденциальности п�
 
 • Все тексты (лор, правила, механики) встроены в приложение.
 • Для статуса сервера приложение отправляет адрес игрового сервера в публичный сервис api.mcsrvstat.us. Данные о вас не передаются.
-• Выбор темы (светлая/тёмная) хранится только на вашем устройстве.
+• Выбор темы (светлая/тёмная) и языка хранится только на вашем устройстве.
 • Ссылки на Discord и карту открываются во внешнем браузере или приложении; их правила действуют отдельно.
 • Рекламы, аналитики и трекеров нет.
 
 Вопросы — в Discord сервера PaxVanila.''';
+
+
+const privacyTextEn = '''PaxVanila app privacy policy
+
+The app needs no account and does not collect, store or share personal data.
+
+• All texts (lore, rules, mechanics) are built into the app.
+• To show the server status, the app sends the game server address to the public service api.mcsrvstat.us. No data about you is sent.
+• Your theme (light/dark) and language choice are stored only on your device.
+• Links to Discord and the map open in an external browser or app, where their own rules apply.
+• There are no ads, analytics or trackers.
+
+Questions: ask in the PaxVanila Discord server.''';

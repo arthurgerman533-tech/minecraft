@@ -7,6 +7,7 @@ import '../calendar.dart';
 import '../content.dart';
 import '../status.dart';
 import 'widgets.dart';
+import '../i18n.dart';
 
 class NowScreen extends StatefulWidget {
   final Content content;
@@ -50,31 +51,31 @@ class _NowScreenState extends State<NowScreen> {
     final cs = Theme.of(context).colorScheme;
     final tiles = <Widget>[
       _Stat(
-        label: 'Сервер',
+        label: t('Сервер', 'Server'),
         value: cfg.serverAddress.isEmpty
-            ? 'Скоро'
+            ? t('Скоро', 'Soon')
             : loading
                 ? '…'
                 : status == null
-                    ? 'Нет данных'
+                    ? t('Нет данных', 'No data')
                     : status!.online
-                        ? '${status!.players}/${status!.max} онлайн'
-                        : 'Офлайн',
-        sub: cfg.serverAddress.isEmpty ? 'адрес появится перед открытием' : cfg.serverAddress,
+                        ? '${status!.players}/${status!.max} ${t('онлайн', 'online')}'
+                        : t('Офлайн', 'Offline'),
+        sub: cfg.serverAddress.isEmpty ? t('адрес появится перед открытием', 'the address will appear before launch') : cfg.serverAddress,
         dot: status?.online,
       ),
       _Stat(
-        label: 'Окно боёв ${cfg.primeFrom}–${cfg.primeTo} МСК',
-        value: st.prime ? '⚔️ Открыто' : '🕊️ Закрыто',
-        sub: '${st.prime ? 'закроется' : 'откроется'} через ${fmtMinutes(st.primeIn)}',
+        label: '${t('Окно боёв', 'Battle window')} ${cfg.primeFrom}–${cfg.primeTo} ${t('МСК', 'Moscow time')}',
+        value: st.prime ? t('⚔️ Открыто', '⚔️ Open') : t('🕊️ Закрыто', '🕊️ Closed'),
+        sub: '${st.prime ? t('закроется через', 'closes in') : t('откроется через', 'opens in')} ${fmtMinutes(st.primeIn)}',
       ),
       if (st.started) ...[
-        _Stat(label: 'День сезона', value: '${st.day}', sub: 'Неделя ${st.week}: ${c.weeks.firstWhere((w) => w.n == st.week).title}'),
-        _Stat(label: 'Граница мира', value: '${st.radius} блоков', sub: 'завтра ${st.tomorrow}'),
-        if (st.warPhase != null) _Stat(label: 'Эпоха государств', value: st.warPhase!),
-        if (st.season != null) _Stat(label: 'Сезон', value: st.season!),
+        _Stat(label: t('День сезона', 'Season day'), value: '${st.day}', sub: '${t('Неделя', 'Week')} ${st.week}: ${c.weeks.firstWhere((w) => w.n == st.week).title}'),
+        _Stat(label: t('Граница мира', 'World border'), value: '${st.radius} ${t('блоков', 'blocks')}', sub: '${t('завтра', 'tomorrow')} ${st.tomorrow}'),
+        if (st.warPhase != null) _Stat(label: t('Эпоха государств', 'Age of Nations'), value: st.warPhase!),
+        if (st.season != null) _Stat(label: t('Сезон', 'Season'), value: st.season!),
       ] else
-        _Stat(label: 'Открытие', value: st.untilDays != null ? 'через ${st.untilDays} дн.' : 'скоро', sub: 'следите в Discord'),
+        _Stat(label: t('Открытие', 'Launch'), value: st.untilDays != null ? t('через ${st.untilDays} дн.', 'in ${st.untilDays} days') : t('скоро', 'soon'), sub: t('следите в Discord', 'follow us on Discord')),
     ];
 
     return RefreshIndicator(
@@ -91,22 +92,22 @@ class _NowScreenState extends State<NowScreen> {
                   ? null
                   : () {
                       Clipboard.setData(ClipboardData(text: cfg.serverAddress));
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Адрес скопирован')));
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t('Адрес скопирован', 'Address copied'))));
                     },
               icon: const Icon(Icons.copy),
-              label: Text(cfg.serverAddress.isEmpty ? 'Адрес скоро' : cfg.serverAddress),
+              label: Text(cfg.serverAddress.isEmpty ? t('Адрес скоро', 'Address soon') : cfg.serverAddress),
             ),
             OutlinedButton.icon(onPressed: () => openUrl(context, cfg.discordUrl), icon: const Icon(Icons.forum_outlined), label: const Text('Discord')),
             if (cfg.mapUrl.isNotEmpty)
-              OutlinedButton.icon(onPressed: () => openUrl(context, cfg.mapUrl), icon: const Icon(Icons.map_outlined), label: const Text('Карта')),
+              OutlinedButton.icon(onPressed: () => openUrl(context, cfg.mapUrl), icon: const Icon(Icons.map_outlined), label: Text(t('Карта', 'Map'))),
           ]),
-          const Kicker('Сервер сегодня'),
+          Kicker(t('Сервер сегодня', 'The server today')),
           LayoutBuilder(builder: (ctx, box) {
             final cols = box.maxWidth > 700 ? 3 : 2;
             final w = (box.maxWidth - 10 * (cols - 1)) / cols;
             return Wrap(spacing: 10, runSpacing: 10, children: [for (final t in tiles) SizedBox(width: w, child: t)]);
           }),
-          const Kicker('Как зайти'),
+          Kicker(t('Как зайти', 'How to join')),
           Card(
             child: Padding(
               padding: const EdgeInsets.all(16),

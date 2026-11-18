@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart' show rootBundle;
+import 'i18n.dart';
 
 /// Контент берётся из assets/content.json — тот же файл, что у сайта
 /// (собирается tools/build_site.py из content/paxvanila.json).
@@ -54,7 +55,7 @@ class Rule {
 class LoreDoc {
   final String id, title, subtitle, dir;
   LoreDoc(Map<String, dynamic> j, {this.dir = 'lore'}) : id = j['id'], title = j['title'], subtitle = j['subtitle'];
-  String get asset => 'assets/$dir/$id.md';
+  String get asset => 'assets/$dir$assetSuffix/$id.md';
 }
 
 class Content {
@@ -90,5 +91,5 @@ class Content {
   }
 
   static Future<Content> load() async =>
-      Content(jsonDecode(await rootBundle.loadString('assets/content.json')));
+      Content(jsonDecode(await rootBundle.loadString(isEn ? 'assets/content.en.json' : 'assets/content.json')));
 }
