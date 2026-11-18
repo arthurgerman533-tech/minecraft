@@ -1,0 +1,185 @@
+# PaxVanila — ПаксГидромет и «Вестник Академии». Добавлено 2026-11-18.
+# Раз в минуту пишет сводку погоды в <out>/meteo.json, а при первой на сервере находке
+# (данж, крепость, Край и т.п.) добавляет заметку в <out>/news.json. Сайт и приложение
+# читают эти файлы, если в content/paxvanila.json задан config.liveUrl (адрес папки с ними).
+# Пока liveUrl пустой, сайт показывает демо-данные с пометкой «ДЕМО».
+#
+# Нужны: Skript 2.17+, skript-reflect. Берёт данные из paxweather_discord.sk (wxScore),
+# paxseasons.sk (seasonNow), paxborder.sk (paxDay). Датапак катаклизмов не меняется.
+#
+# Как выложить файлы в интернет: проще всего указать out: на папку веб-сервера BlueMap
+# (например bluemap/web/live), тогда файлы будут по адресу http://<сервер>:8100/live/meteo.json
+# и liveUrl = "http://<сервер>:8100/live/". Нужен открытый порт веб-карты.
+#
+# В файлы попадают только номера событий, время, число игроков онлайн и ник первооткрывателя.
+#
+#   /meteo                — сводка в чате
+#   /meteo write          — записать файлы сейчас (право paxmeteo.admin)
+#   /meteo admin reset    — забыть находки и журнал (право paxmeteo.admin)
+
+import:
+	java.io.File
+	java.io.FileWriter
+	java.nio.charset.StandardCharsets
+	org.bukkit.Bukkit
+	org.bukkit.event.player.PlayerAdvancementDoneEvent
+
+options:
+	out: plugins/PaxMeteo
+	world: world
+	history: 20
+
+# достижение Minecraft → ключ заметки (шаблоны в content/news.json)
+function meteoKey(a: text) :: text:
+	if {_a} is "adventure/salvage_sherd":
+		return "sherd"
+	if {_a} is "adventure/minecraft_trials_edition":
+		return "trial"
+	if {_a} is "adventure/avoid_vibration":
+		return "ancient"
+	if {_a} is "nether/find_fortress":
+		return "fortress"
+	if {_a} is "nether/find_bastion":
+		return "bastion"
+	if {_a} is "story/follow_ender_eye":
+		return "stronghold"
+	if {_a} is "story/enter_the_end":
+		return "end"
+	if {_a} is "end/kill_dragon":
+		return "dragon"
+	if {_a} is "end/find_end_city":
+		return "endcity"
+	if {_a} is "nether/summon_wither":
+		return "wither"
+	return ""
+
+function meteoTitle(k: text) :: text:
+	if {_k} is "sherd":
+		return "Первый черепок Предтеч"
+	if {_k} is "trial":
+		return "Найдены залы испытаний Каэр-Тала"
+	if {_k} is "ancient":
+		return "Экспедиция в Древний город"
+	if {_k} is "fortress":
+		return "Крепость в Незере"
+	if {_k} is "bastion":
+		return "Бастион пиглинов"
+	if {_k} is "stronghold":
+		return "Найдена подземная крепость с рамкой"
+	if {_k} is "end":
+		return "Первый человек в Краю"
+	if {_k} is "dragon":
+		return "Дракон Края повержен"
+	if {_k} is "endcity":
+		return "Корабли, которые висят в воздухе"
+	if {_k} is "wither":
+		return "Призван Иссушитель"
+	return "Открытие"
+
+function meteoNow() :: number:
+	return floor(unix timestamp of now)
+
+function meteoSave(name: text, body: text):
+	set {_dir} to new File("{@out}")
+	{_dir}.mkdirs()
+	set {_f} to new File({_dir}, {_name})
+	set {_w} to new FileWriter({_f}, StandardCharsets.UTF_8)
+	{_w}.write({_body})
+	{_w}.close()
+
+function meteoWrite():
+	set {_wd} to Bukkit.getWorld("{@world}")
+	set {_wx} to "clear"
+	set {_tm} to 0
+	if {_wd} is set:
+		set {_tm} to {_wd}.getTime()
+		if {_wd}.isThundering() is true:
+			set {_wx} to "thunder"
+		else if {_wd}.hasStorm() is true:
+			set {_wx} to "rain"
+	set {_ev} to wxScore("#event")
+	set {_left} to wxScore("#time")
+	set {_pe} to wxScore("#pending")
+	set {_warn} to wxScore("#warn")
+	set {_next} to wxScore("#next")
+	set {_auto} to wxScore("#auto")
+	if {_ev} < 0:
+		set {_ev} to 0
+	set {_season} to seasonNow()
+	set {_day} to paxDay() + 1
+	if {pax::border::launch} is not set:
+		set {_day} to 0
+	clear {_h::*}
+	loop {meteo::hist::*}:
+		set {_s::*} to split loop-value at "|"
+		add "{""n"":%{_s::1}%,""t"":%{_s::2}%}" to {_h::*}
+	set {_hist} to join {_h::*} with ","
+	set {_j} to """demo"":false,""updated"":%meteoNow()%,""day"":%{_day}%,""season"":%{_season}%,""weather"":""%{_wx}%"",""time"":%{_tm}%,""online"":%size of all players%,""auto"":%{_auto}%,"
+	set {_j} to "{%{_j}%""event"":{""n"":%{_ev}%,""left"":%{_left}%},""pending"":{""n"":%{_pe}%,""warn"":%{_warn}%},""next"":%{_next}%,""history"":[%{_hist}%]}"
+	meteoSave("meteo.json", {_j})
+
+function meteoWriteNews():
+	clear {_n::*}
+	loop {meteo::news::*}:
+		set {_s::*} to split loop-value at "|"
+		add "{""k"":""%{_s::1}%"",""p"":""%{_s::2}%"",""t"":%{_s::3}%}" to {_n::*}
+	set {_items} to join {_n::*} with ","
+	meteoSave("news.json", "{""demo"":false,""items"":[%{_items}%]}")
+
+on load:
+	set {-meteo::ev} to wxScore("#event")
+
+every 5 seconds:
+	set {_e} to wxScore("#event")
+	{_e} >= 0
+	if {_e} is not {-meteo::ev}:
+		set {-meteo::ev} to {_e}
+		if {_e} > 0:
+			add 1 to {meteo::hc}
+			set {_i} to mod({meteo::hc}, {@history})
+			set {meteo::hist::%{_i}%} to "%{_e}%|%meteoNow()%"
+			meteoWrite()
+
+every 1 minute:
+	meteoWrite()
+
+on PlayerAdvancementDoneEvent:
+	set {_a} to "%event.getAdvancement().getKey().getKey()%"
+	set {_k} to meteoKey({_a})
+	{_k} is not ""
+	{meteo::found::%{_k}%} is not set
+	set {meteo::found::%{_k}%} to true
+	set {_p} to "%event.getPlayer().getName()%"
+	add "%{_k}%|%{_p}%|%meteoNow()%" to {meteo::news::*}
+	broadcast "&b&l[Вестник Академии] &f%meteoTitle({_k})%&7: первым это сделал &e%{_p}%&7."
+	meteoWriteNews()
+
+command /meteo [<text>] [<text>]:
+	aliases: /погода, /гидромет
+	trigger:
+		if arg-1 is "write" or "admin":
+			if executor does not have permission "paxmeteo.admin":
+				send "&cНет прав."
+				stop
+			if arg-1 is "admin":
+				if arg-2 is "reset":
+					delete {meteo::found::*}
+					delete {meteo::news::*}
+					delete {meteo::hist::*}
+					delete {meteo::hc}
+					send "&eНаходки и журнал сброшены."
+			meteoWrite()
+			meteoWriteNews()
+			send "&aФайлы записаны в {@out}/."
+			stop
+		set {_ev} to wxScore("#event")
+		set {_pe} to wxScore("#pending")
+		send "&b&l— ПаксГидромет —"
+		send "&7Сезон: &f%seasonName(seasonNow())%"
+		if {_ev} > 0:
+			send "&cСейчас: %wxName({_ev})%, осталось %wxScore(""#time"")% сек."
+		else if {_pe} > 0:
+			send "&6Штормовое предупреждение: %wxName({_pe})% через %wxScore(""#warn"")% сек."
+		else:
+			send "&aКатаклизмов нет. Следующий через ~%round(wxScore(""#next"") / 60)% мин."
+		send "&7Сводка и прогноз: сайт сервера, раздел «Погода»."

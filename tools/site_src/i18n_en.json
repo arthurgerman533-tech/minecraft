@@ -120,8 +120,8 @@
   "<p class=\"sub\">From the Nameless and the Forerunners to the last sun. Everything you see on the server, the tower, the cataclysms, the shards, is part of one story.</p>"
  ],
  [
-  "PaxVanila · фанатский сервер, не связан с Mojang и Microsoft. Есть и <a href=\"#\" id=\"appLink\">приложение</a>. <a href=\"privacy.html\">Конфиденциальность</a>.",
-  "PaxVanila · a fan server, not affiliated with Mojang or Microsoft. There is also an <a href=\"#\" id=\"appLink\">app</a>. <a href=\"privacy.html\">Privacy</a>."
+  "PaxVanila · фанатский сервер, не связан с Mojang и Microsoft. Есть и <a href=\"#app\" id=\"appLink\">приложение</a>. <a href=\"privacy.html\">Конфиденциальность</a>.",
+  "PaxVanila · a fan server, not affiliated with Mojang or Microsoft. There is also an <a href=\"#app\" id=\"appLink\">app</a>. <a href=\"privacy.html\">Privacy</a>."
  ],
  [
   "<summary>Оглавление</summary>",
@@ -162,5 +162,105 @@
  [
   "💬 Наш Discord",
   "💬 Our Discord"
+ ],
+ [
+  "<h3><span class=\"em\">📲</span>Приложение на телефон</h3>",
+  "<h3><span class=\"em\">📲</span>App for your phone</h3>"
+ ],
+ [
+  "Сайт ставится на телефон как приложение и работает без интернета. Для Android есть ещё и APK.",
+  "The site installs on your phone as an app and works offline. Android also has an APK."
+ ],
+ [
+  "⬇️ Скачать APK для Android",
+  "⬇️ Download APK for Android"
+ ],
+ [
+  "Откройте этот сайт в <b>Chrome</b>. Если вы перешли по ссылке из Discord или Telegram, нажмите ⋮ → «Открыть в Chrome»: во встроенном браузере установки нет.",
+  "Open this site in <b>Chrome</b>. If you came from a link in Discord or Telegram, tap ⋮ → “Open in Chrome”: the built-in browser cannot install apps."
+ ],
+ [
+  "Нажмите «Установить» выше. Если кнопка ничего не показала: меню ⋮ → «Установить приложение» или «Добавить на главный экран».",
+  "Tap “Install” above. If nothing appears: menu ⋮ → “Install app” or “Add to Home screen”."
+ ],
+ [
+  "Или скачайте APK, откройте файл и разрешите «Установку из неизвестных источников» для браузера.",
+  "Or download the APK, open the file and allow “Install unknown apps” for your browser."
+ ],
+ [
+  "<h4>🍏 iPhone и iPad</h4>",
+  "<h4>🍏 iPhone and iPad</h4>"
+ ],
+ [
+  "Откройте сайт в <b>Safari</b> (в Chrome на iPhone тоже можно, через ту же кнопку «Поделиться»).",
+  "Open the site in <b>Safari</b> (Chrome on iPhone also works, via the same Share button)."
+ ],
+ [
+  "Нажмите «Поделиться» (квадрат со стрелкой вверх) внизу экрана.",
+  "Tap Share (the square with an up arrow) at the bottom of the screen."
+ ],
+ [
+  "Пролистайте и выберите «На экран Домой», затем «Добавить».",
+  "Scroll down, choose “Add to Home Screen”, then “Add”."
+ ],
+ [
+  "<a href=\"#weather\">Погода</a>",
+  "<a href=\"#weather\">Weather</a>"
+ ],
+ [
+  "<a href=\"#news\">Вестник</a>",
+  "<a href=\"#news\">Herald</a>"
+ ],
+ [
+  "ПаксГидромет · метеослужба сервера",
+  "PaxHydromet · the server weather service"
+ ],
+ [
+  "<h2>Погода и катаклизмы</h2>",
+  "<h2>Weather and cataclysms</h2>"
+ ],
+ [
+  "Сводка по миру PaxVanila: что творится сейчас, чего ждать и что уже было.",
+  "A report on the PaxVanila world: what is happening now, what to expect and what has already passed."
+ ],
+ [
+  "id=\"wxDemo\" hidden>ДЕМО",
+  "id=\"wxDemo\" hidden>DEMO"
+ ],
+ [
+  "id=\"newsDemo\" hidden>ДЕМО",
+  "id=\"newsDemo\" hidden>DEMO"
+ ],
+ [
+  ">Шкала опасности<",
+  ">Danger scale<"
+ ],
+ [
+  ">Прогноз по сезонам<",
+  ">Season forecast<"
+ ],
+ [
+  ">Справочник катаклизмов<",
+  ">Cataclysm reference<"
+ ],
+ [
+  ">Журнал катаклизмов<",
+  ">Cataclysm log<"
+ ],
+ [
+  "<h3 class=\"h3\">Космос</h3>",
+  "<h3 class=\"h3\">Space</h3>"
+ ],
+ [
+  "Катаклизмы в космических мирах датапака.",
+  "Cataclysms in the datapack space worlds."
+ ],
+ [
+  "<div class=\"kicker\">Вестник Академии</div><h2>Что узнали учёные</h2>",
+  "<div class=\"kicker\">Academy Herald</div><h2>What the scholars learned</h2>"
+ ],
+ [
+  "Научные новости мира. Когда кто-то первым на сервере находит данж, крепость или Край, сервер сам пишет сюда заметку.",
+  "Science news of the world. When someone is the first on the server to find a dungeon, a fortress or the End, the server writes a note here by itself."
  ]
 ]

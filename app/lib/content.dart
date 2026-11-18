@@ -13,7 +13,7 @@ class BorderCfg {
 }
 
 class Config {
-  final String serverName, serverAddress, discordUrl, mapUrl, launchDate, version;
+  final String serverName, serverAddress, discordUrl, mapUrl, launchDate, version, liveUrl;
   final int primeFrom, primeTo;
   final BorderCfg border;
   Config(Map<String, dynamic> j)
@@ -23,6 +23,7 @@ class Config {
         mapUrl = j['mapUrl'] ?? '',
         launchDate = j['launchDate'] ?? '',
         version = j['version'] ?? '',
+        liveUrl = j['liveUrl'] ?? '',
         primeFrom = j['primeFrom'] ?? 17,
         primeTo = j['primeTo'] ?? 22,
         border = BorderCfg(j['border']);
@@ -98,6 +99,8 @@ class Content {
   final List<LoreDoc> lore;
   final List<LoreDoc> guides;
   final WorldMap map;
+  /// ПаксГидромет и «Вестник Академии»: справочники и демо-данные (разбирает screens/meteo.dart).
+  final Map<String, dynamic> meteo, meteoDemo, news, newsDemo;
 
   Content(Map<String, dynamic> j)
       : config = Config(j['config']),
@@ -108,7 +111,11 @@ class Content {
         join = List<String>.from(j['join']),
         lore = (j['lore'] as List).map((e) => LoreDoc(e)).toList(),
         guides = ((j['guides'] ?? []) as List).map((e) => LoreDoc(e, dir: 'guides')).toList(),
-        map = WorldMap(j['map'] ?? {});
+        map = WorldMap(j['map'] ?? {}),
+        meteo = Map<String, dynamic>.from(j['meteo'] ?? {}),
+        meteoDemo = Map<String, dynamic>.from(j['meteoDemo'] ?? {}),
+        news = Map<String, dynamic>.from(j['news'] ?? {}),
+        newsDemo = Map<String, dynamic>.from(j['newsDemo'] ?? {});
 
   /// Все команды без повторов: (команда, раздел, иконка).
   List<(String, String, String)> get commands {

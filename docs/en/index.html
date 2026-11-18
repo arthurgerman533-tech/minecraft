@@ -17,7 +17,7 @@
 <header class="top"><div class="wrap">
   <a class="brand" href="./"><img src="icons/icon-192.png" alt="">PaxVanila</a>
   <nav class="main">
-    <a href="#now">Now</a><a href="#join">How to join</a><a href="#weeks">Weeks</a><a href="#map">Map</a><a href="#mech">Mechanics</a><a href="#rules">Rules</a><a href="#cmds">Commands</a><a href="lore.html">Lore</a><a href="guides/fokusy.html">Guide</a>
+    <a href="#now">Now</a><a href="#join">How to join</a><a href="#weeks">Weeks</a><a href="#map">Map</a><a href="#weather">Weather</a><a href="#news">Herald</a><a href="#mech">Mechanics</a><a href="#rules">Rules</a><a href="#cmds">Commands</a><a href="lore.html">Lore</a><a href="guides/fokusy.html">Guide</a>
   </nav>
   <a class="iconbtn" id="lang" href="../" hreflang="ru" title="Русский">RU</a>
   <button class="iconbtn" id="theme" title="Theme" aria-label="Switch theme">☾</button>
@@ -50,6 +50,26 @@
       <div class="cta"><a class="btn" href="files/PaxVanila_Client_26.2.mrpack" download>⬇️ PaxVanila_Client_26.2.mrpack</a></div>
     </div>
   </div>
+  <div class="card appcard" id="app">
+    <h3><span class="em">📲</span>App for your phone</h3>
+    <p id="appState">The site installs on your phone as an app and works offline. Android also has an APK.</p>
+    <div class="cta">
+      <button class="btn primary" id="install2">📲 Install</button>
+      <a class="btn" id="apk" href="#" hidden download>⬇️ Download APK for Android</a>
+    </div>
+    <div class="appsteps">
+      <div id="stepsAndroid"><h4>🤖 Android</h4><ol>
+        <li>Open this site in <b>Chrome</b>. If you came from a link in Discord or Telegram, tap ⋮ → “Open in Chrome”: the built-in browser cannot install apps.</li>
+        <li>Tap “Install” above. If nothing appears: menu ⋮ → “Install app” or “Add to Home screen”.</li>
+        <li>Or download the APK, open the file and allow “Install unknown apps” for your browser.</li>
+      </ol></div>
+      <div id="stepsIOS"><h4>🍏 iPhone and iPad</h4><ol>
+        <li>Open the site in <b>Safari</b> (Chrome on iPhone also works, via the same Share button).</li>
+        <li>Tap Share (the square with an up arrow) at the bottom of the screen.</li>
+        <li>Scroll down, choose “Add to Home Screen”, then “Add”.</li>
+      </ol></div>
+    </div>
+  </div>
 </div></section>
 
 <section id="weeks"><div class="wrap">
@@ -62,6 +82,32 @@
   <div class="kicker">World</div><h2>World map</h2>
   <p class="sub">The Monolith at the centre, the world border week by week and the powers of the lore. Drag the map with a finger or the mouse, zoom with the wheel, a pinch or the buttons.</p>
   <div class="pxmap" id="pxmap"></div>
+</div></section>
+
+<section id="weather"><div class="wrap">
+  <div class="kicker">PaxHydromet · the server weather service</div><h2>Weather and cataclysms</h2>
+  <p class="sub">A report on the PaxVanila world: what is happening now, what to expect and what has already passed. <span class="demo" id="wxDemo" hidden>DEMO</span></p>
+  <div class="bulletin" id="wxBulletin"></div>
+  <div class="now" id="wxNow"></div>
+  <h3 class="h3">Danger scale</h3>
+  <div class="wxlevels" id="wxLevels"></div>
+  <h3 class="h3">Season forecast</h3>
+  <div class="grid" id="wxSeasons"></div>
+  <h3 class="h3">Cataclysm reference</h3>
+  <p class="sub" id="wxInterval"></p>
+  <div class="tablewrap"><table class="cmd wxtable" id="wxTable"></table></div>
+  <h3 class="h3">Cataclysm log</h3>
+  <ol class="wxlog" id="wxLog"></ol>
+  <h3 class="h3">Space</h3>
+  <p class="sub">Cataclysms in the datapack space worlds.</p>
+  <div class="chips" id="wxSpace"></div>
+</div></section>
+
+<section id="news" class="alt"><div class="wrap">
+  <div class="kicker">Academy Herald</div><h2>What the scholars learned</h2>
+  <p class="sub">Science news of the world. When someone is the first on the server to find a dungeon, a fortress or the End, the server writes a note here by itself. <span class="demo" id="newsDemo" hidden>DEMO</span></p>
+  <div class="chips" id="newsCats"></div>
+  <div class="newslist" id="newsList"></div>
 </div></section>
 
 <section id="mech"><div class="wrap">
@@ -86,7 +132,7 @@
   <div class="lorelist" id="loreList"></div>
 </div></section>
 
-<footer><div class="wrap">PaxVanila · a fan server, not affiliated with Mojang or Microsoft. There is also an <a href="#" id="appLink">app</a>. <a href="privacy.html">Privacy</a>.</div></footer>
+<footer><div class="wrap">PaxVanila · a fan server, not affiliated with Mojang or Microsoft. There is also an <a href="#app" id="appLink">app</a>. <a href="privacy.html">Privacy</a>.</div></footer>
 <div class="toast" id="toast"></div>
 <script src="app.js"></script>
 </body>

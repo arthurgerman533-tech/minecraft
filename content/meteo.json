@@ -1,0 +1,73 @@
+{
+  "_comment": "Справочник метеослужбы ПаксГидромет для сайта и приложения. Номера n совпадают с датапаком PaxVanila_Cataclysms (scoreboard pxw: #event/#pending). Вероятности и длительность взяты из core/auto_roll и ev/*/start датапака. Живые данные пишет server/plugins/Skript/scripts/paxmeteo.sk (meteo.json), образец для сайта: content/meteo_demo.json.",
+  "interval": {"min": 45, "max": 90, "warn": 60},
+  "levels": [
+    {"n": 0, "color": "#2f7d32", "name": {"ru": "Зелёный", "en": "Green"}, "text": {"ru": "благоприятно", "en": "favourable"}},
+    {"n": 1, "color": "#c9a227", "name": {"ru": "Жёлтый", "en": "Yellow"}, "text": {"ru": "будьте внимательны", "en": "be aware"}},
+    {"n": 2, "color": "#d0741e", "name": {"ru": "Оранжевый", "en": "Orange"}, "text": {"ru": "опасно, укройтесь", "en": "dangerous, take cover"}},
+    {"n": 3, "color": "#b0362b", "name": {"ru": "Красный", "en": "Red"}, "text": {"ru": "очень опасно", "en": "very dangerous"}}
+  ],
+  "events": [
+    {"n": 1, "id": "storm", "icon": "⚡", "p": 14, "min": 240, "max": 360, "level": 2,
+     "name": {"ru": "Гроза", "en": "Thunderstorm"},
+     "text": {"ru": "Молнии бьют по высоким местам.", "en": "Lightning strikes high places."},
+     "advice": {"ru": "Спуститесь с гор и башен, не стойте под открытым небом.", "en": "Come down from mountains and towers, do not stand under open sky."}},
+    {"n": 2, "id": "blizzard", "icon": "❄️", "p": 10, "min": 180, "max": 300, "level": 2,
+     "name": {"ru": "Метель", "en": "Blizzard"},
+     "text": {"ru": "Без крыши или кожаной брони замёрзнете: Замедление.", "en": "Without a roof or leather armour you will freeze: Slowness."},
+     "advice": {"ru": "Наденьте кожаную броню или зайдите под крышу.", "en": "Wear leather armour or get under a roof."}},
+    {"n": 3, "id": "drought", "icon": "☀️", "p": 10, "min": 300, "max": 480, "level": 1,
+     "name": {"ru": "Засуха", "en": "Drought"},
+     "text": {"ru": "Под открытым небом быстрее хочется есть: Голод.", "en": "Under open sky you get hungry faster: Hunger."},
+     "advice": {"ru": "Возьмите еду, работайте в тени и под землёй.", "en": "Bring food, work in the shade or underground."}},
+    {"n": 4, "id": "sandstorm", "icon": "🏜️", "p": 8, "min": 180, "max": 300, "level": 2,
+     "name": {"ru": "Песчаная буря", "en": "Sandstorm"},
+     "text": {"ru": "В пустынях и пустошах почти ничего не видно: Слепота и Замедление.", "en": "In deserts and badlands you can barely see: Blindness and Slowness."},
+     "advice": {"ru": "Уходите из пустынь, караванам переждать.", "en": "Leave the deserts; caravans should wait it out."}},
+    {"n": 5, "id": "quake", "icon": "🌋", "p": 10, "min": 60, "max": 100, "level": 2,
+     "name": {"ru": "Землетрясение", "en": "Earthquake"},
+     "text": {"ru": "Под землёй сыплются камни: Утомление и Замедление.", "en": "Rocks fall underground: Mining Fatigue and Slowness."},
+     "advice": {"ru": "Шахтёрам подняться на поверхность.", "en": "Miners should come up to the surface."}},
+    {"n": 6, "id": "meteor", "icon": "☄️", "p": 12, "min": 120, "max": 180, "level": 1,
+     "name": {"ru": "Звёздный дождь", "en": "Star shower"},
+     "text": {"ru": "Метеориты падают рядом с игроками, в них лут и Звёздные осколки.", "en": "Meteorites fall near players, with loot and Star Shards inside."},
+     "advice": {"ru": "Выходите собирать осколки, но не стойте в точке падения.", "en": "Go out and collect shards, but do not stand where they land."}},
+    {"n": 7, "id": "ash", "icon": "🌑", "p": 8, "min": 240, "max": 300, "level": 3,
+     "name": {"ru": "Пепельная ночь", "en": "Ash night"},
+     "text": {"ru": "Пепел жжёт, из пепла встают Пепельные: Тьма.", "en": "Ash burns and the Ashen rise from it: Darkness."},
+     "advice": {"ru": "Сидите дома, держите оружие и свет.", "en": "Stay indoors with weapons and light."}},
+    {"n": 8, "id": "flood", "icon": "🌊", "p": 10, "min": 180, "max": 300, "level": 3,
+     "name": {"ru": "Великий шторм", "en": "Great storm"},
+     "text": {"ru": "Вода тянет на дно, из глубин поднимаются утопленники.", "en": "Water drags you down and drowned rise from the depths."},
+     "advice": {"ru": "Флоту вернуться в порт, не плавать.", "en": "Fleets return to port, do not swim."}},
+    {"n": 9, "id": "fog", "icon": "🌫️", "p": 8, "min": 180, "max": 300, "level": 2,
+     "name": {"ru": "Туман Безымянных", "en": "Fog of the Nameless"},
+     "text": {"ru": "Кто-то шепчет в тумане, из него выходят Те, Кого Нет.", "en": "Someone whispers in the fog, and Those Who Are Not walk out of it."},
+     "advice": {"ru": "Держитесь группой, не уходите далеко от города.", "en": "Stay in a group and near your town."}},
+    {"n": 10, "id": "aurora", "icon": "🌌", "p": 10, "min": 180, "max": 300, "level": 0,
+     "name": {"ru": "Северное сияние", "en": "Northern lights"},
+     "text": {"ru": "Под открытым небом Удача и Регенерация.", "en": "Under open sky: Luck and Regeneration."},
+     "advice": {"ru": "Хорошее время для рыбалки, лечения и стройки.", "en": "A good time for fishing, healing and building."}}
+  ],
+  "space": [
+    {"n": 11, "icon": "🌞", "name": {"ru": "Солнечная вспышка", "en": "Solar flare"}},
+    {"n": 12, "icon": "☄️", "name": {"ru": "Метеоритный шторм", "en": "Meteor storm"}},
+    {"n": 13, "icon": "🟠", "name": {"ru": "Пылевая буря на Марсе", "en": "Martian dust storm"}},
+    {"n": 14, "icon": "🌪️", "name": {"ru": "Пылевые смерчи на Марсе", "en": "Martian dust devils"}},
+    {"n": 15, "icon": "🌕", "name": {"ru": "Лунотрясение", "en": "Moonquake"}},
+    {"n": 16, "icon": "🌘", "name": {"ru": "Лунная ночь", "en": "Lunar night"}},
+    {"n": 17, "icon": "🧲", "name": {"ru": "Магнитная буря", "en": "Magnetic storm"}},
+    {"n": 18, "icon": "💫", "name": {"ru": "Комета", "en": "Comet"}}
+  ],
+  "seasons": [
+    {"name": {"ru": "Весна «Посевная»", "en": "Spring «Sowing»"}, "text": {"ru": "Урожай растёт быстрее, сбросы припасов с семенами и едой.", "en": "Crops grow faster; supply drops with seeds and food."}},
+    {"name": {"ru": "Лето «Экспедиции»", "en": "Summer «Expeditions»"}, "text": {"ru": "Сбросы припасов чаще (каждые 90 минут) и богаче.", "en": "Supply drops are more frequent (every 90 minutes) and richer."}},
+    {"name": {"ru": "Осень «Сбор урожая»", "en": "Autumn «Harvest»"}, "text": {"ru": "Сдавайте урожай: /season harvest, 40$ в казну за 64 штуки.", "en": "Hand in crops: /season harvest, 40$ to the treasury for 64."}},
+    {"name": {"ru": "Зима «Зимняя кампания»", "en": "Winter «Winter Campaign»"}, "text": {"ru": "На чужой земле холод (Замедление I), урожай растёт медленнее.", "en": "Cold on foreign land (Slowness I), crops grow slower."}}
+  ],
+  "mc": {
+    "clear": {"ru": "Ясно", "en": "Clear"},
+    "rain": {"ru": "Дождь", "en": "Rain"},
+    "thunder": {"ru": "Гроза", "en": "Thunder"}
+  }
+}

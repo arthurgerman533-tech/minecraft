@@ -169,9 +169,30 @@ def lang_switch(html_text, lang, depth, page):
             .replace("__LANGLABEL__", label).replace("__LANGTITLE__", title))
 
 
+def localize(v, lang):
+    """{ru, en} → строка нужного языка, рекурсивно по словарям и спискам."""
+    if isinstance(v, dict):
+        if v and set(v) <= {"ru", "en"}:
+            return v.get(lang) or v.get("ru", "")
+        return {k: localize(x, lang) for k, x in v.items() if k != "_comment"}
+    if isinstance(v, list):
+        return [localize(x, lang) for x in v]
+    return v
+
+
+def load_json(name):
+    with open(os.path.join(ROOT, "content", name), encoding="utf-8") as f:
+        return json.load(f)
+
+
 def build(lang, out):
     C = load_content(lang)
     C["map"] = load_map(lang)
+    # ПаксГидромет и «Вестник Академии»: справочники + демо-данные (живые пишет paxmeteo.sk)
+    C["meteo"] = localize(load_json("meteo.json"), lang)
+    C["meteoDemo"] = load_json("meteo_demo.json")
+    C["news"] = localize(load_json("news.json"), lang)
+    C["newsDemo"] = load_json("news_demo.json")
     tr = translator(lang)
     for d in ("", "img", "icons", "lore", "guides", "files"):
         os.makedirs(os.path.join(out, d), exist_ok=True)

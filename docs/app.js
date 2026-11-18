@@ -16,7 +16,23 @@ const themeBtn=$('#theme'); if(themeBtn) themeBtn.onclick=()=>{
 if(innerWidth<860) document.querySelectorAll('.doc aside details').forEach(d=>d.open=false);
 // PWA
 if('serviceWorker' in navigator) navigator.serviceWorker.register(new URL('sw.js',BASE),{scope:BASE.pathname}).catch(()=>{});
-let deferred=null; addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;const b=$('#install');if(b){b.hidden=false;b.onclick=async()=>{deferred.prompt();await deferred.userChoice;b.hidden=true}}});
+// установка на телефон: кнопка видна всегда; если браузер умеет «установить» — сразу диалог, иначе листаем к инструкции
+let deferred=null;
+const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+function installClick(){
+  if(deferred){deferred.prompt();deferred.userChoice.then(r=>{if(r.outcome==='accepted')toast(T('Приложение установлено','App installed'))});deferred=null;return}
+  const a=$('#app'); if(a){a.scrollIntoView({behavior:'smooth',block:'start'});a.classList.add('flash');setTimeout(()=>a.classList.remove('flash'),1600)}
+  toast(isIOS?T('Safari: «Поделиться» → «На экран Домой»','Safari: Share → Add to Home Screen'):T('Меню ⋮ → «Установить приложение»','Menu ⋮ → Install app'));
+}
+['#install','#install2'].forEach(id=>{const b=$(id);if(b){b.hidden=standalone;b.onclick=installClick}});
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e});
+addEventListener('appinstalled',()=>{deferred=null;['#install','#install2'].forEach(id=>{const b=$(id);if(b)b.hidden=true})});
+(function(){
+  const st=$('#appState'); if(!st) return;
+  if(standalone) st.textContent=T('Вы уже открыли сайт как приложение. Всё установлено.','You are already using the installed app.');
+  if(isIOS){const a=$('#stepsAndroid'),i=$('#stepsIOS');if(a&&i)i.parentNode.insertBefore(i,a)}
+})();
 
 // ---- календарь сервера (та же логика, что в paxborder.sk / paxwar.sk / paxseasons.sk) ----
 function radiusForDay(b,d){
@@ -57,6 +73,11 @@ async function main(){
   if(ipBtn){ if(cfg.serverAddress){$('#ipText').textContent=cfg.serverAddress;ipBtn.onclick=()=>navigator.clipboard.writeText(cfg.serverAddress).then(()=>toast(T('Адрес скопирован','Address copied')))} else ipBtn.disabled=true;
     const d=$('#discord'); if(cfg.discordUrl) d.href=cfg.discordUrl; else {d.removeAttribute('href');d.style.opacity=.55;d.title=T('Ссылка появится перед открытием','The link will appear before launch')} }
   renderNow(C); setInterval(()=>renderNow(C),30000);
+  const apk=$('#apk'); if(apk&&cfg.appRepo&&!isIOS){
+    fetch(`https://api.github.com/repos/${cfg.appRepo}/releases/tags/app-latest`).then(r=>r.ok?r.json():null).then(r=>{
+      const f=r&&(r.assets||[]).find(x=>/\.apk$/i.test(x.name)); if(f){apk.href=f.browser_download_url;apk.hidden=false;
+        apk.textContent=T('⬇️ Скачать APK для Android','⬇️ Download APK for Android')+` (${Math.round(f.size/1048576)} MB)`}}).catch(()=>{});
+  }
   const jl=$('#joinList'); if(jl) jl.innerHTML=C.join.map(x=>`<li>${esc(x)}</li>`).join('')+(cfg.serverAddress?`<li>${T('Адрес','Address')}: ${code(cfg.serverAddress)}</li>`:'');
   const st=serverState(cfg);
   const wg=$('#weekGrid'); if(wg) wg.innerHTML=C.weeks.map(w=>`<div class="week${st.started&&st.week===w.n?' cur':''}">
@@ -74,8 +95,73 @@ async function main(){
   const ll=$('#loreList'); if(ll) ll.innerHTML=C.lore.map(l=>`<a href="lore/${l.id}.html"><div class="card"><h3>📜 ${esc(l.title)}</h3><p>${esc(l.subtitle)}</p></div></a>`).join('')+
     (C.guides||[]).map(g=>`<a href="guides/${g.id}.html"><div class="card"><h3>🧭 ${esc(g.title)}</h3><p>${esc(g.subtitle)}</p></div></a>`).join('');
   renderMap(C);
+  renderWeather(C);
   checkStatus(cfg);
 }
+// ---- ПаксГидромет и «Вестник Академии» (C.meteo/C.news — справочники, живые данные: config.liveUrl → meteo.json, news.json из paxmeteo.sk) ----
+async function liveJson(cfg,name){
+  if(!cfg.liveUrl) return null;
+  try{const r=await fetch(new URL(name,cfg.liveUrl.replace(/\/?$/,'/')),{cache:'no-store'});return r.ok?await r.json():null}catch(e){return null}
+}
+const fmtTime=t=>new Date(t*1000).toLocaleString(EN?'en-GB':'ru-RU',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+const mmss=s=>{s=Math.max(0,s|0);return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`};
+async function renderWeather(C){
+  const M=C.meteo, cfg=C.config; if(!M||!$('#wxBulletin')) return;
+  const [lm,ln]=await Promise.all([liveJson(cfg,'meteo.json'),liveJson(cfg,'news.json')]);
+  const D=lm||C.meteoDemo, N=ln||C.newsDemo;
+  const all=[...M.events,...M.space], ev=n=>all.find(e=>e.n===n), lv=n=>M.levels[n]||M.levels[0];
+  $('#wxDemo').hidden=!D.demo;
+  // бюллетень
+  let lvl=M.levels[0], head, body='';
+  const cur=D.event&&D.event.n>0&&ev(D.event.n), pen=D.pending&&D.pending.n>0&&ev(D.pending.n);
+  if(cur){lvl=lv(cur.level??1);head=`${cur.icon} ${T('Действует','In effect')}: ${esc(cur.name)}`;body=`${esc(cur.text||'')} ${T('Осталось','Time left')}: <b>${mmss(D.event.left)}</b>.${cur.advice?`<br><b>${T('Совет','Advice')}:</b> ${esc(cur.advice)}`:''}`}
+  else if(pen){lvl=lv(pen.level??1);head=`⚠️ ${T('Штормовое предупреждение','Storm warning')}: ${pen.icon} ${esc(pen.name)}`;body=`${T('Начнётся через','Starts in')} <b>${mmss(D.pending.warn)}</b>. ${esc(pen.advice||pen.text||'')}`}
+  else{head=`✅ ${T('Катаклизмов нет','No cataclysms')}`;body=D.next>0?`${T('Следующий ожидается примерно через','The next one is expected in about')} <b>${Math.round(D.next/60)} ${T('мин','min')}</b>.`:T('Ждём следующего окна: катаклизмы приходят раз в','Waiting for the next window: cataclysms come every')+` ${M.interval.min}–${M.interval.max} ${T('мин','min')}.`}
+  const b=$('#wxBulletin'); b.style.setProperty('--lv',lvl.color);
+  b.innerHTML=`<div class="lvtag">${T('Уровень','Level')}: ${esc(lvl.name)} · ${esc(lvl.text)}</div><h3>${head}</h3><p>${body}</p>
+    <div class="upd">${D.demo?T('Демо-данные: живая сводка появится, когда сервер начнёт публиковать meteo.json.','Demo data: the live report appears once the server publishes meteo.json.'):T('Обновлено','Updated')+': '+fmtTime(D.updated)+((Date.now()/1000-D.updated>300)?' · '+T('данные устарели, сервер мог выключиться','data is stale, the server may be offline'):'')}</div>`;
+  // плитки
+  const tk=D.time||0, hh=Math.floor((tk/1000+6)%24), mi=Math.floor(tk%1000*0.06);
+  const wxIcon={clear:'☀️',rain:'🌧️',thunder:'⛈️'}[D.weather]||'🌤️';
+  const tiles=[[wxIcon,T('Погода в мире','World weather'),M.mc[D.weather]||D.weather],
+    ['🕰️',T('Время в игре','In-game time'),`${String(hh).padStart(2,'0')}:${String(mi).padStart(2,'0')}`],
+    ['🍂',T('Сезон','Season'),D.season>=0&&M.seasons[D.season]?M.seasons[D.season].name:T('Сезоны с 28-го дня','Seasons from day 28')],
+    ['📅',T('День сервера','Server day'),D.day>0?D.day:T('ещё не начат','not started')],
+    ['👥',T('Онлайн','Online'),D.online],
+    ['🎲',T('Авто-катаклизмы','Auto cataclysms'),D.auto?T('включены','on'):T('выключены','off')]];
+  $('#wxNow').innerHTML=tiles.map(t=>`<div class="stat"><div class="l">${t[0]} ${esc(t[1])}</div><div class="v wxv">${esc(t[2])}</div></div>`).join('');
+  $('#wxLevels').innerHTML=M.levels.map(l=>`<div class="lv" style="--lv:${l.color}"><b>${esc(l.name)}</b><span>${esc(l.text)}</span></div>`).join('');
+  // сезоны: как seasonNow() в paxseasons.sk — с 28-го дня, по 7 дней
+  const d0=D.day>0?D.day-1:-1; let si=-1, left=0;
+  if(d0>=28){si=Math.floor((d0-28)/7)%4;left=7-((d0-28)%7)} else if(d0>=0){left=28-d0}
+  $('#wxSeasons').innerHTML=M.seasons.map((x,i)=>{let tag='';
+    if(i===si) tag=`<span class="tag on">${T('сейчас','now')} · ${T('ещё','left')} ${left} ${T('дн.','d')}</span>`;
+    else if((si<0&&i===0&&d0>=0)||(si>=0&&i===(si+1)%4)) tag=`<span class="tag">${T('через','in')} ${left} ${T('дн.','d')}</span>`;
+    return `<div class="card${i===si?' cur':''}"><h3>${esc(x.name)}</h3>${tag}<p>${esc(x.text)}</p></div>`}).join('');
+  $('#wxInterval').textContent=T(`Катаклизм приходит раз в ${M.interval.min}–${M.interval.max} минут, за ${M.interval.warn} секунд до начала объявляется штормовое предупреждение. Шанс — какой из катаклизмов выпадет.`,`A cataclysm comes every ${M.interval.min}–${M.interval.max} minutes, with a storm warning ${M.interval.warn} seconds before. Chance is which cataclysm is rolled.`);
+  $('#wxTable').innerHTML=`<tr class="th"><td>${T('Катаклизм','Cataclysm')}</td><td>${T('Шанс','Chance')}</td><td>${T('Длится','Lasts')}</td><td>${T('Что делать','What to do')}</td></tr>`+
+    [...M.events].sort((a,b)=>b.p-a.p).map(e=>`<tr><td><span class="dot" style="background:${lv(e.level).color}"></span>${e.icon} <b>${esc(e.name)}</b><br><small>${esc(e.text)}</small></td><td>${e.p}%</td><td>${Math.round(e.min/60)}–${Math.round(e.max/60)} ${T('мин','min')}</td><td>${esc(e.advice)}</td></tr>`).join('');
+  const h=[...(D.history||[])].sort((a,b)=>b.t-a.t);
+  $('#wxLog').innerHTML=h.length?h.map(x=>{const e=ev(x.n);return `<li><time>${fmtTime(x.t)}</time> ${e?e.icon+' '+esc(e.name):'#'+x.n}</li>`}).join(''):`<li>${T('Пока ни одного катаклизма.','No cataclysms yet.')}</li>`;
+  $('#wxSpace').innerHTML=M.space.map(e=>`<span class="pill">${e.icon} ${esc(e.name)}</span>`).join('');
+  renderNews(C,N);
+}
+function renderNews(C,N){
+  const W=C.news, host=$('#newsList'); if(!W||!host) return;
+  $('#newsDemo').hidden=!N.demo;
+  const found=[...(N.items||[])].sort((a,b)=>b.t-a.t).map(x=>{const t=W.templates[x.k];if(!t)return null;const p=esc(x.p);
+    return {cat:t.cat,icon:t.icon,title:t.title,text:esc(t.text).split('{p}').join(`<b>${p}</b>`),reward:t.reward,date:fmtTime(x.t),demo:N.demo}}).filter(Boolean);
+  const lore=W.items.map(x=>({cat:x.cat,icon:x.icon,title:x.title,text:esc(x.text),reward:x.reward,lore:true}));
+  const items=[...found,...lore]; let cat='';
+  const cats=Object.entries(W.categories).filter(([k])=>items.some(i=>i.cat===k));
+  const bar=$('#newsCats');
+  const draw=()=>{bar.innerHTML=`<button class="${cat?'':'on'}" data-c="">${T('Все','All')}</button>`+cats.map(([k,v])=>`<button class="${cat===k?'on':''}" data-c="${k}">${esc(v)}</button>`).join('');
+    host.innerHTML=items.filter(i=>!cat||i.cat===cat).map(i=>`<article class="card news"><div class="meta"><span>${i.icon} ${esc(W.categories[i.cat]||'')}</span>${i.lore?`<span class="tag">${T('лор','lore')}</span>`:`<span>${i.date}</span>${i.demo?'<span class="demo">'+T('ДЕМО','DEMO')+'</span>':''}`}</div>
+      <h3>${esc(i.title)}</h3><p>${i.text}</p>${i.reward?`<p class="reward">🎁 ${esc(i.reward)}</p>`:''}</article>`).join('')};
+  bar.onclick=e=>{const c=e.target.closest('button');if(c){cat=c.dataset.c;draw()}};
+  draw();
+}
+
 // ---- карта мира (данные: C.map из content/map.json и content/map_towns.json) ----
 function renderMap(C){
   const host=$('#pxmap'); if(!host||!C.map) return;

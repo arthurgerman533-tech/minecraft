@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paxvanila/screens/map.dart';
+import 'package:paxvanila/screens/meteo.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:paxvanila/calendar.dart';
@@ -72,5 +73,20 @@ void main() {
     await tester.tapAt(box.topLeft + Offset((-150 + 2240) * k, (950 + 2240) * k));
     await tester.pumpAndSettle();
     expect(find.text('Карфаген'), findsOneWidget);
+  });
+
+  testWidgets('погода и Вестник показывают демо', (tester) async {
+    final c = Content(jsonDecode(File('assets/content.json').readAsStringSync()));
+    tester.view.physicalSize = const Size(400, 1400);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: WeatherView(content: c))));
+    expect(find.textContaining('Штормовое предупреждение'), findsOneWidget);
+    expect(find.text('ДЕМО'), findsOneWidget);
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: NewsView(content: c))));
+    expect(find.textContaining('Kadim_Ur'), findsOneWidget);
+    await tester.tap(find.text('Наука'));
+    await tester.pump();
+    expect(find.textContaining('Kadim_Ur'), findsNothing);
   });
 }

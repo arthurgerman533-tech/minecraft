@@ -36,7 +36,7 @@ jobs:
           rm -f android/local.properties
           flutter pub get
           flutter test
-          flutter build apk --release
+          flutter build apk --release --target-platform android-arm,android-arm64
           cp build/app/outputs/flutter-apk/app-release.apk ../PaxVanila.apk
       - name: Publish release
         uses: softprops/action-gh-release@v2

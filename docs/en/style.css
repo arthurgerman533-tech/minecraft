@@ -166,3 +166,43 @@ a.iconbtn{display:inline-grid;place-items:center;text-decoration:none;font:700 .
 #msvg .c-battle .ld,#msvg .c-battle .ltx{fill:#b0362b}
 #msvg .c-front .ld,#msvg .c-front .ltx{fill:#d6453b}
 #msvg .lt:hover .ltx,#msvg .lt:focus .ltx{font-size:calc(var(--k)*13px)}
+
+/* приложение на телефон */
+.appcard{grid-column:1/-1;margin-top:16px}
+.appsteps{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:12px}
+.appsteps h4{margin:.2em 0 .4em}
+.appsteps ol{margin:0;padding-left:1.3em;color:var(--muted)}
+.appsteps li{margin:.25em 0}
+.appcard.flash{outline:3px solid var(--gold);outline-offset:4px;transition:outline .3s}
+/* ПаксГидромет */
+.demo{display:inline-block;background:var(--bad);color:#fff;font:700 .72rem Inter,system-ui,sans-serif;letter-spacing:.08em;padding:2px 8px;border-radius:999px;vertical-align:middle}
+.h3{margin:32px 0 12px}
+.bulletin{--lv:#2f7d32;background:var(--card);border:1px solid var(--line);border-left:8px solid var(--lv);border-radius:var(--radius);padding:16px 18px;margin-bottom:16px;box-shadow:var(--shadow)}
+.bulletin .lvtag{display:inline-block;background:var(--lv);color:#fff;font-weight:700;font-size:.8rem;padding:3px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.06em}
+.bulletin h3{margin:.5em 0 .3em}
+.bulletin p{margin:0;color:var(--ink)}
+.bulletin .upd{margin-top:10px;font-size:.82rem;color:var(--muted)}
+.stat .v.wxv{font-size:1.15rem}
+.wxlevels{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.wxlevels .lv{border-radius:var(--radius);padding:10px 12px;background:color-mix(in srgb,var(--lv) 16%,var(--card));border:1px solid color-mix(in srgb,var(--lv) 45%,transparent)}
+.wxlevels .lv b{display:block;color:var(--lv)}
+.wxlevels .lv span{font-size:.88rem;color:var(--muted)}
+.card.cur{border-color:var(--gold);box-shadow:0 0 0 2px color-mix(in srgb,var(--gold) 35%,transparent)}
+.tag{display:inline-block;font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.tag.on{background:var(--gold);border-color:var(--gold);color:var(--ongold,#fff)}
+.tablewrap{overflow-x:auto}
+table.wxtable{table-layout:auto;min-width:560px}
+table.wxtable td:first-child{width:auto}
+table.wxtable tr.th td{font-weight:700;color:var(--muted);font-size:.82rem;text-transform:uppercase;letter-spacing:.05em}
+table.wxtable small{color:var(--muted)}
+.wxlog{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+.wxlog li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px}
+.wxlog time{color:var(--muted);font-variant-numeric:tabular-nums;margin-right:8px}
+.pill{display:inline-block;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 12px;font-size:.88rem}
+/* Вестник Академии */
+#newsCats{margin-bottom:16px}
+.newslist{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.card.news .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:.8rem;color:var(--muted);margin-bottom:6px}
+.card.news h3{margin:.1em 0 .3em}
+.card.news p b{color:var(--ink)}
+.card.news .reward{font-size:.9rem;border-top:1px dashed var(--line);padding-top:8px;margin-top:8px}

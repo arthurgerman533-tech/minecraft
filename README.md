@@ -5,6 +5,8 @@ Minecraft-сервер (Paper 26.2) про государства и войны:
 Discord: https://discord.gg/sN9TnBFec · Сайт: https://arthurgerman533-tech.github.io/minecraft/
 
 - `content/map.json` — карта мира для сайта и приложения (схема по лору); реальные города Towny: `python3 tools/towny_map.py <plugins/Towny/data>`, потом `python3 tools/build_site.py`.
+- Погода и «Вестник Академии»: `content/meteo.json`, `content/news.json`, скрипт `paxmeteo.sk`, инструкция `server/ПОГОДА_README.txt`.
+- Приложение для Android (APK) собирается на GitHub Actions: [скачать PaxVanila.apk](https://github.com/arthurgerman533-tech/minecraft/releases/download/app-latest/PaxVanila.apk).
 - `ЗАПУСК_СЕРВЕРА.txt` — чек-лист первого запуска и календарь недель.
 - `server/plugins/Skript/scripts/` — скрипты (бордер, ивенты недель, Великая война, дипломатия, фокусы, сезоны, приваты, осада, помощники, башня, Discord).
 - `server/*_README.txt` — описание каждой системы.

@@ -17,7 +17,7 @@
 <header class="top"><div class="wrap">
   <a class="brand" href="./"><img src="icons/icon-192.png" alt="">PaxVanila</a>
   <nav class="main">
-    <a href="#now">Сейчас</a><a href="#join">Как зайти</a><a href="#weeks">Недели</a><a href="#map">Карта</a><a href="#mech">Механики</a><a href="#rules">Правила</a><a href="#cmds">Команды</a><a href="lore.html">Лор</a><a href="guides/fokusy.html">Гайд</a>
+    <a href="#now">Сейчас</a><a href="#join">Как зайти</a><a href="#weeks">Недели</a><a href="#map">Карта</a><a href="#weather">Погода</a><a href="#news">Вестник</a><a href="#mech">Механики</a><a href="#rules">Правила</a><a href="#cmds">Команды</a><a href="lore.html">Лор</a><a href="guides/fokusy.html">Гайд</a>
   </nav>
   <a class="iconbtn" id="lang" href="en/" hreflang="en" title="English">EN</a>
   <button class="iconbtn" id="theme" title="Тема" aria-label="Сменить тему">☾</button>
@@ -50,6 +50,26 @@
       <div class="cta"><a class="btn" href="files/PaxVanila_Client_26.2.mrpack" download>⬇️ PaxVanila_Client_26.2.mrpack</a></div>
     </div>
   </div>
+  <div class="card appcard" id="app">
+    <h3><span class="em">📲</span>Приложение на телефон</h3>
+    <p id="appState">Сайт ставится на телефон как приложение и работает без интернета. Для Android есть ещё и APK.</p>
+    <div class="cta">
+      <button class="btn primary" id="install2">📲 Установить</button>
+      <a class="btn" id="apk" href="#" hidden download>⬇️ Скачать APK для Android</a>
+    </div>
+    <div class="appsteps">
+      <div id="stepsAndroid"><h4>🤖 Android</h4><ol>
+        <li>Откройте этот сайт в <b>Chrome</b>. Если вы перешли по ссылке из Discord или Telegram, нажмите ⋮ → «Открыть в Chrome»: во встроенном браузере установки нет.</li>
+        <li>Нажмите «Установить» выше. Если кнопка ничего не показала: меню ⋮ → «Установить приложение» или «Добавить на главный экран».</li>
+        <li>Или скачайте APK, откройте файл и разрешите «Установку из неизвестных источников» для браузера.</li>
+      </ol></div>
+      <div id="stepsIOS"><h4>🍏 iPhone и iPad</h4><ol>
+        <li>Откройте сайт в <b>Safari</b> (в Chrome на iPhone тоже можно, через ту же кнопку «Поделиться»).</li>
+        <li>Нажмите «Поделиться» (квадрат со стрелкой вверх) внизу экрана.</li>
+        <li>Пролистайте и выберите «На экран Домой», затем «Добавить».</li>
+      </ol></div>
+    </div>
+  </div>
 </div></section>
 
 <section id="weeks"><div class="wrap">
@@ -62,6 +82,32 @@
   <div class="kicker">Мир</div><h2>Карта мира</h2>
   <p class="sub">Монолит в центре, границы мира по неделям и державы лора. Двигай карту пальцем или мышью, приближай колёсиком, щипком или кнопками.</p>
   <div class="pxmap" id="pxmap"></div>
+</div></section>
+
+<section id="weather"><div class="wrap">
+  <div class="kicker">ПаксГидромет · метеослужба сервера</div><h2>Погода и катаклизмы</h2>
+  <p class="sub">Сводка по миру PaxVanila: что творится сейчас, чего ждать и что уже было. <span class="demo" id="wxDemo" hidden>ДЕМО</span></p>
+  <div class="bulletin" id="wxBulletin"></div>
+  <div class="now" id="wxNow"></div>
+  <h3 class="h3">Шкала опасности</h3>
+  <div class="wxlevels" id="wxLevels"></div>
+  <h3 class="h3">Прогноз по сезонам</h3>
+  <div class="grid" id="wxSeasons"></div>
+  <h3 class="h3">Справочник катаклизмов</h3>
+  <p class="sub" id="wxInterval"></p>
+  <div class="tablewrap"><table class="cmd wxtable" id="wxTable"></table></div>
+  <h3 class="h3">Журнал катаклизмов</h3>
+  <ol class="wxlog" id="wxLog"></ol>
+  <h3 class="h3">Космос</h3>
+  <p class="sub">Катаклизмы в космических мирах датапака.</p>
+  <div class="chips" id="wxSpace"></div>
+</div></section>
+
+<section id="news" class="alt"><div class="wrap">
+  <div class="kicker">Вестник Академии</div><h2>Что узнали учёные</h2>
+  <p class="sub">Научные новости мира. Когда кто-то первым на сервере находит данж, крепость или Край, сервер сам пишет сюда заметку. <span class="demo" id="newsDemo" hidden>ДЕМО</span></p>
+  <div class="chips" id="newsCats"></div>
+  <div class="newslist" id="newsList"></div>
 </div></section>
 
 <section id="mech"><div class="wrap">
@@ -86,7 +132,7 @@
   <div class="lorelist" id="loreList"></div>
 </div></section>
 
-<footer><div class="wrap">PaxVanila · фанатский сервер, не связан с Mojang и Microsoft. Есть и <a href="#" id="appLink">приложение</a>. <a href="privacy.html">Конфиденциальность</a>.</div></footer>
+<footer><div class="wrap">PaxVanila · фанатский сервер, не связан с Mojang и Microsoft. Есть и <a href="#app" id="appLink">приложение</a>. <a href="privacy.html">Конфиденциальность</a>.</div></footer>
 <div class="toast" id="toast"></div>
 <script src="app.js"></script>
 </body>

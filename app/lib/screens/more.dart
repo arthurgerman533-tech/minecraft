@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../content.dart';
 import '../i18n.dart';
 import 'lore.dart';
+import 'meteo.dart';
 import 'widgets.dart';
 
 class MoreScreen extends StatelessWidget {
@@ -23,6 +24,8 @@ class MoreScreen extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 32),
       children: [
+        tile(Icons.thunderstorm_outlined, t('Погода · ПаксГидромет', 'Weather · PaxHydromet'), t('Сводка, предупреждения, катаклизмы', 'Report, warnings, cataclysms'), () => push(context, t('ПаксГидромет', 'PaxHydromet'), WeatherView(content: content))),
+        tile(Icons.science_outlined, t('Вестник Академии', 'Academy Herald'), t('Что узнали учёные: находки и данжи', 'What scholars learned: finds and dungeons'), () => push(context, t('Вестник Академии', 'Academy Herald'), NewsView(content: content))),
         for (final g in content.guides)
           tile(Icons.menu_book_outlined, g.title, g.subtitle,
               () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => LoreReader(doc: g)))),
