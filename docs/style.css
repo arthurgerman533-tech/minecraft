@@ -149,3 +149,12 @@ a.iconbtn{display:inline-grid;place-items:center;text-decoration:none;font:700 .
 .minfo div{color:var(--muted);margin-top:4px}
 .mnote{color:var(--muted);font-size:.9rem;margin-top:10px}.mnote .btn{margin-top:8px;padding:8px 14px}
 #msvg .rt.st{opacity:0}#msvg .rt.st.sel{opacity:1}
+
+/* Дальний сектор за границей мира */
+#msvg .far{cursor:pointer;outline:none}
+#msvg .fh{text-anchor:start}
+#msvg .fl{stroke:#d6453b;stroke-width:2;stroke-dasharray:8 6;fill:none}
+#msvg .fa{fill:#d6453b;fill-opacity:.12;stroke:#d6453b;stroke-opacity:.6;stroke-width:1.5}
+#msvg .fx{stroke:#d6453b;stroke-width:5;stroke-linecap:round;fill:none}
+#msvg .ft{font-size:calc(var(--k)*14px);font-weight:700;fill:#d6453b;text-anchor:middle;dominant-baseline:hanging}
+#msvg .fh{font-size:calc(var(--k)*12px);font-weight:700;fill:#d6453b}

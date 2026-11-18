@@ -54,6 +54,12 @@
      "name": {"ru": "Древний город", "en": "The Ancient City"},
      "text": {"ru": "Глубоко под землёй: Безмолвные, скалк и Хранитель.", "en": "Deep underground: the Silent, the sculk and the Warden."}}
   ],
+  "far": [
+    {"id": "far_sector", "x": 5000, "z": 0,
+     "name": {"ru": "Дальний сектор «Деревня»", "en": "The Far Sector «Village»"},
+     "text": {"ru": "Около 5000 блоков от 0, 0, далеко за самой широкой границей мира. Здесь шла «Хроника фронта»: Война за деревню, Гулаг и порох, Война и мир. Клятва PAX сюда не доходит, правил войны здесь нет. Из этих трёх войн выросли законы войны PaxVanila.", "en": "About 5000 blocks from 0, 0, far beyond the widest world border. This is where the «Front Chronicle» happened: the War for the Village, Gulag and Gunpowder, War and Peace. The PAX oath does not reach here and there are no rules of war. The war laws of PaxVanila grew out of these three wars."},
+     "lore": "front"}
+  ],
   "blocs": {
     "pax": {"ru": "Союз PAX (запад)", "en": "PAX Union (west)"},
     "steppe": {"ru": "Степной Пакт (восток)", "en": "Steppe Pact (east)"}

@@ -432,7 +432,8 @@
    "title": "Cataclysms",
    "subtitle": "Chronicle of the Monolith",
    "file": "катаклизмы.md"
-  }
+  },
+    {"id": "front", "title": "The Front Chronicle", "subtitle": "Three recordings from the Far Sector, 5000 blocks from 0, 0", "file": "хроника_фронта.md"}
  ],
  "guides": [
   {

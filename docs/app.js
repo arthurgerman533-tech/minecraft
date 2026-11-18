@@ -82,12 +82,12 @@ function renderMap(C){
   const M=C.map, cfg=C.config, b=cfg.border, st=serverState(cfg);
   const rings=[['start',T('Старт','Start')],['w1',T('Н1','W1')],['w2',T('Н2','W2')],['w3',T('Н3','W3')],['w5',T('Н5','W5')],['w6',T('Н6','W6')]];
   const R=b.w6, ext=R*1.12, NS='http://www.w3.org/2000/svg';
-  const layers={powers:true,ancient:true,towns:true,grid:true};
+  const layers={powers:true,ancient:true,towns:true,grid:true,far:true}; M.far=M.far||[];
   let sel=st.started?null:'w6';
   host.innerHTML=`<div class="mtools">
      <div class="chips" id="mLayers">
        <button data-l="powers" class="on">${T('Державы','Powers')}</button><button data-l="ancient" class="on">${T('Древние места','Ancient sites')}</button>
-       <button data-l="towns" class="on">${T('Города','Towns')}${M.towns.length?' ('+M.towns.length+')':''}</button><button data-l="grid" class="on">${T('Сетка','Grid')}</button></div>
+       <button data-l="towns" class="on">${T('Города','Towns')}${M.towns.length?' ('+M.towns.length+')':''}</button><button data-l="grid" class="on">${T('Сетка','Grid')}</button>${M.far.length?`<button data-l="far" class="on">${T('Дальний сектор','Far Sector')}</button>`:''}</div>
      <div class="chips" id="mRings"><span class="lbl">${T('Граница','Border')}</span>${rings.map(r=>`<button data-r="${r[0]}">${r[1]}</button>`).join('')}</div>
    </div>
    <div class="mbox"><svg id="msvg" role="img" aria-label="${T('Карта мира PaxVanila','PaxVanila world map')}"></svg>
@@ -99,7 +99,7 @@ function renderMap(C){
      ${cfg.mapUrl?` <a class="btn" href="${esc(cfg.mapUrl)}" target="_blank" rel="noopener">🗺️ ${T('Живая карта BlueMap','Live BlueMap')}</a>`:''}</p>`;
   const svg=$('#msvg'), el=(n,a,p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e};
   const cp=el('clipPath',{id:'mclip'},el('defs',{})); el('circle',{cx:0,cy:0,r:R},cp);
-  const g={}; ['base','grid','powers','rings','ancient','towns','top'].forEach(k=>g[k]=el('g',{class:'g-'+k}));
+  const g={}; ['base','grid','powers','rings','ancient','towns','far','top'].forEach(k=>g[k]=el('g',{class:'g-'+k}));
   el('circle',{cx:0,cy:0,r:R,class:'land'},g.base); g.grid.setAttribute('clip-path','url(#mclip)');
   for(let v=-2000;v<=2000;v+=500){ if(Math.abs(v)>R) continue;
     el('line',{x1:v,y1:-R,x2:v,y2:R,class:'gl'+(v?'':' axis')},g.grid); el('line',{x1:-R,y1:v,x2:R,y2:v,class:'gl'+(v?'':' axis')},g.grid);
@@ -111,7 +111,7 @@ function renderMap(C){
     el('text',{x:0,y:st.radius,class:'rt now'},g.rings).textContent=T('Сейчас ','Now ')+st.radius;}
   el('circle',{cx:0,cy:0,r:80,class:'spawnz'},g.top);
   const info=$('#minfo');
-  const pick=(o,kind)=>{info.innerHTML=`<b>${esc(o.name)}</b> <span class="mk">${esc(kind)}</span> <code>X ${o.x} · Z ${o.z}</code><div>${esc(o.text||'')}</div>`};
+  const pick=(o,kind)=>{info.innerHTML=`<b>${esc(o.name)}</b> <span class="mk">${esc(kind)}</span> <code>X ${o.x} · Z ${o.z}</code><div>${esc(o.text||'')}</div>`+(o.lore?`<p><a class="btn" href="lore/${esc(o.lore)}.html">📜 ${T('Читать лор','Read the lore')}</a></p>`:'')};
   M.powers.forEach(p=>{const a=el('g',{class:'pw',tabindex:0},g.powers);
     el('circle',{cx:p.x,cy:p.z,r:230,fill:p.color,class:'pwa'},a); el('circle',{cx:p.x,cy:p.z,r:26,fill:p.color,class:'pwd'},a);
     el('text',{x:p.x,y:p.z+60,class:'pt'},a).textContent=p.name;
@@ -123,6 +123,15 @@ function renderMap(C){
     (t.blocks||[]).forEach(([cx,cz])=>el('rect',{x:cx*16,y:cz*16,width:16,height:16,fill:col,class:'tb'},a));
     el('circle',{cx:t.x,cy:t.z,r:10,fill:col,class:'twd'},a); el('text',{x:t.x,y:t.z+30,class:'tt'},a).textContent=t.name;
     a.onclick=()=>pick({...t,text:(t.nation?T('Нация: ','Nation: ')+t.nation+'. ':'')+T('Занято чанков: ','Claimed chunks: ')+(t.blocks||[]).length},T('город','town'));});
+  M.far.forEach(p=>{const a=el('g',{class:'far',tabindex:0},g.far), d=Math.hypot(p.x,p.z)||1, ex=p.x/d*R, ez=p.z/d*R;
+    el('line',{x1:ex,y1:ez,x2:p.x,y2:p.z,class:'fl'},a);
+    el('text',{x:ex+(p.x-ex)*0.12,y:ez+(p.z-ez)*0.12-14,class:'fh'},a).textContent=T('за границей → ','beyond the border → ')+Math.round(d)+T(' бл.',' bl.');
+    el('circle',{cx:p.x,cy:p.z,r:160,class:'fa'},a);
+    el('path',{d:`M${p.x-60} ${p.z-60}L${p.x+60} ${p.z+60}M${p.x+60} ${p.z-60}L${p.x-60} ${p.z+60}`,class:'fx'},a);
+    el('text',{x:p.x,y:p.z+200,class:'ft'},a).textContent=p.name;
+    const go=()=>{pick(p,T('за границей мира','beyond the border'));const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1, nw=Math.max(vb.w,(d+900)/Math.min(1,1/ar));vb={x:p.x/2-nw/2,y:p.z/2-nw*ar/2,w:nw,h:nw*ar};apply()};
+    a.onclick=go; a.onkeydown=e=>{if(e.key==='Enter')go()};
+    if(p.lore) info.dataset.far=p.lore;});
   M.places.forEach(p=>{const a=el('g',{class:'mono',tabindex:0},g.top);
     el('rect',{x:p.x-18,y:p.z-18,width:36,height:36,class:'md'},a); el('text',{x:p.x,y:p.z-34,class:'mt'},a).textContent=p.name;
     a.onclick=()=>pick(p,T('центр мира','world centre'));});
