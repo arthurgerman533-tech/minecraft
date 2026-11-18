@@ -18,6 +18,20 @@
 #   eco1 Торговые пути     — +100$ в казну нации каждый день
 #   eco2 Дипкорпус         — пакты о ненападении (/dip pact) для нации бесплатны
 #   eco3 Гегемония         — дань с вассалов x2 (20% казны, до 1000$)
+#
+# НАСЛЕДИЕ (добавлено 2026-11-18): глава выбирает одну из 10 держав лора — /focus heritage <id>.
+# Одно наследие на нацию и одна нация на наследие (кто первый). Даёт постоянный пассивный бонус
+# и открывает уникальный фокус «her» (1500$, 24 ч, нужен любой фокус 1-го уровня). Гайд: гайды/фокусы.md (в корне проекта)
+#   rome      Ромея            пакт стоит 50$          | SPQR: +1 очко войны за врага, убитого на вашей земле
+#   carthage  Карфаген         +25$ в казну в день     | Пушки Гая: осадные орудия на 25% дешевле
+#   hellas    Эллада           Подводное дыхание в воде| Морская Лига: ещё и Грация дельфина в воде
+#   dacia     Дакия            Спешка I ниже Y=40      | Медь Каэр-Тала: Спешка II на своей территории
+#   germania  Германия         Скорость I на своей земле | Железо и уголь: +100$ в казну в день
+#   gallia    Галлия           осенний урожай 60$ вместо 40$ | Священные рощи: Регенерация I дома во время боя
+#   horde     Орда             Скорость I в дикой местности | Из песчаной бури: Сила I на чужой земле во время боя
+#   scythia   Скифия           +20$ в день за каждый город (до 100$) | Царские курганы: дань вассалов 15% вместо 10%
+#   north     Северное Царство зимний холод не действует | Метель 1942: зимой враги на вашей земле — Замедление II
+#   isles     Островной Союз   как вассал платит половину дани | Республика мореходов: Грация дельфина и дыхание в воде
 
 import:
 	com.palmergames.bukkit.towny.TownyAPI
@@ -30,7 +44,7 @@ options:
 # ---------- дерево ----------
 
 function focusIds() :: texts:
-	return "ind1", "ind2", "ind3", "mil1", "mil2", "mil3", "eco1", "eco2" and "eco3"
+	return "ind1", "ind2", "ind3", "mil1", "mil2", "mil3", "eco1", "eco2", "eco3" and "her"
 
 function focusName(id: text) :: text:
 	if {_id} is "ind1":
@@ -51,6 +65,8 @@ function focusName(id: text) :: text:
 		return "Дипломатический корпус"
 	if {_id} is "eco3":
 		return "Гегемония"
+	if {_id} is "her":
+		return "Наследие"
 	return {_none}
 
 function focusDesc(id: text) :: text:
@@ -72,9 +88,13 @@ function focusDesc(id: text) :: text:
 		return "бесплатные пакты о ненападении"
 	if {_id} is "eco3":
 		return "дань с вассалов x2"
+	if {_id} is "her":
+		return "уникальный фокус вашего наследия (/focus heritage)"
 	return ""
 
 function focusTier(id: text) :: number:
+	if {_id} is "her":
+		return 2
 	if {_id} ends with "1":
 		return 1
 	if {_id} ends with "2":
@@ -98,6 +118,8 @@ function focusHours(id: text) :: number:
 	return 36
 
 function focusReq(id: text) :: text:
+	if {_id} is "her":
+		return {_none}
 	set {_t} to focusTier({_id})
 	if {_t} is 1:
 		return {_none}
@@ -114,6 +136,115 @@ function focusExcl(id: text) :: text:
 function focusHas(nation: text, id: text) :: boolean:
 	if {focus::done::%{_nation}%::%{_id}%} is true:
 		return true
+	return false
+
+# ---------- наследие держав ----------
+
+function herIds() :: texts:
+	return "rome", "carthage", "hellas", "dacia", "germania", "gallia", "horde", "scythia", "north" and "isles"
+
+function herName(h: text) :: text:
+	if {_h} is "rome":
+		return "Ромея"
+	if {_h} is "carthage":
+		return "Карфаген"
+	if {_h} is "hellas":
+		return "Эллада"
+	if {_h} is "dacia":
+		return "Дакия"
+	if {_h} is "germania":
+		return "Германия"
+	if {_h} is "gallia":
+		return "Галлия"
+	if {_h} is "horde":
+		return "Степная Орда"
+	if {_h} is "scythia":
+		return "Скифия"
+	if {_h} is "north":
+		return "Северное Царство"
+	if {_h} is "isles":
+		return "Островной Союз"
+	return {_none}
+
+function herPassive(h: text) :: text:
+	if {_h} is "rome":
+		return "пакт о ненападении стоит 50$ вместо 100$"
+	if {_h} is "carthage":
+		return "+25$ в казну нации в день"
+	if {_h} is "hellas":
+		return "Подводное дыхание в воде"
+	if {_h} is "dacia":
+		return "Спешка I ниже Y=40"
+	if {_h} is "germania":
+		return "Скорость I на своей территории"
+	if {_h} is "gallia":
+		return "осенний урожай приносит 60$ вместо 40$"
+	if {_h} is "horde":
+		return "Скорость I в дикой местности"
+	if {_h} is "scythia":
+		return "+20$ в казну в день за каждый город (до 100$)"
+	if {_h} is "north":
+		return "зимний холод на чужой земле не действует"
+	if {_h} is "isles":
+		return "если нация станет вассалом — платит половину дани"
+	return ""
+
+function herFocusName(h: text) :: text:
+	if {_h} is "rome":
+		return "SPQR"
+	if {_h} is "carthage":
+		return "Пушки Гая"
+	if {_h} is "hellas":
+		return "Морская Лига"
+	if {_h} is "dacia":
+		return "Медь Каэр-Тала"
+	if {_h} is "germania":
+		return "Железо и уголь"
+	if {_h} is "gallia":
+		return "Священные рощи"
+	if {_h} is "horde":
+		return "Из песчаной бури"
+	if {_h} is "scythia":
+		return "Царские курганы"
+	if {_h} is "north":
+		return "Метель 1942"
+	if {_h} is "isles":
+		return "Республика мореходов"
+	return "Наследие"
+
+function herFocusDesc(h: text) :: text:
+	if {_h} is "rome":
+		return "+1 очко войны за каждого врага, убитого на вашей территории"
+	if {_h} is "carthage":
+		return "осадные орудия (/siege) на 25%% дешевле"
+	if {_h} is "hellas":
+		return "в воде ещё и Грация дельфина"
+	if {_h} is "dacia":
+		return "Спешка II на своей территории"
+	if {_h} is "germania":
+		return "+100$ в казну нации в день"
+	if {_h} is "gallia":
+		return "Регенерация I на своей территории во время боя"
+	if {_h} is "horde":
+		return "Сила I на чужой земле во время боя"
+	if {_h} is "scythia":
+		return "дань с вассалов 15%% казны вместо 10%%"
+	if {_h} is "north":
+		return "зимой враги на вашей земле получают Замедление II"
+	if {_h} is "isles":
+		return "в воде Грация дельфина и Подводное дыхание"
+	return "сначала выберите наследие: /focus heritage"
+
+# есть ли у нации это наследие / его фокус
+function herIs(nation: text, h: text) :: boolean:
+	if {focus::her::%{_nation}%} is {_h}:
+		return true
+	return false
+
+function herFocus(nation: text, h: text) :: boolean:
+	if herIs({_nation}, {_h}) is true:
+		if {focus::done::%{_nation}%::her} is true:
+			return true
 	return false
 
 # ---------- служебное ----------
@@ -158,7 +289,11 @@ function focusComplete(nation: text):
 	if {_id} is not set:
 		stop
 	set {focus::done::%{_nation}%::%{_id}%} to true
-	broadcast "&6&l[Фокус] &e%{_nation}% &6завершает фокус «&e%focusName({_id})%&6»: %focusDesc({_id})%."
+	if {_id} is "her":
+		set {_hh} to {focus::her::%{_nation}%} ? "rome"
+		broadcast "&6&l[Фокус] &e%{_nation}% &6завершает фокус наследия «&e%herFocusName({_hh})%&6»: %herFocusDesc({_hh})%."
+	else:
+		broadcast "&6&l[Фокус] &e%{_nation}% &6завершает фокус «&e%focusName({_id})%&6»: %focusDesc({_id})%."
 	if {_id} is "ind1":
 		focusBonusChunks({_nation})
 
@@ -179,6 +314,12 @@ every 1 minute:
 			focusComplete(loop-value)
 
 every 30 minutes:
+	# наследие удалённой нации освобождается
+	set {_hs::*} to indices of {focus::her::*}
+	loop {_hs::*}:
+		if TownyAPI.getInstance().getNation(loop-value) is not set:
+			delete {focus::herowner::%{focus::her::%loop-value%}%}
+			delete {focus::her::%loop-value%}
 	loop ...TownyAPI.getInstance().getNations():
 		set {_nm} to "%loop-value.getName()%"
 		if focusHas({_nm}, "ind1") is true:
@@ -194,6 +335,15 @@ every 30 minutes:
 				add {@ind3_income} to {_sum}
 			if focusHas({_nm}, "eco1") is true:
 				add {@eco1_income} to {_sum}
+			if herIs({_nm}, "carthage") is true:
+				add 25 to {_sum}
+			if herFocus({_nm}, "germania") is true:
+				add 100 to {_sum}
+			if herIs({_nm}, "scythia") is true:
+				set {_sc} to loop-value.getTowns().size() * 20
+				if {_sc} > 100:
+					set {_sc} to 100
+				add {_sc} to {_sum}
 			if {_sum} > 0:
 				set {focus::paid::%{_nm}%} to now
 				focusDeposit({_nm}, {_sum})
@@ -219,6 +369,70 @@ every 5 seconds:
 				if focusHas({_nm}, "mil3") is true:
 					apply speed of tier 1 to loop-player for 7 seconds
 					apply strength of tier 1 to loop-player for 7 seconds
+			# наследие
+			set {_h} to {focus::her::%{_nm}%}
+			delete {-focus::disc::%uuid of loop-player%}
+			if {_h} is set:
+				set {_hf} to false
+				if {focus::done::%{_nm}%::her} is true:
+					set {_hf} to true
+				set {_home} to focusAtHome(loop-player, {_nm})
+				if {_h} is "hellas" or "isles":
+					if block at loop-player is water:
+						if {_h} is "hellas":
+							apply water breathing to loop-player for 7 seconds
+							if {_hf} is true:
+								apply dolphins grace to loop-player for 7 seconds
+						else if {_hf} is true:
+							apply water breathing to loop-player for 7 seconds
+							apply dolphins grace to loop-player for 7 seconds
+				else if {_h} is "dacia":
+					if y-coordinate of loop-player < 40:
+						apply haste of tier 1 to loop-player for 7 seconds
+					if {_hf} is true:
+						if {_home} is true:
+							apply haste of tier 2 to loop-player for 7 seconds
+				else if {_h} is "germania":
+					if {_home} is true:
+						apply speed of tier 1 to loop-player for 7 seconds
+				else if {_h} is "gallia":
+					if {_hf} is true:
+						if {_hot} is true:
+							if {_home} is true:
+								apply regeneration of tier 1 to loop-player for 7 seconds
+				else if {_h} is "horde":
+					set {_wild} to false
+					if TownyAPI.getInstance().getTown(location of loop-player) is not set:
+						set {_wild} to true
+					if {_wild} is true:
+						apply speed of tier 1 to loop-player for 7 seconds
+					if {_hf} is true:
+						if {_hot} is true:
+							if {_home} is false:
+								apply strength of tier 1 to loop-player for 7 seconds
+				else if {_h} is "carthage":
+					if {_hf} is true:
+						# скидку читает paxsiege.sk (переменная в памяти, не сохраняется)
+						set {-focus::disc::%uuid of loop-player%} to 0.75
+
+# SPQR (Ромея): +1 очко войны за врага, убитого на своей территории во время боя
+on death of player:
+	attacker is a player
+	set {_kn} to focusNationOf(attacker)
+	{_kn} is set
+	herFocus({_kn}, "rome") is true
+	focusAtHome(attacker, {_kn}) is true
+	set {_vn} to focusNationOf(victim)
+	{_vn} is set
+	loop {pax::wids::*}:
+		set {_w} to loop-value
+		if {pax::w::%{_w}%::hot} is true:
+			if {pax::w::%{_w}%::a} is {_kn}:
+				if {pax::w::%{_w}%::d} is {_vn}:
+					add 1 to {pax::w::%{_w}%::score::%{_kn}%}
+			if {pax::w::%{_w}%::d} is {_kn}:
+				if {pax::w::%{_w}%::a} is {_vn}:
+					add 1 to {pax::w::%{_w}%::score::%{_kn}%}
 
 # ---------- команда ----------
 
@@ -231,7 +445,7 @@ command /focus [<text>] [<text>] [<text>]:
 				stop
 			set {_n} to TownyAPI.getInstance().getNation(arg-3 ? "")
 			if {_n} is not set:
-				send "&c/focus admin finish|reset <нация>"
+				send "&c/focus admin finish|reset|heritage <нация>"
 				stop
 			set {_nm} to "%{_n}.getName()%"
 			if arg-2 is "finish":
@@ -239,6 +453,12 @@ command /focus [<text>] [<text>] [<text>]:
 					send "&cУ нации нет активного фокуса."
 					stop
 				focusComplete({_nm})
+			else if arg-2 is "heritage":
+				if {focus::her::%{_nm}%} is set:
+					delete {focus::herowner::%{focus::her::%{_nm}%}%}
+				delete {focus::her::%{_nm}%}
+				delete {focus::done::%{_nm}%::her}
+				send "&eНаследие %{_nm}% сброшено — глава может выбрать заново."
 			else if arg-2 is "reset":
 				delete {focus::cur::%{_nm}%}
 				delete {focus::end::%{_nm}%}
@@ -271,6 +491,37 @@ command /focus [<text>] [<text>] [<text>]:
 			else:
 				send "&cОсвободите 6 слотов в инвентаре."
 			stop
+		if arg-1 is "heritage" or "наследие":
+			if arg-2 is not set:
+				send "&6&l=== Наследие держав ==="
+				if {focus::her::%{_nm}%} is set:
+					send "&eВаше наследие: &f%herName({focus::her::%{_nm}%})%"
+				loop herIds():
+					set {_o} to {focus::herowner::%loop-value%}
+					set {_who} to "&aсвободно"
+					if {_o} is set:
+						set {_who} to "&7занято: %{_o}%"
+					send "&f%loop-value% &e%herName(loop-value)% &7— %herPassive(loop-value)%; фокус «%herFocusName(loop-value)%»: %herFocusDesc(loop-value)% %{_who}%"
+				send "&7Выбрать (глава, один раз): &f/focus heritage <id>"
+				stop
+			set {_r} to TownyAPI.getInstance().getResident(player)
+			if {_r}.isKing() is not true:
+				send "&cНаследие выбирает глава нации."
+				stop
+			if {focus::her::%{_nm}%} is set:
+				send "&cУ нации уже есть наследие: %herName({focus::her::%{_nm}%})%. Сменить может только админ."
+				stop
+			set {_h} to "%arg-2%" in lower case
+			if herName({_h}) is not set:
+				send "&cНет наследия «%arg-2%». Список: /focus heritage"
+				stop
+			if {focus::herowner::%{_h}%} is set:
+				send "&cНаследие %herName({_h})% уже взяла нация %{focus::herowner::%{_h}%}%."
+				stop
+			set {focus::her::%{_nm}%} to {_h}
+			set {focus::herowner::%{_h}%} to {_nm}
+			broadcast "&6&l[Фокус] &e%{_nm}% &6объявляет себя наследницей державы &e%herName({_h})%&6: %herPassive({_h})%."
+			stop
 		if arg-1 is "start":
 			set {_r} to TownyAPI.getInstance().getResident(player)
 			if {_r}.isKing() is not true:
@@ -286,6 +537,15 @@ command /focus [<text>] [<text>] [<text>]:
 			if focusHas({_nm}, {_id}) is true:
 				send "&cЭтот фокус уже завершён."
 				stop
+			if {_id} is "her":
+				if {focus::her::%{_nm}%} is not set:
+					send "&cСначала выберите наследие: /focus heritage"
+					stop
+				if focusHas({_nm}, "ind1") is false:
+					if focusHas({_nm}, "mil1") is false:
+						if focusHas({_nm}, "eco1") is false:
+							send "&cСначала завершите любой фокус 1-го уровня (ind1, mil1 или eco1)."
+							stop
 			set {_req} to focusReq({_id})
 			if {_req} is set:
 				if focusHas({_nm}, {_req}) is false:
@@ -313,6 +573,10 @@ command /focus [<text>] [<text>] [<text>]:
 			broadcast "&6&l[Фокус] &e%{_nm}% &6начинает фокус «&e%focusName({_id})%&6» (%focusHours({_id})% ч)."
 			stop
 		send "&6&l=== Фокусы нации %{_nm}% ==="
+		if {focus::her::%{_nm}%} is set:
+			send "&eНаследие: &f%herName({focus::her::%{_nm}%})% &7— %herPassive({focus::her::%{_nm}%})%"
+		else:
+			send "&eНаследие не выбрано: &f/focus heritage &7(бесплатно, один раз)"
 		if {focus::cur::%{_nm}%} is set:
 			send "&eСейчас: &f%focusName({focus::cur::%{_nm}%})% &7(готово %{focus::end::%{_nm}%}%)"
 		loop focusIds():
@@ -323,6 +587,9 @@ command /focus [<text>] [<text>] [<text>]:
 				set {_st} to "&e⌛"
 			else:
 				set {_st} to "&7○"
-			send "%{_st}% &f%{_id}% &e%focusName({_id})% &7— %focusDesc({_id})% &8[%focusCost({_id})%$, %focusHours({_id})% ч]"
+			if {_id} is "her":
+				send "%{_st}% &fher &e%herFocusName({focus::her::%{_nm}%} ? "")% &7— %herFocusDesc({focus::her::%{_nm}%} ? "")% &8[%focusCost({_id})%$, %focusHours({_id})% ч, нужен любой фокус ур.1]"
+			else:
+				send "%{_st}% &f%{_id}% &e%focusName({_id})% &7— %focusDesc({_id})% &8[%focusCost({_id})%$, %focusHours({_id})% ч]"
 		send "&7Начать: &f/focus start <id>&7. Ветки: ind → промышленность, mil → армия, eco → экономика."
 		send "&7Тотальная война (mil3) и Гегемония (eco3) — взаимоисключающие."

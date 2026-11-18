@@ -235,9 +235,17 @@ every 30 minutes:
 				set {_k} to 1
 				if {focus::done::%{_o}%::eco3} is true:
 					set {_k} to 2
-				set {_amt} to floor({_vn}.getAccount().getHoldingBalance() * {@tribute_pct} * {_k} / 100)
+				# наследие Скифии с фокусом «Царские курганы»: 15% вместо 10%
+				set {_pct} to {@tribute_pct}
+				if {focus::her::%{_o}%} is "scythia":
+					if {focus::done::%{_o}%::her} is true:
+						set {_pct} to 15
+				set {_amt} to floor({_vn}.getAccount().getHoldingBalance() * {_pct} * {_k} / 100)
 				if {_amt} > {@tribute_max} * {_k}:
 					set {_amt} to {@tribute_max} * {_k}
+				# наследие Островного Союза: вассал платит половину
+				if {focus::her::%{_v}%} is "isles":
+					set {_amt} to floor({_amt} / 2)
 				if {_amt} >= 1:
 					{_vn}.getAccount().withdraw({_amt}, "PaxVanila: дань")
 					{_on}.getAccount().deposit({_amt}, "PaxVanila: дань")
@@ -445,6 +453,11 @@ command /dip [<text>] [<text>] [<text>] [<text>]:
 				# фокус «Дипломатический корпус» (paxfocus.sk) — пакт для нации бесплатен
 				set {_c1} to {@pact_cost}
 				set {_c2} to {@pact_cost}
+				# наследие Ромеи: пакт стоит 50$
+				if {focus::her::%{_me}%} is "rome":
+					set {_c1} to 50
+				if {focus::her::%{_t}%} is "rome":
+					set {_c2} to 50
 				if {focus::done::%{_me}%::eco2} is true:
 					set {_c1} to 0
 				if {focus::done::%{_t}%::eco2} is true:

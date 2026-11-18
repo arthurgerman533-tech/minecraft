@@ -154,6 +154,11 @@ function seasonForeignCold(p: player) :: boolean:
 	set {_r} to TownyAPI.getInstance().getResident({_p})
 	if {_r} is not set:
 		return true
+	# наследие Северного Царства (paxfocus.sk): зимний холод не действует
+	set {_nn} to {_r}.getNationOrNull()
+	if {_nn} is set:
+		if {focus::her::%{_nn}.getName()%} is "north":
+			return false
 	set {_mt} to {_r}.getTownOrNull()
 	if {_mt} is set:
 		if "%{_mt}.getName()%" is "%{_t}.getName()%":
@@ -168,10 +173,37 @@ function seasonForeignCold(p: player) :: boolean:
 				return false
 	return true
 
+function seasonNorthBlizzard(p: player) :: boolean:
+	set {_t} to TownyAPI.getInstance().getTown(location of {_p})
+	if {_t} is not set:
+		return false
+	set {_tn} to {_t}.getNationOrNull()
+	if {_tn} is not set:
+		return false
+	set {_name} to "%{_tn}.getName()%"
+	if {focus::her::%{_name}%} is not "north":
+		return false
+	if {focus::done::%{_name}%::her} is not true:
+		return false
+	set {_r} to TownyAPI.getInstance().getResident({_p})
+	if {_r} is not set:
+		return true
+	set {_mn} to {_r}.getNationOrNull()
+	if {_mn} is not set:
+		return true
+	if "%{_mn}.getName()%" is {_name}:
+		return false
+	if {_mn}.hasMutualAlly({_tn}) is true:
+		return false
+	return true
+
 every 10 seconds:
 	if {season::cur} is 3:
 		loop all players:
-			if seasonForeignCold(loop-player) is true:
+			# наследие Севера с фокусом «Метель 1942»: чужаки на его земле — Замедление II
+			if seasonNorthBlizzard(loop-player) is true:
+				apply slowness of tier 2 to loop-player for 12 seconds
+			else if seasonForeignCold(loop-player) is true:
 				apply slowness of tier 1 to loop-player for 12 seconds
 				if {season::coldmsg::%uuid of loop-player%} is not set:
 					set {season::coldmsg::%uuid of loop-player%} to true
@@ -226,8 +258,14 @@ command /season [<text>] [<text>] [<text>]:
 				send "&cНужна полная стопка (64)."
 				stop
 			remove 64 of {_h} from player's tool
-			{_t}.getAccount().deposit({@harvest_pay}, "PaxVanila: сбор урожая")
-			send "&6[Сезон] &eУрожай сдан: &f+{@harvest_pay}$ &eв казну города %{_t}.getName()%."
+			# наследие Галлии (paxfocus.sk): 60$ вместо 40$
+			set {_pay} to {@harvest_pay}
+			set {_hn} to {_r}.getNationOrNull()
+			if {_hn} is set:
+				if {focus::her::%{_hn}.getName()%} is "gallia":
+					set {_pay} to 60
+			{_t}.getAccount().deposit({_pay}, "PaxVanila: сбор урожая")
+			send "&6[Сезон] &eУрожай сдан: &f+%{_pay}%$ &eв казну города %{_t}.getName()%."
 			stop
 		send "&6Сейчас: &f%seasonName({season::cur} ? -1)%"
 		if {season::droploc} is set:

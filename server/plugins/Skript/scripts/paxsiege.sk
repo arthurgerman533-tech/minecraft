@@ -9,6 +9,8 @@ options:
 	charge_price: 250
 
 function siegeBuy(p: player, weapon: text, price: number, title: text):
+	# наследие Карфагена с фокусом «Пушки Гая» (paxfocus.sk): множитель 0.75
+	set {_price} to round({_price} * ({-focus::disc::%uuid of {_p}%} ? 1))
 	if {_p}'s balance < {_price}:
 		send "&cНужно %{_price}%$, у вас %{_p}'s balance%$." to {_p}
 		stop
