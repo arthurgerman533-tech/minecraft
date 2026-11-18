@@ -301,6 +301,19 @@ def main():
     built = {}
     for lang in LANGS:
         built[lang] = build(lang, DOCS if lang == "ru" else os.path.join(DOCS, lang))
+    # сброс кэша браузера: GitHub Pages отдаёт файлы с max-age=600, поэтому к app.js, style.css и content.json добавляем ?v=<время сборки>
+    import time
+    ver = time.strftime("%Y%m%d%H%M%S")
+    for dp, _, fns in os.walk(DOCS):
+        for fn in fns:
+            fp = os.path.join(dp, fn)
+            if fn.endswith(".html"):
+                t = open(fp, encoding="utf-8").read()
+                t = re.sub(r'(src|href)="((?:\.\./)*)(app\.js|style\.css)"', lambda m: f'{m.group(1)}="{m.group(2)}{m.group(3)}?v={ver}"', t)
+                open(fp, "w", encoding="utf-8").write(t)
+            elif fn == "app.js":
+                t = open(fp, encoding="utf-8").read().replace("fetch('content.json')", f"fetch('content.json?v={ver}')")
+                open(fp, "w", encoding="utf-8").write(t)
 
     # ассеты приложения: content.json + lore/ + guides/ (ru), content.<lang>.json + lore_<lang>/ + guides_<lang>/
     if os.path.isdir(os.path.join(ROOT, "app")):
