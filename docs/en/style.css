@@ -206,3 +206,6 @@ table.wxtable small{color:var(--muted)}
 .card.news h3{margin:.1em 0 .3em}
 .card.news p b{color:var(--ink)}
 .card.news .reward{font-size:.9rem;border-top:1px dashed var(--line);padding-top:8px;margin-top:8px}
+.btn.boosty{border-color:#f15f2c;color:#f15f2c}
+.btn.boosty:hover{background:#f15f2c;color:#fff}
+.supportcard{grid-column:1/-1;margin-top:16px}

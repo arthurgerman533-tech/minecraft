@@ -98,6 +98,8 @@ class _NowScreenState extends State<NowScreen> {
               label: Text(cfg.serverAddress.isEmpty ? t('Адрес скоро', 'Address soon') : cfg.serverAddress),
             ),
             OutlinedButton.icon(onPressed: () => openUrl(context, cfg.discordUrl), icon: const Icon(Icons.forum_outlined), label: Text(t('Наш Discord', 'Our Discord'))),
+            if (cfg.boostyUrl.isNotEmpty)
+              OutlinedButton.icon(onPressed: () => openUrl(context, cfg.boostyUrl), icon: const Icon(Icons.favorite_outline), label: Text(t('Поддержать на Boosty', 'Support us on Boosty'))),
             if (cfg.mapUrl.isNotEmpty)
               OutlinedButton.icon(onPressed: () => openUrl(context, cfg.mapUrl), icon: const Icon(Icons.map_outlined), label: Text(t('Карта', 'Map'))),
           ]),

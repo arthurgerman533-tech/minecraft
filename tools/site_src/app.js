@@ -72,6 +72,7 @@ async function main(){
   const ipBtn=$('#copyip');
   if(ipBtn){ if(cfg.serverAddress){$('#ipText').textContent=cfg.serverAddress;ipBtn.onclick=()=>navigator.clipboard.writeText(cfg.serverAddress).then(()=>toast(T('Адрес скопирован','Address copied')))} else ipBtn.disabled=true;
     const d=$('#discord'); if(cfg.discordUrl) d.href=cfg.discordUrl; else {d.removeAttribute('href');d.style.opacity=.55;d.title=T('Ссылка появится перед открытием','The link will appear before launch')} }
+  document.querySelectorAll('[data-boosty]').forEach(a=>{if(cfg.boostyUrl)a.href=cfg.boostyUrl;else a.hidden=true});
   renderNow(C); setInterval(()=>renderNow(C),30000);
   const apk=$('#apk'); if(apk&&cfg.appRepo&&!isIOS){
     fetch(`https://api.github.com/repos/${cfg.appRepo}/releases/tags/app-latest`).then(r=>r.ok?r.json():null).then(r=>{

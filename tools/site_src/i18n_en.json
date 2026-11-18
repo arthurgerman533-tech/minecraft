@@ -120,8 +120,8 @@
   "<p class=\"sub\">From the Nameless and the Forerunners to the last sun. Everything you see on the server, the tower, the cataclysms, the shards, is part of one story.</p>"
  ],
  [
-  "PaxVanila · фанатский сервер, не связан с Mojang и Microsoft. Есть и <a href=\"#app\" id=\"appLink\">приложение</a>. <a href=\"privacy.html\">Конфиденциальность</a>.",
-  "PaxVanila · a fan server, not affiliated with Mojang or Microsoft. There is also an <a href=\"#app\" id=\"appLink\">app</a>. <a href=\"privacy.html\">Privacy</a>."
+  "PaxVanila · фанатский сервер, не связан с Mojang и Microsoft. Есть и <a href=\"#app\" id=\"appLink\">приложение</a>. <a href=\"privacy.html\">Конфиденциальность</a>. <a data-boosty href=\"#\" target=\"_blank\" rel=\"noopener\">Поддержать на Boosty</a>.",
+  "PaxVanila · a fan server, not affiliated with Mojang or Microsoft. There is also an <a href=\"#app\" id=\"appLink\">app</a>. <a href=\"privacy.html\">Privacy</a>. <a data-boosty href=\"#\" target=\"_blank\" rel=\"noopener\">Support us on Boosty</a>."
  ],
  [
   "<summary>Оглавление</summary>",
@@ -262,5 +262,17 @@
  [
   "Научные новости мира. Когда кто-то первым на сервере находит данж, крепость или Край, сервер сам пишет сюда заметку.",
   "Science news of the world. When someone is the first on the server to find a dungeon, a fortress or the End, the server writes a note here by itself."
+ ],
+ [
+  "❤️ Поддержать на Boosty",
+  "❤️ Support us on Boosty"
+ ],
+ [
+  "<h3><span class=\"em\">❤️</span>Поддержать сервер</h3>",
+  "<h3><span class=\"em\">❤️</span>Support the server</h3>"
+ ],
+ [
+  "Если хотите помочь с хостингом и развитием сервера, это можно сделать на Boosty.",
+  "If you want to help with hosting and development, you can do it on Boosty."
  ]
 ]

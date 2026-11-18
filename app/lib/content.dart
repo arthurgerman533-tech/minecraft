@@ -13,13 +13,14 @@ class BorderCfg {
 }
 
 class Config {
-  final String serverName, serverAddress, discordUrl, mapUrl, launchDate, version, liveUrl;
+  final String serverName, serverAddress, discordUrl, boostyUrl, mapUrl, launchDate, version, liveUrl;
   final int primeFrom, primeTo;
   final BorderCfg border;
   Config(Map<String, dynamic> j)
       : serverName = j['serverName'] ?? 'PaxVanila',
         serverAddress = j['serverAddress'] ?? '',
         discordUrl = j['discordUrl'] ?? '',
+        boostyUrl = j['boostyUrl'] ?? '',
         mapUrl = j['mapUrl'] ?? '',
         launchDate = j['launchDate'] ?? '',
         version = j['version'] ?? '',

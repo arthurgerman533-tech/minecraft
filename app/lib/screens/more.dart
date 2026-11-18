@@ -33,6 +33,7 @@ class MoreScreen extends StatelessWidget {
         tile(Icons.gavel_outlined, t('Правила', 'Rules'), t('Честная игра, войны, ивенты', 'Fair play, wars, events'), () => push(context, t('Правила', 'Rules'), RulesView(content: content))),
         tile(Icons.terminal, t('Команды', 'Commands'), t('Поиск по всем командам сервера', 'Search all server commands'), () => push(context, t('Команды', 'Commands'), CommandsView(content: content))),
         tile(Icons.forum_outlined, 'Discord', t('Новости, объявления войн, катаклизмы', 'News, war declarations, cataclysms'), () => openUrl(context, cfg.discordUrl)),
+        if (cfg.boostyUrl.isNotEmpty) tile(Icons.favorite_outline, t('Поддержать на Boosty', 'Support us on Boosty'), t('Помочь с хостингом и развитием сервера', 'Help with hosting and development'), () => openUrl(context, cfg.boostyUrl)),
         if (cfg.mapUrl.isNotEmpty) tile(Icons.map_outlined, t('Карта мира', 'World map'), t('Территории наций на BlueMap', 'Nation territories on BlueMap'), () => openUrl(context, cfg.mapUrl)),
         tile(Icons.privacy_tip_outlined, t('Конфиденциальность', 'Privacy'), t('Приложение не собирает данные', 'The app collects no data'), () => push(context, t('Конфиденциальность', 'Privacy'), const PrivacyView())),
         tile(Icons.info_outline, t('О приложении', 'About'), t('PaxVanila · фанатский сервер', 'PaxVanila · fan server'), () => showAboutDialog(
