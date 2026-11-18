@@ -216,3 +216,4 @@ table.wxtable small{color:var(--muted)}
 .doc article img{max-width:100%;height:auto;border-radius:10px}
 #msvg .c-old .ld,#msvg .c-old .ltx{fill:#a85cff}
 #msvg .k-old .fa{fill:#a85cff;stroke:#a85cff}#msvg .k-old .fl,#msvg .k-old .fx{stroke:#a85cff}#msvg .k-old .ft,#msvg .k-old .fh{fill:#a85cff}
+#mAll{border-color:#a85cff;color:#a85cff;font-weight:700}
