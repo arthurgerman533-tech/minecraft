@@ -1,0 +1,50 @@
+# Сборка Android-приложения (APK) в облаке GitHub и публикация в Releases.
+# Запускается при изменениях в app/ или вручную (Actions → Android APK → Run workflow).
+# Файл для скачивания: https://github.com/<логин>/<репозиторий>/releases/download/app-latest/PaxVanila.apk
+# Подпись отладочная (для установки с сайта). Для Google Play нужна своя подпись, см. app/RELEASE.md.
+name: Android APK
+
+on:
+  push:
+    branches: ["main"]
+    paths: ["app/**", ".github/workflows/android.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: android-apk
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: Build APK
+        working-directory: app
+        run: |
+          rm -f android/local.properties
+          flutter pub get
+          flutter test
+          flutter build apk --release
+          cp build/app/outputs/flutter-apk/app-release.apk ../PaxVanila.apk
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: app-latest
+          name: PaxVanila для Android (последняя сборка)
+          body: |
+            Установка: скачайте PaxVanila.apk на телефон Android, откройте файл и разрешите установку из этого источника.
+            Сборка из коммита ${{ github.sha }}.
+          files: PaxVanila.apk
+          make_latest: true
