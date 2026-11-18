@@ -165,7 +165,7 @@ def main():
     idx = open(os.path.join(SRC, "index.html"), encoding="utf-8").read()
     lore_index = re.sub(r"<div class=\"hero\">.*?</footer>",
                         '<section><div class="wrap"><div class="kicker">История мира</div><h1>Лор PaxVanila</h1>'
-                        '<p class="sub">Читать по порядку: Предтечи → Средние эпохи → Поздние эпохи. Катаклизмы — отдельная летопись.</p>'
+                        '<p class="sub">Читать по порядку: Предтечи → Средние эпохи → Поздние эпохи (будущее мира: от роботов 1962 года до Луны, Марса и звёзд). Катаклизмы — отдельная летопись.</p>'
                         f'<div class="lorelist">{"".join(cards)}</div></div></section><footer><div class="wrap"><a href="./">← На главную</a></div></footer>',
                         idx, flags=re.S)
     with open(os.path.join(DOCS, "lore.html"), "w", encoding="utf-8") as f:
