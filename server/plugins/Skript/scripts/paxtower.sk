@@ -1,0 +1,231 @@
+# PaxVanila — Башня новичков в 0,0.
+# Нужны: Skript + датапак PaxVanila_Tower.zip (world/datapacks) + paxborder.sk.
+#
+# Команды (ОП / право paxtower.admin), стоять рядом с 0,0:
+#   /paxtower scan          — измерить рельеф: земля в 0,0 и самая высокая точка вокруг
+#   /paxtower build         — построить башню (высота = самая высокая гора в радиусе + запас)
+#   /paxtower build 230     — построить с верхом на Y=230 (ручная высота)
+#   /paxtower spawn         — поставить спавн мира в башню (build делает это сам)
+#   /paxtower info          — что запомнено
+#
+# ВАЖНО: перед build сделай бэкап мира. Отката у постройки нет.
+
+options:
+	world: world
+	scanradius: 256   # в каком радиусе искать горы
+	scanstep: 16      # шаг сетки замеров
+	bonus: 4          # насколько верх башни выше самой высокой точки
+	minheight: 128    # минимальная высота башни над землёй
+	maxtop: 308       # верх не выше (лимит мира 319, сверху ещё корона)
+
+on load:
+	delete {pax::tower::busy}
+
+on disable:
+	delete {pax::tower::busy}
+	execute console command "forceload remove -16 -16 15 15"
+
+function paxTowerResetBusy():
+	delete {pax::tower::busy}
+
+function paxT(f: text, y: number):
+	execute console command "execute positioned 0 %{_y}% 0 run function paxtower:%{_f}%"
+
+function paxTowerSpawn():
+	set {_g} to {pax::tower::ground}
+	set {_spawnY} to {_g} + 1
+	execute console command "setworldspawn 0 %{_spawnY}% 4"
+	execute console command "gamerule spawnRadius 0"
+	paxApplyBorder(true)
+
+command /paxtower [<text>] [<integer>]:
+	permission: paxtower.admin
+	permission message: &cНет прав.
+	trigger:
+		if arg-1 is "info":
+			send "&6Земля: &f%{pax::tower::ground}% &6Верх: &f%{pax::tower::top}% &6Построена: &f%{pax::tower::built}%"
+			stop
+		if arg-1 is "spawn":
+			if {pax::tower::ground} is not set:
+				send "&cСначала /paxtower scan"
+				stop
+			paxTowerSpawn()
+			send "&aСпавн мира: 0 %{pax::tower::ground} + 1% 4 (внутри башни)."
+			stop
+		set {_mode} to "none"
+		if arg-1 is "scan":
+			set {_mode} to "scan"
+		if arg-1 is "build":
+			set {_mode} to "build"
+		if {_mode} is "none":
+			send "&e/paxtower scan | build [верхY] | spawn | info"
+			stop
+		if {pax::tower::busy} is set:
+			send "&cУже идёт процесс, подожди."
+			stop
+		set {pax::tower::busy} to true
+		set {_w} to world("{@world}")
+		execute console command "forceload add -16 -16 15 15"
+		wait 5 ticks
+
+		# --- земля в 0,0 (без листвы, стволов и воды)
+		set {_b} to highest block at location(0, 64, 0, {_w})
+		set {_y} to floor(y-coordinate of {_b})
+		loop 160 times:
+			set {_b} to block at location(0, {_y}, 0, {_w})
+			set {_s} to "%type of {_b}%"
+			set {_ok} to false
+			if {_b} is solid:
+				set {_ok} to true
+			if {_s} contains "leaves":
+				set {_ok} to false
+			if {_s} contains "log":
+				set {_ok} to false
+			if {_s} contains "wood":
+				set {_ok} to false
+			if {_s} contains "mushroom":
+				set {_ok} to false
+			if {_ok} is true:
+				exit loop
+			remove 1 from {_y}
+		set {_g} to {_y}
+
+		# --- самая высокая точка вокруг
+		send "&7Меряю рельеф в радиусе {@scanradius}..."
+		set {_max} to {_g}
+		set {_mx} to 0
+		set {_mz} to 0
+		set {_n} to 0
+		set {_x} to -{@scanradius}
+		while {_x} <= {@scanradius}:
+			set {_z} to -{@scanradius}
+			while {_z} <= {@scanradius}:
+				if {_x} * {_x} + {_z} * {_z} <= {@scanradius} * {@scanradius}:
+					set {_hb} to highest block at location({_x}, 64, {_z}, {_w})
+					set {_h} to floor(y-coordinate of {_hb})
+					if {_h} > {_max}:
+						set {_max} to {_h}
+						set {_mx} to {_x}
+						set {_mz} to {_z}
+					add 1 to {_n}
+					if mod({_n}, 8) = 0:
+						wait 1 tick
+				add {@scanstep} to {_z}
+			add {@scanstep} to {_x}
+
+		set {_t} to {_max} + {@bonus}
+		if {_t} < {_g} + {@minheight}:
+			set {_t} to {_g} + {@minheight}
+		if arg-2 is set:
+			set {_t} to arg-2
+			if {_t} < 0:
+				set {_t} to 0
+		if {_t} < {_g} + {@minheight}:
+			set {_t} to {_g} + {@minheight}
+		if {_t} > {@maxtop}:
+			set {_t} to {@maxtop}
+		set {pax::tower::ground} to {_g}
+		set {pax::tower::top} to {_t}
+		send "&6Земля в 0,0: &fY=%{_g}%&6. Высшая точка вокруг: &fY=%{_max}% &7(%{_mx}%, %{_mz}%, замеров %{_n}%)"
+		send "&6Верх башни будет: &fY=%{_t}% &7(высота %{_t} - {_g}% блоков, видимая %{_t} - {_g} + 3% блоков)"
+		if {_mode} is "scan":
+			execute console command "forceload remove -16 -16 15 15"
+			delete {pax::tower::busy}
+			send "&7Строить: &f/paxtower build &7или &f/paxtower build <верхY>"
+			stop
+
+		# --- стройка
+		send "&eСтрою башню... не уходи от 0,0."
+		set {_i} to 1
+		while {_i} <= 20:
+			paxT("clear", {_g} + {_i})
+			set {_i} to {_i} + 1
+		set {_i} to 1
+		while {_i} <= 16:
+			paxT("foundation/f%mod({_i}, 2)%", {_g} - {_i})
+			set {_i} to {_i} + 1
+		paxT("floor", {_g})
+		paxT("plaza", {_g})
+		wait 2 ticks
+
+		set {_y} to {_g} + 1
+		while {_y} < {_t}:
+			set {_i} to {_y} - {_g} - 1
+			set {_k} to mod({_i}, 24)
+			if {_y} >= {_t} - 9:
+				set {_wall} to "t%random integer between 0 and 3%"
+			else if {_i} < 12:
+				set {_wall} to "l%random integer between 0 and 3%"
+			else:
+				set {_wall} to "m%random integer between 0 and 5%"
+			set {_p} to random integer between 0 and 2
+			execute console command "execute positioned 0 %{_y}% 0 run function paxtower:layer {wall:%{_wall}%,pillar:p%{_p}%,stair:%{_k}%}"
+			# факел на столбе, напротив лестницы
+			if mod({_i}, 6) = 3:
+				set {_o} to mod(round(({_k} * 15 + 187.5) / 90), 4)
+				if {_o} = 0:
+					paxT("torch/e", {_y})
+				else if {_o} = 1:
+					paxT("torch/s", {_y})
+				else if {_o} = 2:
+					paxT("torch/w", {_y})
+				else:
+					paxT("torch/n", {_y})
+			# бойницы
+			if {_i} >= 8:
+				if {_y} < {_t} - 8:
+					set {_m} to mod({_i}, 10)
+					if {_m} = 5:
+						set {_sl} to "a"
+						if mod(floor({_i} / 10), 2) = 1:
+							set {_sl} to "b"
+					if {_m} >= 5:
+						if {_m} <= 6:
+							paxT("slit/%{_sl}%", {_y})
+			if mod({_i}, 3) = 0:
+				wait 1 tick
+			add 1 to {_y}
+
+		# основание и вход
+		set {_i} to 0
+		while {_i} <= 3:
+			paxT("flare/r%{_i}%", {_g} + 1 + {_i})
+			set {_i} to {_i} + 1
+		set {_i} to 1
+		while {_i} <= 4:
+			paxT("door", {_g} + {_i})
+			set {_i} to {_i} + 1
+		paxT("door_top", {_g} + 5)
+
+		# верх: площадка, люк над лестницей, корона
+		paxT("wall/t%random integer between 0 and 3%", {_t})
+		paxT("top_floor", {_t})
+		set {_i} to 1
+		while {_i} <= 3:
+			paxT("hole/h%mod({_t} - {_g} - 1 - {_i}, 24)%", {_t})
+			set {_i} to {_i} + 1
+		paxT("crown/c1_%random integer between 0 and 1%", {_t} + 1)
+		paxT("crown/c2_%random integer between 0 and 1%", {_t} + 2)
+		paxT("crown/c3_%random integer between 0 and 1%", {_t} + 3)
+		wait 2 ticks
+
+		# лианы
+		set {_j} to 0
+		while {_j} <= 11:
+			set {_vy} to random integer between ({_g} + 10) and ({_t} - 4)
+			set {_len} to random integer between 6 and 30
+			set {_e} to 0
+			while {_e} < {_len}:
+				if {_vy} - {_e} > {_g} + 4:
+					paxT("vines/v%{_j}%", {_vy} - {_e})
+				add 1 to {_e}
+			add 1 to {_j}
+			wait 1 tick
+		paxT("rubble", {_g} + 1)
+		paxT("starter_cache", {_g})
+
+		set {pax::tower::built} to now
+		paxTowerSpawn()
+		execute console command "forceload remove -16 -16 15 15"
+		delete {pax::tower::busy}
+		send "&aБашня готова: земля Y=%{_g}%, верх Y=%{_t}%. Спавн: 0 %{_g} + 1% 4."

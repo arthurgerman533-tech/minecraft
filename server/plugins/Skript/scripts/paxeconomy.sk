@@ -1,0 +1,15 @@
+# PaxVanila — памятка по экономике (EssentialsX + VaultUnlocked + Towny)
+# Только справка, ничего не меняет в балансах.
+
+command /экономика:
+    aliases: /economy, /eco-help
+    trigger:
+        send "&6&l=== Экономика PaxVanila ===" to player
+        send "&eЗаработок: &f/sell hand &7(продать предмет в руке), &f/worth &7— цена" to player
+        send "&7  Продаются руды/слитки, урожай, брёвна, лут с мобов. Камень — нет." to player
+        send "&eКошелёк: &f/bal&7, перевод — &f/pay <ник> <сумма>&7, топ — &f/baltop" to player
+        send "&eГород: &f500$&7, нация: &f3000$&7, чанк: от &f50$ &7(дорожает, макс 300$)" to player
+        send "&eКазна города: &f/t deposit <сумма>&7, &f/t withdraw <сумма>" to player
+        send "&eНалоги: &f/t set taxes <сумма>&7, нация: &f/n set taxes <сумма>" to player
+        send "&eСодержание в день: &fгород 25$, нация 150$&7. Нет денег — долг, город не удаляется." to player
+        send "&eПомощник: &7ПКМ по нему → Upgrade (от 500$)" to player

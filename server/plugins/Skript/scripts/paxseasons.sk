@@ -1,0 +1,234 @@
+# PaxVanila — сезоны и сезонные события. Нужны: Skript, skript-reflect, Towny.
+# Начинаются после Великой войны: с 29-го дня от /paxborder start (недели 1–4 заняты paxweeks/paxwar).
+# Каждая реальная неделя — новый сезон по кругу: Весна → Лето → Осень → Зима → Весна ...
+# Читает {pax::border::launch} и {pax::border::radius} из paxborder.sk, ничего в них не меняет.
+#
+#   Весна «Посевная»     — урожай растёт быстрее (random tick speed 4), сбросы припасов с семенами/едой
+#   Лето «Экспедиции»    — сбросы припасов чаще (каждые 90 мин) и богаче
+#   Осень «Сбор урожая»  — /season harvest: 64 шт. урожая в руке → 40$ в казну вашего города
+#   Зима «Зимняя кампания» — на чужой (не союзной) территории холод: Замедление I; урожай медленнее
+#
+# Сброс припасов: сундук в дикой местности внутри бордера, координаты объявляются в чате и Discord.
+# Через 30 минут несобранный сундук исчезает.
+#
+#   /season                — текущий сезон
+#   /season harvest        — сдать урожай (осенью)
+#   /season admin set <весна|лето|осень|зима|авто> | drop   (право paxseasons.admin)
+
+import:
+	com.palmergames.bukkit.towny.TownyAPI
+
+options:
+	world: world
+	start_day: 28           # с какого дня (от старта) идут сезоны
+	min_players: 3          # сброс припасов только если онлайн не меньше
+	harvest_pay: 40         # $ в казну города за 64 шт. урожая
+
+function seasonName(s: number) :: text:
+	if {_s} is 0:
+		return "Весна «Посевная»"
+	if {_s} is 1:
+		return "Лето «Экспедиции»"
+	if {_s} is 2:
+		return "Осень «Сбор урожая»"
+	if {_s} is 3:
+		return "Зима «Зимняя кампания»"
+	return "межсезонье"
+
+# -1 = сезонов ещё нет
+function seasonNow() :: number:
+	if {season::forced} is set:
+		return {season::forced}
+	if {pax::border::launch} is not set:
+		return -1
+	set {_day} to floor((unix timestamp of now - unix timestamp of {pax::border::launch}) / 86400)
+	if {_day} < {@start_day}:
+		return -1
+	return mod(floor(({_day} - {@start_day}) / 7), 4)
+
+function seasonTickSpeed(n: number):
+	execute console command "gamerule random_tick_speed %{_n}%"
+	execute console command "gamerule randomTickSpeed %{_n}%"
+
+function seasonEnter(s: number):
+	if {_s} is 0:
+		seasonTickSpeed(4)
+		broadcast "&a&l[Сезон] Наступила ВЕСНА — «Посевная»! &aУрожай растёт быстрее, в дикой местности падают припасы."
+	else if {_s} is 1:
+		seasonTickSpeed(3)
+		broadcast "&e&l[Сезон] Наступило ЛЕТО — «Экспедиции»! &eСбросы припасов каждые 90 минут, добыча богаче."
+	else if {_s} is 2:
+		seasonTickSpeed(3)
+		broadcast "&6&l[Сезон] Наступила ОСЕНЬ — «Сбор урожая»! &6Сдавайте урожай в казну города: /season harvest"
+	else if {_s} is 3:
+		seasonTickSpeed(2)
+		broadcast "&b&l[Сезон] Наступила ЗИМА — «Зимняя кампания»! &bНа чужой территории холод замедляет армии."
+	else:
+		seasonTickSpeed(3)
+
+every 1 minute:
+	set {_s} to seasonNow()
+	set {_old} to {season::cur} ? -1
+	if {_s} is not {_old}:
+		set {season::cur} to {_s}
+		seasonEnter({_s})
+	# сброс припасов
+	if {_s} >= 0:
+		if size of all players >= {@min_players}:
+			set {_gap} to 120
+			if {_s} is 1:
+				set {_gap} to 90
+			if {season::lastdrop} is not set:
+				set {season::lastdrop} to now
+			else if difference between {season::lastdrop} and now >= {_gap} minutes:
+				seasonDrop()
+	# убрать старый сундук
+	if {season::droploc} is set:
+		if difference between {season::droptime} and now >= 30 minutes:
+			if block at {season::droploc} is chest:
+				clear inventory of block at {season::droploc}
+				set block at {season::droploc} to air
+				broadcast "&7[Событие] Несобранные припасы пропали."
+			delete {season::droploc}
+
+function seasonFill(l: location, s: number):
+	set {_inv} to inventory of block at {_l}
+	add 2 of diamond, 8 of iron ingot and 8 of experience bottle to {_inv}
+	if {_s} is 0:
+		add 16 of wheat seeds, 16 of carrot, 16 of potato, 8 of bone meal and 3 of golden carrot to {_inv}
+	else if {_s} is 1:
+		add 4 of diamond, 2 of emerald block, 16 of gunpowder, 8 of fire charge and 1 of golden apple to {_inv}
+	else if {_s} is 2:
+		add 32 of bread, 16 of pumpkin pie, 4 of tnt and 8 of fire charge to {_inv}
+	else:
+		add 1 of leather helmet, 1 of leather chestplate, 1 of leather leggings, 1 of leather boots, 16 of cooked beef and 2 of golden apple to {_inv}
+
+# стоит ли точка в личном привате paxclaims.sk (читает его индекс {pc::ch::*}, ничего не меняет).
+# Без этой проверки сундук мог упасть в чужой приват, и открыть его мог бы только владелец привата.
+function seasonClaimed(l: location) :: boolean:
+	set {_x} to floor(x-coordinate of {_l})
+	set {_z} to floor(z-coordinate of {_l})
+	set {_ck} to "%world of {_l}%;%floor({_x} / 16)%;%floor({_z} / 16)%"
+	loop {pc::ch::%{_ck}%::*}:
+		set {_id} to loop-value
+		set {_r} to {pc::c::%{_id}%::r}
+		if abs({_x} - {pc::c::%{_id}%::x}) <= {_r}:
+			if abs({_z} - {pc::c::%{_id}%::z}) <= {_r}:
+				return true
+	return false
+
+function seasonDrop():
+	set {season::lastdrop} to now
+	set {_r} to {pax::border::radius} ? 500
+	set {_c} to spawn of world "{@world}"
+	loop 15 times:
+		if {_ok} is not set:
+			set {_d} to random number between 50 and {_r} * 0.8
+			set {_a} to random number between 0 and 360
+			set {_x} to x-coordinate of {_c} + {_d} * cos({_a})
+			set {_z} to z-coordinate of {_c} + {_d} * sin({_a})
+			set {_l} to location({_x}, 0, {_z}, world "{@world}")
+			set {_b} to highest solid block at {_l}
+			if {_b} is set:
+				set {_top} to location of block above {_b}
+				if TownyAPI.getInstance().getTown({_top}) is not set:
+					if block at {_top} is air:
+						if seasonClaimed({_top}) is false:
+							set {_ok} to {_top}
+	if {_ok} is not set:
+		stop
+	set block at {_ok} to chest
+	seasonFill({_ok}, seasonNow())
+	set {season::droploc} to {_ok}
+	set {season::droptime} to now
+	set {_bx} to rounded x-coordinate of {_ok}
+	set {_bz} to rounded z-coordinate of {_ok}
+	broadcast "&6&l[Событие] &eСброс припасов! Сундук в дикой местности: &fX %{_bx}%, Z %{_bz}%&e. Исчезнет через 30 минут."
+
+# ---------- зима: холод на чужой территории ----------
+
+function seasonForeignCold(p: player) :: boolean:
+	set {_t} to TownyAPI.getInstance().getTown(location of {_p})
+	if {_t} is not set:
+		return false
+	set {_r} to TownyAPI.getInstance().getResident({_p})
+	if {_r} is not set:
+		return true
+	set {_mt} to {_r}.getTownOrNull()
+	if {_mt} is set:
+		if "%{_mt}.getName()%" is "%{_t}.getName()%":
+			return false
+	set {_mn} to {_r}.getNationOrNull()
+	set {_tn} to {_t}.getNationOrNull()
+	if {_mn} is set:
+		if {_tn} is set:
+			if "%{_mn}.getName()%" is "%{_tn}.getName()%":
+				return false
+			if {_mn}.hasMutualAlly({_tn}) is true:
+				return false
+	return true
+
+every 10 seconds:
+	if {season::cur} is 3:
+		loop all players:
+			if seasonForeignCold(loop-player) is true:
+				apply slowness of tier 1 to loop-player for 12 seconds
+				if {season::coldmsg::%uuid of loop-player%} is not set:
+					set {season::coldmsg::%uuid of loop-player%} to true
+					send "&b❄ Чужая земля зимой: холод замедляет вас." to loop-player
+
+on quit:
+	delete {season::coldmsg::%uuid of player%}
+
+# ---------- команда ----------
+
+command /season [<text>] [<text>] [<text>]:
+	aliases: /сезон
+	trigger:
+		if arg-1 is "admin":
+			if executor does not have permission "paxseasons.admin":
+				send "&cНет прав."
+				stop
+			if arg-2 is "drop":
+				seasonDrop()
+				send "&aСброс создан (если нашлось место в дикой местности)."
+			else if arg-2 is "set":
+				if arg-3 is "весна" or "spring":
+					set {season::forced} to 0
+				else if arg-3 is "лето" or "summer":
+					set {season::forced} to 1
+				else if arg-3 is "осень" or "autumn":
+					set {season::forced} to 2
+				else if arg-3 is "зима" or "winter":
+					set {season::forced} to 3
+				else:
+					delete {season::forced}
+				send "&aСезон: %seasonName(seasonNow())% (вступит в силу в течение минуты)."
+			else:
+				send "&7/season admin set <весна|лето|осень|зима|авто> | drop"
+			stop
+		if arg-1 is "harvest":
+			if executor is not a player:
+				stop
+			if {season::cur} is not 2:
+				send "&cСдавать урожай можно только осенью."
+				stop
+			set {_r} to TownyAPI.getInstance().getResident(player)
+			set {_t} to {_r}.getTownOrNull()
+			if {_t} is not set:
+				send "&cВы не в городе."
+				stop
+			set {_h} to type of player's tool
+			if {_h} is not wheat, carrot, potato, beetroot or pumpkin:
+				send "&cВозьмите в руку 64 шт.: пшеница, морковь, картофель, свёкла или тыква."
+				stop
+			if item amount of player's tool < 64:
+				send "&cНужна полная стопка (64)."
+				stop
+			remove 64 of {_h} from player's tool
+			{_t}.getAccount().deposit({@harvest_pay}, "PaxVanila: сбор урожая")
+			send "&6[Сезон] &eУрожай сдан: &f+{@harvest_pay}$ &eв казну города %{_t}.getName()%."
+			stop
+		send "&6Сейчас: &f%seasonName({season::cur} ? -1)%"
+		if {season::droploc} is set:
+			send "&eАктивный сброс припасов: &fX %rounded x-coordinate of {season::droploc}%, Z %rounded z-coordinate of {season::droploc}%"

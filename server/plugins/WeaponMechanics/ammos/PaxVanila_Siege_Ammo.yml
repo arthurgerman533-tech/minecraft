@@ -1,0 +1,16 @@
+# Боеприпасы осадных орудий PaxVanila — обычные ванильные предметы (крафтятся в верстаке).
+PAX_Mortar_Shell:
+  Symbol: "Ⓜ"
+  Item_Ammo:
+    Bullet_Item:
+      Type: FIRE_CHARGE
+    Ammo_Converter_Check:
+      Type: true
+
+PAX_Cannonball:
+  Symbol: "Ⓒ"
+  Item_Ammo:
+    Bullet_Item:
+      Type: TNT
+    Ammo_Converter_Check:
+      Type: true

@@ -1,0 +1,33 @@
+# PaxVanila — пересылка игровых объявлений в Discord через DiscordSRV.
+# Не трогает другие скрипты: ловит их broadcast и отправляет в канал "broadcasts"
+# из plugins/DiscordSRV/config.yml (команда DiscordSRV: /discord bcast <текст>).
+# skript-reflect не нужен.
+
+options:
+	# объявления с такими префиксами уходят в Discord
+	prefixes: "[PaxVanila]", "[Дипломатия]", "[Война", "[Караван]", "[Событие]", "[Фокус]", "[Сезон]"
+
+on broadcast:
+	plugin "DiscordSRV" is enabled
+	set {_m} to uncolored broadcast message
+	set {_send} to false
+	loop {@prefixes}:
+		if {_m} starts with loop-value:
+			set {_send} to true
+	# строки-продолжения без префикса, идущие сразу за объявлением
+	if {_send} is false:
+		if {dsc::last} is set:
+			if difference between {dsc::last} and now < 2 seconds:
+				set {_send} to true
+	if {_send} is true:
+		set {dsc::last} to now
+		replace all "@" with "＠" in {_m}
+		execute console command "discord bcast %{_m}%"
+
+command /paxdiscord [<text>]:
+	permission: paxdiscord.admin
+	trigger:
+		if arg-1 is "test":
+			broadcast "&6&l[PaxVanila] &eПроверка связи с Discord."
+		else:
+			send "&7/paxdiscord test — отправить пробное объявление в игру и в Discord"

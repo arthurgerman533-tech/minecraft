@@ -1,0 +1,96 @@
+# PaxVanila — круглый бордер, который расширяется по неделям от старта сервера.
+# Нужны плагины: Skript, Chunky, ChunkyBorder.
+#
+# Команды (только для ОП / право paxborder.admin):
+#   /paxborder start   — запустить отсчёт недель с текущего момента (сделать в день открытия)
+#   /paxborder status  — показать день, текущий и следующий радиус
+#   /paxborder sync    — принудительно переприменить бордер
+#   /paxborder reset   — сбросить старт (бордер вернётся к 100)
+#
+# Радиус считается от точки спавна мира. Неделя 1 = дни 0–6 и т.д.
+
+options:
+	world: world
+	start: 100   # радиус в 1-й день
+	w1: 500      # к концу 1 недели (7-й день)
+	w2: 750      # к концу 2 недели
+	w3: 1000     # к концу 3 недели
+	w4: 1000     # 4 неделя — ивент войны, без роста
+	w5: 1500     # к концу 5 недели
+	w6: 2000     # к концу 6 недели, дальше не растёт
+
+# Растёт каждый день равными шагами, к последнему дню недели — целевой радиус недели.
+# Индекс дня: 0 = день 1.
+function paxRadiusForDay(day: number) :: number:
+	if {_day} <= 6:
+		return round({@start} + ({@w1} - {@start}) * {_day} / 6)
+	if {_day} <= 13:
+		return round({@w1} + ({@w2} - {@w1}) * ({_day} - 6) / 7)
+	if {_day} <= 20:
+		return round({@w2} + ({@w3} - {@w2}) * ({_day} - 13) / 7)
+	if {_day} <= 27:
+		return round({@w3} + ({@w4} - {@w3}) * ({_day} - 20) / 7)
+	if {_day} <= 34:
+		return round({@w4} + ({@w5} - {@w4}) * ({_day} - 27) / 7)
+	if {_day} <= 41:
+		return round({@w5} + ({@w6} - {@w5}) * ({_day} - 34) / 7)
+	return {@w6}
+
+function paxDay() :: number:
+	if {pax::border::launch} is not set:
+		return 0
+	return floor((unix timestamp of now - unix timestamp of {pax::border::launch}) / 86400)
+
+function paxTargetRadius() :: number:
+	return paxRadiusForDay(paxDay())
+
+function paxApplyBorder(force: boolean):
+	set {_r} to paxTargetRadius()
+	if {_force} is false:
+		if {pax::border::radius} is set:
+			if {pax::border::radius} is {_r}:
+				stop
+	set {_old} to {pax::border::radius}
+	execute console command "chunky world {@world}"
+	execute console command "chunky spawn"
+	execute console command "chunky shape circle"
+	execute console command "chunky radius %{_r}%"
+	execute console command "chunkyborder add"
+	set {pax::border::radius} to {_r}
+	if {_old} is set:
+		if {_old} < {_r}:
+			broadcast "&6&l[PaxVanila] &eГраницы мира расширены! Новый радиус: &f%{_r}% &eблоков от спавна."
+
+on load:
+	wait 5 seconds
+	paxApplyBorder(true)
+
+every 10 minutes:
+	paxApplyBorder(false)
+
+command /paxborder [<text>]:
+	permission: paxborder.admin
+	permission message: &cНет прав.
+	trigger:
+		if arg-1 is "start":
+			if {pax::border::launch} is set:
+				send "&cСтарт уже задан: %{pax::border::launch}%. Сначала /paxborder reset."
+				stop
+			set {pax::border::launch} to now
+			delete {pax::border::radius}
+			paxApplyBorder(true)
+			send "&aОтсчёт недель запущен. Радиус сейчас: %{pax::border::radius}%."
+		else if arg-1 is "reset":
+			delete {pax::border::launch}
+			delete {pax::border::radius}
+			paxApplyBorder(true)
+			send "&eСтарт сброшен, радиус %{pax::border::radius}%."
+		else if arg-1 is "sync":
+			paxApplyBorder(true)
+			send "&aБордер переприменён: радиус %{pax::border::radius}%."
+		else:
+			if {pax::border::launch} is set:
+				send "&6Старт: &f%{pax::border::launch}% &7(прошло %difference between {pax::border::launch} and now%)"
+			else:
+				send "&6Старт: &cне задан &7(/paxborder start)"
+			send "&6День: &f%paxDay() + 1% &6| Текущий радиус: &f%{pax::border::radius}% &7(цель %paxTargetRadius()%, завтра %paxRadiusForDay(paxDay() + 1)%)"

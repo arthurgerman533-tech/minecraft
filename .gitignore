@@ -1,0 +1,43 @@
+# --- Секреты: никогда не коммитить ---
+server/plugins/DiscordSRV/config.yml
+server/plugins/DiscordSRV/
+**/rcon*.properties
+server.properties
+ops.json
+whitelist.json
+banned-*.json
+usercache.json
+.env
+*.key
+*.pem
+
+# --- Данные игроков и миры (тяжёлые/личные) ---
+server/world/*
+!server/world/datapacks/
+server/world_nether/
+server/world_the_end/
+server/plugins/Essentials/userdata/
+server/plugins/CoreProtect/
+server/plugins/Skript/variables*.csv
+server/plugins/Skript/backups/
+server/plugins/*/data/
+server/plugins/BlueMap/web/
+logs/
+server/logs/
+crash-reports/
+
+# --- Тяжёлое и чужое: jar плагинов/модов, сторонние датапаки, видео ---
+*.jar
+server/world/datapacks/*
+!server/world/datapacks/PaxVanila_*.zip
+ролики PaxVanila/
+*.mp4
+PaxVanila_Client_26.2/mods/
+PaxVanila_Client_26.2/shaderpacks/
+PaxVanila_Client_26.2/resourcepacks/
+server/_old_datapacks/
+server/_backup_*/
+
+# --- Прочее ---
+__pycache__/
+*.pyc

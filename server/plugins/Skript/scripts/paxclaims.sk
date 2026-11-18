@@ -1,0 +1,448 @@
+# PaxVanila — личные приваты через блоки (в стиле "камней привата").
+# Нужны: Skript, skript-reflect, Towny. Читает (не меняет) переменные paxwar.sk:
+#   {pax::wids::*}, {pax::w::<id>::a|d|hot}, {pax::joined::<uuid>}
+#
+# Как приватить: ПРИСЯДЬ (Shift) и поставь блок-тир. Обычная постановка = просто декор.
+#   медный блок   — радиус 5  (11x11)
+#   железный блок — радиус 10 (21x21)
+#   золотой блок  — радиус 15 (31x31)
+#   алмазный блок — радиус 25 (51x51)
+# Зона — квадрат вокруг блока на всю высоту мира. Сломать блок привата может только владелец → приват снят.
+#
+# Правила:
+#   - в чужом городе Towny ставить нельзя, в своём городе можно (личный участок от сожителей);
+#   - нельзя пересекаться с чужим приватом и ставить ближе {@spawn_radius} блоков к спавну (0,0);
+#   - не больше {@max_claims} приватов на игрока;
+#   - ВОЙНА (paxwar.sk): пока между нациями идёт бой (прайм-тайм, >= 2 защитника), враги могут
+#     ломать/открывать в приватах друг друга и взрывать их. Сам блок привата неуязвим (анти-руины).
+#   - новички (48 ч) не могут рейдить, и их приваты рейдить нельзя.
+#   - снаружи нельзя: двигать блоки поршнями, заливать водой/лавой, жать нажимные плиты,
+#     топтать грядки (с 2026-11-18). Внутри своего привата механизмы работают как обычно.
+#
+# Команды: /claim (= /приват, /pc) info | list | show | add <ник> | remove <ник> | tiers
+# Админ (pax.claims.admin): /claim del — удалить приват, в котором стоишь. Админ строит везде.
+
+import:
+	com.palmergames.bukkit.towny.TownyAPI
+	java.util.UUID
+
+options:
+	max_claims: 3
+	spawn_radius: 80
+	newbie_hours: 48
+
+# ---------- служебное ----------
+
+function pcRadius(b: block) :: number:
+	if {_b} is copper block:
+		return 5
+	if {_b} is iron block:
+		return 10
+	if {_b} is gold block:
+		return 15
+	if {_b} is diamond block:
+		return 25
+	return 0
+
+function pcKey(l: location) :: text:
+	return "%world of {_l}%;%floor(x-coordinate of {_l})%;%floor(y-coordinate of {_l})%;%floor(z-coordinate of {_l})%"
+
+function pcChunks(w: text, x: number, z: number, r: number) :: texts:
+	set {_i} to floor(({_x} - {_r}) / 16)
+	while {_i} <= floor(({_x} + {_r}) / 16):
+		set {_j} to floor(({_z} - {_r}) / 16)
+		while {_j} <= floor(({_z} + {_r}) / 16):
+			add "%{_w}%;%{_i}%;%{_j}%" to {_out::*}
+			add 1 to {_j}
+		add 1 to {_i}
+	return {_out::*}
+
+# id привата в этой точке (или ничего)
+function pcAt(l: location) :: text:
+	set {_x} to floor(x-coordinate of {_l})
+	set {_z} to floor(z-coordinate of {_l})
+	set {_ck} to "%world of {_l}%;%floor({_x} / 16)%;%floor({_z} / 16)%"
+	loop {pc::ch::%{_ck}%::*}:
+		set {_id} to loop-value
+		set {_r} to {pc::c::%{_id}%::r}
+		if abs({_x} - {pc::c::%{_id}%::x}) <= {_r}:
+			if abs({_z} - {pc::c::%{_id}%::z}) <= {_r}:
+				return {_id}
+	return {_none}
+
+function pcNewbie(u: text) :: boolean:
+	set {_j} to {pax::joined::%{_u}%}
+	if {_j} is not set:
+		return false
+	if difference between {_j} and now < {@newbie_hours} hours:
+		return true
+	return false
+
+function pcNationOf(u: text) :: text:
+	set {_r} to TownyAPI.getInstance().getResident(UUID.fromString({_u}))
+	if {_r} is not set:
+		return {_none}
+	set {_n} to {_r}.getNationOrNull()
+	if {_n} is not set:
+		return {_none}
+	return "%{_n}.getName()%"
+
+function pcTownOf(p: player) :: text:
+	set {_r} to TownyAPI.getInstance().getResident({_p})
+	if {_r} is not set:
+		return {_none}
+	set {_t} to {_r}.getTownOrNull()
+	if {_t} is not set:
+		return {_none}
+	return "%{_t}.getName()%"
+
+# первый чужой город Towny, задетый зоной (или ничего)
+function pcTownConflict(p: player, l: location, r: number) :: text:
+	set {_my} to pcTownOf({_p})
+	set {_x} to floor(x-coordinate of {_l})
+	set {_z} to floor(z-coordinate of {_l})
+	set {_y} to y-coordinate of {_l}
+	set {_i} to floor(({_x} - {_r}) / 16)
+	while {_i} <= floor(({_x} + {_r}) / 16):
+		set {_j} to floor(({_z} - {_r}) / 16)
+		while {_j} <= floor(({_z} + {_r}) / 16):
+			set {_t} to TownyAPI.getInstance().getTownName(location({_i} * 16 + 8, {_y}, {_j} * 16 + 8, world of {_l}))
+			if {_t} is set:
+				if "%{_t}%" is not "%{_my}%":
+					return "%{_t}%"
+			add 1 to {_j}
+		add 1 to {_i}
+	return {_none}
+
+# владелец или участник
+function pcAllowed(p: player, id: text) :: boolean:
+	if {_p} has permission "pax.claims.admin":
+		return true
+	if "%uuid of {_p}%" is {pc::c::%{_id}%::owner}:
+		return true
+	if {pc::c::%{_id}%::m::%uuid of {_p}%} is set:
+		return true
+	return false
+
+# идёт ли сейчас бой между нацией игрока и нацией владельца
+function pcRaid(p: player, id: text) :: boolean:
+	set {_pu} to "%uuid of {_p}%"
+	set {_ou} to {pc::c::%{_id}%::owner}
+	if pcNewbie({_pu}) is true:
+		return false
+	if pcNewbie({_ou}) is true:
+		return false
+	set {_pn} to pcNationOf({_pu})
+	set {_on} to pcNationOf({_ou})
+	if {_pn} is not set:
+		return false
+	if {_on} is not set:
+		return false
+	if {_pn} is {_on}:
+		return false
+	loop {pax::wids::*}:
+		set {_w} to loop-value
+		if {pax::w::%{_w}%::hot} is true:
+			set {_a} to {pax::w::%{_w}%::a}
+			set {_d} to {pax::w::%{_w}%::d}
+			if {_pn} is {_a}:
+				if {_on} is {_d}:
+					return true
+			if {_pn} is {_d}:
+				if {_on} is {_a}:
+					return true
+	return false
+
+# воюет ли сейчас (в бою) нация владельца — для взрывов
+function pcHot(id: text) :: boolean:
+	set {_ou} to {pc::c::%{_id}%::owner}
+	if pcNewbie({_ou}) is true:
+		return false
+	set {_on} to pcNationOf({_ou})
+	if {_on} is not set:
+		return false
+	loop {pax::wids::*}:
+		set {_w} to loop-value
+		if {pax::w::%{_w}%::hot} is true:
+			if {pax::w::%{_w}%::a} is {_on}:
+				return true
+			if {pax::w::%{_w}%::d} is {_on}:
+				return true
+	return false
+
+function pcCan(p: player, l: location) :: boolean:
+	set {_id} to pcAt({_l})
+	if {_id} is not set:
+		return true
+	if pcAllowed({_p}, {_id}) is true:
+		return true
+	if pcRaid({_p}, {_id}) is true:
+		return true
+	return false
+
+function pcDelete(id: text):
+	set {_w} to {pc::c::%{_id}%::world}
+	set {_ch::*} to pcChunks({_w}, {pc::c::%{_id}%::x}, {pc::c::%{_id}%::z}, {pc::c::%{_id}%::r})
+	loop {_ch::*}:
+		delete {pc::ch::%loop-value%::%{_id}%}
+	delete {pc::own::%{pc::c::%{_id}%::owner}%::%{_id}%}
+	delete {pc::at::%{pc::c::%{_id}%::key}%}
+	delete {pc::c::%{_id}%::*}
+
+function pcDeny(p: player, id: text):
+	send action bar "&cЗдесь приват игрока &f%{pc::c::%{_id}%::name}%" to {_p}
+
+# ---------- создание и снятие ----------
+
+on place:
+	if pcCan(player, location of event-block) is false:
+		cancel event
+		pcDeny(player, pcAt(location of event-block))
+		stop
+	player is sneaking
+	set {_r} to pcRadius(event-block)
+	{_r} > 0
+	set {_l} to location of event-block
+	set {_x} to floor(x-coordinate of {_l})
+	set {_z} to floor(z-coordinate of {_l})
+	set {_w} to "%world of {_l}%"
+	set {_u} to "%uuid of player%"
+	if size of {pc::own::%{_u}%::*} >= {@max_claims}:
+		if player does not have permission "pax.claims.admin":
+			cancel event
+			send "&cУ вас уже {@max_claims} привата. Снимите один (сломайте его блок)."
+			stop
+	if abs({_x}) < {@spawn_radius} + {_r}:
+		if abs({_z}) < {@spawn_radius} + {_r}:
+			if {_w} is "world":
+				cancel event
+				send "&cСлишком близко к спавну: приваты дальше {@spawn_radius} блоков от 0,0."
+				stop
+	set {_ch::*} to pcChunks({_w}, {_x}, {_z}, {_r})
+	loop {_ch::*}:
+		loop {pc::ch::%loop-value-1%::*}:
+			set {_o} to loop-value-2
+			if {pc::c::%{_o}%::owner} is not {_u}:
+				if abs({_x} - {pc::c::%{_o}%::x}) <= {_r} + {pc::c::%{_o}%::r}:
+					if abs({_z} - {pc::c::%{_o}%::z}) <= {_r} + {pc::c::%{_o}%::r}:
+						cancel event
+						send "&cЗона задевает приват игрока &f%{pc::c::%{_o}%::name}%&c. Отойдите или возьмите блок поменьше."
+						stop
+	set {_t} to pcTownConflict(player, {_l}, {_r})
+	if {_t} is set:
+		cancel event
+		send "&cЗона задевает чужой город &f%{_t}%&c. В городах приватит Towny."
+		stop
+	add 1 to {pc::next}
+	set {_id} to "%{pc::next}%"
+	set {pc::c::%{_id}%::owner} to {_u}
+	set {pc::c::%{_id}%::name} to name of player
+	set {pc::c::%{_id}%::world} to {_w}
+	set {pc::c::%{_id}%::x} to {_x}
+	set {pc::c::%{_id}%::y} to floor(y-coordinate of {_l})
+	set {pc::c::%{_id}%::z} to {_z}
+	set {pc::c::%{_id}%::r} to {_r}
+	set {pc::c::%{_id}%::key} to pcKey({_l})
+	set {pc::at::%pcKey({_l})%} to {_id}
+	set {pc::own::%{_u}%::%{_id}%} to {_id}
+	loop {_ch::*}:
+		set {pc::ch::%loop-value%::%{_id}%} to {_id}
+	set {_s} to {_r} * 2 + 1
+	send "&a[Приват] Создан приват #%{_id}% %{_s}%x%{_s}% (от %{_x} - {_r}%,%{_z} - {_r}% до %{_x} + {_r}%,%{_z} + {_r}%)."
+	send "&7Добавить друга: &f/claim add <ник>&7, границы: &f/claim show&7. Сломайте блок — приват снимется."
+
+on break:
+	set {_k} to pcKey(location of event-block)
+	if {pc::at::%{_k}%} is set:
+		set {_id} to {pc::at::%{_k}%}
+		if pcAllowed(player, {_id}) is false:
+			cancel event
+			send action bar "&cБлок привата нельзя сломать (даже в войну)." to player
+			stop
+		if player does not have permission "pax.claims.admin":
+			if "%uuid of player%" is not {pc::c::%{_id}%::owner}:
+				cancel event
+				send "&cСнять приват может только владелец."
+				stop
+		pcDelete({_id})
+		send "&e[Приват] Приват #%{_id}% снят."
+		stop
+	if pcCan(player, location of event-block) is false:
+		cancel event
+		pcDeny(player, pcAt(location of event-block))
+
+# ---------- защита ----------
+
+on right click:
+	event-block is set
+	if pcCan(player, location of event-block) is false:
+		cancel event
+		pcDeny(player, pcAt(location of event-block))
+
+on bucket empty:
+	if pcCan(player, location of event-block) is false:
+		cancel event
+		pcDeny(player, pcAt(location of event-block))
+
+on bucket fill:
+	if pcCan(player, location of event-block) is false:
+		cancel event
+		pcDeny(player, pcAt(location of event-block))
+
+on damage:
+	attacker is a player
+	victim is not a player
+	victim is not a monster
+	if pcCan(attacker, location of victim) is false:
+		cancel event
+		pcDeny(attacker, pcAt(location of victim))
+
+on explode:
+	loop exploded blocks:
+		set {_id} to pcAt(location of loop-block)
+		if {_id} is set:
+			if {pc::at::%pcKey(location of loop-block)%} is set:
+				add loop-block to {_rm::*}
+			else:
+				if {_hot::%{_id}%} is not set:
+					set {_hot::%{_id}%} to pcHot({_id})
+				if {_hot::%{_id}%} is false:
+					add loop-block to {_rm::*}
+	if {_rm::*} is set:
+		remove {_rm::*} from exploded blocks
+
+on burn:
+	if pcAt(location of event-block) is set:
+		cancel event
+
+on ignite:
+	set {_id} to pcAt(location of event-block)
+	{_id} is set
+	if player is set:
+		if pcCan(player, location of event-block) is true:
+			stop
+	cancel event
+
+# ---------- защита снаружи: поршни, жидкости, нажимные плиты (добавлено 2026-11-18) ----------
+# Правило одно: механизм или жидкость трогает блоки привата, только если сам стоит в том же привате.
+# Внутри своего привата поршни и фермы с водой работают как обычно. "-" = вне приватов.
+
+# поршень толкает: голова и каждый блок (откуда и куда) должны быть в том же привате, что и поршень
+on "org.bukkit.event.block.BlockPistonExtendEvent":
+	set {_src} to pcAt(location of event.getBlock()) ? "-"
+	set {_dir} to event.getDirection()
+	set {_c} to pcAt(location of event.getBlock().getRelative({_dir})) ? "-"
+	if {_c} is not {_src}:
+		event.setCancelled(true)
+		stop
+	loop ...event.getBlocks():
+		set {_c} to pcAt(location of loop-value) ? "-"
+		if {_c} is not {_src}:
+			event.setCancelled(true)
+			stop
+		set {_c} to pcAt(location of loop-value.getRelative({_dir})) ? "-"
+		if {_c} is not {_src}:
+			event.setCancelled(true)
+			stop
+
+# липкий поршень тянет блок из чужого привата
+on "org.bukkit.event.block.BlockPistonRetractEvent":
+	set {_src} to pcAt(location of event.getBlock()) ? "-"
+	loop ...event.getBlocks():
+		set {_c} to pcAt(location of loop-value) ? "-"
+		if {_c} is not {_src}:
+			event.setCancelled(true)
+			stop
+
+# вода/лава затекает в приват снаружи (или из другого привата)
+on "org.bukkit.event.block.BlockFromToEvent":
+	set {_dst} to pcAt(location of event.getToBlock())
+	{_dst} is set
+	set {_src} to pcAt(location of event.getBlock()) ? "-"
+	if {_src} is not {_dst}:
+		event.setCancelled(true)
+
+# нажимные плиты, растяжки, вытаптывание грядок, черепашьи яйца — «физическое» касание блока
+on "org.bukkit.event.player.PlayerInteractEvent":
+	"%event.getAction()%" is "PHYSICAL"
+	set {_b} to event.getClickedBlock()
+	{_b} is set
+	set {_p} to event.getPlayer()
+	if pcCan({_p}, location of {_b}) is false:
+		event.setCancelled(true)
+
+# ---------- команды ----------
+
+command /claim [<text>] [<offline player>]:
+	aliases: /приват, /pc
+	trigger:
+		set {_u} to "%uuid of player%"
+		set {_id} to pcAt(location of player)
+		if arg-1 is "list":
+			if size of {pc::own::%{_u}%::*} is 0:
+				send "&7У вас нет приватов. Присядьте и поставьте медный/железный/золотой/алмазный блок."
+				stop
+			loop {pc::own::%{_u}%::*}:
+				set {_c} to loop-value
+				send "&e#%{_c}% &f%{pc::c::%{_c}%::x}% %{pc::c::%{_c}%::y}% %{pc::c::%{_c}%::z}% &7радиус %{pc::c::%{_c}%::r}%, участники: %size of {pc::c::%{_c}%::m::*}%"
+			stop
+		if arg-1 is "tiers":
+			send "&6Тиры (Shift + поставить): &fмедный 5, железный 10, золотой 15, алмазный 25 &7(радиус). Лимит {@max_claims} привата."
+			stop
+		if arg-1 is "add" or "remove" or "show" or "del":
+			if {_id} is not set:
+				send "&cВы не стоите в привате."
+				stop
+		if arg-1 is "add" or "remove":
+			if pcAllowed(player, {_id}) is false:
+				send "&cЭто не ваш приват."
+				stop
+			if "%{pc::c::%{_id}%::owner}%" is not {_u}:
+				if player does not have permission "pax.claims.admin":
+					send "&cУчастниками управляет только владелец."
+					stop
+			if arg-2 is not set:
+				send "&c/claim %arg-1% <ник>"
+				stop
+			if arg-1 is "add":
+				set {pc::c::%{_id}%::m::%uuid of arg-2%} to name of arg-2
+				send "&a%name of arg-2% добавлен в приват #%{_id}%."
+			else:
+				delete {pc::c::%{_id}%::m::%uuid of arg-2%}
+				send "&e%name of arg-2% убран из привата #%{_id}%."
+			stop
+		if arg-1 is "del":
+			if player does not have permission "pax.claims.admin":
+				send "&cНет прав. Чтобы снять свой приват — сломайте его блок."
+				stop
+			pcDelete({_id})
+			send "&eПриват #%{_id}% удалён (блок остался обычным)."
+			stop
+		if arg-1 is "show":
+			set {_r} to {pc::c::%{_id}%::r}
+			set {_cx} to {pc::c::%{_id}%::x}
+			set {_cz} to {pc::c::%{_id}%::z}
+			set {_i} to 0 - {_r}
+			while {_i} <= {_r}:
+				add location({_cx} + {_i}, 0, {_cz} - {_r}, world of player) to {_pts::*}
+				add location({_cx} + {_i}, 0, {_cz} + {_r}, world of player) to {_pts::*}
+				add location({_cx} - {_r}, 0, {_cz} + {_i}, world of player) to {_pts::*}
+				add location({_cx} + {_r}, 0, {_cz} + {_i}, world of player) to {_pts::*}
+				add 2 to {_i}
+			loop {_pts::*}:
+				add highest solid block at loop-value to {_bl::*}
+			make player see {_bl::*} as glowstone
+			send "&eГраница привата #%{_id}% подсвечена на 15 секунд."
+			wait 15 seconds
+			loop {_bl::*}:
+				make player see loop-value as block data of loop-value
+			stop
+		# info / без аргументов
+		if {_id} is set:
+			set {_s} to {pc::c::%{_id}%::r} * 2 + 1
+			send "&6Приват #%{_id}% &7владелец &f%{pc::c::%{_id}%::name}% &7размер %{_s}%x%{_s}%"
+			if size of {pc::c::%{_id}%::m::*} > 0:
+				send "&7Участники: &f%{pc::c::%{_id}%::m::*}%"
+		else:
+			send "&7Здесь никто не приватил."
+		send "&6/claim &7list | show | add <ник> | remove <ник> | tiers &8— приват: Shift + медный/железный/золотой/алмазный блок"

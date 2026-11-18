@@ -1,0 +1,90 @@
+АНТИ-ЧИТ PaxVanila (Paper 26.2) — проверено 2026-11-16
+=====================================================
+
+1. GrimAC 2.3.74  ->  plugins/grimac-bukkit-2.3.74.jar
+   - Источник: Modrinth (проект grimac), релиз от 2026-10-21, заявлены 26.1–26.3, Paper.
+   - SHA-512 совпал с Modrinth. PacketEvents внутри jar (переименованный),
+     с отдельным packetevents-spigot-2.14.0 (нужен WeaponMechanics) не конфликтует.
+   - Ловит: fly, speed, reach, killaura/aim, noslow, timer, scaffold и т.п.
+   - НЕ ловит автокликеры надёжно (бесплатных хороших решений нет) — это через
+     модерацию/репорты и запись видео.
+   - Права: грим-алерты получают операторы (grim.alerts). Команды: /grim alerts,
+     /grim profile <ник>, /grim verbose.
+
+   После первого запуска появится plugins/GrimAC/config.yml. Рекомендации:
+   - Первую неделю НЕ давать автобан: оставить только алерты/setback
+     (punishments.yml — команды бана не добавлять, пока не убедитесь в отсутствии
+     ложных срабатываний).
+   - WeaponMechanics: отдача/откидывание у оружия идёт через velocity с сервера —
+     Grim это учитывает. Если увидите ложные срабатывания (Simulation/Knockback)
+     при стрельбе — сообщите, настроим исключения.
+   - MTVehicles: игрок сидит на сущности (транспорт), Grim обычно корректно
+     обрабатывает пассажиров. Если при езде/выходе из машины флаги или откаты —
+     выдать игрокам право grim.nosetback (или вплоть до grim.exempt) на время
+     поездки, либо всем, если транспорт массово флагает.
+
+2. Анти-X-Ray — встроенный в Paper (плагин не нужен)
+   Файл: config/paper-world-defaults.yml (появится после первого запуска сервера,
+   на Minehut: File Manager -> config). Найти раздел anticheat -> anti-xray и
+   заменить на:
+
+anticheat:
+  anti-xray:
+    enabled: true
+    engine-mode: 2
+    max-block-height: 64
+    update-radius: 2
+    lava-obscures: false
+    use-permission: false
+    hidden-blocks:
+      - copper_ore
+      - deepslate_copper_ore
+      - raw_copper_block
+      - gold_ore
+      - deepslate_gold_ore
+      - iron_ore
+      - deepslate_iron_ore
+      - raw_iron_block
+      - coal_ore
+      - deepslate_coal_ore
+      - lapis_ore
+      - deepslate_lapis_ore
+      - mossy_cobblestone
+      - obsidian
+      - chest
+      - diamond_ore
+      - deepslate_diamond_ore
+      - redstone_ore
+      - deepslate_redstone_ore
+      - clay
+      - emerald_ore
+      - deepslate_emerald_ore
+      - ender_chest
+    replacement-blocks:
+      - stone
+      - oak_planks
+      - deepslate
+
+   Для Незера (обломки древних) — в world_nether/paper-world.yml:
+
+anticheat:
+  anti-xray:
+    enabled: true
+    engine-mode: 2
+    max-block-height: 128
+    hidden-blocks:
+      - ancient_debris
+      - nether_gold_ore
+      - nether_quartz_ore
+    replacement-blocks:
+      - netherrack
+      - basalt
+      - blackstone
+
+   Примечание: engine-mode 2 слегка увеличивает трафик; если игроки жалуются на
+   лаги чанков — поставить engine-mode: 1. Ресурс-паки/мини-карты не страдают.
+   Подстраховка: CoreProtect — "/co lookup a:-block b:diamond_ore t:3d" для
+   проверки подозрительной копки.
+
+3. Дюпы — Paper сам закрывает известные ванильные дюпы (в paper-global.yml
+   unsupported-settings ничего не включать). Откаты — CoreProtect.

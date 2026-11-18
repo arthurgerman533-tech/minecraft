@@ -1,0 +1,343 @@
+# PaxVanila — ивент 4-й недели «Эпоха государств и Великая война».
+# Нужны: Skript, skript-reflect (аддон), Towny. Читает {pax::border::launch} из paxborder.sk
+# и НИЧЕГО в нём не меняет (только читает переменную старта).
+#
+# Фазы (дни считаются от /paxborder start, 4-я неделя = дни 21–27):
+#   0 — до ивента: создание наций (/n new) закрыто.
+#   1 — дни 21–22  «Формирование»: нации открыты, напоминания одиночкам.
+#   2 — день 23    «Мобилизация»: награда основателям, открыт приём объявлений войны (Discord, за 24ч).
+#   3 — дни 24–27  «Великая война»: бои только в прайм-тайм при >= 2 онлайн-защитниках.
+#   4 — после 28-го дня: мир, подсчёт очков, награды победителям.
+#
+# Админ (право paxwar.admin):
+#   /paxwar declare <нация-агрессор> <нация-защитник>  — внести войну из Discord (старт через 24ч)
+#   /paxwar list | cancel <id> | status
+# Игроки:
+#   /paxwar reward — забрать награды
+
+import:
+	com.palmergames.bukkit.towny.TownyAPI
+
+options:
+	tz: 3             # сдвиг часов от времени сервера к МСК (если сервер в UTC — 3; если уже МСК — 0)
+	prime_from: 17
+	prime_to: 22
+	min_def: 2        # минимум защитников онлайн
+	explosions: true  # открывать взрывы в городах воюющих наций на время боя (включи revertexpl в Towny!)
+	found_towns: 2    # нация из стольких городов получает награду основателей
+	found_reward: 8   # алмазов каждому жителю такой нации
+	win_reward: 16    # алмазов каждому жителю нации-победителя
+	newbie_hours: 48
+
+# ---------- служебное ----------
+
+function paxEventPhase() :: number:
+	if {pax::border::launch} is not set:
+		return 0
+	set {_d} to difference between {pax::border::launch} and now
+	if {_d} >= 28 days:
+		return 4
+	if {_d} >= 24 days:
+		return 3
+	if {_d} >= 23 days:
+		return 2
+	if {_d} >= 21 days:
+		return 1
+	return 0
+
+function paxIsPrime() :: boolean:
+	set {_t} to {@tz} hours after now
+	set {_h} to ({_t} formatted as "HH") parsed as integer
+	if {_h} >= {@prime_from}:
+		if {_h} < {@prime_to}:
+			return true
+	return false
+
+function paxNationOf(p: player) :: text:
+	set {_r} to TownyAPI.getInstance().getResident({_p})
+	if {_r} is not set:
+		return {_none}
+	set {_n} to {_r}.getNationOrNull()
+	if {_n} is not set:
+		return {_none}
+	return "%{_n}.getName()%"
+
+function paxHasTown(p: player) :: boolean:
+	set {_r} to TownyAPI.getInstance().getResident({_p})
+	if {_r} is set:
+		if {_r}.hasTown() is true:
+			return true
+	return false
+
+function paxOnline(nation: text) :: number:
+	set {_n} to TownyAPI.getInstance().getNation({_nation})
+	if {_n} is not set:
+		return 0
+	return TownyAPI.getInstance().getOnlinePlayers({_n}).size()
+
+function paxRewardNation(nation: text, amount: number):
+	set {_n} to TownyAPI.getInstance().getNation({_nation})
+	if {_n} is not set:
+		stop
+	loop ...{_n}.getResidents():
+		set {_u} to "%loop-value.getUUID()%"
+		add {_amount} to {pax::reward::%{_u}%}
+	loop all players:
+		if paxNationOf(loop-player) is {_nation}:
+			send "&6[PaxVanila] &eВам начислена награда! Заберите: &f/paxwar reward" to loop-player
+
+function paxIsNewbie(p: player) :: boolean:
+	set {_j} to {pax::joined::%uuid of {_p}%}
+	if {_j} is not set:
+		return false
+	if difference between {_j} and now < {@newbie_hours} hours:
+		return true
+	return false
+
+# ---------- PvP/взрывы в городах нации ----------
+
+function paxSetNationHot(nation: text, hot: boolean):
+	set {_was} to false
+	if {pax::nhot::%{_nation}%} is set:
+		set {_was} to true
+	if {_was} is {_hot}:
+		stop
+	set {_n} to TownyAPI.getInstance().getNation({_nation})
+	if {_n} is set:
+		loop ...{_n}.getTowns():
+			set {_t} to loop-value
+			set {_tn} to "%{_t}.getName()%"
+			if {_hot} is true:
+				if {pax::orig::%{_tn}%::pvp} is not set:
+					set {pax::orig::%{_tn}%::pvp} to {_t}.isPVP()
+					set {pax::orig::%{_tn}%::expl} to {_t}.isExplosion()
+				{_t}.setPVP(true)
+				if {@explosions} is true:
+					{_t}.setExplosion(true)
+			else:
+				if {pax::orig::%{_tn}%::pvp} is set:
+					{_t}.setPVP({pax::orig::%{_tn}%::pvp})
+					{_t}.setExplosion({pax::orig::%{_tn}%::expl})
+					delete {pax::orig::%{_tn}%::*}
+			{_t}.save()
+	if {_hot} is true:
+		set {pax::nhot::%{_nation}%} to true
+	else:
+		delete {pax::nhot::%{_nation}%}
+
+# ---------- фазы ----------
+
+function paxEnterPhase(ph: number):
+	if {_ph} is 1:
+		broadcast "&6&l[PaxVanila] &e&lНачалась ЭПОХА ГОСУДАРСТВ!"
+		broadcast "&eСоздание наций открыто: &f/n new <название>&e. Объединяйте города — 2 дня на формирование."
+	else if {_ph} is 2:
+		broadcast "&6&l[PaxVanila] &e&lМОБИЛИЗАЦИЯ! &eОткрыт приём объявлений войны в Discord (за 24 часа, с казус белли)."
+		loop ...TownyAPI.getInstance().getNations():
+			if loop-value.getTowns().size() >= {@found_towns}:
+				set {_nm} to "%loop-value.getName()%"
+				paxRewardNation({_nm}, {@found_reward})
+				broadcast "&6[PaxVanila] &eНация &f%{_nm}% &eполучает награду основателей!"
+	else if {_ph} is 3:
+		broadcast "&4&l[PaxVanila] ВЕЛИКАЯ ВОЙНА НАЧАЛАСЬ! &cБои — с {@prime_from}:00 до {@prime_to}:00 МСК, при >= {@min_def} защитниках онлайн."
+	else if {_ph} is 4:
+		paxWarEnd()
+
+function paxWarEnd():
+	broadcast "&6&l[PaxVanila] &a&lВЕЛИКАЯ ВОЙНА ОКОНЧЕНА. Наступил мир."
+	loop {pax::wids::*}:
+		set {_id} to loop-value
+		set {_a} to {pax::w::%{_id}%::a}
+		set {_d} to {pax::w::%{_id}%::d}
+		set {_sa} to {pax::w::%{_id}%::score::%{_a}%} ? 0
+		set {_sd} to {pax::w::%{_id}%::score::%{_d}%} ? 0
+		if {_sa} > {_sd}:
+			broadcast "&e%{_a}% &7(%{_sa}%) &6побеждает &e%{_d}% &7(%{_sd}%)"
+			paxRewardNation({_a}, {@win_reward})
+		else if {_sd} > {_sa}:
+			broadcast "&e%{_d}% &7(%{_sd}%) &6отстояла себя против &e%{_a}% &7(%{_sa}%)"
+			paxRewardNation({_d}, {@win_reward})
+		else:
+			broadcast "&e%{_a}% &7vs &e%{_d}%&7: ничья (%{_sa}%:%{_sd}%)"
+		add "%{_a}% %{_sa}%:%{_sd}% %{_d}%" to {pax::ev::results::*}
+	set {_hot::*} to indices of {pax::nhot::*}
+	loop {_hot::*}:
+		paxSetNationHot(loop-value, false)
+	delete {pax::wids::*}
+
+function paxWarTick(ph: number):
+	set {_prime} to paxIsPrime()
+	if {_ph} is 3:
+		if {_prime} is not {pax::ev::prime}:
+			if {_prime} is true:
+				broadcast "&4&l[PaxVanila] &cОкно боёв ОТКРЫТО до {@prime_to}:00 МСК."
+			else if {pax::ev::prime} is set:
+				broadcast "&6&l[PaxVanila] &eОкно боёв закрыто. Прекратить огонь!"
+	set {pax::ev::prime} to {_prime}
+	loop {pax::wids::*}:
+		set {_id} to loop-value
+		set {_a} to {pax::w::%{_id}%::a}
+		set {_d} to {pax::w::%{_id}%::d}
+		set {_hot} to false
+		if {_ph} is 3:
+			if {_prime} is true:
+				if now >= {pax::w::%{_id}%::start}:
+					if paxOnline({_a}) >= 1:
+						if paxOnline({_d}) >= {@min_def}:
+							set {_hot} to true
+		if {_hot} is not {pax::w::%{_id}%::hot}:
+			set {pax::w::%{_id}%::hot} to {_hot}
+			if {_hot} is true:
+				broadcast "&4[Война #%{_id}%] &c%{_a}% &4атакует &c%{_d}%&4! PvP в их городах включено."
+			else:
+				broadcast "&6[Война #%{_id}%] &e%{_a}% — %{_d}%: бой приостановлен."
+		if {_hot} is true:
+			set {_want::%{_a}%} to true
+			set {_want::%{_d}%} to true
+	set {_cur::*} to indices of {pax::nhot::*}
+	loop {_cur::*}:
+		if {_want::%loop-value%} is not set:
+			paxSetNationHot(loop-value, false)
+	loop indices of {_want::*}:
+		paxSetNationHot(loop-value, true)
+
+function paxEventTick():
+	set {_ph} to paxEventPhase()
+	set {_old} to {pax::ev::phase} ? 0
+	if {_ph} > {_old}:
+		loop ({_ph} - {_old}) times:
+			paxEnterPhase({_old} + loop-number)
+	set {pax::ev::phase} to {_ph}
+	paxWarTick({_ph})
+
+every 1 minute:
+	paxEventTick()
+
+every 20 minutes:
+	set {_ph} to paxEventPhase()
+	if {_ph} is 1 or 2:
+		loop all players:
+			if paxHasTown(loop-player) is false:
+				send "&6[PaxVanila] &eВы без города! Вступите в город (&f/t join&e) или основайте свой (&f/t new&e) — идёт формирование государств." to loop-player
+
+# ---------- ограничения ----------
+
+on command:
+	if paxEventPhase() is 0:
+		if "%command%" is "n", "nation", "nat", "towny:n", "towny:nation" or "towny:nat":
+			set {_a::*} to arguments split at " "
+			if "%{_a::1}%" is "new" or "create":
+				if player has permission "paxwar.admin":
+					stop
+				cancel event
+				send "&cНации откроются с началом 4-й недели — «Эпохи государств»."
+
+on join:
+	if {pax::joined::%uuid of player%} is not set:
+		if player has played before:
+			set {pax::joined::%uuid of player%} to 7 days before now
+		else:
+			set {pax::joined::%uuid of player%} to now
+			send "&a[PaxVanila] Вы под защитой новичка {@newbie_hours} ч. — PvP по вам и от вас отключено."
+	if {pax::reward::%uuid of player%} > 0:
+		send "&6[PaxVanila] &eУ вас есть награды: &f/paxwar reward"
+
+on damage of player:
+	attacker is a player
+	if paxIsNewbie(victim) is true:
+		cancel event
+		send "&cЭтот игрок под защитой новичка." to attacker
+	else if paxIsNewbie(attacker) is true:
+		cancel event
+		send "&cВы под защитой новичка и не можете атаковать." to attacker
+
+on death of player:
+	attacker is a player
+	set {_kn} to paxNationOf(attacker)
+	set {_vn} to paxNationOf(victim)
+	if {_kn} is not set:
+		stop
+	if {_vn} is not set:
+		stop
+	loop {pax::wids::*}:
+		set {_id} to loop-value
+		if {pax::w::%{_id}%::hot} is true:
+			set {_a} to {pax::w::%{_id}%::a}
+			set {_d} to {pax::w::%{_id}%::d}
+			if {_kn} is {_a}:
+				if {_vn} is {_d}:
+					add 1 to {pax::w::%{_id}%::score::%{_kn}%}
+			if {_kn} is {_d}:
+				if {_vn} is {_a}:
+					add 1 to {pax::w::%{_id}%::score::%{_kn}%}
+
+# ---------- команда ----------
+
+command /paxwar [<text>] [<text>] [<text>]:
+	trigger:
+		if arg-1 is "reward":
+			set {_n} to {pax::reward::%uuid of player%} ? 0
+			if {_n} <= 0:
+				send "&7Наград нет."
+				stop
+			if player can hold {_n} of diamond:
+				give {_n} of diamond to player
+				delete {pax::reward::%uuid of player%}
+				send "&aПолучено: %{_n}% алмазов."
+			else:
+				send "&cОсвободите инвентарь (%{_n}% алмазов)."
+			stop
+		if player does not have permission "paxwar.admin":
+			if executor is a player:
+				send "&6Фаза ивента: &f%paxEventPhase()%&6. Награды: &f/paxwar reward"
+				stop
+		if arg-1 is "declare":
+			set {_ph} to paxEventPhase()
+			if {_ph} < 2:
+				send "&cОбъявлять войны можно только в фазах 2–3 (сейчас %{_ph}%)."
+				stop
+			if {_ph} > 3:
+				send "&cОбъявлять войны можно только в фазах 2–3 (сейчас %{_ph}%)."
+				stop
+			if TownyAPI.getInstance().getNation(arg-2) is not set:
+				send "&cНет нации %arg-2%."
+				stop
+			if TownyAPI.getInstance().getNation(arg-3) is not set:
+				send "&cНет нации %arg-3%."
+				stop
+			if arg-2 is arg-3:
+				send "&cНельзя воевать с собой."
+				stop
+			set {_start} to 24 hours after now
+			if {_start} >= 28 days after {pax::border::launch}:
+				send "&cСлишком поздно: 24 часа ожидания выйдут после конца войны."
+				stop
+			add 1 to {pax::wnext}
+			set {_id} to "%{pax::wnext}%"
+			set {pax::w::%{_id}%::a} to arg-2
+			set {pax::w::%{_id}%::d} to arg-3
+			set {pax::w::%{_id}%::start} to {_start}
+			set {pax::w::%{_id}%::hot} to false
+			set {pax::wids::%{_id}%} to {_id}
+			broadcast "&4&l[PaxVanila] &c%arg-2% &4объявляет войну &c%arg-3%&4! Боевые действия возможны с %{_start}%."
+		else if arg-1 is "cancel":
+			if {pax::wids::%arg-2%} is not set:
+				send "&cНет войны #%arg-2%."
+				stop
+			delete {pax::wids::%arg-2%}
+			delete {pax::w::%arg-2%::*}
+			paxWarTick(paxEventPhase())
+			send "&eВойна #%arg-2% отменена."
+		else if arg-1 is "list":
+			loop {pax::wids::*}:
+				set {_id} to loop-value
+				set {_a} to {pax::w::%{_id}%::a}
+				set {_d} to {pax::w::%{_id}%::d}
+				set {_sa} to {pax::w::%{_id}%::score::%{_a}%} ? 0
+				set {_sd} to {pax::w::%{_id}%::score::%{_d}%} ? 0
+				send "&e#%{_id}% &f%{_a}% &7→ &f%{_d}% &7старт %{pax::w::%{_id}%::start}% бой:%{pax::w::%{_id}%::hot}% счёт %{_sa}%:%{_sd}%"
+			loop {pax::ev::results::*}:
+				send "&7итог: %loop-value%"
+		else:
+			send "&6Фаза: &f%paxEventPhase()% &7| прайм-тайм: %paxIsPrime()% | горячие нации: %indices of {pax::nhot::*}%"
+			send "&7/paxwar declare <агрессор> <защитник> | list | cancel <id> | reward"

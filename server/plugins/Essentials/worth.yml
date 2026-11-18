@@ -1,0 +1,40 @@
+# PaxVanila — цены продажи (/sell, /worth). Чего нет в списке — продать нельзя.
+# Шкала: 1 алмаз = 100$, город = 500$, нация = 3000$.
+# Булыжник/камень специально НЕ продаются (помощник-шахтёр не печатает деньги).
+# Менять в игре: /setworth <предмет> <цена>
+worth:
+  coal: 3.0
+  copperingot: 2.0
+  ironingot: 10.0
+  goldingot: 20.0
+  redstone: 1.0
+  lapislazuli: 2.0
+  quartz: 2.0
+  diamond: 100.0
+  emerald: 50.0
+  netheriteingot: 800.0
+  amethystshard: 1.0
+
+  wheat: 1.0
+  carrot: 0.5
+  potato: 0.5
+  beetroot: 0.5
+  sugarcane: 0.5
+  pumpkin: 2.0
+  melonslice: 0.2
+  cactus: 0.5
+  bamboo: 0.1
+  cocoabeans: 0.5
+  egg: 0.3
+
+  log: 0.5
+
+  leather: 2.0
+  wool: 1.0
+  string: 0.5
+  bone: 0.3
+  gunpowder: 2.0
+  enderpearl: 5.0
+  blazerod: 5.0
+  slimeball: 1.0
+  ghasttear: 10.0

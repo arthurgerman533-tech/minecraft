@@ -1,0 +1,291 @@
+# PaxVanila — ивенты недель 1–3 (ведут к войне 4-й недели, см. paxwar.sk).
+# Нужны: Skript, skript-reflect, Towny. Читает только {pax::border::launch} из paxborder.sk.
+# Награды-алмазы кладутся в общий счёт {pax::reward::<uuid>}, забираются через /paxwar reward.
+#
+# Неделя 1 «Высадка»: первый город с 3+ жителями получает бонус; сундуки первопроходцев у башни.
+# Неделя 2 «Торговые пути»: караваны порт → столица (/caravan start, /caravan deliver).
+# Неделя 3 «Борьба за ресурсы»: нейтральные точки, захват удержанием, доход каждые 10 мин.
+#
+# Настройка админом (право paxwar.admin):
+#   /paxweek chest add        — смотреть на сундук: сделать его сундуком первопроходцев
+#   /paxweek chest fill       — перезаполнить все такие сундуки
+#   /paxweek capital          — точка доставки караванов (встань в столице)
+#   /paxweek port add <имя>   — порт (встань на месте)
+#   /paxweek point add <имя>  — контрольная точка (шахта/кузница/маяк)
+#   /paxweek point del <имя> | /paxweek status
+
+import:
+	com.palmergames.bukkit.towny.TownyAPI
+
+options:
+	settler_size: 3
+	settler_reward: 5     # алмазов каждому жителю первого города
+	cargo_reward: 3       # алмазов за доставленный груз
+	cargo_cooldown: 2 hours
+	port_radius: 10
+	capital_radius: 15
+	point_radius: 10
+	cap_ticks: 12         # тиков по 15 сек (= 3 минуты) удержания для захвата
+	point_income: 1       # алмаз каждому онлайн-жителю города-владельца за точку, раз в 10 мин
+	best_reward: 10       # алмазов жителям города, дольше всех державшего точки
+
+function paxWeek() :: number:
+	if {pax::border::launch} is not set:
+		return 0
+	set {_d} to difference between {pax::border::launch} and now
+	if {_d} >= 21 days:
+		return 4
+	if {_d} >= 14 days:
+		return 3
+	if {_d} >= 7 days:
+		return 2
+	return 1
+
+function paxWkTownOf(p: player) :: text:
+	set {_r} to TownyAPI.getInstance().getResident({_p})
+	if {_r} is not set:
+		return {_none}
+	set {_t} to {_r}.getTownOrNull()
+	if {_t} is not set:
+		return {_none}
+	return "%{_t}.getName()%"
+
+function paxWkRewardTown(town: text, amount: number, onlineOnly: boolean):
+	set {_t} to TownyAPI.getInstance().getTown({_town})
+	if {_t} is not set:
+		stop
+	if {_onlineOnly} is true:
+		loop ...TownyAPI.getInstance().getOnlinePlayers({_t}):
+			add {_amount} to {pax::reward::%uuid of loop-value%}
+	else:
+		loop ...{_t}.getResidents():
+			add {_amount} to {pax::reward::%loop-value.getUUID()%}
+
+function paxWkCargo() :: item:
+	return 1 chest named "&6Груз каравана" with lore "&7Доставьте в столицу: /caravan deliver" and "&8pax-cargo"
+
+function paxWkKey(b: block) :: text:
+	return "%world of {_b}%;%x-coordinate of {_b}%;%y-coordinate of {_b}%;%z-coordinate of {_b}%"
+
+function paxWkFillChests():
+	set {_loot::*} to 1 diamond, 8 iron ingots, 16 bread, 1 compass, 1 map, 4 gold ingots, 1 golden apple, 6 emeralds, 16 arrows, 1 spyglass
+	loop {pax::wk::chest::*}:
+		set {_b} to block at loop-value
+		if {_b} is a chest:
+			clear inventory of {_b}
+			loop 3 times:
+				add random element of {_loot::*} to inventory of {_b}
+	delete {pax::wk::chestfound::*}
+
+# ---------- смена недель ----------
+
+function paxWkEnter(w: number):
+	if {_w} is 1:
+		broadcast "&6&l[PaxVanila] &e&lНЕДЕЛЯ 1 — ВЫСАДКА!"
+		broadcast "&eПервый город с {@settler_size}+ жителями получит бонус. Ищите сундуки первопроходцев у башни!"
+		paxWkFillChests()
+	else if {_w} is 2:
+		broadcast "&6&l[PaxVanila] &e&lНЕДЕЛЯ 2 — ТОРГОВЫЕ ПУТИ!"
+		broadcast "&eПорты открыты: возьмите груз в порту (&f/caravan start&e) и довезите до столицы (&f/caravan deliver&e). Осторожно, груз можно отбить!"
+	else if {_w} is 3:
+		broadcast "&6&l[PaxVanila] &e&lНЕДЕЛЯ 3 — БОРЬБА ЗА РЕСУРСЫ!"
+		broadcast "&eНа карте появились нейтральные точки: %indices of {pax::wk::point::*}%. Стойте на точке 3 минуты без соперников — и она ваша."
+	else if {_w} is 4:
+		set {_best} to 0
+		loop {pax::wk::held::*}:
+			if loop-value > {_best}:
+				set {_best} to loop-value
+				set {_bt} to loop-index
+		if {_bt} is set:
+			broadcast "&6&l[PaxVanila] &eДольше всех ресурсы держал город &f%{_bt}% &7(%{_best}% мин)&e — награда!"
+			paxWkRewardTown({_bt}, {@best_reward}, false)
+		loop {pax::wk::point::*}:
+			delete {pax::wk::pt::%loop-index%::*}
+
+every 1 minute:
+	set {_w} to paxWeek()
+	set {_old} to {pax::wk::week} ? 0
+	if {_w} > {_old}:
+		loop ({_w} - {_old}) times:
+			paxWkEnter({_old} + loop-number)
+	set {pax::wk::week} to {_w}
+	# неделя 1: первые поселенцы
+	if {_w} is 1:
+		if {pax::wk::settlers} is not set:
+			loop ...TownyAPI.getInstance().getTowns():
+				if {pax::wk::settlers} is not set:
+					if loop-value.getResidents().size() >= {@settler_size}:
+						set {pax::wk::settlers} to "%loop-value.getName()%"
+						broadcast "&6&l[PaxVanila] &eГород &f%{pax::wk::settlers}% &e— ПЕРВЫЕ ПОСЕЛЕНЦЫ! Жители получают награду: &f/paxwar reward"
+						paxWkRewardTown({pax::wk::settlers}, {@settler_reward}, false)
+
+# ---------- неделя 1: сундуки ----------
+
+on right click on chest:
+	set {_k} to paxWkKey(event-block)
+	if {pax::wk::chest::%{_k}%} is set:
+		if {pax::wk::chestfound::%{_k}%} is not set:
+			set {pax::wk::chestfound::%{_k}%} to player's name
+			broadcast "&6[PaxVanila] &f%player% &eпервым нашёл сундук первопроходцев!"
+
+# ---------- неделя 2: караваны ----------
+
+command /caravan [<text>]:
+	trigger:
+		if paxWeek() < 2:
+			send "&cТорговые пути откроются на 2-й неделе."
+			stop
+		if arg-1 is "start":
+			set {_port} to ""
+			loop {pax::wk::port::*}:
+				if world of loop-value is world of player:
+					if distance between player and loop-value <= {@port_radius}:
+						set {_port} to loop-index
+			if {_port} is "":
+				send "&cВы не в порту. Порты: %indices of {pax::wk::port::*}%"
+				stop
+			if {pax::wk::cvcd::%uuid of player%} is set:
+				if difference between {pax::wk::cvcd::%uuid of player%} and now < {@cargo_cooldown}:
+					send "&cСледующий караван можно взять позже (кулдаун {@cargo_cooldown})."
+					stop
+			if player can't hold paxWkCargo():
+				send "&cОсвободите место в инвентаре."
+				stop
+			give paxWkCargo() to player
+			set {pax::wk::cvcd::%uuid of player%} to now
+			broadcast "&6[Караван] &f%player% &eвышел из порта &f%{_port}% &eс грузом к столице!"
+		else if arg-1 is "deliver":
+			if {pax::wk::capital} is not set:
+				send "&cСтолица ещё не назначена."
+				stop
+			if world of player is not world of {pax::wk::capital}:
+				send "&cВезите груз в столицу."
+				stop
+			if distance between player and {pax::wk::capital} > {@capital_radius}:
+				send "&cВы слишком далеко от точки доставки в столице."
+				stop
+			set {_n} to amount of paxWkCargo() in player's inventory
+			if {_n} <= 0:
+				send "&cУ вас нет груза каравана."
+				stop
+			remove {_n} of paxWkCargo() from player's inventory
+			add {_n} * {@cargo_reward} to {pax::reward::%uuid of player%}
+			broadcast "&6[Караван] &f%player% &eдоставил в столицу груз (%{_n}%)!"
+			send "&aНаграда начислена: /paxwar reward"
+		else:
+			send "&e/caravan start &7— взять груз в порту, &e/caravan deliver &7— сдать в столице."
+
+on place:
+	if player's tool is paxWkCargo():
+		cancel event
+		send "&cГруз нельзя ставить — довезите его до столицы."
+
+on inventory click:
+	if event-inventory is player's ender chest:
+		if event-item is paxWkCargo():
+			cancel event
+		if player's cursor slot is paxWkCargo():
+			cancel event
+
+# ---------- неделя 3: точки ----------
+
+every 15 seconds:
+	paxWeek() is 3
+	loop {pax::wk::point::*}:
+		set {_id} to loop-index
+		set {_loc} to loop-value
+		clear {_tw::*}
+		clear {_near::*}
+		loop all players:
+			if world of loop-player is world of {_loc}:
+				if distance between loop-player and {_loc} <= {@point_radius}:
+					add loop-player to {_near::*}
+					set {_tn} to paxWkTownOf(loop-player)
+					if {_tn} is set:
+						set {_tw::%{_tn}%} to true
+		set {_c} to size of indices of {_tw::*}
+		set {_own} to {pax::wk::pt::%{_id}%::owner}
+		if {_c} is 0:
+			delete {pax::wk::pt::%{_id}%::cap}
+			delete {pax::wk::pt::%{_id}%::prog}
+		else if {_c} is 1:
+			set {_tn} to first element of indices of {_tw::*}
+			if {_tn} is {_own}:
+				delete {pax::wk::pt::%{_id}%::cap}
+				delete {pax::wk::pt::%{_id}%::prog}
+				send action bar "&aТочка %{_id}% под контролем %{_tn}%" to {_near::*}
+			else:
+				if {pax::wk::pt::%{_id}%::cap} is not {_tn}:
+					set {pax::wk::pt::%{_id}%::cap} to {_tn}
+					set {pax::wk::pt::%{_id}%::prog} to 0
+				add 1 to {pax::wk::pt::%{_id}%::prog}
+				set {_p} to {pax::wk::pt::%{_id}%::prog}
+				send action bar "&eЗахват %{_id}%: &f%{_tn}% &7%{_p}%/{@cap_ticks}" to {_near::*}
+				if {_p} >= {@cap_ticks}:
+					set {pax::wk::pt::%{_id}%::owner} to {_tn}
+					delete {pax::wk::pt::%{_id}%::cap}
+					delete {pax::wk::pt::%{_id}%::prog}
+					broadcast "&6&l[PaxVanila] &eГород &f%{_tn}% &eзахватил точку &f%{_id}%&e!"
+		else:
+			send action bar "&cТочка %{_id}% оспаривается!" to {_near::*}
+
+every 10 minutes:
+	paxWeek() is 3
+	loop {pax::wk::point::*}:
+		set {_own} to {pax::wk::pt::%loop-index%::owner}
+		if {_own} is set:
+			paxWkRewardTown({_own}, {@point_income}, true)
+			add 10 to {pax::wk::held::%{_own}%}
+
+# ---------- админ-команда ----------
+
+command /paxweek [<text>] [<text>] [<text>]:
+	permission: paxwar.admin
+	permission message: &cНет прав.
+	trigger:
+		if arg-1 is "chest":
+			if arg-2 is "add":
+				set {_b} to targeted block of player
+				if {_b} is not a chest:
+					send "&cСмотрите на сундук."
+					stop
+				set {pax::wk::chest::%paxWkKey({_b})%} to location of {_b}
+				send "&aСундук первопроходцев добавлен (всего %size of {pax::wk::chest::*}%)."
+			else if arg-2 is "fill":
+				paxWkFillChests()
+				send "&aСундуки перезаполнены."
+		else if arg-1 is "capital":
+			set {pax::wk::capital} to location of player
+			send "&aТочка доставки караванов установлена."
+		else if arg-1 is "port":
+			if arg-2 is "add":
+				if arg-3 is not set:
+					send "&c/paxweek port add <имя>"
+					stop
+				set {pax::wk::port::%arg-3%} to location of player
+				send "&aПорт %arg-3% добавлен."
+			else if arg-2 is "del":
+				delete {pax::wk::port::%arg-3%}
+				send "&eПорт %arg-3% удалён."
+		else if arg-1 is "point":
+			if arg-2 is "add":
+				if arg-3 is not set:
+					send "&c/paxweek point add <имя>"
+					stop
+				set {pax::wk::point::%arg-3%} to location of player
+				send "&aТочка %arg-3% добавлена."
+			else if arg-2 is "del":
+				delete {pax::wk::point::%arg-3%}
+				delete {pax::wk::pt::%arg-3%::*}
+				send "&eТочка %arg-3% удалена."
+		else:
+			set {_s} to {pax::wk::settlers} ? "нет"
+			send "&6Неделя: &f%paxWeek()% &7| первые поселенцы: %{_s}%"
+			set {_cap} to "не задана"
+			if {pax::wk::capital} is set:
+				set {_cap} to "задана"
+			send "&6Порты: &f%indices of {pax::wk::port::*}% &7| столица: %{_cap}%"
+			loop {pax::wk::point::*}:
+				set {_o} to {pax::wk::pt::%loop-index%::owner} ? "нет"
+				send "&6Точка &f%loop-index%&6: владелец %{_o}%"
+			send "&7Сундуков: %size of {pax::wk::chest::*}%"

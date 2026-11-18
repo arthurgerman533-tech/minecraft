@@ -1,0 +1,326 @@
+# PaxVanila — осадные орудия. Ломают блоки только там, где Towny разрешает взрывы
+# (дикая местность и города наций, у которых сейчас идёт бой по paxwar).
+# Разрушения сами восстанавливаются через 30 минут (правило «анти-руины»).
+# Боеприпасы — обычные ванильные предметы: миномёт — огненный заряд, пушка — динамит.
+# Звуки только ванильные, ресурспак не нужен.
+
+PAX_Mortar:
+  Info:
+    Weapon_Item:
+      Type: "CAULDRON"
+      Name: "<gold>Миномёт"
+      Lore:
+        - "<gray>Навесной огонь по укреплениям."
+        - "<gray>Снаряд: <white>огненный заряд"
+        - "<gray>ПКМ — выстрел, Q — зарядить"
+        - "<gray>Ломает только там, где разрешены взрывы"
+      Unbreakable: true
+      Hide_Flags: true
+      Attributes:
+        - "movement_speed -0.03"
+      Deny_Use_In_Crafting: true
+    Weapon_Info_Display:
+      Action_Bar:
+        Message: "<gold>Миномёт <gray>«<gold><ammo_left><gray>»<gold><reload>"
+    Weapon_Equip_Delay: 40
+    Cancel:
+      Drop_Item: true
+      Arm_Swing_Animation: true
+      Break_Blocks: true
+  Projectile:
+    Projectile_Settings:
+      Type: "FALLING_BLOCK"
+      Projectile_Item_Or_Block:
+        Type: "COAL_BLOCK"
+      Minimum:
+        Speed: 10
+      Gravity: 9.8
+      Drag:
+        Base: 0.995
+        In_Water: 0.9
+        When_Raining_Or_Snowing: 0.99
+      Size: 0.5
+  Shoot:
+    Trigger:
+      Main_Hand: "RIGHT_CLICK"
+      Off_Hand: "RIGHT_CLICK"
+      Circumstance:
+        Swimming: "DENY"
+        Sprinting: "DENY"
+        Dual_Wielding: "DENY"
+    Projectile_Speed: 34
+    Spread:
+      Base_Spread: 3.0
+      Modify_Spread_When:
+        Sneaking: 50%
+        In_Midair: 200%
+    Mechanics:
+      - "Sound{sound=entity.generic.explode, volume=2, pitch=1.6, noise=0.1}"
+      - "Sound{sound=block.piston.extend, volume=1, pitch=0.6}"
+  Reload:
+    Trigger:
+      Main_Hand: "DROP_ITEM"
+      Off_Hand: "DROP_ITEM"
+    Magazine_Size: 1
+    Reload_Duration: 100
+    Ammo:
+      Out_Of_Ammo_Mechanics:
+        - "Sound{sound=block.dispenser.fail, volume=1} @Source{}"
+      Ammos:
+        - "PAX_Mortar_Shell"
+    Start_Mechanics:
+      - "Sound{sound=block.iron_door.open, volume=0.8, pitch=0.7}"
+    Finish_Mechanics:
+      - "Sound{sound=block.iron_door.close, volume=0.8, pitch=0.7}"
+  Damage:
+    Base_Explosion_Damage: 10
+    Fire_Ticks: 40
+    Armor_Damage: 3
+  Explosion:
+    Knockback_Multiplier: 1.0
+    Explosion_Exposure: "DEFAULT"
+    Explosion_Shape: "SPHERE"
+    Explosion_Type_Data:
+      Radius: 3.0
+    Detonation:
+      Remove_Projectile_On_Detonation: true
+      Impact_When:
+        Entity: true
+        Block: true
+    Block_Damage:
+      Spawn_Falling_Block_Chance: 0
+      Drop_Broken_Block_Chance: 0
+      Damage_Per_Hit: 1
+      Default_Block_Durability: 1
+      Default_Mode: BREAK
+      Blocks:
+        - "BEDROCK cancel"
+        - "$WATER cancel"
+        - "$LAVA cancel"
+        - "OBSIDIAN cancel"
+        - "CRYING_OBSIDIAN cancel"
+        - "REINFORCED_DEEPSLATE cancel"
+        - "$CHEST cancel"
+        - "BARREL cancel"
+        - "$SHULKER_BOX cancel"
+        - "SPAWNER cancel"
+        - "IRON_BLOCK CRACK 4"
+        - "DEEPSLATE_BRICKS CRACK 2"
+        - "STONE_BRICKS CRACK 2"
+    Regeneration:
+      Ticks_Before_Start: 36000
+      Max_Blocks_Per_Update: 4
+      Ticks_Between_Updates: 5
+    Mechanics:
+      - "Sound{sound=entity.generic.explode, volume=4, noise=0.1} @Target{}"
+      - "Particle{particle=EXPLOSION_LARGE, count=2} @Target{}"
+  Trail:
+    Distance_Between_Particles: 0.5
+    Particle_Chooser: LOOP
+    Particles:
+      - "Particle{particle=SMOKE_LARGE, count=1}"
+  Show_Time:
+    Reload:
+      Item_Cooldown: true
+      Exp: true
+    Weapon_Equip_Delay:
+      Item_Cooldown: true
+
+PAX_Cannon:
+  Info:
+    Weapon_Item:
+      Type: "ANVIL"
+      Name: "<red>Осадная пушка"
+      Lore:
+        - "<gray>Тяжёлое орудие для пробития стен."
+        - "<gray>Снаряд: <white>динамит"
+        - "<gray>ПКМ — выстрел, Q — зарядить (долго)"
+        - "<gray>Очень тяжёлая: сильно замедляет"
+      Unbreakable: true
+      Hide_Flags: true
+      Attributes:
+        - "movement_speed -0.06"
+      Deny_Use_In_Crafting: true
+    Weapon_Info_Display:
+      Action_Bar:
+        Message: "<red>Осадная пушка <gray>«<red><ammo_left><gray>»<red><reload>"
+    Weapon_Equip_Delay: 60
+    Cancel:
+      Drop_Item: true
+      Arm_Swing_Animation: true
+      Break_Blocks: true
+  Projectile:
+    Projectile_Settings:
+      Type: "FALLING_BLOCK"
+      Projectile_Item_Or_Block:
+        Type: "BLACKSTONE"
+      Minimum:
+        Speed: 20
+      Gravity: 5.0
+      Drag:
+        Base: 0.995
+        In_Water: 0.9
+        When_Raining_Or_Snowing: 0.99
+      Size: 0.5
+  Shoot:
+    Trigger:
+      Main_Hand: "RIGHT_CLICK"
+      Off_Hand: "RIGHT_CLICK"
+      Circumstance:
+        Swimming: "DENY"
+        Sprinting: "DENY"
+        Dual_Wielding: "DENY"
+    Projectile_Speed: 55
+    Spread:
+      Base_Spread: 1.5
+      Modify_Spread_When:
+        Sneaking: 40%
+        In_Midair: 300%
+    Mechanics:
+      - "Sound{sound=entity.generic.explode, volume=5, pitch=0.6, noise=0.05}"
+      - "Sound{sound=entity.firework_rocket.blast_far, volume=4, pitch=0.5}"
+  Reload:
+    Trigger:
+      Main_Hand: "DROP_ITEM"
+      Off_Hand: "DROP_ITEM"
+    Magazine_Size: 1
+    Reload_Duration: 200
+    Ammo:
+      Out_Of_Ammo_Mechanics:
+        - "Sound{sound=block.dispenser.fail, volume=1} @Source{}"
+      Ammos:
+        - "PAX_Cannonball"
+    Start_Mechanics:
+      - "Sound{sound=block.anvil.use, volume=1, pitch=0.6}"
+    Finish_Mechanics:
+      - "Sound{sound=block.anvil.land, volume=0.6, pitch=0.8}"
+  Damage:
+    Base_Damage: 14
+    Base_Explosion_Damage: 12
+    Armor_Damage: 6
+  Explosion:
+    Knockback_Multiplier: 1.5
+    Explosion_Exposure: "DEFAULT"
+    Explosion_Shape: "SPHERE"
+    Explosion_Type_Data:
+      Radius: 4.0
+    Detonation:
+      Remove_Projectile_On_Detonation: true
+      Impact_When:
+        Entity: true
+        Block: true
+    Block_Damage:
+      Spawn_Falling_Block_Chance: 0
+      Drop_Broken_Block_Chance: 0
+      Damage_Per_Hit: 1
+      Default_Block_Durability: 1
+      Default_Mode: BREAK
+      Blocks:
+        - "BEDROCK cancel"
+        - "$WATER cancel"
+        - "$LAVA cancel"
+        - "REINFORCED_DEEPSLATE cancel"
+        - "$CHEST cancel"
+        - "BARREL cancel"
+        - "$SHULKER_BOX cancel"
+        - "SPAWNER cancel"
+        - "OBSIDIAN CRACK 6"
+        - "CRYING_OBSIDIAN CRACK 6"
+        - "IRON_BLOCK CRACK 2"
+    Regeneration:
+      Ticks_Before_Start: 36000
+      Max_Blocks_Per_Update: 4
+      Ticks_Between_Updates: 5
+    Mechanics:
+      - "Sound{sound=entity.generic.explode, volume=6, pitch=0.8, noise=0.1} @Target{}"
+      - "Particle{particle=EXPLOSION_HUGE, count=1} @Target{}"
+  Trail:
+    Distance_Between_Particles: 0.4
+    Particle_Chooser: LOOP
+    Particles:
+      - "Particle{particle=SMOKE_LARGE, count=2}"
+  Show_Time:
+    Reload:
+      Item_Cooldown: true
+      Exp: true
+      Boss_Bar:
+        Message: "<gray>Заряжание <time>с"
+        Color: RED
+        Style: PROGRESS
+    Weapon_Equip_Delay:
+      Item_Cooldown: true
+
+PAX_Breach_Charge:
+  Info:
+    Weapon_Item:
+      Type: "TNT_MINECART"
+      Name: "<yellow>Подрывной заряд"
+      Lore:
+        - "<gray>Бросьте к стене — взрыв через 4 секунды."
+        - "<gray>Одноразовый."
+      Unbreakable: true
+      Hide_Flags: true
+      Deny_Use_In_Crafting: true
+    Cancel:
+      Block_Interactions: true
+      Item_Interactions: true
+  Projectile:
+    Projectile_Settings:
+      Type: "PRIMED_TNT"
+      Disable_Entity_Collisions: true
+    Bouncy:
+      Maximum_Bounce_Amount: -1
+      Blocks:
+        Allow_Any: true
+        Default_Speed_Multiplier: 0.3
+      Rolling:
+        Required_Motion_To_Start_Rolling: 6
+        Blocks:
+          Allow_Any: true
+          Default_Speed_Multiplier: 0.8
+  Shoot:
+    Trigger:
+      Main_Hand: "RIGHT_CLICK"
+      Off_Hand: "RIGHT_CLICK"
+      Circumstance:
+        Swimming: "DENY"
+    Projectile_Speed: 18
+    Delay_Between_Shots: 40
+    Consume_Item_On_Shoot: true
+    Mechanics:
+      - "Sound{sound=entity.tnt.primed, volume=1}"
+  Damage:
+    Base_Explosion_Damage: 14
+    Enable_Owner_Immunity: false
+    Armor_Damage: 5
+  Explosion:
+    Explosion_Exposure: "DEFAULT"
+    Explosion_Shape: "SPHERE"
+    Explosion_Type_Data:
+      Radius: 3.5
+    Detonation:
+      Delay_After_Impact: 80
+      Remove_Projectile_On_Detonation: true
+      Impact_When:
+        Spawn: true
+    Block_Damage:
+      Spawn_Falling_Block_Chance: 0
+      Drop_Broken_Block_Chance: 0
+      Default_Mode: BREAK
+      Blocks:
+        - "BEDROCK cancel"
+        - "$WATER cancel"
+        - "$LAVA cancel"
+        - "OBSIDIAN cancel"
+        - "CRYING_OBSIDIAN cancel"
+        - "REINFORCED_DEEPSLATE cancel"
+        - "$CHEST cancel"
+        - "BARREL cancel"
+        - "$SHULKER_BOX cancel"
+        - "SPAWNER cancel"
+    Regeneration:
+      Ticks_Before_Start: 36000
+      Max_Blocks_Per_Update: 4
+      Ticks_Between_Updates: 5
+    Mechanics:
+      - "Sound{sound=entity.generic.explode, volume=5, noise=0.1} @Target{}"

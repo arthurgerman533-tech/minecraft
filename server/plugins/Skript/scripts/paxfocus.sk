@@ -1,0 +1,323 @@
+# PaxVanila — национальные фокусы (как в HOI4). Нужны: Skript, skript-reflect, Towny.
+# Глава нации выбирает фокус, платит из казны нации, через N часов нация получает бонус.
+# Одновременно — один фокус. Ветки по 3 фокуса, каждый следующий требует предыдущий.
+# «Тотальная война» и «Гегемония» взаимоисключающие.
+#
+#   /focus               — дерево и прогресс вашей нации
+#   /focus start <id>    — начать фокус (глава нации)
+#   /focus kit           — забрать снаряжение «Мобилизации» (каждый житель, один раз)
+#   /focus admin finish|reset <нация>   (право paxfocus.admin)
+#
+# Бонусы:
+#   ind1 Индустриализация  — +16 чанков каждому городу нации
+#   ind2 Шахтёрские артели — Спешка I на своей территории
+#   ind3 Военная экономика — +150$ в казну нации каждый день
+#   mil1 Мобилизация       — комплект железной брони и меча каждому жителю (/focus kit)
+#   mil2 Укрепления        — Сопротивление I на своей территории, пока у нации идёт бой
+#   mil3 Тотальная война   — Скорость I и Сила I везде, пока у нации идёт бой
+#   eco1 Торговые пути     — +100$ в казну нации каждый день
+#   eco2 Дипкорпус         — пакты о ненападении (/dip pact) для нации бесплатны
+#   eco3 Гегемония         — дань с вассалов x2 (20% казны, до 1000$)
+
+import:
+	com.palmergames.bukkit.towny.TownyAPI
+
+options:
+	bonus_chunks: 16
+	ind3_income: 150
+	eco1_income: 100
+
+# ---------- дерево ----------
+
+function focusIds() :: texts:
+	return "ind1", "ind2", "ind3", "mil1", "mil2", "mil3", "eco1", "eco2" and "eco3"
+
+function focusName(id: text) :: text:
+	if {_id} is "ind1":
+		return "Индустриализация"
+	if {_id} is "ind2":
+		return "Шахтёрские артели"
+	if {_id} is "ind3":
+		return "Военная экономика"
+	if {_id} is "mil1":
+		return "Мобилизация"
+	if {_id} is "mil2":
+		return "Укрепления"
+	if {_id} is "mil3":
+		return "Тотальная война"
+	if {_id} is "eco1":
+		return "Торговые пути"
+	if {_id} is "eco2":
+		return "Дипломатический корпус"
+	if {_id} is "eco3":
+		return "Гегемония"
+	return {_none}
+
+function focusDesc(id: text) :: text:
+	if {_id} is "ind1":
+		return "+{@bonus_chunks} чанков каждому городу"
+	if {_id} is "ind2":
+		return "Спешка I на своей территории"
+	if {_id} is "ind3":
+		return "+{@ind3_income}$ в казну в день"
+	if {_id} is "mil1":
+		return "железная броня и меч каждому (/focus kit)"
+	if {_id} is "mil2":
+		return "Сопротивление I дома во время боя"
+	if {_id} is "mil3":
+		return "Скорость I и Сила I во время боя"
+	if {_id} is "eco1":
+		return "+{@eco1_income}$ в казну в день"
+	if {_id} is "eco2":
+		return "бесплатные пакты о ненападении"
+	if {_id} is "eco3":
+		return "дань с вассалов x2"
+	return ""
+
+function focusTier(id: text) :: number:
+	if {_id} ends with "1":
+		return 1
+	if {_id} ends with "2":
+		return 2
+	return 3
+
+function focusCost(id: text) :: number:
+	set {_t} to focusTier({_id})
+	if {_t} is 1:
+		return 500
+	if {_t} is 2:
+		return 1500
+	return 3000
+
+function focusHours(id: text) :: number:
+	set {_t} to focusTier({_id})
+	if {_t} is 1:
+		return 12
+	if {_t} is 2:
+		return 24
+	return 36
+
+function focusReq(id: text) :: text:
+	set {_t} to focusTier({_id})
+	if {_t} is 1:
+		return {_none}
+	set {_b} to first 3 characters of {_id}
+	return "%{_b}%%{_t} - 1%"
+
+function focusExcl(id: text) :: text:
+	if {_id} is "mil3":
+		return "eco3"
+	if {_id} is "eco3":
+		return "mil3"
+	return {_none}
+
+function focusHas(nation: text, id: text) :: boolean:
+	if {focus::done::%{_nation}%::%{_id}%} is true:
+		return true
+	return false
+
+# ---------- служебное ----------
+
+function focusNationOf(p: player) :: text:
+	set {_r} to TownyAPI.getInstance().getResident({_p})
+	if {_r} is not set:
+		return {_none}
+	set {_n} to {_r}.getNationOrNull()
+	if {_n} is not set:
+		return {_none}
+	return "%{_n}.getName()%"
+
+function focusAtHome(p: player, nation: text) :: boolean:
+	set {_t} to TownyAPI.getInstance().getTown(location of {_p})
+	if {_t} is not set:
+		return false
+	set {_n} to {_t}.getNationOrNull()
+	if {_n} is not set:
+		return false
+	if "%{_n}.getName()%" is {_nation}:
+		return true
+	return false
+
+function focusBonusChunks(nation: text):
+	set {_n} to TownyAPI.getInstance().getNation({_nation})
+	if {_n} is not set:
+		stop
+	loop ...{_n}.getTowns():
+		set {_tn} to "%loop-value.getName()%"
+		if {focus::bb::%{_tn}%} is not set:
+			set {focus::bb::%{_tn}%} to true
+			set {_t} to loop-value
+			set {_bb} to {_t}.getBonusBlocks() + {@bonus_chunks}
+			{_t}.setBonusBlocks({_bb})
+			{_t}.save()
+
+function focusComplete(nation: text):
+	set {_id} to {focus::cur::%{_nation}%}
+	delete {focus::cur::%{_nation}%}
+	delete {focus::end::%{_nation}%}
+	if {_id} is not set:
+		stop
+	set {focus::done::%{_nation}%::%{_id}%} to true
+	broadcast "&6&l[Фокус] &e%{_nation}% &6завершает фокус «&e%focusName({_id})%&6»: %focusDesc({_id})%."
+	if {_id} is "ind1":
+		focusBonusChunks({_nation})
+
+function focusDeposit(nation: text, amount: number):
+	set {_n} to TownyAPI.getInstance().getNation({_nation})
+	if {_n} is set:
+		{_n}.getAccount().deposit({_amount}, "PaxVanila: фокус")
+
+# ---------- тики ----------
+
+every 1 minute:
+	set {_ns::*} to indices of {focus::cur::*}
+	loop {_ns::*}:
+		if TownyAPI.getInstance().getNation(loop-value) is not set:
+			delete {focus::cur::%loop-value%}
+			delete {focus::end::%loop-value%}
+		else if {focus::end::%loop-value%} <= now:
+			focusComplete(loop-value)
+
+every 30 minutes:
+	loop ...TownyAPI.getInstance().getNations():
+		set {_nm} to "%loop-value.getName()%"
+		if focusHas({_nm}, "ind1") is true:
+			focusBonusChunks({_nm})
+		set {_last} to {focus::paid::%{_nm}%}
+		set {_pay} to true
+		if {_last} is set:
+			if difference between {_last} and now < 1 day:
+				set {_pay} to false
+		if {_pay} is true:
+			set {_sum} to 0
+			if focusHas({_nm}, "ind3") is true:
+				add {@ind3_income} to {_sum}
+			if focusHas({_nm}, "eco1") is true:
+				add {@eco1_income} to {_sum}
+			if {_sum} > 0:
+				set {focus::paid::%{_nm}%} to now
+				focusDeposit({_nm}, {_sum})
+
+every 5 seconds:
+	loop all players:
+		set {_nm} to focusNationOf(loop-player)
+		if {_nm} is set:
+			set {_hot} to false
+			if {pax::nhot::%{_nm}%} is set:
+				set {_hot} to true
+			set {_home} to false
+			if focusHas({_nm}, "ind2") is true:
+				set {_home} to focusAtHome(loop-player, {_nm})
+				if {_home} is true:
+					apply haste of tier 1 to loop-player for 7 seconds
+			if {_hot} is true:
+				if focusHas({_nm}, "mil2") is true:
+					if focusHas({_nm}, "ind2") is false:
+						set {_home} to focusAtHome(loop-player, {_nm})
+					if {_home} is true:
+						apply resistance of tier 1 to loop-player for 7 seconds
+				if focusHas({_nm}, "mil3") is true:
+					apply speed of tier 1 to loop-player for 7 seconds
+					apply strength of tier 1 to loop-player for 7 seconds
+
+# ---------- команда ----------
+
+command /focus [<text>] [<text>] [<text>]:
+	aliases: /фокус, /фокусы, /focuses
+	trigger:
+		if arg-1 is "admin":
+			if executor does not have permission "paxfocus.admin":
+				send "&cНет прав."
+				stop
+			set {_n} to TownyAPI.getInstance().getNation(arg-3 ? "")
+			if {_n} is not set:
+				send "&c/focus admin finish|reset <нация>"
+				stop
+			set {_nm} to "%{_n}.getName()%"
+			if arg-2 is "finish":
+				if {focus::cur::%{_nm}%} is not set:
+					send "&cУ нации нет активного фокуса."
+					stop
+				focusComplete({_nm})
+			else if arg-2 is "reset":
+				delete {focus::cur::%{_nm}%}
+				delete {focus::end::%{_nm}%}
+				delete {focus::done::%{_nm}%::*}
+				send "&eФокусы %{_nm}% сброшены (выданные чанки остаются)."
+			stop
+		if executor is not a player:
+			send "&cКоманда для игроков."
+			stop
+		set {_nm} to focusNationOf(player)
+		if {_nm} is not set:
+			send "&cВы не в нации. Фокусы доступны нациям (&f/n new&c с 4-й недели)."
+			stop
+		if arg-1 is "kit":
+			if focusHas({_nm}, "mil1") is false:
+				send "&cНация ещё не завершила «Мобилизацию»."
+				stop
+			if {focus::kit::%{_nm}%::%uuid of player%} is set:
+				send "&cВы уже получили снаряжение."
+				stop
+			if player has enough space for iron helmet, iron chestplate, iron leggings, iron boots, iron sword and 16 cooked beef:
+				set {focus::kit::%{_nm}%::%uuid of player%} to true
+				give iron helmet, iron chestplate, iron leggings, iron boots, iron sword and 16 cooked beef to player
+				send "&aСнаряжение мобилизации получено."
+			else:
+				send "&cОсвободите 6 слотов в инвентаре."
+			stop
+		if arg-1 is "start":
+			set {_r} to TownyAPI.getInstance().getResident(player)
+			if {_r}.isKing() is not true:
+				send "&cФокус выбирает глава нации."
+				stop
+			set {_id} to arg-2 ? ""
+			if focusName({_id}) is not set:
+				send "&cНет фокуса «%{_id}%». Список: /focus"
+				stop
+			if {focus::cur::%{_nm}%} is set:
+				send "&cУже идёт фокус «%focusName({focus::cur::%{_nm}%})%»."
+				stop
+			if focusHas({_nm}, {_id}) is true:
+				send "&cЭтот фокус уже завершён."
+				stop
+			set {_req} to focusReq({_id})
+			if {_req} is set:
+				if focusHas({_nm}, {_req}) is false:
+					send "&cСначала нужен фокус «%focusName({_req})%»."
+					stop
+			set {_ex} to focusExcl({_id})
+			if {_ex} is set:
+				if focusHas({_nm}, {_ex}) is true:
+					send "&cНесовместимо с «%focusName({_ex})%»."
+					stop
+				if {focus::cur::%{_nm}%} is {_ex}:
+					send "&cНесовместимо с «%focusName({_ex})%»."
+					stop
+			set {_cost} to focusCost({_id})
+			set {_n} to TownyAPI.getInstance().getNation({_nm})
+			if {_n}.getAccount().canPayFromHoldings({_cost}) is not true:
+				send "&cВ казне нации нет %{_cost}%$ (&f/n deposit <сумма>&c)."
+				stop
+			{_n}.getAccount().withdraw({_cost}, "PaxVanila: фокус %{_id}%")
+			set {_end} to now
+			loop focusHours({_id}) times:
+				set {_end} to 1 hour after {_end}
+			set {focus::cur::%{_nm}%} to {_id}
+			set {focus::end::%{_nm}%} to {_end}
+			broadcast "&6&l[Фокус] &e%{_nm}% &6начинает фокус «&e%focusName({_id})%&6» (%focusHours({_id})% ч)."
+			stop
+		send "&6&l=== Фокусы нации %{_nm}% ==="
+		if {focus::cur::%{_nm}%} is set:
+			send "&eСейчас: &f%focusName({focus::cur::%{_nm}%})% &7(готово %{focus::end::%{_nm}%}%)"
+		loop focusIds():
+			set {_id} to loop-value
+			if focusHas({_nm}, {_id}) is true:
+				set {_st} to "&a✔"
+			else if {focus::cur::%{_nm}%} is {_id}:
+				set {_st} to "&e⌛"
+			else:
+				set {_st} to "&7○"
+			send "%{_st}% &f%{_id}% &e%focusName({_id})% &7— %focusDesc({_id})% &8[%focusCost({_id})%$, %focusHours({_id})% ч]"
+		send "&7Начать: &f/focus start <id>&7. Ветки: ind → промышленность, mil → армия, eco → экономика."
+		send "&7Тотальная война (mil3) и Гегемония (eco3) — взаимоисключающие."

@@ -1,0 +1,94 @@
+# PaxVanila — ивент «Помощники» (2-я неделя)
+# Нужен плагин AxMinions. Старт недель берётся из {pax::border::launch} (paxborder.sk, его не трогаем).
+# С 7-го дня после /paxborder start каждый игрок может один раз забрать помощника + сундук для него.
+#
+# Игрокам:
+#   /помощник шахтёр   — копает булыжник с генератора (вода+лава), нужна кирка
+#   /помощник сборщик  — подбирает предметы вокруг себя, нужна лопата
+#   Помощник складывает всё в привязанный сундук (до 8 блоков). Лимит: 1 помощник на игрока.
+#
+# Админам (paxhelpers.admin):
+#   /paxhelpers open   — открыть ивент вручную (для теста)
+#   /paxhelpers close  — закрыть ивент
+#   /paxhelpers reset <ник> — разрешить игроку забрать помощника заново
+#   /paxhelpers status
+
+options:
+	prefix: &6&l[PaxVanila]&r
+
+function paxHelpersOpen() :: boolean:
+	if {pax::helpers::forced} is true:
+		return true
+	if {pax::helpers::closed} is true:
+		return false
+	if {pax::border::launch} is not set:
+		return false
+	if difference between {pax::border::launch} and now >= 7 days:
+		return true
+	return false
+
+every 1 minute:
+	if paxHelpersOpen() is true:
+		if {pax::helpers::announced} is not set:
+			set {pax::helpers::announced} to true
+			broadcast "{@prefix} &eИвент 2-й недели: &fПомощники! &eКаждый житель может забрать своего помощника: &f/помощник шахтёр &eили &f/помощник сборщик"
+
+on join:
+	paxHelpersOpen() is true
+	{pax::helpers::got::%uuid of player%} is not set
+	wait 5 seconds
+	send "{@prefix} &eТебе доступен помощник! &f/помощник шахтёр &7или &f/помощник сборщик" to player
+
+command /помощник [<text>]:
+	aliases: /helper, /pomoshnik
+	executable by: players
+	trigger:
+		if paxHelpersOpen() is false:
+			send "{@prefix} &cПомощники откроются на 2-й неделе."
+			stop
+		if {pax::helpers::got::%uuid of player%} is set:
+			send "{@prefix} &cТы уже забрал помощника. Если он потерян — обратись к администрации."
+			stop
+		if arg-1 is "шахтёр", "шахтер", "miner" or "m":
+			set {_type} to "miner"
+			set {_tool} to "&fдеревянную кирку"
+		else if arg-1 is "сборщик", "collector" or "c":
+			set {_type} to "collector"
+			set {_tool} to "&fдеревянную лопату"
+		else:
+			send "{@prefix} &eВыбери помощника:"
+			send "&f/помощник шахтёр &7— копает булыжник с генератора (вода + лава рядом), нужна кирка"
+			send "&f/помощник сборщик &7— собирает упавшие предметы вокруг, нужна лопата"
+			stop
+		if player doesn't have enough space for 2 stone:
+			send "{@prefix} &cОсвободи 2 слота в инвентаре."
+			stop
+		set {pax::helpers::got::%uuid of player%} to {_type}
+		execute console command "axminions give %player% %{_type}% 1 1"
+		give player 1 chest named "&6Сундук помощника"
+		send "{@prefix} &aГотово! Поставь помощника и сундук рядом (до 8 блоков), открой помощника ПКМ, нажми «Link to container» и кликни по сундуку. Дай ему %{_tool}%&a."
+
+command /paxhelpers [<text>] [<offline player>]:
+	permission: paxhelpers.admin
+	trigger:
+		if arg-1 is "open":
+			set {pax::helpers::forced} to true
+			delete {pax::helpers::closed}
+			send "&aИвент помощников открыт вручную."
+		else if arg-1 is "close":
+			delete {pax::helpers::forced}
+			set {pax::helpers::closed} to true
+			send "&eИвент помощников закрыт."
+		else if arg-1 is "reset":
+			if arg-2 is not set:
+				send "&c/paxhelpers reset <ник>"
+				stop
+			delete {pax::helpers::got::%uuid of arg-2%}
+			send "&aИгрок %arg-2% может снова забрать помощника."
+		else:
+			send "&6Ивент открыт: &f%paxHelpersOpen()%"
+			if {pax::border::launch} is set:
+				send "&6Старт недель: &f%{pax::border::launch}%"
+			else:
+				send "&6Старт недель: &cне задан (/paxborder start)"
+			send "&6Забрали помощника: &f%size of {pax::helpers::got::*}%"

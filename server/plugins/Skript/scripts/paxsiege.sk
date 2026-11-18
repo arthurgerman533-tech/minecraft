@@ -1,0 +1,36 @@
+# PaxVanila — арсенал осадных орудий (WeaponMechanics, файл weapons/siege/PaxVanila_Siege.yml).
+# Покупка за деньги игрока (Vault/EssentialsX). skript-reflect не нужен.
+# Орудия ломают блоки только там, где Towny разрешает взрывы — то есть в дикой местности
+# и в городах наций, у которых по paxwar сейчас идёт бой. Разрушения восстанавливаются через 30 минут.
+
+options:
+	mortar_price: 1500
+	cannon_price: 4000
+	charge_price: 250
+
+function siegeBuy(p: player, weapon: text, price: number, title: text):
+	if {_p}'s balance < {_price}:
+		send "&cНужно %{_price}%$, у вас %{_p}'s balance%$." to {_p}
+		stop
+	remove {_price} from {_p}'s balance
+	execute console command "wm give %name of {_p}% %{_weapon}%"
+	send "&a[Арсенал] Куплено: %{_title}% за %{_price}%$." to {_p}
+
+command /siege [<text>]:
+	aliases: /осада, /арсенал
+	executable by: players
+	trigger:
+		if arg-1 is "mortar":
+			siegeBuy(player, "PAX_Mortar", {@mortar_price}, "Миномёт")
+		else if arg-1 is "cannon":
+			siegeBuy(player, "PAX_Cannon", {@cannon_price}, "Осадная пушка")
+		else if arg-1 is "charge":
+			siegeBuy(player, "PAX_Breach_Charge", {@charge_price}, "Подрывной заряд")
+		else:
+			send "&6&l=== Арсенал PaxVanila ==="
+			send "&e/siege mortar &7— Миномёт, &f{@mortar_price}$&7. Снаряды: огненные заряды. Навесной огонь, радиус 3."
+			send "&e/siege cannon &7— Осадная пушка, &f{@cannon_price}$&7. Снаряды: динамит. Радиус 4, трещит обсидиан."
+			send "&e/siege charge &7— Подрывной заряд, &f{@charge_price}$&7. Бросок, взрыв через 4 с."
+			send "&7Зарядить: Q с орудием в руке (снаряды в инвентаре). Выстрел: ПКМ."
+			send "&7Ломают блоки только в дикой местности и в городах воюющих наций во время боя."
+			send "&7Сундуки, бочки и шалкеры не ломаются. Через 30 минут всё восстанавливается."

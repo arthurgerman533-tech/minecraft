@@ -1,0 +1,505 @@
+# PaxVanila — дипломатия: пакты о ненападении, вассалы, вступление союзников в войны, мир.
+# Нужны: Skript, skript-reflect, Towny. Работает поверх paxwar.sk, НЕ меняя его файл:
+#   * читает войны {pax::w::*} и добавляет в них «соучастников» в том же формате,
+#     поэтому прайм-тайм, правило 2 защитников, счёт и награды paxwar работают для них сами;
+#   * перехватывает /paxwar declare и не даёт объявить войну при пакте, своему союзнику
+#     или от имени вассала (кроме войны за независимость против сюзерена).
+#
+# Союзы — родные Towny: /n ally add <нация> (взаимный союз). Здесь они дают право вступить в войну.
+#
+# Игроки (действия — только глава нации):
+#   /dip [нация]                — отношения нации
+#   /dip list                   — все пакты и вассалы сервера
+#   /dip pact <нация> [дней]    — предложить пакт о ненападении (по умолчанию {@pact_days} дней)
+#   /dip breakpact <нация>      — расторгнуть пакт (через {@break_notice} ч)
+#   /dip vassalize <нация>      — предложить нации стать вашим вассалом
+#   /dip submit <нация>         — попроситься в вассалы к нации
+#   /dip release <нация>        — освободить своего вассала
+#   /dip peace <нация>          — предложить белый мир (заканчивает войны между вами)
+#   /dip accept|deny <нация>    — принять/отклонить предложение
+#   /dip join <номер войны>     — вступить в войну союзника (приглашение приходит само)
+# Админ (право paxdiplo.admin):
+#   /dip admin vassal <сюзерен> <вассал> | free <вассал> | pact <A> <B> <дней> | breakpact <A> <B>
+
+import:
+	com.palmergames.bukkit.towny.TownyAPI
+
+options:
+	pact_days: 7
+	pact_max_days: 30
+	pact_cost: 100        # $ из казны КАЖДОЙ нации за подписание пакта
+	break_notice: 24      # часов до расторжения пакта
+	tribute_pct: 10       # % казны вассала в день сюзерену
+	tribute_max: 500      # но не больше стольких $ в день
+	offer_minutes: 10     # сколько живёт предложение
+
+# ---------- служебное ----------
+
+function dipName(t: text) :: text:
+	set {_n} to TownyAPI.getInstance().getNation({_t})
+	if {_n} is not set:
+		return {_none}
+	return "%{_n}.getName()%"
+
+function dipMyNation(p: player) :: text:
+	set {_r} to TownyAPI.getInstance().getResident({_p})
+	if {_r} is not set:
+		return {_none}
+	set {_n} to {_r}.getNationOrNull()
+	if {_n} is not set:
+		return {_none}
+	return "%{_n}.getName()%"
+
+function dipIsLeader(p: player) :: boolean:
+	set {_r} to TownyAPI.getInstance().getResident({_p})
+	if {_r} is set:
+		if {_r}.isKing() is true:
+			return true
+	return false
+
+function dipAllied(a: text, b: text) :: boolean:
+	set {_x} to TownyAPI.getInstance().getNation({_a})
+	set {_y} to TownyAPI.getInstance().getNation({_b})
+	if {_x} is set:
+		if {_y} is set:
+			if {_x}.hasMutualAlly({_y}) is true:
+				return true
+	return false
+
+# пакты хранятся плоско: {dip::pact::A|B} = дата окончания (в обе стороны)
+function dipHasPact(a: text, b: text) :: boolean:
+	if {dip::pact::%{_a}%|%{_b}%} is set:
+		if {dip::pact::%{_a}%|%{_b}%} > now:
+			return true
+	return false
+
+function dipNotify(nation: text, msg: text):
+	loop all players:
+		if dipMyNation(loop-player) is {_nation}:
+			send {_msg} to loop-player
+
+function dipPay(nation: text, amount: number) :: boolean:
+	if {_amount} <= 0:
+		return true
+	set {_n} to TownyAPI.getInstance().getNation({_nation})
+	if {_n} is not set:
+		return false
+	if {_n}.getAccount().canPayFromHoldings({_amount}) is not true:
+		return false
+	{_n}.getAccount().withdraw({_amount}, "PaxVanila: дипломатия")
+	return true
+
+function dipAtWar(a: text, b: text) :: boolean:
+	loop {pax::wids::*}:
+		set {_x} to {pax::w::%loop-value%::a}
+		set {_y} to {pax::w::%loop-value%::d}
+		if {_x} is {_a}:
+			if {_y} is {_b}:
+				return true
+		if {_x} is {_b}:
+			if {_y} is {_a}:
+				return true
+	return false
+
+# добавить в войну #parent ещё одну пару «атакующий -> защитник» в формате paxwar
+function dipAddCobel(parent: text, att: text, def: text):
+	if {_att} is {_def}:
+		stop
+	if {pax::wids::%{_parent}%} is not set:
+		stop
+	loop {pax::wids::*}:
+		if {pax::w::%loop-value%::a} is {_att}:
+			if {pax::w::%loop-value%::d} is {_def}:
+				stop
+	add 1 to {pax::wnext}
+	set {_id} to "%{pax::wnext}%"
+	set {pax::w::%{_id}%::a} to {_att}
+	set {pax::w::%{_id}%::d} to {_def}
+	set {pax::w::%{_id}%::start} to {pax::w::%{_parent}%::start}
+	set {pax::w::%{_id}%::hot} to false
+	set {pax::w::%{_id}%::parent} to {_parent}
+	set {dip::seen::%{_id}%} to true
+	set {pax::wids::%{_id}%} to {_id}
+	broadcast "&4[Война #%{_parent}%] &c%{_att}% &4и &c%{_def}% &4теперь тоже воюют (фронт #%{_id}%)."
+
+function dipEndWars(a: text, b: text):
+	set {_ids::*} to {pax::wids::*}
+	loop {_ids::*}:
+		set {_id} to loop-value
+		set {_x} to {pax::w::%{_id}%::a}
+		set {_y} to {pax::w::%{_id}%::d}
+		set {_hit} to false
+		if {_x} is {_a}:
+			if {_y} is {_b}:
+				set {_hit} to true
+		if {_x} is {_b}:
+			if {_y} is {_a}:
+				set {_hit} to true
+		if {_hit} is true:
+			add {_id} to {_dead::*}
+	# вместе с главной войной закрываются и фронты союзников, привязанные к ней
+	loop {_ids::*}:
+		set {_p} to {pax::w::%loop-value%::parent}
+		if {_p} is set:
+			if {_dead::*} contains {_p}:
+				add loop-value to {_dead::*}
+	loop {_dead::*}:
+		delete {pax::wids::%loop-value%}
+		delete {pax::w::%loop-value%::*}
+
+function dipSetVassal(o: text, v: text):
+	set {dip::over::%{_v}%} to {_o}
+	set {dip::vas::%{_o}%::%{_v}%} to {_v}
+	dipEndWars({_o}, {_v})
+	broadcast "&6&l[Дипломатия] &e%{_v}% &6становится вассалом &e%{_o}%&6."
+
+function dipFree(v: text):
+	set {_o} to {dip::over::%{_v}%}
+	if {_o} is set:
+		delete {dip::vas::%{_o}%::%{_v}%}
+	delete {dip::over::%{_v}%}
+
+function dipSetPact(a: text, b: text, days: number):
+	set {_end} to now
+	loop {_days} times:
+		set {_end} to 1 day after {_end}
+	set {dip::pact::%{_a}%|%{_b}%} to {_end}
+	set {dip::pact::%{_b}%|%{_a}%} to {_end}
+	broadcast "&6&l[Дипломатия] &e%{_a}% &6и &e%{_b}% &6подписали пакт о ненападении на %{_days}% дн."
+
+# ---------- новые войны: вассалы вступают сами, союзникам приходит приглашение ----------
+
+function dipOnNewWar(id: text):
+	set {_a} to {pax::w::%{_id}%::a}
+	set {_d} to {pax::w::%{_id}%::d}
+	# сюзерен защищает вассала (кроме войны за независимость)
+	set {_o} to {dip::over::%{_d}%}
+	if {_o} is set:
+		if {_o} is not {_a}:
+			dipAddCobel({_id}, {_a}, {_o})
+	# вассалы защитника и агрессора вступают за своего сюзерена
+	loop {dip::vas::%{_d}%::*}:
+		if loop-value is not {_a}:
+			dipAddCobel({_id}, {_a}, loop-value)
+	loop {dip::vas::%{_a}%::*}:
+		if loop-value is not {_d}:
+			dipAddCobel({_id}, loop-value, {_d})
+	# приглашения взаимным союзникам
+	loop ...TownyAPI.getInstance().getNations():
+		set {_nm} to "%loop-value.getName()%"
+		if {_nm} is not {_a}:
+			if {_nm} is not {_d}:
+				if dipAllied({_nm}, {_d}) is true:
+					if dipAllied({_nm}, {_a}) is false:
+						if dipHasPact({_nm}, {_a}) is false:
+							set {dip::inv::%{_id}%::%{_nm}%} to "d"
+							dipNotify({_nm}, "&6[Дипломатия] &eВаш союзник &f%{_d}% &eатакован нацией &f%{_a}%&e. Глава может вступить: &f/dip join %{_id}%")
+				else if dipAllied({_nm}, {_a}) is true:
+					if dipHasPact({_nm}, {_d}) is false:
+						set {dip::inv::%{_id}%::%{_nm}%} to "a"
+						dipNotify({_nm}, "&6[Дипломатия] &eВаш союзник &f%{_a}% &eобъявил войну &f%{_d}%&e. Глава может вступить: &f/dip join %{_id}%")
+
+every 1 minute:
+	set {_ids::*} to {pax::wids::*}
+	loop {_ids::*}:
+		if {dip::seen::%loop-value%} is not set:
+			set {dip::seen::%loop-value%} to true
+			if {pax::w::%loop-value%::parent} is not set:
+				dipOnNewWar(loop-value)
+
+# ---------- дань и уборка удалённых наций ----------
+
+every 30 minutes:
+	set {_vs::*} to indices of {dip::over::*}
+	loop {_vs::*}:
+		set {_v} to loop-value
+		set {_o} to {dip::over::%{_v}%}
+		if dipName({_v}) is not set:
+			dipFree({_v})
+		else if dipName({_o}) is not set:
+			dipFree({_v})
+			broadcast "&6[Дипломатия] &e%{_v}% &6свободна: сюзерена больше нет."
+	if {dip::lasttrib} is set:
+		if difference between {dip::lasttrib} and now < 1 day:
+			stop
+	set {dip::lasttrib} to now
+	set {_vs::*} to indices of {dip::over::*}
+	loop {_vs::*}:
+		set {_v} to loop-value
+		set {_o} to {dip::over::%{_v}%}
+		set {_vn} to TownyAPI.getInstance().getNation({_v})
+		set {_on} to TownyAPI.getInstance().getNation({_o})
+		if {_vn} is set:
+			if {_on} is set:
+				# фокус «Гегемония» (paxfocus.sk) удваивает дань
+				set {_k} to 1
+				if {focus::done::%{_o}%::eco3} is true:
+					set {_k} to 2
+				set {_amt} to floor({_vn}.getAccount().getHoldingBalance() * {@tribute_pct} * {_k} / 100)
+				if {_amt} > {@tribute_max} * {_k}:
+					set {_amt} to {@tribute_max} * {_k}
+				if {_amt} >= 1:
+					{_vn}.getAccount().withdraw({_amt}, "PaxVanila: дань")
+					{_on}.getAccount().deposit({_amt}, "PaxVanila: дань")
+					dipNotify({_v}, "&6[Дипломатия] &eДань сюзерену %{_o}%: &f%{_amt}%$")
+					dipNotify({_o}, "&6[Дипломатия] &eДань от вассала %{_v}%: &f%{_amt}%$")
+
+# ---------- ограничения на объявление войны ----------
+
+on command:
+	if "%command%" is "paxwar" or "skript:paxwar":
+		set {_args::*} to arguments split at " "
+		if "%{_args::1}%" is "declare":
+			set {_x} to dipName("%{_args::2}%")
+			set {_y} to dipName("%{_args::3}%")
+			if {_x} is not set:
+				stop
+			if {_y} is not set:
+				stop
+			if dipHasPact({_x}, {_y}) is true:
+				cancel event
+				send "&cМежду %{_x}% и %{_y}% действует пакт о ненападении до %{dip::pact::%{_x}%|%{_y}%}%. Сначала /dip breakpact (или /dip admin breakpact)." to command sender
+				stop
+			if dipAllied({_x}, {_y}) is true:
+				cancel event
+				send "&c%{_x}% и %{_y}% — союзники. Сначала разорвать союз: /n ally remove." to command sender
+				stop
+			if {dip::over::%{_x}%} is set:
+				if {dip::over::%{_x}%} is not {_y}:
+					cancel event
+					send "&c%{_x}% — вассал %{dip::over::%{_x}%}% и может воевать только за независимость против сюзерена." to command sender
+					stop
+			if {dip::over::%{_y}%} is {_x}:
+				cancel event
+				send "&c%{_y}% — вассал %{_x}%. Сюзерен не нападает на вассала: сначала /dip release." to command sender
+				stop
+			if {dip::over::%{_x}%} is {_y}:
+				broadcast "&6&l[Дипломатия] &e%{_x}% &6поднимает ВОЙНУ ЗА НЕЗАВИСИМОСТЬ против &e%{_y}%&6!"
+
+# ---------- команда ----------
+
+command /dip [<text>] [<text>] [<text>] [<text>]:
+	aliases: /дипломатия, /дип, /diplomacy
+	trigger:
+		if arg-1 is "list":
+			send "&6&l=== Дипломатия PaxVanila ==="
+			loop indices of {dip::over::*}:
+				send "&e%loop-value% &7— вассал &e%{dip::over::%loop-value%}%"
+			loop indices of {dip::pact::*}:
+				set {_k::*} to loop-value split at "|"
+				if {_seen::%{_k::2}%|%{_k::1}%} is not set:
+					set {_seen::%loop-value%} to true
+					if dipHasPact({_k::1}, {_k::2}) is true:
+						send "&e%{_k::1}% &7и &e%{_k::2}% &7— пакт до %{dip::pact::%loop-value%}%"
+			stop
+		if arg-1 is "admin":
+			if executor does not have permission "paxdiplo.admin":
+				send "&cНет прав."
+				stop
+			set {_x} to dipName(arg-3 ? "")
+			set {_y} to dipName(arg-4 ? "")
+			if arg-2 is "vassal":
+				if {_x} is not set:
+					send "&cНет нации %arg-3%."
+					stop
+				if {_y} is not set:
+					send "&cНет нации %arg-4%."
+					stop
+				dipFree({_y})
+				dipSetVassal({_x}, {_y})
+			else if arg-2 is "free":
+				if {_x} is not set:
+					send "&cНет нации %arg-3%."
+					stop
+				dipFree({_x})
+				broadcast "&6&l[Дипломатия] &e%{_x}% &6больше не вассал."
+			else if arg-2 is "pact":
+				if {_x} is not set:
+					send "&c/dip admin pact <A> <B>"
+					stop
+				if {_y} is not set:
+					send "&c/dip admin pact <A> <B>"
+					stop
+				dipSetPact({_x}, {_y}, {@pact_days})
+			else if arg-2 is "breakpact":
+				if {_x} is not set:
+					stop
+				if {_y} is not set:
+					stop
+				delete {dip::pact::%{_x}%|%{_y}%}
+				delete {dip::pact::%{_y}%|%{_x}%}
+				broadcast "&6&l[Дипломатия] &6Пакт &e%{_x}% — %{_y}% &6расторгнут администрацией."
+			else:
+				send "&7/dip admin vassal <сюзерен> <вассал> | free <вассал> | pact <A> <B> | breakpact <A> <B>"
+			stop
+		if executor is not a player:
+			send "&cКоманда для игроков (кроме /dip list и /dip admin)."
+			stop
+		set {_me} to dipMyNation(player)
+		if arg-1 is not set:
+			set {_show} to {_me}
+		else if arg-1 is "info":
+			set {_show} to dipName(arg-2 ? "")
+		else if dipName(arg-1) is set:
+			set {_show} to dipName(arg-1)
+		if {_show} is set:
+			send "&6&l=== %{_show}% ==="
+			set {_n} to TownyAPI.getInstance().getNation({_show})
+			set {_al::*} to ...{_n}.getMutualAllies()
+			send "&eСоюзники (Towny): &f%{_al::*}%"
+			loop indices of {dip::pact::*}:
+				set {_k::*} to loop-value split at "|"
+				if {_k::1} is {_show}:
+					if dipHasPact({_show}, {_k::2}) is true:
+						add "%{_k::2}% (до %{dip::pact::%loop-value%}%)" to {_pc::*}
+			set {_ov} to {dip::over::%{_show}%} ? "-"
+			set {_vs::*} to {dip::vas::%{_show}%::*}
+			if size of {_pc::*} is 0:
+				set {_pc::1} to "-"
+			if size of {_vs::*} is 0:
+				set {_vs::1} to "-"
+			send "&eПакты: &f%{_pc::*}%"
+			send "&eСюзерен: &f%{_ov}%"
+			send "&eВассалы: &f%{_vs::*}%"
+			send "&7/dip pact | breakpact | vassalize | submit | release | peace | accept | deny | join | list"
+			stop
+		if {_me} is not set:
+			send "&cВы не в нации."
+			stop
+		if dipIsLeader(player) is false:
+			send "&cДипломатией занимается глава нации."
+			stop
+		if arg-1 is "join":
+			set {_id} to arg-2 ? ""
+			if {pax::wids::%{_id}%} is not set:
+				send "&cНет активной войны #%{_id}%."
+				stop
+			set {_side} to {dip::inv::%{_id}%::%{_me}%}
+			if {_side} is not set:
+				send "&cВас не приглашали в эту войну (нужен взаимный союз с её участником)."
+				stop
+			if {_side} is "d":
+				dipAddCobel({_id}, {pax::w::%{_id}%::a}, {_me})
+			else:
+				dipAddCobel({_id}, {_me}, {pax::w::%{_id}%::d})
+			delete {dip::inv::%{_id}%::%{_me}%}
+			stop
+		set {_t} to dipName(arg-2 ? "")
+		if {_t} is not set:
+			send "&cУкажите существующую нацию: /dip <действие> <нация>"
+			stop
+		if {_t} is {_me}:
+			send "&cЭто ваша нация."
+			stop
+		if arg-1 is "pact" or "vassalize" or "submit" or "peace":
+			if arg-1 is "pact":
+				if dipHasPact({_me}, {_t}) is true:
+					send "&cПакт уже действует."
+					stop
+				set {_days} to (arg-3 ? "{@pact_days}") parsed as integer
+				if {_days} is not set:
+					set {_days} to {@pact_days}
+				if {_days} < 1:
+					set {_days} to 1
+				if {_days} > {@pact_max_days}:
+					set {_days} to {@pact_max_days}
+				set {dip::odays::%{_t}%::%{_me}%} to {_days}
+			if arg-1 is "peace":
+				if dipAtWar({_me}, {_t}) is false:
+					send "&cВы не воюете с %{_t}%."
+					stop
+			if arg-1 is "vassalize" or "submit":
+				if {dip::over::%{_me}%} is set:
+					if arg-1 is "vassalize":
+						send "&cВассал не может иметь своих вассалов."
+						stop
+			set {dip::offer::%{_t}%::%{_me}%} to arg-1
+			set {dip::oexp::%{_t}%::%{_me}%} to {@offer_minutes} minutes after now
+			if arg-1 is "pact":
+				set {_what} to "пакт о ненападении на %{_days}% дн. (по {@pact_cost}$ из казны каждой нации)"
+			else if arg-1 is "vassalize":
+				set {_what} to "стать ИХ вассалом (дань {@tribute_pct}%% казны в день, макс. {@tribute_max}$)"
+			else if arg-1 is "submit":
+				set {_what} to "принять их к вам в вассалы"
+			else:
+				set {_what} to "белый мир"
+			dipNotify({_t}, "&6[Дипломатия] &f%{_me}% &eпредлагает: &f%{_what}%&e. Глава: &a/dip accept %{_me}% &7или &c/dip deny %{_me}%")
+			send "&aПредложение отправлено %{_t}% (действует {@offer_minutes} мин)."
+			stop
+		if arg-1 is "deny":
+			delete {dip::offer::%{_me}%::%{_t}%}
+			dipNotify({_t}, "&6[Дипломатия] &c%{_me}% отклоняет ваше предложение.")
+			send "&eОтклонено."
+			stop
+		if arg-1 is "accept":
+			set {_type} to {dip::offer::%{_me}%::%{_t}%}
+			if {_type} is not set:
+				send "&cОт %{_t}% нет предложений."
+				stop
+			if {dip::oexp::%{_me}%::%{_t}%} < now:
+				delete {dip::offer::%{_me}%::%{_t}%}
+				send "&cПредложение истекло."
+				stop
+			delete {dip::offer::%{_me}%::%{_t}%}
+			if {_type} is "pact":
+				# фокус «Дипломатический корпус» (paxfocus.sk) — пакт для нации бесплатен
+				set {_c1} to {@pact_cost}
+				set {_c2} to {@pact_cost}
+				if {focus::done::%{_me}%::eco2} is true:
+					set {_c1} to 0
+				if {focus::done::%{_t}%::eco2} is true:
+					set {_c2} to 0
+				set {_n1} to TownyAPI.getInstance().getNation({_me})
+				set {_n2} to TownyAPI.getInstance().getNation({_t})
+				if {_c1} > 0:
+					if {_n1}.getAccount().canPayFromHoldings({_c1}) is not true:
+						send "&cВ казне вашей нации нет %{_c1}%$."
+						stop
+				if {_c2} > 0:
+					if {_n2}.getAccount().canPayFromHoldings({_c2}) is not true:
+						send "&cВ казне %{_t}% нет %{_c2}%$."
+						stop
+				dipPay({_me}, {_c1})
+				dipPay({_t}, {_c2})
+				dipSetPact({_me}, {_t}, {dip::odays::%{_me}%::%{_t}%} ? {@pact_days})
+			else if {_type} is "peace":
+				dipEndWars({_me}, {_t})
+				broadcast "&6&l[Дипломатия] &e%{_me}% &6и &e%{_t}% &6заключили белый мир."
+			else:
+				# vassalize: %{_t}% хочет нас в вассалы; submit: %{_t}% просится к нам
+				if {_type} is "vassalize":
+					set {_o} to {_t}
+					set {_v} to {_me}
+				else:
+					set {_o} to {_me}
+					set {_v} to {_t}
+				if {dip::over::%{_v}%} is set:
+					send "&c%{_v}% уже вассал %{dip::over::%{_v}%}%."
+					stop
+				if {dip::over::%{_o}%} is set:
+					send "&c%{_o}% сама вассал и не может иметь вассалов."
+					stop
+				set {_vv::*} to {dip::vas::%{_v}%::*}
+				if size of {_vv::*} > 0:
+					send "&c%{_v}% имеет своих вассалов — сначала освободите их."
+					stop
+				dipSetVassal({_o}, {_v})
+			stop
+		if arg-1 is "breakpact":
+			if dipHasPact({_me}, {_t}) is false:
+				send "&cПакта с %{_t}% нет."
+				stop
+			set {_end} to {@break_notice} hours after now
+			if {dip::pact::%{_me}%|%{_t}%} > {_end}:
+				set {dip::pact::%{_me}%|%{_t}%} to {_end}
+				set {dip::pact::%{_t}%|%{_me}%} to {_end}
+			broadcast "&6&l[Дипломатия] &e%{_me}% &6расторгает пакт с &e%{_t}%&6. Он перестанет действовать через {@break_notice} ч."
+			stop
+		if arg-1 is "release":
+			if {dip::over::%{_t}%} is not {_me}:
+				send "&c%{_t}% — не ваш вассал."
+				stop
+			dipFree({_t})
+			broadcast "&6&l[Дипломатия] &e%{_me}% &6даёт свободу &e%{_t}%&6."
+			stop
+		send "&7Неизвестное действие. /dip — справка."
