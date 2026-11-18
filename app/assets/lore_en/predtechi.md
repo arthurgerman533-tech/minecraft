@@ -1,702 +1,702 @@
-# PaxVanila: Эпоха Предтеч
+# PaxVanila: the Age of the Forerunners
 
-*Что было на этой земле до Ромула*
+*What was on this land before Romulus*
 
-Когда Ромул высадился у старой башни на 0, 0 и основал Священную Ромейскую Республику, мир не был пустым. Под песком, под водой и глубоко под горами лежали руины. Их оставили **Предтечи**, пять древних цивилизаций. Они правили миром тысячи лет и исчезли за одно поколение. Сегодняшние державы стоят на их костях, говорят на обломках их языков и до сих пор находят их сокровища.
+When Romulus landed at the old tower at 0, 0 and founded the Holy Romean Republic, the world was not empty. Ruins lay under the sand, under the water and deep under the mountains. They were left by the **Forerunners**, five ancient civilisations. They ruled the world for thousands of years and vanished within a single generation. Today's powers stand on their bones, speak the fragments of their languages and still find their treasures.
 
-А ещё раньше, до самих Предтеч, был народ, о котором **ничего не известно**: **Безымянные** (Книга нулевая в Части III).
+And even earlier, before the Forerunners themselves, there was a people about whom **nothing is known**: **the Nameless** (Book Zero in Part III).
 
-Даты считаются **«до Ромула» (д.Р.)**. День высадки, первый день сервера, это год 0.
+Dates are counted **«before Romulus» (B.R.)**. The day of the landing, the first day of the server, is year 0.
 
 ---
 
-## Хронология
+## Timeline
 
-| Когда | Что случилось |
+| When | What happened |
 |---|---|
-| ??? | **Безымянные.** О них ничего не известно. Остались крепости, вечные рамки, Край и древний фундамент под 0, 0 |
-| ~5000 д.Р. | Народ Глубин уходит под землю и строит Безмолвный город |
-| ~4200 д.Р. | Пробуждение Хранителя. Безмолвный город замолкает навсегда |
-| ~3500 д.Р. | В речных долинах встают глиняные города Ур-Кадима, первая письменность |
-| ~3000 д.Р. | В пустыне поднимаются пирамиды Нэферу |
-| ~2600 д.Р. | Острова Талассии правят морем, на дне растут их храмы |
-| ~2200 д.Р. | Медный Союз Каэр-Тала строит залы испытаний в горах |
-| ~1800 д.Р. | Предтечи находят обсидиан и открывают первые врата в Незер |
-| ~1200 д.Р. | **Год Пепла.** Врата выходят из-под контроля, мир Предтеч рушится |
-| ~1150 д.Р. | Последние зодчие запечатывают главные врата Обсидиановым Монолитом |
-| 1150–0 д.Р. | **Тёмные века.** Племена, кочевники и мелкие царства на руинах |
-| 0 | Ромул находит Монолит. Основана Ромея. Начинается PaxVanila |
+| ??? | **The Nameless.** Nothing is known of them. They left strongholds, eternal frames, the End and an ancient foundation under 0, 0 |
+| ~5000 B.R. | The People of the Deep go underground and build the Silent City |
+| ~4200 B.R. | The Warden awakens. The Silent City falls silent forever |
+| ~3500 B.R. | The clay cities of Ur-Kadim rise in the river valleys. The first writing |
+| ~3000 B.R. | The pyramids of Neferu rise in the desert |
+| ~2600 B.R. | The islands of Thalassia rule the sea, their temples grow on the seabed |
+| ~2200 B.R. | The Copper Union of Caer-Tal builds trial halls in the mountains |
+| ~1800 B.R. | The Forerunners find obsidian and open the first gates to the Nether |
+| ~1200 B.R. | **The Year of Ash.** The gates break out of control, the world of the Forerunners collapses |
+| ~1150 B.R. | The last builders seal the main gates with the Obsidian Monolith |
+| 1150–0 B.R. | **The Dark Ages.** Tribes, nomads and petty kingdoms on the ruins |
+| 0 | Romulus finds the Monolith. Romea is founded. PaxVanila begins |
 
 ---
 
-## 1. Народ Глубин (Безмолвные)
+## 1. The People of the Deep (the Silent Ones)
 
-**Отсылка:** Чатал-Хююк, подземные города Каппадокии, миф о «тех, кто ушёл в землю».
+**Inspired by:** Çatalhöyük, the underground cities of Cappadocia, the myth of «those who went into the earth».
 
-Самый старый народ мира. Они боялись неба и солнца и закапывались всё глубже, пока не построили под горами огромный город из глубинного сланца. Там они научились управлять **скалком**, живой тканью, которая слышит каждый шаг. Скалк стал их стражей, памятью и, как они верили, богом.
+The oldest people in the world. They feared the sky and the sun and dug ever deeper, until they built a vast city of deepslate under the mountains. There they learned to command the **sculk**, a living tissue that hears every step. The sculk became their guard, their memory and, as they believed, their god.
 
-**Как пали.** Они растили скалк веками, и однажды он вырастил себе тело. Это **Хранитель**, слепой страж, который убивает всё, что шумит. За одну ночь Безмолвный город перестал быть городом. Говорят, Народ Глубин до сих пор там: они стали тишиной.
+**How they fell.** They grew the sculk for centuries, and one day it grew itself a body. This is the **Warden**, a blind guardian that kills everything that makes a sound. In one night the Silent City stopped being a city. They say the People of the Deep are still there: they became the silence.
 
-**Что осталось в мире:** Древние города в Глубокой тьме, скалковые датчики и крикуны, свечи, сундуки с зачарованными книгами. Огромная рамка в центре города похожа на врата. Это первая попытка Предтеч открыть путь в другой мир.
+**What remains in the world:** Ancient cities in the Deep Dark, sculk sensors and shriekers, candles, chests with enchanted books. A huge frame in the centre of the city looks like a gate. It is the Forerunners' first attempt to open a way into another world.
 
-**Наследие:** Безмолвные научили Предтеч главному правилу: *«Не буди то, что спит под тобой»*. Его до сих пор вырезают на дверях шахт.
-
----
-
-## 2. Ур-Кадим, Царство Глиняных Городов
-
-**Отсылка:** Шумер, Ур, Урук, Вавилон, клинопись, зиккураты, «Эпос о Гильгамеше».
-
-Первая цивилизация под открытым небом. Жители двух великих рек строили ступенчатые храмы из обожжённой глины и записывали всё на глиняных табличках: урожай, долги, законы, имена царей. Их первый царь **Энмер-Кадим** правил, по легенде, 900 лет и искал траву бессмертия.
-
-Ур-Кадим придумал письмо, счёт, колесо и деньги. Остальные Предтечи торговали по его меркам.
-
-**Как пали.** Реки сменили русла, поля превратились в пустыню, а потом пришёл Год Пепла. Глиняные города засыпало песком.
-
-**Что осталось в мире:** Руины следопыта (trail ruins), подозрительный песок и гравий, **черепки** с рисунками. Каждый черепок это обрывок табличек Ур-Кадима. Учёные Ромеи собирают из них **«Летопись Предтеч»**.
-
-**Наследие:** Купцы Ур-Кадима, бежавшие к морю, стали предками **Карфагенской Торговой Державы**. Карфагенские весы и мерки до сих пор называют «кадимскими».
+**Legacy:** The Silent Ones taught the Forerunners the main rule: *«Do not wake what sleeps beneath you»*. It is still carved on the doors of mines.
 
 ---
 
-## 3. Нэферу, Держава Солнца в Песках
+## 2. Ur-Kadim, the Kingdom of Clay Cities
 
-**Отсылка:** Древний Египет: пирамиды, фараоны, Сфинкс, бальзамирование, культ Солнца.
+**Inspired by:** Sumer, Ur, Uruk, Babylon, cuneiform, ziggurats, the «Epic of Gilgamesh».
 
-Южнее рек, в великой пустыне, жил народ, который поклонялся Солнцу. Их цари, **солнценосцы**, строили пирамиды из песчаника, чтобы после смерти подняться к свету. Под каждой пирамидой лежит гробница, и в каждой есть ловушка из динамита. Нэферу не хотели, чтобы их сокровища достались живым.
+The first civilisation under the open sky. The people of two great rivers built stepped temples of fired clay and wrote everything down on clay tablets: harvests, debts, laws, the names of kings. Their first king, **Enmer-Kadim**, ruled for 900 years according to legend and searched for the herb of immortality.
 
-Самый знаменитый правитель, царица **Сенкара Четвёртая**, приказала вырезать своё лицо на всех пирамидах. Поэтому у каждого храма в пустыне одинаковый каменный узор.
+Ur-Kadim invented writing, counting, the wheel and money. The other Forerunners traded by its measures.
 
-**Как пали.** Нэферу первыми научились плавить обсидиан и первыми открыли врата. Из врат пришёл жар, и пустыня стала ещё горячее. Последние жрецы ушли в джунгли и построили там тайные храмы с рычагами и стрелами.
+**How they fell.** The rivers changed course, the fields turned to desert, and then came the Year of Ash. The clay cities were buried in sand.
 
-**Что осталось в мире:** Пустынные пирамиды (храмы), храмы в джунглях, подозрительный песок у пирамид, золото, изумруды, кости.
+**What remains in the world:** Trail ruins, suspicious sand and gravel, **potsherds** with drawings. Every potsherd is a fragment of the tablets of Ur-Kadim. The scholars of Romea assemble the **«Chronicle of the Forerunners»** from them.
 
-**Наследие:** Золото Нэферу кочует по миру уже тысячу лет. Скифские цари кладут его в курганы, Орда собирает его как дань.
-
----
-
-## 4. Талассия, Утонувшая Империя
-
-**Отсылка:** Минойский Крит, Кносский дворец, Лабиринт, Атлантида Платона, извержение Санторина.
-
-Острова в Западном море были сердцем морской империи. Её флот ходил по всем водам мира, а цари-жрецы, **Морские Владыки**, строили дворцы с бесконечными коридорами-лабиринтами. Талассийцы умели дышать под водой с помощью раковин наутилуса и строили храмы прямо на дне из **призмарина**, морского камня, который светится.
-
-Храмы охраняли **стражи**: рыбы с одним глазом, выведенные жрецами. Самых старых и больших называли **Древними стражами**. Они до сих пор живут в развалинах и проклинают усталостью всех, кто приплывает.
-
-**Как пали.** В Год Пепла главный остров взорвался огнём из-под земли, потому что под ним открылись врата. Волна смыла всё побережье, и Талассия ушла на дно за одну ночь.
-
-**Что осталось в мире:** Подводные руины, затонувшие корабли с картами сокровищ, Океанские монументы со стражами, губки и золотые блоки внутри.
-
-**Наследие:** Немногие уцелевшие моряки основали прибрежные города. Их потомки это **Эллинская Морская Лига**. Эллины до сих пор приносят дары морю перед каждым плаванием. На носу галеона **«Аврора Пакс»** вырезана талассийская волна.
+**Legacy:** The merchants of Ur-Kadim who fled to the sea became the ancestors of the **Carthaginian Trading Power**. Carthaginian scales and measures are still called «Kadimian».
 
 ---
 
-## 5. Медный Союз Каэр-Тала
+## 3. Neferu, the Realm of the Sun in the Sands
 
-**Отсылка:** Бронзовый век, Хараппа и Мохенджо-Даро (точное градостроительство), Микены, крах бронзового века.
+**Inspired by:** Ancient Egypt: pyramids, pharaohs, the Sphinx, embalming, the cult of the Sun.
 
-Последняя и самая умная из цивилизаций Предтеч. Каэр-Тала был союзом горных городов, где правили мастера, а не цари. Они освоили **медь** и строили из неё всё: механизмы, двери, лампы, трубы. Их города стояли по чертежу, с ровными улицами и водопроводом.
+South of the rivers, in the great desert, lived a people who worshipped the Sun. Their kings, the **Sunbearers**, built pyramids of sandstone so that they could rise to the light after death. Under every pyramid lies a tomb, and every tomb has a trap of TNT. Neferu did not want their treasures to go to the living.
 
-Каэр-Тала создал **залы испытаний**: подземные полигоны, где мастера проверяли своих учеников и машины. Там же они сделали **вихрей** (бризов), ветряных духов в медной оболочке, и **големов**, механических стражей из железа.
+The most famous ruler, Queen **Senkara the Fourth**, ordered her face to be carved on every pyramid. That is why every temple in the desert has the same stone pattern.
 
-**Как пали.** Мастера Каэр-Тала поняли, что врата Нэферу и Талассии разрушают мир, и попытались их закрыть. Им удалось запечатать главные врата, но цена была страшной: союз отдал на это всю медь, всех големов и почти всех мастеров.
+**How they fell.** Neferu were the first to learn to melt obsidian and the first to open the gates. Heat came out of the gates, and the desert grew hotter still. The last priests went into the jungle and built secret temples there, with levers and arrows.
 
-**Что осталось в мире:** Залы испытаний (trial chambers), спавнеры испытаний, зловещие ключи, хранилища, булава. Окислённая медь в горах.
+**What remains in the world:** Desert pyramids (temples), jungle temples, suspicious sand by the pyramids, gold, emeralds, bones.
 
-**Наследие:**
-- **Дакийское Царство** живёт в тех самых горах и охраняет медные рудники Каэр-Тала.
-- Броненосец **«Медный Левиафан»** назван в честь древней медной машины, чертёж которой нашли в зале испытаний.
-- **Железные големы** у входа в башню, «Страж башни», это последние стражи Каэр-Тала. Они всё ещё выполняют приказ, данный тысячу лет назад.
+**Legacy:** The gold of Neferu has wandered the world for a thousand years. The Scythian kings lay it in their kurgans, the Horde collects it as tribute.
 
 ---
 
-## Год Пепла (~1200 д.Р.)
+## 4. Thalassia, the Drowned Empire
 
-**Отсылка:** крах бронзового века, «народы моря», гибель Трои.
+**Inspired by:** Minoan Crete, the palace of Knossos, the Labyrinth, Plato's Atlantis, the eruption of Santorini.
 
-Все пять цивилизаций искали одно и то же: **обсидиан**, камень, который рождается там, где вода встречает огонь. Из обсидиана можно сложить рамку, и в ней открывается путь в **Незер**, мир огня под миром.
+The islands of the Western Sea were the heart of a maritime empire. Its fleet sailed every water in the world, and its priest-kings, the **Sea Lords**, built palaces with endless labyrinth corridors. The Thalassians could breathe underwater with nautilus shells and built temples right on the seabed out of **prismarine**, a sea stone that glows.
 
-Сначала врата приносили богатство: золото, кварц и светокамень. Потом из них полезли **пиглины** и **гасты**, а сами врата стали открываться без огнива, везде, где их строили. Земля трескалась, небо затягивал пепел, острова взрывались.
+The temples were guarded by **guardians**: one-eyed fish bred by the priests. The oldest and largest were called **Elder Guardians**. They still live in the ruins and curse everyone who swims there with weariness.
 
-За одно поколение пали все пять держав. Сотни врат остались разбитыми по всему миру. Это **разрушенные порталы**, которые игроки находят и сегодня: обсидиан, плачущий обсидиан, позолоченный чернокамень и сундук с последними сокровищами того, кто не успел уйти.
+**How they fell.** In the Year of Ash the main island exploded with fire from below, because gates had opened beneath it. A wave washed away the whole coast, and Thalassia sank to the bottom in a single night.
 
----
+**What remains in the world:** Underwater ruins, shipwrecks with treasure maps, Ocean Monuments with guardians, sponges and gold blocks inside.
 
-## Обсидиановый Монолит на 0, 0
-
-Главные врата, самые большие в мире, стояли в центре мира, ровно на 0, 0. Последние мастера Каэр-Тала, жрецы Нэферу и моряки Талассии **впервые объединились** и построили поверх врат башню из обсидиана и камня. Это **Монолит**, печать, которая держит врата закрытыми.
-
-На стенах Монолита на пяти языках Предтеч высечено одно слово, которое ромейские учёные переводят как **PAX**, «мир».
-
-Поэтому Ромул и основал свою Республику именно здесь. Он прочёл надпись и поклялся хранить печать. Отсюда имя сервера: **PaxVanila**, мир, который держится на древней клятве.
-
-**Что это даёт в игре:**
-- Башня новичков на 0, 0 и есть Монолит. Таблички, кафедры и письма внутри можно читать как обрывки «Летописи Предтеч».
-- Големы «Страж башни» это стражи Каэр-Тала.
-- Есть пророчество, которое можно использовать в будущих ивентах: *«Когда последний страж падёт и мир разделится в войне, печать треснет».* Оно может стать завязкой **Межсерверной войны**: печать Монолита ломается, и врата открываются уже не в Незер, а в чужие миры (другие серверы).
+**Legacy:** The few sailors who survived founded coastal towns. Their descendants are the **Hellenic Sea League**. The Hellenes still bring gifts to the sea before every voyage. A Thalassian wave is carved on the prow of the galleon **«Aurora Pax»**.
 
 ---
 
-## Тёмные века и нынешние державы
+## 5. The Copper Union of Caer-Tal
 
-После Года Пепла выжившие забыли письмо, медь и мореходство. Тысячу лет мир жил племенами. Из этих племён и выросли державы PaxVanila:
+**Inspired by:** the Bronze Age, Harappa and Mohenjo-Daro (precise city planning), Mycenae, the Bronze Age collapse.
 
-| Держава | Чьи наследники | Что хранит |
+The last and the wisest of the Forerunner civilisations. Caer-Tal was a union of mountain cities ruled by masters, not kings. They mastered **copper** and built everything from it: mechanisms, doors, lamps, pipes. Their cities were laid out to plan, with straight streets and running water.
+
+Caer-Tal created the **trial halls**: underground proving grounds where the masters tested their apprentices and machines. There they also made the **whirlwinds** (breezes), wind spirits in a copper shell, and **golems**, mechanical guardians of iron.
+
+**How they fell.** The masters of Caer-Tal understood that the gates of Neferu and Thalassia were destroying the world, and tried to close them. They managed to seal the main gates, but the price was terrible: the union gave all its copper, all its golems and almost all its masters.
+
+**What remains in the world:** Trial chambers, trial spawners, ominous keys, vaults, the mace. Oxidised copper in the mountains.
+
+**Legacy:**
+- The **Kingdom of Dacia** lives in those very mountains and guards the copper mines of Caer-Tal.
+- The ironclad **«Copper Leviathan»** is named after an ancient copper machine whose plan was found in a trial hall.
+- The **iron golems** at the entrance to the tower, the «Tower Guardians», are the last guardians of Caer-Tal. They still follow an order given a thousand years ago.
+
+---
+
+## The Year of Ash (~1200 B.R.)
+
+**Inspired by:** the Bronze Age collapse, the «Sea Peoples», the fall of Troy.
+
+All five civilisations sought the same thing: **obsidian**, the stone born where water meets fire. A frame can be built from obsidian, and within it opens a way to the **Nether**, the world of fire beneath the world.
+
+At first the gates brought wealth: gold, quartz and glowstone. Then **piglins** and **ghasts** crawled out of them, and the gates began to open without flint and steel, wherever they had been built. The earth cracked, ash covered the sky, islands exploded.
+
+Within one generation all five powers fell. Hundreds of gates were left broken all over the world. These are the **ruined portals** players find today: obsidian, crying obsidian, gilded blackstone and a chest with the last treasures of someone who did not get away in time.
+
+---
+
+## The Obsidian Monolith at 0, 0
+
+The main gates, the largest in the world, stood at the centre of the world, exactly at 0, 0. The last masters of Caer-Tal, the priests of Neferu and the sailors of Thalassia **united for the first time** and built a tower of obsidian and stone over the gates. This is the **Monolith**, the seal that keeps the gates closed.
+
+On the walls of the Monolith one word is carved in the five languages of the Forerunners, which Romean scholars translate as **PAX**, «peace».
+
+That is why Romulus founded his Republic right here. He read the inscription and swore to keep the seal. Hence the name of the server: **PaxVanila**, a world that rests on an ancient oath.
+
+**What this means in the game:**
+- The newcomers' tower at 0, 0 is the Monolith. The signs, lecterns and letters inside can be read as fragments of the «Chronicle of the Forerunners».
+- The «Tower Guardian» golems are the guardians of Caer-Tal.
+- There is a prophecy that can be used in future events: *«When the last guardian falls and the world is divided by war, the seal will crack».* It can become the opening of the **Interserver War**: the seal of the Monolith breaks, and the gates open not to the Nether, but to other worlds (other servers).
+
+---
+
+## The Dark Ages and today's powers
+
+After the Year of Ash the survivors forgot writing, copper and seafaring. For a thousand years the world lived in tribes. The powers of PaxVanila grew out of these tribes:
+
+| Power | Whose heirs | What it keeps |
 |---|---|---|
-| **Священная Ромейская Республика** (Ромул) | Хранители Монолита, наследники всех пяти | Печать на 0, 0, клятва PAX, «Летопись Предтеч» |
-| **Карфагенская Торговая Держава** | Купцы Ур-Кадима | Кадимские мерки, торговые пути, «Золотой Караван» |
-| **Эллинская Морская Лига** | Моряки Талассии | Карты затонувших островов, морские обряды |
-| **Дакийское Царство** | Горцы при медных рудниках Каэр-Тала | Вход в залы испытаний, древнюю медь |
-| **Германский Союз Племён** | Лесные племена, которые никогда не строили городов и потому выжили | Священные рощи, недоверие к «каменным людям» |
-| **Галльская Конфедерация** | Лесные друиды, которые помнят Год Пепла в песнях | Устную историю: друиды знают о Предтечах больше всех |
-| **Великая Степная Орда** | Кочевники, прошедшие по руинам на конях | Добычу из пирамид Нэферу, презрение к оседлым |
-| **Скифское Царство** | Степные цари, хоронящие себя «как Нэферу» | Курганы с золотом Предтеч |
+| **Holy Romean Republic** (Romulus) | Keepers of the Monolith, heirs of all five | The seal at 0, 0, the oath of PAX, the «Chronicle of the Forerunners» |
+| **Carthaginian Trading Power** | The merchants of Ur-Kadim | Kadimian measures, trade routes, the «Golden Caravan» |
+| **Hellenic Sea League** | The sailors of Thalassia | Maps of the sunken islands, sea rites |
+| **Kingdom of Dacia** | Highlanders by the copper mines of Caer-Tal | The way into the trial halls, the ancient copper |
+| **Germanic Union of Tribes** | Forest tribes that never built cities and so survived | Sacred groves, distrust of «the stone people» |
+| **Gallic Confederation** | Forest druids who remember the Year of Ash in their songs | Oral history: the druids know more about the Forerunners than anyone |
+| **Great Steppe Horde** | Nomads who rode across the ruins | Loot from the pyramids of Neferu, contempt for settled folk |
+| **Scythian Kingdom** | Steppe kings who bury themselves «like Neferu» | Kurgans with the gold of the Forerunners |
 
 ---
 
-## Часть II. Летопись Пепла: как погибли Предтечи
+## Part II. The Chronicle of Ash: how the Forerunners perished
 
-*Записано ромейскими учёными по черепкам Ур-Кадима, песням галльских друидов и надписям на Монолите. Это рассказ, его можно читать вслух или делать по нему ролик.*
+*Written down by Romean scholars from the potsherds of Ur-Kadim, the songs of the Gallic druids and the inscriptions on the Monolith. This is a story: it can be read aloud or made into a video.*
 
-### Глава 1. Золотой век
+### Chapter 1. The Golden Age
 
-Три тысячи лет назад мир был полон огней. По рекам Ур-Кадима плыли баржи с зерном и глиняными табличками. Над пустыней сияли белые пирамиды Нэферу. Флот Талассии ходил от острова к острову, а в горах звенели молоты мастеров Каэр-Тала. Пять народов торговали друг с другом, и пятьсот лет между ними не было большой войны.
+Three thousand years ago the world was full of lights. Barges with grain and clay tablets sailed the rivers of Ur-Kadim. The white pyramids of Neferu shone over the desert. The fleet of Thalassia sailed from island to island, and in the mountains rang the hammers of the masters of Caer-Tal. The five peoples traded with one another, and for five hundred years there was no great war between them.
 
-Но всем им было мало. Цари Ур-Кадима искали бессмертие. Солнценосцы Нэферу хотели жить вечно, как Солнце. Морские Владыки Талассии хотели власти над огнём, а не только над водой. Мастера Каэр-Тала хотели понять, как устроен мир.
+But none of them had enough. The kings of Ur-Kadim sought immortality. The Sunbearers of Neferu wanted to live forever, like the Sun. The Sea Lords of Thalassia wanted power over fire, not only over water. The masters of Caer-Tal wanted to understand how the world works.
 
-### Глава 2. Чёрный камень
+### Chapter 2. The black stone
 
-Первыми его нашли рудокопы Нэферу. Там, где подземная лава встретила родник, лежал камень чернее ночи и тверже любого металла. Его назвали **обсидианом**, «застывшей ночью».
+The miners of Neferu found it first. Where underground lava had met a spring lay a stone blacker than night and harder than any metal. They called it **obsidian**, «frozen night».
 
-Жрецы сложили из обсидиана рамку и коснулись её огнём. Воздух внутри задрожал и стал фиолетовым. За ним лежал другой мир, багровый и горячий: **Незер**.
+The priests built a frame of obsidian and touched it with fire. The air inside trembled and turned purple. Beyond it lay another world, crimson and hot: the **Nether**.
 
-Оттуда несли золото, кварц и светокамень, который горит без огня. Пирамиды Нэферу засияли изнутри. Очень скоро о вратах узнали все пять народов, и каждый захотел свои.
+From there they brought gold, quartz and glowstone, which burns without fire. The pyramids of Neferu shone from within. Very soon all five peoples knew about the gates, and each wanted their own.
 
-### Глава 3. Гонка врат
+### Chapter 3. The race for the gates
 
-Двести лет Предтечи строили врата повсюду: в храмах, на площадях, на вершинах гор, на островах посреди моря. Кто владел вратами, тот был богат. Цари Ур-Кадима даже посылали через врата армии, чтобы захватить крепости пиглинов.
+For two hundred years the Forerunners built gates everywhere: in temples, in squares, on mountain tops, on islands in the middle of the sea. Whoever held gates was rich. The kings of Ur-Kadim even sent armies through the gates to take the fortresses of the piglins.
 
-Только мастера Каэр-Тала заметили, что каждые новые врата делают мир слабее. Земля вокруг них трескалась, вода уходила, а в небе появлялся пепел. Мастер **Ойра Каэр-Тал** написала всем пяти правителям: *«Каждые врата это дыра в стене нашего дома. Ещё сто лет, и дом рухнет»*. Ей не поверил никто.
+Only the masters of Caer-Tal noticed that every new gate made the world weaker. The earth around them cracked, the water drained away, and ash appeared in the sky. The master **Oira Caer-Tal** wrote to all five rulers: *«Every gate is a hole in the wall of our house. A hundred more years, and the house will fall»*. No one believed her.
 
-### Глава 4. Год Пепла
+### Chapter 4. The Year of Ash
 
-Конец пришёл за один год.
+The end came within one year.
 
-**Весной** врата начали открываться сами, без огня. Обсидиан стал «плакать» фиолетовыми слезами. Это и есть **плачущий обсидиан**, который находят у разрушенных порталов. Из врат вышли пиглины, гасты и огненные духи. Они пришли не грабить, а **возвращать своё**: золото, которое Предтечи вывезли из Незера.
+**In spring** the gates began to open by themselves, without fire. The obsidian began to «weep» purple tears. This is the **crying obsidian** found by ruined portals. Piglins, ghasts and fire spirits came out of the gates. They did not come to plunder, but to **take back what was theirs**: the gold the Forerunners had carried out of the Nether.
 
-**Летом** пал **Ур-Кадим**. Его города стояли на равнине у рек, и защищать их было негде. Пиглины выжгли поля, реки обмелели от жара. Последний царь велел закопать все таблички в песок, чтобы знание не сгорело. Поэтому мы и находим черепки кистью.
+**In summer** **Ur-Kadim** fell. Its cities stood on the plain by the rivers, and there was nowhere to defend them. The piglins burned the fields, the rivers shrank from the heat. The last king ordered all the tablets buried in the sand, so that the knowledge would not burn. That is why we find the potsherds with a brush.
 
-**Осенью** под главным островом **Талассии** открылись самые большие подводные врата. Лава встретила море, остров взорвался, и волна высотой с гору смыла всё побережье. За одну ночь Талассия ушла на дно. Выжили только корабли, которые в ту ночь были в море.
+**In autumn** the largest underwater gates opened beneath the main island of **Thalassia**. Lava met the sea, the island exploded, and a wave as high as a mountain washed away the whole coast. In one night Thalassia sank to the bottom. Only the ships that were at sea that night survived.
 
-**Зимой** пала **Нэферу**. Солнценосцы заперлись в пирамидах со всеми сокровищами и заложили под полом динамит: если враг войдёт, пусть погибнет вместе с ними. Пустыня раскалилась, и последние жрецы ушли в джунгли.
+**In winter** **Neferu** fell. The Sunbearers locked themselves in the pyramids with all their treasures and laid TNT under the floor: if the enemy came in, let him die with them. The desert grew red-hot, and the last priests went into the jungle.
 
-**Народ Глубин** к тому времени давно молчал. Но толчки Года Пепла разбудили скалк, и Хранитель снова пошёл по Безмолвному городу. Туда больше никто не спускался.
+**The People of the Deep** had been silent for a long time by then. But the tremors of the Year of Ash woke the sculk, and the Warden walked the Silent City again. No one went down there any more.
 
-### Глава 5. Последний союз
+### Chapter 5. The last alliance
 
-Остался только **Медный Союз Каэр-Тала**. Мастера поняли, где сердце беды. В самом центре мира, ровно на **0, 0**, стояли **Великие врата**, первые и самые большие. Все остальные врата были связаны с ними, как ветви со стволом. Если закрыть ствол, ветви засохнут.
+Only the **Copper Union of Caer-Tal** remained. The masters understood where the heart of the disaster lay. At the very centre of the world, exactly at **0, 0**, stood the **Great Gates**, the first and the largest. All the other gates were bound to them, like branches to a trunk. Close the trunk, and the branches would wither.
 
-Ойра Каэр-Тал собрала всех, кто выжил: последних мастеров, жрецов Нэферу из джунглей и моряков Талассии, которые потеряли дом. Три народа, которые раньше спорили за врата, впервые встали вместе.
+Oira Caer-Tal gathered everyone who had survived: the last masters, the priests of Neferu from the jungle and the sailors of Thalassia who had lost their home. Three peoples who had once fought over the gates stood together for the first time.
 
-### Глава 6. Как строили Великую башню
+### Chapter 6. How the Great Tower was built
 
-Башню строили сорок дней и сорок ночей, пока пиглины рвались наружу.
+The tower was built for forty days and forty nights, while the piglins tried to break out.
 
-- **Моряки Талассии** везли на кораблях камень и обсидиан со всех разбитых врат. Обсидиан, который открыл беду, должен был её и запереть.
-- **Жрецы Нэферу** знали тайну пирамид: как класть камень так, чтобы он стоял тысячи лет. По их чертежу башня поднялась до высоты гор.
-- **Мастера Каэр-Тала** отлили для неё сердце, **Медную Печать**. Это механизм из меди и редстоуна, который держит Великие врата закрытыми. На него ушла вся медь союза.
+- **The sailors of Thalassia** brought stone and obsidian on their ships from all the broken gates. The obsidian that had opened the disaster was to lock it.
+- **The priests of Neferu** knew the secret of the pyramids: how to lay stone so that it stands for thousands of years. Following their plan, the tower rose to the height of the mountains.
+- **The masters of Caer-Tal** cast its heart, the **Copper Seal**. It is a mechanism of copper and redstone that keeps the Great Gates closed. All the copper of the union went into it.
 
-Чтобы печать никто не сломал, мастера сделали из последнего железа **големов-стражей** и дали им один приказ: *«Охраняй вход. Не пускай зло ни наружу, ни внутрь»*. Это «Стражи башни», которые стоят у входа и сегодня.
+So that no one would break the seal, the masters made **guardian golems** from the last of the iron and gave them one order: *«Guard the entrance. Let no evil out, and none in»*. These are the «Tower Guardians» that still stand at the entrance today.
 
-На сороковую ночь Ойра Каэр-Тал сама вошла в зал Печати и замкнула механизм. Великие врата погасли, а вместе с ними погасли все врата мира. Так появились **разрушенные порталы**: пустые обсидиановые рамки, разбросанные от гор до океана.
+On the fortieth night, Oira Caer-Tal herself entered the Hall of the Seal and locked the mechanism. The Great Gates went dark, and with them every gate in the world went dark. So the **ruined portals** appeared: empty obsidian frames scattered from the mountains to the ocean.
 
-Ойра из башни не вышла. На стене над входом выжившие высекли одно слово на пяти языках: **PAX**, «мир». Это значит, что мир куплен и его надо хранить.
+Oira never came out of the tower. On the wall above the entrance the survivors carved one word in five languages: **PAX**, «peace». It means that peace has been bought and must be kept.
 
-### Глава 7. Что оставили нам Предтечи
+### Chapter 7. What the Forerunners left us
 
-Предтечи знали, что после них придут другие. Перед концом они спрятали по миру всё, что могли спасти. Эти тайники игроки находят до сих пор.
+The Forerunners knew that others would come after them. Before the end they hid everything they could save across the world. Players still find these caches today.
 
-**Технологии**
+**Technologies**
 
-| Наследие | Чьё | Что это в игре |
+| Legacy | Whose | What it is in the game |
 |---|---|---|
-| Письмо и счёт | Ур-Кадим | Черепки, таблички, книги на кафедрах |
-| Медная механика | Каэр-Тала | Медные двери, лампы, решётки, залы испытаний |
-| Редстоун-схемы | Каэр-Тала | Механизмы в храмах и ловушки |
-| Големостроение | Каэр-Тала | Железные големы, «Стражи башни» |
-| Вихри (ветряные духи) | Каэр-Тала | Бризы и заряды ветра, булава |
-| Морское дело и карты | Талассия | Карты сокровищ, компасы, затонувшие корабли |
-| Подводное дыхание | Талассия | Раковины наутилуса, морское сердце, проводник |
-| Ловушки и взрывчатка | Нэферу | Динамит под пирамидами, стрелы в джунглях |
-| Чары | Народ Глубин | Зачарованные книги в Древних городах |
-| Обсидиановые врата | Все пять | Разрушенные порталы. Это знание, которое погубило мир |
+| Writing and counting | Ur-Kadim | Potsherds, tablets, books on lecterns |
+| Copper mechanics | Caer-Tal | Copper doors, bulbs, grates, trial chambers |
+| Redstone circuits | Caer-Tal | Mechanisms in temples, and traps |
+| Golem-making | Caer-Tal | Iron golems, the «Tower Guardians» |
+| Whirlwinds (wind spirits) | Caer-Tal | Breezes and wind charges, the mace |
+| Seafaring and maps | Thalassia | Treasure maps, compasses, shipwrecks |
+| Underwater breathing | Thalassia | Nautilus shells, the heart of the sea, the conduit |
+| Traps and explosives | Neferu | TNT under the pyramids, arrows in the jungle |
+| Enchantments | People of the Deep | Enchanted books in the Ancient cities |
+| Obsidian gates | All five | Ruined portals. The knowledge that destroyed the world |
 
-**Припасы и тайники**
+**Supplies and caches**
 
-- **Хранилища Каэр-Тала** (залы испытаний): запертые хранилища под зловещими ключами, медь, изумруды, редкие чары. Мастера оставили их как экзамен: сокровища получит только тот, кто достаточно силён.
-- **Гробницы Нэферу** (пустынные храмы): золото, изумруды, кости, иногда алмазы. Осторожно, динамит до сих пор под полом.
-- **Сундуки утонувших кораблей Талассии**: карты к закопанным кладам, морское сердце, еда для долгого плавания.
-- **Тайники Ур-Кадима** (подозрительный песок и гравий): черепки, глиняные горшки, старые инструменты.
-- **Сундуки у разрушенных порталов**: последние вещи тех, кто не успел уйти. Золотые инструменты, огниво, зачарованная броня.
-- **Кладовые Великой башни на 0, 0**: сундуки первопроходцев, письма и таблички. Строители башни оставили там первые припасы для тех, кто придёт после. С них Ромул и начал.
+- **The vaults of Caer-Tal** (trial chambers): vaults locked behind ominous keys, copper, emeralds, rare enchantments. The masters left them as an exam: only those strong enough get the treasure.
+- **The tombs of Neferu** (desert temples): gold, emeralds, bones, sometimes diamonds. Careful, the TNT is still under the floor.
+- **The chests of Thalassia's sunken ships**: maps to buried treasure, the heart of the sea, food for a long voyage.
+- **The caches of Ur-Kadim** (suspicious sand and gravel): potsherds, clay pots, old tools.
+- **Chests by the ruined portals**: the last belongings of those who did not get away. Golden tools, flint and steel, enchanted armour.
+- **The storerooms of the Great Tower at 0, 0**: pioneer chests, letters and tablets. The builders of the tower left the first supplies there for those who would come after. This is where Romulus began.
 
-### Глава 8. Ромул и клятва
+### Chapter 8. Romulus and the oath
 
-Прошла тысяча лет Тёмных веков. Люди забыли письмо, медь и корабли. Племена обходили чёрную башню стороной и называли её «Домом мёртвых».
+A thousand years of the Dark Ages passed. People forgot writing, copper and ships. The tribes gave the black tower a wide berth and called it «the House of the Dead».
 
-Однажды к башне пришёл молодой вождь **Ромул**. Големы-стражи не тронули его: он пришёл с миром. Внутри он нашёл сундуки с припасами, письма Предтеч и надпись над входом. Учёные помогли ему прочесть одно слово: **PAX**.
+One day a young chieftain named **Romulus** came to the tower. The guardian golems did not touch him: he came in peace. Inside he found the chests of supplies, the letters of the Forerunners and the inscription above the entrance. Scholars helped him read one word: **PAX**.
 
-Ромул понял, что башня держит мир, и поклялся: *«Мой народ будет хранить печать, пока стоит Ромея»*. У стен башни он заложил первый город. Так родилась **Священная Ромейская Республика**, а вокруг неё начали подниматься другие державы.
+Romulus understood that the tower holds the world together, and he swore: *«My people will keep the seal as long as Romea stands»*. At the walls of the tower he laid the first city. So the **Holy Romean Republic** was born, and other powers began to rise around it.
 
-Но на внутренней стене зала Печати Ойра Каэр-Тал оставила последнюю строку:
+But on the inner wall of the Hall of the Seal, Oira Caer-Tal left a last line:
 
-> *«Печать держится, пока народы помнят мир. Когда последний страж падёт и мир разделится в войне, печать треснет, и врата откроются туда, куда не открывались никогда».*
+> *«The seal holds as long as the peoples remember peace. When the last guardian falls and the world is divided by war, the seal will crack, and the gates will open where they have never opened before».*
 
-Никто не знает, куда они откроются. Пока.
-
----
-
-## Часть III. Великая хроника Предтеч
-
-*Полная история мира от первых костров до клятвы Ромула. Ромейские учёные собрали её из черепков, надписей, песен друидов и сказаний степняков. Где источники спорят между собой, это сказано прямо: так у мастеров игры остаётся простор для тайн и ивентов.*
+No one knows where they will open. Yet.
 
 ---
 
-### Книга нулевая. Безымянные (??? д.Р.)
+## Part III. The Great Chronicle of the Forerunners
 
-*О них ничего не известно. Даже Предтечи не знали, кто они были. Всё, что ниже, это следы, которые нельзя объяснить, и легенды, которые спорят друг с другом. Ромейские учёные записали их, но предупреждают: верить нельзя ни одной.*
+*The full history of the world from the first campfires to the oath of Romulus. Romean scholars gathered it from potsherds, inscriptions, the songs of the druids and the tales of the steppe peoples. Where the sources disagree, this is said plainly, which leaves the game masters room for mysteries and events.*
 
-#### Народ без имени
+---
 
-У этой цивилизации нет имени. Не потому, что его забыли, а потому, что его **никогда не знали**. Каждый народ Предтеч называл их по-своему, и ни одно название не совпадает:
+### Book Zero. The Nameless (??? B.R.)
 
-| Народ | Как называл их | Что о них думал |
+*Nothing is known of them. Even the Forerunners did not know who they were. Everything below is traces that cannot be explained and legends that contradict one another. Romean scholars wrote them down, but warn: not one of them can be trusted.*
+
+#### A people without a name
+
+This civilisation has no name. Not because it was forgotten, but because it was **never known**. Each Forerunner people called them something different, and no two names match:
+
+| People | What they called them | What they thought of them |
 |---|---|---|
-| **Народ Глубин** | «Те, кто был до тишины» | Они жили ещё глубже, чем мы, и ушли туда, где нет звука |
-| **Ур-Кадим** | «Пришедшие с неба» | Боги, спустившиеся со звёзд. Научили людей письму и ушли обратно |
-| **Нэферу** | «Первое Солнце» | Был другой Свет до нашего Солнца, и он погас |
-| **Талассия** | «Те, что под волной» | Наши острова стоят на крышах их утонувшего города |
-| **Каэр-Тала** | «Строители Рамок» | Не боги и не люди. Мастера, которые знали больше нас. Мы не понимаем их чертежей |
+| **People of the Deep** | «Those who were before the silence» | They lived even deeper than we did, and went where there is no sound |
+| **Ur-Kadim** | «Those who came from the sky» | Gods who came down from the stars. They taught people to write and went back |
+| **Neferu** | «The First Sun» | There was another Light before our Sun, and it went out |
+| **Thalassia** | «Those beneath the wave» | Our islands stand on the roofs of their sunken city |
+| **Caer-Tal** | «The Frame Builders» | Neither gods nor people. Masters who knew more than we do. We do not understand their plans |
 
-Галльские друиды называют их проще: **«Те, Кого Нет»**. Ромейские учёные пишут в летописях знак вопроса.
+The Gallic druids call them more simply: **«Those Who Are Not»**. Romean scholars write a question mark in their chronicles.
 
-#### Следы, которые нельзя объяснить
+#### Traces that cannot be explained
 
-**1. Подземные крепости.** Глубоко под землёй, в разных концах мира, стоят каменные крепости с коридорами, библиотеками, тюремными камерами и фонтанами. Их стены сложены из каменного кирпича, но этот кирпич **старше всех Предтеч**. Безмолвные копали вниз пять тысяч лет назад и уже тогда находили эти крепости заброшенными. Игроки зовут их **крепостями** (stronghold).
+**1. Underground fortresses.** Deep underground, in different corners of the world, stand stone fortresses with corridors, libraries, prison cells and fountains. Their walls are made of stone bricks, but these bricks are **older than all the Forerunners**. The Silent Ones dug down five thousand years ago and already found these fortresses abandoned. Players call them **strongholds**.
 
-**2. Рамка, которую нельзя сломать.** В сердце каждой крепости стоит рамка из двенадцати плит над озером лавы. Плиты **невозможно разбить** ни киркой, ни взрывом, ни незеритом. Их **невозможно сделать**: ни один мастер Каэр-Тала не понял, из чего они. В плитах есть пустые гнёзда, как будто для глаз.
+**2. The frame that cannot be broken.** At the heart of every stronghold stands a frame of twelve slabs above a pool of lava. The slabs **cannot be broken** by pickaxe, explosion or netherite. They **cannot be made**: no master of Caer-Tal understood what they are made of. The slabs have empty sockets, as if for eyes.
 
-**3. Глаза.** Ойра Каэр-Тал первой заметила: если соединить жемчужину странников и огненный порошок, получается **глаз**. Брошенный в небо, он **летит к ближайшей крепости**, как будто знает дорогу домой. Ойра записала: *«Глаз помнит хозяев. Мы нет»*. Вставленные в рамку, двенадцать глаз открывают путь **в Край**.
+**3. The eyes.** Oira Caer-Tal was the first to notice: combine an ender pearl and blaze powder, and you get an **eye**. Thrown into the sky, it **flies towards the nearest stronghold**, as if it knows the way home. Oira wrote: *«The eye remembers its masters. We do not»*. Set into the frame, twelve eyes open the way **to the End**.
 
-**4. Странники.** Высокие чёрные существа с фиолетовыми глазами, которые переносят блоки с места на место и исчезают, если на них смотреть. Их язык звучит как человеческая речь задом наперёд. Никто не знает, кто они:
-- Ур-Кадим верил, что это **слуги** Пришедших с неба, оставленные сторожить мир;
-- Нэферу верила, что это **тени** тех, кто сгорел в Первом Солнце;
-- Талассия верила, что это **сами Безымянные**, которые забыли, кем были;
-- Каэр-Тала не верила ни во что и просто запрещала смотреть им в глаза.
+**4. The wanderers.** Tall black creatures with purple eyes, who carry blocks from place to place and vanish when looked at. Their language sounds like human speech played backwards. No one knows who they are:
+- Ur-Kadim believed they were **servants** of Those who came from the sky, left behind to watch over the world;
+- Neferu believed they were the **shadows** of those who burned in the First Sun;
+- Thalassia believed they were **the Nameless themselves**, who had forgotten who they were;
+- Caer-Tal believed nothing and simply forbade looking them in the eye.
 
-**5. Край.** За рамкой лежит пустой мир из бледного камня над бездной. Там стоят **обсидиановые столпы** до самого неба, и на каждом горит кристалл. Над столпами летает **Дракон**. Дальше, за чёрной пустотой, стоят **белые города** с башнями из пурпурного камня и **корабли, которые висят в воздухе**. В них лежат **крылья** (элитры). Никто из Предтеч не видел, чтобы кто-то жил в этих городах. Там живут только **шалкеры**, которые прячутся в панцирях, как будто охраняют чужой дом.
+**5. The End.** Beyond the frame lies an empty world of pale stone above an abyss. **Obsidian pillars** rise up to the sky there, and a crystal burns on each one. A **Dragon** flies above the pillars. Further on, beyond the black void, stand **white cities** with towers of purple stone and **ships that hang in the air**. In them lie **wings** (elytra). None of the Forerunners ever saw anyone living in those cities. Only **shulkers** live there, hiding in their shells as if guarding someone else's house.
 
-**6. Шестая строка.** На Монолите высечено слово PAX на пяти языках Предтеч. Но под ними есть **шестая строка**. Её не высекали строители башни: она проступила на камне сама, через сто лет после постройки. Ни один язык мира на неё не похож. Ромул велел закрыть её щитом, и с тех пор её никто не видел.
+**6. The sixth line.** The word PAX is carved on the Monolith in the five languages of the Forerunners. But beneath them there is a **sixth line**. The builders of the tower did not carve it: it appeared on the stone by itself, a hundred years after the tower was built. It resembles no language in the world. Romulus ordered it covered with a shield, and no one has seen it since.
 
-#### Что Предтечи получили от Безымянных
+#### What the Forerunners received from the Nameless
 
-Здесь легенды сходятся в одном: всё великое у Предтеч **началось не с них**.
+Here the legends agree on one thing: everything great about the Forerunners **did not begin with them**.
 
-- **Письмо.** Писцы Ур-Кадима говорили, что первые знаки «упали с неба на глину». Самые древние таблички Кадима исписаны знаками, которые не умел читать даже Энмер-Кадим.
-- **Обсидиан.** Анх-Нэфер считал, что нашёл его сам. Но столпы Края сложены из обсидиана, и они стояли **задолго** до Нэферу. Кто-то знал этот камень раньше.
-- **Рамки.** Безмолвные строили свою рамку, Нэферу свои врата, Безымянные свою вечную рамку в крепости. Каэр-Тала писал: *«Все врата Предтеч это неумелые копии одной Рамки. Мы просто повторяли, не понимая»*.
-- **Замысел башни.** Самая тревожная тайна. Когда мастера Каэр-Тала начали копать фундамент Монолита на 0, 0, они наткнулись на **древний фундамент, который уже был там**. Каменный кирпич, тот же, что в крепостях. Ойра записала: *«Кто-то уже строил здесь башню. Может быть, по той же причине»*. Значит, Великие врата на 0, 0 построил вовсе не Анх-Нэфер. Он только разбудил то, что лежало под землёй.
+- **Writing.** The scribes of Ur-Kadim said the first signs «fell from the sky onto the clay». The oldest tablets of Kadim are covered with signs that even Enmer-Kadim could not read.
+- **Obsidian.** Ankh-Nefer believed he had found it himself. But the pillars of the End are built of obsidian, and they stood **long before** Neferu. Someone knew this stone earlier.
+- **Frames.** The Silent Ones built their frame, Neferu their gates, the Nameless their eternal frame in the stronghold. Caer-Tal wrote: *«All the gates of the Forerunners are clumsy copies of one Frame. We simply repeated it without understanding»*.
+- **The design of the tower.** The most disturbing mystery. When the masters of Caer-Tal began to dig the foundation of the Monolith at 0, 0, they came upon **an ancient foundation that was already there**. Stone bricks, the same as in the strongholds. Oira wrote: *«Someone already built a tower here. Perhaps for the same reason»*. So the Great Gates at 0, 0 were not built by Ankh-Nefer at all. He only woke what lay underground.
 
-#### Куда они делись
+#### Where they went
 
-Ответа нет. Есть только версии:
+There is no answer. There are only theories:
 
-1. **Ушли в Край** и закрыли за собой рамки. Белые города и есть их новый дом, но он пуст.
-2. **Ушли ещё дальше.** Корабли в небе Края готовы к отлёту, а крылья оставлены тем, кто захочет последовать за ними.
-3. **Превратились в странников**, забыв себя.
-4. **Сами создали Дракона** как стража, и Дракон их уничтожил.
-5. **Никуда не ушли.** Они всё ещё здесь, просто мы их не видим.
+1. **They went into the End** and closed the frames behind them. The white cities are their new home, but it is empty.
+2. **They went even further.** The ships in the sky of the End are ready to depart, and the wings were left for anyone who wants to follow them.
+3. **They turned into the wanderers**, forgetting themselves.
+4. **They created the Dragon themselves** as a guardian, and the Dragon destroyed them.
+5. **They never left.** They are still here, we just cannot see them.
 
-Ромейские жрецы добавляют шестую версию и боятся её больше остальных: Безымянные **ушли не по своей воле**. Их забрали врата, которые открылись «туда, куда не открывались никогда». Ровно эти слова Ойра Каэр-Тал написала в своём пророчестве.
+The Romean priests add a sixth theory and fear it more than the rest: the Nameless **did not leave of their own will**. They were taken by gates that opened «where they have never opened before». Exactly the words Oira Caer-Tal wrote in her prophecy.
 
-> *Если пророчество Ойры сбудется и печать треснет, игроки, возможно, узнают, куда ушли Те, Кого Нет. И что они там нашли.*
-
----
-
-### Книга первая. Век Тьмы под землёй (6000–4200 д.Р.)
-
-#### Первые люди
-
-В начале мир был диким. Люди жили у костров, охотились на свиней и коров и прятались от ночных тварей: зомби, скелетов и пауков, которые выходили из темноты. Друиды Галлии поют, что ночь тогда длилась дольше дня, а звёзд было больше, чем сейчас.
-
-Одни племена научились строить дома и жечь факелы. Другие решили, что от ночи можно уйти только в одно место: **под землю, где ночи нет, потому что там нет и дня**.
-
-#### Народ Глубин
-
-Так появились **Безмолвные**. Они копали вниз сто лет, потом ещё сто, пока не дошли до слоя, где камень сам становится тёмным. Это **глубинный сланец**. Там они построили свой город.
-
-**Как они жили.** Безмолвные почти не говорили. В глубине каждый звук разносится далеко, и громкий голос мог обрушить свод. Они общались жестами и светом свечей. Ели светящиеся ягоды и грибы, пили воду подземных озёр. Самое страшное преступление у них называлось **«крик»**.
-
-**Скалк.** В самых глубоких пещерах Безмолвные нашли странную живую ткань. Она росла там, где умирали существа, и слышала каждый шаг. Это был **скалк**. Жрецы научились растить его, как садовники растят сад:
-- **скалковые датчики** охраняли входы и подавали сигнал;
-- **скалковые крикуны** звали на помощь;
-- **скалковые катализаторы** превращали погибших в новый скалк, поэтому у Безмолвных не было кладбищ.
-
-Они верили, что скалк это **память мира**: он помнит каждого, кто умер, и каждое слово, сказанное под землёй.
-
-**Великая рамка.** В центре города Безмолвные построили огромную рамку из укреплённого глубинного сланца. Это первая попытка открыть путь в другой мир. Они хотели уйти ещё глубже, туда, где нет вообще ничего. Рамка так и не загорелась. Учёные Ромеи до сих пор спорят, чего им не хватило.
-
-#### Пробуждение Хранителя (~4200 д.Р.)
-
-За две тысячи лет скалк разросся так, что покрыл весь город. И однажды он вырастил себе тело.
-
-**Хранитель** поднялся из скалка в самом сердце города. Он был слеп, но слышал всё, и каждый звук приводил его в ярость. Безмолвные всю жизнь учились молчать, но в ту ночь кто-то закричал от страха. Этого хватило.
-
-К утру город замолчал навсегда. Песни друидов говорят, что Безмолвные никуда не ушли: они стали частью скалка, и если долго стоять в Древнем городе, можно услышать их шёпот в стенах.
-
-**Чему это научило мир:** первый закон всех Предтеч, *«Не буди то, что спит под тобой»*. Его вырезали на дверях шахт пять тысяч лет. Его вырезают и сейчас.
-
-**Что искать игроку:** Древние города в Глубокой тьме, зачарованные книги (особенно *Быстрые ноги*), диски, свечи, эхо-осколки и сломанный компас Безмолвных, который игроки зовут *компасом восстановления*.
+> *If Oira's prophecy comes true and the seal cracks, players may learn where Those Who Are Not went. And what they found there.*
 
 ---
 
-### Книга вторая. Век Глины (3500–3000 д.Р.)
+### Book One. The Age of Darkness underground (6000–4200 B.R.)
 
-#### Две реки
+#### The first people
 
-Пока Безмолвные гибли под землёй, люди наверху нашли лучшее место для жизни: долину между двумя великими реками. Там была вода, жирная земля и глина. Из этой глины поднялся **Ур-Кадим**, первая цивилизация под открытым небом.
+In the beginning the world was wild. People lived by campfires, hunted pigs and cows and hid from the creatures of the night: zombies, skeletons and spiders that came out of the darkness. The druids of Gallia sing that the night was longer than the day back then, and there were more stars than there are now.
 
-#### Города Ур-Кадима
+Some tribes learned to build houses and light torches. Others decided that there was only one place to escape the night: **underground, where there is no night because there is no day either**.
 
-Ур-Кадим был союзом городов, и у каждого был свой бог и свой царь.
+#### The People of the Deep
 
-| Город | Чем знаменит |
+So the **Silent Ones** appeared. They dug down for a hundred years, then another hundred, until they reached the layer where the stone itself turns dark. This is **deepslate**. There they built their city.
+
+**How they lived.** The Silent Ones barely spoke. In the depths every sound carries far, and a loud voice could bring down the vault. They communicated with gestures and candlelight. They ate glowing berries and mushrooms and drank the water of underground lakes. Their most terrible crime was called **«the shout»**.
+
+**The sculk.** In the deepest caves the Silent Ones found a strange living tissue. It grew where creatures died, and heard every step. It was the **sculk**. The priests learned to grow it, as gardeners grow a garden:
+- **sculk sensors** guarded the entrances and gave the signal;
+- **sculk shriekers** called for help;
+- **sculk catalysts** turned the dead into new sculk, so the Silent Ones had no graveyards.
+
+They believed the sculk was **the memory of the world**: it remembers everyone who died and every word spoken underground.
+
+**The great frame.** In the centre of the city the Silent Ones built a huge frame of reinforced deepslate. It was the first attempt to open a way into another world. They wanted to go even deeper, to where there is nothing at all. The frame never lit. The scholars of Romea still argue about what they were missing.
+
+#### The awakening of the Warden (~4200 B.R.)
+
+Over two thousand years the sculk spread until it covered the whole city. And one day it grew itself a body.
+
+The **Warden** rose out of the sculk at the very heart of the city. It was blind, but it heard everything, and every sound drove it into a rage. The Silent Ones had spent their lives learning to be quiet, but that night someone screamed in fear. That was enough.
+
+By morning the city had fallen silent forever. The songs of the druids say the Silent Ones did not go anywhere: they became part of the sculk, and if you stand in an Ancient city long enough, you can hear their whisper in the walls.
+
+**What it taught the world:** the first law of all the Forerunners, *«Do not wake what sleeps beneath you»*. It was carved on the doors of mines for five thousand years. It is carved there still.
+
+**What players can look for:** Ancient cities in the Deep Dark, enchanted books (especially *Swift Sneak*), music discs, candles, echo shards and the broken compass of the Silent Ones, which players call the *recovery compass*.
+
+---
+
+### Book Two. The Age of Clay (3500–3000 B.R.)
+
+#### Two rivers
+
+While the Silent Ones perished underground, the people above found the best place to live: a valley between two great rivers. There was water, rich soil and clay. From this clay rose **Ur-Kadim**, the first civilisation under the open sky.
+
+#### The cities of Ur-Kadim
+
+Ur-Kadim was a union of cities, each with its own god and its own king.
+
+| City | Known for |
 |---|---|
-| **Кадим** (столица) | Великий зиккурат в семь ступеней, «Лестница к небу» |
-| **Эрем** | Город писцов. Здесь была первая школа и первая библиотека табличек |
-| **Нинур** | Город гончаров. Его расписные горшки продавали всем народам |
-| **Шамаш-Ту** | Город купцов у устья. Отсюда уходили караваны и первые корабли |
-| **Лагаш-Ан** | Город воинов. Здесь придумали колесницу |
+| **Kadim** (capital) | The great ziggurat of seven steps, «the Stairway to Heaven» |
+| **Erem** | The city of scribes. The first school and the first library of tablets were here |
+| **Ninur** | The city of potters. Its painted pots were sold to every people |
+| **Shamash-Tu** | The merchants' city at the river mouth. Caravans and the first ships set out from here |
+| **Lagash-An** | The city of warriors. The chariot was invented here |
 
-Дома строили из **обожжённой глины** (в игре это **терракота**). Храмы украшали глазурованной плиткой с узорами. Каждый узор глазурованной терракоты, по легенде, это знак одного из богов Ур-Кадима.
+Houses were built of **fired clay** (in the game, **terracotta**). Temples were decorated with glazed tiles with patterns. Every pattern of glazed terracotta, legend says, is the sign of one of the gods of Ur-Kadim.
 
-#### Что изобрёл Ур-Кадим
+#### What Ur-Kadim invented
 
-- **Письмо.** Писцы выдавливали знаки на сырой глине палочкой. Табличку обжигали, и запись жила тысячи лет.
-- **Счёт и мерки.** Шестьдесят минут в часе и триста шестьдесят градусов в круге придумали здесь. Купцы всего мира торговали «кадимскими мерками».
-- **Деньги.** Сначала это были мешки зерна, потом слитки, потом изумруды. Именно поэтому жители деревень до сих пор торгуют за изумруды: это обычай Ур-Кадима.
-- **Колесо.** Сначала гончарное, потом тележное.
-- **Законы.** Царь Ур-Нам-Кадим велел высечь законы на каменном столбе на главной площади, чтобы никто не говорил «я не знал».
+- **Writing.** The scribes pressed signs into wet clay with a stick. The tablet was fired, and the record lived for thousands of years.
+- **Counting and measures.** Sixty minutes in an hour and three hundred and sixty degrees in a circle were invented here. Merchants all over the world traded by «Kadimian measures».
+- **Money.** First it was sacks of grain, then ingots, then emeralds. That is why villagers still trade for emeralds: it is a custom of Ur-Kadim.
+- **The wheel.** First the potter's wheel, then the cart wheel.
+- **Laws.** King Ur-Nam-Kadim ordered the laws carved on a stone pillar in the main square, so that no one could say «I did not know».
 
-#### Энмер-Кадим и трава бессмертия
+#### Enmer-Kadim and the herb of immortality
 
-Самый знаменитый царь Ур-Кадима, **Энмер-Кадим**, правил, по легенде, девятьсот лет. Когда умер его лучший друг, воин Энки-Ду, Энмер испугался смерти и ушёл искать **траву бессмертия**.
+The most famous king of Ur-Kadim, **Enmer-Kadim**, ruled for nine hundred years, as legend has it. When his best friend, the warrior Enki-Du, died, Enmer grew afraid of death and went in search of the **herb of immortality**.
 
-Он прошёл пустыню, переплыл море и спустился на дно, где рос цветок, который возвращает жизнь. Энмер сорвал его, но на обратном пути уснул, и цветок съела змея. Царь вернулся домой ни с чем и понял, что бессмертным делает не трава, а то, что человек оставит после себя.
+He crossed the desert, sailed across the sea and went down to the seabed, where a flower grew that gives back life. Enmer picked it, but on the way home he fell asleep, and a snake ate the flower. The king came home with nothing and understood that what makes a person immortal is not a herb, but what they leave behind.
 
-Он велел записать всё, что знал, на тысячах табличек. **Эти таблички и есть черепки**, которые игроки откапывают кистью. Учёные Ромеи называют их **«Летописью Предтеч»** и собирают по всему миру.
+He ordered everything he knew to be written down on thousands of tablets. **These tablets are the potsherds** that players dig up with a brush. The scholars of Romea call them the **«Chronicle of the Forerunners»** and gather them all over the world.
 
-> Ромейские писцы спорят: был ли цветок бессмертия на самом деле? Некоторые считают, что это **морское сердце** из сокровищ Талассии. Тогда Энмер-Кадим первым из людей побывал на дне.
+> Romean scribes argue: did the flower of immortality really exist? Some believe it was the **heart of the sea** from the treasures of Thalassia. Then Enmer-Kadim was the first person to reach the seabed.
 
-#### Песок наступает (~3000 д.Р.)
+#### The sand advances (~3000 B.R.)
 
-За пятьсот лет люди Ур-Кадима вырубили все леса у рек и истощили поля. Реки начали менять русла. Сначала опустел Нинур, потом Лагаш-Ан. Купцы Шамаш-Ту ушли к морю и основали колонии на чужих берегах. Но столица Кадим стояла ещё почти тысячу лет, пока её не добил Год Пепла.
-
----
-
-### Книга третья. Век Солнца (3000–2400 д.Р.)
-
-#### Пустынный народ
-
-Южнее двух рек лежала великая пустыня. Там, у единственной реки, жил народ, который поклонялся Солнцу. Это была **Нэферу**, Держава Солнца в Песках.
-
-#### Солнценосцы
-
-Правителей Нэферу звали **солнценосцами**. Народ верил, что каждый из них рождён от Солнца и после смерти вернётся к нему. Поэтому главной заботой солнценосца было не правление, а **гробница**: место, откуда душа поднимется к свету.
-
-Великие солнценосцы:
-- **Хеп-Ра Строитель** заложила первую пирамиду из песчаника. Она строилась тридцать лет.
-- **Сенкара Четвёртая** приказала вырезать своё лицо и знак Солнца на каждом храме. Поэтому у всех пустынных храмов одинаковый каменный узор на фасаде.
-- **Анх-Нэфер Последний** первым открыл обсидиановые врата и первым увидел Незер. О нём рассказывает Книга четвёртая.
-
-#### Пирамиды и их тайны
-
-Каждая пирамида Нэферу устроена одинаково:
-1. Наверху башни для стражи и знаки Солнца.
-2. В центре зал с цветным полом из терракоты. Синий цвет значит небо, оранжевый значит Солнце.
-3. Под полом шахта в гробницу. Там лежат четыре сундука, по одному на каждую сторону света.
-4. Под сундуками **нажимная плита и динамит**. Жрецы Нэферу верили, что сокровища мёртвых нельзя брать живым. Кто возьмёт их неосторожно, уйдёт к Солнцу вместе с хозяином.
-
-**Что лежит в сундуках:** золото, изумруды, железо, кости, гнилая плоть (остатки бальзамирования), иногда алмазы, книги чар и седло для коня солнценосца.
-
-#### Мумии и стражи пустыни
-
-Нэферу бальзамировали мёртвых и заворачивали в ткани. Те, кого похоронили неправильно, ночью встают из песка. Это **кадавры**, иссохшие зомби пустыни (в игре *хаски*). Их не берёт солнце, потому что они и так принадлежат ему.
-
-> Подсказка мастеру: хасков можно называть в лоре «Иссохшими слугами Нэферу».
-
-#### Джунгли
-
-Когда пустыня стала слишком жаркой (об этом в Книге четвёртой), последние жрецы Нэферу ушли в джунгли и построили там **тайные храмы**: из мшистого булыжника, с рычагами, ловушками со стрелами и потайными дверями. Это **храмы в джунглях**, которые находят игроки. Головоломка с рычагами это последний экзамен жрецов: только тот, кто знает тайный порядок, получит сокровище.
+In five hundred years the people of Ur-Kadim cut down all the forests by the rivers and exhausted the fields. The rivers began to change course. First Ninur was deserted, then Lagash-An. The merchants of Shamash-Tu went to the sea and founded colonies on foreign shores. But the capital, Kadim, stood for almost another thousand years, until the Year of Ash finished it off.
 
 ---
 
-### Книга четвёртая. Век Моря (2600–1800 д.Р.)
+### Book Three. The Age of the Sun (3000–2400 B.R.)
 
-#### Острова Западного моря
+#### The desert people
 
-Посреди океана лежал архипелаг из ста островов. На нём родилась **Талассия**, первая держава, которая правила не землёй, а водой.
+South of the two rivers lay the great desert. There, by its only river, lived a people who worshipped the Sun. This was **Neferu**, the Realm of the Sun in the Sands.
 
-#### Морские Владыки
+#### The Sunbearers
 
-Талассией правили **Морские Владыки**, цари-жрецы. Они жили во дворце **Кносарион** на главном острове. Дворец был построен как бесконечный лабиринт из сотни залов и лестниц, чтобы ни один враг не нашёл тронный зал.
+The rulers of Neferu were called **Sunbearers**. The people believed that each of them was born of the Sun and would return to it after death. So a Sunbearer's main concern was not ruling, but the **tomb**: the place from which the soul would rise to the light.
 
-В центре лабиринта, по легенде, жил **Бык Глубин**, священное чудовище, которому раз в год приносили дары. Эллины до сих пор рассказывают эту сказку детям.
+The great Sunbearers:
+- **Hep-Ra the Builder** laid the first sandstone pyramid. It took thirty years to build.
+- **Senkara the Fourth** ordered her face and the sign of the Sun carved on every temple. That is why all desert temples have the same stone pattern on the front.
+- **Ankh-Nefer the Last** was the first to open the obsidian gates and the first to see the Nether. Book Four tells of him.
 
-#### Технологии моря
+#### The pyramids and their secrets
 
-Талассийцы знали о море всё:
-- **Корабли** с килем и парусом. Они первыми научились ходить против ветра.
-- **Карты и компасы.** Каждый капитан носил с собой карту, нарисованную на коже. Многие из этих карт ведут к закопанным кладам: так талассийцы прятали казну от пиратов.
-- **Подводное дыхание.** Жрецы собирали раковины наутилуса и делали из них **проводники**: устройства, которые давали дышать под водой и видеть в глубине. Сердцем проводника было **морское сердце**, самое ценное сокровище Талассии.
-- **Призмарин.** Морской камень, который светится в темноте. Из него строили храмы прямо на дне.
-- **Губки.** Талассийцы выращивали их, чтобы осушать подводные залы.
+Every pyramid of Neferu is built the same way:
+1. At the top, towers for the guards and signs of the Sun.
+2. In the centre, a hall with a coloured terracotta floor. Blue means the sky, orange means the Sun.
+3. Under the floor, a shaft into the tomb. Four chests lie there, one for each direction.
+4. Under the chests, **a pressure plate and TNT**. The priests of Neferu believed the treasures of the dead must not be taken by the living. Whoever takes them carelessly goes to the Sun together with their owner.
 
-#### Храмы на дне
+**What lies in the chests:** gold, emeralds, iron, bones, rotten flesh (the remains of embalming), sometimes diamonds, enchanted books and a saddle for the Sunbearer's horse.
 
-Самые большие храмы Талассии стояли на дне океана. Это **Океанские монументы**. Внутри жрецы хранили **золото** (восемь золотых блоков в сердце каждого храма) и молились морю.
+#### Mummies and the guardians of the desert
 
-Храмы охраняли **стражи**, одноглазые рыбы с шипами. Жрецы вывели их из обычных рыб за сотни лет. Самые старые стали **Древними стражами**: их взгляд насылает усталость, и человек не может ни копать, ни сражаться. Стражи до сих пор выполняют приказ хозяев, которых нет уже тысячу лет.
+Neferu embalmed their dead and wrapped them in cloth. Those who were buried wrongly rise from the sand at night. These are **cadavers**, the withered zombies of the desert (in the game, *husks*). The sun does not harm them, because they already belong to it.
 
-#### Морская торговля
+> Tip for the game master: husks can be called «the Withered Servants of Neferu» in the lore.
 
-Корабли Талассии связали всех Предтеч. Они везли:
-- в Ур-Кадим: рыбу, жемчуг, призмарин;
-- в Нэферу: дерево для пирамид (в пустыне его нет);
-- в Каэр-Тала: соль и морские раковины;
-- обратно: зерно, таблички, золото и медь.
+#### The jungle
 
-Так Талассия стала самой богатой из пяти держав. И самой гордой.
+When the desert became too hot (see Book Four), the last priests of Neferu went into the jungle and built **secret temples** there: of mossy cobblestone, with levers, arrow traps and hidden doors. These are the **jungle temples** that players find. The lever puzzle is the priests' last exam: only those who know the secret order get the treasure.
 
 ---
 
-### Книга пятая. Век Меди (2200–1200 д.Р.)
+### Book Four. The Age of the Sea (2600–1800 B.R.)
 
-#### Горные города
+#### The islands of the Western Sea
 
-Последней поднялась цивилизация, которая не верила в богов. **Медный Союз Каэр-Тала** состоял из семи горных городов. Ими правили не цари, а **Совет Мастеров**: самые умелые кузнецы, инженеры и учёные.
+In the middle of the ocean lay an archipelago of a hundred islands. **Thalassia** was born there, the first power to rule not land, but water.
 
-| Город | Что в нём делали |
+#### The Sea Lords
+
+Thalassia was ruled by the **Sea Lords**, the priest-kings. They lived in the palace of **Knossarion** on the main island. The palace was built as an endless labyrinth of a hundred halls and stairways, so that no enemy could find the throne room.
+
+At the centre of the labyrinth, legend says, lived the **Bull of the Deep**, a sacred monster that received gifts once a year. The Hellenes still tell this tale to their children.
+
+#### Technologies of the sea
+
+The Thalassians knew everything about the sea:
+- **Ships** with a keel and sails. They were the first to learn to sail against the wind.
+- **Maps and compasses.** Every captain carried a map drawn on leather. Many of these maps lead to buried treasure: this is how the Thalassians hid their treasury from pirates.
+- **Underwater breathing.** The priests gathered nautilus shells and made **conduits** from them: devices that let people breathe underwater and see in the depths. The heart of a conduit was the **heart of the sea**, the most precious treasure of Thalassia.
+- **Prismarine.** A sea stone that glows in the dark. Temples were built from it right on the seabed.
+- **Sponges.** The Thalassians grew them to drain underwater halls.
+
+#### Temples on the seabed
+
+The greatest temples of Thalassia stood on the floor of the ocean. These are the **Ocean Monuments**. Inside, the priests kept **gold** (eight gold blocks at the heart of every temple) and prayed to the sea.
+
+The temples were guarded by **guardians**, one-eyed fish with spikes. The priests bred them from ordinary fish over hundreds of years. The oldest became **Elder Guardians**: their gaze brings weariness, and a person can neither dig nor fight. The guardians still follow the orders of masters who have been gone for a thousand years.
+
+#### Sea trade
+
+The ships of Thalassia connected all the Forerunners. They carried:
+- to Ur-Kadim: fish, pearls, prismarine;
+- to Neferu: timber for the pyramids (there is none in the desert);
+- to Caer-Tal: salt and sea shells;
+- and back: grain, tablets, gold and copper.
+
+So Thalassia became the richest of the five powers. And the proudest.
+
+---
+
+### Book Five. The Age of Copper (2200–1200 B.R.)
+
+#### The mountain cities
+
+The last to rise was a civilisation that did not believe in gods. The **Copper Union of Caer-Tal** was made up of seven mountain cities. They were ruled not by kings, but by the **Council of Masters**: the most skilled smiths, engineers and scholars.
+
+| City | What was made there |
 |---|---|
-| **Каэр-Тал** (главный) | Совет Мастеров, Великая кузница |
-| **Каэр-Брун** | Рудники меди. Сейчас здесь живут даки |
-| **Каэр-Вент** | Мастерские вихрей |
-| **Каэр-Голм** | Литейни железных големов |
-| **Каэр-Ред** | Редстоун-механизмы, первые часы и двери на поршнях |
-| **Каэр-Мор** | Маяк и порт для торговли с Талассией |
-| **Каэр-Сил** | Скрытый город. Где он был, неизвестно до сих пор |
+| **Caer-Tal** (the chief city) | The Council of Masters, the Great Forge |
+| **Caer-Brun** | Copper mines. The Dacians live here now |
+| **Caer-Vent** | Workshops of the whirlwinds |
+| **Caer-Golm** | Foundries of the iron golems |
+| **Caer-Red** | Redstone mechanisms, the first clocks and piston doors |
+| **Caer-Mor** | A lighthouse and port for trade with Thalassia |
+| **Caer-Sil** | The hidden city. Where it was is still unknown |
 
-Города Каэр-Тала строили по чертежу: прямые улицы, водопровод, туфовые стены и медные крыши. Медь со временем зеленеет, поэтому их называли **«Зелёными городами»**.
+The cities of Caer-Tal were built to plan: straight streets, running water, tuff walls and copper roofs. Copper turns green with time, so they were called **«the Green Cities»**.
 
-#### Изобретения Каэр-Тала
+#### The inventions of Caer-Tal
 
-- **Медь во всём.** Медные двери, люки, решётки, лампы и лампочки. Медь не ржавеет, а только зеленеет. Мастера считали это признаком мудрости: стареть, но не ломаться.
-- **Редстоун.** Каэр-Тала понял, что красная пыль передаёт силу. Они построили первые механизмы: поршни, двери, ловушки, часы.
-- **Големы.** В литейнях Каэр-Голма из железа и тыквы рождались **железные големы**, стражи городов. Медные големы-помощники, которые нажимали кнопки, тоже их работа.
-- **Вихри.** В Каэр-Венте мастера поймали духов ветра и заключили их в оболочку. Это **бризы**. Из их стержней делали **заряды ветра**, а из сердца тяжёлого ядра выковали **булаву**, самое сильное оружие Предтеч.
-- **Залы испытаний.** Под каждым городом был подземный полигон. Ученик, который хотел стать мастером, проходил его в одиночку, сражаясь с вихрями и чудовищами из **спавнеров испытаний**. В конце его ждало **хранилище**, которое открывалось **ключом испытаний**. Самые сложные залы открывались только **зловещим ключом**.
+- **Copper in everything.** Copper doors, trapdoors, grates, bulbs and lamps. Copper does not rust, it only turns green. The masters saw this as a sign of wisdom: to grow old, but not to break.
+- **Redstone.** Caer-Tal understood that the red dust carries power. They built the first mechanisms: pistons, doors, traps, clocks.
+- **Golems.** In the foundries of Caer-Golm, **iron golems** were born from iron and pumpkins, guardians of the cities. The copper helper golems that pressed buttons were their work too.
+- **Whirlwinds.** In Caer-Vent the masters caught wind spirits and bound them in shells. These are the **breezes**. **Wind charges** were made from their rods, and the **mace**, the most powerful weapon of the Forerunners, was forged from the heart of a heavy core.
+- **Trial halls.** Under every city lay an underground proving ground. An apprentice who wanted to become a master went through it alone, fighting whirlwinds and monsters from **trial spawners**. At the end a **vault** awaited, opened with a **trial key**. The hardest halls opened only with an **ominous key**.
 
-#### Ойра Каэр-Тал
+#### Oira Caer-Tal
 
-Главная героиня этой эпохи и, возможно, всей истории Предтеч. **Ойра** стала Первым Мастером в двадцать пять лет: она прошла самый трудный зал испытаний быстрее всех за триста лет.
+The main heroine of this age, and perhaps of the whole history of the Forerunners. **Oira** became First Master at the age of twenty-five: she passed the hardest trial hall faster than anyone in three hundred years.
 
-Ойра первой изучила врата Нэферу как учёный. Она измеряла трещины в земле вокруг каждых врат и заметила, что они растут. Ойра написала знаменитое **«Письмо пяти правителям»**:
+Oira was the first to study the gates of Neferu as a scientist. She measured the cracks in the ground around every gate and noticed that they were growing. Oira wrote the famous **«Letter to the Five Rulers»**:
 
-> *«Каждые врата это дыра в стене нашего дома. Вы думаете, что открываете дверь в чужой сад, но это наш дом теряет стены. Ещё сто лет, и он рухнет. Закройте врата, пока можете».*
+> *«Every gate is a hole in the wall of our house. You think you are opening a door into someone else's garden, but it is our house that is losing its walls. A hundred more years, and it will fall. Close the gates while you can».*
 
-Царь Ур-Кадима ответил, что медники завидуют чужому золоту. Солнценосец Нэферу не ответил вовсе. Морской Владыка Талассии засмеялся и построил ещё трое врат.
-
----
-
-### Книга шестая. Век Врат (1800–1200 д.Р.)
-
-#### Анх-Нэфер открывает Незер
-
-Около 1800 д.Р. рудокопы Нэферу нашли **обсидиан**. Солнценосец **Анх-Нэфер Последний** велел сложить из него рамку четыре на пять блоков и зажечь её огнём из священного очага. Рамка вспыхнула фиолетовым светом.
-
-Анх-Нэфер шагнул внутрь первым. Он вернулся через три дня с полными руками золота и сказал: *«Я нашёл царство Солнца под землёй»*.
-
-Это был **Незер**.
-
-#### Что Предтечи брали в Незере
-
-- **Золото.** Его было так много, что пирамиды Нэферу покрыли золотом сверху донизу.
-- **Кварц** для белых дворцов Талассии.
-- **Светокамень** для фонарей, которые горят без огня.
-- **Магму и огненные стержни** для кузниц Каэр-Тала.
-- **Незерит.** Самая страшная находка. Из древних обломков в глубине Незера мастера выплавили металл прочнее алмаза. Говорят, у последней армии Ур-Кадима были незеритовые мечи.
-
-#### Война за врата
-
-Через двести лет у каждого народа были свои врата, и не одни. Предтечи начали воевать друг с другом **через Незер**: путь в Незере в восемь раз короче, чем в обычном мире, поэтому армия могла выйти из врат прямо в чужой столице.
-
-- **Война Колесниц** (1600 д.Р.): Ур-Кадим против Нэферу за врата у оазиса.
-- **Морская Осада** (1450 д.Р.): Талассия построила врата на плавучих островах и захватила побережья.
-- **Золотой Поход** (1300 д.Р.): армия Ур-Кадима ушла в Незер грабить крепости пиглинов и не вернулась. Это был первый раз, когда Незер ответил.
-
-#### Пиглины
-
-В Незере жил свой народ: **пиглины**, полулюди-полусвиньи, которые любят золото больше жизни. Предтечи грабили их крепости пятьсот лет. Пиглины не забыли. Их старейшины, **брутальные пиглины**, сказали: *«Люди пришли за нашим золотом. Мы придём за их миром»*.
-
-Поэтому пиглины до сих пор так любят золото и так злятся, если его трогают. Это память о Предтечах.
+The king of Ur-Kadim replied that the coppersmiths envied other people's gold. The Sunbearer of Neferu did not reply at all. The Sea Lord of Thalassia laughed and built three more gates.
 
 ---
 
-### Книга седьмая. Год Пепла (1200 д.Р.)
+### Book Six. The Age of Gates (1800–1200 B.R.)
 
-*Подробный рассказ о Годе Пепла по сезонам есть в Части II, главы 4–6. Здесь собраны свидетельства, которые остались от разных народов.*
+#### Ankh-Nefer opens the Nether
 
-**Табличка из Кадима (последняя):**
-> «Небо черно третий месяц. Реки горячи. Из врат на площади вышли свиньи в золоте. Царь велел закопать таблички. Я закапываю эту. Кто найдёт её, знай: мы были».
+Around 1800 B.R. the miners of Neferu found **obsidian**. The Sunbearer **Ankh-Nefer the Last** ordered a frame four by five blocks built from it and lit with fire from the sacred hearth. The frame blazed with purple light.
 
-**Песня галльских друидов «Ночь пепла»:**
-> «И пал огонь на воду, и вода стала огнём,
-> И остров встал до неба и упал на дно.
-> Сто кораблей ушло в ту ночь, вернулось три,
-> И на трёх кораблях плыли все дети моря».
+Ankh-Nefer stepped inside first. He returned three days later with his arms full of gold and said: *«I have found the kingdom of the Sun beneath the earth»*.
 
-**Надпись на стене пирамиды (найдена дакийскими пастухами):**
-> «Мы запираем дверь. Солнце, возьми нас к себе. Вор, возьми нас с собой».
+It was the **Nether**.
 
-**Запись Ойры Каэр-Тал (Медная табличка из Каэр-Мора):**
-> «Все врата связаны со Стволом на 0, 0. Если закрыть Ствол, ветви умрут. Нам нужен весь обсидиан мира, вся медь Союза и сорок ночей. Я пойду».
+#### What the Forerunners took from the Nether
 
-**Сказание Великой Степной Орды:**
-> «Наши деды видели, как земля горела от моря до гор. Они сели на коней и не слезали сорок лет. С тех пор мы не строим домов: дома горят, а конь уносит».
+- **Gold.** There was so much of it that the pyramids of Neferu were covered in gold from top to bottom.
+- **Quartz** for the white palaces of Thalassia.
+- **Glowstone** for lanterns that burn without fire.
+- **Magma and blaze rods** for the forges of Caer-Tal.
+- **Netherite.** The most terrible find. From ancient debris deep in the Nether, the masters smelted a metal stronger than diamond. They say the last army of Ur-Kadim had netherite swords.
 
-Так потомки кочевников объясняют, почему Орда и скифы живут в юртах и не любят городов.
+#### The war for the gates
+
+Two hundred years later every people had its own gates, and more than one. The Forerunners began to fight each other **through the Nether**: a journey in the Nether is eight times shorter than in the ordinary world, so an army could come out of the gates right in an enemy capital.
+
+- **The War of Chariots** (1600 B.R.): Ur-Kadim against Neferu for the gates by the oasis.
+- **The Sea Siege** (1450 B.R.): Thalassia built gates on floating islands and seized the coasts.
+- **The Golden Campaign** (1300 B.R.): an army of Ur-Kadim went into the Nether to plunder the fortresses of the piglins and never returned. It was the first time the Nether struck back.
+
+#### The piglins
+
+The Nether had its own people: the **piglins**, half human and half pig, who love gold more than life. The Forerunners plundered their fortresses for five hundred years. The piglins did not forget. Their elders, the **piglin brutes**, said: *«The humans came for our gold. We will come for their world»*.
+
+That is why the piglins still love gold so much and grow so angry when it is touched. It is the memory of the Forerunners.
 
 ---
 
-### Книга восьмая. Великая башня (1200–1150 д.Р.)
+### Book Seven. The Year of Ash (1200 B.R.)
 
-*Как строили башню, рассказано в Части II, глава 6. Здесь о том, что внутри.*
+*A detailed season-by-season account of the Year of Ash is in Part II, Chapters 4–6. Here are the testimonies left by different peoples.*
 
-#### Устройство Монолита
+**A tablet from Kadim (the last one):**
+> «The sky has been black for the third month. The rivers are hot. Pigs in gold came out of the gates in the square. The king ordered the tablets buried. I am burying this one. Whoever finds it, know: we were».
 
-| Уровень | Что там | Кто строил |
+**A song of the Gallic druids, «The Night of Ash»:**
+> «And fire fell upon the water, and the water turned to fire,
+> And the island rose up to the sky and fell into the deep.
+> A hundred ships sailed out that night, and three came back,
+> And on those three ships sailed all the children of the sea».
+
+**An inscription on a pyramid wall (found by Dacian shepherds):**
+> «We are locking the door. Sun, take us to you. Thief, take us with you».
+
+**A note by Oira Caer-Tal (the Copper Tablet of Caer-Mor):**
+> «All the gates are bound to the Trunk at 0, 0. Close the Trunk, and the branches will die. We need all the obsidian in the world, all the copper of the Union and forty nights. I will go».
+
+**A tale of the Great Steppe Horde:**
+> «Our grandfathers saw the earth burn from the sea to the mountains. They mounted their horses and did not dismount for forty years. Since then we build no houses: houses burn, but a horse carries you away».
+
+That is how the descendants of the nomads explain why the Horde and the Scythians live in yurts and do not like cities.
+
+---
+
+### Book Eight. The Great Tower (1200–1150 B.R.)
+
+*How the tower was built is told in Part II, Chapter 6. This is about what is inside.*
+
+#### The structure of the Monolith
+
+| Level | What is there | Who built it |
 |---|---|---|
-| **Корни** (под землёй) | Великие врата, Ствол, запечатанные Медной Печатью | Каэр-Тала |
-| **Зал Печати** | Механизм из меди и редстоуна, сердце башни. Здесь осталась Ойра | Каэр-Тала |
-| **Основание** | Вход, который стерегут големы. Кладовые с припасами | Каэр-Тала, Нэферу |
-| **Ствол башни** | Камень по чертежу пирамид, чтобы стоял тысячи лет | Нэферу |
-| **Обсидиановый пояс** | Обсидиан со всех разбитых врат мира, вмурованный в стены | Талассия (свозили на кораблях) |
-| **Вершина** | Маяк. Его свет было видно с моря, чтобы последние корабли нашли дорогу | Талассия |
+| **The Roots** (underground) | The Great Gates, the Trunk, sealed by the Copper Seal | Caer-Tal |
+| **The Hall of the Seal** | A mechanism of copper and redstone, the heart of the tower. Oira stayed here | Caer-Tal |
+| **The Base** | The entrance, guarded by golems. Storerooms with supplies | Caer-Tal, Neferu |
+| **The Shaft of the tower** | Stone laid to the plan of the pyramids, to stand for thousands of years | Neferu |
+| **The Obsidian Belt** | Obsidian from every broken gate in the world, set into the walls | Thalassia (brought by ship) |
+| **The Summit** | A lighthouse. Its light could be seen from the sea, so the last ships could find their way | Thalassia |
 
-#### Почему башня до высоты гор
+#### Why the tower is as tall as the mountains
 
-Чем выше обсидиановый пояс, тем дальше от земли «дыра» Великих врат. Жрецы Нэферу рассчитали, что печать будет держать, только если башня поднимется до облаков. Поэтому башня новичков на 0, 0 такая высокая.
+The higher the obsidian belt, the further from the ground the «hole» of the Great Gates. The priests of Neferu calculated that the seal would hold only if the tower rose to the clouds. That is why the newcomers' tower at 0, 0 is so tall.
 
-#### Почему башня каменная, а не чёрная
+#### Why the tower is stone, not black
 
-Снаружи башня сложена из обычного камня, а обсидиан спрятан внутри стен. Строители боялись, что потомки увидят обсидиан и разберут башню, чтобы снова строить врата. Поэтому они **спрятали опасный камень за простым**.
+Outside, the tower is built of ordinary stone, and the obsidian is hidden inside the walls. The builders feared their descendants would see the obsidian and take the tower apart to build gates again. So they **hid the dangerous stone behind a plain one**.
 
-#### Кладовые для потомков
+#### Storerooms for the descendants
 
-В основании башни строители оставили припасы для тех, кто придёт после:
-- **сундуки первопроходцев** с едой, инструментами и семенами;
-- **письма** на пяти языках, переведённые позже ромейскими учёными;
-- **таблички и кафедры** с законами Предтеч;
-- **карты** окрестностей, где отмечены рудники и вода.
+At the base of the tower the builders left supplies for those who would come after:
+- **pioneer chests** with food, tools and seeds;
+- **letters** in five languages, later translated by Romean scholars;
+- **tablets and lecterns** with the laws of the Forerunners;
+- **maps** of the surroundings, with mines and water marked.
 
-Надпись над кладовой гласит: *«Мы не успели. Пусть успеете вы»*.
-
----
-
-### Книга девятая. Тёмные века (1150–0 д.Р.)
-
-#### Мир без Предтеч
-
-Год Пепла закончился, но мир был разбит. Тысячу лет он жил без городов, письма и кораблей. Люди разделились:
-
-- **Лесные племена** ушли в чащи. Их не тронули ни пиглины, ни волна, потому что у них не было ни врат, ни золота. От них пошли **германцы** и **галлы**. Германцы до сих пор не доверяют «каменным людям», которые строят высокие дома. Галльские друиды помнят Год Пепла в песнях лучше всех.
-- **Горцы** остались у медных рудников Каэр-Брун. Они не умели плавить медь, как мастера, но охраняли входы в залы испытаний. Это предки **даков**.
-- **Беглецы с моря**, три корабля Талассии, высадились на тёплом побережье. От них пошли **эллины**. Они до сих пор бросают в море первую рыбу из улова, «долг Талассии».
-- **Купцы Шамаш-Ту**, колонисты Ур-Кадима, сохранили мерки и счёт. От них пошёл **Карфаген**. Карфагенские весы до сих пор зовут «кадимскими».
-- **Кочевники** сели на коней и ушли в степь. От них пошли **Великая Степная Орда** и **Скифское Царство**. Скифские цари хоронят себя в курганах с золотом, подражая солнценосцам Нэферу, золото которых их предки вынесли из пирамид.
-
-#### Деревни
-
-Часть людей осталась жить у старых дорог и стала **жителями деревень**. Они забыли почти всё, кроме двух обычаев Ур-Кадима: торговать за **изумруды** и строить дома вокруг колодца. Поэтому деревенские жители так охотно меняют товары и так плохо умеют защищаться.
-
-#### Разбойники
-
-Не все выжившие стали мирными. Те, кто служил вратам и потерял власть, ушли в леса и стали **разбойниками** и **иллагерами**. Их вожди, **призыватели**, хранят обрывки чёрной магии Предтеч. Особняки иллагеров в тёмном лесу, по преданию, построены на руинах дворца последнего царя Ур-Кадима.
-
-#### Дом мёртвых
-
-Всю тысячу лет люди обходили башню на 0, 0 стороной. Её звали **Домом мёртвых**, потому что у входа стояли железные великаны и не пускали никого. Только смелые иногда подходили к ней и видели надпись над входом, но никто не мог её прочитать.
-
-Так было, пока не пришёл Ромул.
+The inscription above the storeroom reads: *«We did not make it in time. May you»*.
 
 ---
 
-### Книга десятая. Ромул (год 0)
+### Book Nine. The Dark Ages (1150–0 B.R.)
 
-*Короткий рассказ есть в Части II, глава 8. Здесь подробнее.*
+#### A world without the Forerunners
 
-Ромул был сыном вождя маленького племени у реки. Его отец погиб в набеге степняков, а племя разбежалось. Ромул собрал тех, кто остался, и повёл их искать землю, где их никто не тронет.
+The Year of Ash was over, but the world was broken. For a thousand years it lived without cities, writing or ships. People split apart:
 
-Через сорок дней пути (столько же, сколько строили башню) они вышли к холму, на котором стояла чёрно-серая башня до неба. Люди испугались и хотели уйти, но Ромул пошёл к ней один.
+- **The forest tribes** went into the thickets. Neither the piglins nor the wave touched them, because they had neither gates nor gold. From them came the **Germanic peoples** and the **Gauls**. The Germanic peoples still distrust «the stone people» who build tall houses. The Gallic druids remember the Year of Ash in their songs better than anyone.
+- **The highlanders** stayed by the copper mines of Caer-Brun. They could not smelt copper the way the masters did, but they guarded the entrances to the trial halls. These are the ancestors of the **Dacians**.
+- **The refugees from the sea**, three ships of Thalassia, landed on a warm coast. From them came the **Hellenes**. They still throw the first fish of every catch back into the sea, «the debt to Thalassia».
+- **The merchants of Shamash-Tu**, the colonists of Ur-Kadim, kept the measures and the counting. From them came **Carthage**. Carthaginian scales are still called «Kadimian».
+- **The nomads** mounted their horses and rode into the steppe. From them came the **Great Steppe Horde** and the **Scythian Kingdom**. The Scythian kings bury themselves in kurgans with gold, imitating the Sunbearers of Neferu, whose gold their ancestors carried out of the pyramids.
 
-Големы шагнули навстречу. Ромул остановился, положил меч на землю и сказал: *«Я пришёл с миром»*. Големы опустили руки и отошли. Приказ Ойры звучал так: «Не пускай зло». А Ромул пришёл без зла.
+#### The villages
 
-В башне Ромул нашёл кладовые, письма и надпись. Год он учился читать знаки Предтеч по табличкам из кладовой и в конце концов прочёл одно слово: **PAX**.
+Some people stayed by the old roads and became **villagers**. They forgot almost everything except two customs of Ur-Kadim: trading for **emeralds** and building houses around a well. That is why villagers trade so eagerly and defend themselves so poorly.
 
-Он понял всё: башня держит мир, а големы ждали того, кто станет её хранителем. Ромул вышел к своему народу и поклялся:
+#### The raiders
 
-> *«Мой народ будет хранить печать, пока стоит Ромея. Мы не будем строить врата ради золота. Мы будем строить города ради мира»*.
+Not all the survivors became peaceful. Those who had served the gates and lost their power went into the forests and became **raiders** and **illagers**. Their leaders, the **evokers**, keep fragments of the dark magic of the Forerunners. The illager mansions in the dark forest, legend says, are built on the ruins of the palace of the last king of Ur-Kadim.
 
-У стен башни заложили первый город, **Ромею**. Так началась **Священная Ромейская Республика**, а с ней и история **PaxVanila**.
+#### The House of the Dead
+
+For the whole thousand years people gave the tower at 0, 0 a wide berth. They called it **the House of the Dead**, because iron giants stood at the entrance and let no one in. Only the brave sometimes approached it and saw the inscription above the entrance, but no one could read it.
+
+So it was, until Romulus came.
 
 ---
 
-### Книга одиннадцатая. Пророчество и будущее
+### Book Ten. Romulus (year 0)
 
-#### Последняя строка Ойры
+*A short account is in Part II, Chapter 8. Here is a fuller one.*
 
-На внутренней стене зала Печати, куда до сих пор никто не спускался, Ойра Каэр-Тал оставила последние слова. Их знает только Ромул:
+Romulus was the son of the chief of a small tribe by a river. His father died in a raid by the steppe riders, and the tribe scattered. Romulus gathered those who remained and led them in search of a land where no one would harm them.
 
-> *«Печать держится, пока народы помнят мир. Когда последний страж падёт и мир разделится в войне, печать треснет, и врата откроются туда, куда не открывались никогда».*
+After forty days of travel (as long as the tower had taken to build) they came to a hill on which stood a black-grey tower reaching to the sky. The people were afraid and wanted to leave, but Romulus went to it alone.
 
-#### Как пророчество связано с эпохами сервера
+The golems stepped forward to meet him. Romulus stopped, laid his sword on the ground and said: *«I come in peace»*. The golems lowered their arms and stepped aside. Oira's order was: «Let no evil in». And Romulus came without evil.
 
-| Эпоха | Что происходит с печатью |
+In the tower Romulus found the storerooms, the letters and the inscription. For a year he learned to read the signs of the Forerunners from the tablets in the storeroom, and at last he read one word: **PAX**.
+
+He understood everything: the tower holds the world together, and the golems had been waiting for the one who would become its keeper. Romulus came out to his people and swore:
+
+> *«My people will keep the seal as long as Romea stands. We will not build gates for gold. We will build cities for peace»*.
+
+At the walls of the tower they laid the first city, **Romea**. So began the **Holy Romean Republic**, and with it the history of **PaxVanila**.
+
+---
+
+### Book Eleven. The prophecy and the future
+
+#### Oira's last line
+
+On the inner wall of the Hall of the Seal, where no one has gone down to this day, Oira Caer-Tal left her last words. Only Romulus knows them:
+
+> *«The seal holds as long as the peoples remember peace. When the last guardian falls and the world is divided by war, the seal will crack, and the gates will open where they have never opened before».*
+
+#### How the prophecy connects to the ages of the server
+
+| Age | What happens to the seal |
 |---|---|
-| **Древний мир** | Печать держится. Ромул и его потомки охраняют башню |
-| **Ренессанс** | Учёные заново открывают медь и редстоун Каэр-Тала и чертежи кораблей Талассии. «Аврора Пакс» строится по ним |
-| **Век стали** | Великие войны трясут землю. На башне впервые появляются трещины |
-| **Холодная война** | Державы тайно ищут обсидиан, чтобы построить свои врата. Гонка врат начинается снова |
-| **Эпоха ИИ** | Машины расшифровывают Медную Печать и понимают, как её открыть |
-| **Киберпанк** | Мегакорпорации хотят продать доступ к вратам. Стражей башни почти не осталось |
-| **Межсерверная война** | Последний страж падает. Печать трескается. Врата открываются не в Незер, а **в чужие миры**, другие серверы. Начинается битва между мирами |
+| **The Ancient World** | The seal holds. Romulus and his descendants guard the tower |
+| **The Renaissance** | Scholars rediscover the copper and redstone of Caer-Tal and the ship plans of Thalassia. The «Aurora Pax» is built to them |
+| **The Age of Steel** | The Great Wars shake the earth. Cracks appear on the tower for the first time |
+| **The Cold War** | The powers secretly search for obsidian to build their own gates. The race for the gates begins again |
+| **The Age of AI** | Machines decipher the Copper Seal and understand how to open it |
+| **Cyberpunk** | Megacorporations want to sell access to the gates. Almost no Tower Guardians remain |
+| **The Interserver War** | The last guardian falls. The seal cracks. The gates open not to the Nether, but **to other worlds**, other servers. A battle between worlds begins |
 
-#### Открытые тайны для будущих ивентов
+#### Open mysteries for future events
 
-1. **Каэр-Сил, скрытый город.** Седьмой город Медного Союза так и не нашли. Может, он под границей мира и откроется, когда граница вырастет.
-2. **Куда смотрела рамка Безмолвных?** Великая рамка в Древнем городе так и не загорелась. Может, она ведёт не вниз, а куда-то ещё.
-3. **Жива ли Ойра?** Никто не спускался в зал Печати. Некоторые ромейские жрецы верят, что Ойра стала частью механизма и до сих пор держит его.
-4. **Цветок бессмертия Энмер-Кадима.** Если это морское сердце, то где остальные?
-5. **Пиглины помнят.** Старейшины пиглинов говорят, что заберут свой мир обратно. Это готовый повод для ивента «Возвращение из Незера».
+1. **Caer-Sil, the hidden city.** The seventh city of the Copper Union was never found. Perhaps it lies beyond the world border and will open when the border grows.
+2. **Where was the frame of the Silent Ones facing?** The great frame in the Ancient city never lit. Perhaps it leads not down, but somewhere else.
+3. **Is Oira alive?** No one has gone down into the Hall of the Seal. Some Romean priests believe Oira became part of the mechanism and still holds it.
+4. **The flower of immortality of Enmer-Kadim.** If it is the heart of the sea, where are the others?
+5. **The piglins remember.** The piglin elders say they will take their world back. A ready reason for an event, «Return from the Nether».
 
 ---
 
-## Идеи для сервера (по желанию)
+## Ideas for the server (optional)
 
-Это лор, механик под него пока нет. Если захочешь, можно сделать:
+This is lore, and there are no mechanics for it yet. If you want, you could make:
 
-1. **«Летопись Предтеч».** Черепки из археологии сдаются в Монолит, за полную коллекцию игрок получает титул «Летописец».
-2. **Таблички Предтеч в башне.** Добавить в датапак башни 5 кафедр с книгами, по одной на цивилизацию.
-3. **Ивент «Год Пепла».** Однодневный ивент: у границы открываются разрушенные порталы, из них идут пиглины, державы обороняются вместе.
-4. **Ролик «До Ромула».** Короткий ролик-хроника: пять цивилизаций, Год Пепла, Ромул находит Монолит.
-5. **Фокус в /focus:** «Наследие Предтеч» для каждой нации со своим бонусом (Карфаген торгует дешевле, Дакия быстрее копает медь и т. д.).
+1. **«The Chronicle of the Forerunners».** Potsherds from archaeology are handed in at the Monolith, and a full collection earns the player the title «Chronicler».
+2. **Tablets of the Forerunners in the tower.** Add 5 lecterns with books to the tower datapack, one per civilisation.
+3. **The «Year of Ash» event.** A one-day event: ruined portals open by the border, piglins pour out of them, and the powers defend together.
+4. **The video «Before Romulus».** A short chronicle video: five civilisations, the Year of Ash, Romulus finds the Monolith.
+5. **A focus in /focus:** «Heritage of the Forerunners» for each nation with its own bonus (Carthage trades cheaper, Dacia mines copper faster, and so on).

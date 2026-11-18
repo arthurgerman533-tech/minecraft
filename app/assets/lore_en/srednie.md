@@ -1,339 +1,339 @@
-# PaxVanila: Средние эпохи
+# PaxVanila: the Middle Ages
 
-*Летопись Ромулов: от основания Ромеи до Холодной войны*
+*Chronicle of the Romuli: from the founding of Romea to the Cold War*
 
-> Пишет летописец Форума. Мой долг — записывать всё, что случилось у башни, и не приукрашивать. Ромулы приходят и уходят, а летопись остаётся. Если вы читаете это, значит, печать ещё держится.
+> Written by the chronicler of the Forum. My duty is to record everything that happened at the tower, and not to embellish it. Romuli come and go, but the chronicle remains. If you are reading this, the seal still holds.
 
-Это мост между двумя частями лора. [Эпоха Предтеч](ранние_цивилизации.md) кончается тем, что Ромул прочёл слово **PAX** и основал Ромею. [Поздние эпохи](поздние_эпохи.md) начинаются с Холодной войны 1962 года. Здесь — всё, что было между ними: две тысячи лет, за которые восемь народов Тёмных веков стали державами, четыре Стража башни пали, а на Монолите появились первые трещины.
+This is the bridge between two parts of the lore. [The Age of the Forerunners](ранние_цивилизации.md) ends with Romulus reading the word **PAX** and founding Romea. [The Late Ages](поздние_эпохи.md) begin with the Cold War of 1962. Here is everything in between: two thousand years in which the eight peoples of the Dark Ages became great powers, four Guardians of the tower fell, and the first cracks appeared on the Monolith.
 
-**Счёт лет.** Год высадки Ромула — год 0. До него считают «до Ромула» (д.Р.), после — просто годами: 375-й, 1241-й, 1962-й.
+**Counting the years.** The year Romulus landed is year 0. Years before it are counted «before Romulus» (B.R.), and years after it simply as numbers: 375, 1241, 1962.
 
 ---
 
-## Хронология средних эпох
+## Timeline of the Middle Ages
 
-| Год | Что случилось |
+| Year | What happened |
 |---|---|
-| 0 | Ромул прочёл PAX. Основана **Священная Ромейская Республика** |
-| 12 | Умер первый Ромул. Сенат избирает преемника, и тот берёт имя **Ромул**. Так будет всегда |
-| ~100 | Восемь народов Тёмных веков становятся державами. Первые порты и **Золотой Караван** Карфагена |
-| 117 | **Землетрясение в горах Дакии.** Рушатся медные рудники. Голодная Дакия становится первым **вассалом** Ромеи |
-| ~250 | **Морская война** Ромеи и Карфагена. **Великий шторм** топит карфагенский флот |
-| 251 | **Договор у Монолита** — первый в истории пакт о ненападении |
-| 375 | Из **песчаной бури** выходит Великая Степная Орда. Набег на башню. **Пал второй Страж** |
-| 380–900 | **Век стен.** Ромея строит стены, племена Германии и Галлии становятся королевствами |
-| ~900 | На севере возникает **Северное Царство** |
-| 1241 | Орда у стен Ромеи. **Метель** останавливает её. Рождается обычай «зимней кампании» |
-| ~1450 | **Ренессанс.** Учёные Ромеи и Эллады заново читают таблички Предтеч |
-| 1500 | **Звёздный дождь.** Найден первый **Звёздный осколок** |
-| 1503 | Спущен на воду галеон **«Аврора Пакс»** по чертежам Талассии |
-| 1529 | **Война двух Ромулов.** Ядра бьют по башне. **Пал третий Страж**. Закон «У башни не стреляют» |
-| ~1650 | **Эпоха парусов.** Порты по всем берегам, колонии на островах |
-| 1700 | **Туман Безымянных.** Пропадает флот, с ним «Аврора Пакс» |
-| 1781 | Колонии объявляют **войну за независимость**. Рождается **Островной Союз** |
-| 1871 | Германские королевства объединяются в **Германский Рейх** |
-| 1914 | **Первая Великая война.** Гроза над окопами. **На башне первая трещина.** Пал четвёртый Страж |
-| 1942 | **Вторая Великая война.** Метель ломает наступление Рейха на севере |
-| 1944 | Бомба у стен башни. **Пал пятый Страж** |
-| 1947 | **Курултай победителей.** Восточные державы сходятся в степи. Рождается будущий Степной Пакт |
-| 1962 | Снаряд Пакта у стен башни. **Пал шестой Страж.** Начинается Холодная война |
+| 0 | Romulus reads PAX. The **Holy Romean Republic** is founded |
+| 12 | The first Romulus dies. The Senate elects a successor, who takes the name **Romulus**. It will always be so |
+| ~100 | The eight peoples of the Dark Ages become powers. The first ports and the **Golden Caravan** of Carthage |
+| 117 | **Earthquake in the mountains of Dacia.** The copper mines collapse. Starving Dacia becomes Romea's first **vassal** |
+| ~250 | The **sea war** between Romea and Carthage. A **Great storm** sinks the Carthaginian fleet |
+| 251 | The **Treaty at the Monolith**, the first non-aggression pact in history |
+| 375 | The Great Steppe Horde rides out of a **sandstorm**. A raid on the tower. **The second Guardian falls** |
+| 380–900 | **The Age of Walls.** Romea builds walls, the tribes of Germania and Gallia become kingdoms |
+| ~900 | The **Northern Kingdom** rises in the north |
+| 1241 | The Horde at the walls of Romea. A **blizzard** stops it. The custom of the «winter campaign» is born |
+| ~1450 | **The Renaissance.** Scholars of Romea and Hellas read the Forerunners' tablets anew |
+| 1500 | **The Star Shower.** The first **Star Shard** is found |
+| 1503 | The galleon **«Aurora Pax»** is launched, built to the plans of Thalassia |
+| 1529 | **The War of the Two Romuli.** Cannonballs strike the tower. **The third Guardian falls**. The law «No shooting at the tower» |
+| ~1650 | **The Age of Sail.** Ports on every coast, colonies on the islands |
+| 1700 | **The Fog of the Nameless.** A fleet vanishes, and the «Aurora Pax» with it |
+| 1781 | The colonies declare a **war of independence**. The **Island Union** is born |
+| 1871 | The Germanic kingdoms unite into the **German Reich** |
+| 1914 | **The First Great War.** A storm over the trenches. **The first crack on the tower.** The fourth Guardian falls |
+| 1942 | **The Second Great War.** A blizzard breaks the Reich's offensive in the north |
+| 1944 | A bomb at the walls of the tower. **The fifth Guardian falls** |
+| 1947 | **The Kurultai of the Victors.** The eastern powers meet in the steppe. The future Steppe Pact is born |
+| 1962 | A Pact shell at the walls of the tower. **The sixth Guardian falls.** The Cold War begins |
 
 ---
 
-# Часть I. Древний мир (0–380)
+# Part I. The Ancient World (0–380)
 
-### Глава 1. Имя, которое не умирает
+### Chapter 1. The name that does not die
 
-Первый Ромул прожил у башни двенадцать лет. Он учил людей читать знаки Предтеч, строил первый город и каждое утро обходил Монолит, проверяя, не теплее ли камень, чем вчера.
+The first Romulus lived by the tower for twelve years. He taught people to read the signs of the Forerunners, built the first city, and every morning walked around the Monolith to check whether the stone was warmer than the day before.
 
-Перед смертью он собрал старейшин и сказал:
+Before he died, he gathered the elders and said:
 
-> *«Мне не нужен сын на троне. Мне нужен хранитель. Выберите того, кто будет любить башню больше, чем себя, и пусть он забудет своё имя»*.
+> *«I do not need a son on the throne. I need a keeper. Choose the one who will love the tower more than himself, and let him forget his name»*.
 
-Старейшины выбрали кузнеца по имени Марк. В день, когда он принёс клятву у входа в Монолит, Марк назвал себя **Ромулом**. С тех пор так делает каждый правитель Ромеи. Летописцы различают их по номерам: Ромул Второй, Ромул Девятнадцатый, Ромул Сто Четвёртый.
+The elders chose a smith named Marcus. On the day he swore his oath at the entrance to the Monolith, Marcus called himself **Romulus**. Every ruler of Romea has done the same ever since. The chroniclers tell them apart by number: Romulus the Second, Romulus the Nineteenth, Romulus the Hundred and Fourth.
 
-Совет старейшин стал **Сенатом**, площадь у башни — **Форумом**, а на щитах первых стражников написали четыре буквы: **SPQR**, «Сенат и народ хранят Ромею». Говорят, буквы взяли с той же таблички, где Ромул нашёл слово PAX.
+The council of elders became the **Senate**, the square by the tower became the **Forum**, and four letters were written on the shields of the first guards: **SPQR**, «the Senate and the People keep Romea». They say the letters were taken from the same tablet where Romulus found the word PAX.
 
-### Глава 2. Восемь народов
+### Chapter 2. Eight peoples
 
-Пока Ромея росла у башни, вокруг неё просыпался мир. Племена Тёмных веков, о которых рассказано в Эпохе Предтеч, перестали быть племенами.
+While Romea grew by the tower, the world around it was waking up. The tribes of the Dark Ages, told of in the Age of the Forerunners, stopped being tribes.
 
-**Карфаген** первым понял, что мир держится не на мечах, а на дорогах. Его купцы помнили кадимские мерки и умели считать лучше всех. Они построили **порты** на берегах и пустили по суше **Золотой Караван**: вереницу мулов с грузом, которая шла от моря к Ромее. О выходе каравана знали все, и все знали, что груз можно отбить. Поэтому караваны ходили с охраной, а лучшие охранники становились богаче купцов.
+**Carthage** was the first to understand that the world rests not on swords but on roads. Its merchants remembered the measures of Kadim and could count better than anyone. They built **ports** on the coasts and sent the **Golden Caravan** overland: a line of mules with cargo, travelling from the sea to Romea. Everyone knew when a caravan set out, and everyone knew the cargo could be taken. So caravans travelled with guards, and the best guards grew richer than the merchants.
 
-**Эллинская Морская Лига** собрала острова Западного моря. Её моряки ныряли к храмам Талассии и знали, где на дне лежат сундуки.
+The **Hellenic Sea League** gathered the islands of the Western Sea. Its sailors dived to the temples of Thalassia and knew where the chests lay on the seabed.
 
-**Дакия** держала горы и медные рудники. Её цари клялись, что найдут вход в залы испытаний Каэр-Тала, и каждое поколение копали глубже.
+**Dacia** held the mountains and the copper mines. Its kings swore they would find the way into the trial halls of Caer-Tal, and every generation dug deeper.
 
-**Германские племена** жили в лесах и не верили «каменным людям». **Галльские друиды** пели песни о Годе Пепла и знали о Предтечах больше всех. **Великая Степная Орда** и **Скифия** кочевали по руинам Нэферу и хоронили своих царей в курганах с золотом пирамид.
+The **Germanic tribes** lived in the forests and did not trust «the stone people». The **Gallic druids** sang songs of the Year of Ash and knew more about the Forerunners than anyone. The **Great Steppe Horde** and **Scythia** roamed the ruins of Neferu and buried their kings in kurgans with the gold of the pyramids.
 
-> **Летописец:** Восемь народов — восемь памятей. Каждый помнит Предтеч по-своему, и каждый уверен, что помнит правильно. Отсюда все наши войны.
+> **Chronicler:** Eight peoples, eight memories. Each remembers the Forerunners in its own way, and each is sure it remembers rightly. That is where all our wars come from.
 
-### Глава 3. Год, когда горы упали (117)
+### Chapter 3. The year the mountains fell (117)
 
-Весной 117 года в горах Дакии три дня тряслась земля. Рушились штольни, реки меняли русла, целые деревни уходили под осыпи. Медные рудники, которыми Дакия жила четыреста лет, засыпало за одну ночь.
+In the spring of 117 the earth shook in the mountains of Dacia for three days. Tunnels collapsed, rivers changed course, whole villages disappeared under landslides. The copper mines that Dacia had lived on for four hundred years were buried in a single night.
 
-К осени в Дакии начался голод. Царь Децебал Третий спустился с гор и пришёл в Ромею. Он не просил милостыни. Он предложил договор:
+By autumn Dacia was starving. King Decebalus the Third came down from the mountains to Romea. He did not beg. He offered a treaty:
 
-> *«Ромея кормит мой народ, пока мы не откопаем рудники. Дакия каждый год отдаёт Ромее десятую часть своей казны. И Дакия не поднимет меча без слова Ромула»*.
+> *«Romea feeds my people until we dig out the mines. Every year Dacia gives Romea a tenth of its treasury. And Dacia will not raise a sword without the word of Romulus»*.
 
-Так появился первый **вассал**. Летописцы записали правило, которое потом повторяли все державы: сюзерен защищает вассала, вассал платит дань и не имеет своих вассалов.
+So the first **vassal** appeared. The chroniclers wrote down a rule that every power repeated afterwards: the overlord protects the vassal, the vassal pays tribute and has no vassals of its own.
 
-Дакия платила сорок лет. Когда рудники откопали, она объявила **войну за независимость** — и Ромея впервые узнала, что вассалы не остаются вассалами навсегда.
+Dacia paid for forty years. When the mines were dug out, it declared a **war of independence**, and Romea learned for the first time that vassals do not stay vassals forever.
 
-### Глава 4. Великий шторм и первый пакт (~250)
+### Chapter 4. The Great storm and the first pact (~250)
 
-Карфаген разбогател на караванах, а потом захотел и море. Его флот вышел к берегам Ромеи. Ромул Тридцать Первый собрал ополчение, но кораблей у Ромеи почти не было.
+Carthage grew rich on its caravans, and then it wanted the sea as well. Its fleet sailed to the coasts of Romea. Romulus the Thirty-First raised a militia, but Romea had almost no ships.
 
-Флот Карфагена встал у мыса в виду башни. Ночью пришёл **Великий шторм**. Старые моряки говорили, что такого не было со дня, когда море забрало гавани Талассии. К утру от флота остались обломки на песке.
+The Carthaginian fleet anchored off a cape within sight of the tower. In the night a **Great storm** came. Old sailors said there had been nothing like it since the day the sea took the harbours of Thalassia. By morning the fleet was wreckage on the sand.
 
-Ромея могла добить Карфаген. Но Ромул поступил иначе. Он пригласил послов к Монолиту и положил перед ними табличку:
+Romea could have finished Carthage. But Romulus did otherwise. He invited the envoys to the Monolith and laid a tablet before them:
 
-> *«Ни Ромея, ни Карфаген не поднимут меча друг на друга семь лет. Кто нарушит, тот разрывает слово PAX».*
+> *«Neither Romea nor Carthage will raise a sword against the other for seven years. Whoever breaks this breaks the word PAX».*
 
-Это был **Договор у Монолита**, первый **пакт о ненападении**. Обе державы заплатили в казну Форума по сто золотых, чтобы помнить цену слова. Когда через семь лет пакт истёк, его продлили. Потом ещё раз.
+This was the **Treaty at the Monolith**, the first **non-aggression pact**. Both powers paid a hundred gold into the treasury of the Forum, to remember the price of their word. When the pact expired after seven years, it was renewed. And then again.
 
-> **Летописец:** В нашей летописи дата шторма спорная. В «Летописи Монолита» он стоит в другом году (см. «Катаклизмы»). Мы записываем так, как помнит Форум.
+> **Chronicler:** The date of the storm is disputed in our chronicle. In the «Chronicle of the Monolith» it stands in a different year (see «Cataclysms»). We write it as the Forum remembers it.
 
-### Глава 5. Песок, из которого вышла Орда (375)
+### Chapter 5. The sand the Horde came out of (375)
 
-Летом 375 года на юге поднялась **песчаная буря**. Она шла неделю и закрыла солнце над половиной мира. Когда песок осел, из него вышла **Великая Степная Орда** — не кочевье, а армия. Сто тысяч всадников.
+In the summer of 375 a **sandstorm** rose in the south. It lasted a week and hid the sun over half the world. When the sand settled, the **Great Steppe Horde** came out of it: not a nomad camp, but an army. A hundred thousand riders.
 
-Орда шла не за золотом. Её шаманы сказали ханам, что в башне на 0, 0 спрятано сердце мира и тот, кто им владеет, будет править всеми землями.
+The Horde did not come for gold. Its shamans had told the khans that the heart of the world was hidden in the tower at 0, 0, and whoever held it would rule all lands.
 
-Ромея не успела собрать войско. Орда дошла до самого Монолита. У входа её встретили **семь Стражей башни** — железные големы Ойры. Шесть устояли. Седьмой, тот, что стоял ближе всех к воротам, принял на себя удар тарана и рассыпался на куски.
+Romea had no time to gather an army. The Horde reached the Monolith itself. At the entrance it was met by the **seven Guardians of the tower**, the iron golems of Oira. Six stood firm. The seventh, the one closest to the gates, took the blow of a battering ram and shattered to pieces.
 
-Это был **второй павший Страж** (первый пал ещё в Год Пепла). Орда так и не вошла в башню. Голем упал, но ворота остались целы, и ханы увидели, как под ударами их таранов на камне светится слово **PAX**. Они повернули коней.
+This was the **second fallen Guardian** (the first had fallen back in the Year of Ash). The Horde never entered the tower. The golem fell, but the gates held, and the khans saw the word **PAX** glowing on the stone under the blows of their rams. They turned their horses.
 
-С тех пор степняки говорят: «Башню нельзя взять. Её можно только ждать».
-
----
-
-# Часть II. Век стен (380–1450)
-
-### Глава 6. Стены вокруг стен
-
-После набега Ромул Сорок Восьмой приказал окружить Ромею стенами. Потом вторым кольцом. Потом третьим. Каждое поколение добавляло своё кольцо, и Ромея стала похожа на срез дерева: в центре башня, вокруг — годовые кольца стен.
-
-Весь мир строил так же. Германские племена объединились в королевства и рубили крепости в лесах. Галльские друиды строили святилища на холмах. Карфаген окружил порты башнями. Каждый город стал **городом с границей**: внутри — свои, снаружи — чужие.
-
-> **Летописец:** Тогда люди научились главному правилу, которое живёт и сейчас: своя земля защищает, чужая — нет. Кто строит без стен, тот строит для соседа.
-
-### Глава 7. Северное Царство (~900)
-
-На далёком севере, где снег не тает летом, жили беглецы со всего мира: германцы, проигравшие свои войны, дакийцы, ушедшие от дани, степняки, отставшие от Орды. Они научились жить во льдах, ловить рыбу под панцирем моря и строить дома из снега и камня.
-
-Около 900 года их вожди собрались у ледяного озера и выбрали первого конунга. Так возникло **Северное Царство**. Оно не помнило Предтеч, потому что у него не было общих предков. Зато оно лучше всех знало зиму.
-
-### Глава 8. Метель у стен (1241)
-
-В 1241 году Орда вернулась. Теперь у неё были осадные башни, трофейные машины и союз со Скифией. Она обошла горы Дакии и к ноябрю встала под стенами Ромеи.
-
-Ромул Сто Двенадцатый готовился к долгой осаде. Но осады не было. В первую же ночь пришла **метель**. Она шла сорок дней — столько же, сколько строили башню. Степные кони падали в снег, юрты рвало ветром, костры не горели. Защитники сидели в тепле за тремя кольцами стен, а войско Орды замерзало в чистом поле.
-
-На сорок первый день Орда ушла. Из ста тысяч вернулась треть.
-
-С тех пор во всех державах помнят правило **«зимней кампании»**: зимой воевать на чужой земле — значит воевать с самой зимой. Северное Царство знало это давно. Теперь узнали все.
-
-### Глава 9. Летописцы и черепки
-
-В Век стен Ромея открыла **Дом Летописи** при Форуме. Туда несли всё, что находили в руинах: черепки Ур-Кадима, обломки меди Каэр-Тала, ракушки из храмов Талассии. Летописцы складывали их, как мозаику, и по кусочку восстанавливали «Летопись Предтеч».
-
-За полную коллекцию черепков одной цивилизации Сенат давал звание **Летописца** и право входить в зал табличек в башне. За тысячу лет звание получили всего девять человек.
+Since then the steppe people say: «The tower cannot be taken. It can only be waited for».
 
 ---
 
-# Часть III. Ренессанс (1450–1650)
+# Part II. The Age of Walls (380–1450)
 
-### Глава 10. Учёные у табличек
+### Chapter 6. Walls around walls
 
-В середине XV века в Ромее и Элладе появились люди нового сорта. Они не были ни жрецами, ни воинами. Они просто хотели понять, как работали машины Предтеч.
+After the raid, Romulus the Forty-Eighth ordered Romea to be ringed with walls. Then with a second ring. Then a third. Every generation added its own ring, and Romea came to look like a cut tree trunk: the tower at the centre and the rings of walls around it like growth rings.
 
-Они прочли таблички Каэр-Тала и заново открыли **редстоун**: красную пыль, которая передаёт силу, как кровь по жилам. Они собрали первые поршни, первые часы, первые механические двери. Они нашли в архивах Эллады обрывки **чертежей кораблей Талассии** — кораблей, которые ходили против ветра.
+The whole world built the same way. The Germanic tribes united into kingdoms and built forts in the forests. The Gallic druids built sanctuaries on the hills. Carthage surrounded its ports with towers. Every city became a **city with a border**: inside are your own, outside are strangers.
 
-> **Летописец:** Пятьсот лет мы строили стены, чтобы ничего не менялось. За пятьдесят лет учёные изменили всё.
+> **Chronicler:** That is when people learned the main rule, which lives on today: your own land protects you, foreign land does not. Whoever builds without walls builds for the neighbour.
 
-### Глава 11. Звёздный дождь (1500)
+### Chapter 7. The Northern Kingdom (~900)
 
-В ночь на летнее солнцестояние 1500 года небо над PaxVanila загорелось. Падали звёзды — сотни, тысячи. Некоторые сгорали в небе, некоторые долетали до земли и оставляли дымящиеся воронки.
+Far in the north, where the snow does not melt in summer, lived refugees from all over the world: Germanic tribesmen who had lost their wars, Dacians who had fled the tribute, steppe riders who had fallen behind the Horde. They learned to live in the ice, to fish under the frozen sea and to build houses of snow and stone.
 
-Пастух из-под Ромеи нашёл в одной из воронок камень размером с ладонь. Он был **тёплый**, а внутри что-то **светилось**. Пастух принёс его в Дом Летописи. Летописцы назвали находку **Звёздным осколком**.
+Around 900 their chiefs gathered at a frozen lake and chose the first king. So the **Northern Kingdom** was born. It did not remember the Forerunners, because its people had no common ancestors. But it knew winter better than anyone.
 
-Осколок не плавился в горне и не колол алмазной киркой. Но когда его поднесли к Монолиту, случилось странное: щит, которым Ромул закрыл **шестую строку**, на мгновение стал горячим.
+### Chapter 8. The blizzard at the walls (1241)
 
-Звёздные осколки находят и сейчас — после каждого звёздного дождя и каждой кометы. Никто не знает, что они такое. Учёные Поздних эпох скажут, что звёзды тоже помнят.
+In 1241 the Horde returned. Now it had siege towers, captured war machines and an alliance with Scythia. It went around the mountains of Dacia and by November stood beneath the walls of Romea.
 
-### Глава 12. «Аврора Пакс» (1503)
+Romulus the Hundred and Twelfth prepared for a long siege. But there was no siege. On the very first night a **blizzard** came. It lasted forty days, as long as the tower had taken to build. The steppe horses fell in the snow, the yurts were torn by the wind, the fires would not burn. The defenders sat in the warmth behind three rings of walls, while the army of the Horde froze in the open field.
 
-Через три года после звёздного дождя на верфях Ромеи спустили на воду галеон невиданной величины. Его построили по чертежам Талассии: три мачты, медная обшивка, редстоуновые помпы в трюме. В киль, по приказу Ромула, вложили Звёздный осколок — «чтобы корабль всегда находил дорогу домой».
+On the forty-first day the Horde left. Of a hundred thousand, a third came home.
 
-Галеон назвали **«Аврора Пакс»**. Он стал гордостью Ромеи и флагманом её флота на двести лет.
+Since then every power remembers the rule of the **«winter campaign»**: to fight on foreign land in winter is to fight winter itself. The Northern Kingdom had known it for a long time. Now everyone knew.
 
-### Глава 13. Война двух Ромулов (1529)
+### Chapter 9. Chroniclers and potsherds
 
-Ренессанс подарил миру не только корабли и часы, но и **пушки**. Порох знали и раньше, но только теперь научились отливать медные стволы, которые бросали ядро на полкилометра.
+In the Age of Walls, Romea opened the **House of the Chronicle** by the Forum. People brought everything they found in the ruins: potsherds of Ur-Kadim, scraps of Caer-Tal copper, shells from the temples of Thalassia. The chroniclers put them together like a mosaic and, piece by piece, restored the «Chronicle of the Forerunners».
 
-В 1529 году Ромул Сто Сорок Третий умер, не назвав преемника. Сенат раскололся. Одна половина избрала полководца Луция, другая — богатого магистра Гая, которому Карфаген дал денег и пушки. Оба приняли имя **Ромул**. Летописцы до сих пор пишут об этом времени: «когда Ромулов было двое».
-
-Гай-Ромул осадил Форум. Его пушки били по стенам девять дней. На десятый ядро, пущенное мимо стены, попало в одного из Стражей башни. Голем Ойры, простоявший у входа почти три тысячи лет, рухнул. Это был **третий павший Страж**.
-
-Увидев это, пушкари Гая бросили фитили. Солдаты обеих армий вышли на Форум без оружия. Гай отрёкся.
-
-Сенат принял закон, который не отменён до сих пор:
-
-> **«У башни не стреляют».** Ни пушка, ни заряд, ни стрела не должны лететь в сторону Монолита. Земля вокруг башни — ничья. Там нельзя строить крепостей и нельзя делить её между владельцами.
-
-> **Летописец:** Поэтому у нашей башни нет ни одного частного дома, а всякий, кто приходит в мир, начинает у её подножия под её защитой.
+For a full collection of the potsherds of one civilisation, the Senate granted the title of **Chronicler** and the right to enter the hall of tablets in the tower. In a thousand years only nine people earned it.
 
 ---
 
-# Часть IV. Эпоха парусов (1650–1850)
+# Part III. The Renaissance (1450–1650)
 
-### Глава 14. Порты на всех берегах
+### Chapter 10. Scholars at the tablets
 
-Корабли по чертежам Талассии ходили куда угодно. Державы бросились за море. Карфаген ставил **порты** на каждом удобном берегу, Эллада — на каждом острове, Ромея — там, где летописи упоминали руины Предтеч.
+In the middle of the fifteenth century a new kind of people appeared in Romea and Hellas. They were neither priests nor warriors. They simply wanted to understand how the machines of the Forerunners worked.
 
-Порты стали сердцем мира. Через них шли караваны, в них нанимали команды, из них уходили экспедиции к затонувшим храмам. Если у державы не было порта, у неё не было будущего.
+They read the tablets of Caer-Tal and rediscovered **redstone**: a red dust that carries power like blood through veins. They built the first pistons, the first clocks, the first mechanical doors. In the archives of Hellas they found fragments of **the ship plans of Thalassia**, ships that sailed against the wind.
 
-### Глава 15. Туман Безымянных (1700)
+> **Chronicler:** For five hundred years we built walls so that nothing would change. In fifty years the scholars changed everything.
 
-Весной 1700 года над Западным морем поднялся **туман**. Он не рассеивался ни днём, ни ночью. Компасы в нём крутились, звёзд не было видно, а моряки, которые возвращались, рассказывали о силуэтах на палубах чужих кораблей — высоких, тёмных, с глазами, которые светились фиолетовым.
+### Chapter 11. The Star Shower (1500)
 
-Их назвали **«Те, Кого Нет»**.
+On the night of the summer solstice in 1500 the sky over PaxVanila caught fire. Stars fell, hundreds, thousands of them. Some burned up in the sky, some reached the ground and left smoking craters.
 
-Карфагенский флот с годовым грузом серебра вошёл в туман и не вышел. Эллинская эскадра ушла искать его и тоже пропала. Последней в туман вошла **«Аврора Пакс»**. Её капитан поклялся Ромулу, что Звёздный осколок в киле выведет корабль домой.
+A shepherd from near Romea found a stone the size of a palm in one of the craters. It was **warm**, and something inside it **glowed**. The shepherd brought it to the House of the Chronicle. The chroniclers named the find a **Star Shard**.
 
-«Аврора Пакс» не вернулась.
+The shard did not melt in the forge and could not be split with a diamond pickaxe. But when it was brought to the Monolith, something strange happened: the shield with which Romulus had covered the **sixth line** grew hot for a moment.
 
-Через полгода туман рассеялся. На берега выносило обломки, а среди них — странные пластинки: ни имени, ни даты, только знак из квадратов, нуля и единицы. Если поднести такую к уху, слышно чужое имя, которое невозможно прочесть. Их называют **Безымянными обломками**, и их находят после каждого тумана до сих пор.
+Star Shards are still found today, after every star shower and every comet. No one knows what they are. The scholars of the Late Ages will say that the stars remember too.
 
-> **Летописец:** Ромейские моряки верят, что «Аврора Пакс» ещё плывёт где-то по ту сторону тумана. Когда через четыреста лет Ромея построила корабль, который полетел к Луне, его назвали «Аврора Пакс II». Чтобы первая знала: её ждут.
+### Chapter 12. The «Aurora Pax» (1503)
 
-### Глава 16. Острова, которые сказали «нет» (1781)
+Three years after the Star Shower, a galleon of unheard-of size was launched from the shipyards of Romea. It was built to the plans of Thalassia: three masts, copper plating, redstone pumps in the hold. By order of Romulus, a Star Shard was set into its keel, «so that the ship always finds its way home».
 
-Колонии на дальних островах сто лет платили дань Элладе и Карфагену. Они жили далеко, видели своих правителей раз в десять лет и всё меньше понимали, за что платят.
+The galleon was named the **«Aurora Pax»**. It became the pride of Romea and the flagship of its fleet for two hundred years.
 
-В 1781 году губернаторы шести островов собрались в портовом городе Новая Гавань и объявили, что больше не вассалы. Метрополии послали флоты. Так началась первая в мире **война за независимость** на море.
+### Chapter 13. The War of the Two Romuli (1529)
 
-Война шла шесть лет. Острова победили не потому, что были сильнее, а потому, что Ромея отказалась помогать метрополиям: у неё был пакт с одной из колоний, а Ромул держал пакты свято.
+The Renaissance gave the world not only ships and clocks, but also **cannons**. Gunpowder had been known before, but only now did people learn to cast bronze barrels that threw a ball half a kilometre.
 
-Так родился **Островной Союз** — республика мореходов, первая держава, у которой не было древних предков. Позже она станет верным союзником Ромеи в Союзе PAX.
+In 1529 Romulus the Hundred and Forty-Third died without naming a successor. The Senate split. One half elected the general Lucius, the other the rich magistrate Gaius, to whom Carthage had given money and cannons. Both took the name **Romulus**. The chroniclers still write of that time: «when there were two Romuli».
 
----
+Gaius-Romulus besieged the Forum. His cannons pounded the walls for nine days. On the tenth, a ball that missed the wall struck one of the Guardians of the tower. The golem of Oira, which had stood at the entrance for almost three thousand years, collapsed. This was the **third fallen Guardian**.
 
-# Часть V. Век стали (1850–1962)
+When they saw it, Gaius's gunners dropped their fuses. The soldiers of both armies walked onto the Forum unarmed. Gaius abdicated.
 
-### Глава 17. Пар и железо
+The Senate passed a law that has never been repealed:
 
-В середине XIX века в Дакии наконец откопали древние медные рудники Каэр-Тала, а с ними — чертежи **паровых машин**. Медь, редстоун и уголь дали миру то, чего не знали даже Предтечи: железные дороги, паровые корабли, заводы.
+> **«No shooting at the tower».** No cannon, no charge, no arrow may fly towards the Monolith. The land around the tower belongs to no one. No fortresses may be built there, and it may not be divided among owners.
 
-Державы, у которых были уголь и железо, разбогатели. Германские королевства, сидевшие на самых богатых рудах, в 1871 году объединились в **Германский Рейх**. Старый лес наконец построил свой каменный город — и тот вышел больше всех.
-
-### Глава 18. Великая война (1914)
-
-В 1914 году мир разделился на два союза, и союзы не договорились. Началась **Первая Великая война**: Рейх, Скифия и Орда против Ромеи, Галлии, Карфагена и Эллады.
-
-Это была первая война, в которой воевали все. Каждый город стал крепостью, каждая нация — армией. Бои шли не всё время: днём солдаты сидели в окопах, а по вечерам начинались атаки, и штабы обеих сторон договаривались о часах, когда можно стрелять, — чтобы хоронить убитых.
-
-Летом над линией фронта прошла **гроза**, какой не видели с времён Ромула. Молнии били в окопы, в пушки, в колючую проволоку. Солдаты обеих сторон потом рассказывали, что видели, как одна молния ударила далеко на западе — прямо в Монолит.
-
-Через неделю летописцы Форума записали: **на башне появилась первая трещина**. Тонкая, как волос, в шестом ряду камней. Ровно на уровне шестой строки.
-
-В тот же год у стен башни пал **четвёртый Страж** — его разорвало снарядом дальнобойной пушки, которая била по Ромее с расстояния, с которого не видно даже башни.
-
-> **Летописец:** Закон «У башни не стреляют» писали для пушек, которые бьют на полкилометра. Новые пушки били на пятьдесят. Законы всегда отстают от оружия.
-
-### Глава 19. Метель, которая сломала Рейх (1942)
-
-Война кончилась, но мир не наступил. Через двадцать пять лет Рейх, которому было мало земли, пошёл снова. **Вторая Великая война** началась с того, что Рейх двинулся на север — к железу и углю **Северного Царства**.
-
-Наступление шло быстро до самой зимы. А в декабре 1942 года пришла **метель**. Северяне знали её. Рейх — нет. Машины вмерзали в снег, двигатели не заводились, солдаты в летних шинелях замерзали на постах. Северное Царство отступало в леса и ждало. Как когда-то Ромея ждала Орду за своими стенами.
-
-Летописцы Форума записали: «История повторяется не потому, что люди глупы. А потому, что зима всегда на стороне того, кто дома».
-
-В 1944 году бомба, сброшенная с воздуха, взорвалась в сотне шагов от башни. Пал **пятый Страж**. Вторая трещина прошла по камню рядом с первой.
-
-### Глава 20. Курултай победителей (1947)
-
-Рейх проиграл. Но победители не стали друзьями.
-
-Ромея, Карфаген, Галлия, Эллада и Островной Союз заключили союз у Монолита и назвали его словом над входом — **PAX**. Восточные державы — Орда, Скифия, Северное Царство и Дакия, которая не простила Ромее старую дань, — собрались в степи на **Курултай победителей**. Разбитый Рейх оказался на их земле и стал их вассалом, а потом союзником.
-
-Так мир разделился на две половины: **Союз PAX** на западе и будущий **Степной Пакт** на востоке. Между ними — ничья полоса и молчащие пушки.
-
-### Глава 21. Шестой Страж (1962)
-
-Осенью 1962 года на ничьей полосе у Монолита случилась перестрелка. Никто так и не узнал, кто выстрелил первым. Снаряд Пакта разорвался у стен башни, и пал **шестой Страж** — последний из тех, что стояли снаружи.
-
-У входа в Монолит остался только пустой постамент. А седьмой голем Ойры стоял глубоко под башней, перед дверью в зал Печати, и ждал. О нём ещё никто не знал.
-
-Ромул Двести Шестой приказал не ставить на пустой постамент нового голема. «Пусть все видят, что стражей больше нет, — сказал он. — Может быть, это остановит их».
-
-Это не остановило. Началась **Холодная война**. Что было дальше, записал уже не летописец Форума, а тот, кто проснулся под башней. *(Продолжение — [Поздние эпохи](поздние_эпохи.md), Часть I.)*
+> **Chronicler:** That is why there is not a single private house by our tower, and everyone who comes into the world starts at its foot, under its protection.
 
 ---
 
-## Шесть павших Стражей
+# Part IV. The Age of Sail (1650–1850)
 
-| № | Когда | Как |
+### Chapter 14. Ports on every coast
+
+Ships built to the plans of Thalassia could sail anywhere. The powers rushed overseas. Carthage set up **ports** on every convenient shore, Hellas on every island, Romea wherever the chronicles mentioned ruins of the Forerunners.
+
+The ports became the heart of the world. Caravans passed through them, crews were hired in them, expeditions to sunken temples set out from them. A power without a port had no future.
+
+### Chapter 15. The Fog of the Nameless (1700)
+
+In the spring of 1700 a **fog** rose over the Western Sea. It did not lift by day or by night. Compasses spun in it, the stars could not be seen, and the sailors who came back told of silhouettes on the decks of strange ships: tall, dark, with eyes that glowed purple.
+
+They were named **«Those Who Are Not»**.
+
+A Carthaginian fleet carrying a year's worth of silver sailed into the fog and never came out. A Hellenic squadron went to look for it and vanished too. The last to enter the fog was the **«Aurora Pax»**. Her captain swore to Romulus that the Star Shard in the keel would lead the ship home.
+
+The «Aurora Pax» did not return.
+
+Half a year later the fog lifted. Wreckage washed up on the shores, and among it were strange plates: no name, no date, only a sign made of squares, a zero and a one. Hold one to your ear and you hear a foreign name that cannot be read. They are called **Nameless Wreckage**, and they are still found after every fog.
+
+> **Chronicler:** Romean sailors believe the «Aurora Pax» is still sailing somewhere on the other side of the fog. When, four hundred years later, Romea built a ship that flew to the Moon, it was named the «Aurora Pax II». So that the first would know she is still awaited.
+
+### Chapter 16. The islands that said «no» (1781)
+
+For a hundred years the colonies on the far islands paid tribute to Hellas and Carthage. They lived far away, saw their rulers once in ten years and understood less and less what they were paying for.
+
+In 1781 the governors of six islands met in the port town of New Haven and declared that they were vassals no more. The mother countries sent fleets. So began the world's first **war of independence** at sea.
+
+The war lasted six years. The islands won not because they were stronger, but because Romea refused to help the mother countries: it had a pact with one of the colonies, and Romulus held his pacts sacred.
+
+So the **Island Union** was born: a republic of seafarers, the first power with no ancient ancestors. Later it would become Romea's loyal ally in the PAX Union.
+
+---
+
+# Part V. The Age of Steel (1850–1962)
+
+### Chapter 17. Steam and iron
+
+In the middle of the nineteenth century Dacia finally dug out the ancient copper mines of Caer-Tal, and with them the plans of **steam engines**. Copper, redstone and coal gave the world something even the Forerunners had not known: railways, steamships, factories.
+
+The powers that had coal and iron grew rich. The Germanic kingdoms, sitting on the richest ores, united in 1871 into the **German Reich**. The old forest finally built its own stone city, and it turned out bigger than anyone's.
+
+### Chapter 18. The Great War (1914)
+
+In 1914 the world split into two alliances, and the alliances failed to agree. The **First Great War** began: the Reich, Scythia and the Horde against Romea, Gallia, Carthage and Hellas.
+
+It was the first war in which everyone fought. Every city became a fortress, every nation an army. The fighting did not go on all the time: by day the soldiers sat in the trenches, in the evenings the attacks began, and the staffs of both sides agreed on the hours when shooting was allowed, so that the dead could be buried.
+
+In summer a **thunderstorm** passed over the front line, such as had not been seen since the days of Romulus. Lightning struck the trenches, the cannons, the barbed wire. Soldiers of both sides later said they saw one bolt strike far in the west, right into the Monolith.
+
+A week later the chroniclers of the Forum wrote: **the first crack has appeared on the tower**. Thin as a hair, in the sixth row of stones. Exactly at the level of the sixth line.
+
+In the same year the **fourth Guardian** fell at the walls of the tower. It was torn apart by a shell from a long-range gun that was firing at Romea from so far away that the tower could not even be seen.
+
+> **Chronicler:** The law «No shooting at the tower» was written for cannons that fire half a kilometre. The new guns fired fifty. Laws always lag behind weapons.
+
+### Chapter 19. The blizzard that broke the Reich (1942)
+
+The war ended, but peace did not come. Twenty-five years later the Reich, which had too little land, marched again. The **Second Great War** began with the Reich moving north, towards the iron and coal of the **Northern Kingdom**.
+
+The offensive went fast until winter. And in December 1942 a **blizzard** came. The northerners knew it. The Reich did not. Vehicles froze into the snow, engines would not start, soldiers in summer greatcoats froze at their posts. The Northern Kingdom retreated into the forests and waited. As Romea had once waited for the Horde behind its walls.
+
+The chroniclers of the Forum wrote: «History repeats itself not because people are foolish. It is because winter is always on the side of the one who is at home».
+
+In 1944 a bomb dropped from the air exploded a hundred paces from the tower. The **fifth Guardian** fell. A second crack ran across the stone next to the first.
+
+### Chapter 20. The Kurultai of the Victors (1947)
+
+The Reich lost. But the victors did not become friends.
+
+Romea, Carthage, Gallia, Hellas and the Island Union formed an alliance at the Monolith and named it after the word above the entrance: **PAX**. The eastern powers, the Horde, Scythia, the Northern Kingdom and Dacia, which had never forgiven Romea the old tribute, gathered in the steppe for the **Kurultai of the Victors**. The defeated Reich lay on their land and became their vassal, and later their ally.
+
+So the world split into two halves: the **PAX Union** in the west and the future **Steppe Pact** in the east. Between them lay a no man's land and silent guns.
+
+### Chapter 21. The sixth Guardian (1962)
+
+In the autumn of 1962 a firefight broke out in the no man's land by the Monolith. No one ever learned who fired first. A Pact shell burst at the walls of the tower, and the **sixth Guardian** fell, the last of those who stood outside.
+
+Only an empty pedestal remained at the entrance to the Monolith. And the seventh golem of Oira stood deep beneath the tower, before the door to the Hall of the Seal, and waited. No one knew about it yet.
+
+Romulus the Two Hundred and Sixth ordered that no new golem be placed on the empty pedestal. «Let everyone see that there are no more guardians», he said. «Perhaps that will stop them».
+
+It did not. The **Cold War** began. What came next was written not by the chronicler of the Forum, but by the one who woke beneath the tower. *(Continued in [The Late Ages](поздние_эпохи.md), Part I.)*
+
+---
+
+## The six fallen Guardians
+
+| No. | When | How |
 |---|---|---|
-| 1 | Год Пепла (~1200 д.Р.) | В битве у врат, когда запечатывали Монолит |
-| 2 | 375 | Таран Великой Степной Орды |
-| 3 | 1529 | Ядро в Войне двух Ромулов |
-| 4 | 1914 | Снаряд дальнобойной пушки в Первую Великую войну |
-| 5 | 1944 | Бомба с воздуха во Вторую Великую войну |
-| 6 | 1962 | Снаряд Пакта на ничьей полосе |
-| 7 | — | Стоит под башней перед залом Печати. Станет Стражем-7 |
+| 1 | The Year of Ash (~1200 B.R.) | In the battle at the gates, when the Monolith was sealed |
+| 2 | 375 | The battering ram of the Great Steppe Horde |
+| 3 | 1529 | A cannonball in the War of the Two Romuli |
+| 4 | 1914 | A long-range gun shell in the First Great War |
+| 5 | 1944 | A bomb from the air in the Second Great War |
+| 6 | 1962 | A Pact shell in the no man's land |
+| 7 | — | Stands beneath the tower before the Hall of the Seal. Will become Guardian-7 |
 
 ---
 
-## Державы средних эпох
+## Powers of the Middle Ages
 
-| Держава | Откуда | Кем станет |
+| Power | Origin | What it will become |
 |---|---|---|
-| **Священная Ромейская Республика** | Город у башни, год 0 | Ведёт Союз PAX |
-| **Карфагенская Торговая Держава** | Купцы Ур-Кадима | Союз PAX, потом корпорация «Карт-Хадашт» |
-| **Эллинская Морская Лига → Эллинская Республика** | Моряки Талассии | Союз PAX, «Талассо-Нет» |
-| **Дакийское Царство** | Горцы медных рудников | Степной Пакт, «Сармизегетуза Майнинг» |
-| **Германские королевства → Германский Рейх (1871)** | Лесные племена | Степной Пакт, «Тевтобург Индастриз» |
-| **Галльская Конфедерация** | Друиды | Союз PAX, «Друидикон» |
-| **Великая Степная Орда** | Кочевники из песчаной бури | Степной Пакт, «Нео-Орда» |
-| **Скифское Царство** | Курганные цари | Степной Пакт, «Курган» |
-| **Северное Царство (~900)** | Беглецы всех народов во льдах | Степной Пакт |
-| **Островной Союз (1781)** | Колонии, отбившиеся от метрополий | Союз PAX |
+| **Holy Romean Republic** | The city by the tower, year 0 | Leads the PAX Union |
+| **Carthaginian Trading Power** | Merchants of Ur-Kadim | PAX Union, later the corporation «Kart-Hadasht» |
+| **Hellenic Sea League → Hellenic Republic** | Sailors of Thalassia | PAX Union, «Thalasso-Net» |
+| **Kingdom of Dacia** | Highlanders of the copper mines | Steppe Pact, «Sarmizegetusa Mining» |
+| **Germanic kingdoms → German Reich (1871)** | Forest tribes | Steppe Pact, «Teutoburg Industries» |
+| **Gallic Confederation** | Druids | PAX Union, «Druidicon» |
+| **Great Steppe Horde** | Nomads out of the sandstorm | Steppe Pact, «Neo-Horde» |
+| **Scythian Kingdom** | Kurgan kings | Steppe Pact, «Kurgan» |
+| **Northern Kingdom (~900)** | Refugees of all peoples in the ice | Steppe Pact |
+| **Island Union (1781)** | Colonies that broke free of their mother countries | PAX Union |
 
 ---
 
-## Как это связано с сервером
+## How this connects to the server
 
-Почти каждая механика PaxVanila — это обычай, который родился в средних эпохах:
+Almost every PaxVanila mechanic is a custom born in the Middle Ages:
 
-| Механика | Откуда в летописи |
+| Mechanic | Where it comes from in the chronicle |
 |---|---|
-| **Башня новичков и защита спавна** (приваты не ближе 80 блоков, новички 48 ч под защитой) | Закон «У башни не стреляют» (1529) |
-| **Ивенты недель: порты и караваны** (`/caravan`) | Золотой Караван Карфагена и Эпоха парусов |
-| **Города Towny и личные приваты** | Век стен: «своя земля защищает, чужая — нет» |
-| **Пакты о ненападении** (`/dip pact`, по 100$ с каждой нации) | Договор у Монолита (251) |
-| **Вассалы и дань, война за независимость** (`/dip vassalize`) | Дакия после землетрясения (117), Островной Союз (1781) |
-| **Великая война: бои только в прайм-тайм** (`/paxwar`) | Часы стрельбы в окопах Первой Великой войны |
-| **Осадные орудия** (`/siege`) | Пушки Ренессанса и Война двух Ромулов |
-| **Зима: Замедление на чужой земле** (`/season`) | Метель 1241 года и метель 1942 года |
-| **Фокусы наций** (`/focus`) | Ренессанс и Век стали: державы выбирают путь — промышленность, армия или торговля |
-| **Звёздные осколки** из метеоритов и комет | Звёздный дождь 1500 года |
-| **Безымянные обломки** после тумана | Туман Безымянных 1700 года |
-| **«Летописец»** за коллекцию черепков | Дом Летописи при Форуме (идея из Эпохи Предтеч) |
+| **The newcomers' tower and spawn protection** (claims no closer than 80 blocks, newcomers protected for 48 h) | The law «No shooting at the tower» (1529) |
+| **Weekly events: ports and caravans** (`/caravan`) | The Golden Caravan of Carthage and the Age of Sail |
+| **Towny towns and personal claims** | The Age of Walls: «your own land protects you, foreign land does not» |
+| **Non-aggression pacts** (`/dip pact`, 100$ from each nation) | The Treaty at the Monolith (251) |
+| **Vassals and tribute, wars of independence** (`/dip vassalize`) | Dacia after the earthquake (117), the Island Union (1781) |
+| **The Great War: battles only in prime time** (`/paxwar`) | The shooting hours in the trenches of the First Great War |
+| **Siege weapons** (`/siege`) | The cannons of the Renaissance and the War of the Two Romuli |
+| **Winter: Slowness on foreign land** (`/season`) | The blizzard of 1241 and the blizzard of 1942 |
+| **National focuses** (`/focus`) | The Renaissance and the Age of Steel: powers choose a path, industry, army or trade |
+| **Star Shards** from meteors and comets | The Star Shower of 1500 |
+| **Nameless Wreckage** after the fog | The Fog of the Nameless of 1700 |
+| **«Chronicler»** for a collection of potsherds | The House of the Chronicle by the Forum (an idea from the Age of the Forerunners) |
 
 ---
 
-## Открытые тайны средних эпох
+## Open mysteries of the Middle Ages
 
-1. **Где «Аврора Пакс»?** Галеон со Звёздным осколком в киле вошёл в туман в 1700 году. Ивент: после Тумана Безымянных в океане появляется корабль-призрак с её именем.
-2. **Что светится в Звёздном осколке?** Он греет щит на шестой строке. Сколько осколков нужно, чтобы щит стал горячим навсегда?
-3. **Трещины в шестом ряду.** Каждая Великая война добавляет трещину. Сколько их выдержит башня? Можно сделать так, что после Великой войны на сервере на модели Монолита появляется трещина.
-4. **Куда делось серебро Карфагена?** Годовой груз серебра ушёл в туман вместе с флотом. Карты сокровищ в сундуках затонувших кораблей могут вести к нему.
-5. **Пустой постамент.** С 1962 года у входа в Монолит стоит пустой постамент. В башне новичков его можно поставить у входа — как знак того, что седьмой Страж ещё не проснулся.
+1. **Where is the «Aurora Pax»?** The galleon with a Star Shard in its keel entered the fog in 1700. Event idea: after a Fog of the Nameless, a ghost ship bearing her name appears in the ocean.
+2. **What glows inside a Star Shard?** It warms the shield on the sixth line. How many shards would it take to make the shield hot forever?
+3. **The cracks in the sixth row.** Every Great War adds a crack. How many can the tower withstand? One idea: after a Great War on the server, a crack appears on the Monolith model.
+4. **Where did the silver of Carthage go?** A year's cargo of silver went into the fog with the fleet. Treasure maps in the chests of sunken ships could lead to it.
+5. **The empty pedestal.** Since 1962 an empty pedestal has stood at the entrance to the Monolith. It could be placed at the entrance of the newcomers' tower, as a sign that the seventh Guardian has not yet woken.
 
 ---
 
-## Заметка для авторов лора: даты
+## Note for lore authors: dates
 
-В «Эпохе Предтеч» и «Поздних эпохах» счёт лет идёт от Ромула: год 0 — высадка, Холодная война — 1962 год. В таблице [катаклизмов](катаклизмы.md) ранние события записаны «до н.э.», и Ромул там стоит в 753 году до н.э., а Год Пепла — в 1200 году до н.э. (в «Эпохе Предтеч» Год Пепла — около 1200 д.Р.). В этой летописи все даты после Ромула совпадают с таблицей катаклизмов (117, 375, 1241, 1500, 1700, 1914, 1942, 1962), а шторм, потопивший флот Карфагена, стоит около 250 года от Ромула. Если захотите сделать даты везде одинаковыми, проще всего в таблице катаклизмов заменить «до н.э.» на «д.Р.».
+In «The Age of the Forerunners» and «The Late Ages» years are counted from Romulus: year 0 is the landing, the Cold War is 1962. In the table of [cataclysms](катаклизмы.md) the early events are written «BC», and Romulus stands there in 753 BC, with the Year of Ash in 1200 BC (in «The Age of the Forerunners» the Year of Ash is around 1200 B.R.). In this chronicle, all dates after Romulus match the cataclysm table (117, 375, 1241, 1500, 1700, 1914, 1942, 1962), and the storm that sank the Carthaginian fleet stands around the year 250 after Romulus. If you want the dates to match everywhere, the simplest fix is to replace «BC» with «B.R.» in the cataclysm table.

@@ -1,24 +1,24 @@
-# Катаклизмы в лоре PaxVanila (18.11.2026)
+# Cataclysms in the PaxVanila lore (18.11.2026)
 
-Канон для роликов «Летопись Монолита: катаклизмы» и «Карта эпох с катаклизмами». События те же, что в датапаке PaxVanila_Cataclysms (paxweather).
+The canon for the videos «Chronicle of the Monolith: cataclysms» and «Map of the ages with cataclysms». The events are the same as in the PaxVanila_Cataclysms datapack (paxweather).
 
-| Год / эпоха | Катаклизм | Что было |
+| Year / age | Cataclysm | What happened |
 |---|---|---|
-| 3152 до н.э. | Северное сияние | Первое сияние над 0,0. Под ним мастер Каэр-Тал ставит Монолит |
-| 2354 до н.э. | Великий шторм | Море забирает гавани Талассии |
-| 1835 до н.э. | Засуха | Пески Нэферу выпивают реки |
-| 1200 до н.э. | Пепельная ночь | Год Пепла. С тех пор Пепельная ночь возвращается, и Монолит трещит |
-| 753 до н.э. | Гроза | Ромул высекает PAX под грозой, и молния бьёт в Монолит |
-| 264 до н.э. | Великий шторм | Буря топит флот Карфагена |
-| 117 | Землетрясение | Горы Дакии рушат рудники |
-| 375 | Песчаная буря | Великая Степная Орда выходит из бури |
-| 1241 | Метель | Зима останавливает Орду у стен Ромеи |
-| 1500 | Звёздный дождь | Найден первый «Звёздный осколок» |
-| 1700 | Туман Безымянных | Галеоны пропадают в тумане, где ходят «Те, Кого Нет» |
-| 1914 | Гроза | Молнии над окопами Века стали |
-| 1942 | Метель | Зима ломает наступление Рейха |
-| 1962 | Землетрясение | Испытания Холодной войны трясут Монолит |
-| 2041 | Туман Безымянных | Из тумана у Монолита выходят машины |
-| 2077 | Северное сияние | Страж-7: «Сегодня небо на вашей стороне» |
+| 3152 BC | Northern lights | The first aurora over 0,0. Beneath it, the master Caer-Tal raises the Monolith |
+| 2354 BC | Great storm | The sea takes the harbours of Thalassia |
+| 1835 BC | Drought | The sands of Neferu drink the rivers dry |
+| 1200 BC | Ash night | The Year of Ash. Since then the Ash Night returns, and the Monolith cracks |
+| 753 BC | Thunderstorm | Romulus carves PAX in a storm, and lightning strikes the Monolith |
+| 264 BC | Great storm | A tempest sinks the fleet of Carthage |
+| 117 | Earthquake | The mountains of Dacia bury the mines |
+| 375 | Sandstorm | The Great Steppe Horde rides out of the storm |
+| 1241 | Blizzard | Winter stops the Horde at the walls of Romea |
+| 1500 | Star shower | The first «Star Shard» is found |
+| 1700 | Fog of the Nameless | Galleons vanish in a fog where «Those Who Are Not» walk |
+| 1914 | Thunderstorm | Lightning over the trenches of the Age of Steel |
+| 1942 | Blizzard | Winter breaks the offensive of the Reich |
+| 1962 | Earthquake | Cold War tests shake the Monolith |
+| 2041 | Fog of the Nameless | Machines walk out of the fog by the Monolith |
+| 2077 | Northern lights | Guardian-7: «Today the sky is on your side» |
 
-Шестая строка Монолита трещит в каждый катаклизм.
+The sixth line of the Monolith cracks in every cataclysm.
