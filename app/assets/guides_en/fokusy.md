@@ -77,7 +77,7 @@ The lore explains why: Romulus and the Treaty at the Monolith, the Golden Carava
 
 This is a choice made by **each player**, not by the nation. Your race and people belong to you, not to your town: if you change nations, they stay with you. Command: `/origin`.
 
-- **Race** is the blood of one of the five Forerunner civilizations. It has a strength, a weakness and a branch of three personal focuses `p1 → p2 → p3`.
+- **Race** is the blood of one of the five Forerunner civilizations, or one of the ten fantasy peoples who live in this world alongside humans. It has a strength, a weakness and a branch of three personal focuses `p1 → p2 → p3`.
 - **People** is one of the ten powers of the lore. It unlocks the personal focus `nar`, «Heir» (needs `p1`).
 - The first choice is free. You can change your race or people for 1000$, at most once every 7 days. Changing race resets `p1–p3`, changing people resets `nar`.
 - Personal focuses are paid from **your own** balance, not the treasury: `p1` 300$ and 6 hours, `p2` 600$ and 12 hours, `p3` 1200$ and 24 hours, `nar` 1000$ and 24 hours. One personal focus runs at a time, and time passes while you are offline too. Personal focuses do not block national ones.
@@ -90,6 +90,16 @@ This is a choice made by **each player**, not by the nation. Your race and peopl
 | `thalassa` | Children of the Wave (Thalassia) | Water Breathing | Weakness I in deserts and the Nether | **Currents**: Dolphin's Grace | **Depths**: Night Vision in water | **Sea Lord**: Strength I in water |
 | `caertal` | Copper Blood (Caer-Tal) | Haste I below Y=0 and above Y=100 | Mining Fatigue I in water | **Forge**: Resistance I below Y=0 | **Master**: Haste II below Y=0 | **Copper Heart**: +2 hearts |
 | `deep` | The Silent (Deep Folk) | Night Vision below Y=0 | Weakness I by day under open sky | **Quiet Step**: Speed I below Y=0 | **Stone**: Resistance I below Y=0 | **Echo**: below Y=0, foreign players within 16 blocks glow |
+| `elf` | Elves (forest folk of the sacred groves) | Speed I in forests | Weakness I below Y=0 | **Moon Eye**: Night Vision at night | **Leaf Step**: Jump Boost I in forests | **Grove Bow**: Strength I in forests |
+| `dwarf` | Dwarves (mountain smiths of Caer-Brun) | Resistance I below Y=40 | Slowness I in water | **Dark Sight**: Night Vision below Y=40 | **Hammer**: Strength I below Y=40 | **Mountain King**: +2 hearts |
+| `orc` | Orcs (clans from the sandstorm of 375) | Strength I on foreign land during a battle | Hunger I in peacetime | **Fury**: Speed I at 3 hearts or less | **Hide**: Resistance I during a battle | **Warchief**: Speed I during a battle |
+| `halfling` | Halflings (the hills around Romea) | Luck I | Weakness I during a battle | **Quiet Feet**: Speed I on your nation's land | **Larder**: +10$ a day | **Field Luck**: Luck II |
+| `ashborn` | Ashborn (touched by the Nether in the Year of Ash) | Strength I in the Nether | Weakness I in water and rain | **Ash Skin**: Fire Resistance in the Nether | **Embers**: Speed I in the Nether | **Night of Ash**: Strength I on the surface at night |
+| `dragon` | Dragon Blood (guardians of the End) | Fire Resistance while burning | Slowness I in snowy biomes | **Scales**: Resistance I above Y=100 | **Wings**: Slow Falling when falling | **Dragon Heart**: Strength I above Y=100 |
+| `goblin` | Goblins (underground markets by the Ancient City) | Speed I at night | Mining Fatigue I by day under open sky | **Fence**: +15$ a day | **Quick Fingers**: Haste I at night | **Gang**: Invisibility while sneaking at night |
+| `troll` | Trolls (mountain giants of the North) | Regeneration I at night | Slowness I by day under open sky | **Thick Hide**: Resistance I at night | **Stone Skin**: +2 hearts | **Mountain Giant**: Strength I at night |
+| `fae` | Fae (spirits of the flowering groves) | Jump Boost I | Weakness I in the Nether and below Y=0 | **Pollen**: Slow Falling when falling | **Wind**: Speed I in forests and meadows | **Grove Sleep**: Regeneration I in forests |
+| `revenant` | Revenants (shades from the Fog of the Nameless, 1700) | Resistance I at night | Weakness I by day under open sky | **Grave Chill**: Night Vision at night | **Shadow Step**: Speed I at night | **Unresting**: +2 hearts |
 
 | id | People | «Heir» focus |
 |---|---|---|

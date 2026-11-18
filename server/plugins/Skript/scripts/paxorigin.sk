@@ -2,7 +2,8 @@
 # Нужны: Skript 2.17+, skript-reflect, Towny, Vault-экономика (как у осадной лавки).
 # Использует функции paxfocus.sk: focusNationOf, focusAtHome, herIs.
 #
-# Раса — это кровь одной из пяти цивилизаций Предтеч (лор: ранние_цивилизации.md).
+# Раса: 5 родов Предтеч (лор: ранние_цивилизации.md) и 10 фэнтезийных народов мира
+# (эльфы, гномы, орки, полурослики, пепельные, драконья кровь, гоблины, тролли, фейри, неупокоенные).
 # У каждой расы есть плюс, минус и ветка из 3 личных фокусов.
 # Народ — одна из 10 держав лора. Он даёт свой личный фокус «Наследник» и бонус «Земляки»,
 # если ваш народ совпадает с наследием вашей нации (/focus heritage).
@@ -31,6 +32,9 @@
 #   deep     Безмолвные (Народ Глубин) Ночное зрение ниже Y=0 | днём под небом Слабость I
 #            p1 Тихий шаг: Скорость I ниже Y=0 | p2 Камень: Сопротивление I ниже Y=0 | p3 Эхо: ниже Y=0 чужие игроки в 16 блоках светятся
 #
+#   ... ещё 10 рас (elf, dwarf, orc, halfling, ashborn, dragon, goblin, troll, fae, revenant):
+#   полная таблица в гайды/фокусы.md и в /origin races.
+#
 # Народы (фокус nar «Наследник»): rome, carthage, hellas, dacia, germania, gallia, horde, scythia, north, isles.
 # Земляки: если ваш народ = наследие вашей нации, +10$ в день.
 
@@ -44,11 +48,13 @@ options:
 	kadim_p1_income: 15
 	kin_income: 10
 	carthage_income: 20
+	halfling_income: 10
+	goblin_income: 15
 
 # ---------- расы ----------
 
 function orRaceIds() :: texts:
-	return "kadim", "neferu", "thalassa", "caertal" and "deep"
+	return "kadim", "neferu", "thalassa", "caertal", "deep", "elf", "dwarf", "orc", "halfling", "ashborn", "dragon", "goblin", "troll", "fae" and "revenant"
 
 function orRaceName(r: text) :: text:
 	if {_r} is "kadim":
@@ -61,7 +67,27 @@ function orRaceName(r: text) :: text:
 		return "Медная кровь"
 	if {_r} is "deep":
 		return "Безмолвные"
-	return "?"
+	if {_r} is "elf":
+		return "Эльфы"
+	if {_r} is "dwarf":
+		return "Гномы"
+	if {_r} is "orc":
+		return "Орки"
+	if {_r} is "halfling":
+		return "Полурослики"
+	if {_r} is "ashborn":
+		return "Пепельные"
+	if {_r} is "dragon":
+		return "Драконья кровь"
+	if {_r} is "goblin":
+		return "Гоблины"
+	if {_r} is "troll":
+		return "Тролли"
+	if {_r} is "fae":
+		return "Фейри"
+	if {_r} is "revenant":
+		return "Неупокоенные"
+	return ""
 
 function orRaceLore(r: text) :: text:
 	if {_r} is "kadim":
@@ -74,6 +100,26 @@ function orRaceLore(r: text) :: text:
 		return "потомки Медного Союза, мастера гор, меди и големов"
 	if {_r} is "deep":
 		return "потомки Народа Глубин, живущие под землёй"
+	if {_r} is "elf":
+		return "лесной народ священных рощ Галлии, старше друидов"
+	if {_r} is "dwarf":
+		return "подгорные мастера Каэр-Бруна, пережившие Год Пепла в шахтах"
+	if {_r} is "orc":
+		return "кланы, что вышли из песчаной бури вместе с Ордой в 375 году"
+	if {_r} is "halfling":
+		return "малый народ холмов вокруг Ромеи, хлебопашцы и повара"
+	if {_r} is "ashborn":
+		return "те, кого коснулся Незер в Год Пепла: тёплая кожа и глаза как угли"
+	if {_r} is "dragon":
+		return "потомки стражей Края, что служили Дракону"
+	if {_r} is "goblin":
+		return "старьёвщики подземных рынков у Древнего города"
+	if {_r} is "troll":
+		return "горные великаны Северного Царства, которые каменеют на солнце"
+	if {_r} is "fae":
+		return "духи цветущих рощ, о которых пели друиды Галлии"
+	if {_r} is "revenant":
+		return "тени из Тумана Безымянных 1700 года, вернувшиеся в доспехах"
 	return ""
 
 function orRacePlus(r: text) :: text:
@@ -87,6 +133,26 @@ function orRacePlus(r: text) :: text:
 		return "Спешка I ниже Y=0 и выше Y=100"
 	if {_r} is "deep":
 		return "Ночное зрение ниже Y=0"
+	if {_r} is "elf":
+		return "Скорость I в лесах"
+	if {_r} is "dwarf":
+		return "Сопротивление I ниже Y=40"
+	if {_r} is "orc":
+		return "Сила I на чужой земле во время боя"
+	if {_r} is "halfling":
+		return "Удача I"
+	if {_r} is "ashborn":
+		return "Сила I в Незере"
+	if {_r} is "dragon":
+		return "Огнестойкость, пока вы горите"
+	if {_r} is "goblin":
+		return "Скорость I ночью"
+	if {_r} is "troll":
+		return "Регенерация I ночью"
+	if {_r} is "fae":
+		return "Прыгучесть I"
+	if {_r} is "revenant":
+		return "ночью Сопротивление I"
 	return ""
 
 function orRaceMinus(r: text) :: text:
@@ -99,6 +165,26 @@ function orRaceMinus(r: text) :: text:
 	if {_r} is "caertal":
 		return "в воде Утомление I"
 	if {_r} is "deep":
+		return "днём под открытым небом Слабость I"
+	if {_r} is "elf":
+		return "ниже Y=0 Слабость I"
+	if {_r} is "dwarf":
+		return "в воде Замедление I"
+	if {_r} is "orc":
+		return "в мирное время Голод I"
+	if {_r} is "halfling":
+		return "во время боя Слабость I"
+	if {_r} is "ashborn":
+		return "в воде и под дождём Слабость I"
+	if {_r} is "dragon":
+		return "в снежных биомах Замедление I"
+	if {_r} is "goblin":
+		return "днём под открытым небом Утомление I"
+	if {_r} is "troll":
+		return "днём под открытым небом Замедление I"
+	if {_r} is "fae":
+		return "в Незере и ниже Y=0 Слабость I"
+	if {_r} is "revenant":
 		return "днём под открытым небом Слабость I"
 	return ""
 
@@ -130,11 +216,73 @@ function orFocusName(r: text, id: text) :: text:
 		if {_id} is "p2":
 			return "Мастер"
 		return "Медное сердце"
-	if {_id} is "p1":
-		return "Тихий шаг"
-	if {_id} is "p2":
-		return "Камень"
-	return "Эхо"
+	if {_r} is "deep":
+		if {_id} is "p1":
+			return "Тихий шаг"
+		if {_id} is "p2":
+			return "Камень"
+		return "Эхо"
+	if {_r} is "elf":
+		if {_id} is "p1":
+			return "Лунный глаз"
+		if {_id} is "p2":
+			return "Шаг листа"
+		return "Лук рощ"
+	if {_r} is "dwarf":
+		if {_id} is "p1":
+			return "Тёмный взгляд"
+		if {_id} is "p2":
+			return "Молот"
+		return "Подгорный король"
+	if {_r} is "orc":
+		if {_id} is "p1":
+			return "Ярость"
+		if {_id} is "p2":
+			return "Шкура"
+		return "Вождь"
+	if {_r} is "halfling":
+		if {_id} is "p1":
+			return "Тихие ноги"
+		if {_id} is "p2":
+			return "Кладовая"
+		return "Удача полей"
+	if {_r} is "ashborn":
+		if {_id} is "p1":
+			return "Пепельная кожа"
+		if {_id} is "p2":
+			return "Угли"
+		return "Ночь Пепла"
+	if {_r} is "dragon":
+		if {_id} is "p1":
+			return "Чешуя"
+		if {_id} is "p2":
+			return "Крылья"
+		return "Сердце дракона"
+	if {_r} is "goblin":
+		if {_id} is "p1":
+			return "Барыга"
+		if {_id} is "p2":
+			return "Ловкие пальцы"
+		return "Шайка"
+	if {_r} is "troll":
+		if {_id} is "p1":
+			return "Толстая шкура"
+		if {_id} is "p2":
+			return "Каменная кожа"
+		return "Горный великан"
+	if {_r} is "fae":
+		if {_id} is "p1":
+			return "Пыльца"
+		if {_id} is "p2":
+			return "Ветер"
+		return "Сон рощ"
+	if {_r} is "revenant":
+		if {_id} is "p1":
+			return "Холод могил"
+		if {_id} is "p2":
+			return "Шаг тени"
+		return "Неупокоенный"
+	return ""
 
 function orFocusDesc(r: text, id: text) :: text:
 	if {_r} is "kadim":
@@ -161,11 +309,73 @@ function orFocusDesc(r: text, id: text) :: text:
 		if {_id} is "p2":
 			return "Спешка II ниже Y=0"
 		return "+2 сердца здоровья"
-	if {_id} is "p1":
-		return "Скорость I ниже Y=0"
-	if {_id} is "p2":
-		return "Сопротивление I ниже Y=0"
-	return "ниже Y=0 чужие игроки в 16 блоках подсвечиваются"
+	if {_r} is "deep":
+		if {_id} is "p1":
+			return "Скорость I ниже Y=0"
+		if {_id} is "p2":
+			return "Сопротивление I ниже Y=0"
+		return "ниже Y=0 чужие игроки в 16 блоках подсвечиваются"
+	if {_r} is "elf":
+		if {_id} is "p1":
+			return "Ночное зрение ночью"
+		if {_id} is "p2":
+			return "Прыгучесть I в лесах"
+		return "Сила I в лесах"
+	if {_r} is "dwarf":
+		if {_id} is "p1":
+			return "Ночное зрение ниже Y=40"
+		if {_id} is "p2":
+			return "Сила I ниже Y=40"
+		return "+2 сердца здоровья"
+	if {_r} is "orc":
+		if {_id} is "p1":
+			return "Скорость I, когда здоровья 3 сердца и меньше"
+		if {_id} is "p2":
+			return "Сопротивление I во время боя"
+		return "Скорость I во время боя"
+	if {_r} is "halfling":
+		if {_id} is "p1":
+			return "Скорость I на земле вашей нации"
+		if {_id} is "p2":
+			return "+{@halfling_income}$ в день"
+		return "Удача II"
+	if {_r} is "ashborn":
+		if {_id} is "p1":
+			return "Огнестойкость в Незере"
+		if {_id} is "p2":
+			return "Скорость I в Незере"
+		return "ночью на поверхности Сила I"
+	if {_r} is "dragon":
+		if {_id} is "p1":
+			return "Сопротивление I выше Y=100"
+		if {_id} is "p2":
+			return "Медленное падение, когда падаете"
+		return "Сила I выше Y=100"
+	if {_r} is "goblin":
+		if {_id} is "p1":
+			return "+{@goblin_income}$ в день"
+		if {_id} is "p2":
+			return "Спешка I ночью"
+		return "Невидимость, пока крадётесь ночью"
+	if {_r} is "troll":
+		if {_id} is "p1":
+			return "Сопротивление I ночью"
+		if {_id} is "p2":
+			return "+2 сердца здоровья"
+		return "Сила I ночью"
+	if {_r} is "fae":
+		if {_id} is "p1":
+			return "Медленное падение, когда падаете"
+		if {_id} is "p2":
+			return "Скорость I в лесах и на лугах"
+		return "Регенерация I в лесах"
+	if {_r} is "revenant":
+		if {_id} is "p1":
+			return "Ночное зрение ночью"
+		if {_id} is "p2":
+			return "Скорость I ночью"
+		return "+2 сердца здоровья"
+	return ""
 
 function orFocusCost(id: text) :: number:
 	if {_id} is "p1":
@@ -283,6 +493,30 @@ function orNether(p: player) :: boolean:
 		return true
 	return false
 
+function orBiome(p: player) :: text:
+	return "%biome at {_p}%"
+
+function orForest(p: player) :: boolean:
+	set {_b} to orBiome({_p})
+	loop "forest", "taiga", "jungle", "grove" and "birch":
+		if {_b} contains loop-value:
+			return true
+	return false
+
+function orMeadow(p: player) :: boolean:
+	set {_b} to orBiome({_p})
+	loop "meadow", "plains", "flower" and "savanna":
+		if {_b} contains loop-value:
+			return true
+	return false
+
+function orSnow(p: player) :: boolean:
+	set {_b} to orBiome({_p})
+	loop "snow", "frozen", "ice" and "peaks":
+		if {_b} contains loop-value:
+			return true
+	return false
+
 function orComplete(p: player):
 	set {_u} to uuid of {_p}
 	set {_id} to {origin::cur::%{_u}%}
@@ -326,6 +560,12 @@ every 30 minutes:
 				add {@kadim_income} to {_sum}
 				if orDone(loop-player, "p1") is true:
 					add {@kadim_p1_income} to {_sum}
+			if {origin::race::%{_u}%} is "halfling":
+				if orDone(loop-player, "p2") is true:
+					add {@halfling_income} to {_sum}
+			if {origin::race::%{_u}%} is "goblin":
+				if orDone(loop-player, "p1") is true:
+					add {@goblin_income} to {_sum}
 			set {_h} to {origin::people::%{_u}%}
 			if {_h} is set:
 				set {_nm} to focusNationOf(loop-player)
@@ -442,6 +682,146 @@ every 5 seconds:
 				else if orDay({_p}) is true:
 					if orOpenSky({_p}) is true:
 						apply weakness of tier 1 to {_p} for 7 seconds
+			else if {_r} is "elf":
+				if orForest({_p}) is true:
+					apply speed of tier 1 to {_p} for 7 seconds
+					if {_p2} is true:
+						apply jump boost of tier 1 to {_p} for 7 seconds
+					if {_p3} is true:
+						apply strength of tier 1 to {_p} for 7 seconds
+				if {_y} < 0:
+					apply weakness of tier 1 to {_p} for 7 seconds
+				if {_p1} is true:
+					if orDay({_p}) is false:
+						apply night vision to {_p} for 15 seconds
+			else if {_r} is "dwarf":
+				if {_y} < 40:
+					apply resistance of tier 1 to {_p} for 7 seconds
+					if {_p1} is true:
+						apply night vision to {_p} for 15 seconds
+					if {_p2} is true:
+						apply strength of tier 1 to {_p} for 7 seconds
+				if {_water} is true:
+					apply slowness of tier 1 to {_p} for 7 seconds
+				if {_p3} is true:
+					if {_p} does not have health boost:
+						apply health boost of tier 1 to {_p} for 1 hour
+			else if {_r} is "orc":
+				set {_nm} to focusNationOf({_p})
+				set {_hot} to false
+				if {_nm} is set:
+					if {pax::nhot::%{_nm}%} is set:
+						set {_hot} to true
+				if {_hot} is true:
+					if focusAtHome({_p}, {_nm}) is false:
+						apply strength of tier 1 to {_p} for 7 seconds
+					if {_p2} is true:
+						apply resistance of tier 1 to {_p} for 7 seconds
+					if {_p3} is true:
+						apply speed of tier 1 to {_p} for 7 seconds
+				else:
+					apply hunger of tier 1 to {_p} for 7 seconds
+				if {_p1} is true:
+					if health of {_p} <= 3:
+						apply speed of tier 1 to {_p} for 7 seconds
+			else if {_r} is "halfling":
+				if {_p3} is true:
+					apply luck of tier 2 to {_p} for 7 seconds
+				else:
+					apply luck of tier 1 to {_p} for 7 seconds
+				set {_nm} to focusNationOf({_p})
+				if {_nm} is set:
+					if {pax::nhot::%{_nm}%} is set:
+						apply weakness of tier 1 to {_p} for 7 seconds
+					if {_p1} is true:
+						if focusAtHome({_p}, {_nm}) is true:
+							apply speed of tier 1 to {_p} for 7 seconds
+			else if {_r} is "ashborn":
+				if orNether({_p}) is true:
+					apply strength of tier 1 to {_p} for 7 seconds
+					if {_p1} is true:
+						apply fire resistance to {_p} for 7 seconds
+					if {_p2} is true:
+						apply speed of tier 1 to {_p} for 7 seconds
+				else:
+					set {_sky} to orOpenSky({_p})
+					if {_water} is true:
+						apply weakness of tier 1 to {_p} for 7 seconds
+					else if {_sky} is true:
+						if {_p}.getWorld().hasStorm() is true:
+							apply weakness of tier 1 to {_p} for 7 seconds
+					if {_p3} is true:
+						if {_sky} is true:
+							if orDay({_p}) is false:
+								apply strength of tier 1 to {_p} for 7 seconds
+			else if {_r} is "dragon":
+				if {_p}.getFireTicks() > 0:
+					apply fire resistance to {_p} for 7 seconds
+				if orSnow({_p}) is true:
+					apply slowness of tier 1 to {_p} for 7 seconds
+				if {_y} > 100:
+					if {_p1} is true:
+						apply resistance of tier 1 to {_p} for 7 seconds
+					if {_p3} is true:
+						apply strength of tier 1 to {_p} for 7 seconds
+				if {_p2} is true:
+					if fall distance of {_p} > 4:
+						apply slow falling to {_p} for 7 seconds
+			else if {_r} is "goblin":
+				set {_day} to orDay({_p})
+				if {_day} is false:
+					apply speed of tier 1 to {_p} for 7 seconds
+					if {_p2} is true:
+						apply haste of tier 1 to {_p} for 7 seconds
+					if {_p3} is true:
+						if {_p} is sneaking:
+							apply invisibility to {_p} for 7 seconds
+				else if orOpenSky({_p}) is true:
+					apply mining fatigue of tier 1 to {_p} for 7 seconds
+			else if {_r} is "troll":
+				set {_day} to orDay({_p})
+				if {_day} is false:
+					apply regeneration of tier 1 to {_p} for 7 seconds
+					if {_p1} is true:
+						apply resistance of tier 1 to {_p} for 7 seconds
+					if {_p3} is true:
+						apply strength of tier 1 to {_p} for 7 seconds
+				else if orOpenSky({_p}) is true:
+					apply slowness of tier 1 to {_p} for 7 seconds
+				if {_p2} is true:
+					if {_p} does not have health boost:
+						apply health boost of tier 1 to {_p} for 1 hour
+			else if {_r} is "fae":
+				apply jump boost of tier 1 to {_p} for 7 seconds
+				if orNether({_p}) is true:
+					apply weakness of tier 1 to {_p} for 7 seconds
+				else if {_y} < 0:
+					apply weakness of tier 1 to {_p} for 7 seconds
+				if {_p1} is true:
+					if fall distance of {_p} > 4:
+						apply slow falling to {_p} for 7 seconds
+				set {_for} to orForest({_p})
+				if {_p2} is true:
+					if {_for} is true:
+						apply speed of tier 1 to {_p} for 7 seconds
+					else if orMeadow({_p}) is true:
+						apply speed of tier 1 to {_p} for 7 seconds
+				if {_p3} is true:
+					if {_for} is true:
+						apply regeneration of tier 1 to {_p} for 7 seconds
+			else if {_r} is "revenant":
+				set {_day} to orDay({_p})
+				if {_day} is false:
+					apply resistance of tier 1 to {_p} for 7 seconds
+					if {_p1} is true:
+						apply night vision to {_p} for 15 seconds
+					if {_p2} is true:
+						apply speed of tier 1 to {_p} for 7 seconds
+				else if orOpenSky({_p}) is true:
+					apply weakness of tier 1 to {_p} for 7 seconds
+				if {_p3} is true:
+					if {_p} does not have health boost:
+						apply health boost of tier 1 to {_p} for 1 hour
 		# фокус народа «Наследник»
 		if {_h} is set:
 			if orDone({_p}, "nar") is true:
@@ -471,12 +851,7 @@ every 5 seconds:
 					if TownyAPI.getInstance().getTown(location of {_p}) is not set:
 						apply speed of tier 1 to {_p} for 7 seconds
 				else if {_h} is "north":
-					set {_b} to "%biome at {_p}%"
-					if {_b} contains "snow":
-						apply resistance of tier 1 to {_p} for 7 seconds
-					else if {_b} contains "frozen":
-						apply resistance of tier 1 to {_p} for 7 seconds
-					else if {_b} contains "ice":
+					if orSnow({_p}) is true:
 						apply resistance of tier 1 to {_p} for 7 seconds
 
 # ---------- команда ----------
