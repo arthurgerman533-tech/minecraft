@@ -241,8 +241,8 @@ def build(lang, out):
         toc_html = "".join(f'<a class="h{lv}" href="#{i}">{t}</a>' for lv, t, i in toc if lv <= 2 or len(toc) < 40)
         write(os.path.join("lore", f"{l['id']}.html"),
               PAGE.format(title=f"{l['title']} — PaxVanila", desc=html.escape(l["subtitle"]), nav=nav, toc=toc_html,
-                          body=(f'<img class="lorecover" src="../img/{l["cover"]}" alt="">' if l.get("cover") else "") + body), 1)
-        cards.append(f'<a href="lore/{l["id"]}.html"><div class="card">' + (f'<img class="cv" src="img/{l["cover"]}" alt="" loading="lazy">' if l.get("cover") else "") + f'<h3>📜 {html.escape(l["title"])}</h3><p>{html.escape(l["subtitle"])}</p></div></a>')
+                          body=(f'<img class="lorecover" src="../img/{l["cover"]}" alt="" style="display:block;width:100%;max-width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:10px;margin:0 0 1.2em">' if l.get("cover") else "") + body), 1)
+        cards.append(f'<a href="lore/{l["id"]}.html"><div class="card">' + (f'<img class="cv" src="img/{l["cover"]}" alt="" loading="lazy" style="display:block;width:100%;max-width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:10px;margin:0 0 12px">' if l.get("cover") else "") + f'<h3>📜 {html.escape(l["title"])}</h3><p>{html.escape(l["subtitle"])}</p></div></a>')
     # гайды (та же вёрстка, папка guides/)
     for g in C.get("guides", []):
         with open(src_file(GUIDES, lang, g["file"]), encoding="utf-8") as f:
