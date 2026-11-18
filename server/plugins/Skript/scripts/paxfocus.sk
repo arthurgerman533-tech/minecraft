@@ -256,11 +256,16 @@ command /focus [<text>] [<text>] [<text>]:
 			if focusHas({_nm}, "mil1") is false:
 				send "&cНация ещё не завершила «Мобилизацию»."
 				stop
+			# один раз на игрока: переход в другую нацию с «Мобилизацией» не даёт второй комплект
+			if {focus::kitp::%uuid of player%} is set:
+				send "&cВы уже получили снаряжение (в этой или другой нации)."
+				stop
 			if {focus::kit::%{_nm}%::%uuid of player%} is set:
 				send "&cВы уже получили снаряжение."
 				stop
 			if player has enough space for iron helmet, iron chestplate, iron leggings, iron boots, iron sword and 16 cooked beef:
 				set {focus::kit::%{_nm}%::%uuid of player%} to true
+				set {focus::kitp::%uuid of player%} to true
 				give iron helmet, iron chestplate, iron leggings, iron boots, iron sword and 16 cooked beef to player
 				send "&aСнаряжение мобилизации получено."
 			else:

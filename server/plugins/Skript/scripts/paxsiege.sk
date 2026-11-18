@@ -12,6 +12,11 @@ function siegeBuy(p: player, weapon: text, price: number, title: text):
 	if {_p}'s balance < {_price}:
 		send "&cНужно %{_price}%$, у вас %{_p}'s balance%$." to {_p}
 		stop
+	# орудие — отдельный предмет: нужен свободный слот, иначе /wm give выбросит или потеряет его
+	# (structure void у игроков не бывает, поэтому «can hold» = «есть пустой слот»)
+	if {_p} can't hold 1 structure void:
+		send "&cОсвободите слот в инвентаре — деньги не списаны." to {_p}
+		stop
 	remove {_price} from {_p}'s balance
 	execute console command "wm give %name of {_p}% %{_weapon}%"
 	send "&a[Арсенал] Куплено: %{_title}% за %{_price}%$." to {_p}

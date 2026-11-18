@@ -26,3 +26,8 @@ DISCORD (DiscordSRV 1.30.5, Modrinth, заявлены 26.2/26.3, SHA512 све�
 
 Проверка: /paxdiscord test (OP). Если в Discord ничего не пришло, а токен верный —
 значит Skript на этом сервере не вызывает событие "on broadcast" для своих объявлений; напишите, переделаю.
+
+КАТАКЛИЗМЫ В DISCORD (2026-11-18): plugins/Skript/scripts/paxweather_discord.sk
+  Датапак катаклизмов пишет через tellraw, поэтому paxdiscord.sk его не видел. Новый скрипт раз в 5 секунд
+  читает счёт датапака (scoreboard pxw: #pending, #event) и шлёт в Discord: «Надвигается: Метель!»,
+  «Начался: …», «… закончился». В игре ничего не дублируется. Нужен skript-reflect.

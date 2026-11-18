@@ -17,7 +17,8 @@
 #     ломать/открывать в приватах друг друга и взрывать их. Сам блок привата неуязвим (анти-руины).
 #   - новички (48 ч) не могут рейдить, и их приваты рейдить нельзя.
 #   - снаружи нельзя: двигать блоки поршнями, заливать водой/лавой, жать нажимные плиты,
-#     топтать грядки (с 2026-11-18). Внутри своего привата механизмы работают как обычно.
+#     топтать грядки, тянуть воронкой из сундуков (с 2026-11-18). Внутри своего привата
+#     механизмы работают как обычно. Блок привата поршнем не сдвинуть.
 #
 # Команды: /claim (= /приват, /pc) info | list | show | add <ник> | remove <ник> | tiers
 # Админ (pax.claims.admin): /claim del — удалить приват, в котором стоишь. Админ строит везде.
@@ -336,6 +337,10 @@ on "org.bukkit.event.block.BlockPistonExtendEvent":
 		event.setCancelled(true)
 		stop
 	loop ...event.getBlocks():
+		# сам блок привата не двигается никогда (иначе приват «отвяжется» от блока)
+		if {pc::at::%pcKey(location of loop-value)%} is set:
+			event.setCancelled(true)
+			stop
 		set {_c} to pcAt(location of loop-value) ? "-"
 		if {_c} is not {_src}:
 			event.setCancelled(true)
@@ -349,6 +354,9 @@ on "org.bukkit.event.block.BlockPistonExtendEvent":
 on "org.bukkit.event.block.BlockPistonRetractEvent":
 	set {_src} to pcAt(location of event.getBlock()) ? "-"
 	loop ...event.getBlocks():
+		if {pc::at::%pcKey(location of loop-value)%} is set:
+			event.setCancelled(true)
+			stop
 		set {_c} to pcAt(location of loop-value) ? "-"
 		if {_c} is not {_src}:
 			event.setCancelled(true)
@@ -360,6 +368,20 @@ on "org.bukkit.event.block.BlockFromToEvent":
 	{_dst} is set
 	set {_src} to pcAt(location of event.getBlock()) ? "-"
 	if {_src} is not {_dst}:
+		event.setCancelled(true)
+
+# воронка/вагонетка с воронкой снаружи вытягивает предметы из сундука привата
+on "org.bukkit.event.inventory.InventoryMoveItemEvent":
+	{pc::next} is set
+	set {_sl} to event.getSource().getLocation()
+	{_sl} is set
+	set {_src} to pcAt({_sl})
+	{_src} is set
+	set {_dl} to event.getDestination().getLocation()
+	set {_dst} to "-"
+	if {_dl} is set:
+		set {_dst} to pcAt({_dl}) ? "-"
+	if {_dst} is not {_src}:
 		event.setCancelled(true)
 
 # нажимные плиты, растяжки, вытаптывание грядок, черепашьи яйца — «физическое» касание блока

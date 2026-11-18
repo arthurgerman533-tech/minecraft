@@ -14,6 +14,7 @@
 #   /paxwar list | cancel <id> | status
 # Игроки:
 #   /paxwar reward — забрать награды
+#   /paxwar list   — войны, статус боя и счёт (всем, с 2026-11-18)
 
 import:
 	com.palmergames.bukkit.towny.TownyAPI
@@ -287,9 +288,32 @@ command /paxwar [<text>] [<text>] [<text>]:
 			else:
 				send "&cОсвободите инвентарь (%{_n}% алмазов)."
 			stop
+		# список войн и счёт — открыт всем (раньше только админам)
+		if arg-1 is "list" or "wars":
+			if size of {pax::wids::*} is 0:
+				send "&7Сейчас войн нет."
+			loop {pax::wids::*}:
+				set {_id} to loop-value
+				set {_a} to {pax::w::%{_id}%::a}
+				set {_d} to {pax::w::%{_id}%::d}
+				set {_sa} to {pax::w::%{_id}%::score::%{_a}%} ? 0
+				set {_sd} to {pax::w::%{_id}%::score::%{_d}%} ? 0
+				set {_st} to "&7ждёт старта %{pax::w::%{_id}%::start}%"
+				if now >= {pax::w::%{_id}%::start}:
+					set {_st} to "&eпауза"
+				if {pax::w::%{_id}%::hot} is true:
+					set {_st} to "&c&lИДЁТ БОЙ"
+				send "&e#%{_id}% &f%{_a}% &7→ &f%{_d}% %{_st}% &7счёт &f%{_sa}%:%{_sd}%"
+			loop {pax::ev::results::*}:
+				send "&7итог: %loop-value%"
+			stop
 		if player does not have permission "paxwar.admin":
 			if executor is a player:
-				send "&6Фаза ивента: &f%paxEventPhase()%&6. Награды: &f/paxwar reward"
+				set {_pr} to "закрыто"
+				if paxIsPrime() is true:
+					set {_pr} to "ОТКРЫТО"
+				send "&6Фаза ивента: &f%paxEventPhase()%&6, окно боёв ({@prime_from}–{@prime_to} МСК): &f%{_pr}%"
+				send "&7/paxwar list &8— войны и счёт, &7/paxwar reward &8— забрать награды"
 				stop
 		if arg-1 is "declare":
 			set {_ph} to paxEventPhase()
@@ -314,12 +338,13 @@ command /paxwar [<text>] [<text>] [<text>]:
 				stop
 			add 1 to {pax::wnext}
 			set {_id} to "%{pax::wnext}%"
-			set {pax::w::%{_id}%::a} to arg-2
-			set {pax::w::%{_id}%::d} to arg-3
+			# имя как в Towny (регистр), чтобы счёт, приваты и дипломатия сравнивали одинаково
+			set {pax::w::%{_id}%::a} to "%TownyAPI.getInstance().getNation(arg-2).getName()%"
+			set {pax::w::%{_id}%::d} to "%TownyAPI.getInstance().getNation(arg-3).getName()%"
 			set {pax::w::%{_id}%::start} to {_start}
 			set {pax::w::%{_id}%::hot} to false
 			set {pax::wids::%{_id}%} to {_id}
-			broadcast "&4&l[PaxVanila] &c%arg-2% &4объявляет войну &c%arg-3%&4! Боевые действия возможны с %{_start}%."
+			broadcast "&4&l[PaxVanila] &c%{pax::w::%{_id}%::a}% &4объявляет войну &c%{pax::w::%{_id}%::d}%&4! Боевые действия возможны с %{_start}%."
 		else if arg-1 is "cancel":
 			if {pax::wids::%arg-2%} is not set:
 				send "&cНет войны #%arg-2%."
@@ -328,16 +353,6 @@ command /paxwar [<text>] [<text>] [<text>]:
 			delete {pax::w::%arg-2%::*}
 			paxWarTick(paxEventPhase())
 			send "&eВойна #%arg-2% отменена."
-		else if arg-1 is "list":
-			loop {pax::wids::*}:
-				set {_id} to loop-value
-				set {_a} to {pax::w::%{_id}%::a}
-				set {_d} to {pax::w::%{_id}%::d}
-				set {_sa} to {pax::w::%{_id}%::score::%{_a}%} ? 0
-				set {_sd} to {pax::w::%{_id}%::score::%{_d}%} ? 0
-				send "&e#%{_id}% &f%{_a}% &7→ &f%{_d}% &7старт %{pax::w::%{_id}%::start}% бой:%{pax::w::%{_id}%::hot}% счёт %{_sa}%:%{_sd}%"
-			loop {pax::ev::results::*}:
-				send "&7итог: %loop-value%"
 		else:
 			send "&6Фаза: &f%paxEventPhase()% &7| прайм-тайм: %paxIsPrime()% | горячие нации: %indices of {pax::nhot::*}%"
 			send "&7/paxwar declare <агрессор> <защитник> | list | cancel <id> | reward"

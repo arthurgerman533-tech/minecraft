@@ -1,0 +1,81 @@
+# PaxVanila — катаклизмы датапака PaxVanila_Cataclysms (paxweather) в Discord. Добавлено 2026-11-18.
+# Датапак пишет игрокам через tellraw, а paxdiscord.sk ловит только broadcast, поэтому раньше
+# катаклизмы в Discord не попадали. Этот скрипт раз в 5 секунд смотрит счёт датапака
+# (scoreboard pxw: #pending — объявленное, #event — идущее) и шлёт анонс в Discord.
+# В игре ничего не дублирует. Нужны: Skript, skript-reflect, DiscordSRV. Датапак не меняется.
+
+import:
+	org.bukkit.Bukkit
+
+function wxName(n: number) :: text:
+	if {_n} is 1:
+		return "Гроза"
+	if {_n} is 2:
+		return "Метель"
+	if {_n} is 3:
+		return "Засуха"
+	if {_n} is 4:
+		return "Песчаная буря"
+	if {_n} is 5:
+		return "Землетрясение"
+	if {_n} is 6:
+		return "Звёздный дождь"
+	if {_n} is 7:
+		return "Пепельная ночь"
+	if {_n} is 8:
+		return "Великий шторм"
+	if {_n} is 9:
+		return "Туман Безымянных"
+	if {_n} is 10:
+		return "Северное сияние"
+	if {_n} is 11:
+		return "Солнечная вспышка (космос)"
+	if {_n} is 12:
+		return "Метеоритный шторм (космос)"
+	if {_n} is 13:
+		return "Пылевая буря на Марсе"
+	if {_n} is 14:
+		return "Пылевой смерч на Марсе"
+	if {_n} is 15:
+		return "Лунотрясение"
+	if {_n} is 16:
+		return "Лунная ночь"
+	if {_n} is 17:
+		return "Магнитная буря (космос)"
+	if {_n} is 18:
+		return "Комета"
+	return "Катаклизм"
+
+function wxScore(entry: text) :: number:
+	set {_o} to Bukkit.getScoreboardManager().getMainScoreboard().getObjective("pxw")
+	if {_o} is not set:
+		return -1
+	set {_s} to {_o}.getScore({_entry})
+	if {_s}.isScoreSet() is not true:
+		return 0
+	return {_s}.getScore()
+
+function wxSend(msg: text):
+	execute console command "discord bcast %{_msg}%"
+
+on load:
+	# не слать старое после перезапуска
+	set {-wx::pending} to wxScore("#pending")
+	set {-wx::event} to wxScore("#event")
+
+every 5 seconds:
+	plugin "DiscordSRV" is enabled
+	set {_p} to wxScore("#pending")
+	{_p} >= 0
+	set {_e} to wxScore("#event")
+	if {_p} is not {-wx::pending}:
+		set {-wx::pending} to {_p}
+		if {_p} > 0:
+			wxSend("[Катаклизм] Надвигается: %wxName({_p})%! Через несколько секунд — укройтесь.")
+	if {_e} is not {-wx::event}:
+		set {_old} to {-wx::event}
+		set {-wx::event} to {_e}
+		if {_e} > 0:
+			wxSend("[Катаклизм] Начался: %wxName({_e})%.")
+		else if {_old} > 0:
+			wxSend("[Катаклизм] %wxName({_old})% закончился. Небо очистилось.")
