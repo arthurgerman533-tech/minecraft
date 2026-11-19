@@ -7,4 +7,4 @@ tags={
 name="PaxVanila"
 picture="thumbnail.png"
 replace_path="common/bookmarks"
-supported_version="1.*"
+supported_version="1.20.*"

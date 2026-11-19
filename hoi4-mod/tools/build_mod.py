@@ -51,7 +51,7 @@ def build_descriptor():
         f'name="{D.MOD_NAME}"\n'
         'picture="thumbnail.png"\n'
         'replace_path="common/bookmarks"\n'
-        'supported_version="1.*"\n'
+        'supported_version="1.20.*"\n'
     )
     w("descriptor.mod", body)
     outer = body + f'path="mod/{D.MOD_NAME}"\n'
