@@ -1,0 +1,4 @@
+PAX_economy_category = {
+	icon = generic_research
+	visible = { is_ai = no }
+}

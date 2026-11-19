@@ -1,0 +1,121 @@
+PAX_economy_decisions = {
+	PAX_eco_tax_low = {
+		category = PAX_economy_category
+		icon = generic_research
+		visible = { is_ai = no }
+		available = { NOT = { has_dynamic_modifier = { modifier = PAX_eco_tax_low } } }
+				add_dynamic_modifier = { modifier = PAX_eco_tax_low }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_eco_tax_mid = {
+		category = PAX_economy_category
+		icon = generic_research
+		visible = { is_ai = no }
+		available = { NOT = { has_dynamic_modifier = { modifier = PAX_eco_tax_mid } } }
+				add_dynamic_modifier = { modifier = PAX_eco_tax_mid }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_eco_tax_high = {
+		category = PAX_economy_category
+		icon = generic_research
+		visible = { is_ai = no }
+		available = { NOT = { has_dynamic_modifier = { modifier = PAX_eco_tax_high } } }
+				add_dynamic_modifier = { modifier = PAX_eco_tax_high }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_eco_fund_civ = {
+		category = PAX_economy_category
+		icon = generic_research
+		visible = { is_ai = no }
+		available = { NOT = { has_dynamic_modifier = { modifier = PAX_eco_fund_civ } } }
+				add_dynamic_modifier = { modifier = PAX_eco_fund_civ }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_eco_fund_bal = {
+		category = PAX_economy_category
+		icon = generic_research
+		visible = { is_ai = no }
+		available = { NOT = { has_dynamic_modifier = { modifier = PAX_eco_fund_bal } } }
+				add_dynamic_modifier = { modifier = PAX_eco_fund_bal }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_eco_fund_mil = {
+		category = PAX_economy_category
+		icon = generic_research
+		visible = { is_ai = no }
+		available = { NOT = { has_dynamic_modifier = { modifier = PAX_eco_fund_mil } } }
+				add_dynamic_modifier = { modifier = PAX_eco_fund_mil }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_eco_trade_open = {
+		category = PAX_economy_category
+		icon = generic_research
+		visible = { is_ai = no }
+		available = { NOT = { has_dynamic_modifier = { modifier = PAX_eco_trade_open } } }
+				add_dynamic_modifier = { modifier = PAX_eco_trade_open }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_eco_trade_mix = {
+		category = PAX_economy_category
+		icon = generic_research
+		visible = { is_ai = no }
+		available = { NOT = { has_dynamic_modifier = { modifier = PAX_eco_trade_mix } } }
+				add_dynamic_modifier = { modifier = PAX_eco_trade_mix }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_eco_trade_closed = {
+		category = PAX_economy_category
+		icon = generic_research
+		visible = { is_ai = no }
+		available = { NOT = { has_dynamic_modifier = { modifier = PAX_eco_trade_closed } } }
+				add_dynamic_modifier = { modifier = PAX_eco_trade_closed }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_eco_energy_fossil = {
+		category = PAX_economy_category
+		icon = generic_research
+		visible = { is_ai = no }
+		available = { NOT = { has_dynamic_modifier = { modifier = PAX_eco_energy_fossil } } }
+				add_dynamic_modifier = { modifier = PAX_eco_energy_fossil }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_eco_energy_atom = {
+		category = PAX_economy_category
+		icon = generic_research
+		visible = { is_ai = no }
+		available = { NOT = { has_dynamic_modifier = { modifier = PAX_eco_energy_atom } } }
+				add_dynamic_modifier = { modifier = PAX_eco_energy_atom }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_eco_energy_green = {
+		category = PAX_economy_category
+		icon = generic_research
+		visible = { is_ai = no }
+		available = { NOT = { has_dynamic_modifier = { modifier = PAX_eco_energy_green } } }
+				add_dynamic_modifier = { modifier = PAX_eco_energy_green }
+		}
+		ai_will_do = { factor = 0 }
+	}
+}

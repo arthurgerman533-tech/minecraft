@@ -19,6 +19,7 @@ import pax_art as A  # noqa: E402
 import pax_era_focuses as EF  # noqa: E402
 import pax_big as BIG
 import md_port as MD  # noqa: E402
+import pax_economy as ECO  # noqa: E402
 
 BIG.extend(D)
 
@@ -663,7 +664,7 @@ def build_eras_extra():
     w("common/technologies/pax_lore_techs.txt", "technologies = {\n" + "\n\n".join(indent(b, 1) for b in blocks) + "\n}\n")
 
     mdt = MD.load()
-    w("common/technologies/pax_md_techs.txt", "technologies = {\n" + "\n\n".join(indent(MD.tech_block(t, 30 + 2 * (i % 10), 2 + 2 * (i // 10)), 1) for i, t in enumerate(mdt)) + "\n}\n")
+    w("common/technologies/pax_md_techs.txt", "technologies = {\n" + "\n\n".join(indent(MD.tech_block(t, 0, 0), 1) for i, t in enumerate(mdt)) + "\n}\n")
     for t in mdt:
         LOC[t["id"]] = MD.pretty(t)
 
@@ -946,6 +947,10 @@ def main():
     build_descriptor()
     build_ideas()
     build_lore_decisions()
+    ECO.build(w, LOC, indent)
+    MD.decisions(w, LOC, indent)
+    for bm in ('blitzkrieg', 'the_gathering_storm'):  # лаунчер стирает replace_path из внешнего .mod, поэтому глушим ванильные закладки
+        w(f'common/bookmarks/{bm}.txt', 'bookmarks = {\n}\n')
     build_characters()
     build_setup()
     build_eras_extra()

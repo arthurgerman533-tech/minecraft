@@ -44,13 +44,37 @@ def load():
                 techs.append(dict(file=f, id="pax_md_" + name, src=name, year=int(ys.group(1)) if ys else 2000, eff=eff))
     return techs
 
-FOLDER = {"industry": "industry_folder", "infantry": "infantry_folder", "engineering": "electronics_folder"}
+CATS = {"industry": ("PAX_md_industry", "Технологии MD: промышленность", "Industry"),
+        "infantry": ("PAX_md_infantry", "Технологии MD: пехота", "Infantry"),
+        "engineering": ("PAX_md_electronics", "Технологии MD: электроника", "Electronics")}
 
 
-def tech_block(t, x=30, y=2):
+def tech_block(t, x=0, y=0):
     body = "\n".join(f"\t{k} = {v}" for k, v in t["eff"])
     return (f"{t['id']} = {{\n{body}\n\tresearch_cost = 1\n\tstart_year = {t['year']}\n"
-            f"\tfolder = {{ name = {FOLDER[t['file']]} position = {{ x = {x} y = {y} }} }}\n\tai_will_do = {{ factor = 1 }}\n}}")
+            f"\tallow = {{ always = no }}\n\tai_will_do = {{ factor = 0 }}\n}}")
+
 
 def pretty(t):
     return "MD: " + t["src"].replace("_", " ")
+
+
+def decisions(w, LOC, indent):
+    """Скрытые техи MD покупаются как решения (родное дерево исследований требует своего интерфейса)."""
+    cats = "\n".join(f"{c} = {{\n\ticon = generic_research\n\tvisible = {{ is_ai = no }}\n}}" for c, _, _ in CATS.values())
+    w("common/decisions/categories/pax_md_categories.txt", cats + "\n")
+    out = []
+    for c, ru, en in CATS.values():
+        LOC[c] = ru
+        LOC[c + "_desc"] = "Технологии из Millennium Dawn. Покупаются за политическую власть, эффекты постоянные."
+    for t in load():
+        c = CATS[t["file"]][0]
+        did = "PAX_buy_" + t["id"]
+        cost = 25 + max(0, t["year"] - 1985) // 2
+        out.append(f"{did} = {{\n\tcategory = {c}\n\ticon = generic_research\n"
+                   f"\tvisible = {{ is_ai = no NOT = {{ has_tech = {t['id']} }} }}\n"
+                   f"\tcost = {cost}\n\tfire_only_once = yes\n"
+                   f"\tcomplete_effect = {{ set_technology = {{ {t['id']} = 1 }} }}\n\tai_will_do = {{ factor = 0 }}\n}}")
+        LOC[did] = pretty(t)
+        LOC[did + "_desc"] = "Технология Millennium Dawn: " + pretty(t)[4:] + "."
+    w("common/decisions/pax_md_decisions.txt", "PAX_md_decisions = {\n" + "\n\n".join(indent(d, 1) for d in out) + "\n}\n")

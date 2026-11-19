@@ -1,0 +1,1111 @@
+PAX_md_decisions = {
+	PAX_buy_pax_md_nanofibers_1 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_nanofibers_1 } }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_nanofibers_1 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_nanofibers_2 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_nanofibers_2 } }
+		cost = 27
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_nanofibers_2 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_nanofibers_3 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_nanofibers_3 } }
+		cost = 30
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_nanofibers_3 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_nanofibers_4 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_nanofibers_4 } }
+		cost = 32
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_nanofibers_4 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_nanofibers_5 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_nanofibers_5 } }
+		cost = 35
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_nanofibers_5 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_nanofibers_6 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_nanofibers_6 } }
+		cost = 37
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_nanofibers_6 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_printing_1 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_printing_1 } }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_printing_1 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_printing_2 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_printing_2 } }
+		cost = 27
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_printing_2 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_printing_3 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_printing_3 } }
+		cost = 30
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_printing_3 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_printing_4 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_printing_4 } }
+		cost = 32
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_printing_4 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_printing_5 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_printing_5 } }
+		cost = 35
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_printing_5 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_printing_6 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_printing_6 } }
+		cost = 37
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_printing_6 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_printing_7 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_printing_7 } }
+		cost = 40
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_printing_7 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_nanofibers_7 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_nanofibers_7 } }
+		cost = 40
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_nanofibers_7 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_printing_8 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_printing_8 } }
+		cost = 45
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_printing_8 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_printing_9 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_printing_9 } }
+		cost = 50
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_printing_9 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_printing_11 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_printing_11 } }
+		cost = 60
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_printing_11 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_printing_12 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_printing_12 } }
+		cost = 65
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_printing_12 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_printing_13 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_printing_13 } }
+		cost = 70
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_printing_13 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_construction1 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_construction1 } }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_construction1 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_excavation1 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_excavation1 } }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_excavation1 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_construction2 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_construction2 } }
+		cost = 30
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_construction2 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_excavation2 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_excavation2 } }
+		cost = 30
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_excavation2 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_construction3 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_construction3 } }
+		cost = 32
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_construction3 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_excavation3 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_excavation3 } }
+		cost = 32
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_excavation3 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_construction4 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_construction4 } }
+		cost = 35
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_construction4 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_excavation4 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_excavation4 } }
+		cost = 35
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_excavation4 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_construction5 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_construction5 } }
+		cost = 37
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_construction5 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_excavation5 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_excavation5 } }
+		cost = 37
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_excavation5 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_construction6 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_construction6 } }
+		cost = 40
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_construction6 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_excavation6 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_excavation6 } }
+		cost = 40
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_excavation6 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_construction7 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_construction7 } }
+		cost = 45
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_construction7 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_excavation7 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_excavation7 } }
+		cost = 45
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_excavation7 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_construction8 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_construction8 } }
+		cost = 50
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_construction8 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_excavation8 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_excavation8 } }
+		cost = 50
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_excavation8 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_construction9 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_construction9 } }
+		cost = 55
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_construction9 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_excavation9 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_excavation9 } }
+		cost = 55
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_excavation9 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_construction10 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_construction10 } }
+		cost = 60
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_construction10 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_excavation10 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_excavation10 } }
+		cost = 60
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_excavation10 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_construction11 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_construction11 } }
+		cost = 65
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_construction11 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_excavation11 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_excavation11 } }
+		cost = 65
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_excavation11 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_construction12 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_construction12 } }
+		cost = 70
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_construction12 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_excavation12 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_excavation12 } }
+		cost = 70
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_excavation12 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_railway_system_01 = {
+		category = PAX_md_industry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_railway_system_01 } }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_railway_system_01 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_augmented_vision_1 = {
+		category = PAX_md_infantry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_augmented_vision_1 } }
+		cost = 45
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_augmented_vision_1 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_augmented_vision_2 = {
+		category = PAX_md_infantry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_augmented_vision_2 } }
+		cost = 50
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_augmented_vision_2 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_augmented_vision_3 = {
+		category = PAX_md_infantry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_augmented_vision_3 } }
+		cost = 55
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_augmented_vision_3 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_augmented_vision_4 = {
+		category = PAX_md_infantry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_augmented_vision_4 } }
+		cost = 60
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_augmented_vision_4 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_augmented_vision_5 = {
+		category = PAX_md_infantry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_augmented_vision_5 } }
+		cost = 65
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_augmented_vision_5 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_augmented_vision_6 = {
+		category = PAX_md_infantry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_augmented_vision_6 } }
+		cost = 70
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_augmented_vision_6 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_exoskeleton_1 = {
+		category = PAX_md_infantry
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_exoskeleton_1 } }
+		cost = 40
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_exoskeleton_1 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_artificial_intelligence_1 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_artificial_intelligence_1 } }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_artificial_intelligence_1 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_artificial_intelligence_2 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_artificial_intelligence_2 } }
+		cost = 27
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_artificial_intelligence_2 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_artificial_intelligence_3 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_artificial_intelligence_3 } }
+		cost = 30
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_artificial_intelligence_3 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_artificial_intelligence_4 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_artificial_intelligence_4 } }
+		cost = 32
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_artificial_intelligence_4 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_artificial_intelligence_5 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_artificial_intelligence_5 } }
+		cost = 35
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_artificial_intelligence_5 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_artificial_intelligence_6 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_artificial_intelligence_6 } }
+		cost = 37
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_artificial_intelligence_6 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_artificial_intelligence_7 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_artificial_intelligence_7 } }
+		cost = 40
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_artificial_intelligence_7 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_artificial_intelligence_8 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_artificial_intelligence_8 } }
+		cost = 42
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_artificial_intelligence_8 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_artificial_intelligence_9 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_artificial_intelligence_9 } }
+		cost = 47
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_artificial_intelligence_9 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_robotics_1 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_robotics_1 } }
+		cost = 35
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_robotics_1 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_robotics_2 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_robotics_2 } }
+		cost = 37
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_robotics_2 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_robotics_3 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_robotics_3 } }
+		cost = 40
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_robotics_3 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_robotics_4 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_robotics_4 } }
+		cost = 42
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_robotics_4 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_robotics_5 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_robotics_5 } }
+		cost = 45
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_robotics_5 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_robotics_6 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_robotics_6 } }
+		cost = 47
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_robotics_6 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_robotics_7 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_robotics_7 } }
+		cost = 52
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_robotics_7 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_robotics_8 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_robotics_8 } }
+		cost = 57
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_robotics_8 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_robotics_9 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_robotics_9 } }
+		cost = 62
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_robotics_9 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_robotics_10 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_robotics_10 } }
+		cost = 67
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_robotics_10 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_robotics_11 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_robotics_11 } }
+		cost = 72
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_robotics_11 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_basic_computing = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_basic_computing } }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_basic_computing = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_integrated_circuit = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_integrated_circuit } }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_integrated_circuit = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_computing_1 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_computing_1 } }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_computing_1 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_decryption_1 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_decryption_1 } }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_decryption_1 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_encryption_1 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_encryption_1 } }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_encryption_1 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_microprocessors = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_microprocessors } }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_microprocessors = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_computing_2 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_computing_2 } }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_computing_2 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_decryption_2 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_decryption_2 } }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_decryption_2 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_encryption_2 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_encryption_2 } }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_encryption_2 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_computing_3 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_computing_3 } }
+		cost = 30
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_computing_3 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_decryption_3 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_decryption_3 } }
+		cost = 30
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_decryption_3 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_encryption_3 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_encryption_3 } }
+		cost = 30
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_encryption_3 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_computing_4 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_computing_4 } }
+		cost = 35
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_computing_4 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_decryption_4 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_decryption_4 } }
+		cost = 35
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_decryption_4 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_encryption_4 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_encryption_4 } }
+		cost = 35
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_encryption_4 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_computing_5 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_computing_5 } }
+		cost = 40
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_computing_5 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_decryption_5 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_decryption_5 } }
+		cost = 40
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_decryption_5 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_encryption_5 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_encryption_5 } }
+		cost = 40
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_encryption_5 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_computing_6 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_computing_6 } }
+		cost = 47
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_computing_6 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_decryption_6 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_decryption_6 } }
+		cost = 47
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_decryption_6 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_encryption_6 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_encryption_6 } }
+		cost = 47
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_encryption_6 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_computing_7 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_computing_7 } }
+		cost = 52
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_computing_7 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_computing_8 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_computing_8 } }
+		cost = 57
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_computing_8 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_computing_9 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_computing_9 } }
+		cost = 62
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_computing_9 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_computing_10 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_computing_10 } }
+		cost = 67
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_computing_10 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_computing_11 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_computing_11 } }
+		cost = 72
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_computing_11 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_gprs = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_gprs } }
+		cost = 30
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_gprs = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_edge = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_edge } }
+		cost = 35
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_edge = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_umts = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_umts } }
+		cost = 35
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_umts = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_internet_access_1 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_internet_access_1 } }
+		cost = 32
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_internet_access_1 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_hsupa = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_hsupa } }
+		cost = 37
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_hsupa = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_lte = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_lte } }
+		cost = 40
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_lte = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_wimax = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_wimax } }
+		cost = 40
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_wimax = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_internet_access_2 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_internet_access_2 } }
+		cost = 42
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_internet_access_2 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_internet_access_3 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_internet_access_3 } }
+		cost = 47
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_internet_access_3 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_internet_access_4 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_internet_access_4 } }
+		cost = 52
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_internet_access_4 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_internet_access_5 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_internet_access_5 } }
+		cost = 57
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_internet_access_5 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_internet_access_6 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_internet_access_6 } }
+		cost = 62
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_internet_access_6 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_internet_access_7 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_internet_access_7 } }
+		cost = 67
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_internet_access_7 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	PAX_buy_pax_md_internet_access_8 = {
+		category = PAX_md_electronics
+		icon = generic_research
+		visible = { is_ai = no NOT = { has_tech = pax_md_internet_access_8 } }
+		cost = 72
+		fire_only_once = yes
+		complete_effect = { set_technology = { pax_md_internet_access_8 = 1 } }
+		ai_will_do = { factor = 0 }
+	}
+}
