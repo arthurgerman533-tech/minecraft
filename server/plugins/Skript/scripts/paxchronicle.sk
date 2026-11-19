@@ -1,0 +1,183 @@
+# PaxVanila — «Летопись дня» для страницы «Новости сервера» на сайте. Добавлено 2026-11-19.
+# Записывает важные события сервера в <out>/chronicle.json: объявления войн и мира, дипломатию,
+# начало эпох, караваны, новые города и нации (Towny), итоги каждого дня (новички и погибшие)
+# и заметки администрации (/chronicle add <текст>). Сайт читает файл, если в
+# content/paxvanila.json задан config.liveUrl (та же папка, что у meteo.json и news.json).
+# Шаблоны текста лежат на сайте в content/chronicle.json → templates.
+#
+# Нужны: Skript 2.8+ (событие on broadcast), skript-reflect (запись файла, события Towny).
+# Рост границы, недели и сезоны сайт пишет сам по дате старта, поэтому их тут нет.
+# В файл попадают только тексты объявлений, названия городов и наций, ники мэров и числа.
+#
+#   /chronicle                 — сколько записей в летописи
+#   /chronicle add <текст>     — добавить весть от администрации (право paxchronicle.admin)
+#   /chronicle write           — записать файл сейчас (право paxchronicle.admin)
+#   /chronicle reset           — очистить летопись (право paxchronicle.admin)
+
+import:
+	java.io.File
+	java.io.FileWriter
+	java.nio.charset.StandardCharsets
+	com.palmergames.bukkit.towny.event.NewTownEvent
+	com.palmergames.bukkit.towny.event.NewNationEvent
+	com.palmergames.bukkit.towny.event.DeleteTownEvent
+
+options:
+	out: plugins/PaxMeteo
+	keep: 150
+
+function chronNow() :: number:
+	return floor(unix timestamp of now)
+
+# текст → безопасная строка для JSON
+function chronEsc(s: text) :: text:
+	replace all "\" with "\\" in {_s}
+	replace all """" with "\""" in {_s}
+	return {_s}
+
+# объявление → тип записи ("" — не записывать)
+function chronKind(m: text) :: text:
+	loop "Границы мира расширены", "Окно боёв", "Проверка связи" and "Вестник Академии":
+		if {_m} contains loop-value:
+			return ""
+	if {_m} starts with "[Война":
+		return "war"
+	if {_m} starts with "[Дипломатия]":
+		return "diplo"
+	loop "[Караван]", "[Событие]" and "[Фокус]":
+		if {_m} starts with loop-value:
+			return "event"
+	if {_m} starts with "[Сезон]":
+		return "epoch"
+	if {_m} starts with "[PaxVanila]":
+		if {_m} contains "ВОЙН":
+			return "war"
+		if {_m} contains "войн":
+			return "war"
+		if {_m} contains "Война":
+			return "war"
+		return "epoch"
+	return ""
+
+function chronSave(name: text, body: text):
+	set {_dir} to new File("{@out}")
+	{_dir}.mkdirs()
+	set {_f} to new File({_dir}, {_name})
+	set {_w} to new FileWriter({_f}, StandardCharsets.UTF_8)
+	{_w}.write({_body})
+	{_w}.close()
+
+function chronWrite():
+	set {_items} to join {chron::items::*} with ","
+	chronSave("chronicle.json", "{""demo"":false,""updated"":%chronNow()%,""items"":[%{_items}%]}")
+
+# запись в кольцо из {@keep} последних; возвращает номер ячейки
+function chronAdd(json: text) :: number:
+	add 1 to {chron::count}
+	set {_i} to mod({chron::count}, {@keep})
+	set {chron::items::%{_i}%} to {_json}
+	return {_i}
+
+function chronMsg(k: text, m: text):
+	set {_j} to "{""k"":""%{_k}%"",""m"":""%chronEsc({_m})%"",""t"":%chronNow()%}"
+	set {-chron::last} to chronAdd({_j})
+	set {-chron::lastk} to {_k}
+	set {-chron::lastm} to {_m}
+	set {-chron::lastt} to now
+	chronWrite()
+
+on broadcast:
+	set {_m} to uncolored broadcast message
+	set {_k} to chronKind({_m})
+	if {_k} is "":
+		# строка-продолжение сразу за объявлением дописывается к нему
+		{-chron::lastt} is set
+		difference between {-chron::lastt} and now < 2 seconds
+		{_m} does not start with "["
+		set {_m} to "%{-chron::lastm}% %{_m}%"
+		set {-chron::lastm} to {_m}
+		set {chron::items::%{-chron::last}%} to "{""k"":""%{-chron::lastk}%"",""m"":""%chronEsc({_m})%"",""t"":%chronNow()%}"
+		chronWrite()
+		stop
+	chronMsg({_k}, {_m})
+
+# ---------- Towny: новые города и нации ----------
+
+on NewTownEvent:
+	set {_t} to event.getTown()
+	set {_n} to "%{_t}.getName()%"
+	set {_p} to ""
+	if {_t}.hasMayor() is true:
+		set {_p} to "%{_t}.getMayor().getName()%"
+	chronAdd("{""k"":""town"",""a"":""%chronEsc({_n})%"",""p"":""%chronEsc({_p})%"",""t"":%chronNow()%}")
+	chronWrite()
+
+on NewNationEvent:
+	set {_x} to event.getNation()
+	set {_n} to "%{_x}.getName()%"
+	set {_c} to ""
+	if {_x}.hasCapital() is true:
+		set {_c} to "%{_x}.getCapital().getName()%"
+	chronAdd("{""k"":""nation"",""a"":""%chronEsc({_n})%"",""b"":""%chronEsc({_c})%"",""t"":%chronNow()%}")
+	chronWrite()
+
+on DeleteTownEvent:
+	set {_n} to "%event.getTownName()%"
+	chronAdd("{""k"":""ruin"",""a"":""%chronEsc({_n})%"",""t"":%chronNow()%}")
+	chronWrite()
+
+# ---------- итоги дня ----------
+
+on first join:
+	add 1 to {chron::day::new}
+
+on death of player:
+	add 1 to {chron::day::dead}
+
+every 1 minute:
+	{pax::border::launch} is set
+	set {_d} to paxDay()
+	if {chron::day::idx} is not set:
+		set {chron::day::idx} to {_d}
+		stop
+	{_d} > {chron::day::idx}
+	set {_new} to {chron::day::new} ? 0
+	set {_dead} to {chron::day::dead} ? 0
+	if {_new} + {_dead} > 0:
+		chronAdd("{""k"":""day"",""n"":%{chron::day::idx} + 1%,""a"":%{_new}%,""b"":%{_dead}%,""t"":%chronNow() - 60%}")
+		chronWrite()
+	set {chron::day::idx} to {_d}
+	delete {chron::day::new}
+	delete {chron::day::dead}
+
+on load:
+	wait 5 seconds
+	chronWrite()
+
+command /chronicle [<text>]:
+	aliases: /летопись, /новости
+	trigger:
+		if arg-1 is not set:
+			send "&6&l— Летопись дня —"
+			send "&7Записей: &f%size of {chron::items::*}%&7. Читать: сайт сервера, страница «Новости»."
+			stop
+		if executor does not have permission "paxchronicle.admin":
+			send "&cНет прав."
+			stop
+		if arg-1 starts with "add ":
+			set {_m} to subtext of arg-1 from characters 5 to length of arg-1
+			set {_j} to "{""k"":""note"",""m"":""%chronEsc({_m})%"",""t"":%chronNow()%}"
+			chronAdd({_j})
+			chronWrite()
+			broadcast "&6&l[Летопись] &f%{_m}%"
+			send "&aЗапись добавлена в летопись."
+		else if arg-1 is "write":
+			chronWrite()
+			send "&aФайл записан в {@out}/chronicle.json."
+		else if arg-1 is "reset":
+			delete {chron::items::*}
+			delete {chron::count}
+			chronWrite()
+			send "&eЛетопись очищена."
+		else:
+			send "&7/chronicle add <текст> | write | reset"

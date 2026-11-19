@@ -263,6 +263,9 @@ def build(lang, out):
     C["cata"] = localize(load_json("cataclysms.json"), lang)
     C["news"] = localize(load_json("news.json"), lang)
     C["newsDemo"] = load_json("news_demo.json")
+    # «Новости сервера» (news.html): летопись по дням + демо живых записей (?demo в адресе)
+    C["chronicle"] = localize(load_json("chronicle.json"), lang)
+    C["chronicleDemo"] = load_json("chronicle_demo.json")
     tr = translator(lang)
     for d in ("", "img", "icons", "lore", "guides", "files"):
         os.makedirs(os.path.join(out, d), exist_ok=True)
@@ -341,6 +344,23 @@ def build(lang, out):
                         f'<div class="lorelist">{"".join(cards)}</div></div></section><footer><div class="wrap"><a href="./">← На главную</a></div></footer>',
                         idx, flags=re.S)
     write("lore.html", lore_index.replace("<title>PaxVanila</title>", "<title>Лор — PaxVanila</title>"))
+    # «Новости сервера»: отдельная страница, записи рисует app.js (chronicleMain)
+    X = C["chronicle"]["ui"]
+    news_page = re.sub(r"<div class=\"hero\">.*?</footer>",
+                       '<section class="chronhead"><div class="wrap">'
+                       f'<div class="kicker">{html.escape(X["kicker"])}</div><h1>{html.escape(X["title"])}</h1>'
+                       f'<p class="sub">{html.escape(X["lead"])}</p><div class="chips" id="chronState"></div>'
+                       '<div id="chronNextWrap" hidden><h3 class="h3">Что впереди</h3><div class="now" id="chronNext"></div></div>'
+                       '<div class="chips" id="chronCats"></div><div id="chron" class="chronlist"></div>'
+                       '<p class="sub chronfoot">Записи о подготовке и важные события пишет администрация. Когда сервер откроется, рост границы, новые эпохи и сезоны появятся тут сами, '
+                       'а если сервер публикует живые данные, сюда попадут и новые города, нации, войны и находки. <a href="news.xml">RSS-лента</a> для Discord-бота.</p>'
+                       '</div></section><footer><div class="wrap"><a href="./">← На главную</a> · <a href="lore.html">Лор</a></div></footer>',
+                       idx, flags=re.S)
+    news_page = tr(news_page)  # перевод до замены ссылок меню (пары в i18n с href="#…")
+    news_page = re.sub(r'(<nav class="main">.*?</nav>)', lambda m: m.group(1).replace('href="#', 'href="./#'), news_page, flags=re.S)
+    news_page = news_page.replace("<title>PaxVanila</title>", f"<title>{html.escape(X['title'])} — PaxVanila</title>")
+    write("news.html", news_page.replace('<a href="news.html">', '<a class="on" href="news.html">'))
+    write_rss(C, lang, out)
 
     # лор-викторина (content/quiz.json): данные вшиты в страницу, чтобы работала и офлайн
     Q = localize(load_json("quiz.json"), lang)
@@ -365,7 +385,7 @@ def build(lang, out):
                   {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}]}
     with open(os.path.join(out, "manifest.webmanifest"), "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=1)
-    core = ["./", "index.html", "lore.html", "quiz.html", "style.css", "app.js", "content.json", "icons/icon-192.png"] + \
+    core = ["./", "index.html", "lore.html", "quiz.html", "news.html", "style.css", "app.js", "content.json", "icons/icon-192.png"] + \
            [f"lore/{l['id']}.html" for l in C["lore"]] + [f"guides/{g['id']}.html" for g in C.get("guides", [])] + ["privacy.html"] + \
            [f"img/{w['image'].replace('.png', '.jpg')}" for w in C["weeks"]] + ["img/about.jpg"]
     sw = open(os.path.join(SRC, "sw.js"), encoding="utf-8").read()
@@ -373,6 +393,24 @@ def build(lang, out):
     with open(os.path.join(out, "sw.js"), "w", encoding="utf-8") as f:
         f.write(sw)
     return C
+
+
+def write_rss(C, lang, out):
+    """news.xml — RSS-лента записей Летописца (для Discord-ботов вроде MonitoRSS)."""
+    from email.utils import format_datetime
+    from datetime import datetime, timezone, timedelta
+    X, site = C["chronicle"], "https://arthurgerman533-tech.github.io/minecraft/" + ("" if lang == "ru" else lang + "/")
+    items = []
+    for i, e in enumerate(X["entries"][:50]):
+        dt = datetime.fromisoformat(e["date"]).replace(hour=12, tzinfo=timezone(timedelta(hours=3))) - timedelta(minutes=i)
+        items.append(f"<item><title>{html.escape(e['icon'] + ' ' + e['title'])}</title><link>{site}news.html#d-{e['date']}</link>"
+                     f"<guid isPermaLink=\"false\">pax-{e['date']}-{html.escape(e['title'])}</guid><pubDate>{format_datetime(dt)}</pubDate>"
+                     f"<description>{html.escape(e['text'])}</description></item>")
+    title = X["ui"]["title"] + " — PaxVanila"
+    rss = (f'<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel><title>{html.escape(title)}</title><link>{site}news.html</link>'
+           f'<description>{html.escape(X["ui"]["lead"])}</description><language>{lang}</language>{"".join(items)}</channel></rss>\n')
+    with open(os.path.join(out, "news.xml"), "w", encoding="utf-8") as f:
+        f.write(rss)
 
 
 def main():

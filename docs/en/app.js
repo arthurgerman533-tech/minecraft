@@ -107,7 +107,7 @@ function renderCalendar(C){
 }
 
 async function main(){
-  const C=await (await fetch('content.json?v=20261119230127')).json(), cfg=C.config; window.__C=C;
+  const C=await (await fetch('content.json?v=20261119230205')).json(), cfg=C.config; window.__C=C;
   document.querySelectorAll('[data-k]').forEach(e=>{e.textContent=e.dataset.k in C?C[e.dataset.k]:cfg[e.dataset.k]||''});
   // IP и Discord
   const ipBtn=$('#copyip');
@@ -144,6 +144,7 @@ async function main(){
   renderEarth(C);
   renderRoster(C);
   renderWeather(C);
+  renderChronicleTeaser(C);
   checkStatus(cfg);
 }
 // ---- Державы и игроки (C.roster: content/players.json + content/nations_towny.json) ----
@@ -548,6 +549,69 @@ function renderNether(C){
   svg.addEventListener('click',e=>{if(moved>4){e.stopPropagation();e.preventDefault()}},true);
   addEventListener('resize',apply); reset();
 }
+// ---- «Новости сервера»: летопись по дням (C.chronicle из content/chronicle.json; живые записи: config.liveUrl → chronicle.json из paxchronicle.sk) ----
+const MSK=3*3600e3, dayKey=ms=>new Date(ms+MSK).toISOString().slice(0,10);
+const fill=(s,v)=>esc(s||'').replace(/\{(\w)\}/g,(m,k)=>k in v?(k==='n'||k==='d'?esc(v[k]):`<b>${esc(v[k])}</b>`):m);
+function chronicleItems(C,live,news){
+  const X=C.chronicle, cfg=C.config, out=[]; if(!X) return out;
+  (X.entries||[]).forEach((e,i)=>out.push({key:e.date,ord:1e6-i,cat:e.cat,icon:e.icon,title:esc(e.title),text:esc(e.text)}));
+  const t0=cfg.launchDate?new Date(cfg.launchDate).getTime():NaN;
+  if(!isNaN(t0)){
+    const now=Date.now(), days=Math.floor((now-t0)/864e5); // индекс сегодняшнего дня (0 = день 1)
+    const at=d=>dayKey(t0+d*864e5);
+    for(let d=1;d<=days&&d<=41;d++){const r=radiusForDay(cfg.border,d), r0=radiusForDay(cfg.border,d-1); if(r>r0){const L=X.border.lines;
+      out.push({key:at(d),ord:d*10+1,cat:'border',icon:'🧭',day:d+1,title:esc(X.border.title),text:fill(L[d%L.length],{n:r,d:r-r0})})}}
+    (X.calendar||[]).forEach(c=>{if(c.day-1<=days) out.push({key:at(c.day-1),ord:c.day*10+5,cat:c.cat,icon:c.icon,day:c.day,title:esc(c.title),text:esc(c.text)})});
+    for(let d=35;d<=days;d+=7) out.push({key:at(d),ord:d*10+4,cat:'epoch',icon:'🍂',day:d+1,title:esc(X.seasons.title),text:fill(X.seasons.text,{a:SEASONS[Math.floor((d-28)/7)%4]})});
+  }
+  const live1=(L,map)=>(L&&L.items||[]).forEach(x=>{const t=map(x);if(t) out.push({key:dayKey(x.t*1000),ord:x.t,time:x.t,demo:!!L.demo,...t})});
+  live1(live,x=>{const t=X.templates[x.k];if(!t) return null;const v={a:x.a||'',b:x.b||'',n:x.n??'',p:x.p||'',m:String(x.m||'').replace(/^\[[^\]]*\]\s*/,'')};
+    return {cat:t.cat,icon:t.icon,title:fill(t.title,v),text:fill(t.text,v)}});
+  const W=C.news; live1(news&&!news.demo?news:null,x=>{const t=W&&W.templates[x.k];if(!t) return null;
+    return {cat:'find',icon:t.icon,title:esc(t.title),text:esc(t.text).split('{p}').join(`<b>${esc(x.p)}</b>`)}});
+  return out.sort((a,b)=>a.key<b.key?1:a.key>b.key?-1:b.ord-a.ord);
+}
+function dayLabel(C,key){
+  const d=new Date(key+'T12:00:00Z'), cfg=C.config;
+  const s=d.toLocaleDateString(EN?'en-GB':'ru-RU',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
+  const t0=cfg.launchDate?new Date(cfg.launchDate).getTime():NaN; if(isNaN(t0)) return [s,''];
+  const n=Math.round((new Date(key+'T00:00:00Z')-new Date(dayKey(t0)+'T00:00:00Z'))/864e5);
+  return [s,n>=0?T(`День ${n+1} сервера`,`Server day ${n+1}`):T(`За ${-n} ${plural(-n,'день','дня','дней')} до высадки`,`${-n} day${-n===1?'':'s'} before landfall`)];
+}
+function plural(n,a,b,c){n=Math.abs(n)%100;const m=n%10;return n>10&&n<20?c:m===1?a:m>=2&&m<=4?b:c}
+function chronCard(C,i){const X=C.chronicle;
+  return `<article class="card chron c-${esc(i.cat)}"><div class="meta"><span>${i.icon} ${esc(X.categories[i.cat]||'')}</span>${i.time?`<span>${new Date(i.time*1000).toLocaleTimeString(EN?'en-GB':'ru-RU',{hour:'2-digit',minute:'2-digit'})}</span>`:''}${i.demo?'<span class="demo">'+T('ДЕМО','DEMO')+'</span>':''}</div><h3>${i.title}</h3><p>${i.text}</p></article>`}
+async function loadChronicle(C){
+  const cfg=C.config, demo=/[?&]demo\b/.test(location.search);
+  let [lv,ln]=await Promise.all([liveJson(cfg,'chronicle.json'),liveJson(cfg,'news.json')]);
+  if(!lv&&demo&&C.chronicleDemo) lv=C.chronicleDemo;
+  return chronicleItems(C,lv,ln);
+}
+async function renderChronicleTeaser(C){
+  const host=$('#chronTeaser'); if(!host||!C.chronicle) return;
+  const items=await loadChronicle(C), top=items.slice(0,3);
+  host.innerHTML=top.map(i=>{const [d,s]=dayLabel(C,i.key);return chronCard(C,i).replace('<div class="meta">',`<div class="meta"><span class="dd">${esc(d)}</span>`)}).join('');
+}
+async function chronicleMain(){
+  const C=await (await fetch('content.json?v=20261119230205')).json(), X=C.chronicle, cfg=C.config, host=$('#chron'); if(!X||!host) return;
+  const st=serverState(cfg), items=await loadChronicle(C);
+  const bits=[]; if(st.started) bits.push(T(`Сегодня день ${st.day}`,`Today is day ${st.day}`),T(`граница ${st.radius} ${plural(st.radius,'блок','блока','блоков')}`,`border ${st.radius} blocks`)+(st.season?' · '+st.season:''));
+  else if(st.until) bits.push(T(`До высадки ${st.until} ${plural(st.until,'день','дня','дней')}`,`Landfall in ${st.until} day${st.until===1?'':'s'}`));
+  else bits.push(T('Дата открытия скоро','Launch date coming soon'));
+  $('#chronState').innerHTML=bits.map(b=>`<span class="pill">${esc(b)}</span>`).join('');
+  // что впереди: ближайшие записи календаря
+  const t0=cfg.launchDate?new Date(cfg.launchDate).getTime():NaN, today=st.started?st.day:0;
+  const next=(X.calendar||[]).filter(c=>c.day>today).slice(0,3);
+  $('#chronNext').innerHTML=isNaN(t0)?'':next.map(c=>{const [d]=dayLabel(C,dayKey(t0+(c.day-1)*864e5));
+    return `<div class="stat"><div class="l">${esc(d)} · ${T('день','day')} ${c.day}</div><div class="v nx">${c.icon} ${esc(c.title)}</div></div>`}).join('');
+  $('#chronNextWrap').hidden=!next.length||isNaN(t0);
+  let cat=''; const cats=Object.entries(X.categories).filter(([k])=>items.some(i=>i.cat===k)), bar=$('#chronCats');
+  const draw=()=>{bar.innerHTML=`<button class="${cat?'':'on'}" data-c="">${T('Все','All')}</button>`+cats.map(([k,v])=>`<button class="${cat===k?'on':''}" data-c="${k}">${esc(v)}</button>`).join('');
+    const L=items.filter(i=>!cat||i.cat===cat), groups=[]; L.forEach(i=>{const g=groups[groups.length-1];if(g&&g.key===i.key)g.items.push(i);else groups.push({key:i.key,items:[i]})});
+    host.innerHTML=groups.map(g=>{const [d,s]=dayLabel(C,g.key);return `<section class="cday" id="d-${g.key}"><header><time datetime="${g.key}">${esc(d)}</time>${s?`<span>${esc(s)}</span>`:''}</header><div class="cdayl">${g.items.map(i=>chronCard(C,i)).join('')}</div></section>`}).join('')||`<p class="sub">${T('Записей пока нет.','No entries yet.')}</p>`};
+  bar.onclick=e=>{const c=e.target.closest('button');if(c){cat=c.dataset.c;draw()}};
+  draw();
+}
 function renderNow(C){
   const g=$('#nowGrid'); if(!g) return; const cfg=C.config, s=serverState(cfg);
   const cells=[];
@@ -574,5 +638,6 @@ async function checkStatus(cfg){
   catch(e){const v=$('#stV');if(v)v.innerHTML='<span class="dot"></span>'+T('Нет данных','No data')}
 }
 if(document.getElementById('nowGrid')||document.getElementById('loreList')) main();
+else if(document.getElementById('chron')) chronicleMain();
 window.PaxCalendar={serverState,radiusForDay};
 })();

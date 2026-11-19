@@ -11,13 +11,13 @@
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261119230127">
+<link rel="stylesheet" href="style.css?v=20261119230205">
 </head>
 <body>
 <header class="top"><div class="wrap">
   <a class="brand" href="./"><img src="icons/icon-192.png" alt="">PaxVanila</a>
   <nav class="main">
-    <a href="#now">Now</a><a href="#calendar">Calendar</a><a href="#join">How to join</a><a href="#weeks">Weeks</a><a href="#map">World 1</a><a href="#earth">World 2: Earth</a><a href="#nether">Nether</a><a href="#nations">Powers</a><a href="#weather">Weather</a><a href="#news">Herald</a><a href="#mech">Mechanics</a><a href="#rules">Rules</a><a href="#cmds">Commands</a><a href="lore.html">Lore</a><a href="quiz.html">Quiz</a><a href="guides/fokusy.html">Guide</a>
+    <a href="#now">Now</a><a href="news.html">News</a><a href="#calendar">Calendar</a><a href="#join">How to join</a><a href="#weeks">Weeks</a><a href="#map">World 1</a><a href="#earth">World 2: Earth</a><a href="#nether">Nether</a><a href="#nations">Powers</a><a href="#weather">Weather</a><a href="#news">Herald</a><a href="#mech">Mechanics</a><a href="#rules">Rules</a><a href="#cmds">Commands</a><a href="lore.html">Lore</a><a href="quiz.html">Quiz</a><a href="guides/fokusy.html">Guide</a>
   </nav>
   <a class="iconbtn" id="lang" href="../" hreflang="ru" title="Русский">RU</a>
   <button class="iconbtn" id="theme" title="Theme" aria-label="Switch theme">☾</button>
@@ -46,6 +46,13 @@
   <div class="kicker">Event calendar</div><h2>What's on now and what's next</h2>
   <p class="sub">The current week, the event and the time until the next one. Times are shown in your time zone.</p>
   <div class="cal" id="calBox"></div>
+</div></section>
+
+<section id="chronicle"><div class="wrap">
+  <div class="kicker">Chronicle of the day</div><h2>Server news</h2>
+  <p class="sub">What happened in the world each day, told briefly, the way a chronicle does.</p>
+  <div class="newslist" id="chronTeaser"></div>
+  <div class="cta"><a class="btn primary" href="news.html">📜 All news</a></div>
 </div></section>
 
 <section id="join" class="alt"><div class="wrap">
@@ -177,6 +184,6 @@
 
 <footer><div class="wrap">PaxVanila · a fan server, not affiliated with Mojang or Microsoft. There is also an <a href="#app" id="appLink">app</a>. <a href="privacy.html">Privacy</a>. <a data-boosty href="#" target="_blank" rel="noopener">Support us on Boosty</a>.</div></footer>
 <div class="toast" id="toast"></div>
-<script src="app.js?v=20261119230127"></script>
+<script src="app.js?v=20261119230205"></script>
 </body>
 </html>

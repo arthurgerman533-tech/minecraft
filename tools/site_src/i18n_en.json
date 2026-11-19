@@ -20,6 +20,30 @@
   "The current week, the event and the time until the next one. Times are shown in your time zone."
  ],
  [
+  ">Новости</a>",
+  ">News</a>"
+ ],
+ [
+  "<div class=\"kicker\">Летопись дня</div><h2>Новости сервера</h2>",
+  "<div class=\"kicker\">Chronicle of the day</div><h2>Server news</h2>"
+ ],
+ [
+  "Что случилось в мире за день, коротко, как в летописи.",
+  "What happened in the world each day, told briefly, the way a chronicle does."
+ ],
+ [
+  "📜 Все новости",
+  "📜 All news"
+ ],
+ [
+  "<h3 class=\"h3\">Что впереди</h3>",
+  "<h3 class=\"h3\">Coming up</h3>"
+ ],
+ [
+  "Записи о подготовке и важные события пишет администрация. Когда сервер откроется, рост границы, новые эпохи и сезоны появятся тут сами, а если сервер публикует живые данные, сюда попадут и новые города, нации, войны и находки. <a href=\"news.xml\">RSS-лента</a> для Discord-бота.",
+  "Preparation entries and major events are written by the administration. Once the server opens, border growth, new epochs and seasons appear here on their own, and if the server publishes live data, new towns, nations, wars and discoveries show up too. <a href=\"news.xml\">RSS feed</a> for a Discord bot."
+ ],
+ [
   "<a href=\"#map\">Мир 1</a>",
   "<a href=\"#map\">World 1</a>"
  ],

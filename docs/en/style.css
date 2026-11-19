@@ -398,3 +398,26 @@ table.wxtable small{color:var(--muted)}
 .qz-your{color:var(--bad)}.qz-right{color:var(--ok)}
 .qz-why{color:var(--muted);font-size:.95rem}
 .qz-cta{margin:0 0 20px}
+/* «Новости сервера» — летопись по дням */
+.chronhead h1{font-family:"Cormorant SC",Georgia,serif;font-size:clamp(2rem,6vw,3.2rem);margin:.1em 0 .2em}
+#chronState{margin:-8px 0 8px}
+#chronCats{margin:28px 0 8px}
+.stat .v.nx{font-size:1.05rem;line-height:1.3}
+.chronlist{position:relative;margin-top:8px}
+.cday{position:relative;padding:18px 0 6px 26px;border-left:2px solid var(--line);margin-left:8px}
+.cday:before{content:"";position:absolute;left:-8px;top:24px;width:14px;height:14px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px var(--bg)}
+.cday>header{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin-bottom:12px}
+.cday time{font-family:"Cormorant SC",Georgia,serif;font-weight:700;font-size:1.45rem;color:var(--ink)}
+.cday>header span{color:var(--muted);font-size:.88rem}
+.cdayl{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.card.chron .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:.8rem;color:var(--muted);margin-bottom:6px}
+.card.chron .meta .dd{color:var(--gold);font-weight:700}
+.card.chron h3{margin:.1em 0 .3em;font-size:1.08rem}
+.card.chron p{margin:0;color:var(--ink);opacity:.88}
+.card.chron{border-left:3px solid var(--gold)}
+.card.chron.c-war{border-left-color:var(--bad)}.card.chron.c-diplo{border-left-color:var(--accent)}
+.card.chron.c-border{border-left-color:var(--ok)}.card.chron.c-find{border-left-color:#3b8fd9}
+.card.chron.c-prep{border-left-color:var(--line)}
+.chronfoot{margin-top:28px;font-size:.9rem}
+#chronicle .cta{margin-top:16px}
+@media (max-width:600px){.cday{padding-left:16px;margin-left:6px}.cdayl{grid-template-columns:1fr}}
