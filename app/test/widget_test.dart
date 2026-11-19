@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paxvanila/screens/map.dart';
 import 'package:paxvanila/screens/meteo.dart';
+import 'package:paxvanila/screens/chronicle.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:paxvanila/calendar.dart';
@@ -108,5 +109,26 @@ void main() {
     await tester.tap(find.text('Наука'));
     await tester.pump();
     expect(find.textContaining('Kadim_Ur'), findsNothing);
+  });
+
+  test('летопись: записи подготовки, а после старта граница и эпохи', () {
+    final j = jsonDecode(File('assets/content.json').readAsStringSync()) as Map<String, dynamic>;
+    final c = Content(j);
+    expect(c.chronicle.isNotEmpty, true);
+    final before = chronicleItems(c, null, DateTime.utc(2026, 11, 20));
+    expect(before.every((i) => i.cat == 'prep'), true);
+    expect(before.first.key, '2026-11-19');
+    final after = chronicleItems(c, {'items': [{'k': 'town', 'a': 'Roma', 'p': 'Romul', 't': 1796000000}]}, DateTime.utc(2026, 12, 30, 12));
+    expect(after.any((i) => i.title.contains('Высадка')), true);
+    expect(after.any((i) => i.cat == 'border'), true);
+    expect(after.any((i) => i.title == 'Основан город Roma'), true);
+  });
+
+  testWidgets('экран «Новости сервера» рисуется', (tester) async {
+    final c = Content(jsonDecode(File('assets/content.json').readAsStringSync()));
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: ChronicleView(content: c))));
+    await tester.pump();
+    expect(find.text('Названа дата высадки'), findsOneWidget);
+    expect(find.text('19 ноября 2026'), findsOneWidget);
   });
 }

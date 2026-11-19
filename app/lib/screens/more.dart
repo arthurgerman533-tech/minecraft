@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../content.dart';
 import '../i18n.dart';
+import 'chronicle.dart';
 import 'lore.dart';
 import 'meteo.dart';
 import 'nations.dart';
@@ -25,6 +26,8 @@ class MoreScreen extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 32),
       children: [
+        if (content.chronicle.isNotEmpty)
+          tile(Icons.newspaper_outlined, t('Новости сервера', 'Server news'), t('Летопись дня: что случилось в мире', 'Chronicle of the day: what happened in the world'), () => push(context, t('Новости сервера', 'Server news'), ChronicleView(content: content))),
         tile(Icons.thunderstorm_outlined, t('Погода · ПаксГидромет', 'Weather · PaxHydromet'), t('Сводка, предупреждения, катаклизмы', 'Report, warnings, cataclysms'), () => push(context, t('ПаксГидромет', 'PaxHydromet'), WeatherView(content: content))),
         if ((content.roster['rows'] ?? const []).isNotEmpty)
           tile(Icons.flag_outlined, t('Державы и игроки', 'Powers and players'), t('Кто правит, сколько городов и жителей', 'Who rules, how many towns and residents'), () => push(context, t('Державы и игроки', 'Powers and players'), NationsView(content: content))),
