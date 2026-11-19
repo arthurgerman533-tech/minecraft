@@ -663,7 +663,7 @@ def build_eras_extra():
     w("common/technologies/pax_lore_techs.txt", "technologies = {\n" + "\n\n".join(indent(b, 1) for b in blocks) + "\n}\n")
 
     mdt = MD.load()
-    w("common/technologies/pax_md_techs.txt", "technologies = {\n" + "\n\n".join(indent(MD.tech_block(t), 1) for t in mdt) + "\n}\n")
+    w("common/technologies/pax_md_techs.txt", "technologies = {\n" + "\n\n".join(indent(MD.tech_block(t, 30 + 2 * (i % 10), 2 + 2 * (i // 10)), 1) for i, t in enumerate(mdt)) + "\n}\n")
     for t in mdt:
         LOC[t["id"]] = MD.pretty(t)
 

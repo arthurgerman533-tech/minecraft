@@ -41,13 +41,16 @@ def load():
                     eff.append((m.group(1), m.group(2)))
             ys = re.search(r"start_year\s*=\s*(\d+)", b)
             if eff:
-                techs.append(dict(id="pax_md_" + name, src=name, year=int(ys.group(1)) if ys else 2000, eff=eff))
+                techs.append(dict(file=f, id="pax_md_" + name, src=name, year=int(ys.group(1)) if ys else 2000, eff=eff))
     return techs
 
-def tech_block(t):
+FOLDER = {"industry": "industry_folder", "infantry": "infantry_folder", "engineering": "electronics_folder"}
+
+
+def tech_block(t, x=30, y=2):
     body = "\n".join(f"\t{k} = {v}" for k, v in t["eff"])
     return (f"{t['id']} = {{\n{body}\n\tresearch_cost = 1\n\tstart_year = {t['year']}\n"
-            f"\tallow = {{ always = no }}\n\tai_will_do = {{ factor = 0 }}\n}}")
+            f"\tfolder = {{ name = {FOLDER[t['file']]} position = {{ x = {x} y = {y} }} }}\n\tai_will_do = {{ factor = 1 }}\n}}")
 
 def pretty(t):
     return "MD: " + t["src"].replace("_", " ")

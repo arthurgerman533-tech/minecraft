@@ -64,28 +64,8 @@ FAMILY_IN_FILES = set()  # эти технологии уже лежат в indu
 
 
 TECH_EXTRA = {
-    "excavation6": """on_research_complete = {
-	modify_building_resources = {
-		building = aluminum_mill
-		resource = aluminium
-		amount = 4
-	}
-}
-on_research_complete = {
-	modify_building_resources = {
-		building = steel_mill
-		resource = steel
-		amount = 4
-	}
-}""",
-    "improved_modern_rubber_processing": """on_research_complete = {
-	modify_building_resources = {
-		building = synthetic_refinery
-		resource = rubber
-		amount = 1
-	}
-}
-show_effect_as_desc = yes""",
+    "excavation6": "show_effect_as_desc = yes",
+    "improved_modern_rubber_processing": "show_effect_as_desc = yes",
     "improved_modern_oil_processing": "show_effect_as_desc = yes",
 }
 

@@ -566,7 +566,7 @@ FACTIONS = {
 }
 
 MOD_NAME = "PaxVanila"
-MOD_VERSION = "0.8.0"
+MOD_VERSION = "0.8.1"
 
 # Картинки духов. Имена взяты из рабочего мода Arthur «Family Historical MP mod»,
 # там они точно есть в игре. Ключ с * подходит для всех тегов (PAX_her_*, PAX_fai_*).
