@@ -324,6 +324,66 @@
    },
    "lore": "old_records",
    "kind": "old"
+  },
+  {
+   "id": "east_empire",
+   "x": 7400,
+   "z": -2200,
+   "name": {
+    "ru": "Срединная Империя (Китай)",
+    "en": "The Middle Empire (China)"
+   },
+   "text": {
+    "ru": "Дальний восточный край степи, за Великой стеной. Империя пережила Год Пепла и подарила миру бумагу, порох и два свитка: «Путь» и «Учитель Порядка». В Мире 2 стоит на месте Китая.",
+    "en": "The far eastern edge of the steppe, behind the Great Wall. The Empire survived the Year of Ash and gave the world paper, gunpowder and two scrolls, «The Way» and «The Teacher of Order». In World 2 it stands where China is."
+   },
+   "lore": "dalnie",
+   "kind": "east"
+  },
+  {
+   "id": "east_yamato",
+   "x": 6900,
+   "z": -4600,
+   "name": {
+    "ru": "Сёгунат Ямато (Япония)",
+    "en": "The Yamato Shogunate (Japan)"
+   },
+   "text": {
+    "ru": "Острова Восходящего Солнца. Дважды Божественный ветер топил здесь флоты Орды (1274, 1281). После 1945 года Ямато навсегда отказались от войны: «второй PAX».",
+    "en": "The Islands of the Rising Sun. Twice the Divine Wind sank the Horde's fleets here (1274, 1281). After 1945 Yamato renounced war forever: «the second PAX»."
+   },
+   "lore": "dalnie",
+   "kind": "east"
+  },
+  {
+   "id": "new_world",
+   "x": -7400,
+   "z": -2400,
+   "name": {
+    "ru": "Федерация Нового Света (Америка)",
+    "en": "The Federation of the New World (America)"
+   },
+   "text": {
+    "ru": "Земля за Западным морем и Туманом, открытая в 1492 году. Федерация родилась из конституции (1789), стала «заокеанским арсеналом PAX» и в 1969 году сфотографировала на Луне квадратную тень.",
+    "en": "The land beyond the Western Sea and the Fog, found in 1492. The Federation was born from a constitution (1789), became «the overseas arsenal of PAX» and in 1969 photographed a square shadow on the Moon."
+   },
+   "lore": "dalnie",
+   "kind": "east"
+  },
+  {
+   "id": "blue_steppe",
+   "x": 5200,
+   "z": -5600,
+   "name": {
+    "ru": "Синяя степь (Монголия)",
+    "en": "The Blue Steppe (Mongolia)"
+   },
+   "text": {
+    "ru": "Родина ханов у реки Синей. Здесь в 1206 году Темир-хана подняли на белом войлоке, отсюда вышла Великая Степная Орда и отсюда родом Сарыгюль, что повела «Аврору Пакс II» к Луне.",
+    "en": "The homeland of the khans by the Blue River. Here in 1206 Temir Khan was raised on white felt, from here the Great Steppe Horde rode out, and Sarygul who led «Aurora Pax II» to the Moon was born here."
+   },
+   "lore": "dalnie",
+   "kind": "east"
   }
  ],
  "lore": [

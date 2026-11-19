@@ -520,6 +520,13 @@
    "cover": "lore_pozdnie.jpg"
   },
   {
+   "id": "dalnie",
+   "title": "The Distant Powers",
+   "subtitle": "Mongolia, China, Japan, America and the USSR in the chronicle: the Great Steppe Horde and Temir Khan, the Middle Empire, the Yamato Shogunate, the Federation of the New World, the Union of Soviet Steppe Republics (in Russian)",
+   "file": "дальние_державы.md",
+   "cover": "lore_dalnie.jpg"
+  },
+  {
    "id": "cataclysms",
    "title": "Cataclysms",
    "subtitle": "Chronicle of the Monolith",

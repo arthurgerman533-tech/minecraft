@@ -107,7 +107,7 @@ function renderCalendar(C){
 }
 
 async function main(){
-  const C=await (await fetch('content.json?v=20261119230033')).json(), cfg=C.config; window.__C=C;
+  const C=await (await fetch('content.json?v=20261119230127')).json(), cfg=C.config; window.__C=C;
   document.querySelectorAll('[data-k]').forEach(e=>{e.textContent=e.dataset.k in C?C[e.dataset.k]:cfg[e.dataset.k]||''});
   // IP и Discord
   const ipBtn=$('#copyip');
