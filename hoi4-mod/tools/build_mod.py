@@ -667,6 +667,7 @@ def build_eras_extra():
     w("common/technologies/pax_md_techs.txt", "technologies = {\n" + "\n\n".join(indent(MD.tech_block(t, 0, 0), 1) for i, t in enumerate(mdt)) + "\n}\n")
     for t in mdt:
         LOC[t["id"]] = MD.pretty(t)
+        LOC[t["id"] + "_desc"] = "Технология Millennium Dawn."
 
     # Закладки выбора старта
     marks = []
