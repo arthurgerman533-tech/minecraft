@@ -65,6 +65,47 @@ function serverState(cfg,now=new Date()){
 }
 function fmtMin(n){const h=Math.floor(n/60),m=n%60;return EN?(h?`${h} h ${m} min`:`${m} min`):(h?`${h} ч ${m} мин`:`${m} мин`)}
 
+// ---- календарь событий (C.calendar.events: day — день от старта; сезоны добавляются сами) ----
+function calEvents(C){
+  const ev=((C.calendar||{}).events||[]).map(e=>({...e}));
+  for(let k=0,d=28;d<=90;k++,d+=7) ev.push({day:d,icon:['🌱','☀️','🍂','❄️'][k%4],kind:'season',title:T('Сезон: ','Season: ')+SEASONS[k%4],text:''});
+  return ev.sort((a,b)=>a.day-b.day||(a.kind==='season')-(b.kind==='season'));
+}
+const LOC=EN?'en-GB':'ru-RU';
+const fmtDate=d=>d.toLocaleString(LOC,{weekday:'short',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'});
+function fmtLeft(ms){ms=Math.max(0,ms);const s=Math.floor(ms/1e3),d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60),x=s%60,p=n=>String(n).padStart(2,'0');
+  return `<span class="cd"><b>${d}</b><i>${T('дн','d')}</i><b>${p(h)}</b><i>${T('ч','h')}</i><b>${p(m)}</b><i>${T('мин','m')}</i><b>${p(x)}</b><i>${T('сек','s')}</i></span>`}
+function icsFile(C,t0,ev){
+  const z=d=>d.toISOString().replace(/[-:]/g,'').replace(/\.\d+/,''), q=s=>String(s).replace(/[\\,;]/g,m=>'\\'+m).replace(/\n/g,'\\n');
+  const L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//PaxVanila//Calendar//'+(EN?'EN':'RU'),'CALSCALE:GREGORIAN','X-WR-CALNAME:PaxVanila'];
+  ev.forEach((e,i)=>{const a=new Date(t0.getTime()+e.day*864e5);L.push('BEGIN:VEVENT',`UID:pax-${e.day}-${i}@paxvanila`,'DTSTAMP:'+z(new Date()),'DTSTART:'+z(a),'DTEND:'+z(new Date(a.getTime()+36e5)),'SUMMARY:'+q(e.icon+' '+e.title),'DESCRIPTION:'+q(e.text||''),'END:VEVENT')});
+  L.push('END:VCALENDAR'); return new Blob([L.join('\r\n')],{type:'text/calendar'});
+}
+function renderCalendar(C){
+  const box=$('#calBox'); if(!box) return;
+  const cfg=C.config, t0=new Date(cfg.launchDate||''), ev=calEvents(C);
+  if(isNaN(t0)){box.innerHTML=`<div class="calnow"><div class="l">${T('Старт','Launch')}</div><div class="v">${T('Скоро','Soon')}</div><p class="s">${T('Дата появится в Discord.','The date will be announced on Discord.')}</p></div>`;return}
+  const at=e=>new Date(t0.getTime()+e.day*864e5);
+  let tl='';
+  const head=()=>{
+    const now=new Date(), s=serverState(cfg,now), next=ev.find(e=>at(e)>now&&(s.started||e.day>0)), w=s.started?C.weeks.find(x=>x.n===s.week):null;
+    const cur=s.started?[...ev].reverse().find(e=>at(e)<=now&&e.kind!=='season'):null;
+    let h='';
+    if(!s.started) h+=`<div class="calnow big"><div class="l">${T('До открытия сервера','Until the server opens')}</div><div class="v">${fmtLeft(t0-now)}</div><p class="s">${fmtDate(t0)} · ${T('граница','border')} ${cfg.border.start} ${T('блоков','blocks')}</p></div>`;
+    else h+=`<div class="calnow big"><div class="l">${T('Сейчас','Now')} · ${T('день','day')} ${s.day}</div><div class="v sm">${T('Неделя','Week')} ${s.week}${w?': '+esc(w.title):''}</div><p class="s">${cur?esc(cur.icon+' '+cur.title):''}${s.warPhase&&!(cur&&cur.kind==='war'&&cur.title===s.warPhase)?' · '+s.warPhase:''}${s.season?' · '+s.season:''} · ${T('граница','border')} ${s.radius} → ${s.tomorrow}</p></div>`;
+    if(next) h+=`<div class="calnow"><div class="l">${T('Следующее событие','Next event')}</div><div class="v sm">${next.icon} ${esc(next.title)}</div><p class="s">${fmtDate(at(next))}</p><div class="v">${fmtLeft(at(next)-now)}</div></div>`;
+    h+=`<div class="calnow"><div class="l">${T('Окно боёв','Battle window')} ${cfg.primeFrom}:00–${cfg.primeTo}:00 ${T('МСК','Moscow')}</div><div class="v sm">${s.prime?T('⚔️ Открыто','⚔️ Open'):T('🕊️ Закрыто','🕊️ Closed')}</div><p class="s">${s.prime?T('закроется через ','closes in '):T('откроется через ','opens in ')}${fmtMin(s.primeIn)}</p></div>`;
+    return {h,next};
+  };
+  const list=next=>{const now=new Date();return `<ol class="caltl">${ev.map(e=>{const d=at(e),past=d<=now,isNext=e===next;
+    return `<li class="k-${e.kind}${past?' past':''}${isNext?' next':''}"><div class="when"><span class="dn">${T('День','Day')} ${e.day+1}</span>${d.toLocaleDateString(LOC,{day:'numeric',month:'short'})}</div><div class="what"><div class="t">${e.icon} ${esc(e.title)}${isNext?` <span class="tag">${T('дальше','next')}</span>`:''}</div>${e.text?`<p>${esc(e.text)}</p>`:''}</div></li>`}).join('')}</ol>`};
+  box.innerHTML=`<div class="calhead" id="calHead"></div><div class="calbar"><button class="btn" id="calIcs">📅 ${T('Добавить в свой календарь (.ics)','Add to your calendar (.ics)')}</button><span class="tz">${T('Ваш часовой пояс','Your time zone')}: ${esc(Intl.DateTimeFormat().resolvedOptions().timeZone||'')}</span></div><div id="calList"></div>`;
+  let lastNext;
+  const tick=()=>{const r=head();$('#calHead').innerHTML=r.h; if(r.next!==lastNext||tl===''){lastNext=r.next;tl=list(r.next);$('#calList').innerHTML=tl}};
+  tick(); setInterval(tick,1000);
+  $('#calIcs').onclick=()=>{const u=URL.createObjectURL(icsFile(C,t0,ev)),a=document.createElement('a');a.href=u;a.download='PaxVanila.ics';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000)};
+}
+
 async function main(){
   const C=await (await fetch('content.json')).json(), cfg=C.config;
   document.querySelectorAll('[data-k]').forEach(e=>{e.textContent=e.dataset.k in C?C[e.dataset.k]:cfg[e.dataset.k]||''});
@@ -74,6 +115,7 @@ async function main(){
     const d=$('#discord'); if(cfg.discordUrl) d.href=cfg.discordUrl; else {d.removeAttribute('href');d.style.opacity=.55;d.title=T('Ссылка появится перед открытием','The link will appear before launch')} }
   document.querySelectorAll('[data-boosty]').forEach(a=>{if(cfg.boostyUrl)a.href=cfg.boostyUrl;else a.hidden=true});
   renderNow(C); setInterval(()=>renderNow(C),30000);
+  renderCalendar(C);
   const apk=$('#apk'); if(apk&&cfg.appRepo&&!isIOS){
     fetch(`https://api.github.com/repos/${cfg.appRepo}/releases/tags/app-latest`).then(r=>r.ok?r.json():null).then(r=>{
       const f=r&&(r.assets||[]).find(x=>/\.apk$/i.test(x.name)); if(f){apk.href=f.browser_download_url;apk.hidden=false;

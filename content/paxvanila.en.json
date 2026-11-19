@@ -82,6 +82,94 @@
    ]
   }
  ],
+ "calendar": {
+  "events": [
+   {
+    "day": 0,
+    "icon": "🏁",
+    "kind": "week",
+    "title": "Server launch · Week 1 «Landfall»",
+    "text": "Everyone starts at the old stone tower at 0, 0. Pioneer chests, first towns, a 100-block border that grows every day."
+   },
+   {
+    "day": 0,
+    "icon": "🏛️",
+    "kind": "epoch",
+    "title": "Age: the Ancient World",
+    "text": "Romea, Carthage, Hellas, Gaul, Germania, Dacia, the Steppe Horde and Scythia. Swords, legions and onagers."
+   },
+   {
+    "day": 7,
+    "icon": "⚓",
+    "kind": "week",
+    "title": "Week 2 «Trade Routes»",
+    "text": "Ports and caravans open. Deliver cargo to the capital for diamonds, or raid it on the way. Helpers arrive."
+   },
+   {
+    "day": 14,
+    "icon": "⛏️",
+    "kind": "week",
+    "title": "Week 3 «Fight for Resources»",
+    "text": "The mine, the forge and the lighthouse. Hold a point for 3 minutes and your town earns income every 10 minutes."
+   },
+   {
+    "day": 21,
+    "icon": "🚩",
+    "kind": "week",
+    "title": "Week 4 «Age of Nations»",
+    "text": "Nations open. Two days for alliances, focuses and diplomacy."
+   },
+   {
+    "day": 23,
+    "icon": "📯",
+    "kind": "war",
+    "title": "Mobilisation",
+    "text": "The last day before the war. Declare war on Discord 24 hours ahead, with a casus belli."
+   },
+   {
+    "day": 24,
+    "icon": "⚔️",
+    "kind": "war",
+    "title": "The Great War",
+    "text": "Battles every day from 17:00 to 22:00 Moscow time, when two or more defenders are online. Razing towns to the ground is forbidden."
+   },
+   {
+    "day": 28,
+    "icon": "🕊️",
+    "kind": "week",
+    "title": "Week 5 «Seasons» · peace and war results",
+    "text": "Results and rewards of the Great War. The border grows again, up to 1500 blocks. Every real week is now a new season."
+   },
+   {
+    "day": 28,
+    "icon": "🎨",
+    "kind": "epoch",
+    "title": "Age: the Renaissance",
+    "text": "Gunpowder, caravels, universities and the first banks."
+   },
+   {
+    "day": 35,
+    "icon": "🌍",
+    "kind": "week",
+    "title": "Week 6 «Open World»",
+    "text": "The border reaches 2000 blocks. Empires, pacts and vassals."
+   },
+   {
+    "day": 49,
+    "icon": "🛩️",
+    "kind": "epoch",
+    "title": "Age: the 20th Century",
+    "text": "Tanks, artillery and planes. Fronts like in Hearts of Iron."
+   },
+   {
+    "day": 90,
+    "icon": "☢️",
+    "kind": "epoch",
+    "title": "Age: the Cold War",
+    "text": "The server's fourth month. Blocs, the arms race and space. The date is approximate."
+   }
+  ]
+ },
  "mechanics": [
   {
    "id": "claims",

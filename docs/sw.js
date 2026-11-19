@@ -1,5 +1,5 @@
 // PaxVanila service worker: офлайн-кэш сайта. Версию меняет build_site.py.
-const V='pax-ru202611192257';
+const V='pax-ru202611192258';
 const CORE=["./", "index.html", "lore.html", "style.css", "app.js", "content.json", "icons/icon-192.png", "lore/predtechi.html", "lore/srednie.html", "lore/pozdnie.html", "lore/cataclysms.html", "lore/front.html", "lore/old_records.html", "lore/filosofy.html", "lore/religii.html", "lore/sudy.html", "guides/fokusy.html", "privacy.html", "img/week1.jpg", "img/week2.jpg", "img/week3.jpg", "img/week4.jpg", "img/week5.jpg", "img/week6.jpg", "img/about.jpg"];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
