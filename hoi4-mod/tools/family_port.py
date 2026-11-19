@@ -60,6 +60,9 @@ FAMILY_TECHS = [
      2.5, 1941, 2, 8, ["industry", "cat_production"], None),
 ]
 
+FAMILY_IN_FILES = {t[0] for t in FAMILY_TECHS}  # эти технологии уже лежат в industry.txt
+
+
 TECH_EXTRA = {
     "excavation6": """on_research_complete = {
 	modify_building_resources = {
@@ -245,6 +248,21 @@ def defines():
     return "-- Мультиплеерные defines из «Family Historical MP mod» (Arthur), без изменений.\n" + "\n".join(lines) + "\n"
 
 
+TECH_NAMES = {
+    "fuel_refining5": ("Нефтепереработка V", "Новые установки перегоняют нефть почти без отходов."),
+    "fuel_refining6": ("Нефтепереработка VI", "Полностью автоматические нефтеперегонные заводы."),
+}
+_SUP = {"engineers": "Инженерные роты", "recon": "Разведывательные роты", "military_police": "Военная полиция",
+        "maintenance_company": "Ремонтные роты", "sniper": "Снайперы", "raider": "Рейдеры",
+        "field_hospital": "Полевые госпитали", "logistics_company": "Роты снабжения",
+        "signal_company": "Роты связи", "command": "Штабные роты"}
+_RN = ["", " II", " III", " IV"]
+for _k, _n in _SUP.items():
+    for _i in range(4):
+        TECH_NAMES["tech_" + _k + ("" if _i == 0 else str(_i + 1))] = (_n + _RN[_i], f"Развитие и подготовка: {_n.lower()}.")
+TECH_NAMES["tech_support"] = ("Вспомогательные роты", "Малые подразделения усиливают дивизии на поле боя.")
+TECH_NAMES["support_weapons"] = ("Оружие поддержки", "Пулемётчики, миномётчики и военные псы идут вместе с пехотой.")
+
 UNIT_NAMES = {
     "sniper": ("Снайперы", "Снайп."), "mortar": ("Миномётчики", "Мином."), "wardog": ("Военные псы", "Псы"),
     "gunner": ("Пулемётчики", "Пулем."), "raider": ("Рейдеры", "Рейд."), "field_hospital": ("Полевой госпиталь", "Госп."),
@@ -257,8 +275,14 @@ def _copy_tree(w):
     """Сквозной перенос файлов Family: доп. роты, их исследования, экономические решения."""
     for fn in sorted(os.listdir(os.path.join(SRC, "units"))):
         w("common/units/" + fn, _read("units/" + fn))
-    for fn in ("support.txt", "infantry.txt", "unique.txt"):  # те же имена, что у ванили: заменяют ванильные файлы, как в Family
-        w("common/technologies/" + fn, _read("technologies/" + fn))
+    # Все файлы технологий Family целиком. Имена те же, что у ванили, поэтому они заменяют ванильные файлы, как в Family.
+    for fn in sorted(os.listdir(os.path.join(SRC, "technologies"))):
+        txt = _read("technologies/" + fn)
+        if fn == "support.txt":
+            # в Family пути к несуществующим tech_Yegerya и tech_wardog (ванильные роты gunner/mortar/wardog открывает support_weapons)
+            txt = re.sub(r"\n\t\tpath = \{\s*leads_to_tech = (tech_Yegerya|tech_wardog)\s*research_cost_coeff = 1\s*\}\n", "\n", txt)
+            assert "tech_Yegerya" not in txt and "tech_wardog" not in txt
+        w("common/technologies/" + fn, txt)
     w("common/decisions/zz_family_economic.txt", _read("decisions/chd_economic.txt"))
 
 
@@ -275,6 +299,9 @@ def _loc_from(path, wanted_text):
 def build(w, LOC, indent):
     _copy_tree(w)
     LOC.update(_loc_from('decisions_l_russian.yml', _read('decisions/chd_economic.txt')))
+    for tid, (n, d) in TECH_NAMES.items():
+        LOC[tid] = n
+        LOC[tid + '_desc'] = d
     for uid, (n, s) in UNIT_NAMES.items():
         LOC[uid] = n
         LOC[uid + '_short'] = s
@@ -285,6 +312,10 @@ def build(w, LOC, indent):
 
     blocks = []
     for tid, name, desc, mod, cost, year, x, y, cats, nxt in FAMILY_TECHS + EXTRA_TECHS:
+        if tid in FAMILY_IN_FILES:
+            LOC[tid] = name
+            LOC[tid + "_desc"] = desc
+            continue
         b = [f"{k} = {v}" for k, v in mod.items()]
         if tid in TECH_EXTRA:
             b.append(TECH_EXTRA[tid])

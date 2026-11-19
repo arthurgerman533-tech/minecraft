@@ -25,15 +25,7 @@ technologies = {
 			research_cost_coeff = 1
 		}		
 		
-		path = {
-			leads_to_tech = tech_Yegerya
-			research_cost_coeff = 1
-		}
 
-		path = {
-			leads_to_tech = tech_wardog
-			research_cost_coeff = 1
-		}
 
 		path = {
 			leads_to_tech = tech_command
