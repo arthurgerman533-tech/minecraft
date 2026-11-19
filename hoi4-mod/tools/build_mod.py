@@ -15,6 +15,7 @@ import pax_data as D  # noqa: E402
 import pax_eras as E  # noqa: E402
 import family_port as F  # noqa: E402
 import pax_art as A  # noqa: E402
+import pax_era_focuses as EF  # noqa: E402
 
 from PIL import Image, ImageDraw, ImageFilter  # noqa: E402
 
@@ -109,6 +110,11 @@ def build_ideas():
         LOC[f"PAX_fai_{tag}"] = f"Вера: {fa['name']}"
         LOC[f"PAX_fai_{tag}_desc"] = fa["desc"]
     blocks += F.EXTRA_IDEAS  # из Family (arthur.txt, endpoint.txt)
+    for ei in EF.IDEAS:
+        D.IDEA_PICTURES[ei["id"]] = ei["pic"]
+        blocks.append(idea_block(ei["id"], ei["modifier"]))
+        LOC[ei["id"]] = ei["name"]
+        LOC[ei["id"] + "_desc"] = ei["desc"]
     text = "ideas = {\n\tcountry = {\n" + "\n\n".join(indent(b, 2) for b in blocks) + "\n\t}\n}\n"
     w("common/ideas/pax_ideas.txt", text)
 
@@ -116,8 +122,10 @@ def build_ideas():
 # ---------------------------------------------------------------------------
 # Деревья фокусов
 # ---------------------------------------------------------------------------
-def focus_block(fid, f, x, y, prereq_ids, excl_ids, effect):
+def focus_block(fid, f, x, y, prereq_ids, excl_ids, effect, allow=None):
     lines = [f"id = {fid}", f"icon = {f['icon']}", f"x = {x}", f"y = {y}", f"cost = {f['cost']}"]
+    if allow:
+        lines.append("allow_branch = { " + allow.replace("\n\t", " ") + " }")
     for group in prereq_ids:
         lines.append("prerequisite = { " + " ".join(f"focus = {g}" for g in group) + " }")
     if excl_ids:
@@ -165,9 +173,20 @@ def build_focus_trees():
             prereq = [[pre + k for k in grp] for grp in f.get("prereq", [])]
             excl = [pre + k for k in f.get("exclusive", [])]
             f = dict(f, icon=f"GFX_goal_pax_nat_{tag}")
-            focuses.append(focus_block(fid, f, base_x + f["x"], f["y"], prereq, excl, fx(f["effect"], fid)))
+            allow = EF.EARLY if not prereq else None
+            focuses.append(focus_block(fid, f, base_x + f["x"], f["y"], prereq, excl, fx(f["effect"], fid), allow))
             LOC[fid] = f["name"]
             LOC[fid + "_desc"] = f["desc"]
+
+        for ef in EF.branches(tag):
+            fid = f"{pre}{ef['key']}"
+            prereq = [[pre + k for k in grp] for grp in ef["prereq"]]
+            excl = [pre + k for k in ef["exclusive"]]
+            fdict = dict(icon=f"GFX_goal_pax_nat_{tag}", cost=ef["cost"])
+            focuses.append(focus_block(fid, fdict, EF.BASE_X[ef["era"]] + ef["x"], ef["y"], prereq, excl,
+                                       fx(ef["effect"], fid), EF.COND[ef["era"]] if ef["root"] else None))
+            LOC[fid] = ef["name"]
+            LOC[fid + "_desc"] = ef["desc"]
 
         text = (
             "focus_tree = {\n"

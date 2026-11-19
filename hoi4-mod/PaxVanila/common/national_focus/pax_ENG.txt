@@ -190,6 +190,7 @@ focus_tree = {
 		x = 10
 		y = 0
 		cost = 7
+		allow_branch = { date < 1962.1.1 }
 		available_if_capitulated = no
 		ai_will_do = { factor = 10 }
 		completion_reward = {
@@ -271,6 +272,215 @@ focus_tree = {
 				ITA = { add_to_faction = ROOT }
 			}
 			else = { add_political_power = 75 }
+		}
+	}
+
+	focus = {
+		id = ENG_pax_cw_watch
+		icon = GFX_goal_pax_nat_ENG
+		x = 15
+		y = 0
+		cost = 10
+		allow_branch = { date > 1962.1.1 date < 2041.1.1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.03
+		}
+	}
+
+	focus = {
+		id = ENG_pax_cw_intel
+		icon = GFX_goal_pax_nat_ENG
+		x = 15
+		y = 1
+		cost = 10
+		prerequisite = { focus = ENG_pax_cw_watch }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_tech_bonus = { name = ENG_pax_cw_intel bonus = 0.5 uses = 2 category = electronics }
+		}
+	}
+
+	focus = {
+		id = ENG_pax_cw_shield
+		icon = GFX_goal_pax_nat_ENG
+		x = 15
+		y = 2
+		cost = 10
+		prerequisite = { focus = ENG_pax_cw_intel }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_cw_pax
+			add_war_support = 0.05
+		}
+	}
+
+	focus = {
+		id = ENG_pax_cw_deter
+		icon = GFX_goal_pax_nat_ENG
+		x = 15
+		y = 3
+		cost = 10
+		prerequisite = { focus = ENG_pax_cw_shield }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = ENG_pax_rb_net
+		icon = GFX_goal_pax_nat_ENG
+		x = 19
+		y = 0
+		cost = 10
+		allow_branch = { date > 2040.12.31 date < 2096.1.1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_rb_pax
+			add_research_slot = 1
+		}
+	}
+
+	focus = {
+		id = ENG_pax_rb_golems
+		icon = GFX_goal_pax_nat_ENG
+		x = 19
+		y = 1
+		cost = 10
+		prerequisite = { focus = ENG_pax_rb_net }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_golem_legions
+			add_manpower = 20000
+		}
+	}
+
+	focus = {
+		id = ENG_pax_rb_human
+		icon = GFX_goal_pax_nat_ENG
+		x = 18
+		y = 2
+		cost = 10
+		prerequisite = { focus = ENG_pax_rb_golems }
+		mutually_exclusive = { focus = ENG_pax_rb_merge }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_human_answer
+		}
+	}
+
+	focus = {
+		id = ENG_pax_rb_merge
+		icon = GFX_goal_pax_nat_ENG
+		x = 20
+		y = 2
+		cost = 10
+		prerequisite = { focus = ENG_pax_rb_golems }
+		mutually_exclusive = { focus = ENG_pax_rb_human }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_machine_merge
+		}
+	}
+
+	focus = {
+		id = ENG_pax_rb_war
+		icon = GFX_goal_pax_nat_ENG
+		x = 19
+		y = 3
+		cost = 10
+		prerequisite = { focus = ENG_pax_rb_human focus = ENG_pax_rb_merge }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_war_support = 0.1
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = ENG_pax_co_charter
+		icon = GFX_goal_pax_nat_ENG
+		x = 24
+		y = 0
+		cost = 10
+		allow_branch = { date > 2095.12.31 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_corp_charter
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = ENG_pax_co_sculk
+		icon = GFX_goal_pax_nat_ENG
+		x = 24
+		y = 1
+		cost = 10
+		prerequisite = { focus = ENG_pax_co_charter }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_sculk_net
+			add_tech_bonus = { name = ENG_pax_co_sculk bonus = 0.5 uses = 2 category = electronics }
+		}
+	}
+
+	focus = {
+		id = ENG_pax_co_gates
+		icon = GFX_goal_pax_nat_ENG
+		x = 24
+		y = 2
+		cost = 10
+		prerequisite = { focus = ENG_pax_co_sculk }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = ENG_pax_co_loyal
+		icon = GFX_goal_pax_nat_ENG
+		x = 23
+		y = 3
+		cost = 10
+		prerequisite = { focus = ENG_pax_co_gates }
+		mutually_exclusive = { focus = ENG_pax_co_shadow }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_protectorate
+		}
+	}
+
+	focus = {
+		id = ENG_pax_co_shadow
+		icon = GFX_goal_pax_nat_ENG
+		x = 25
+		y = 3
+		cost = 10
+		prerequisite = { focus = ENG_pax_co_gates }
+		mutually_exclusive = { focus = ENG_pax_co_loyal }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_shadow_corp
 		}
 	}
 }
