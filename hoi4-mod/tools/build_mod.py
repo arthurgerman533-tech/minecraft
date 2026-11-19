@@ -14,6 +14,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import pax_data as D  # noqa: E402
 import pax_eras as E  # noqa: E402
 import family_port as F  # noqa: E402
+import pax_art as A  # noqa: E402
 
 from PIL import Image, ImageDraw, ImageFilter  # noqa: E402
 
@@ -78,6 +79,10 @@ def idea_block(iid, mod):
 
 
 def build_ideas():
+    for tag, p in D.POWERS.items():  # свои иконки духов (pax_art)
+        D.IDEA_PICTURES[p["spirit"]["id"]] = f"pax_spirit_{tag}"
+        D.IDEA_PICTURES[f"PAX_her_{tag}"] = f"pax_her_{tag}"
+        D.IDEA_PICTURES[f"PAX_fai_{tag}"] = f"pax_fai_{tag}"
     blocks = []
     for idea in D.GENERIC_IDEAS + D.NATIONAL_IDEAS:
         blocks.append(idea_block(idea["id"], idea["modifier"]))
@@ -103,7 +108,7 @@ def build_ideas():
         blocks.append(idea_block(f"PAX_fai_{tag}", fa["modifier"]))
         LOC[f"PAX_fai_{tag}"] = f"Вера: {fa['name']}"
         LOC[f"PAX_fai_{tag}_desc"] = fa["desc"]
-    blocks.append(F.PEACEFUL_SKY)  # из Family (arthur.txt)
+    blocks += F.EXTRA_IDEAS  # из Family (arthur.txt, endpoint.txt)
     text = "ideas = {\n\tcountry = {\n" + "\n\n".join(indent(b, 2) for b in blocks) + "\n\t}\n}\n"
     w("common/ideas/pax_ideas.txt", text)
 
@@ -135,6 +140,7 @@ def build_focus_trees():
             fid = pre + f["key"]
             prereq = [[pre + k for k in grp] for grp in f.get("prereq", [])]
             excl = [pre + k for k in f.get("exclusive", [])]
+            f = dict(f, icon=f"GFX_goal_pax_{f['key']}")
             focuses.append(focus_block(fid, f, f["x"], f["y"], prereq, excl, fx(f["effect"], fid)))
             LOC[fid] = f["name"]
             LOC[fid + "_desc"] = f["desc"]
@@ -143,13 +149,13 @@ def build_focus_trees():
         h = D.HERITAGE[tag]
         fid = pre + "her"
         eff = f"add_ideas = PAX_her_{tag}" + ("\n" + h["extra"] if h.get("extra") else "")
-        focuses.append(focus_block(fid, dict(icon="GFX_goal_generic_national_unity", cost=14), 6, 1, roots, [], fx(eff, fid)))
+        focuses.append(focus_block(fid, dict(icon=f"GFX_goal_pax_her_{tag}", cost=14), 6, 1, roots, [], fx(eff, fid)))
         LOC[fid] = f"Наследие: {h['name']}"
         LOC[fid + "_desc"] = h["desc"] + " Наследие десяти держав лора, как фокус «her» на сервере PaxVanila."
 
         fa = D.FAITH[tag]
         fid = pre + "fai"
-        focuses.append(focus_block(fid, dict(icon="GFX_goal_generic_propaganda", cost=14), 8, 1, roots, [], f"add_ideas = PAX_fai_{tag}"))
+        focuses.append(focus_block(fid, dict(icon=f"GFX_goal_pax_fai_{tag}", cost=14), 8, 1, roots, [], f"add_ideas = PAX_fai_{tag}"))
         LOC[fid] = f"Государственная вера: {fa['name']}"
         LOC[fid + "_desc"] = fa["desc"]
 
@@ -158,6 +164,7 @@ def build_focus_trees():
             fid = pre + f["key"]
             prereq = [[pre + k for k in grp] for grp in f.get("prereq", [])]
             excl = [pre + k for k in f.get("exclusive", [])]
+            f = dict(f, icon=f"GFX_goal_pax_nat_{tag}")
             focuses.append(focus_block(fid, f, base_x + f["x"], f["y"], prereq, excl, fx(f["effect"], fid)))
             LOC[fid] = f["name"]
             LOC[fid + "_desc"] = f["desc"]
@@ -234,6 +241,8 @@ def build_setup():
 			else_if = { limit = { date > 2040.12.31 } pax_setup_2041 = yes }
 			else_if = { limit = { date > 1962.1.1 } pax_setup_1962 = yes }
 			else_if = { limit = { date > 1939.1.1 } pax_setup_1939 = yes }
+			# «Без Азии» из Family: та же дата, но на час позже (1936.1.1.13)
+			else_if = { limit = { has_start_date > 1936.1.1.12 } pax_setup_1936e = yes }
 			else = { pax_setup_1936 = yes }
 			# Как в «Family Historical MP mod»: страны вне лора под управлением ИИ
 			# получают дух «Дальние земли» и не мешают игрокам. Удалите блок, если не нужно.
@@ -379,6 +388,7 @@ news_event = {
 }
 """
     events += F.EVENTS
+    events = add_event_pictures(events)
     w("events/pax_events.txt", events)
     LOC.update({
         "pax.1.t": "Мир между Великими войнами",
@@ -533,6 +543,8 @@ def era_effects():
             for leader, (fname, ms) in era["factions"].items():
                 adds = "\n".join(f"\tadd_to_faction = {m}" for m in ms if m != leader)
                 L.append(f"{leader} = {{\n\tcreate_faction = {fname}\n{adds}\n}}")
+        if era.get("no_asia"):
+            L.append(F.no_asia_effect())
         if era.get("germany_war"):
             L.append("GER = { country_event = { id = pax.30 days = 3 } }")
         out.append(f"pax_setup_{era['id']} = {{\n" + indent("\n".join(L), 1) + "\n}\n")
@@ -708,7 +720,10 @@ def build_graphics():
         dc.rectangle([0, 0, corp.size[0] - 1, corp.size[1] - 1], outline=(0, 255, 230, 255), width=10)
         for sub, size in (("", (82, 52)), ("medium/", (41, 26)), ("small/", (10, 7))):
             save_tga(corp, f"gfx/flags/{sub}PAX_CORP_{tag}.tga", size)
-        # портрет 156x210: фон цвета державы, силуэт, флаг на груди
+        # портрет 156x210: пиксельный правитель на фоне флага (pax_art)
+        im = A.portrait(big, p["color"], p["accent"], p["flag"]["kind"], tag)
+        save_tga(im, f"gfx/leaders/PAX/{p['leader']['id']}.tga", (156, 210))
+        continue
         W, H = 156 * 2, 210 * 2
         im = Image.new("RGBA", (W, H), (0, 0, 0, 255))
         d = ImageDraw.Draw(im)
@@ -733,6 +748,64 @@ def build_graphics():
     thumb.save(os.path.join(OUT, "thumbnail.png"))
 
 
+def add_event_pictures(events):
+    import re
+    def sub(m):
+        kind, eid = m.group(1), m.group(2)
+        scene = A.EVENT_SCENES.get(eid, "monolith")
+        pic = f"GFX_news_event_pax_{scene}" if kind == "news_event" else f"GFX_report_event_pax_{scene}"
+        return m.group(0) + f"\tpicture = {pic}\n"
+    events = re.sub(r"\tpicture = [^\n]*\n", "", events)
+    return re.sub(r"(news_event|country_event) = \{\n\tid = (pax\.\d+)\n(?:\t\w+ = [^\n]*\n)*?\tdesc = [^\n]*\n", sub, events)
+
+
+def build_art():
+    sprites = []
+
+    def sprite(name, rel):
+        sprites.append(f'\tspriteType = {{\n\t\tname = "{name}"\n\t\ttexturefile = "{rel}"\n\t}}')
+
+    # экраны загрузки: 10 своих сцен под всеми ванильными именами
+    scenes = [n for n, _, _ in A.SCENES]
+    big = {n: A._logo(A.render(n)) for n in scenes}
+    for i, name in enumerate(A.LOADING_NAMES):
+        A.save_dds(big[scenes[i % len(scenes)]], os.path.join(OUT, f"gfx/loadingscreens/{name}.dds"))
+    # картинки событий
+    for n in scenes:
+        im = A.render(n, scale=1)
+        save_tga(A._crop(im, (210, 176)).convert("RGBA"), f"gfx/event_pictures/pax_{n}.tga", (210, 176))
+        save_tga(A._crop(im, (397, 153)).convert("RGBA"), f"gfx/event_pictures/pax_news_{n}.tga", (397, 153))
+        sprite(f"GFX_report_event_pax_{n}", f"gfx/event_pictures/pax_{n}.tga")
+        sprite(f"GFX_news_event_pax_{n}", f"gfx/event_pictures/pax_news_{n}.tga")
+    # иконки фокусов
+    branch = {"ind": ("gear", (70, 70, 85)), "mil": ("sword", (120, 35, 35)), "eco": ("coin", (40, 90, 50))}
+    for f in D.GENERIC_FOCUSES:
+        sym, bg = branch[f["key"][:3]]
+        if f["key"] == "mil2":
+            sym = "tower"
+        os.makedirs(os.path.join(OUT, "gfx/interface/goals"), exist_ok=True)
+        A.focus_icon(sym, bg).save(os.path.join(OUT, f"gfx/interface/goals/pax_{f['key']}.tga"))
+        sprite(f"GFX_goal_pax_{f['key']}", f"gfx/interface/goals/pax_{f['key']}.tga")
+    os.makedirs(os.path.join(OUT, "gfx/interface/ideas"), exist_ok=True)
+    for tag, p in D.POWERS.items():
+        fl = draw_flag(p)
+        c = tuple(int(v * 0.7) for v in p["color"])
+        fai_bg = tuple(int(v * 0.35) for v in p["accent"])
+        icons = {
+            f"goals/pax_her_{tag}": A.focus_icon("column", c),
+            f"goals/pax_fai_{tag}": A.focus_icon("sun", fai_bg),
+            f"goals/pax_nat_{tag}": A.flag_icon(fl, (94, 84)),
+            f"ideas/pax_spirit_{tag}": A.flag_icon(fl, (64, 64), framed_shield=False),
+            f"ideas/pax_her_{tag}": A.idea_icon("column", c),
+            f"ideas/pax_fai_{tag}": A.idea_icon("sun", fai_bg),
+        }
+        for rel, im in icons.items():
+            im.save(os.path.join(OUT, f"gfx/interface/{rel}.tga"))
+            kind, nm = rel.split("/")
+            sprite(("GFX_goal_" if kind == "goals" else "GFX_idea_") + nm, f"gfx/interface/{rel}.tga")
+    w("interface/pax_art.gfx", "spriteTypes = {\n" + "\n".join(sprites) + "\n}\n")
+
+
 def main():
     if os.path.isdir(OUT):
         shutil.rmtree(OUT)
@@ -747,6 +820,7 @@ def main():
     build_country_names()
     write_loc()
     build_graphics()
+    build_art()
     n = sum(len(fs) for _, _, fs in os.walk(OUT))
     print(f"Готово: {OUT} ({n} файлов, {len(LOC)} строк локализации)")
 

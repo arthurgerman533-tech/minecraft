@@ -9,7 +9,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_pax_ind1
-		icon = GFX_goal_generic_construct_civ_factory
+		icon = GFX_goal_pax_ind1
 		x = 0
 		y = 0
 		cost = 10
@@ -31,7 +31,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_pax_ind2
-		icon = GFX_goal_generic_construction
+		icon = GFX_goal_pax_ind2
 		x = 0
 		y = 1
 		cost = 10
@@ -45,7 +45,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_pax_ind3
-		icon = GFX_goal_generic_construct_mil_factory
+		icon = GFX_goal_pax_ind3
 		x = 0
 		y = 2
 		cost = 10
@@ -69,7 +69,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_pax_mil1
-		icon = GFX_goal_generic_allies_build_infantry
+		icon = GFX_goal_pax_mil1
 		x = 2
 		y = 0
 		cost = 10
@@ -83,7 +83,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_pax_mil2
-		icon = GFX_goal_generic_defence
+		icon = GFX_goal_pax_mil2
 		x = 2
 		y = 1
 		cost = 10
@@ -97,7 +97,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_pax_mil3
-		icon = GFX_goal_generic_major_war
+		icon = GFX_goal_pax_mil3
 		x = 2
 		y = 2
 		cost = 10
@@ -114,7 +114,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_pax_eco1
-		icon = GFX_goal_generic_consumer_goods
+		icon = GFX_goal_pax_eco1
 		x = 4
 		y = 0
 		cost = 10
@@ -128,7 +128,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_pax_eco2
-		icon = GFX_goal_generic_improve_relations
+		icon = GFX_goal_pax_eco2
 		x = 4
 		y = 1
 		cost = 10
@@ -142,7 +142,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_pax_eco3
-		icon = GFX_goal_generic_political_pressure
+		icon = GFX_goal_pax_eco3
 		x = 4
 		y = 2
 		cost = 10
@@ -158,7 +158,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_pax_her
-		icon = GFX_goal_generic_national_unity
+		icon = GFX_goal_pax_her_ENG
 		x = 6
 		y = 1
 		cost = 14
@@ -172,7 +172,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_pax_fai
-		icon = GFX_goal_generic_propaganda
+		icon = GFX_goal_pax_fai_ENG
 		x = 8
 		y = 1
 		cost = 14
@@ -186,7 +186,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_pax_said_no
-		icon = GFX_goal_generic_national_unity
+		icon = GFX_goal_pax_nat_ENG
 		x = 10
 		y = 0
 		cost = 7
@@ -200,7 +200,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_pax_ports
-		icon = GFX_goal_generic_construct_naval_dockyard
+		icon = GFX_goal_pax_nat_ENG
 		x = 10
 		y = 1
 		cost = 10
@@ -223,7 +223,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_pax_fog
-		icon = GFX_goal_generic_intelligence_exchange
+		icon = GFX_goal_pax_nat_ENG
 		x = 12
 		y = 1
 		cost = 10
@@ -238,7 +238,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_pax_sailor_fleet
-		icon = GFX_goal_generic_navy_battleship
+		icon = GFX_goal_pax_nat_ENG
 		x = 11
 		y = 2
 		cost = 10
@@ -258,7 +258,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_pax_join_pax
-		icon = GFX_goal_generic_improve_relations
+		icon = GFX_goal_pax_nat_ENG
 		x = 11
 		y = 3
 		cost = 10

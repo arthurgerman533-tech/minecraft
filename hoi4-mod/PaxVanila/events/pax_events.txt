@@ -5,6 +5,7 @@ news_event = {
 	id = pax.1
 	title = pax.1.t
 	desc = pax.1.d
+	picture = GFX_news_event_pax_monolith
 	is_triggered_only = yes
 	option = { name = pax.1.a }
 }
@@ -14,6 +15,7 @@ country_event = {
 	id = pax.2
 	title = pax.2.t
 	desc = pax.2.d
+	picture = GFX_report_event_pax_forum
 	is_triggered_only = yes
 	option = {
 		name = pax.2.a
@@ -32,6 +34,7 @@ country_event = {
 	id = pax.3
 	title = pax.3.t
 	desc = pax.3.d
+	picture = GFX_report_event_pax_steppe
 	is_triggered_only = yes
 	option = {
 		name = pax.3.a
@@ -50,6 +53,7 @@ news_event = {
 	id = pax.10
 	title = pax.10.t
 	desc = pax.10.d
+	picture = GFX_news_event_pax_storm
 	is_triggered_only = yes
 	option = { name = pax.10.a }
 }
@@ -59,6 +63,7 @@ news_event = {
 	id = pax.11
 	title = pax.11.t
 	desc = pax.11.d
+	picture = GFX_news_event_pax_cold
 	is_triggered_only = yes
 	option = { name = pax.11.a }
 }
@@ -68,6 +73,7 @@ country_event = {
 	id = pax.30
 	title = pax.30.t
 	desc = pax.30.d
+	picture = GFX_report_event_pax_north
 	is_triggered_only = yes
 	option = {
 		name = pax.30.a
@@ -88,6 +94,7 @@ news_event = {
 	id = pax.12
 	title = pax.12.t
 	desc = pax.12.d
+	picture = GFX_news_event_pax_seven
 	is_triggered_only = yes
 	option = { name = pax.12.a }
 }
@@ -97,6 +104,7 @@ country_event = {
 	id = pax.20
 	title = pax.20.t
 	desc = pax.20.d
+	picture = GFX_report_event_pax_precursors
 	is_triggered_only = yes
 	option = { name = pax.20.b country_event = { id = pax.21 } }
 	option = { name = pax.20.c country_event = { id = pax.22 } }
@@ -107,6 +115,7 @@ country_event = {
 	id = pax.21
 	title = pax.21.t
 	desc = pax.21.d
+	picture = GFX_report_event_pax_monolith
 	is_triggered_only = yes
 	option = { name = pax.21.a country_event = { id = pax.20 } }
 	option = { name = pax.21.b }
@@ -115,6 +124,7 @@ country_event = {
 	id = pax.22
 	title = pax.22.t
 	desc = pax.22.d
+	picture = GFX_report_event_pax_sea
 	is_triggered_only = yes
 	option = { name = pax.21.a country_event = { id = pax.20 } }
 	option = { name = pax.21.b }
@@ -123,6 +133,7 @@ country_event = {
 	id = pax.23
 	title = pax.23.t
 	desc = pax.23.d
+	picture = GFX_report_event_pax_north
 	is_triggered_only = yes
 	option = { name = pax.21.a country_event = { id = pax.20 } }
 	option = { name = pax.21.b }
@@ -133,7 +144,7 @@ country_event = {
 	id = pax.40
 	title = pax.40.t
 	desc = pax.40.d
-	picture = GFX_report_event_radar_01
+	picture = GFX_report_event_pax_storm
 	is_triggered_only = yes
 	option = { name = pax.40.a }
 }

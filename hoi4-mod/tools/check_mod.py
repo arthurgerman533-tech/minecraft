@@ -223,7 +223,7 @@ for ref in re.findall(r"leads_to_tech = (\w+)", tech):
 bm = scripts[os.path.join(ROOT, "common/bookmarks/pax_bookmarks.txt")]
 for k in re.findall(r"(?:name|desc|history) = (PAX_BM_\w+)", bm):
     need_loc(k, "закладка")
-for era in re.findall(r"^(pax_setup_\d+) = \{", eff, re.M):
+for era in re.findall(r"^(pax_setup_\w+) = \{", eff, re.M):
     if not re.search(era + r" = yes", scripts[os.path.join(ROOT, "common/on_actions/pax_on_actions.txt")]):
         err(f"{era} не вызывается из on_startup")
 for c in sorted(set(re.findall(r"set_cosmetic_tag = (\w+)", eff))):

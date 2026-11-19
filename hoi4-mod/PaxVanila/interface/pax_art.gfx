@@ -1,0 +1,358 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_report_event_pax_monolith"
+		texturefile = "gfx/event_pictures/pax_monolith.tga"
+	}
+	spriteType = {
+		name = "GFX_news_event_pax_monolith"
+		texturefile = "gfx/event_pictures/pax_news_monolith.tga"
+	}
+	spriteType = {
+		name = "GFX_report_event_pax_storm"
+		texturefile = "gfx/event_pictures/pax_storm.tga"
+	}
+	spriteType = {
+		name = "GFX_news_event_pax_storm"
+		texturefile = "gfx/event_pictures/pax_news_storm.tga"
+	}
+	spriteType = {
+		name = "GFX_report_event_pax_steppe"
+		texturefile = "gfx/event_pictures/pax_steppe.tga"
+	}
+	spriteType = {
+		name = "GFX_news_event_pax_steppe"
+		texturefile = "gfx/event_pictures/pax_news_steppe.tga"
+	}
+	spriteType = {
+		name = "GFX_report_event_pax_forum"
+		texturefile = "gfx/event_pictures/pax_forum.tga"
+	}
+	spriteType = {
+		name = "GFX_news_event_pax_forum"
+		texturefile = "gfx/event_pictures/pax_news_forum.tga"
+	}
+	spriteType = {
+		name = "GFX_report_event_pax_north"
+		texturefile = "gfx/event_pictures/pax_north.tga"
+	}
+	spriteType = {
+		name = "GFX_news_event_pax_north"
+		texturefile = "gfx/event_pictures/pax_news_north.tga"
+	}
+	spriteType = {
+		name = "GFX_report_event_pax_sea"
+		texturefile = "gfx/event_pictures/pax_sea.tga"
+	}
+	spriteType = {
+		name = "GFX_news_event_pax_sea"
+		texturefile = "gfx/event_pictures/pax_news_sea.tga"
+	}
+	spriteType = {
+		name = "GFX_report_event_pax_seven"
+		texturefile = "gfx/event_pictures/pax_seven.tga"
+	}
+	spriteType = {
+		name = "GFX_news_event_pax_seven"
+		texturefile = "gfx/event_pictures/pax_news_seven.tga"
+	}
+	spriteType = {
+		name = "GFX_report_event_pax_neon"
+		texturefile = "gfx/event_pictures/pax_neon.tga"
+	}
+	spriteType = {
+		name = "GFX_news_event_pax_neon"
+		texturefile = "gfx/event_pictures/pax_news_neon.tga"
+	}
+	spriteType = {
+		name = "GFX_report_event_pax_cold"
+		texturefile = "gfx/event_pictures/pax_cold.tga"
+	}
+	spriteType = {
+		name = "GFX_news_event_pax_cold"
+		texturefile = "gfx/event_pictures/pax_news_cold.tga"
+	}
+	spriteType = {
+		name = "GFX_report_event_pax_precursors"
+		texturefile = "gfx/event_pictures/pax_precursors.tga"
+	}
+	spriteType = {
+		name = "GFX_news_event_pax_precursors"
+		texturefile = "gfx/event_pictures/pax_news_precursors.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_ind1"
+		texturefile = "gfx/interface/goals/pax_ind1.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_ind2"
+		texturefile = "gfx/interface/goals/pax_ind2.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_ind3"
+		texturefile = "gfx/interface/goals/pax_ind3.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_mil1"
+		texturefile = "gfx/interface/goals/pax_mil1.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_mil2"
+		texturefile = "gfx/interface/goals/pax_mil2.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_mil3"
+		texturefile = "gfx/interface/goals/pax_mil3.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_eco1"
+		texturefile = "gfx/interface/goals/pax_eco1.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_eco2"
+		texturefile = "gfx/interface/goals/pax_eco2.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_eco3"
+		texturefile = "gfx/interface/goals/pax_eco3.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_her_ITA"
+		texturefile = "gfx/interface/goals/pax_her_ITA.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_fai_ITA"
+		texturefile = "gfx/interface/goals/pax_fai_ITA.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_nat_ITA"
+		texturefile = "gfx/interface/goals/pax_nat_ITA.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_spirit_ITA"
+		texturefile = "gfx/interface/ideas/pax_spirit_ITA.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_her_ITA"
+		texturefile = "gfx/interface/ideas/pax_her_ITA.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_fai_ITA"
+		texturefile = "gfx/interface/ideas/pax_fai_ITA.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_her_SPR"
+		texturefile = "gfx/interface/goals/pax_her_SPR.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_fai_SPR"
+		texturefile = "gfx/interface/goals/pax_fai_SPR.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_nat_SPR"
+		texturefile = "gfx/interface/goals/pax_nat_SPR.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_spirit_SPR"
+		texturefile = "gfx/interface/ideas/pax_spirit_SPR.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_her_SPR"
+		texturefile = "gfx/interface/ideas/pax_her_SPR.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_fai_SPR"
+		texturefile = "gfx/interface/ideas/pax_fai_SPR.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_her_GRE"
+		texturefile = "gfx/interface/goals/pax_her_GRE.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_fai_GRE"
+		texturefile = "gfx/interface/goals/pax_fai_GRE.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_nat_GRE"
+		texturefile = "gfx/interface/goals/pax_nat_GRE.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_spirit_GRE"
+		texturefile = "gfx/interface/ideas/pax_spirit_GRE.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_her_GRE"
+		texturefile = "gfx/interface/ideas/pax_her_GRE.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_fai_GRE"
+		texturefile = "gfx/interface/ideas/pax_fai_GRE.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_her_FRA"
+		texturefile = "gfx/interface/goals/pax_her_FRA.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_fai_FRA"
+		texturefile = "gfx/interface/goals/pax_fai_FRA.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_nat_FRA"
+		texturefile = "gfx/interface/goals/pax_nat_FRA.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_spirit_FRA"
+		texturefile = "gfx/interface/ideas/pax_spirit_FRA.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_her_FRA"
+		texturefile = "gfx/interface/ideas/pax_her_FRA.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_fai_FRA"
+		texturefile = "gfx/interface/ideas/pax_fai_FRA.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_her_ENG"
+		texturefile = "gfx/interface/goals/pax_her_ENG.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_fai_ENG"
+		texturefile = "gfx/interface/goals/pax_fai_ENG.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_nat_ENG"
+		texturefile = "gfx/interface/goals/pax_nat_ENG.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_spirit_ENG"
+		texturefile = "gfx/interface/ideas/pax_spirit_ENG.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_her_ENG"
+		texturefile = "gfx/interface/ideas/pax_her_ENG.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_fai_ENG"
+		texturefile = "gfx/interface/ideas/pax_fai_ENG.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_her_GER"
+		texturefile = "gfx/interface/goals/pax_her_GER.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_fai_GER"
+		texturefile = "gfx/interface/goals/pax_fai_GER.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_nat_GER"
+		texturefile = "gfx/interface/goals/pax_nat_GER.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_spirit_GER"
+		texturefile = "gfx/interface/ideas/pax_spirit_GER.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_her_GER"
+		texturefile = "gfx/interface/ideas/pax_her_GER.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_fai_GER"
+		texturefile = "gfx/interface/ideas/pax_fai_GER.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_her_SOV"
+		texturefile = "gfx/interface/goals/pax_her_SOV.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_fai_SOV"
+		texturefile = "gfx/interface/goals/pax_fai_SOV.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_nat_SOV"
+		texturefile = "gfx/interface/goals/pax_nat_SOV.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_spirit_SOV"
+		texturefile = "gfx/interface/ideas/pax_spirit_SOV.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_her_SOV"
+		texturefile = "gfx/interface/ideas/pax_her_SOV.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_fai_SOV"
+		texturefile = "gfx/interface/ideas/pax_fai_SOV.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_her_ROM"
+		texturefile = "gfx/interface/goals/pax_her_ROM.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_fai_ROM"
+		texturefile = "gfx/interface/goals/pax_fai_ROM.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_nat_ROM"
+		texturefile = "gfx/interface/goals/pax_nat_ROM.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_spirit_ROM"
+		texturefile = "gfx/interface/ideas/pax_spirit_ROM.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_her_ROM"
+		texturefile = "gfx/interface/ideas/pax_her_ROM.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_fai_ROM"
+		texturefile = "gfx/interface/ideas/pax_fai_ROM.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_her_TUR"
+		texturefile = "gfx/interface/goals/pax_her_TUR.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_fai_TUR"
+		texturefile = "gfx/interface/goals/pax_fai_TUR.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_nat_TUR"
+		texturefile = "gfx/interface/goals/pax_nat_TUR.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_spirit_TUR"
+		texturefile = "gfx/interface/ideas/pax_spirit_TUR.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_her_TUR"
+		texturefile = "gfx/interface/ideas/pax_her_TUR.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_fai_TUR"
+		texturefile = "gfx/interface/ideas/pax_fai_TUR.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_her_PER"
+		texturefile = "gfx/interface/goals/pax_her_PER.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_fai_PER"
+		texturefile = "gfx/interface/goals/pax_fai_PER.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_nat_PER"
+		texturefile = "gfx/interface/goals/pax_nat_PER.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_spirit_PER"
+		texturefile = "gfx/interface/ideas/pax_spirit_PER.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_her_PER"
+		texturefile = "gfx/interface/ideas/pax_her_PER.tga"
+	}
+	spriteType = {
+		name = "GFX_idea_pax_fai_PER"
+		texturefile = "gfx/interface/ideas/pax_fai_PER.tga"
+	}
+}

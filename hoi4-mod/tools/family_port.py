@@ -97,6 +97,100 @@ PEACEFUL_SKY = """PAX_peaceful_sky = {
 	}
 }"""
 
+# Из arthur.txt (NO_asia, NO_asia_ENG, NO_asia_GER) и endpoint.txt (e_neutral) для сценария «без Азии»
+SMALL_WORLD = """PAX_small_world = {
+	picture = generic_acquire_tanks
+	allowed = { always = no }
+	removal_cost = -1
+	modifier = {
+		consumer_goods_expected_value = -0.05
+		industrial_capacity_factory = 0.15
+		production_speed_buildings_factor = 0.10
+		conscription = 0.03
+	}
+}
+
+PAX_small_world_ENG = {
+	picture = eng_the_sun_never_sets
+	allowed = { always = no }
+	removal_cost = -1
+	modifier = {
+		production_speed_buildings_factor = 0.10
+		conscription = 0.03
+		surrender_limit = 0.09
+	}
+}
+
+PAX_small_world_GER = {
+	picture = jap_intervene_in_china
+	allowed = { always = no }
+	removal_cost = -1
+	equipment_bonus = {
+		small_plane_airframe = { build_cost_ic = -0.15 instant = yes }
+		small_plane_cas_airframe = { build_cost_ic = -0.15 instant = yes }
+	}
+}
+
+PAX_far_lands_sealed = {
+	picture = generic_pp_unity_bonus
+	allowed = { always = no }
+	removal_cost = -1
+	modifier = {
+		ai_get_ally_desire_factor = -1000
+		ai_join_ally_desire_factor = -1000
+		political_power_gain = -3
+		justify_war_goal_time = 100
+		enemy_justify_war_goal_time = 100
+		conscription = -10
+		consumer_goods_expected_value = 1
+		join_faction_tension = 10
+		industrial_capacity_factory = -10
+		industrial_capacity_dockyard = -10
+		experience_gain_army = -100
+		research_speed_factor = -100
+		min_export = 1
+	}
+}"""
+
+EXTRA_IDEAS = [PEACEFUL_SKY, SMALL_WORLD]
+
+# Страны, которые Family вырезал в сценарии без Азии
+NO_ASIA_SEALED = ["USA", "JAP", "AST"]
+
+
+def no_asia_effect():
+    tags = " ".join(f"tag = {t}" for t in NO_ASIA_SEALED)
+    return f"""# Сценарий «без Азии» из Family: Япония, США и Австралия под ИИ выключены из игры,
+# а державы лора получают бонус малого мира (NO_asia)
+every_country = {{
+	limit = {{ OR = {{ {tags} }} is_ai = yes }}
+	add_ideas = PAX_far_lands_sealed
+	set_research_slots = 0
+	country_lock_all_division_template = yes
+}}
+every_country = {{
+	limit = {{ has_country_flag = pax_power NOT = {{ tag = ENG tag = GER }} }}
+	add_ideas = PAX_small_world
+}}
+ENG = {{ add_ideas = PAX_small_world_ENG }}
+GER = {{ add_ideas = PAX_small_world PAX_small_world_GER }}"""
+
+
+# Ещё три технологии, у которых в Family осталась только локализация (Family_l_russian.yml).
+# Сами блоки в Family не нашлись, поэтому бонусы подобраны по смыслу названий.
+EXTRA_TECHS = [
+    ("modern_fire_control_system", "Современная система управления огнём",
+     "Вводя курс, скорость и расстояние до цели, современный механический компьютер может точнее предсказать, где будет находиться цель, когда будет готов следующий залп.",
+     {"naval_hit_chance": 0.05, "naval_torpedo_hit_chance_factor": 0.05}, 2.5, 1946, 8, 10, ["electronics"], None),
+    ("modern_encryption", "Шифрование: продвинутый стандарт шифрования",
+     "AES работает с блоками по 128 бит и ключами 128, 192 или 256 бит и защищает связь армии от чужих ушей.",
+     {"encryption_factor": 0.5}, 2.5, 1947, 8, 12, ["electronics"], None),
+    ("modern_decryption", "Дешифрование: анализ блочного шифра",
+     "Анализ закономерностей в блоках символов и статистика позволяют вскрыть чужой шифр и прочитать исходное сообщение.",
+     {"decryption_factor": 0.5}, 2.5, 1947, 8, 14, ["electronics"], None),
+]
+
+
 GUIDE_ECONOMY = (
     "Законы экономики взяты из Family. §HГражданская экономика§! даёт +30% к скорости строительства гражданских фабрик и +25% к инфраструктуре. "
     "Когда закончите строить фабрики, переключитесь на военную экономику: она снижает ТНП и ускоряет военные заводы и верфи. "
@@ -142,14 +236,14 @@ def build(w, LOC, indent):
     w("common/defines/pax_family_defines.lua", defines())
 
     blocks = []
-    for tid, name, desc, mod, cost, year, x, y, cats, nxt in FAMILY_TECHS:
+    for tid, name, desc, mod, cost, year, x, y, cats, nxt in FAMILY_TECHS + EXTRA_TECHS:
         b = [f"{k} = {v}" for k, v in mod.items()]
         if tid in TECH_EXTRA:
             b.append(TECH_EXTRA[tid])
         if nxt:
             b.append(f"path = {{ leads_to_tech = {nxt} research_cost_coeff = 1 }}")
         b += [f"research_cost = {cost}", f"start_year = {year}",
-              f"folder = {{ name = industry_folder position = {{ x = {x} y = {y} }} }}",
+              f"folder = {{ name = {'electronics_folder' if 'electronics' in cats else 'industry_folder'} position = {{ x = {x} y = {y} }} }}",
               "categories = { " + " ".join(cats) + " }",
               "ai_will_do = { factor = 5 modifier = { factor = 10 date > \"1943.1.1\" } }"]
         blocks.append(f"{tid} = {{\n" + indent("\n".join(b), 1) + "\n}")
@@ -159,6 +253,14 @@ def build(w, LOC, indent):
       "# Технологии из «Family Historical MP mod»\ntechnologies = {\n" + "\n\n".join(indent(b, 1) for b in blocks) + "\n}\n")
 
     LOC.update({
+        "PAX_small_world": "Малый мир",
+        "PAX_small_world_desc": "Сценарий «без Азии»: дальние земли молчат, и державы лора строят быстрее. Взято из Family (NO_asia).",
+        "PAX_small_world_ENG": "Малый мир: острова",
+        "PAX_small_world_ENG_desc": "Островной Союз строит быстрее и держится дольше. Взято из Family (NO_asia_ENG).",
+        "PAX_small_world_GER": "Малый мир: дешёвые крылья",
+        "PAX_small_world_GER_desc": "Лёгкие самолёты Рейха на 15% дешевле. Взято из Family (NO_asia_GER).",
+        "PAX_far_lands_sealed": "Закрытые дальние земли",
+        "PAX_far_lands_sealed_desc": "В сценарии «без Азии» эта страна выключена из игры, как e_neutral в Family.",
         "PAX_peaceful_sky": "Мирное небо",
         "PAX_peaceful_sky_desc": "Пока пушки молчат, армия учится без потерь. Дух пропадает с первой войной. Взято из Family.",
         "pax.40.t": "Вы хотите Тотальной Войны?",

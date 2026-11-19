@@ -100,4 +100,32 @@ technologies = {
 		categories = { industry cat_production }
 		ai_will_do = { factor = 5 modifier = { factor = 10 date > "1943.1.1" } }
 	}
+
+	modern_fire_control_system = {
+		naval_hit_chance = 0.05
+		naval_torpedo_hit_chance_factor = 0.05
+		research_cost = 2.5
+		start_year = 1946
+		folder = { name = electronics_folder position = { x = 8 y = 10 } }
+		categories = { electronics }
+		ai_will_do = { factor = 5 modifier = { factor = 10 date > "1943.1.1" } }
+	}
+
+	modern_encryption = {
+		encryption_factor = 0.5
+		research_cost = 2.5
+		start_year = 1947
+		folder = { name = electronics_folder position = { x = 8 y = 12 } }
+		categories = { electronics }
+		ai_will_do = { factor = 5 modifier = { factor = 10 date > "1943.1.1" } }
+	}
+
+	modern_decryption = {
+		decryption_factor = 0.5
+		research_cost = 2.5
+		start_year = 1947
+		folder = { name = electronics_folder position = { x = 8 y = 14 } }
+		categories = { electronics }
+		ai_will_do = { factor = 5 modifier = { factor = 10 date > "1943.1.1" } }
+	}
 }

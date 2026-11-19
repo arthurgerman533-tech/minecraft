@@ -136,6 +136,156 @@ pax_setup_1936 = {
 	}
 }
 
+pax_setup_1936e = {
+	set_global_flag = pax_era_1936e
+	set_variable = { var = global.pax_guardians value = 2 }
+	set_variable = { var = global.pax_cracks value = 1 }
+	ITA = {
+		set_popularities = { democratic = 60 fascism = 15 communism = 10 neutrality = 15 }
+		set_politics = { ruling_party = democratic elections_allowed = yes }
+		recruit_character = ITA_pax_romul
+		promote_character = ITA_pax_romul
+		add_ideas = PAX_spirit_ITA
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_pax
+		set_technology = {
+			pax_tech_tablets = 1
+			pax_tech_kaer_copper = 1
+		}
+	}
+	SPR = {
+		set_popularities = { democratic = 30 fascism = 10 communism = 10 neutrality = 50 }
+		set_politics = { ruling_party = neutrality elections_allowed = no }
+		recruit_character = SPR_pax_hannon
+		promote_character = SPR_pax_hannon
+		add_ideas = PAX_spirit_SPR
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_pax
+		set_technology = {
+			pax_tech_tablets = 1
+			pax_tech_kaer_copper = 1
+		}
+	}
+	GRE = {
+		set_popularities = { democratic = 55 fascism = 15 communism = 15 neutrality = 15 }
+		set_politics = { ruling_party = democratic elections_allowed = yes }
+		recruit_character = GRE_pax_pericles
+		promote_character = GRE_pax_pericles
+		add_ideas = PAX_spirit_GRE
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_pax
+		set_technology = {
+			pax_tech_tablets = 1
+			pax_tech_kaer_copper = 1
+		}
+	}
+	FRA = {
+		set_popularities = { democratic = 55 fascism = 10 communism = 20 neutrality = 15 }
+		set_politics = { ruling_party = democratic elections_allowed = yes }
+		recruit_character = FRA_pax_ambiorix
+		promote_character = FRA_pax_ambiorix
+		add_ideas = PAX_spirit_FRA
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_pax
+		set_technology = {
+			pax_tech_tablets = 1
+			pax_tech_kaer_copper = 1
+		}
+	}
+	ENG = {
+		set_popularities = { democratic = 65 fascism = 10 communism = 10 neutrality = 15 }
+		set_politics = { ruling_party = democratic elections_allowed = yes }
+		recruit_character = ENG_pax_elinor
+		promote_character = ENG_pax_elinor
+		add_ideas = PAX_spirit_ENG
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_pax
+		set_technology = {
+			pax_tech_tablets = 1
+			pax_tech_kaer_copper = 1
+		}
+	}
+	GER = {
+		set_popularities = { democratic = 20 fascism = 55 communism = 15 neutrality = 10 }
+		set_politics = { ruling_party = fascism elections_allowed = no }
+		recruit_character = GER_pax_arminius
+		promote_character = GER_pax_arminius
+		add_ideas = PAX_spirit_GER
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_steppe
+		set_technology = {
+			pax_tech_tablets = 1
+			pax_tech_kaer_copper = 1
+		}
+	}
+	SOV = {
+		set_popularities = { democratic = 15 fascism = 10 communism = 25 neutrality = 50 }
+		set_politics = { ruling_party = neutrality elections_allowed = no }
+		recruit_character = SOV_pax_vseslav
+		promote_character = SOV_pax_vseslav
+		add_ideas = PAX_spirit_SOV
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_steppe
+		set_technology = {
+			pax_tech_tablets = 1
+			pax_tech_kaer_copper = 1
+		}
+	}
+	ROM = {
+		set_popularities = { democratic = 25 fascism = 20 communism = 10 neutrality = 45 }
+		set_politics = { ruling_party = neutrality elections_allowed = no }
+		recruit_character = ROM_pax_decebal
+		promote_character = ROM_pax_decebal
+		add_ideas = PAX_spirit_ROM
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_steppe
+		set_technology = {
+			pax_tech_tablets = 1
+			pax_tech_kaer_copper = 1
+		}
+	}
+	TUR = {
+		set_popularities = { democratic = 15 fascism = 25 communism = 10 neutrality = 50 }
+		set_politics = { ruling_party = neutrality elections_allowed = no }
+		recruit_character = TUR_pax_tengiz
+		promote_character = TUR_pax_tengiz
+		add_ideas = PAX_spirit_TUR
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_steppe
+		set_technology = {
+			pax_tech_tablets = 1
+			pax_tech_kaer_copper = 1
+		}
+	}
+	PER = {
+		set_popularities = { democratic = 15 fascism = 15 communism = 15 neutrality = 55 }
+		set_politics = { ruling_party = neutrality elections_allowed = no }
+		recruit_character = PER_pax_idanthyrsus
+		promote_character = PER_pax_idanthyrsus
+		add_ideas = PAX_spirit_PER
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_steppe
+		set_technology = {
+			pax_tech_tablets = 1
+			pax_tech_kaer_copper = 1
+		}
+	}
+	# Сценарий «без Азии» из Family: Япония, США и Австралия под ИИ выключены из игры,
+	# а державы лора получают бонус малого мира (NO_asia)
+	every_country = {
+		limit = { OR = { tag = USA tag = JAP tag = AST } is_ai = yes }
+		add_ideas = PAX_far_lands_sealed
+		set_research_slots = 0
+		country_lock_all_division_template = yes
+	}
+	every_country = {
+		limit = { has_country_flag = pax_power NOT = { tag = ENG tag = GER } }
+		add_ideas = PAX_small_world
+	}
+	ENG = { add_ideas = PAX_small_world_ENG }
+	GER = { add_ideas = PAX_small_world PAX_small_world_GER }
+}
+
 pax_setup_1939 = {
 	set_global_flag = pax_era_1939
 	set_variable = { var = global.pax_guardians value = 2 }

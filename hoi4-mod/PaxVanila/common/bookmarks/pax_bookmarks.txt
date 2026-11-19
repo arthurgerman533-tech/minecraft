@@ -75,6 +75,80 @@ bookmarks = {
 		effect = { randomize_weather = 22345 }
 	}
 	bookmark = {
+		name = PAX_BM_1936e
+		desc = PAX_BM_1936e_DESC
+		date = 1936.1.1.13
+		picture = GFX_select_date_1936
+		default_country = ITA
+		ITA = {
+			history = PAX_BM_1936e_ITA
+			ideology = democratic
+			ideas = { PAX_spirit_ITA }
+			focuses = { }
+		}
+		SPR = {
+			minor = yes
+			history = PAX_BM_1936e_SPR
+			ideology = neutrality
+			ideas = { PAX_spirit_SPR }
+			focuses = { }
+		}
+		GRE = {
+			minor = yes
+			history = PAX_BM_1936e_GRE
+			ideology = democratic
+			ideas = { PAX_spirit_GRE }
+			focuses = { }
+		}
+		FRA = {
+			history = PAX_BM_1936e_FRA
+			ideology = democratic
+			ideas = { PAX_spirit_FRA }
+			focuses = { }
+		}
+		ENG = {
+			history = PAX_BM_1936e_ENG
+			ideology = democratic
+			ideas = { PAX_spirit_ENG }
+			focuses = { }
+		}
+		GER = {
+			history = PAX_BM_1936e_GER
+			ideology = fascism
+			ideas = { PAX_spirit_GER }
+			focuses = { }
+		}
+		SOV = {
+			history = PAX_BM_1936e_SOV
+			ideology = neutrality
+			ideas = { PAX_spirit_SOV }
+			focuses = { }
+		}
+		ROM = {
+			minor = yes
+			history = PAX_BM_1936e_ROM
+			ideology = neutrality
+			ideas = { PAX_spirit_ROM }
+			focuses = { }
+		}
+		TUR = {
+			minor = yes
+			history = PAX_BM_1936e_TUR
+			ideology = neutrality
+			ideas = { PAX_spirit_TUR }
+			focuses = { }
+		}
+		PER = {
+			minor = yes
+			history = PAX_BM_1936e_PER
+			ideology = neutrality
+			ideas = { PAX_spirit_PER }
+			focuses = { }
+		}
+		"---" = { history = PAX_BM_OTHER }
+		effect = { randomize_weather = 22345 }
+	}
+	bookmark = {
 		name = PAX_BM_1939
 		desc = PAX_BM_1939_DESC
 		date = 1939.8.14.12

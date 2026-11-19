@@ -237,7 +237,7 @@ ideas = {
 		}
 
 		PAX_spirit_ITA = {
-			picture = italy_control
+			picture = pax_spirit_ITA
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -248,7 +248,7 @@ ideas = {
 		}
 
 		PAX_her_ITA = {
-			picture = generic_intel_bonus
+			picture = pax_her_ITA
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -259,7 +259,7 @@ ideas = {
 		}
 
 		PAX_fai_ITA = {
-			picture = generic_constitutional_guarantees
+			picture = pax_fai_ITA
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -270,7 +270,7 @@ ideas = {
 		}
 
 		PAX_spirit_SPR = {
-			picture = free_trade
+			picture = pax_spirit_SPR
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -281,7 +281,7 @@ ideas = {
 		}
 
 		PAX_her_SPR = {
-			picture = generic_intel_bonus
+			picture = pax_her_SPR
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -291,7 +291,7 @@ ideas = {
 		}
 
 		PAX_fai_SPR = {
-			picture = generic_constitutional_guarantees
+			picture = pax_fai_SPR
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -301,7 +301,7 @@ ideas = {
 		}
 
 		PAX_spirit_GRE = {
-			picture = generic_navy_bonus
+			picture = pax_spirit_GRE
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -312,7 +312,7 @@ ideas = {
 		}
 
 		PAX_her_GRE = {
-			picture = generic_intel_bonus
+			picture = pax_her_GRE
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -322,7 +322,7 @@ ideas = {
 		}
 
 		PAX_fai_GRE = {
-			picture = generic_constitutional_guarantees
+			picture = pax_fai_GRE
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -332,7 +332,7 @@ ideas = {
 		}
 
 		PAX_spirit_FRA = {
-			picture = generic_constitutional_guarantees
+			picture = pax_spirit_FRA
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -343,7 +343,7 @@ ideas = {
 		}
 
 		PAX_her_FRA = {
-			picture = generic_intel_bonus
+			picture = pax_her_FRA
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -354,7 +354,7 @@ ideas = {
 		}
 
 		PAX_fai_FRA = {
-			picture = generic_constitutional_guarantees
+			picture = pax_fai_FRA
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -364,7 +364,7 @@ ideas = {
 		}
 
 		PAX_spirit_ENG = {
-			picture = eng_the_sun_never_sets
+			picture = pax_spirit_ENG
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -375,7 +375,7 @@ ideas = {
 		}
 
 		PAX_her_ENG = {
-			picture = generic_intel_bonus
+			picture = pax_her_ENG
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -386,7 +386,7 @@ ideas = {
 		}
 
 		PAX_fai_ENG = {
-			picture = generic_constitutional_guarantees
+			picture = pax_fai_ENG
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -396,7 +396,7 @@ ideas = {
 		}
 
 		PAX_spirit_GER = {
-			picture = generic_fascism_drift_bonus
+			picture = pax_spirit_GER
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -407,7 +407,7 @@ ideas = {
 		}
 
 		PAX_her_GER = {
-			picture = generic_intel_bonus
+			picture = pax_her_GER
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -417,7 +417,7 @@ ideas = {
 		}
 
 		PAX_fai_GER = {
-			picture = generic_constitutional_guarantees
+			picture = pax_fai_GER
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -427,7 +427,7 @@ ideas = {
 		}
 
 		PAX_spirit_SOV = {
-			picture = generic_communist_army
+			picture = pax_spirit_SOV
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -438,7 +438,7 @@ ideas = {
 		}
 
 		PAX_her_SOV = {
-			picture = generic_intel_bonus
+			picture = pax_her_SOV
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -449,7 +449,7 @@ ideas = {
 		}
 
 		PAX_fai_SOV = {
-			picture = generic_constitutional_guarantees
+			picture = pax_fai_SOV
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -460,7 +460,7 @@ ideas = {
 		}
 
 		PAX_spirit_ROM = {
-			picture = generic_production_bonus
+			picture = pax_spirit_ROM
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -471,7 +471,7 @@ ideas = {
 		}
 
 		PAX_her_ROM = {
-			picture = generic_intel_bonus
+			picture = pax_her_ROM
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -481,7 +481,7 @@ ideas = {
 		}
 
 		PAX_fai_ROM = {
-			picture = generic_constitutional_guarantees
+			picture = pax_fai_ROM
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -491,7 +491,7 @@ ideas = {
 		}
 
 		PAX_spirit_TUR = {
-			picture = generic_volunteer_expedition_bonus
+			picture = pax_spirit_TUR
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -502,7 +502,7 @@ ideas = {
 		}
 
 		PAX_her_TUR = {
-			picture = generic_intel_bonus
+			picture = pax_her_TUR
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -513,7 +513,7 @@ ideas = {
 		}
 
 		PAX_fai_TUR = {
-			picture = generic_constitutional_guarantees
+			picture = pax_fai_TUR
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -523,7 +523,7 @@ ideas = {
 		}
 
 		PAX_spirit_PER = {
-			picture = german_advisors
+			picture = pax_spirit_PER
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -534,7 +534,7 @@ ideas = {
 		}
 
 		PAX_her_PER = {
-			picture = generic_intel_bonus
+			picture = pax_her_PER
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -544,7 +544,7 @@ ideas = {
 		}
 
 		PAX_fai_PER = {
-			picture = generic_constitutional_guarantees
+			picture = pax_fai_PER
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
@@ -573,6 +573,60 @@ ideas = {
 				attrition = -1
 				supply_consumption_factor = -0.35
 				supply_factor = 1
+			}
+		}
+
+		PAX_small_world = {
+			picture = generic_acquire_tanks
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				consumer_goods_expected_value = -0.05
+				industrial_capacity_factory = 0.15
+				production_speed_buildings_factor = 0.10
+				conscription = 0.03
+			}
+		}
+
+		PAX_small_world_ENG = {
+			picture = eng_the_sun_never_sets
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.10
+				conscription = 0.03
+				surrender_limit = 0.09
+			}
+		}
+
+		PAX_small_world_GER = {
+			picture = jap_intervene_in_china
+			allowed = { always = no }
+			removal_cost = -1
+			equipment_bonus = {
+				small_plane_airframe = { build_cost_ic = -0.15 instant = yes }
+				small_plane_cas_airframe = { build_cost_ic = -0.15 instant = yes }
+			}
+		}
+
+		PAX_far_lands_sealed = {
+			picture = generic_pp_unity_bonus
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				ai_get_ally_desire_factor = -1000
+				ai_join_ally_desire_factor = -1000
+				political_power_gain = -3
+				justify_war_goal_time = 100
+				enemy_justify_war_goal_time = 100
+				conscription = -10
+				consumer_goods_expected_value = 1
+				join_faction_tension = 10
+				industrial_capacity_factory = -10
+				industrial_capacity_dockyard = -10
+				experience_gain_army = -100
+				research_speed_factor = -100
+				min_export = 1
 			}
 		}
 	}
