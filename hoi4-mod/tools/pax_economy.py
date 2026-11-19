@@ -37,6 +37,7 @@ def build(w, LOC, indent):
         for k, name, desc, eff in modes:
             mid = f"PAX_eco_{gk}_{k}"
             body = "\n".join(f"\t{a} = {b}" for a, b in eff.items())
+            mods.append(f"{mid} = {{\n{body}\n}}")
             LOC[mid] = f"{gname}: {name}"
             others = [o for o, *_ in modes if o != k]
             rem = "\n".join(f"\t\t\tif = {{ limit = {{ has_dynamic_modifier = {{ modifier = PAX_eco_{gk}_{o} }} }} remove_dynamic_modifier = {{ modifier = PAX_eco_{gk}_{o} }} }}" for o in others)

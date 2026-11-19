@@ -1,1 +1,61 @@
+PAX_eco_tax_low = {
+	consumer_goods_factor = -0.05
+	stability_factor = 0.05
+	political_power_factor = -0.05
+}
 
+PAX_eco_tax_mid = {
+	consumer_goods_factor = 0.0
+}
+
+PAX_eco_tax_high = {
+	consumer_goods_factor = 0.05
+	stability_factor = -0.05
+	political_power_factor = 0.08
+}
+
+PAX_eco_fund_civ = {
+	production_speed_buildings_factor = 0.1
+	conversion_cost_civ_to_mil_factor = 0.15
+}
+
+PAX_eco_fund_bal = {
+	industrial_capacity_factory = 0.02
+}
+
+PAX_eco_fund_mil = {
+	production_speed_buildings_factor = -0.1
+	conversion_cost_civ_to_mil_factor = -0.15
+	war_support_factor = 0.05
+}
+
+PAX_eco_trade_open = {
+	trade_opinion_factor = 0.25
+	consumer_goods_factor = -0.03
+}
+
+PAX_eco_trade_mix = {
+	research_speed_factor = 0.01
+}
+
+PAX_eco_trade_closed = {
+	trade_opinion_factor = -0.15
+	production_factory_max_efficiency_factor = 0.05
+}
+
+PAX_eco_energy_fossil = {
+	industrial_capacity_factory = 0.05
+	fuel_gain_factor = 0.1
+}
+
+PAX_eco_energy_atom = {
+	production_speed_buildings_factor = -0.05
+	research_speed_factor = 0.05
+	industrial_capacity_factory = 0.08
+}
+
+PAX_eco_energy_green = {
+	fuel_gain_factor = 0.05
+	stability_factor = 0.03
+	production_factory_max_efficiency_factor = 0.03
+}
