@@ -52,3 +52,15 @@
 Где работает: доход и эффекты — paxfocus.sk; пакт, дань — paxdiplo.sk; скидка орудий — paxsiege.sk;
 урожай и зима — paxseasons.sk. Если нацию удалили, её наследие освобождается (проверка раз в 30 минут).
 Подробный гайд с порядком фокусов: гайды/фокусы.md.
+
+ВЕРА И ФИЛОСОФИЯ (добавлено 2026-11-19): скрипт plugins/Skript/scripts/paxfaith.sk (нужен paxfocus.sk)
+  /focus faith            — список государственных вер (16 вер и философских школ, кроме cynic)
+  /focus faith <id>       — выбрать (глава, один раз; одну веру могут взять несколько наций)
+  /focus start fai        — фокус «Государственная вера» (1500$, 24 ч, нужен любой фокус ур.1)
+  /focus admin faith <нация> — сбросить веру нации
+  /faith, /faith list, /faith <id> [confirm] — личная вера игрока (первая бесплатно, смена 500$ раз в 7 дней)
+  /faith admin reset <ник> (право paxfaith.admin)
+  Единоверцы: личная вера = государственной (фокус пройден) — +10$ в день.
+  id: jupiter baal olymp wotan druids zalmox tengri papai monolith stoa academy atom cynic pythag dao kong
+  Таблица бонусов: шапка paxfaith.sk и гайды/фокусы.md. Лор: лор/религии.md, лор/философы.md.
+  Не проверено на живом сервере: /sk reload paxfaith и /sk reload paxfocus, проверить грозу, траву, лодку, лук.

@@ -66,7 +66,7 @@ function serverState(cfg,now=new Date()){
 function fmtMin(n){const h=Math.floor(n/60),m=n%60;return EN?(h?`${h} h ${m} min`:`${m} min`):(h?`${h} ч ${m} мин`:`${m} мин`)}
 
 async function main(){
-  const C=await (await fetch('content.json?v=20261119060752')).json(), cfg=C.config;
+  const C=await (await fetch('content.json?v=20261119111855')).json(), cfg=C.config;
   document.querySelectorAll('[data-k]').forEach(e=>{e.textContent=e.dataset.k in C?C[e.dataset.k]:cfg[e.dataset.k]||''});
   // IP и Discord
   const ipBtn=$('#copyip');

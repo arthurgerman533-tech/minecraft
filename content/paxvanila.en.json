@@ -451,6 +451,27 @@
    "subtitle": "Prologue to the Front Chronicle: the world before this world, server ZAG533, Day 517",
    "file": "старые_записи.md",
    "cover": "lore_old_records.jpg"
+  },
+  {
+   "id": "filosofy",
+   "title": "Philosophers: then and now",
+   "subtitle": "Sages of the eight peoples modelled on Socrates, Plato, Diogenes, the Stoics, Confucius and Laozi (Russian text)",
+   "file": "философы.md",
+   "cover": "lore_filosofy.jpg"
+  },
+  {
+   "id": "religii",
+   "title": "Gods and faiths",
+   "subtitle": "Gods of the eight peoples and the Keepers of the Seal. Faith gives bonuses: /faith and state faith in focuses (Russian text)",
+   "file": "религии.md",
+   "cover": "lore_religii.jpg"
+  },
+  {
+   "id": "sudy",
+   "title": "Courts and prisons",
+   "subtitle": "From the praetor to the Tribunal at the Monolith, and how courts work on the server: /court (Russian text)",
+   "file": "суды.md",
+   "cover": "lore_sudy.jpg"
   }
  ],
  "guides": [

@@ -1,0 +1,378 @@
+# PaxVanila — СУД НАЦИИ: судьи, прокуроры, дела, штрафы и тюрьмы. Добавлено 2026-11-19.
+# Нужны: Skript 2.17+, skript-reflect, Towny, Vault-экономика, paxfocus.sk (focusNationOf, focusDeposit).
+# Лор и правила: лор/суды.md. Суд нации судит только жителей своей нации.
+# Читы, дюпы и гриф — не суд, а администрация (бан и откат по CoreProtect).
+#
+# Правила (из Гулага Дальнего сектора): кто обвиняет, тот не судит; срок называют сразу
+# (тюрьма 1–{@jail_max} мин, штраф до {@fine_max}$ в казну нации); приговор не раньше чем через {@wait_min} мин
+# после подачи дела (обвиняемый успевает написать защиту); апелляция — в Суд у Монолита (администрация).
+#
+#   /court                               — суд вашей нации
+#   /court judge <ник> | prosecutor <ник> — глава назначает судью / прокурора
+#   /court setjail                       — глава ставит тюрьму (внутри своего города)
+#   /court sue <ник> <обвинение>         — подать дело против жителя своей нации
+#   /court list | info <номер>           — дела
+#   /court defend <номер> <текст>        — защита обвиняемого
+#   /court verdict <номер> innocent | fine <сумма> | jail <минуты>   — судья
+#   /court appeal <номер>                — апелляция осуждённого
+#   /court admin cancel <номер> | release <ник>   (право paxcourt.admin)
+# Тюрьма: срок идёт, только пока заключённый онлайн; дальше {@jail_radius} блоков от тюрьмы не уйти,
+# команды (кроме /court, /msg, /r, /tell) не работают.
+# Не проверено на живом сервере: /sk reload paxcourt, проверить на двух тестовых аккаунтах.
+
+import:
+	com.palmergames.bukkit.towny.TownyAPI
+	org.bukkit.Bukkit
+	java.util.UUID
+
+options:
+	fine_max: 500
+	jail_max: 30
+	wait_min: 10
+	jail_radius: 8
+
+# ---------- служебное ----------
+
+function courtOffline(u: text) :: offline player:
+	return Bukkit.getOfflinePlayer(UUID.fromString({_u}))
+
+function courtNationOfName(name: text) :: text:
+	set {_r} to TownyAPI.getInstance().getResident({_name})
+	if {_r} is not set:
+		return {_none}
+	set {_n} to {_r}.getNationOrNull()
+	if {_n} is not set:
+		return {_none}
+	return "%{_n}.getName()%"
+
+function courtIsKing(p: player) :: boolean:
+	set {_r} to TownyAPI.getInstance().getResident({_p})
+	if {_r} is not set:
+		return false
+	if {_r}.isKing() is true:
+		return true
+	return false
+
+function courtInOwnTown(p: player, nation: text) :: boolean:
+	set {_t} to TownyAPI.getInstance().getTown(location of {_p})
+	if {_t} is not set:
+		return false
+	set {_n} to {_t}.getNationOrNull()
+	if {_n} is not set:
+		return false
+	if "%{_n}.getName()%" is {_nation}:
+		return true
+	return false
+
+function courtStatusText(id: text) :: text:
+	set {_s} to {court::c::%{_id}%::status}
+	if {_s} is "open":
+		return "&eоткрыто"
+	if {_s} is "innocent":
+		return "&aоправдан"
+	if {_s} is "fine":
+		return "&cштраф %{court::c::%{_id}%::amount}%$"
+	if {_s} is "jail":
+		return "&cтюрьма %{court::c::%{_id}%::amount}% мин"
+	if {_s} is "cancelled":
+		return "&7отменено Судом у Монолита"
+	return "&7?"
+
+function courtJail(u: text, nation: text, minutes: number):
+	set {court::jailed::%{_u}%} to {_minutes} * 60
+	set {court::jailloc::%{_u}%} to {court::jail::%{_nation}%}
+	loop all players:
+		if "%uuid of loop-player%" is {_u}:
+			teleport loop-player to {court::jailloc::%{_u}%}
+			send "&c[Суд] Вы в тюрьме нации %{_nation}% на %{_minutes}% мин. Срок идёт, пока вы на сервере." to loop-player
+
+function courtRelease(u: text):
+	delete {court::jailed::%{_u}%}
+	delete {court::jailloc::%{_u}%}
+	loop all players:
+		if "%uuid of loop-player%" is {_u}:
+			send "&a[Суд] Срок окончен, вы свободны." to loop-player
+
+function courtJailed(p: player) :: boolean:
+	if {court::jailed::%uuid of {_p}%} is set:
+		return true
+	return false
+
+function courtNotifyAdmins(msg: text):
+	loop all players:
+		if loop-player has permission "paxcourt.admin":
+			send {_msg} to loop-player
+
+# ---------- тюрьма ----------
+
+every 5 seconds:
+	loop all players:
+		set {_u} to "%uuid of loop-player%"
+		if {court::jailed::%{_u}%} is set:
+			remove 5 from {court::jailed::%{_u}%}
+			if {court::jailed::%{_u}%} <= 0:
+				courtRelease({_u})
+			else if {court::jailloc::%{_u}%} is set:
+				set {_jl} to {court::jailloc::%{_u}%}
+				if world of loop-player is not world of {_jl}:
+					teleport loop-player to {_jl}
+				else if distance between loop-player and {_jl} > {@jail_radius}:
+					teleport loop-player to {_jl}
+					send "&c[Суд] Из тюрьмы не уйти. Осталось %rounded up {court::jailed::%{_u}%} / 60% мин." to loop-player
+
+on join:
+	set {_u} to "%uuid of player%"
+	if {court::jailed::%{_u}%} is set:
+		wait 2 seconds
+		if {court::jailloc::%{_u}%} is set:
+			teleport player to {court::jailloc::%{_u}%}
+		send "&c[Суд] Вы отбываете срок. Осталось %rounded up {court::jailed::%{_u}%} / 60% мин." to player
+
+on command:
+	player is set
+	courtJailed(player) is true
+	command is not "court" or "суд" or "msg" or "r" or "tell" or "w"
+	player does not have permission "paxcourt.admin"
+	cancel event
+	send "&c[Суд] В тюрьме команды не работают. Срок: &f/court"
+
+# ---------- команда ----------
+
+command /court [<text>] [<text>] [<text>]:
+	aliases: /суд, /tribunal
+	trigger:
+		if arg-1 is "admin":
+			if executor does not have permission "paxcourt.admin":
+				send "&cНет прав."
+				stop
+			if arg-2 is "release":
+				set {_t} to arg-3 parsed as offline player
+				if {_t} is not set:
+					send "&c/court admin release <ник>"
+					stop
+				courtRelease("%uuid of {_t}%")
+				send "&eИгрок %arg-3% освобождён."
+				stop
+			if arg-2 is "cancel":
+				set {_id} to arg-3 ? ""
+				if {court::c::%{_id}%::nation} is not set:
+					send "&cНет дела №%{_id}%."
+					stop
+				set {_nm} to {court::c::%{_id}%::nation}
+				set {_s} to {court::c::%{_id}%::status}
+				if {_s} is "fine":
+					set {_op} to courtOffline({court::c::%{_id}%::def})
+					add {court::c::%{_id}%::paid} to {_op}'s balance
+					set {_n} to TownyAPI.getInstance().getNation({_nm})
+					if {_n} is set:
+						{_n}.getAccount().withdraw({court::c::%{_id}%::paid}, "PaxVanila: отмена штрафа, дело %{_id}%")
+				if {_s} is "jail":
+					courtRelease({court::c::%{_id}%::def})
+				set {court::c::%{_id}%::status} to "cancelled"
+				broadcast "&6&l[Суд у Монолита] &eПриговор по делу №%{_id}% (%{_nm}%) отменён."
+				stop
+			send "&c/court admin cancel <номер> | release <ник>"
+			stop
+		if executor is not a player:
+			send "&cКоманда для игроков."
+			stop
+		set {_u} to "%uuid of player%"
+		set {_nm} to focusNationOf(player)
+		# заключённый видит свой срок даже без нации
+		if arg-1 is not set:
+			if {court::jailed::%{_u}%} is set:
+				send "&cВы в тюрьме. Осталось %rounded up {court::jailed::%{_u}%} / 60% мин."
+			if {_nm} is not set:
+				send "&eСуд есть у каждой нации. Вы не в нации: споры с вами решает Суд у Монолита (Discord)."
+				stop
+			send "&6&l=== Суд нации %{_nm}% ==="
+			send "&eСудья: &f%{court::judgename::%{_nm}%} ? ""не назначен""%"
+			send "&eПрокурор: &f%{court::prosname::%{_nm}%} ? ""не назначен""%"
+			if {court::jail::%{_nm}%} is set:
+				send "&eТюрьма: &f%{court::jail::%{_nm}%}%"
+			else:
+				send "&eТюрьма: &fне построена (&f/court setjail&e — глава)"
+			set {_open} to 0
+			loop indices of {court::open::%{_nm}%::*}:
+				add 1 to {_open}
+			send "&eОткрытых дел: &f%{_open}% &7(/court list)"
+			send "&7Подать дело: &f/court sue <ник> <обвинение>&7. Правила: кто обвиняет, тот не судит; срок называют сразу; апелляция — /court appeal."
+			stop
+		if {_nm} is not set:
+			send "&cВы не в нации."
+			stop
+		if arg-1 is "judge" or "prosecutor":
+			if courtIsKing(player) is false:
+				send "&cНазначает глава нации."
+				stop
+			set {_tn} to arg-2 ? ""
+			if courtNationOfName({_tn}) is not {_nm}:
+				send "&cИгрок %{_tn}% не житель вашей нации."
+				stop
+			set {_t} to {_tn} parsed as offline player
+			if arg-1 is "judge":
+				if {court::pros::%{_nm}%} is "%uuid of {_t}%":
+					send "&cПрокурор не может быть судьёй: кто обвиняет, тот не судит."
+					stop
+				set {court::judge::%{_nm}%} to "%uuid of {_t}%"
+				set {court::judgename::%{_nm}%} to {_tn}
+				broadcast "&6&l[Суд] &e%{_nm}%: судья — &f%{_tn}%"
+			else:
+				if {court::judge::%{_nm}%} is "%uuid of {_t}%":
+					send "&cСудья не может быть прокурором: кто обвиняет, тот не судит."
+					stop
+				set {court::pros::%{_nm}%} to "%uuid of {_t}%"
+				set {court::prosname::%{_nm}%} to {_tn}
+				broadcast "&6&l[Суд] &e%{_nm}%: прокурор — &f%{_tn}%"
+			stop
+		if arg-1 is "setjail":
+			if courtIsKing(player) is false:
+				send "&cТюрьму ставит глава нации."
+				stop
+			if courtInOwnTown(player, {_nm}) is false:
+				send "&cТюрьма должна быть внутри города вашей нации."
+				stop
+			set {court::jail::%{_nm}%} to location of player
+			send "&aТюрьма нации поставлена здесь. Постройте камеру с решёткой: дальше {@jail_radius} блоков заключённый не уйдёт."
+			stop
+		if arg-1 is "sue":
+			set {_tn} to arg-2 ? ""
+			if arg-3 is not set:
+				send "&c/court sue <ник> <обвинение>"
+				stop
+			if courtNationOfName({_tn}) is not {_nm}:
+				send "&cСуд нации судит только своих жителей. Споры с другими нациями — Суд у Монолита (Discord)."
+				stop
+			set {_t} to {_tn} parsed as offline player
+			if "%uuid of {_t}%" is {_u}:
+				send "&cНельзя подать дело на себя."
+				stop
+			add 1 to {court::n}
+			set {_id} to "%{court::n}%"
+			set {court::c::%{_id}%::nation} to {_nm}
+			set {court::c::%{_id}%::def} to "%uuid of {_t}%"
+			set {court::c::%{_id}%::defname} to {_tn}
+			set {court::c::%{_id}%::by} to {_u}
+			set {court::c::%{_id}%::byname} to name of player
+			set {court::c::%{_id}%::text} to arg-3
+			set {court::c::%{_id}%::t} to now
+			set {court::c::%{_id}%::status} to "open"
+			set {_who} to "житель"
+			if {court::pros::%{_nm}%} is {_u}:
+				set {_who} to "прокурор"
+			set {court::c::%{_id}%::role} to {_who}
+			set {court::open::%{_nm}%::%{_id}%} to true
+			broadcast "&6&l[Суд] &e%{_nm}%, дело №%{_id}%: %{_who}% %name of player% обвиняет &f%{_tn}%&e: %arg-3%"
+			send "&7Обвиняемый может написать защиту: /court defend %{_id}% <текст>. Приговор — не раньше чем через {@wait_min} мин."
+			stop
+		if arg-1 is "list":
+			send "&6&l=== Открытые дела %{_nm}% ==="
+			loop indices of {court::open::%{_nm}%::*}:
+				send "&f№%loop-value% &e%{court::c::%loop-value%::defname}% &7— %{court::c::%loop-value%::text}% (подал %{court::c::%loop-value%::byname}%)"
+			stop
+		set {_id} to arg-2 ? ""
+		if arg-1 is "info" or "defend" or "verdict" or "appeal":
+			if {court::c::%{_id}%::nation} is not set:
+				send "&cНет дела №%{_id}%."
+				stop
+		if arg-1 is "info":
+			send "&6&l=== Дело №%{_id}% (%{court::c::%{_id}%::nation}%) ==="
+			send "&eОбвиняемый: &f%{court::c::%{_id}%::defname}%"
+			send "&eОбвинение (%{court::c::%{_id}%::role}% %{court::c::%{_id}%::byname}%): &f%{court::c::%{_id}%::text}%"
+			send "&eЗащита: &f%{court::c::%{_id}%::defense} ? ""не написана""%"
+			send "&eСтатус: %courtStatusText({_id})%"
+			if {court::c::%{_id}%::appeal} is true:
+				send "&eАпелляция подана в Суд у Монолита."
+			stop
+		if {court::c::%{_id}%::nation} is not {_nm}:
+			send "&cЭто дело другой нации."
+			stop
+		if arg-1 is "defend":
+			if {court::c::%{_id}%::def} is not {_u}:
+				send "&cЗащиту пишет обвиняемый."
+				stop
+			if arg-3 is not set:
+				send "&c/court defend <номер> <текст>"
+				stop
+			set {court::c::%{_id}%::defense} to arg-3
+			send "&aЗащита записана в дело №%{_id}%."
+			stop
+		if arg-1 is "appeal":
+			if {court::c::%{_id}%::def} is not {_u}:
+				send "&cАпелляцию подаёт осуждённый."
+				stop
+			if {court::c::%{_id}%::status} is not "fine" or "jail":
+				send "&cАпелляцию можно подать только на обвинительный приговор."
+				stop
+			set {court::c::%{_id}%::appeal} to true
+			send "&aАпелляция подана в Суд у Монолита. Администрация рассмотрит дело."
+			courtNotifyAdmins("&6[Суд у Монолита] Апелляция по делу №%{_id}% (%{_nm}%) от %name of player%: /court info %{_id}%")
+			stop
+		if arg-1 is "verdict":
+			if {court::judge::%{_nm}%} is not {_u}:
+				send "&cПриговор выносит судья нации."
+				stop
+			if {court::c::%{_id}%::status} is not "open":
+				send "&cПо делу уже вынесен приговор."
+				stop
+			if {court::c::%{_id}%::by} is {_u}:
+				send "&cВы подали это дело и не можете его судить. Пусть глава назначит другого судью."
+				stop
+			if {court::c::%{_id}%::def} is {_u}:
+				send "&cНельзя судить самого себя."
+				stop
+			if difference between {court::c::%{_id}%::t} and now < {@wait_min} minutes:
+				send "&cОбвиняемый должен успеть ответить: приговор не раньше чем через {@wait_min} мин после подачи."
+				stop
+			set {_v} to arg-3 ? ""
+			if {_v} is "innocent":
+				set {court::c::%{_id}%::status} to "innocent"
+				delete {court::open::%{_nm}%::%{_id}%}
+				broadcast "&6&l[Суд] &e%{_nm}%, дело №%{_id}%: &f%{court::c::%{_id}%::defname}% &aоправдан&e."
+				stop
+			set {_parts::*} to {_v} split at " "
+			set {_kind} to {_parts::1}
+			set {_amt} to {_parts::2} parsed as integer
+			if {_amt} is not set:
+				send "&c/court verdict <номер> innocent | fine <сумма> | jail <минуты>"
+				stop
+			if {_kind} is "fine":
+				if {_amt} < 1:
+					send "&cШтраф от 1 до {@fine_max}$."
+					stop
+				if {_amt} > {@fine_max}:
+					send "&cШтраф от 1 до {@fine_max}$."
+					stop
+				set {_op} to courtOffline({court::c::%{_id}%::def})
+				set {_pay} to {_amt}
+				if {_op}'s balance < {_pay}:
+					set {_pay} to {_op}'s balance
+				if {_pay} < 0:
+					set {_pay} to 0
+				remove {_pay} from {_op}'s balance
+				focusDeposit({_nm}, {_pay})
+				set {court::c::%{_id}%::status} to "fine"
+				set {court::c::%{_id}%::amount} to {_amt}
+				set {court::c::%{_id}%::paid} to {_pay}
+				delete {court::open::%{_nm}%::%{_id}%}
+				broadcast "&6&l[Суд] &e%{_nm}%, дело №%{_id}%: &f%{court::c::%{_id}%::defname}% &cвиновен&e, штраф %{_amt}%$ в казну нации (списано %{_pay}%$)."
+				stop
+			if {_kind} is "jail":
+				if {court::jail::%{_nm}%} is not set:
+					send "&cУ нации нет тюрьмы. Глава ставит её: /court setjail"
+					stop
+				if {_amt} < 1:
+					send "&cТюрьма от 1 до {@jail_max} минут."
+					stop
+				if {_amt} > {@jail_max}:
+					send "&cТюрьма от 1 до {@jail_max} минут."
+					stop
+				set {court::c::%{_id}%::status} to "jail"
+				set {court::c::%{_id}%::amount} to {_amt}
+				delete {court::open::%{_nm}%::%{_id}%}
+				courtJail({court::c::%{_id}%::def}, {_nm}, {_amt})
+				broadcast "&6&l[Суд] &e%{_nm}%, дело №%{_id}%: &f%{court::c::%{_id}%::defname}% &cвиновен&e, тюрьма %{_amt}% мин."
+				stop
+			send "&c/court verdict <номер> innocent | fine <сумма> | jail <минуты>"
+			stop
+		send "&c/court, judge, prosecutor, setjail, sue, list, info, defend, verdict, appeal"

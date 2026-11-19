@@ -1,0 +1,492 @@
+# PaxVanila — ВЕРА: боги восьми народов и философские школы. Добавлено 2026-11-19.
+# Нужны: Skript 2.17+, skript-reflect, Towny, Vault-экономика, paxfocus.sk
+# (берёт из него focusNationOf, focusAtHome, focusHas, focusDeposit).
+# Лор: лор/религии.md (боги и веры) и лор/философы.md (мудрецы и школы).
+#
+# Личная вера: каждый игрок выбирает, во что верит (/faith <id>). Первый выбор бесплатный,
+# смена — {@change_cost}$ раз в {@change_days} дней. Даёт небольшой личный бонус.
+# Государственная вера: глава нации выбирает её в фокусах (/focus faith <id>), потом проходит
+# фокус «fai» (Государственная вера, 1500$ / 24 ч, нужен любой фокус 1-го уровня). После фокуса
+# все жители нации получают бонус веры. Одну веру могут выбрать несколько наций.
+# Единоверцы: если личная вера игрока = государственной вере его нации (фокус пройден), +{@kin_income}$ в день.
+#
+#   id        Вера                         Личный бонус                               Государственный (фокус fai)
+#   jupiter   Боги Капитолия (Ромея)       ночью дома Регенерация I                    «Марс Градив»: Сила I дома во время боя
+#   baal      Баал-Хаммон и Танит (Карф.)  +15$ в день                                 «Щедрость Танит»: +40$ в казну в день
+#   olymp     Боги Олимпа (Эллада)         в воде Удача I                              «Посейдон»: в воде Грация дельфина
+#   wotan     Вотан и Донар (Германия)     в грозу Скорость I                          «Молот Донара»: в грозу Сила I
+#   druids    Боги рощ (Галлия)            на траве Регенерация I                      «Омела»: дома при ≤5 сердцах Регенерация I
+#   zalmox    Залмоксис (Дакия)            ниже Y=0 Сопротивление I                    «Без страха смерти»: на чужой земле в бою Сопротивление I
+#   tengri    Тенгри и Умай (Орда)         под открытым небом Скорость I               «Яса»: под открытым небом в бою Сила I
+#   papai     Табити, Папай, Апи (Скифия)  в Незере Огнестойкость                      «Стрелы Папая»: с луком/арбалетом Скорость I
+#   monolith  Хранители Печати (PAX)       до 300 блоков от 0,0 Сопротивление I         «Печать»: до 300 блоков от 0,0 Регенерация I
+#   stoa      Портик (стоики)              при ≤3 сердцах Сопротивление I              в бою при ≤5 сердцах Сопротивление I
+#   academy   Академия (Платон, Аристотель) ниже Y=40 Ночное зрение                    «Перечень всего»: +3 уровня опыта жителям раз в день
+#   atom      Школа кубиков (Демокрит)     ниже Y=0 Спешка I                           ниже Y=0 Спешка II
+#   cynic     Бочечники (Диоген)           без нагрудника Скорость I и Прыгучесть I     нельзя: бочечники не признают держав
+#   pythag    Союз Числа (Пифагор)         Удача I всегда                              +25$ в казну в день и Удача I жителям
+#   dao       Путь (Лао-цзы)               в воде Грация дельфина                      «Правь меньше»: +60$ в день, если сутки без боя
+#   kong      Порядок (Конфуций)           рядом житель вашей нации — Регенерация I     «Выпрямление имён»: +10$ в день за город (до 60$)
+#
+# Команды: /faith (/вера), /faith list, /faith <id>, /faith <id> confirm; админ: /faith admin reset <ник>
+# Не проверено на живом сервере: после заливки /sk reload paxfaith и /sk reload paxfocus.
+
+import:
+	com.palmergames.bukkit.towny.TownyAPI
+
+options:
+	change_cost: 500
+	change_days: 7
+	kin_income: 10
+	baal_income: 15
+	baal_state: 40
+	pythag_state: 25
+	dao_state: 60
+	kong_town: 10
+	kong_max: 60
+	seal_radius: 300
+
+# ---------- список вер ----------
+
+function faithIds() :: texts:
+	return "jupiter", "baal", "olymp", "wotan", "druids", "zalmox", "tengri", "papai", "monolith", "stoa", "academy", "atom", "cynic", "pythag", "dao" and "kong"
+
+function faithName(f: text) :: text:
+	if {_f} is "jupiter":
+		return "Боги Капитолия"
+	if {_f} is "baal":
+		return "Баал-Хаммон и Танит"
+	if {_f} is "olymp":
+		return "Боги Олимпа"
+	if {_f} is "wotan":
+		return "Вотан и Донар"
+	if {_f} is "druids":
+		return "Боги рощ"
+	if {_f} is "zalmox":
+		return "Залмоксис"
+	if {_f} is "tengri":
+		return "Тенгри и Умай"
+	if {_f} is "papai":
+		return "Табити, Папай и Апи"
+	if {_f} is "monolith":
+		return "Хранители Печати"
+	if {_f} is "stoa":
+		return "Портик (стоики)"
+	if {_f} is "academy":
+		return "Академия"
+	if {_f} is "atom":
+		return "Школа кубиков"
+	if {_f} is "cynic":
+		return "Бочечники"
+	if {_f} is "pythag":
+		return "Союз Числа"
+	if {_f} is "dao":
+		return "Путь"
+	if {_f} is "kong":
+		return "Порядок"
+	return {_none}
+
+function faithKind(f: text) :: text:
+	if {_f} is "stoa" or "academy" or "atom" or "cynic" or "pythag" or "dao" or "kong":
+		return "философия"
+	return "вера"
+
+function faithPersonal(f: text) :: text:
+	if {_f} is "jupiter":
+		return "ночью на земле своей нации Регенерация I (Лары хранят очаг)"
+	if {_f} is "baal":
+		return "+{@baal_income}$ в день"
+	if {_f} is "olymp":
+		return "в воде и на лодке Удача I"
+	if {_f} is "wotan":
+		return "в грозу Скорость I"
+	if {_f} is "druids":
+		return "стоя на траве Регенерация I"
+	if {_f} is "zalmox":
+		return "ниже Y=0 Сопротивление I"
+	if {_f} is "tengri":
+		return "под открытым небом Скорость I"
+	if {_f} is "papai":
+		return "в Незере Огнестойкость"
+	if {_f} is "monolith":
+		return "до {@seal_radius} блоков от 0, 0 Сопротивление I"
+	if {_f} is "stoa":
+		return "при 3 сердцах и меньше Сопротивление I"
+	if {_f} is "academy":
+		return "ниже Y=40 Ночное зрение"
+	if {_f} is "atom":
+		return "ниже Y=0 Спешка I"
+	if {_f} is "cynic":
+		return "без нагрудника Скорость I и Прыгучесть I"
+	if {_f} is "pythag":
+		return "всегда Удача I"
+	if {_f} is "dao":
+		return "в воде Грация дельфина"
+	if {_f} is "kong":
+		return "рядом житель вашей нации (8 блоков) — Регенерация I"
+	return ""
+
+function faithStateName(f: text) :: text:
+	if {_f} is "jupiter":
+		return "Марс Градив"
+	if {_f} is "baal":
+		return "Щедрость Танит"
+	if {_f} is "olymp":
+		return "Посейдон"
+	if {_f} is "wotan":
+		return "Молот Донара"
+	if {_f} is "druids":
+		return "Омела"
+	if {_f} is "zalmox":
+		return "Без страха смерти"
+	if {_f} is "tengri":
+		return "Яса"
+	if {_f} is "papai":
+		return "Стрелы Папая"
+	if {_f} is "monolith":
+		return "Печать"
+	if {_f} is "stoa":
+		return "Люди Портика"
+	if {_f} is "academy":
+		return "Перечень всего"
+	if {_f} is "atom":
+		return "Атомы Демоса"
+	if {_f} is "pythag":
+		return "Музыка чисел"
+	if {_f} is "dao":
+		return "Правь меньше"
+	if {_f} is "kong":
+		return "Выпрямление имён"
+	return {_none}
+
+function faithState(f: text) :: text:
+	if {_f} is "jupiter":
+		return "Сила I на своей территории во время боя"
+	if {_f} is "baal":
+		return "+{@baal_state}$ в казну нации в день"
+	if {_f} is "olymp":
+		return "в воде Грация дельфина"
+	if {_f} is "wotan":
+		return "в грозу Сила I"
+	if {_f} is "druids":
+		return "на своей территории при 5 сердцах и меньше Регенерация I"
+	if {_f} is "zalmox":
+		return "Сопротивление I на чужой земле во время боя"
+	if {_f} is "tengri":
+		return "под открытым небом во время боя Сила I"
+	if {_f} is "papai":
+		return "с луком или арбалетом в руке Скорость I"
+	if {_f} is "monolith":
+		return "до {@seal_radius} блоков от 0, 0 Регенерация I"
+	if {_f} is "stoa":
+		return "во время боя при 5 сердцах и меньше Сопротивление I"
+	if {_f} is "academy":
+		return "+3 уровня опыта каждому жителю раз в день"
+	if {_f} is "atom":
+		return "ниже Y=0 Спешка II"
+	if {_f} is "pythag":
+		return "+{@pythag_state}$ в казну в день и Удача I жителям"
+	if {_f} is "dao":
+		return "+{@dao_state}$ в казну в день, если нация сутки не была в бою"
+	if {_f} is "kong":
+		return "+{@kong_town}$ в казну в день за каждый город (до {@kong_max}$)"
+	if {_f} is "cynic":
+		return "не может быть государственной верой"
+	return "сначала выберите веру: /focus faith"
+
+# ---------- служебное ----------
+
+function faithOf(p: player) :: text:
+	return {faith::p::%uuid of {_p}%}
+
+# государственная вера нации, если фокус «fai» пройден
+function faithStateOf(nation: text) :: text:
+	if {faith::n::%{_nation}%} is not set:
+		return {_none}
+	if focusHas({_nation}, "fai") is true:
+		return {faith::n::%{_nation}%}
+	return {_none}
+
+function faithNight(p: player) :: boolean:
+	set {_w} to world of {_p}
+	set {_tk} to {_w}.getTime()
+	if {_tk} >= 12300:
+		return true
+	return false
+
+function faithNether(p: player) :: boolean:
+	if "%world of {_p}%" contains "nether":
+		return true
+	return false
+
+function faithSky(p: player) :: boolean:
+	if faithNether({_p}) is true:
+		return false
+	if y-coordinate of {_p} >= y-coordinate of highest block at {_p}:
+		return true
+	return false
+
+function faithNearSeal(p: player) :: boolean:
+	if "%world of {_p}%" is not "world":
+		return false
+	set {_x} to x-coordinate of {_p}
+	set {_z} to z-coordinate of {_p}
+	if sqrt({_x} * {_x} + {_z} * {_z}) <= {@seal_radius}:
+		return true
+	return false
+
+function faithNearAlly(p: player, nation: text) :: boolean:
+	loop all players in radius 8 around {_p}:
+		if loop-player is not {_p}:
+			if focusNationOf(loop-player) is {_nation}:
+				return true
+	return false
+
+function faithInWater(p: player) :: boolean:
+	if block at {_p} is water:
+		return true
+	if {_p} is riding a boat:
+		return true
+	return false
+
+# ---------- тики ----------
+
+every 5 seconds:
+	# запоминаем, когда нация последний раз была в бою (для «Правь меньше»)
+	loop indices of {pax::nhot::*}:
+		set {faith::lasthot::%loop-value%} to now
+	loop all players:
+		set {_p} to loop-player
+		set {_f} to faithOf({_p})
+		set {_nm} to focusNationOf({_p})
+		set {_hot} to false
+		set {_home} to false
+		if {_nm} is set:
+			if {pax::nhot::%{_nm}%} is set:
+				set {_hot} to true
+			set {_home} to focusAtHome({_p}, {_nm})
+		set {_y} to y-coordinate of {_p}
+		# --- личная вера ---
+		if {_f} is "jupiter":
+			if {_home} is true:
+				if faithNight({_p}) is true:
+					apply regeneration of tier 1 to {_p} for 7 seconds
+		else if {_f} is "olymp":
+			if faithInWater({_p}) is true:
+				apply luck of tier 1 to {_p} for 7 seconds
+		else if {_f} is "wotan":
+			if "%weather in world of {_p}%" contains "thunder":
+				apply speed of tier 1 to {_p} for 7 seconds
+		else if {_f} is "druids":
+			if block below {_p} is grass block:
+				apply regeneration of tier 1 to {_p} for 7 seconds
+		else if {_f} is "zalmox":
+			if {_y} < 0:
+				apply resistance of tier 1 to {_p} for 7 seconds
+		else if {_f} is "tengri":
+			if faithSky({_p}) is true:
+				apply speed of tier 1 to {_p} for 7 seconds
+		else if {_f} is "papai":
+			if faithNether({_p}) is true:
+				apply fire resistance to {_p} for 7 seconds
+		else if {_f} is "monolith":
+			if faithNearSeal({_p}) is true:
+				apply resistance of tier 1 to {_p} for 7 seconds
+		else if {_f} is "stoa":
+			if health of {_p} <= 3:
+				apply resistance of tier 1 to {_p} for 7 seconds
+		else if {_f} is "academy":
+			if {_y} < 40:
+				apply night vision to {_p} for 15 seconds
+		else if {_f} is "atom":
+			if {_y} < 0:
+				apply haste of tier 1 to {_p} for 7 seconds
+		else if {_f} is "cynic":
+			if chestplate of {_p} is air:
+				apply speed of tier 1 to {_p} for 7 seconds
+				apply jump boost of tier 1 to {_p} for 7 seconds
+		else if {_f} is "pythag":
+			apply luck of tier 1 to {_p} for 7 seconds
+		else if {_f} is "dao":
+			if faithInWater({_p}) is true:
+				apply dolphins grace to {_p} for 7 seconds
+		else if {_f} is "kong":
+			if {_nm} is set:
+				if faithNearAlly({_p}, {_nm}) is true:
+					apply regeneration of tier 1 to {_p} for 7 seconds
+		# --- государственная вера (после фокуса fai) ---
+		if {_nm} is set:
+			set {_s} to faithStateOf({_nm})
+			if {_s} is "jupiter":
+				if {_hot} is true:
+					if {_home} is true:
+						apply strength of tier 1 to {_p} for 7 seconds
+			else if {_s} is "olymp":
+				if faithInWater({_p}) is true:
+					apply dolphins grace to {_p} for 7 seconds
+			else if {_s} is "wotan":
+				if "%weather in world of {_p}%" contains "thunder":
+					apply strength of tier 1 to {_p} for 7 seconds
+			else if {_s} is "druids":
+				if {_home} is true:
+					if health of {_p} <= 5:
+						apply regeneration of tier 1 to {_p} for 7 seconds
+			else if {_s} is "zalmox":
+				if {_hot} is true:
+					if {_home} is false:
+						apply resistance of tier 1 to {_p} for 7 seconds
+			else if {_s} is "tengri":
+				if {_hot} is true:
+					if faithSky({_p}) is true:
+						apply strength of tier 1 to {_p} for 7 seconds
+			else if {_s} is "papai":
+				if tool of {_p} is bow or crossbow:
+					apply speed of tier 1 to {_p} for 7 seconds
+			else if {_s} is "monolith":
+				if faithNearSeal({_p}) is true:
+					apply regeneration of tier 1 to {_p} for 7 seconds
+			else if {_s} is "stoa":
+				if {_hot} is true:
+					if health of {_p} <= 5:
+						apply resistance of tier 1 to {_p} for 7 seconds
+			else if {_s} is "atom":
+				if {_y} < 0:
+					apply haste of tier 2 to {_p} for 7 seconds
+			else if {_s} is "pythag":
+				apply luck of tier 1 to {_p} for 7 seconds
+
+every 30 minutes:
+	# личные деньги: Баал и единоверцы; «Перечень всего» — опыт
+	loop all players:
+		set {_u} to uuid of loop-player
+		set {_f} to {faith::p::%{_u}%}
+		set {_nm} to focusNationOf(loop-player)
+		set {_s} to {_none}
+		if {_nm} is set:
+			set {_s} to faithStateOf({_nm})
+		set {_pay} to true
+		if {faith::paid::%{_u}%} is set:
+			if difference between {faith::paid::%{_u}%} and now < 1 day:
+				set {_pay} to false
+		if {_pay} is true:
+			set {_sum} to 0
+			if {_f} is "baal":
+				add {@baal_income} to {_sum}
+			if {_f} is set:
+				if {_s} is {_f}:
+					add {@kin_income} to {_sum}
+			set {faith::paid::%{_u}%} to now
+			if {_sum} > 0:
+				add {_sum} to loop-player's balance
+				send "&6[Вера] &e+%{_sum}%$ за день." to loop-player
+			if {_s} is "academy":
+				add 3 to level of loop-player
+				send "&6[Вера] &e«Перечень всего»: +3 уровня опыта." to loop-player
+	# казна наций
+	loop ...TownyAPI.getInstance().getNations():
+		set {_nm} to "%loop-value.getName()%"
+		set {_s} to faithStateOf({_nm})
+		if {_s} is set:
+			set {_pay} to true
+			if {faith::npaid::%{_nm}%} is set:
+				if difference between {faith::npaid::%{_nm}%} and now < 1 day:
+					set {_pay} to false
+			if {_pay} is true:
+				set {_sum} to 0
+				if {_s} is "baal":
+					add {@baal_state} to {_sum}
+				if {_s} is "pythag":
+					add {@pythag_state} to {_sum}
+				if {_s} is "kong":
+					set {_k} to loop-value.getTowns().size() * {@kong_town}
+					if {_k} > {@kong_max}:
+						set {_k} to {@kong_max}
+					add {_k} to {_sum}
+				if {_s} is "dao":
+					set {_calm} to true
+					if {faith::lasthot::%{_nm}%} is set:
+						if difference between {faith::lasthot::%{_nm}%} and now < 1 day:
+							set {_calm} to false
+					if {_calm} is true:
+						add {@dao_state} to {_sum}
+				set {faith::npaid::%{_nm}%} to now
+				if {_sum} > 0:
+					focusDeposit({_nm}, {_sum})
+
+on join:
+	if {faith::p::%uuid of player%} is not set:
+		wait 8 seconds
+		send "&6[Вера] &eВо что вы верите? Боги и философские школы дают личные бонусы: &f/faith list" to player
+
+# ---------- команда ----------
+
+command /faith [<text>] [<text>] [<text>]:
+	aliases: /вера, /religion, /религия, /philosophy, /философия
+	trigger:
+		if arg-1 is "admin":
+			if executor does not have permission "paxfaith.admin":
+				send "&cНет прав."
+				stop
+			if arg-2 is "reset":
+				set {_t} to arg-3 parsed as offline player
+				if {_t} is not set:
+					send "&c/faith admin reset <ник>"
+					stop
+				delete {faith::p::%uuid of {_t}%}
+				delete {faith::changed::%uuid of {_t}%}
+				send "&eВера игрока %arg-3% сброшена."
+				stop
+			send "&c/faith admin reset <ник>"
+			stop
+		if executor is not a player:
+			send "&cКоманда для игроков."
+			stop
+		set {_u} to uuid of player
+		set {_cur} to {faith::p::%{_u}%}
+		if arg-1 is not set:
+			send "&6&l=== Вера ==="
+			if {_cur} is set:
+				send "&eВы верите: &f%faithName({_cur})% &7(%faithKind({_cur})%) — %faithPersonal({_cur})%"
+			else:
+				send "&eВы ещё ни во что не верите. Список: &f/faith list &7(первый выбор бесплатный)"
+			set {_nm} to focusNationOf(player)
+			if {_nm} is set:
+				if {faith::n::%{_nm}%} is set:
+					set {_nf} to {faith::n::%{_nm}%}
+					set {_st} to "&7фокус «fai» ещё не пройден"
+					if focusHas({_nm}, "fai") is true:
+						set {_st} to "&aдействует"
+					send "&eВера нации %{_nm}%: &f%faithName({_nf})% &7— «%faithStateName({_nf})%»: %faithState({_nf})% %{_st}%"
+					if {_cur} is {_nf}:
+						send "&aВы единоверец своей нации: +{@kin_income}$ в день, когда фокус пройден."
+				else:
+					send "&7У нации нет государственной веры. Глава выбирает её: &f/focus faith"
+			stop
+		if arg-1 is "list" or "список":
+			send "&6&l=== Боги и школы ==="
+			loop faithIds():
+				send "&f%loop-value% &e%faithName(loop-value)% &7(%faithKind(loop-value)%) — %faithPersonal(loop-value)%"
+			send "&7Выбрать: &f/faith <id>&7. Лор: сайт, разделы «Боги и веры» и «Философы»."
+			stop
+		set {_id} to "%arg-1%" in lower case
+		if faithName({_id}) is not set:
+			send "&cНет веры «%arg-1%». Список: /faith list"
+			stop
+		if {_cur} is {_id}:
+			send "&eВы уже верите в это."
+			stop
+		if {_cur} is set:
+			if {faith::changed::%{_u}%} is set:
+				if difference between {faith::changed::%{_u}%} and now < {@change_days} days:
+					send "&cМенять веру можно раз в {@change_days} дней."
+					stop
+			if arg-2 is not "confirm":
+				send "&eСмена веры стоит {@change_cost}$. Подтвердите: &f/faith %{_id}% confirm"
+				stop
+			if player's balance < {@change_cost}:
+				send "&cНужно {@change_cost}$, у вас %player's balance%$."
+				stop
+			remove {@change_cost} from player's balance
+			set {faith::changed::%{_u}%} to now
+		set {faith::p::%{_u}%} to {_id}
+		send "&6[Вера] &eТеперь вы верите: &f%faithName({_id})%&e. %faithPersonal({_id})%."
