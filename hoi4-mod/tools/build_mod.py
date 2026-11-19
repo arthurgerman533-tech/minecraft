@@ -580,6 +580,9 @@ PAX_guide_category = {
 # ---------------------------------------------------------------------------
 # Названия стран (перекрывают ванильные ключи)
 # ---------------------------------------------------------------------------
+START_ERAS = ("1936", "1936e")  # закладки на старте; остальные эпохи остаются в коде
+
+
 def era_effects():
     out = []
     for era in E.ERAS:
@@ -657,7 +660,7 @@ def build_eras_extra():
 
     # Закладки выбора старта
     marks = []
-    for era in E.ERAS:
+    for era in [e for e in E.ERAS if e['id'] in START_ERAS]:
         c = []
         for tag, p in D.POWERS.items():
             lead = era["leaders"].get(tag)
