@@ -277,8 +277,23 @@ def build(lang, out):
     # статика
     idx = open(os.path.join(SRC, "index.html"), encoding="utf-8").read()
     write("index.html", idx)
-    for fn in ("style.css", "app.js"):
+    for fn in ("style.css", "app.js", "timeline.js"):
         shutil.copy(os.path.join(SRC, fn), os.path.join(out, fn))
+
+    # «Хроника держав»: 10 держав по эпохам (content/timeline.json, генератор tools/make_timeline.py)
+    tlp = os.path.join(ROOT, "content", "timeline.json")
+    if os.path.exists(tlp):
+        TL = localize(load_json("timeline.json"), lang)
+        U = TL["ui"]
+        header = tr(re.search(r'<header class="top">.*?</header>', idx, flags=re.S).group(0)).replace('href="#', 'href="./#')
+        header = header.replace('<a href="timeline.html">', '<a class="on" href="timeline.html">')
+        page = open(os.path.join(SRC, "timeline.html"), encoding="utf-8").read()
+        for k, v in {"__HEADER__": header, "__LANG__": lang, "__TITLE__": U["title"], "__SUB__": U["sub"], "__KICKER__": U["kicker"],
+                     "__NOTE__": U["note"], "__PREV__": U["prev"], "__NEXT__": U["next"], "__ERA__": U["era"], "__ADDED__": U["added"],
+                     "__ALL__": U["all"], "__ALLSUB__": U["allsub"], "__NEXTERAS__": U["next_eras"], "__LORE__": U["lore"], "__HOME__": U["home"]}.items():
+            page = page.replace(k, v if k == "__HEADER__" else html.escape(v, quote=True))
+        page = page.replace("__DATA__", json.dumps(TL, ensure_ascii=False).replace("</", "<\\/"))
+        write("timeline.html", page)
     with open(os.path.join(out, "content.json"), "w", encoding="utf-8") as f:
         json.dump(C, f, ensure_ascii=False)
 
@@ -330,6 +345,9 @@ def build(lang, out):
         write(os.path.join("guides", f"{g['id']}.html"),
               PAGE.format(title=f"{g['title']} — PaxVanila", desc=html.escape(g["subtitle"]), nav=nav.replace('href="', 'href="../lore/'), toc=toc_html, body=body), 1)
         cards.append(f'<a href="guides/{g["id"]}.html"><div class="card"><h3>🧭 {html.escape(g["title"])}</h3><p>{html.escape(g["subtitle"])}</p></div></a>')
+    if os.path.exists(os.path.join(ROOT, "content", "timeline.json")):
+        U = localize(load_json("timeline.json")["ui"], lang)
+        cards.insert(0, f'<a href="timeline.html"><div class="card"><h3>🗺️ {html.escape(U["title"])}</h3><p>{html.escape(U["sub"])}</p></div></a>')
     # политика конфиденциальности (нужна по URL для Google Play и App Store)
     pv = "privacy.md" if lang == "ru" else f"privacy.{lang}.md"
     with open(os.path.join(SRC, pv), encoding="utf-8") as f:
@@ -385,7 +403,7 @@ def build(lang, out):
                   {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}]}
     with open(os.path.join(out, "manifest.webmanifest"), "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=1)
-    core = ["./", "index.html", "lore.html", "quiz.html", "news.html", "style.css", "app.js", "content.json", "icons/icon-192.png"] + \
+    core = ["./", "index.html", "lore.html", "quiz.html", "news.html", "timeline.html", "timeline.js", "style.css", "app.js", "content.json", "icons/icon-192.png"] + \
            [f"lore/{l['id']}.html" for l in C["lore"]] + [f"guides/{g['id']}.html" for g in C.get("guides", [])] + ["privacy.html"] + \
            [f"img/{w['image'].replace('.png', '.jpg')}" for w in C["weeks"]] + ["img/about.jpg"]
     sw = open(os.path.join(SRC, "sw.js"), encoding="utf-8").read()
@@ -440,7 +458,7 @@ def main():
             fp = os.path.join(dp, fn)
             if fn.endswith(".html"):
                 t = open(fp, encoding="utf-8").read()
-                t = re.sub(r'(src|href)="((?:\.\./)*)(app\.js|style\.css)"', lambda m: f'{m.group(1)}="{m.group(2)}{m.group(3)}?v={ver}"', t)
+                t = re.sub(r'(src|href)="((?:\.\./)*)(app\.js|style\.css|timeline\.js)"', lambda m: f'{m.group(1)}="{m.group(2)}{m.group(3)}?v={ver}"', t)
                 open(fp, "w", encoding="utf-8").write(t)
             elif fn == "app.js":
                 t = open(fp, encoding="utf-8").read().replace("fetch('content.json')", f"fetch('content.json?v={ver}')")

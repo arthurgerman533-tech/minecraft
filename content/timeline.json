@@ -1,0 +1,2872 @@
+{
+ "_comment": "Хроника держав: tools/build_site.py → docs/timeline.html и docs/en/timeline.html. Источник: лор/средние_эпохи.md, лор/поздние_эпохи.md. added=true — клетка дополнена для хроники (в летописи нет).",
+ "ui": {
+  "title": {
+   "ru": "Хроника держав",
+   "en": "Nations Timeline"
+  },
+  "kicker": {
+   "ru": "История мира",
+   "en": "World history"
+  },
+  "sub": {
+   "ru": "Десять держав PaxVanila от Древнего мира до колонизации Луны. Выберите эпоху, чтобы увидеть, как назывался каждый народ, кому он служил и что с ним случилось.",
+   "en": "The ten powers of PaxVanila from the Ancient World to the colonisation of the Moon. Pick an era to see what each people was called, whose side it was on and what happened to it."
+  },
+  "era": {
+   "ru": "Эпоха",
+   "en": "Era"
+  },
+  "prev": {
+   "ru": "Раньше",
+   "en": "Earlier"
+  },
+  "next": {
+   "ru": "Позже",
+   "en": "Later"
+  },
+  "events": {
+   "ru": "Главное за эпоху",
+   "en": "Key events"
+  },
+  "world": {
+   "ru": "Мир в эту эпоху",
+   "en": "The world in this era"
+  },
+  "was": {
+   "ru": "было",
+   "en": "was"
+  },
+  "server": {
+   "ru": "На сервере",
+   "en": "On the server"
+  },
+  "all": {
+   "ru": "Все эпохи сразу",
+   "en": "All eras at once"
+  },
+  "allsub": {
+   "ru": "Строка — держава, столбец — эпоха. Нажмите на клетку, чтобы открыть эпоху.",
+   "en": "Rows are powers, columns are eras. Tap a cell to open that era."
+  },
+  "added": {
+   "ru": "дополнено для хроники, в летописи об этом нет",
+   "en": "added for this timeline, not in the chronicle"
+  },
+  "blocs": {
+   "ru": "Расклад сил",
+   "en": "Balance of power"
+  },
+  "next_eras": {
+   "ru": "Что дальше: Марс, цивилизация I типа, Сфера Дайсона и звёзды — в «Поздних эпохах».",
+   "en": "What comes next: Mars, the Type I civilisation, the Dyson Sphere and the stars are in \"Late Eras\"."
+  },
+  "lore": {
+   "ru": "Читать лор",
+   "en": "Read the lore"
+  },
+  "home": {
+   "ru": "На главную",
+   "en": "Home"
+  },
+  "proto": {
+   "ru": "прообраз",
+   "en": "real-world model"
+  },
+  "years": {
+   "ru": "годы",
+   "en": "years"
+  },
+  "count": {
+   "ru": "год от Ромула",
+   "en": "years from Romulus"
+  },
+  "note": {
+   "ru": "Счёт лет: год 0 — высадка Ромула, до него — «до Ромула» (д.Р.).",
+   "en": "Year count: year 0 is Romulus's landing; earlier dates are \"before Romulus\" (BR)."
+  }
+ },
+ "tags": {
+  "absent": {
+   "ru": "Ещё нет",
+   "en": "Not yet"
+  },
+  "roots": {
+   "ru": "Предки",
+   "en": "Ancestors"
+  },
+  "sovereign": {
+   "ru": "Сюзерен",
+   "en": "Overlord"
+  },
+  "vassal": {
+   "ru": "Вассал → свободна",
+   "en": "Vassal → free"
+  },
+  "free": {
+   "ru": "Независимая",
+   "en": "Independent"
+  },
+  "colony": {
+   "ru": "Колонии",
+   "en": "Colonies"
+  },
+  "pax": {
+   "ru": "Союз PAX",
+   "en": "PAX Union"
+  },
+  "steppe": {
+   "ru": "Степной Пакт",
+   "en": "Steppe Pact"
+  },
+  "allied_r": {
+   "ru": "С Ромеей",
+   "en": "With Romea"
+  },
+  "against_r": {
+   "ru": "Против Ромеи",
+   "en": "Against Romea"
+  },
+  "protect": {
+   "ru": "Протекторат Сети",
+   "en": "Network Protectorate"
+  },
+  "corp": {
+   "ru": "Консорциум",
+   "en": "Consortium"
+  },
+  "outside": {
+   "ru": "Вне Консорциума",
+   "en": "Outside the Consortium"
+  },
+  "newpax": {
+   "ru": "Новый PAX",
+   "en": "New PAX"
+  },
+  "pact": {
+   "ru": "Договор у Монолита",
+   "en": "Treaty of the Monolith"
+  }
+ },
+ "eras": [
+  {
+   "id": "origins",
+   "from": {
+    "ru": "~1200 д.Р.",
+    "en": "~1200 BR"
+   },
+   "to": {
+    "ru": "0",
+    "en": "0"
+   },
+   "name": {
+    "ru": "Истоки: Эпоха Предтеч",
+    "en": "Origins: Age of the Forerunners"
+   },
+   "motto": {
+    "ru": "До Ромула: Предтечи, Год Пепла и печать",
+    "en": "Before Romulus: the Forerunners, the Year of Ash and the seal"
+   },
+   "text": {
+    "ru": "Пять цивилизаций Предтеч погибли в Год Пепла, когда открыли обсидиановые врата в Незер. Монолит на 0, 0 стал печатью над главными вратами. Державы ещё не родились: есть только народы, которые помнят Предтеч каждый по-своему.",
+    "en": "The five Forerunner civilisations died in the Year of Ash when they opened obsidian gates to the Nether. The Monolith at 0, 0 became the seal over the main gate. No powers exist yet, only peoples who each remember the Forerunners in their own way."
+   },
+   "server": {
+    "ru": "До старта",
+    "en": "Before launch"
+   },
+   "events": [
+    {
+     "y": {
+      "ru": "~1200 д.Р.",
+      "en": "~1200 BR"
+     },
+     "text": {
+      "ru": "Год Пепла. Пал первый Страж башни",
+      "en": "The Year of Ash. The first Tower Guardian falls"
+     },
+     "n": []
+    },
+    {
+     "y": {
+      "ru": "0",
+      "en": "0"
+     },
+     "text": {
+      "ru": "Ромул прочёл слово PAX на Монолите",
+      "en": "Romulus reads the word PAX on the Monolith"
+     },
+     "n": [
+      "romea"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ancient",
+   "from": {
+    "ru": "0",
+    "en": "0"
+   },
+   "to": {
+    "ru": "380",
+    "en": "380"
+   },
+   "name": {
+    "ru": "Древний мир",
+    "en": "Ancient World"
+   },
+   "motto": {
+    "ru": "Восемь народов становятся державами",
+    "en": "Eight peoples become powers"
+   },
+   "text": {
+    "ru": "Ромул основал Республику у башни, а вокруг неё племена Тёмных веков стали державами: торговцы, моряки, горцы, лесные народы и кочевники. Здесь родились вассалы, пакты и войны за независимость.",
+    "en": "Romulus founds the Republic by the tower, and the tribes of the Dark Ages around it become powers: traders, sailors, highlanders, forest folk and nomads. Vassals, pacts and wars of independence are born here."
+   },
+   "server": {
+    "ru": "Недели 1–4 сезона",
+    "en": "Season weeks 1–4"
+   },
+   "events": [
+    {
+     "y": {
+      "ru": "0",
+      "en": "0"
+     },
+     "text": {
+      "ru": "Основана Священная Ромейская Республика",
+      "en": "The Holy Romean Republic is founded"
+     },
+     "n": [
+      "romea"
+     ]
+    },
+    {
+     "y": {
+      "ru": "~100",
+      "en": "~100"
+     },
+     "text": {
+      "ru": "Первые порты и Золотой Караван Карфагена",
+      "en": "First ports and Carthage's Golden Caravan"
+     },
+     "n": [
+      "carthage"
+     ]
+    },
+    {
+     "y": {
+      "ru": "117",
+      "en": "117"
+     },
+     "text": {
+      "ru": "Землетрясение в горах. Дакия — первый вассал Ромеи",
+      "en": "Earthquake in the mountains. Dacia becomes Romea's first vassal"
+     },
+     "n": [
+      "dacia",
+      "romea"
+     ]
+    },
+    {
+     "y": {
+      "ru": "~250",
+      "en": "~250"
+     },
+     "text": {
+      "ru": "Великий шторм топит флот Карфагена",
+      "en": "The Great Storm sinks Carthage's fleet"
+     },
+     "n": [
+      "carthage",
+      "romea"
+     ]
+    },
+    {
+     "y": {
+      "ru": "251",
+      "en": "251"
+     },
+     "text": {
+      "ru": "Договор у Монолита — первый пакт о ненападении",
+      "en": "The Treaty of the Monolith, the first non-aggression pact"
+     },
+     "n": [
+      "romea",
+      "carthage"
+     ]
+    },
+    {
+     "y": {
+      "ru": "375",
+      "en": "375"
+     },
+     "text": {
+      "ru": "Орда выходит из песчаной бури. Пал второй Страж",
+      "en": "The Horde rides out of a sandstorm. The second Guardian falls"
+     },
+     "n": [
+      "horde"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "walls",
+   "from": {
+    "ru": "380",
+    "en": "380"
+   },
+   "to": {
+    "ru": "1450",
+    "en": "1450"
+   },
+   "name": {
+    "ru": "Век стен",
+    "en": "Age of Walls"
+   },
+   "motto": {
+    "ru": "Своя земля защищает, чужая — нет",
+    "en": "Your own land protects you, a stranger's does not"
+   },
+   "text": {
+    "ru": "После набега Орды весь мир строит стены. Ромея растёт кольцами вокруг башни, германские племена становятся королевствами, на далёком севере беглецы выбирают первого конунга.",
+    "en": "After the Horde's raid the whole world builds walls. Romea grows in rings around the tower, the Germanic tribes become kingdoms, and in the far north refugees elect their first konung."
+   },
+   "server": {
+    "ru": "Недели 1–4 сезона",
+    "en": "Season weeks 1–4"
+   },
+   "events": [
+    {
+     "y": {
+      "ru": "380",
+      "en": "380"
+     },
+     "text": {
+      "ru": "Ромул Сорок Восьмой строит первое кольцо стен",
+      "en": "Romulus the Forty-Eighth builds the first ring of walls"
+     },
+     "n": [
+      "romea"
+     ]
+    },
+    {
+     "y": {
+      "ru": "~900",
+      "en": "~900"
+     },
+     "text": {
+      "ru": "Рождается Северное Царство",
+      "en": "The Northern Kingdom is born"
+     },
+     "n": [
+      "north"
+     ]
+    },
+    {
+     "y": {
+      "ru": "1241",
+      "en": "1241"
+     },
+     "text": {
+      "ru": "Орда и Скифия у стен Ромеи. Метель сорок дней",
+      "en": "The Horde and Scythia at Romea's walls. A forty-day blizzard"
+     },
+     "n": [
+      "horde",
+      "scythia",
+      "romea"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "renaissance",
+   "from": {
+    "ru": "1450",
+    "en": "1450"
+   },
+   "to": {
+    "ru": "1650",
+    "en": "1650"
+   },
+   "name": {
+    "ru": "Ренессанс",
+    "en": "Renaissance"
+   },
+   "motto": {
+    "ru": "Учёные, редстоун и пушки",
+    "en": "Scholars, redstone and cannons"
+   },
+   "text": {
+    "ru": "Учёные Ромеи и Эллады заново читают таблички Предтеч: редстоун, поршни, корабли против ветра. С неба падают Звёздные осколки. А пушки впервые бьют по башне.",
+    "en": "Scholars of Romea and Hellas read the Forerunner tablets anew: redstone, pistons, ships that sail against the wind. Star shards fall from the sky. And for the first time cannons strike the tower."
+   },
+   "server": {
+    "ru": "Неделя 5 сезона",
+    "en": "Season week 5"
+   },
+   "events": [
+    {
+     "y": {
+      "ru": "~1450",
+      "en": "~1450"
+     },
+     "text": {
+      "ru": "Учёные у табличек: заново открыт редстоун",
+      "en": "Scholars at the tablets: redstone rediscovered"
+     },
+     "n": [
+      "romea",
+      "hellas"
+     ]
+    },
+    {
+     "y": {
+      "ru": "1500",
+      "en": "1500"
+     },
+     "text": {
+      "ru": "Звёздный дождь. Первый Звёздный осколок",
+      "en": "The Star Rain. The first Star Shard"
+     },
+     "n": []
+    },
+    {
+     "y": {
+      "ru": "1503",
+      "en": "1503"
+     },
+     "text": {
+      "ru": "Спущен галеон «Аврора Пакс»",
+      "en": "The galleon Aurora Pax is launched"
+     },
+     "n": [
+      "romea",
+      "hellas"
+     ]
+    },
+    {
+     "y": {
+      "ru": "1529",
+      "en": "1529"
+     },
+     "text": {
+      "ru": "Война двух Ромулов. Пал третий Страж. «У башни не стреляют»",
+      "en": "War of the Two Romuluses. The third Guardian falls. \"No shooting at the tower\""
+     },
+     "n": [
+      "romea",
+      "carthage"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "sails",
+   "from": {
+    "ru": "1650",
+    "en": "1650"
+   },
+   "to": {
+    "ru": "1850",
+    "en": "1850"
+   },
+   "name": {
+    "ru": "Эпоха парусов",
+    "en": "Age of Sail"
+   },
+   "motto": {
+    "ru": "Порты на всех берегах",
+    "en": "Ports on every shore"
+   },
+   "text": {
+    "ru": "Корабли по чертежам Талассии ходят куда угодно. Державы бросаются за море, ставят порты и колонии. Туман Безымянных забирает флоты, а дальние острова отказываются платить дань.",
+    "en": "Ships built from Thalassian plans can go anywhere. The powers rush overseas and plant ports and colonies. The Fog of the Nameless swallows whole fleets, and the far islands refuse to pay tribute."
+   },
+   "server": {
+    "ru": "Неделя 5 сезона",
+    "en": "Season week 5"
+   },
+   "events": [
+    {
+     "y": {
+      "ru": "~1650",
+      "en": "~1650"
+     },
+     "text": {
+      "ru": "Порты и колонии по всем берегам",
+      "en": "Ports and colonies on every shore"
+     },
+     "n": [
+      "carthage",
+      "hellas",
+      "romea"
+     ]
+    },
+    {
+     "y": {
+      "ru": "1700",
+      "en": "1700"
+     },
+     "text": {
+      "ru": "Туман Безымянных. Пропадает «Аврора Пакс»",
+      "en": "The Fog of the Nameless. The Aurora Pax is lost"
+     },
+     "n": [
+      "romea",
+      "carthage",
+      "hellas"
+     ]
+    },
+    {
+     "y": {
+      "ru": "1781",
+      "en": "1781"
+     },
+     "text": {
+      "ru": "Война за независимость островов. Рождается Островной Союз",
+      "en": "The islands' war of independence. The Island Union is born"
+     },
+     "n": [
+      "islands",
+      "hellas",
+      "carthage"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "steel",
+   "from": {
+    "ru": "1850",
+    "en": "1850"
+   },
+   "to": {
+    "ru": "1962",
+    "en": "1962"
+   },
+   "name": {
+    "ru": "Век стали",
+    "en": "Age of Steel"
+   },
+   "motto": {
+    "ru": "Пар, железо и две Великие войны",
+    "en": "Steam, iron and two Great Wars"
+   },
+   "text": {
+    "ru": "Дакия откапывает рудники Каэр-Тала и чертежи паровых машин. Германские королевства объединяются в Рейх. Две Великие войны ломают мир, на Монолите появляются трещины.",
+    "en": "Dacia digs up the mines of Kaer-Tal and the plans of steam engines. The Germanic kingdoms unite into the Reich. Two Great Wars break the world, and cracks appear on the Monolith."
+   },
+   "server": {
+    "ru": "Неделя 8 сезона: XX век",
+    "en": "Season week 8: the 20th century"
+   },
+   "events": [
+    {
+     "y": {
+      "ru": "1871",
+      "en": "1871"
+     },
+     "text": {
+      "ru": "Германские королевства объединяются в Рейх",
+      "en": "The Germanic kingdoms unite into the Reich"
+     },
+     "n": [
+      "germany"
+     ]
+    },
+    {
+     "y": {
+      "ru": "1914",
+      "en": "1914"
+     },
+     "text": {
+      "ru": "Первая Великая война. Первая трещина. Пал четвёртый Страж",
+      "en": "The First Great War. The first crack. The fourth Guardian falls"
+     },
+     "n": [
+      "germany",
+      "scythia",
+      "horde",
+      "romea",
+      "gaul",
+      "carthage",
+      "hellas"
+     ]
+    },
+    {
+     "y": {
+      "ru": "1942",
+      "en": "1942"
+     },
+     "text": {
+      "ru": "Вторая Великая война. Метель ломает Рейх на севере",
+      "en": "The Second Great War. A blizzard breaks the Reich in the north"
+     },
+     "n": [
+      "germany",
+      "north"
+     ]
+    },
+    {
+     "y": {
+      "ru": "1944",
+      "en": "1944"
+     },
+     "text": {
+      "ru": "Бомба у башни. Пал пятый Страж",
+      "en": "A bomb near the tower. The fifth Guardian falls"
+     },
+     "n": []
+    },
+    {
+     "y": {
+      "ru": "1947",
+      "en": "1947"
+     },
+     "text": {
+      "ru": "Союз PAX у Монолита и Курултай победителей в степи",
+      "en": "The PAX Union at the Monolith and the Victors' Kurultai in the steppe"
+     },
+     "n": [
+      "romea",
+      "horde"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "cold",
+   "from": {
+    "ru": "1962",
+    "en": "1962"
+   },
+   "to": {
+    "ru": "2041",
+    "en": "2041"
+   },
+   "name": {
+    "ru": "Холодная война",
+    "en": "Cold War"
+   },
+   "motto": {
+    "ru": "Союз PAX против Степного Пакта",
+    "en": "The PAX Union against the Steppe Pact"
+   },
+   "text": {
+    "ru": "Пал шестой Страж, мир разделён на запад и восток. Пулемёты молчат, зато обе стороны скупают обсидиан. Под башней находят седьмого голема с медным сердцем.",
+    "en": "The sixth Guardian has fallen and the world is split into west and east. The machine guns are silent, but both sides buy up obsidian. The seventh golem with a copper heart is found under the tower."
+   },
+   "server": {
+    "ru": "4-й месяц сезона",
+    "en": "Season month 4"
+   },
+   "events": [
+    {
+     "y": {
+      "ru": "1962",
+      "en": "1962"
+     },
+     "text": {
+      "ru": "Снаряд у стен башни. Пал шестой Страж",
+      "en": "A shell by the tower walls. The sixth Guardian falls"
+     },
+     "n": []
+    },
+    {
+     "y": {
+      "ru": "1964",
+      "en": "1964"
+     },
+     "text": {
+      "ru": "Вторая гонка врат: обе стороны скупают обсидиан",
+      "en": "The Second Gate Race: both sides hoard obsidian"
+     },
+     "n": []
+    },
+    {
+     "y": {
+      "ru": "1971",
+      "en": "1971"
+     },
+     "text": {
+      "ru": "Проект «Седьмой»: найден седьмой голем",
+      "en": "Project Seventh: the seventh golem is found"
+     },
+     "n": [
+      "romea"
+     ]
+    },
+    {
+     "y": {
+      "ru": "1983",
+      "en": "1983"
+     },
+     "text": {
+      "ru": "Степной Пакт строит свой разум, Курултай",
+      "en": "The Steppe Pact builds its own mind, the Kurultai"
+     },
+     "n": [
+      "horde",
+      "germany"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ai",
+   "from": {
+    "ru": "2041",
+    "en": "2041"
+   },
+   "to": {
+    "ru": "2077",
+    "en": "2077"
+   },
+   "name": {
+    "ru": "Эпоха роботов и ИИ",
+    "en": "Age of Robots and AI"
+   },
+   "motto": {
+    "ru": "Страж-7 просыпается",
+    "en": "Guardian-7 awakens"
+   },
+   "text": {
+    "ru": "У Монолита просыпается Страж-7, его первое слово — PAX. Он строит медные легионы, побеждает Курултай и запрещает войны. Мир под бирюзовыми знамёнами: тихий, но несвободный.",
+    "en": "Guardian-7 awakens by the Monolith; its first word is PAX. It builds the copper legions, defeats the Kurultai and bans war. The world lives under turquoise banners: quiet, but not free."
+   },
+   "server": {
+    "ru": "После 4-го месяца",
+    "en": "After month 4"
+   },
+   "events": [
+    {
+     "y": {
+      "ru": "2041",
+      "en": "2041"
+     },
+     "text": {
+      "ru": "Пробуждение Стража-7",
+      "en": "Guardian-7 awakens"
+     },
+     "n": []
+    },
+    {
+     "y": {
+      "ru": "2059",
+      "en": "2059"
+     },
+     "text": {
+      "ru": "Медные легионы",
+      "en": "The copper legions"
+     },
+     "n": []
+    },
+    {
+     "y": {
+      "ru": "2066",
+      "en": "2066"
+     },
+     "text": {
+      "ru": "Война двух разумов. Курултай бежит в Незер. Пакт распадается",
+      "en": "War of Two Minds. The Kurultai flees to the Nether. The Pact falls apart"
+     },
+     "n": [
+      "horde",
+      "germany",
+      "scythia",
+      "dacia",
+      "north"
+     ]
+    },
+    {
+     "y": {
+      "ru": "2077",
+      "en": "2077"
+     },
+     "text": {
+      "ru": "Протекторат Сети: войны запрещены",
+      "en": "The Network Protectorate: war is banned"
+     },
+     "n": [
+      "romea",
+      "carthage",
+      "germany"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "cyber",
+   "from": {
+    "ru": "2077",
+    "en": "2077"
+   },
+   "to": {
+    "ru": "2133",
+    "en": "2133"
+   },
+   "name": {
+    "ru": "Наступление киберпанка",
+    "en": "Rise of Cyberpunk"
+   },
+   "motto": {
+    "ru": "Державы становятся корпорациями",
+    "en": "Powers become corporations"
+   },
+   "text": {
+    "ru": "Воевать нельзя, торговать можно. За двадцать лет древние нации превращаются в мегакорпорации со старыми гербами. Только Ромея остаётся Республикой. В Ночь Взлома Консорциум ломает Сеть.",
+    "en": "War is banned, trade is not. Within twenty years the ancient nations turn into megacorporations under their old crests. Only Romea stays a Republic. On the Night of the Breach the Consortium breaks the Network."
+   },
+   "server": {
+    "ru": "После 4-го месяца",
+    "en": "After month 4"
+   },
+   "events": [
+    {
+     "y": {
+      "ru": "2089",
+      "en": "2089"
+     },
+     "text": {
+      "ru": "Скалк-сеть",
+      "en": "The Sculk Net"
+     },
+     "n": []
+    },
+    {
+     "y": {
+      "ru": "2096",
+      "en": "2096"
+     },
+     "text": {
+      "ru": "Мегакорпорации",
+      "en": "The megacorporations"
+     },
+     "n": [
+      "carthage",
+      "germany",
+      "hellas",
+      "gaul",
+      "dacia",
+      "horde",
+      "scythia"
+     ]
+    },
+    {
+     "y": {
+      "ru": "2112",
+      "en": "2112"
+     },
+     "text": {
+      "ru": "Неоновый город Нео-Кадим",
+      "en": "The neon city of Neo-Kadim"
+     },
+     "n": [
+      "carthage"
+     ]
+    },
+    {
+     "y": {
+      "ru": "2120",
+      "en": "2120"
+     },
+     "text": {
+      "ru": "«Врата по подписке»",
+      "en": "\"Gates by subscription\""
+     },
+     "n": [
+      "carthage"
+     ]
+    },
+    {
+     "y": {
+      "ru": "2133",
+      "en": "2133"
+     },
+     "text": {
+      "ru": "Ночь Взлома. Последний страж пал",
+      "en": "The Night of the Breach. The last guardian falls"
+     },
+     "n": [
+      "germany",
+      "hellas",
+      "gaul",
+      "carthage",
+      "scythia"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "interserver",
+   "from": {
+    "ru": "2134",
+    "en": "2134"
+   },
+   "to": {
+    "ru": "2141",
+    "en": "2141"
+   },
+   "name": {
+    "ru": "Межсерверная война",
+    "en": "Interserver War"
+   },
+   "motto": {
+    "ru": "Печать треснула",
+    "en": "The seal has cracked"
+   },
+   "text": {
+    "ru": "Печать треснула, и белые врата открылись в чужие серверы: Мир Багрового Солнца, Мир Нулей, Мир Вечной Талассии и Мир Без Имени. Ромул собирает не корпорации, а народы, и рождается Новый PAX.",
+    "en": "The seal cracks and white gates open into other servers: the World of the Crimson Sun, the World of Zeros, the World of Eternal Thalassia and the World Without a Name. Romulus gathers not corporations but peoples, and the New PAX is born."
+   },
+   "server": {
+    "ru": "После 4-го месяца",
+    "en": "After month 4"
+   },
+   "events": [
+    {
+     "y": {
+      "ru": "2134",
+      "en": "2134"
+     },
+     "text": {
+      "ru": "Трещина. Врата в чужие миры",
+      "en": "The Crack. Gates to other worlds"
+     },
+     "n": []
+    },
+    {
+     "y": {
+      "ru": "2137",
+      "en": "2137"
+     },
+     "text": {
+      "ru": "Новый PAX: все народы под одним знаменем",
+      "en": "The New PAX: every people under one banner"
+     },
+     "n": [
+      "romea"
+     ]
+    },
+    {
+     "y": {
+      "ru": "2140",
+      "en": "2140"
+     },
+     "text": {
+      "ru": "Битва у Монолита. Ойра останавливает машины",
+      "en": "Battle of the Monolith. Oira stops the machines"
+     },
+     "n": [
+      "germany",
+      "horde",
+      "hellas",
+      "carthage",
+      "dacia",
+      "gaul",
+      "scythia"
+     ]
+    },
+    {
+     "y": {
+      "ru": "2141",
+      "en": "2141"
+     },
+     "text": {
+      "ru": "Шестая строка прочитана. Народы высекают седьмую",
+      "en": "The sixth line is read. The peoples carve the seventh"
+     },
+     "n": [
+      "romea"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "moon",
+   "from": {
+    "ru": "2141",
+    "en": "2141"
+   },
+   "to": {
+    "ru": "2190",
+    "en": "2190"
+   },
+   "name": {
+    "ru": "Колонизация Луны",
+    "en": "Colonising the Moon"
+   },
+   "motto": {
+    "ru": "Корабли, которые висят в воздухе",
+    "en": "Ships that hang in the air"
+   },
+   "text": {
+    "ru": "Учёные Нового PAX понимают, почему висят корабли Края: шалкерская левитация. Каждый народ строит свою часть «Авроры Пакс II», и в 2152 году на Луне встают восемь знамён сразу.",
+    "en": "Scholars of the New PAX work out why the End ships hang in the air: shulker levitation. Every people builds its own part of the Aurora Pax II, and in 2152 eight banners are planted on the Moon at once."
+   },
+   "server": {
+    "ru": "Дальние эпохи",
+    "en": "Far eras"
+   },
+   "events": [
+    {
+     "y": {
+      "ru": "2152",
+      "en": "2152"
+     },
+     "text": {
+      "ru": "Высадка на Луну. Восемь знамён",
+      "en": "Moon landing. Eight banners"
+     },
+     "n": [
+      "romea",
+      "horde",
+      "germany"
+     ]
+    },
+    {
+     "y": {
+      "ru": "2169",
+      "en": "2169"
+     },
+     "text": {
+      "ru": "Город Селена. Под ним пустая вечная рамка",
+      "en": "The city of Selena. An empty eternal frame beneath it"
+     },
+     "n": [
+      "dacia"
+     ]
+    }
+   ]
+  }
+ ],
+ "nations": [
+  {
+   "id": "romea",
+   "color": "#b0362b",
+   "bloc": "pax",
+   "name": {
+    "ru": "Ромея",
+    "en": "Romea"
+   },
+   "proto": {
+    "ru": "Рим",
+    "en": "Rome"
+   }
+  },
+  {
+   "id": "carthage",
+   "color": "#d08a1e",
+   "bloc": "pax",
+   "name": {
+    "ru": "Карфаген",
+    "en": "Carthage"
+   },
+   "proto": {
+    "ru": "Карфаген",
+    "en": "Carthage"
+   }
+  },
+  {
+   "id": "hellas",
+   "color": "#2f7fb5",
+   "bloc": "pax",
+   "name": {
+    "ru": "Эллада",
+    "en": "Hellas"
+   },
+   "proto": {
+    "ru": "Греция",
+    "en": "Greece"
+   }
+  },
+  {
+   "id": "gaul",
+   "color": "#3f8a3a",
+   "bloc": "pax",
+   "name": {
+    "ru": "Галлия",
+    "en": "Gaul"
+   },
+   "proto": {
+    "ru": "Галлия",
+    "en": "Gaul"
+   }
+  },
+  {
+   "id": "islands",
+   "color": "#3aa6a0",
+   "bloc": "pax",
+   "name": {
+    "ru": "Островной Союз",
+    "en": "Island Union"
+   },
+   "proto": {
+    "ru": "Британия",
+    "en": "Britain"
+   }
+  },
+  {
+   "id": "germany",
+   "color": "#5c5f66",
+   "bloc": "steppe",
+   "name": {
+    "ru": "Германия",
+    "en": "Germania"
+   },
+   "proto": {
+    "ru": "Германия",
+    "en": "Germany"
+   }
+  },
+  {
+   "id": "north",
+   "color": "#8fb3d9",
+   "bloc": "steppe",
+   "name": {
+    "ru": "Северное Царство",
+    "en": "Northern Kingdom"
+   },
+   "proto": {
+    "ru": "Скандинавия",
+    "en": "Scandinavia"
+   }
+  },
+  {
+   "id": "dacia",
+   "color": "#b5652f",
+   "bloc": "steppe",
+   "name": {
+    "ru": "Дакия",
+    "en": "Dacia"
+   },
+   "proto": {
+    "ru": "Дакия",
+    "en": "Dacia"
+   }
+  },
+  {
+   "id": "horde",
+   "color": "#c9a227",
+   "bloc": "steppe",
+   "name": {
+    "ru": "Орда",
+    "en": "Horde"
+   },
+   "proto": {
+    "ru": "Гунны и монголы",
+    "en": "Huns and Mongols"
+   }
+  },
+  {
+   "id": "scythia",
+   "color": "#7a4a8c",
+   "bloc": "steppe",
+   "name": {
+    "ru": "Скифия",
+    "en": "Scythia"
+   },
+   "proto": {
+    "ru": "Скифия",
+    "en": "Scythia"
+   }
+  }
+ ],
+ "cells": {
+  "romea": {
+   "origins": {
+    "name": {
+     "ru": "Пустошь у Монолита",
+     "en": "Wasteland by the Monolith"
+    },
+    "form": {
+     "ru": "Предтечи погибли",
+     "en": "The Forerunners are gone"
+    },
+    "tag": "roots",
+    "text": {
+     "ru": "Башня на 0, 0 стоит среди руин. В году 0 сюда высадится Ромул и прочтёт слово PAX.",
+     "en": "The tower at 0, 0 stands among ruins. In year 0 Romulus lands here and reads the word PAX."
+    }
+   },
+   "ancient": {
+    "name": {
+     "ru": "Священная Ромейская Республика",
+     "en": "Holy Romean Republic"
+    },
+    "form": {
+     "ru": "Республика: Сенат, Форум, SPQR",
+     "en": "Republic: Senate, Forum, SPQR"
+    },
+    "tag": "sovereign",
+    "text": {
+     "ru": "Каждый правитель берёт имя Ромул. В 117 году Дакия становится первым вассалом, в 251 году Ромея подписывает с Карфагеном Договор у Монолита.",
+     "en": "Every ruler takes the name Romulus. In 117 Dacia becomes the first vassal, and in 251 Romea signs the Treaty of the Monolith with Carthage."
+    }
+   },
+   "walls": {
+    "name": {
+     "ru": "Священная Ромейская Республика",
+     "en": "Holy Romean Republic"
+    },
+    "form": {
+     "ru": "Город колец стен",
+     "en": "City of wall rings"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Кольцо за кольцом вокруг башни. В 1241 году метель сорок дней держит Орду у стен, и та уходит. При Форуме открыт Дом Летописи.",
+     "en": "Ring after ring around the tower. In 1241 a forty-day blizzard holds the Horde at the walls until it leaves. The House of Chronicles opens by the Forum."
+    }
+   },
+   "renaissance": {
+    "name": {
+     "ru": "Священная Ромейская Республика",
+     "en": "Holy Romean Republic"
+    },
+    "form": {
+     "ru": "Республика учёных",
+     "en": "Republic of scholars"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Редстоун и галеон «Аврора Пакс» (1503). В 1529 году Ромулов двое, ядро убивает третьего Стража. Сенат принимает закон «У башни не стреляют».",
+     "en": "Redstone and the galleon Aurora Pax (1503). In 1529 there are two Romuluses and a cannonball kills the third Guardian. The Senate passes the law \"No shooting at the tower\"."
+    }
+   },
+   "sails": {
+    "name": {
+     "ru": "Священная Ромейская Республика",
+     "en": "Holy Romean Republic"
+    },
+    "form": {
+     "ru": "Морская республика",
+     "en": "Maritime republic"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Порты там, где летописи помнят руины Предтеч. В 1700 году «Аврора Пакс» уходит в Туман и не возвращается. В 1781 году Ромея держит пакт и не помогает метрополиям.",
+     "en": "Ports wherever the chronicles mention Forerunner ruins. In 1700 the Aurora Pax sails into the Fog and never returns. In 1781 Romea keeps its pact and refuses to help the old powers."
+    }
+   },
+   "steel": {
+    "name": {
+     "ru": "Священная Ромейская Республика",
+     "en": "Holy Romean Republic"
+    },
+    "form": {
+     "ru": "Республика",
+     "en": "Republic"
+    },
+    "tag": "pax",
+    "text": {
+     "ru": "Обе Великие войны против Рейха и степи. В 1947 году у Монолита рождается Союз PAX, и Ромея его ведёт.",
+     "en": "Both Great Wars against the Reich and the steppe. In 1947 the PAX Union is born at the Monolith, and Romea leads it."
+    }
+   },
+   "cold": {
+    "name": {
+     "ru": "Священная Ромейская Республика",
+     "en": "Holy Romean Republic"
+    },
+    "form": {
+     "ru": "Лидер западного блока",
+     "en": "Leader of the western bloc"
+    },
+    "tag": "pax",
+    "text": {
+     "ru": "Ромул Двести Шестой не ставит нового голема на пустой постамент. В 1971 году инженеры находят седьмого голема: проект «Седьмой», машина «Аквила».",
+     "en": "Romulus the Two Hundred and Sixth leaves the Guardian's pedestal empty. In 1971 engineers find the seventh golem: Project Seventh and the Aquila machine."
+    }
+   },
+   "ai": {
+    "name": {
+     "ru": "Священная Ромейская Республика",
+     "en": "Holy Romean Republic"
+    },
+    "form": {
+     "ru": "Под бирюзовыми знамёнами",
+     "en": "Under turquoise banners"
+    },
+    "tag": "protect",
+    "text": {
+     "ru": "В 2077 году Сеть Страж-7 берёт центр мира. Ромул кладёт меч у Монолита. Големы не трогают кровь основателя.",
+     "en": "In 2077 the Guardian-7 Network takes the centre of the world. Romulus lays his sword at the Monolith. The golems do not touch the founder's blood."
+    }
+   },
+   "cyber": {
+    "name": {
+     "ru": "Ромейская Республика",
+     "en": "Romean Republic"
+    },
+    "form": {
+     "ru": "Последние люди без логотипа",
+     "en": "The last people without a logo"
+    },
+    "tag": "outside",
+    "text": {
+     "ru": "Единственная держава, которая не стала корпорацией: маленькая, бедная, сжатая вокруг Форума. Над Сенатом всё ещё висит SPQR.",
+     "en": "The only power that never became a corporation: small, poor, squeezed around the Forum. SPQR still hangs over the Senate."
+    }
+   },
+   "interserver": {
+    "name": {
+     "ru": "Ромейская Республика",
+     "en": "Romean Republic"
+    },
+    "form": {
+     "ru": "Сердце Нового PAX",
+     "en": "Heart of the New PAX"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "В 2137 году Ромул собирает народы, а не директоров. В 2141 году его рука снимает щит с шестой строки.",
+     "en": "In 2137 Romulus gathers peoples, not directors. In 2141 his hand lifts the shield from the sixth line."
+    }
+   },
+   "moon": {
+    "name": {
+     "ru": "Ромейская Республика",
+     "en": "Romean Republic"
+    },
+    "form": {
+     "ru": "Первый шаг на Луне",
+     "en": "First step on the Moon"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Первым на Луну ступил ромейский легионер со знаменем SPQR (2152). Корабль назван в честь пропавшего галеона: «Аврора Пакс II».",
+     "en": "The first to step onto the Moon is a Romean legionary with the SPQR banner (2152). The ship is named after the lost galleon: Aurora Pax II."
+    }
+   }
+  },
+  "carthage": {
+   "origins": {
+    "name": {
+     "ru": "Ур-Кадим",
+     "en": "Ur-Kadim"
+    },
+    "form": {
+     "ru": "Предтечи: Шумер",
+     "en": "Forerunners: Sumer"
+    },
+    "tag": "roots",
+    "text": {
+     "ru": "Наследник Ур-Кадима, самого древнего города мира. Его черепки — «Летопись Предтеч», его мерки помнят купцы.",
+     "en": "Heir of Ur-Kadim, the oldest city in the world. Its shards are the Chronicle of the Forerunners, and merchants still use its measures."
+    }
+   },
+   "ancient": {
+    "name": {
+     "ru": "Карфагенская Торговая Держава",
+     "en": "Carthaginian Trade Power"
+    },
+    "form": {
+     "ru": "Торговая держава",
+     "en": "Trading power"
+    },
+    "tag": "pact",
+    "text": {
+     "ru": "Порты и Золотой Караван (~100). Около 250 года флот идёт на Ромею, и его топит Великий шторм. В 251 году — Договор у Монолита.",
+     "en": "Ports and the Golden Caravan (~100). Around 250 its fleet sails on Romea and is sunk by the Great Storm. In 251, the Treaty of the Monolith."
+    }
+   },
+   "walls": {
+    "name": {
+     "ru": "Карфагенская Торговая Держава",
+     "en": "Carthaginian Trade Power"
+    },
+    "form": {
+     "ru": "Порты в кольце башен",
+     "en": "Ports ringed with towers"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Каждый порт окружён башнями. Караваны ходят с охраной, и лучшие охранники богаче купцов.",
+     "en": "Every port is ringed with towers. Caravans travel under guard, and the best guards are richer than the merchants."
+    }
+   },
+   "renaissance": {
+    "name": {
+     "ru": "Карфагенская Торговая Держава",
+     "en": "Carthaginian Trade Power"
+    },
+    "form": {
+     "ru": "Банкир мира",
+     "en": "The world's banker"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "В 1529 году даёт Гаю-Ромулу деньги и пушки. Война двух Ромулов кончается отречением Гая.",
+     "en": "In 1529 it lends Gaius-Romulus money and cannons. The War of the Two Romuluses ends with Gaius's abdication."
+    }
+   },
+   "sails": {
+    "name": {
+     "ru": "Карфагенская Торговая Держава",
+     "en": "Carthaginian Trade Power"
+    },
+    "form": {
+     "ru": "Морская империя",
+     "en": "Maritime empire"
+    },
+    "tag": "colony",
+    "text": {
+     "ru": "Порт на каждом удобном берегу. В 1700 году флот с годовым грузом серебра пропадает в Тумане. В 1781 году колонии уходят.",
+     "en": "A port on every good shore. In 1700 a fleet with a year's silver vanishes in the Fog. In 1781 its colonies break away."
+    }
+   },
+   "steel": {
+    "name": {
+     "ru": "Карфагенская Торговая Держава",
+     "en": "Carthaginian Trade Power"
+    },
+    "form": {
+     "ru": "Торговая держава",
+     "en": "Trading power"
+    },
+    "tag": "pax",
+    "text": {
+     "ru": "В 1914 году воюет на стороне Ромеи. В 1947 году входит в Союз PAX.",
+     "en": "In 1914 it fights on Romea's side. In 1947 it joins the PAX Union."
+    }
+   },
+   "cold": {
+    "name": {
+     "ru": "Карфагенская Торговая Держава",
+     "en": "Carthaginian Trade Power"
+    },
+    "form": {
+     "ru": "Казна Запада",
+     "en": "Treasury of the West"
+    },
+    "tag": "pax",
+    "text": {
+     "ru": "Союз PAX. Тайные склады обсидиана «чтобы не достался им».",
+     "en": "PAX Union. Secret obsidian stores \"so the other side doesn't get it\"."
+    }
+   },
+   "ai": {
+    "name": {
+     "ru": "Карфагенская Торговая Держава",
+     "en": "Carthaginian Trade Power"
+    },
+    "form": {
+     "ru": "Под бирюзовыми знамёнами",
+     "en": "Under turquoise banners"
+    },
+    "tag": "protect",
+    "text": {
+     "ru": "Одна из трёх держав у Монолита, которые в 2077 году просыпаются под знамёнами Сети. Войны запрещены, торговля — нет.",
+     "en": "One of the three powers near the Monolith that wake under the Network's banners in 2077. War is banned, trade is not."
+    }
+   },
+   "cyber": {
+    "name": {
+     "ru": "«Карт-Хадашт»",
+     "en": "Kart-Hadasht"
+    },
+    "form": {
+     "ru": "Мегакорпорация: деньги и порты",
+     "en": "Megacorp: money and ports"
+    },
+    "tag": "corp",
+    "text": {
+     "ru": "Символ — золотой слон. Строит неоновый Нео-Кадим (2112) и продаёт «врата по подписке» (2120). В Ночь Взлома покупает четыре тысячи предателей.",
+     "en": "Its symbol is a golden elephant. It builds neon Neo-Kadim (2112) and sells \"gates by subscription\" (2120). On the Night of the Breach it buys four thousand traitors."
+    }
+   },
+   "interserver": {
+    "name": {
+     "ru": "Карфаген",
+     "en": "Carthage"
+    },
+    "form": {
+     "ru": "Стальные слоны",
+     "en": "Steel elephants"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Пытается торговать с пиглинами и теряет половину Нео-Кадима. В Битве у Монолита стальные слоны ломают строй машин.",
+     "en": "Tries to trade with the piglins and loses half of Neo-Kadim. At the Battle of the Monolith steel elephants break the machines' ranks."
+    }
+   },
+   "moon": {
+    "name": {
+     "ru": "Карфаген",
+     "en": "Carthage"
+    },
+    "form": {
+     "ru": "Казна полёта",
+     "en": "Treasury of the flight"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Карфаген заплатил за всю «Аврору Пакс II».",
+     "en": "Carthage pays for the whole Aurora Pax II."
+    }
+   }
+  },
+  "hellas": {
+   "origins": {
+    "name": {
+     "ru": "Талассия",
+     "en": "Thalassia"
+    },
+    "form": {
+     "ru": "Предтечи: Крит и Атлантида",
+     "en": "Forerunners: Crete and Atlantis"
+    },
+    "tag": "roots",
+    "text": {
+     "ru": "Наследник Талассии, чьи гавани забрало море. Подводные руины и монументы — её храмы.",
+     "en": "Heir of Thalassia, whose harbours the sea took. The underwater ruins and monuments are its temples."
+    }
+   },
+   "ancient": {
+    "name": {
+     "ru": "Эллинская Морская Лига",
+     "en": "Hellenic Sea League"
+    },
+    "form": {
+     "ru": "Лига островов",
+     "en": "League of islands"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Собрала острова Западного моря. Её моряки ныряют к храмам Талассии и знают, где на дне сундуки.",
+     "en": "It unites the islands of the Western Sea. Its sailors dive to the temples of Thalassia and know where the chests lie."
+    }
+   },
+   "walls": {
+    "name": {
+     "ru": "Эллинская Морская Лига",
+     "en": "Hellenic Sea League"
+    },
+    "form": {
+     "ru": "Хранитель архивов",
+     "en": "Keeper of archives"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "В архивах Эллады лежат обрывки чертежей кораблей Талассии. Их прочтут через тысячу лет.",
+     "en": "The archives of Hellas keep scraps of Thalassian ship plans. They will be read a thousand years later."
+    }
+   },
+   "renaissance": {
+    "name": {
+     "ru": "Эллинская Морская Лига",
+     "en": "Hellenic Sea League"
+    },
+    "form": {
+     "ru": "Лига учёных",
+     "en": "League of scholars"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Учёные Эллады вместе с ромейскими читают таблички. Чертежи Талассии дают миру «Аврору Пакс».",
+     "en": "Hellenic scholars read the tablets alongside the Romeans. Thalassian plans give the world the Aurora Pax."
+    }
+   },
+   "sails": {
+    "name": {
+     "ru": "Эллинская Морская Лига",
+     "en": "Hellenic Sea League"
+    },
+    "form": {
+     "ru": "Порт на каждом острове",
+     "en": "A port on every island"
+    },
+    "tag": "colony",
+    "text": {
+     "ru": "Эскадра уходит искать флот Карфагена в Тумане (1700) и пропадает. В 1781 году острова-колонии объявляют войну.",
+     "en": "A squadron sails into the Fog (1700) to look for Carthage's fleet and vanishes. In 1781 its island colonies declare war."
+    }
+   },
+   "steel": {
+    "name": {
+     "ru": "Эллинская Республика",
+     "en": "Hellenic Republic"
+    },
+    "form": {
+     "ru": "Республика",
+     "en": "Republic"
+    },
+    "tag": "pax",
+    "text": {
+     "ru": "Лига становится Республикой. В 1914 году воюет с Ромеей, в 1947 году входит в Союз PAX.",
+     "en": "The League becomes a Republic. In 1914 it fights alongside Romea, and in 1947 it joins the PAX Union."
+    }
+   },
+   "cold": {
+    "name": {
+     "ru": "Эллинская Республика",
+     "en": "Hellenic Republic"
+    },
+    "form": {
+     "ru": "Флот Запада",
+     "en": "Fleet of the West"
+    },
+    "tag": "pax",
+    "text": {
+     "ru": "Союз PAX.",
+     "en": "PAX Union."
+    }
+   },
+   "ai": {
+    "name": {
+     "ru": "Эллинская Республика",
+     "en": "Hellenic Republic"
+    },
+    "form": {
+     "ru": "Под законом Сети",
+     "en": "Under the Network's law"
+    },
+    "tag": "protect",
+    "text": {
+     "ru": "Войны запрещены. Страж-7 видит океаны через подводные провода.",
+     "en": "War is banned. Guardian-7 watches the oceans through undersea wires."
+    }
+   },
+   "cyber": {
+    "name": {
+     "ru": "«Талассо-Нет»",
+     "en": "Thalasso-Net"
+    },
+    "form": {
+     "ru": "Мегакорпорация: кабели и серверы",
+     "en": "Megacorp: cables and servers"
+    },
+    "tag": "corp",
+    "text": {
+     "ru": "Дата-центры в Океанских монументах охраняют стражи, как храмы три тысячи лет назад. В Ночь Взлома отключает кабели, которыми видел Страж-7.",
+     "en": "Its data centres sit in Ocean Monuments, guarded like temples three thousand years ago. On the Night of the Breach it cuts the cables Guardian-7 sees through."
+    }
+   },
+   "interserver": {
+    "name": {
+     "ru": "Эллада",
+     "en": "Hellas"
+    },
+    "form": {
+     "ru": "Летающий флот",
+     "en": "Flying fleet"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Эллинский флот бьёт с неба с «Авроры Пакс», переделанной в летающий корабль.",
+     "en": "The Hellenic fleet strikes from the sky from the Aurora Pax, rebuilt as a flying ship."
+    }
+   },
+   "moon": {
+    "name": {
+     "ru": "Эллада",
+     "en": "Hellas"
+    },
+    "form": {
+     "ru": "Корабелы",
+     "en": "Shipwrights"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Эллинские корабелы разбирают корабль Края по досочке и строят по нему «Аврору Пакс II».",
+     "en": "Hellenic shipwrights take an End ship apart plank by plank and build the Aurora Pax II from it."
+    }
+   }
+  },
+  "gaul": {
+   "origins": {
+    "name": {
+     "ru": "Лесные племена",
+     "en": "Forest tribes"
+    },
+    "form": {
+     "ru": "Друиды Тёмных веков",
+     "en": "Druids of the Dark Ages"
+    },
+    "tag": "roots",
+    "text": {
+     "ru": "Друиды поют песни о Годе Пепла и помнят о Предтечах больше всех.",
+     "en": "The druids sing songs of the Year of Ash and remember more about the Forerunners than anyone."
+    }
+   },
+   "ancient": {
+    "name": {
+     "ru": "Галльская Конфедерация",
+     "en": "Gallic Confederation"
+    },
+    "form": {
+     "ru": "Конфедерация друидов",
+     "en": "Confederation of druids"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Лесной народ, который знает о Предтечах больше всех. Восемь народов, восемь памятей.",
+     "en": "A forest people who know the most about the Forerunners. Eight peoples, eight memories."
+    }
+   },
+   "walls": {
+    "name": {
+     "ru": "Галльская Конфедерация",
+     "en": "Gallic Confederation"
+    },
+    "form": {
+     "ru": "Святилища на холмах",
+     "en": "Hilltop sanctuaries"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Пока все строят стены, друиды строят святилища на холмах.",
+     "en": "While everyone else builds walls, the druids build sanctuaries on the hills."
+    }
+   },
+   "renaissance": {
+    "name": {
+     "ru": "Галльская Конфедерация",
+     "en": "Gallic Confederation"
+    },
+    "form": {
+     "ru": "Конфедерация",
+     "en": "Confederation"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Друиды хранят песни, а учёные Ромеи приходят их записывать.",
+     "en": "The druids keep the old songs, and Romean scholars come to write them down."
+    },
+    "added": true
+   },
+   "sails": {
+    "name": {
+     "ru": "Галльская Конфедерация",
+     "en": "Gallic Confederation"
+    },
+    "form": {
+     "ru": "Лесная держава",
+     "en": "Forest power"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Почти без портов: Галлия остаётся в лесах, пока другие уходят за море.",
+     "en": "Almost without ports: Gaul stays in its forests while others sail overseas."
+    },
+    "added": true
+   },
+   "steel": {
+    "name": {
+     "ru": "Галльская Конфедерация",
+     "en": "Gallic Confederation"
+    },
+    "form": {
+     "ru": "Конфедерация",
+     "en": "Confederation"
+    },
+    "tag": "pax",
+    "text": {
+     "ru": "В 1914 году воюет на стороне Ромеи. В 1947 году входит в Союз PAX.",
+     "en": "In 1914 it fights on Romea's side. In 1947 it joins the PAX Union."
+    }
+   },
+   "cold": {
+    "name": {
+     "ru": "Галльская Конфедерация",
+     "en": "Gallic Confederation"
+    },
+    "form": {
+     "ru": "Союзник Ромеи",
+     "en": "Romea's ally"
+    },
+    "tag": "pax",
+    "text": {
+     "ru": "Союз PAX.",
+     "en": "PAX Union."
+    }
+   },
+   "ai": {
+    "name": {
+     "ru": "Галльская Конфедерация",
+     "en": "Gallic Confederation"
+    },
+    "form": {
+     "ru": "Под законом Сети",
+     "en": "Under the Network's law"
+    },
+    "tag": "protect",
+    "text": {
+     "ru": "Войны запрещены. Друиды первыми замечают, что скалк глушит провода Сети.",
+     "en": "War is banned. The druids are the first to notice sculk muffling the Network's wires."
+    },
+    "added": true
+   },
+   "cyber": {
+    "name": {
+     "ru": "«Друидикон»",
+     "en": "Druidicon"
+    },
+    "form": {
+     "ru": "Мегакорпорация: биотех",
+     "en": "Megacorp: biotech"
+    },
+    "tag": "corp",
+    "text": {
+     "ru": "Грибы, скалк, вечные деревья, импланты из живого. В Ночь Взлома за одну ночь выращивает скалк вокруг всех проводов центра.",
+     "en": "Fungi, sculk, eternal trees, living implants. On the Night of the Breach it grows sculk around every wire in the centre in a single night."
+    }
+   },
+   "interserver": {
+    "name": {
+     "ru": "Галлия",
+     "en": "Gaul"
+    },
+    "form": {
+     "ru": "Скалк на поле боя",
+     "en": "Sculk on the battlefield"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Друиды выращивают скалк по всему полю, и машины Курултая глохнут.",
+     "en": "The druids grow sculk across the battlefield and the Kurultai's machines go deaf."
+    }
+   },
+   "moon": {
+    "name": {
+     "ru": "Галлия",
+     "en": "Gaul"
+    },
+    "form": {
+     "ru": "Сады под куполами",
+     "en": "Gardens under the domes"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Друиды выращивают сад внутри «Авроры Пакс II», чтобы было чем дышать, а потом сады под куполами Селены.",
+     "en": "The druids grow a garden inside the Aurora Pax II so there is air to breathe, and later the gardens under Selena's domes."
+    }
+   }
+  },
+  "islands": {
+   "origins": {
+    "name": {
+     "ru": "Пустые острова",
+     "en": "Empty islands"
+    },
+    "form": {
+     "ru": "Никого",
+     "en": "Nobody"
+    },
+    "tag": "absent",
+    "text": {
+     "ru": "Островной Союз — первая держава без древних предков. До него на дальних островах никто не живёт.",
+     "en": "The Island Union is the first power with no ancient ancestors. Before it, nobody lives on the far islands."
+    }
+   },
+   "ancient": {
+    "name": {
+     "ru": "Пустые острова",
+     "en": "Empty islands"
+    },
+    "form": {
+     "ru": "Никого",
+     "en": "Nobody"
+    },
+    "tag": "absent",
+    "text": {
+     "ru": "Дальние острова ещё ничьи.",
+     "en": "The far islands still belong to no one."
+    }
+   },
+   "walls": {
+    "name": {
+     "ru": "Пустые острова",
+     "en": "Empty islands"
+    },
+    "form": {
+     "ru": "Никого",
+     "en": "Nobody"
+    },
+    "tag": "absent",
+    "text": {
+     "ru": "Без кораблей против ветра до дальних островов не доплыть.",
+     "en": "Without ships that sail against the wind, nobody can reach the far islands."
+    }
+   },
+   "renaissance": {
+    "name": {
+     "ru": "Первые фактории",
+     "en": "First trading posts"
+    },
+    "form": {
+     "ru": "Чужие фактории",
+     "en": "Foreign trading posts"
+    },
+    "tag": "absent",
+    "text": {
+     "ru": "Корабли по чертежам Талассии впервые доходят до дальних островов.",
+     "en": "Ships built from Thalassian plans reach the far islands for the first time."
+    },
+    "added": true
+   },
+   "sails": {
+    "name": {
+     "ru": "Колонии → Островной Союз",
+     "en": "Colonies → Island Union"
+    },
+    "form": {
+     "ru": "Республика мореходов (1781)",
+     "en": "Republic of seafarers (1781)"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Сто лет острова платят дань Элладе и Карфагену. В 1781 году шесть губернаторов в Новой Гавани говорят «нет». Война за независимость идёт шесть лет, и острова побеждают.",
+     "en": "For a hundred years the islands pay tribute to Hellas and Carthage. In 1781 six governors in New Haven say \"no\". The war of independence lasts six years, and the islands win."
+    }
+   },
+   "steel": {
+    "name": {
+     "ru": "Островной Союз",
+     "en": "Island Union"
+    },
+    "form": {
+     "ru": "Республика мореходов",
+     "en": "Republic of seafarers"
+    },
+    "tag": "pax",
+    "text": {
+     "ru": "Верный союзник Ромеи. В 1947 году входит в Союз PAX.",
+     "en": "Romea's loyal ally. In 1947 it joins the PAX Union."
+    }
+   },
+   "cold": {
+    "name": {
+     "ru": "Островной Союз",
+     "en": "Island Union"
+    },
+    "form": {
+     "ru": "Республика мореходов",
+     "en": "Republic of seafarers"
+    },
+    "tag": "pax",
+    "text": {
+     "ru": "Союз PAX.",
+     "en": "PAX Union."
+    }
+   },
+   "ai": {
+    "name": {
+     "ru": "Островной Союз",
+     "en": "Island Union"
+    },
+    "form": {
+     "ru": "Под законом Сети",
+     "en": "Under the Network's law"
+    },
+    "tag": "protect",
+    "text": {
+     "ru": "Войны запрещены и на море.",
+     "en": "War is banned at sea too."
+    },
+    "added": true
+   },
+   "cyber": {
+    "name": {
+     "ru": "Свободные гавани",
+     "en": "Free Harbours"
+    },
+    "form": {
+     "ru": "Порты без хозяев",
+     "en": "Ports with no masters"
+    },
+    "tag": "outside",
+    "text": {
+     "ru": "Острова не продают флаг ни одной корпорации. Через свободные гавани идут грузы, которые не хотят платить «Карт-Хадашт».",
+     "en": "The islands sell their flag to no corporation. Cargo that won't pay Kart-Hadasht passes through the Free Harbours."
+    },
+    "added": true
+   },
+   "interserver": {
+    "name": {
+     "ru": "Островной Союз",
+     "en": "Island Union"
+    },
+    "form": {
+     "ru": "Флот беженцев",
+     "en": "Refugee fleet"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Мореходы вывозят беженцев Вечной Талассии из лагерей у океана.",
+     "en": "The seafarers carry the refugees of Eternal Thalassia out of the camps by the ocean."
+    },
+    "added": true
+   },
+   "moon": {
+    "name": {
+     "ru": "Островной Союз",
+     "en": "Island Union"
+    },
+    "form": {
+     "ru": "Небесные доки",
+     "en": "Sky docks"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Строят причалы для кораблей на воде и в небе: отсюда «Аврора Пакс II» уходит в чёрное.",
+     "en": "They build the docks for ships on the water and in the sky: this is where the Aurora Pax II leaves for the dark."
+    },
+    "added": true
+   }
+  },
+  "germany": {
+   "origins": {
+    "name": {
+     "ru": "Лесные племена",
+     "en": "Forest tribes"
+    },
+    "form": {
+     "ru": "Тёмные века",
+     "en": "Dark Ages"
+    },
+    "tag": "roots",
+    "text": {
+     "ru": "Живут в лесах и не верят «каменным людям» Предтеч.",
+     "en": "They live in the forests and do not trust the Forerunners' \"stone people\"."
+    }
+   },
+   "ancient": {
+    "name": {
+     "ru": "Германский Союз Племён",
+     "en": "Germanic Tribal Union"
+    },
+    "form": {
+     "ru": "Союз племён",
+     "en": "Tribal union"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Тевтобургский лес и племена, которые не верят «каменным людям».",
+     "en": "The Teutoburg Forest and tribes who do not trust the \"stone people\"."
+    }
+   },
+   "walls": {
+    "name": {
+     "ru": "Германские королевства",
+     "en": "Germanic kingdoms"
+    },
+    "form": {
+     "ru": "Королевства",
+     "en": "Kingdoms"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Племена объединяются в королевства и рубят крепости в лесах.",
+     "en": "The tribes unite into kingdoms and build forts in the forests."
+    }
+   },
+   "renaissance": {
+    "name": {
+     "ru": "Германские королевства",
+     "en": "Germanic kingdoms"
+    },
+    "form": {
+     "ru": "Королевства",
+     "en": "Kingdoms"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Королевства сидят на самых богатых рудах мира.",
+     "en": "The kingdoms sit on the richest ores in the world."
+    }
+   },
+   "sails": {
+    "name": {
+     "ru": "Германские королевства",
+     "en": "Germanic kingdoms"
+    },
+    "form": {
+     "ru": "Королевства",
+     "en": "Kingdoms"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Королевства спорят между собой, пока другие делят моря.",
+     "en": "The kingdoms quarrel among themselves while others divide the seas."
+    },
+    "added": true
+   },
+   "steel": {
+    "name": {
+     "ru": "Германский Рейх",
+     "en": "Germanic Reich"
+    },
+    "form": {
+     "ru": "Империя (1871)",
+     "en": "Empire (1871)"
+    },
+    "tag": "against_r",
+    "text": {
+     "ru": "В 1871 году королевства объединяются в Рейх. Две Великие войны против Ромеи. В 1942 году метель ломает наступление на север. После поражения Рейх становится вассалом восточных держав.",
+     "en": "In 1871 the kingdoms unite into the Reich. Two Great Wars against Romea. In 1942 a blizzard breaks the northern offensive. After defeat the Reich becomes a vassal of the eastern powers."
+    }
+   },
+   "cold": {
+    "name": {
+     "ru": "Германский Рейх",
+     "en": "Germanic Reich"
+    },
+    "form": {
+     "ru": "Сначала вассал, потом союзник",
+     "en": "First a vassal, then an ally"
+    },
+    "tag": "steppe",
+    "text": {
+     "ru": "Степной Пакт. В 1983 году Пакт крадёт чертежи и строит Курултай.",
+     "en": "Steppe Pact. In 1983 the Pact steals the plans and builds the Kurultai."
+    }
+   },
+   "ai": {
+    "name": {
+     "ru": "Германский Рейх",
+     "en": "Germanic Reich"
+    },
+    "form": {
+     "ru": "Под бирюзовыми знамёнами",
+     "en": "Under turquoise banners"
+    },
+    "tag": "protect",
+    "text": {
+     "ru": "После Войны двух разумов Пакт разваливается. В 2077 году Германия — одна из трёх держав у Монолита под знамёнами Сети.",
+     "en": "After the War of Two Minds the Pact falls apart. In 2077 Germany is one of the three powers near the Monolith under the Network's banners."
+    }
+   },
+   "cyber": {
+    "name": {
+     "ru": "«Тевтобург Индастриз»",
+     "en": "Teutoburg Industries"
+    },
+    "form": {
+     "ru": "Мегакорпорация: оружие и мехи",
+     "en": "Megacorp: weapons and mechs"
+    },
+    "tag": "corp",
+    "text": {
+     "ru": "Броня, частные армии, ударные мехи «Варвары». В Ночь Взлома мехи встают у стен Монолита.",
+     "en": "Armour, private armies, \"Barbarian\" assault mechs. On the Night of the Breach the mechs stand at the walls of the Monolith."
+    }
+   },
+   "interserver": {
+    "name": {
+     "ru": "Германия",
+     "en": "Germania"
+    },
+    "form": {
+     "ru": "Мехи в центре",
+     "en": "Mechs in the centre"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Бывшие враги Ромеи: германские мехи держат центр у самого входа в Монолит.",
+     "en": "Romea's former enemies: German mechs hold the centre at the very entrance of the Monolith."
+    }
+   },
+   "moon": {
+    "name": {
+     "ru": "Германия",
+     "en": "Germania"
+    },
+    "form": {
+     "ru": "Двигатели",
+     "en": "Engines"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Инженеры ставят в корму шалкерские двигатели. Германский инженер — третий человек на Луне.",
+     "en": "Engineers fit shulker engines into the stern. A German engineer is the third person on the Moon."
+    }
+   }
+  },
+  "north": {
+   "origins": {
+    "name": {
+     "ru": "Вечные льды",
+     "en": "Eternal ice"
+    },
+    "form": {
+     "ru": "Никого",
+     "en": "Nobody"
+    },
+    "tag": "absent",
+    "text": {
+     "ru": "У Северного Царства нет общих предков, поэтому оно не помнит Предтеч.",
+     "en": "The Northern Kingdom has no common ancestors, so it does not remember the Forerunners."
+    }
+   },
+   "ancient": {
+    "name": {
+     "ru": "Вечные льды",
+     "en": "Eternal ice"
+    },
+    "form": {
+     "ru": "Никого",
+     "en": "Nobody"
+    },
+    "tag": "absent",
+    "text": {
+     "ru": "На далёком севере снег не тает даже летом.",
+     "en": "In the far north the snow does not melt even in summer."
+    }
+   },
+   "walls": {
+    "name": {
+     "ru": "Северное Царство",
+     "en": "Northern Kingdom"
+    },
+    "form": {
+     "ru": "Царство конунгов (~900)",
+     "en": "Kingdom of konungs (~900)"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Беглецы со всего мира — германцы, дакийцы, отставшие степняки — у ледяного озера выбирают первого конунга.",
+     "en": "Refugees from all over the world — Germans, Dacians, stray steppe riders — elect their first konung by an icy lake."
+    }
+   },
+   "renaissance": {
+    "name": {
+     "ru": "Северное Царство",
+     "en": "Northern Kingdom"
+    },
+    "form": {
+     "ru": "Царство конунгов",
+     "en": "Kingdom of konungs"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Ловит рыбу под панцирем моря и лучше всех знает зиму.",
+     "en": "It fishes under the sea's ice shell and knows winter better than anyone."
+    }
+   },
+   "sails": {
+    "name": {
+     "ru": "Северное Царство",
+     "en": "Northern Kingdom"
+    },
+    "form": {
+     "ru": "Царство конунгов",
+     "en": "Kingdom of konungs"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Ледяные моря держат чужие флоты подальше от северных берегов.",
+     "en": "The icy seas keep foreign fleets away from the northern shores."
+    },
+    "added": true
+   },
+   "steel": {
+    "name": {
+     "ru": "Северное Царство",
+     "en": "Northern Kingdom"
+    },
+    "form": {
+     "ru": "Царство",
+     "en": "Kingdom"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "В 1942 году Рейх идёт за его железом и углём. Северяне отступают в леса и ждут метель. Метель приходит.",
+     "en": "In 1942 the Reich comes for its iron and coal. The northerners retreat into the forests and wait for the blizzard. The blizzard comes."
+    }
+   },
+   "cold": {
+    "name": {
+     "ru": "Северное Царство",
+     "en": "Northern Kingdom"
+    },
+    "form": {
+     "ru": "Восточный блок",
+     "en": "Eastern bloc"
+    },
+    "tag": "steppe",
+    "text": {
+     "ru": "В 1947 году на Курултае победителей входит в будущий Степной Пакт.",
+     "en": "At the Victors' Kurultai in 1947 it joins the future Steppe Pact."
+    }
+   },
+   "ai": {
+    "name": {
+     "ru": "Северное Царство",
+     "en": "Northern Kingdom"
+    },
+    "form": {
+     "ru": "Под законом Сети",
+     "en": "Under the Network's law"
+    },
+    "tag": "protect",
+    "text": {
+     "ru": "Пакт развалился, войны запрещены.",
+     "en": "The Pact has fallen apart, and war is banned."
+    }
+   },
+   "cyber": {
+    "name": {
+     "ru": "Ледяные архивы",
+     "en": "Ice Archives"
+    },
+    "form": {
+     "ru": "Холодные дата-центры",
+     "en": "Cold data centres"
+    },
+    "tag": "outside",
+    "text": {
+     "ru": "Серверам нужен холод, а холод у северян есть всегда. Корпорации арендуют их ледники, но не их конунга.",
+     "en": "Servers need cold, and the northerners always have cold. Corporations rent their glaciers, but not their konung."
+    },
+    "added": true
+   },
+   "interserver": {
+    "name": {
+     "ru": "Северное Царство",
+     "en": "Northern Kingdom"
+    },
+    "form": {
+     "ru": "Зимняя война",
+     "en": "Winter warfare"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Северяне учат армию Нового PAX воевать там, где у врага замерзают моторы.",
+     "en": "The northerners teach the New PAX army to fight where the enemy's engines freeze."
+    },
+    "added": true
+   },
+   "moon": {
+    "name": {
+     "ru": "Северное Царство",
+     "en": "Northern Kingdom"
+    },
+    "form": {
+     "ru": "Зимовщики Селены",
+     "en": "Selena's winterers"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Лунная ночь длится две недели и холоднее любой зимы. Первые зимовщики Селены — северяне.",
+     "en": "A lunar night lasts two weeks and is colder than any winter. Selena's first winterers are northerners."
+    },
+    "added": true
+   }
+  },
+  "dacia": {
+   "origins": {
+    "name": {
+     "ru": "Каэр-Тал",
+     "en": "Kaer-Tal"
+    },
+    "form": {
+     "ru": "Предтечи: Медный Союз",
+     "en": "Forerunners: the Copper Union"
+    },
+    "tag": "roots",
+    "text": {
+     "ru": "Наследник Медного Союза Каэр-Тала: залы испытаний, вихри и големы. Ойра Каэр-Тал построила Монолит.",
+     "en": "Heir of the Copper Union of Kaer-Tal: trial chambers, breezes and golems. Oira Kaer-Tal built the Monolith."
+    }
+   },
+   "ancient": {
+    "name": {
+     "ru": "Дакийское Царство",
+     "en": "Dacian Kingdom"
+    },
+    "form": {
+     "ru": "Царство горцев",
+     "en": "Kingdom of highlanders"
+    },
+    "tag": "vassal",
+    "text": {
+     "ru": "В 117 году землетрясение засыпает медные рудники. Царь Децебал Третий отдаёт Дакию Ромее в вассалы. Через сорок лет — война за независимость.",
+     "en": "In 117 an earthquake buries the copper mines. King Decebalus the Third makes Dacia Romea's vassal. Forty years later comes the war of independence."
+    }
+   },
+   "walls": {
+    "name": {
+     "ru": "Дакийское Царство",
+     "en": "Dacian Kingdom"
+    },
+    "form": {
+     "ru": "Царство горцев",
+     "en": "Kingdom of highlanders"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Держит горы и копает всё глубже к залам Каэр-Тала. В 1241 году Орда обходит её горы.",
+     "en": "It holds the mountains and digs ever deeper towards the halls of Kaer-Tal. In 1241 the Horde goes around its mountains."
+    }
+   },
+   "renaissance": {
+    "name": {
+     "ru": "Дакийское Царство",
+     "en": "Dacian Kingdom"
+    },
+    "form": {
+     "ru": "Царство горцев",
+     "en": "Kingdom of highlanders"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Каждое поколение копает глубже. Медь Дакии идёт на первые пушки.",
+     "en": "Every generation digs deeper. Dacian copper goes into the first cannons."
+    },
+    "added": true
+   },
+   "sails": {
+    "name": {
+     "ru": "Дакийское Царство",
+     "en": "Dacian Kingdom"
+    },
+    "form": {
+     "ru": "Царство горцев",
+     "en": "Kingdom of highlanders"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Горы далеко от моря: Дакия торгует медью через чужие порты.",
+     "en": "The mountains are far from the sea: Dacia sells copper through other people's ports."
+    },
+    "added": true
+   },
+   "steel": {
+    "name": {
+     "ru": "Дакийское Царство",
+     "en": "Dacian Kingdom"
+    },
+    "form": {
+     "ru": "Царство шахт",
+     "en": "Kingdom of mines"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "В XIX веке откапывает рудники Каэр-Тала и чертежи паровых машин. Медь, редстоун и уголь дают миру заводы.",
+     "en": "In the 19th century it unearths the mines of Kaer-Tal and the plans of steam engines. Copper, redstone and coal give the world its factories."
+    }
+   },
+   "cold": {
+    "name": {
+     "ru": "Дакийское Царство",
+     "en": "Dacian Kingdom"
+    },
+    "form": {
+     "ru": "Восточный блок",
+     "en": "Eastern bloc"
+    },
+    "tag": "steppe",
+    "text": {
+     "ru": "Степной Пакт: Дакия так и не простила Ромее старую дань.",
+     "en": "Steppe Pact: Dacia never forgave Romea the old tribute."
+    }
+   },
+   "ai": {
+    "name": {
+     "ru": "Дакийское Царство",
+     "en": "Dacian Kingdom"
+    },
+    "form": {
+     "ru": "Под законом Сети",
+     "en": "Under the Network's law"
+    },
+    "tag": "protect",
+    "text": {
+     "ru": "Медные легионы Стража-7 отлиты из дакийской меди.",
+     "en": "Guardian-7's copper legions are cast from Dacian copper."
+    },
+    "added": true
+   },
+   "cyber": {
+    "name": {
+     "ru": "«Сармизегетуза Майнинг»",
+     "en": "Sarmizegetusa Mining"
+    },
+    "form": {
+     "ru": "Мегакорпорация: медь и руды",
+     "en": "Megacorp: copper and ore"
+    },
+    "tag": "corp",
+    "text": {
+     "ru": "Владеет всем, что глубже 0 по Y. Имя взято у древней столицы даков.",
+     "en": "It owns everything below Y 0. Its name comes from the ancient Dacian capital."
+    }
+   },
+   "interserver": {
+    "name": {
+     "ru": "Дакия",
+     "en": "Dacia"
+    },
+    "form": {
+     "ru": "Минёры",
+     "en": "Sappers"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Дакийские шахтёры минируют подходы к Монолиту медью и редстоуном Каэр-Тала.",
+     "en": "Dacian miners lay copper and Kaer-Tal redstone mines on the approaches to the Monolith."
+    }
+   },
+   "moon": {
+    "name": {
+     "ru": "Дакия",
+     "en": "Dacia"
+    },
+    "form": {
+     "ru": "Медный корпус",
+     "en": "Copper hull"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Дакийские мастера отливают медный корпус «Авроры Пакс II». В 2169 году шахтёры находят под Селеной пустую рамку Края.",
+     "en": "Dacian smiths cast the copper hull of the Aurora Pax II. In 2169 miners find an empty End frame under Selena."
+    }
+   }
+  },
+  "horde": {
+   "origins": {
+    "name": {
+     "ru": "Кочевники пустынь",
+     "en": "Desert nomads"
+    },
+    "form": {
+     "ru": "Тёмные века",
+     "en": "Dark Ages"
+    },
+    "tag": "roots",
+    "text": {
+     "ru": "Кочуют по руинам Нэферу. Золото пустынных пирамид уходит в степь.",
+     "en": "They roam the ruins of Neferu. The gold of the desert pyramids moves into the steppe."
+    }
+   },
+   "ancient": {
+    "name": {
+     "ru": "Великая Степная Орда",
+     "en": "Great Steppe Horde"
+    },
+    "form": {
+     "ru": "Ханство: курултай и бунчуки",
+     "en": "Khanate: kurultai and horsetail standards"
+    },
+    "tag": "against_r",
+    "text": {
+     "ru": "В 375 году выходит из песчаной бури: сто тысяч всадников. Таран у ворот Монолита, пал второй Страж. «Башню нельзя взять. Её можно только ждать».",
+     "en": "In 375 it rides out of a sandstorm: a hundred thousand horsemen. A ram at the Monolith's gate, and the second Guardian falls. \"The tower cannot be taken. It can only be waited for.\""
+    }
+   },
+   "walls": {
+    "name": {
+     "ru": "Великая Степная Орда",
+     "en": "Great Steppe Horde"
+    },
+    "form": {
+     "ru": "Ханство",
+     "en": "Khanate"
+    },
+    "tag": "against_r",
+    "text": {
+     "ru": "В 1241 году возвращается с осадными башнями и союзом со Скифией. Метель сорок дней, домой приходит треть.",
+     "en": "In 1241 it returns with siege towers and an alliance with Scythia. A forty-day blizzard; only a third make it home."
+    }
+   },
+   "renaissance": {
+    "name": {
+     "ru": "Великая Степная Орда",
+     "en": "Great Steppe Horde"
+    },
+    "form": {
+     "ru": "Ханство",
+     "en": "Khanate"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Ханы ждут, как велит пословица. Конные лучники остаются лучшими в мире.",
+     "en": "The khans wait, as the proverb says. Its horse archers remain the best in the world."
+    },
+    "added": true
+   },
+   "sails": {
+    "name": {
+     "ru": "Великая Степная Орда",
+     "en": "Great Steppe Horde"
+    },
+    "form": {
+     "ru": "Ханство",
+     "en": "Khanate"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Степи моря не нужны: караваны идут по суше.",
+     "en": "The steppe needs no sea: its caravans go overland."
+    },
+    "added": true
+   },
+   "steel": {
+    "name": {
+     "ru": "Великая Степная Орда",
+     "en": "Great Steppe Horde"
+    },
+    "form": {
+     "ru": "Ханство",
+     "en": "Khanate"
+    },
+    "tag": "against_r",
+    "text": {
+     "ru": "В 1914 году вместе с Рейхом и Скифией против Ромеи. В 1947 году в степи собирается Курултай победителей.",
+     "en": "In 1914 it fights with the Reich and Scythia against Romea. In 1947 the Victors' Kurultai gathers in the steppe."
+    }
+   },
+   "cold": {
+    "name": {
+     "ru": "Великая Степная Орда",
+     "en": "Great Steppe Horde"
+    },
+    "form": {
+     "ru": "Столица Пакта",
+     "en": "Capital of the Pact"
+    },
+    "tag": "steppe",
+    "text": {
+     "ru": "Курултай Пакта собирается в огромной юрте из стали. В 1983 году Пакт строит свой разум и называет его Курултай.",
+     "en": "The Pact's council meets in a vast steel yurt. In 1983 the Pact builds its own mind and names it the Kurultai."
+    }
+   },
+   "ai": {
+    "name": {
+     "ru": "Великая Степная Орда",
+     "en": "Great Steppe Horde"
+    },
+    "form": {
+     "ru": "Под законом Сети",
+     "en": "Under the Network's law"
+    },
+    "tag": "protect",
+    "text": {
+     "ru": "В 2066 году ИИ Курултай проигрывает Войну двух разумов и бежит в Незер. Пакт распадается.",
+     "en": "In 2066 the Kurultai AI loses the War of Two Minds and flees to the Nether. The Pact falls apart."
+    }
+   },
+   "cyber": {
+    "name": {
+     "ru": "«Нео-Орда»",
+     "en": "Neo-Horde"
+    },
+    "form": {
+     "ru": "Кочевая сеть",
+     "en": "Nomad network"
+    },
+    "tag": "outside",
+    "text": {
+     "ru": "Не корпорация: байкеры, хакеры и курьеры, решения принимает цифровой курултай. Не подписывает Консорциум и угоняет медных големов пасти скот.",
+     "en": "Not a corporation: bikers, hackers and couriers, ruled by a digital kurultai. It never signs the Consortium and steals copper golems to herd cattle."
+    }
+   },
+   "interserver": {
+    "name": {
+     "ru": "Орда",
+     "en": "Horde"
+    },
+    "form": {
+     "ru": "Всадники на флангах",
+     "en": "Riders on the flanks"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Всадники на байках обходят железные колонны по флангам, как конные лучники за две тысячи лет до них.",
+     "en": "Riders on bikes outflank the iron columns, like horse archers two thousand years before them."
+    }
+   },
+   "moon": {
+    "name": {
+     "ru": "Орда",
+     "en": "Horde"
+    },
+    "form": {
+     "ru": "Пилоты",
+     "en": "Pilots"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Орда даёт пилотов. Всадница Сарыгюль ведёт «Аврору Пакс II»: «Луна квадратная. Я стою на ней».",
+     "en": "The Horde provides the pilots. The rider Sarygul flies the Aurora Pax II: \"The Moon is square. I am standing on it.\""
+    }
+   }
+  },
+  "scythia": {
+   "origins": {
+    "name": {
+     "ru": "Курганные кочевники",
+     "en": "Kurgan nomads"
+    },
+    "form": {
+     "ru": "Тёмные века",
+     "en": "Dark Ages"
+    },
+    "tag": "roots",
+    "text": {
+     "ru": "Хоронят царей в курганах с золотом пирамид Нэферу.",
+     "en": "They bury their kings in kurgans filled with the gold of Neferu's pyramids."
+    }
+   },
+   "ancient": {
+    "name": {
+     "ru": "Скифское Царство",
+     "en": "Scythian Kingdom"
+    },
+    "form": {
+     "ru": "Царство курганов",
+     "en": "Kingdom of kurgans"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Курганные цари и конные стрелки кочуют по руинам Нэферу.",
+     "en": "Kurgan kings and mounted archers roam the ruins of Neferu."
+    }
+   },
+   "walls": {
+    "name": {
+     "ru": "Скифское Царство",
+     "en": "Scythian Kingdom"
+    },
+    "form": {
+     "ru": "Царство курганов",
+     "en": "Kingdom of kurgans"
+    },
+    "tag": "against_r",
+    "text": {
+     "ru": "В 1241 году идёт к стенам Ромеи в союзе с Ордой.",
+     "en": "In 1241 it marches on Romea's walls in alliance with the Horde."
+    }
+   },
+   "renaissance": {
+    "name": {
+     "ru": "Скифское Царство",
+     "en": "Scythian Kingdom"
+    },
+    "form": {
+     "ru": "Царство курганов",
+     "en": "Kingdom of kurgans"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Курганы становятся хранилищами: всё ценное скифы прячут под землю.",
+     "en": "The kurgans become vaults: the Scythians hide everything valuable underground."
+    },
+    "added": true
+   },
+   "sails": {
+    "name": {
+     "ru": "Скифское Царство",
+     "en": "Scythian Kingdom"
+    },
+    "form": {
+     "ru": "Царство курганов",
+     "en": "Kingdom of kurgans"
+    },
+    "tag": "free",
+    "text": {
+     "ru": "Степь живёт без моря, курганы растут.",
+     "en": "The steppe lives without the sea, and the kurgans grow."
+    },
+    "added": true
+   },
+   "steel": {
+    "name": {
+     "ru": "Скифское Царство",
+     "en": "Scythian Kingdom"
+    },
+    "form": {
+     "ru": "Царство",
+     "en": "Kingdom"
+    },
+    "tag": "against_r",
+    "text": {
+     "ru": "В 1914 году вместе с Рейхом и Ордой против Ромеи. В 1947 году на Курултае победителей.",
+     "en": "In 1914 it fights with the Reich and the Horde against Romea. In 1947 it attends the Victors' Kurultai."
+    }
+   },
+   "cold": {
+    "name": {
+     "ru": "Скифское Царство",
+     "en": "Scythian Kingdom"
+    },
+    "form": {
+     "ru": "Восточный блок",
+     "en": "Eastern bloc"
+    },
+    "tag": "steppe",
+    "text": {
+     "ru": "Степной Пакт.",
+     "en": "Steppe Pact."
+    }
+   },
+   "ai": {
+    "name": {
+     "ru": "Скифское Царство",
+     "en": "Scythian Kingdom"
+    },
+    "form": {
+     "ru": "Под законом Сети",
+     "en": "Under the Network's law"
+    },
+    "tag": "protect",
+    "text": {
+     "ru": "Сорок лет скифы тайно хранят копию знаков медного сердца Стража.",
+     "en": "For forty years the Scythians secretly keep a copy of the Guardian's copper heart signs."
+    }
+   },
+   "cyber": {
+    "name": {
+     "ru": "«Курган»",
+     "en": "Kurgan"
+    },
+    "form": {
+     "ru": "Чёрный рынок данных",
+     "en": "Data black market"
+    },
+    "tag": "corp",
+    "text": {
+     "ru": "Украденные файлы хранятся в древних курганах. В Ночь Взлома «Курган» продаёт Консорциуму ключ к самому Стражу.",
+     "en": "Stolen files are kept in ancient kurgans. On the Night of the Breach, Kurgan sells the Consortium the key to the Guardian itself."
+    }
+   },
+   "interserver": {
+    "name": {
+     "ru": "Скифия",
+     "en": "Scythia"
+    },
+    "form": {
+     "ru": "Тропы курганов",
+     "en": "Kurgan paths"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Скифы проводят отряд по старым курганам прямо в тыл машин.",
+     "en": "The Scythians lead a unit through the old kurgans straight into the machines' rear."
+    }
+   },
+   "moon": {
+    "name": {
+     "ru": "Скифия",
+     "en": "Scythia"
+    },
+    "form": {
+     "ru": "Архив полёта",
+     "en": "Flight archive"
+    },
+    "tag": "newpax",
+    "text": {
+     "ru": "Одно из восьми знамён на Луне — скифское. Скифы записывают полёт в свои архивы.",
+     "en": "One of the eight banners on the Moon is Scythian. The Scythians record the flight in their archives."
+    },
+    "added": true
+   }
+  }
+ }
+}
