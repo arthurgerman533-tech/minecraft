@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>__TITLE__ — PaxVanila</title>
+<meta name="description" content="__DESC__">
+<meta name="theme-color" content="#14110d">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="./"><img src="icons/icon-192.png" alt="">PaxVanila</a>
+  <nav class="main"><a href="./">Главная</a><a href="lore.html">Лор</a><a href="quiz.html" class="on">Викторина</a></nav>
+  <a class="iconbtn" id="lang" href="__LANGURL__" hreflang="__LANGCODE__" title="__LANGTITLE__">__LANGLABEL__</a>
+  <button class="iconbtn" id="theme" title="Тема" aria-label="Сменить тему">☾</button>
+</div></header>
+
+<section class="quiz"><div class="wrap">
+  <div class="kicker" id="qzKicker"></div>
+  <h1 class="qz-h1" id="qzTitle"></h1>
+  <div id="quiz" aria-live="polite"></div>
+  <noscript><p>Для викторины нужен JavaScript.</p></noscript>
+</div></section>
+
+<footer><div class="wrap"><a href="./">← На главную</a> · <a href="lore.html">Весь лор</a></div></footer>
+<div class="toast" id="toast"></div>
+<script id="quizData" type="application/json">__QUIZ__</script>
+<script>
+(function(){
+const D=JSON.parse(document.getElementById('quizData').textContent), U=D.ui, N=D.count;
+const box=document.getElementById('quiz');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fill=(s,o)=>s.replace(/\{(\w+)\}/g,(_,k)=>o[k]!=null?o[k]:'');
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const L='ABCD';
+let game=null;
+document.getElementById('qzKicker').textContent=U.kicker;
+document.getElementById('qzTitle').textContent=U.title;
+let best=null; try{best=localStorage.getItem('paxQuizBest')}catch(e){}
+
+function intro(){
+  box.innerHTML=`<div class="card qz-card"><p class="qz-lead">${esc(fill(U.intro,{pool:D.questions.length}))}</p>
+    ${best!=null?`<p class="qz-muted">🏆 ${esc(fill(U.best,{b:best,t:N}))}</p>`:''}
+    <div class="cta"><button class="btn primary" id="qzStart">▶ ${esc(U.start)}</button></div></div>`;
+  document.getElementById('qzStart').onclick=start;
+}
+function start(){
+  game={qs:shuffle(D.questions).slice(0,N).map(q=>({...q,order:shuffle([0,1,2,3])})),i:0,picks:[]};
+  ask(true);
+}
+function ask(first){
+  const g=game,q=g.qs[g.i],pick=g.picks[g.i],last=g.i===N-1;
+  box.innerHTML=`<div class="card qz-card">
+    <div class="qz-top"><span>${esc(fill(U.question,{n:g.i+1,t:N}))}</span><span class="qz-bar"><i style="width:${(g.i/N)*100}%"></i></span></div>
+    <h2 class="qz-q" id="qzQ" tabindex="-1">${esc(q.q)}</h2>
+    <div class="qz-opts" role="radiogroup" aria-labelledby="qzQ">${q.order.map((o,k)=>`<button class="qz-opt${pick===o?' on':''}" role="radio" aria-checked="${pick===o}" data-o="${o}"><b>${L[k]}</b><span>${esc(q.options[o])}</span></button>`).join('')}</div>
+    <div class="qz-nav">${g.i?`<button class="btn" id="qzBack">← ${esc(U.back)}</button>`:'<span></span>'}
+      <button class="btn primary" id="qzNext" ${pick==null?'disabled':''}>${esc(last?U.finish:U.next)} →</button></div></div>`;
+  box.querySelectorAll('.qz-opt').forEach(b=>b.onclick=()=>{g.picks[g.i]=+b.dataset.o;
+    box.querySelectorAll('.qz-opt').forEach(x=>{const on=x===b;x.classList.toggle('on',on);x.setAttribute('aria-checked',on)});
+    document.getElementById('qzNext').disabled=false;});
+  document.getElementById('qzNext').onclick=()=>{if(g.picks[g.i]==null)return;if(last)results();else{g.i++;ask()}};
+  const bk=document.getElementById('qzBack'); if(bk) bk.onclick=()=>{g.i--;ask()};
+  if(!first){document.getElementById('qzQ').focus({preventScroll:true});box.scrollIntoView({block:'start',behavior:'smooth'})}
+}
+function results(){
+  const g=game, s=g.qs.reduce((a,q,i)=>a+(g.picks[i]===q.answer?1:0),0);
+  const rank=U.ranks.filter(r=>s>=r.min).pop();
+  if(best==null||s>+best){best=s;try{localStorage.setItem('paxQuizBest',s)}catch(e){}}
+  box.innerHTML=`<div class="card qz-card qz-score"><div class="qz-muted">${esc(U.result)}</div>
+      <div class="qz-big">${s}<small> / ${N}</small></div><p class="qz-lead">${esc(rank.text)}</p>
+      <div class="cta"><button class="btn primary" id="qzAgain">↻ ${esc(U.again)}</button><button class="btn" id="qzShare">🔗 ${esc(U.share)}</button></div></div>
+    <h2 class="qz-h2">${esc(U.answers)}</h2>
+    <ol class="qz-ans">${g.qs.map((q,i)=>{const ok=g.picks[i]===q.answer;return `<li class="card ${ok?'ok':'bad'}">
+      <div class="qz-mark">${ok?'✓':'✗'}</div><div><h3>${esc(q.q)}</h3>
+      ${ok?'':`<p class="qz-your">${esc(U.your)}: ${esc(q.options[g.picks[i]])}</p>`}
+      <p class="qz-right">${esc(U.right)}: <b>${esc(q.options[q.answer])}</b></p>
+      <p class="qz-why">${esc(q.why)}</p>
+      ${q.lore?`<a href="lore/${esc(q.lore)}.html">📜 ${esc(U.read)}: ${esc(q.loreTitle||'')}</a>`:''}</div></li>`}).join('')}</ol>`;
+  document.getElementById('qzAgain').onclick=()=>{start();box.scrollIntoView({block:'start',behavior:'smooth'})};
+  document.getElementById('qzShare').onclick=async()=>{const text=fill(U.shareText,{s,t:N}),url=location.href.split('#')[0];
+    try{if(navigator.share){await navigator.share({text,url});return}}catch(e){return}
+    try{await navigator.clipboard.writeText(text+' '+url);const t=document.getElementById('toast');t.textContent=U.copied;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}catch(e){}};
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+intro();
+})();
+</script>
+<script src="app.js"></script>
+</body>
+</html>

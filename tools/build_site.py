@@ -337,9 +337,22 @@ def build(lang, out):
     lore_index = re.sub(r"<div class=\"hero\">.*?</footer>",
                         '<section><div class="wrap"><div class="kicker">История мира</div><h1>Лор PaxVanila</h1>'
                         '<p class="sub">Читать по порядку: Предтечи → Средние эпохи → Поздние эпохи (будущее мира: от роботов 1962 года до Луны, Марса и звёзд). Катаклизмы — отдельная летопись.</p>'
+                        '<div class="cta qz-cta"><a class="btn primary" href="quiz.html">🧩 Пройти лор-викторину</a></div>'
                         f'<div class="lorelist">{"".join(cards)}</div></div></section><footer><div class="wrap"><a href="./">← На главную</a></div></footer>',
                         idx, flags=re.S)
     write("lore.html", lore_index.replace("<title>PaxVanila</title>", "<title>Лор — PaxVanila</title>"))
+
+    # лор-викторина (content/quiz.json): данные вшиты в страницу, чтобы работала и офлайн
+    Q = localize(load_json("quiz.json"), lang)
+    raw_ranks = load_json("quiz.json")["ui"]["ranks"]
+    Q["ui"]["ranks"] = [{"min": r["min"], "text": r.get(lang) or r["ru"]} for r in raw_ranks]
+    titles = {l["id"]: l["title"] for l in C["lore"]}
+    for q in Q["questions"]:
+        q["loreTitle"] = titles.get(q.get("lore"), "")
+    qz = open(os.path.join(SRC, "quiz.html"), encoding="utf-8").read()
+    qz = (qz.replace("__TITLE__", html.escape(Q["ui"]["title"])).replace("__DESC__", html.escape(Q["ui"]["intro"].split(".")[0] + "."))
+          .replace("__QUIZ__", json.dumps(Q, ensure_ascii=False).replace("</", "<\\/")))
+    write("quiz.html", qz)
 
     # PWA
     manifest = {
@@ -352,7 +365,7 @@ def build(lang, out):
                   {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}]}
     with open(os.path.join(out, "manifest.webmanifest"), "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=1)
-    core = ["./", "index.html", "lore.html", "style.css", "app.js", "content.json", "icons/icon-192.png"] + \
+    core = ["./", "index.html", "lore.html", "quiz.html", "style.css", "app.js", "content.json", "icons/icon-192.png"] + \
            [f"lore/{l['id']}.html" for l in C["lore"]] + [f"guides/{g['id']}.html" for g in C.get("guides", [])] + ["privacy.html"] + \
            [f"img/{w['image'].replace('.png', '.jpg')}" for w in C["weeks"]] + ["img/about.jpg"]
     sw = open(os.path.join(SRC, "sw.js"), encoding="utf-8").read()

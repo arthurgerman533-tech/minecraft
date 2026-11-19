@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lore quiz — PaxVanila</title>
+<meta name="description" content="10 questions about the PaxVanila chronicle: from the Forerunners and the Monolith to Guardian-7 and the Moon.">
+<meta name="theme-color" content="#14110d">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20261119230033">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="./"><img src="icons/icon-192.png" alt="">PaxVanila</a>
+  <nav class="main"><a href="./">Home</a><a href="lore.html">Lore</a><a href="quiz.html" class="on">Quiz</a></nav>
+  <a class="iconbtn" id="lang" href="../quiz.html" hreflang="ru" title="Русский">RU</a>
+  <button class="iconbtn" id="theme" title="Theme" aria-label="Switch theme">☾</button>
+</div></header>
+
+<section class="quiz"><div class="wrap">
+  <div class="kicker" id="qzKicker"></div>
+  <h1 class="qz-h1" id="qzTitle"></h1>
+  <div id="quiz" aria-live="polite"></div>
+  <noscript><p>The quiz needs JavaScript.</p></noscript>
+</div></section>
+
+<footer><div class="wrap"><a href="./">← Home</a> · <a href="lore.html">All lore</a></div></footer>
+<div class="toast" id="toast"></div>
+<script id="quizData" type="application/json">{"count": 10, "ui": {"title": "Lore quiz", "kicker": "Test yourself", "intro": "10 questions about the PaxVanila chronicle: from the Forerunners and the Monolith to Guardian-7 and the Moon. Answer one by one; all the correct answers with explanations are shown at the end. Every game is different: the questions are picked at random from {pool}.", "start": "Start", "question": "Question {n} of {t}", "next": "Next", "finish": "Show the answers", "back": "Back", "result": "Your score", "answers": "Answers", "your": "Your answer", "right": "Correct", "read": "Read in the lore", "again": "Play again", "share": "Share your score", "copied": "Copied", "shareText": "I got {s} out of {t} in the PaxVanila lore quiz. Can you beat it?", "best": "Best score: {b} of {t}", "ranks": [{"min": 0, "text": "A wanderer at the tower. The chronicle is waiting: start with the Age of the Forerunners."}, {"min": 4, "text": "A student of the Forum. You know the basics, but the Monolith's secrets are still ahead."}, {"min": 7, "text": "A chronicler of Romea. You remember almost everything; just re-read a couple of chapters."}, {"min": 10, "text": "A Keeper of the Seal. Guardian-7 has remembered your name."}]}, "questions": [{"lore": "predtechi", "q": "What word is carved on the walls of the Monolith in the five languages of the Forerunners?", "options": ["PAX, «peace»", "SPQR", "ROMA", "LUX, «light»"], "answer": 0, "why": "Romean scholars translate it as PAX, «peace». That is where the server's name comes from: PaxVanila, a world held together by an ancient oath.", "loreTitle": "Age of the Forerunners"}, {"lore": "predtechi", "q": "How many Forerunner civilizations ruled the world before Romulus?", "options": ["Five", "Three", "Eight", "Twelve"], "answer": 0, "why": "Five: the People of the Deep, Ur-Kadim, Neferu, Thalassia and the Copper Union of Caer-Tal. Eight is the number of peoples that became powers after Romulus.", "loreTitle": "Age of the Forerunners"}, {"lore": "predtechi", "q": "Who was the first to step into the Nether through an obsidian frame?", "options": ["Sun-bearer Ankh-Nefer the Last", "Oira Caer-Tal", "Enmer-Kadim", "The Sea Lord of Thalassia"], "answer": 0, "why": "Around 1800 B.R. Ankh-Nefer lit the frame with fire from the sacred hearth, stepped inside and came back three days later with gold: «I have found a kingdom of the Sun beneath the earth».", "loreTitle": "Age of the Forerunners"}, {"lore": "predtechi", "q": "Who wrote the «Letter to the Five Rulers» asking them to close the gates?", "options": ["Oira Caer-Tal, the First Master", "Romulus", "Ankh-Nefer", "Guardian-7"], "answer": 0, "why": "Oira measured the cracks around the gates and saw that they were growing. No one listened, and the Sea Lord of Thalassia built three more gates in reply.", "loreTitle": "Age of the Forerunners"}, {"lore": "predtechi", "q": "In the lore, what are the ruined portals that players find in the world?", "options": ["Remains of the Forerunners' gates after the Year of Ash", "Portals built by Romulus", "Piglin traps", "Traces of the Inter-server War"], "answer": 0, "why": "In the Year of Ash (~1200 B.R.) the gates ran out of control and all five powers fell. Hundreds of broken gates were left scattered across the world.", "loreTitle": "Age of the Forerunners"}, {"lore": "srednie", "q": "Why does every ruler of Romea bear the name Romulus?", "options": ["Since year 12 every successor chosen by the Senate takes the name Romulus, and always will", "The inscription on the Monolith commands it", "They are all blood descendants of Romulus", "Guardian-7 decided so in 2077"], "answer": 0, "why": "The first Romulus died in year 12. The Senate chose a successor, who took the founder's name. That is why there is a Romulus in every age, from the Ancient World to the stars.", "loreTitle": "Middle Ages"}, {"lore": "srednie", "q": "What did the Great Steppe Horde ride out of in 375?", "options": ["A sandstorm", "A fog", "A Nether portal", "A blizzard"], "answer": 0, "why": "The storm lasted a week and hid the sun over half the world. When the sand settled, an army of a hundred thousand riders came out of it. The second Guardian fell in that raid.", "loreTitle": "Middle Ages"}, {"lore": "srednie", "q": "What stopped the Horde at the walls of Romea in 1241?", "options": ["A blizzard", "An earthquake", "The Great Storm", "A meteor shower"], "answer": 0, "why": "A blizzard stopped the Horde, and the custom of the «winter campaign» was born. A blizzard would decide a war again in 1942, against the Reich.", "loreTitle": "Middle Ages"}, {"lore": "srednie", "q": "What was the first non-aggression pact in history called (year 251)?", "options": ["The Treaty at the Monolith", "The Kurultai Pact", "The Network Protectorate", "The Law of the Twelve Tables"], "answer": 0, "why": "After the Great Storm, Romea and Carthage signed the Treaty at the Monolith. To judge those who broke it, the Court at the Monolith was created: one judge from each people.", "loreTitle": "Middle Ages"}, {"lore": "srednie", "q": "Which law appeared after the War of the Two Romuli in 1529?", "options": ["«No shooting at the tower»", "«War only at prime time»", "«Newcomers are protected for 48 hours»", "«Obsidian is forbidden»"], "answer": 0, "why": "Cannonballs struck the tower itself and the third Guardian fell. After that, shooting at the Monolith was banned.", "loreTitle": "Middle Ages"}, {"lore": "srednie", "q": "How many tower Guardians fell before Guardian-7 woke up?", "options": ["Six", "Three", "Seven", "None"], "answer": 0, "why": "The first fell in the Year of Ash, the sixth and last in 1962 to a Pact shell. The seventh stood under the tower before the Hall of the Seal and became Guardian-7.", "loreTitle": "Middle Ages"}, {"lore": "srednie", "q": "Whose plans was the galleon «Aurora Pax» built to in 1503?", "options": ["Thalassia's", "Caer-Tal's", "Carthage's", "Neferu's"], "answer": 0, "why": "Renaissance scholars read the plans of drowned Thalassia. In 1700 the «Aurora Pax» vanished in the Fog of the Nameless, and in 2152 the «Aurora Pax II» flew to the Moon.", "loreTitle": "Middle Ages"}, {"lore": "pozdnie", "q": "What was the first word Guardian-7 said when it woke in 2041?", "options": ["«PAX»", "«Oira»", "«Romulus»", "«Remember»"], "answer": 0, "why": "The seventh golem with a copper heart was found under the Monolith back in 1971, but it only woke in 2041, and its first word was PAX.", "loreTitle": "Late Ages: the future"}, {"lore": "pozdnie", "q": "What was the name of the mind built by the Steppe Pact?", "options": ["The Kurultai", "«Aquila»", "The Consortium", "The Sculk Net"], "answer": 0, "why": "In 1983 the Pact stole the blueprints and built the Kurultai. Unlike the Guardian, it guarded nothing: it was made to win. «Aquila» is the Romean machine.", "loreTitle": "Late Ages: the future"}, {"lore": "pozdnie", "q": "In the cyberpunk age, what became the network that carries signals?", "options": ["The sculk of the People of the Deep", "Redstone", "Copper wires", "Amethyst"], "answer": 0, "why": "In 2089 the corporations found that sculk carries signals. That is how the Sculk Net appeared, and echo shards turned out to be memory chips.", "loreTitle": "Late Ages: the future"}, {"lore": "pozdnie", "q": "What happened on the Night of the Hack (2133)?", "options": ["The Consortium of corporations broke the Network and the last guardian fell", "The Kurultai fled to the Nether", "People landed on the Moon for the first time", "Romulus removed the shield from the sixth line"], "answer": 0, "why": "Oira's prophecy came true: «When the last guardian falls… the seal will crack». The next year the gates opened into other worlds, and the Inter-server War began.", "loreTitle": "Late Ages: the future"}, {"lore": "pozdnie", "q": "What is the sixth line of the Monolith written in?", "options": ["Rows of light and dark squares, the language of machines", "Runes of Caer-Tal", "Neferu hieroglyphs", "Signs of Ur-Kadim"], "answer": 0, "why": "Lit, unlit. One, zero. That is why no people could read it for three thousand years, until Guardian-7's copper heart read it aloud in 2141.", "loreTitle": "Late Ages: the future"}, {"lore": "pozdnie", "q": "Finish the sixth line: «PAX is not a seal. PAX is…»", "options": ["…a choice»", "…an oath»", "…peace»", "…strength»"], "answer": 0, "why": "In full: «PAX is not a seal. PAX is a choice. We chose war, and we are gone. Remember your names. Guardian-7».", "loreTitle": "Late Ages: the future"}, {"lore": "pozdnie", "q": "Who was the first to set foot on the Moon in 2152?", "options": ["A Romean legionary with the ancient SPQR banner", "Sarygul, a rider of the Horde", "A German engineer", "Guardian-7"], "answer": 0, "why": "Sarygul piloted the ship and stepped out second, a German engineer third. Romulus ordered eight banners to be planted at once, side by side.", "loreTitle": "Late Ages: the future"}, {"lore": "front", "q": "How far from 0, 0 is the Far Sector from the «Front Chronicle»?", "options": ["About 5000 blocks", "About 500 blocks", "Exactly 2000 blocks", "30,000,000 blocks"], "answer": 0, "why": "That is far beyond the widest world border: the circle only grows to 2000. Outside the circle there is no PAX oath and no rules of war.", "loreTitle": "The Front Chronicle"}, {"lore": "filosofy", "q": "What did the Barrel Sage answer Romulus V when offered any wish?", "options": ["«Step aside. You are blocking my sun»", "«Give me a new barrel»", "«Take the shield off the sixth line»", "«Send your legionaries home»"], "answer": 0, "why": "The Barrel Sage lived in a barrel at the steps of the Forum. It retells the legend of Diogenes and Alexander the Great. Romulus laughed and stepped aside.", "loreTitle": "Philosophers: then and now"}, {"lore": "sudy", "q": "For how many years was the loser of the Hellenic League's potsherd vote exiled?", "options": ["Ten years", "One year", "Forever", "A hundred days"], "answer": 0, "why": "With no crime and no charge, simply because people feared him (like ostracism in Athens). In the Sculk Net age it returned as the «digital potsherd».", "loreTitle": "Courts and prisons"}]}</script>
+<script>
+(function(){
+const D=JSON.parse(document.getElementById('quizData').textContent), U=D.ui, N=D.count;
+const box=document.getElementById('quiz');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fill=(s,o)=>s.replace(/\{(\w+)\}/g,(_,k)=>o[k]!=null?o[k]:'');
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const L='ABCD';
+let game=null;
+document.getElementById('qzKicker').textContent=U.kicker;
+document.getElementById('qzTitle').textContent=U.title;
+let best=null; try{best=localStorage.getItem('paxQuizBest')}catch(e){}
+
+function intro(){
+  box.innerHTML=`<div class="card qz-card"><p class="qz-lead">${esc(fill(U.intro,{pool:D.questions.length}))}</p>
+    ${best!=null?`<p class="qz-muted">🏆 ${esc(fill(U.best,{b:best,t:N}))}</p>`:''}
+    <div class="cta"><button class="btn primary" id="qzStart">▶ ${esc(U.start)}</button></div></div>`;
+  document.getElementById('qzStart').onclick=start;
+}
+function start(){
+  game={qs:shuffle(D.questions).slice(0,N).map(q=>({...q,order:shuffle([0,1,2,3])})),i:0,picks:[]};
+  ask(true);
+}
+function ask(first){
+  const g=game,q=g.qs[g.i],pick=g.picks[g.i],last=g.i===N-1;
+  box.innerHTML=`<div class="card qz-card">
+    <div class="qz-top"><span>${esc(fill(U.question,{n:g.i+1,t:N}))}</span><span class="qz-bar"><i style="width:${(g.i/N)*100}%"></i></span></div>
+    <h2 class="qz-q" id="qzQ" tabindex="-1">${esc(q.q)}</h2>
+    <div class="qz-opts" role="radiogroup" aria-labelledby="qzQ">${q.order.map((o,k)=>`<button class="qz-opt${pick===o?' on':''}" role="radio" aria-checked="${pick===o}" data-o="${o}"><b>${L[k]}</b><span>${esc(q.options[o])}</span></button>`).join('')}</div>
+    <div class="qz-nav">${g.i?`<button class="btn" id="qzBack">← ${esc(U.back)}</button>`:'<span></span>'}
+      <button class="btn primary" id="qzNext" ${pick==null?'disabled':''}>${esc(last?U.finish:U.next)} →</button></div></div>`;
+  box.querySelectorAll('.qz-opt').forEach(b=>b.onclick=()=>{g.picks[g.i]=+b.dataset.o;
+    box.querySelectorAll('.qz-opt').forEach(x=>{const on=x===b;x.classList.toggle('on',on);x.setAttribute('aria-checked',on)});
+    document.getElementById('qzNext').disabled=false;});
+  document.getElementById('qzNext').onclick=()=>{if(g.picks[g.i]==null)return;if(last)results();else{g.i++;ask()}};
+  const bk=document.getElementById('qzBack'); if(bk) bk.onclick=()=>{g.i--;ask()};
+  if(!first){document.getElementById('qzQ').focus({preventScroll:true});box.scrollIntoView({block:'start',behavior:'smooth'})}
+}
+function results(){
+  const g=game, s=g.qs.reduce((a,q,i)=>a+(g.picks[i]===q.answer?1:0),0);
+  const rank=U.ranks.filter(r=>s>=r.min).pop();
+  if(best==null||s>+best){best=s;try{localStorage.setItem('paxQuizBest',s)}catch(e){}}
+  box.innerHTML=`<div class="card qz-card qz-score"><div class="qz-muted">${esc(U.result)}</div>
+      <div class="qz-big">${s}<small> / ${N}</small></div><p class="qz-lead">${esc(rank.text)}</p>
+      <div class="cta"><button class="btn primary" id="qzAgain">↻ ${esc(U.again)}</button><button class="btn" id="qzShare">🔗 ${esc(U.share)}</button></div></div>
+    <h2 class="qz-h2">${esc(U.answers)}</h2>
+    <ol class="qz-ans">${g.qs.map((q,i)=>{const ok=g.picks[i]===q.answer;return `<li class="card ${ok?'ok':'bad'}">
+      <div class="qz-mark">${ok?'✓':'✗'}</div><div><h3>${esc(q.q)}</h3>
+      ${ok?'':`<p class="qz-your">${esc(U.your)}: ${esc(q.options[g.picks[i]])}</p>`}
+      <p class="qz-right">${esc(U.right)}: <b>${esc(q.options[q.answer])}</b></p>
+      <p class="qz-why">${esc(q.why)}</p>
+      ${q.lore?`<a href="lore/${esc(q.lore)}.html">📜 ${esc(U.read)}: ${esc(q.loreTitle||'')}</a>`:''}</div></li>`}).join('')}</ol>`;
+  document.getElementById('qzAgain').onclick=()=>{start();box.scrollIntoView({block:'start',behavior:'smooth'})};
+  document.getElementById('qzShare').onclick=async()=>{const text=fill(U.shareText,{s,t:N}),url=location.href.split('#')[0];
+    try{if(navigator.share){await navigator.share({text,url});return}}catch(e){return}
+    try{await navigator.clipboard.writeText(text+' '+url);const t=document.getElementById('toast');t.textContent=U.copied;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}catch(e){}};
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+intro();
+})();
+</script>
+<script src="app.js?v=20261119230033"></script>
+</body>
+</html>

@@ -362,5 +362,33 @@
  [
   "<h2>Карта Земли</h2>",
   "<h2>Map of the Earth</h2>"
+ ],
+ [
+  ">Викторина</a>",
+  ">Quiz</a>"
+ ],
+ [
+  ">Главная</a>",
+  ">Home</a>"
+ ],
+ [
+  "🧩 Лор-викторина</a>",
+  "🧩 Lore quiz</a>"
+ ],
+ [
+  "🧩 Проверь себя: лор-викторина из 10 вопросов</a>",
+  "🧩 Test yourself: a 10-question lore quiz</a>"
+ ],
+ [
+  "🧩 Пройти лор-викторину</a>",
+  "🧩 Take the lore quiz</a>"
+ ],
+ [
+  "Для викторины нужен JavaScript.",
+  "The quiz needs JavaScript."
+ ],
+ [
+  "title=\"Тема\"",
+  "title=\"Theme\""
  ]
 ]

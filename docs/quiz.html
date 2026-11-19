@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Лор-викторина — PaxVanila</title>
+<meta name="description" content="10 вопросов по летописи PaxVanila: от Предтеч и Монолита до Стража-7 и Луны.">
+<meta name="theme-color" content="#14110d">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20261119230033">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="./"><img src="icons/icon-192.png" alt="">PaxVanila</a>
+  <nav class="main"><a href="./">Главная</a><a href="lore.html">Лор</a><a href="quiz.html" class="on">Викторина</a></nav>
+  <a class="iconbtn" id="lang" href="en/quiz.html" hreflang="en" title="English">EN</a>
+  <button class="iconbtn" id="theme" title="Тема" aria-label="Сменить тему">☾</button>
+</div></header>
+
+<section class="quiz"><div class="wrap">
+  <div class="kicker" id="qzKicker"></div>
+  <h1 class="qz-h1" id="qzTitle"></h1>
+  <div id="quiz" aria-live="polite"></div>
+  <noscript><p>Для викторины нужен JavaScript.</p></noscript>
+</div></section>
+
+<footer><div class="wrap"><a href="./">← На главную</a> · <a href="lore.html">Весь лор</a></div></footer>
+<div class="toast" id="toast"></div>
+<script id="quizData" type="application/json">{"count": 10, "ui": {"title": "Лор-викторина", "kicker": "Проверь себя", "intro": "10 вопросов по летописи PaxVanila: от Предтеч и Монолита до Стража-7 и Луны. Отвечай по порядку, а все правильные ответы с объяснением будут в конце. В каждой игре вопросы новые: их выбирают случайно из {pool}.", "start": "Начать", "question": "Вопрос {n} из {t}", "next": "Дальше", "finish": "Показать ответы", "back": "Назад", "result": "Твой результат", "answers": "Ответы", "your": "Твой ответ", "right": "Правильно", "read": "Читать в лоре", "again": "Сыграть ещё раз", "share": "Поделиться результатом", "copied": "Скопировано", "shareText": "Я ответил на {s} из {t} вопросов лор-викторины PaxVanila. А ты?", "best": "Лучший результат: {b} из {t}", "ranks": [{"min": 0, "text": "Путник у башни. Летопись ждёт: начни с Эпохи Предтеч."}, {"min": 4, "text": "Ученик Форума. Ты знаешь главное, но тайны Монолита ещё впереди."}, {"min": 7, "text": "Летописец Ромеи. Почти всё помнишь, осталось перечитать пару глав."}, {"min": 10, "text": "Хранитель Печати. Страж-7 запомнил твоё имя."}]}, "questions": [{"lore": "predtechi", "q": "Какое слово высечено на стенах Монолита на пяти языках Предтеч?", "options": ["PAX, «мир»", "SPQR", "ROMA", "LUX, «свет»"], "answer": 0, "why": "Ромейские учёные переводят его как PAX, «мир». Отсюда и имя сервера: PaxVanila, мир, который держится на древней клятве.", "loreTitle": "Эпоха Предтеч"}, {"lore": "predtechi", "q": "Сколько цивилизаций Предтеч правило миром до Ромула?", "options": ["Пять", "Три", "Восемь", "Двенадцать"], "answer": 0, "why": "Пять: Народ Глубин, Ур-Кадим, Нэферу, Талассия и Медный Союз Каэр-Тала. Восемь — это народы, ставшие державами уже после Ромула.", "loreTitle": "Эпоха Предтеч"}, {"lore": "predtechi", "q": "Кто первым шагнул в Незер через обсидиановую рамку?", "options": ["Солнценосец Анх-Нэфер Последний", "Ойра Каэр-Тал", "Энмер-Кадим", "Морской Владыка Талассии"], "answer": 0, "why": "Около 1800 д.Р. Анх-Нэфер зажёг рамку огнём священного очага, шагнул внутрь и вернулся через три дня с золотом: «Я нашёл царство Солнца под землёй».", "loreTitle": "Эпоха Предтеч"}, {"lore": "predtechi", "q": "Кто написал «Письмо пяти правителям» с просьбой закрыть врата?", "options": ["Ойра Каэр-Тал, Первый Мастер", "Ромул", "Анх-Нэфер", "Страж-7"], "answer": 0, "why": "Ойра измеряла трещины вокруг врат и увидела, что они растут. Её не послушали, а Морской Владыка Талассии в ответ построил ещё трое врат.", "loreTitle": "Эпоха Предтеч"}, {"lore": "predtechi", "q": "Чем по лору являются разрушенные порталы, которые игроки находят в мире?", "options": ["Обломки врат Предтеч после Года Пепла", "Порталы, которые строил Ромул", "Ловушки пиглинов", "Следы Межсерверной войны"], "answer": 0, "why": "В Год Пепла (~1200 д.Р.) врата вышли из-под контроля и все пять держав пали. Сотни разбитых врат так и остались лежать по миру.", "loreTitle": "Эпоха Предтеч"}, {"lore": "srednie", "q": "Почему каждый правитель Ромеи носит имя Ромул?", "options": ["С 12 года преемник, которого избрал Сенат, берёт имя Ромул, и так будет всегда", "Так велит надпись на Монолите", "Все они потомки Ромула по крови", "Так решил Страж-7 в 2077 году"], "answer": 0, "why": "Первый Ромул умер в 12 году. Сенат избрал преемника, и тот взял имя основателя. Поэтому Ромул есть во всех эпохах, от Древнего мира до звёзд.", "loreTitle": "Средние эпохи"}, {"lore": "srednie", "q": "Из чего в 375 году вышла Великая Степная Орда?", "options": ["Из песчаной бури", "Из тумана", "Из портала в Незер", "Из метели"], "answer": 0, "why": "Буря длилась неделю и закрыла солнце над половиной мира. Когда песок осел, из него вышла армия в сто тысяч всадников. В том набеге пал второй Страж.", "loreTitle": "Средние эпохи"}, {"lore": "srednie", "q": "Что остановило Орду у стен Ромеи в 1241 году?", "options": ["Метель", "Землетрясение", "Великий шторм", "Звёздный дождь"], "answer": 0, "why": "Метель остановила Орду, и с тех пор родился обычай «зимней кампании». Ещё раз метель решит войну в 1942 году, против Рейха.", "loreTitle": "Средние эпохи"}, {"lore": "srednie", "q": "Как назывался первый в истории пакт о ненападении (251 год)?", "options": ["Договор у Монолита", "Пакт Курултая", "Протекторат Сети", "Закон Двенадцати табличек"], "answer": 0, "why": "После Великого шторма Ромея и Карфаген подписали Договор у Монолита. Чтобы судить нарушителей, появился Суд у Монолита: по одному судье от каждого народа.", "loreTitle": "Средние эпохи"}, {"lore": "srednie", "q": "Какой закон появился после Войны двух Ромулов в 1529 году?", "options": ["«У башни не стреляют»", "«Война только в прайм-тайм»", "«Новички неприкосновенны 48 часов»", "«Обсидиан под запретом»"], "answer": 0, "why": "Ядра били прямо по башне, и пал третий Страж. После этого у Монолита стрелять запретили.", "loreTitle": "Средние эпохи"}, {"lore": "srednie", "q": "Сколько Стражей башни пало до того, как проснулся Страж-7?", "options": ["Шесть", "Три", "Семь", "Ни одного"], "answer": 0, "why": "Первый пал в Год Пепла, последний, шестой, в 1962 году от снаряда Пакта. Седьмой стоял под башней перед залом Печати и стал Стражем-7.", "loreTitle": "Средние эпохи"}, {"lore": "srednie", "q": "По чьим чертежам в 1503 году построили галеон «Аврора Пакс»?", "options": ["Талассии", "Каэр-Тала", "Карфагена", "Нэферу"], "answer": 0, "why": "Учёные Ренессанса прочли чертежи утонувшей Талассии. В 1700 году «Аврора Пакс» пропала в Тумане Безымянных, а в 2152 году «Аврора Пакс II» полетела на Луну.", "loreTitle": "Средние эпохи"}, {"lore": "pozdnie", "q": "Какое первое слово сказал Страж-7, когда проснулся в 2041 году?", "options": ["«PAX»", "«Ойра»", "«Ромул»", "«Запомните»"], "answer": 0, "why": "Седьмого голема с медным сердцем нашли под Монолитом ещё в 1971 году, но проснулся он только в 2041-м, и первым словом было PAX.", "loreTitle": "Поздние эпохи: будущее"}, {"lore": "pozdnie", "q": "Как назывался разум, который построил Степной Пакт?", "options": ["Курултай", "«Аквила»", "Консорциум", "Скалк-сеть"], "answer": 0, "why": "В 1983 году Пакт украл чертежи и построил Курултай. В отличие от Стража, он ничего не охранял: его создали, чтобы побеждать. «Аквила» — ромейская машина.", "loreTitle": "Поздние эпохи: будущее"}, {"lore": "pozdnie", "q": "Что в эпоху киберпанка стало сетью, по которой идут сигналы?", "options": ["Скалк Народа Глубин", "Редстоун", "Медные провода", "Аметист"], "answer": 0, "why": "В 2089 году корпорации нашли, что скалк передаёт сигналы. Так появилась Скалк-сеть, а эхо-осколки оказались чипами памяти.", "loreTitle": "Поздние эпохи: будущее"}, {"lore": "pozdnie", "q": "Что случилось в Ночь Взлома (2133)?", "options": ["Консорциум корпораций сломал Сеть, и пал последний страж", "Курултай бежал в Незер", "Люди впервые высадились на Луну", "Ромул снял щит с шестой строки"], "answer": 0, "why": "Сбылось пророчество Ойры: «Когда последний страж падёт… печать треснет». На следующий год врата открылись в чужие миры, и началась Межсерверная война.", "loreTitle": "Поздние эпохи: будущее"}, {"lore": "pozdnie", "q": "Чем написана шестая строка Монолита?", "options": ["Рядами светлых и тёмных квадратов, языком машин", "Рунами Каэр-Тала", "Иероглифами Нэферу", "Знаками Ур-Кадима"], "answer": 0, "why": "Светится, не светится. Один, ноль. Поэтому ни один народ не мог прочесть её три тысячи лет, пока медное сердце Стража-7 не прочло её вслух в 2141 году.", "loreTitle": "Поздние эпохи: будущее"}, {"lore": "pozdnie", "q": "Закончи шестую строку: «PAX это не печать. PAX это…»", "options": ["…выбор»", "…клятва»", "…мир»", "…сила»"], "answer": 0, "why": "Полностью: «PAX это не печать. PAX это выбор. Мы выбрали войну, и нас нет. Запомните свои имена. Страж-7».", "loreTitle": "Поздние эпохи: будущее"}, {"lore": "pozdnie", "q": "Кто первым ступил на Луну в 2152 году?", "options": ["Ромейский легионер с древним знаменем SPQR", "Всадница Орды Сарыгюль", "Германский инженер", "Страж-7"], "answer": 0, "why": "Сарыгюль пилотировала корабль и ступила второй, германский инженер третьим. А Ромул велел воткнуть сразу восемь знамён, рядом.", "loreTitle": "Поздние эпохи: будущее"}, {"lore": "front", "q": "Как далеко от 0, 0 лежит Дальний сектор из «Хроники фронта»?", "options": ["Около 5000 блоков", "Около 500 блоков", "Ровно 2000 блоков", "30 000 000 блоков"], "answer": 0, "why": "Это далеко за самой широкой границей мира: круг растёт только до 2000. За кругом нет клятвы PAX и правил войны.", "loreTitle": "Хроника фронта"}, {"lore": "filosofy", "q": "Что ответил мудрец Бочечник Ромулу V, когда тот предложил исполнить любое желание?", "options": ["«Отойди. Ты закрываешь мне солнце»", "«Дай мне новую бочку»", "«Сними щит с шестой строки»", "«Отпусти легионеров домой»"], "answer": 0, "why": "Бочечник жил в бочке у ступеней Форума. Это пересказ легенды о Диогене и Александре Македонском. Ромул засмеялся и отошёл.", "loreTitle": "Философы: тогда и сейчас"}, {"lore": "sudy", "q": "На сколько лет уходил в изгнание тот, кто проиграл суд черепков Эллинской Лиги?", "options": ["На десять лет", "На один год", "Навсегда", "На сто дней"], "answer": 0, "why": "Без вины и без обвинения, просто потому, что его боялись (как остракизм в Афинах). В эпоху Скалк-сети его возродили как «цифровой черепок».", "loreTitle": "Суды и тюрьмы"}]}</script>
+<script>
+(function(){
+const D=JSON.parse(document.getElementById('quizData').textContent), U=D.ui, N=D.count;
+const box=document.getElementById('quiz');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fill=(s,o)=>s.replace(/\{(\w+)\}/g,(_,k)=>o[k]!=null?o[k]:'');
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const L='ABCD';
+let game=null;
+document.getElementById('qzKicker').textContent=U.kicker;
+document.getElementById('qzTitle').textContent=U.title;
+let best=null; try{best=localStorage.getItem('paxQuizBest')}catch(e){}
+
+function intro(){
+  box.innerHTML=`<div class="card qz-card"><p class="qz-lead">${esc(fill(U.intro,{pool:D.questions.length}))}</p>
+    ${best!=null?`<p class="qz-muted">🏆 ${esc(fill(U.best,{b:best,t:N}))}</p>`:''}
+    <div class="cta"><button class="btn primary" id="qzStart">▶ ${esc(U.start)}</button></div></div>`;
+  document.getElementById('qzStart').onclick=start;
+}
+function start(){
+  game={qs:shuffle(D.questions).slice(0,N).map(q=>({...q,order:shuffle([0,1,2,3])})),i:0,picks:[]};
+  ask(true);
+}
+function ask(first){
+  const g=game,q=g.qs[g.i],pick=g.picks[g.i],last=g.i===N-1;
+  box.innerHTML=`<div class="card qz-card">
+    <div class="qz-top"><span>${esc(fill(U.question,{n:g.i+1,t:N}))}</span><span class="qz-bar"><i style="width:${(g.i/N)*100}%"></i></span></div>
+    <h2 class="qz-q" id="qzQ" tabindex="-1">${esc(q.q)}</h2>
+    <div class="qz-opts" role="radiogroup" aria-labelledby="qzQ">${q.order.map((o,k)=>`<button class="qz-opt${pick===o?' on':''}" role="radio" aria-checked="${pick===o}" data-o="${o}"><b>${L[k]}</b><span>${esc(q.options[o])}</span></button>`).join('')}</div>
+    <div class="qz-nav">${g.i?`<button class="btn" id="qzBack">← ${esc(U.back)}</button>`:'<span></span>'}
+      <button class="btn primary" id="qzNext" ${pick==null?'disabled':''}>${esc(last?U.finish:U.next)} →</button></div></div>`;
+  box.querySelectorAll('.qz-opt').forEach(b=>b.onclick=()=>{g.picks[g.i]=+b.dataset.o;
+    box.querySelectorAll('.qz-opt').forEach(x=>{const on=x===b;x.classList.toggle('on',on);x.setAttribute('aria-checked',on)});
+    document.getElementById('qzNext').disabled=false;});
+  document.getElementById('qzNext').onclick=()=>{if(g.picks[g.i]==null)return;if(last)results();else{g.i++;ask()}};
+  const bk=document.getElementById('qzBack'); if(bk) bk.onclick=()=>{g.i--;ask()};
+  if(!first){document.getElementById('qzQ').focus({preventScroll:true});box.scrollIntoView({block:'start',behavior:'smooth'})}
+}
+function results(){
+  const g=game, s=g.qs.reduce((a,q,i)=>a+(g.picks[i]===q.answer?1:0),0);
+  const rank=U.ranks.filter(r=>s>=r.min).pop();
+  if(best==null||s>+best){best=s;try{localStorage.setItem('paxQuizBest',s)}catch(e){}}
+  box.innerHTML=`<div class="card qz-card qz-score"><div class="qz-muted">${esc(U.result)}</div>
+      <div class="qz-big">${s}<small> / ${N}</small></div><p class="qz-lead">${esc(rank.text)}</p>
+      <div class="cta"><button class="btn primary" id="qzAgain">↻ ${esc(U.again)}</button><button class="btn" id="qzShare">🔗 ${esc(U.share)}</button></div></div>
+    <h2 class="qz-h2">${esc(U.answers)}</h2>
+    <ol class="qz-ans">${g.qs.map((q,i)=>{const ok=g.picks[i]===q.answer;return `<li class="card ${ok?'ok':'bad'}">
+      <div class="qz-mark">${ok?'✓':'✗'}</div><div><h3>${esc(q.q)}</h3>
+      ${ok?'':`<p class="qz-your">${esc(U.your)}: ${esc(q.options[g.picks[i]])}</p>`}
+      <p class="qz-right">${esc(U.right)}: <b>${esc(q.options[q.answer])}</b></p>
+      <p class="qz-why">${esc(q.why)}</p>
+      ${q.lore?`<a href="lore/${esc(q.lore)}.html">📜 ${esc(U.read)}: ${esc(q.loreTitle||'')}</a>`:''}</div></li>`}).join('')}</ol>`;
+  document.getElementById('qzAgain').onclick=()=>{start();box.scrollIntoView({block:'start',behavior:'smooth'})};
+  document.getElementById('qzShare').onclick=async()=>{const text=fill(U.shareText,{s,t:N}),url=location.href.split('#')[0];
+    try{if(navigator.share){await navigator.share({text,url});return}}catch(e){return}
+    try{await navigator.clipboard.writeText(text+' '+url);const t=document.getElementById('toast');t.textContent=U.copied;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}catch(e){}};
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+intro();
+})();
+</script>
+<script src="app.js?v=20261119230033"></script>
+</body>
+</html>
