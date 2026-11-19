@@ -202,7 +202,7 @@ GENERIC_FOCUSES = [
     dict(key="mil3", name="Тотальная война", x=2, y=2, cost=10, prereq=[["mil2"]], exclusive=["eco3"],
          icon="GFX_goal_generic_major_war",
          desc="Вся нация становится армией. Нельзя одновременно воевать мечом и держать соседей в вассалах.",
-         effect="add_war_support = 0.1\nadd_ideas = PAX_idea_total_war"),
+         effect="add_war_support = 0.1\nadd_ideas = PAX_idea_total_war\ncountry_event = { id = pax.40 }"),
     # Экономика
     dict(key="eco1", name="Торговые пути", x=4, y=0, cost=10,
          icon="GFX_goal_generic_consumer_goods",
@@ -566,7 +566,7 @@ FACTIONS = {
 }
 
 MOD_NAME = "PaxVanila"
-MOD_VERSION = "0.2.0"
+MOD_VERSION = "0.3.0"
 
 # Картинки духов. Имена взяты из рабочего мода Arthur «Family Historical MP mod»,
 # там они точно есть в игре. Ключ с * подходит для всех тегов (PAX_her_*, PAX_fai_*).

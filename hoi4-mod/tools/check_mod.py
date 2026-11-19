@@ -205,8 +205,15 @@ for k in ("name=", "version=", "supported_version="):
 if re.search(r"^path=", desc, re.M):
     err("descriptor.mod внутри папки мода не должен содержать path=")
 
-tech = scripts[os.path.join(ROOT, "common/technologies/pax_lore_techs.txt")]
+tech = "\n".join(s for p, s in scripts.items() if "technologies" in p)
 tech_ids = set(re.findall(r"^\t(\w+) = \{", tech, re.M))
+cells = {}
+for tid, body in re.findall(r"^\t(\w+) = \{(.*?)^\t\}", tech, re.M | re.S):
+    m = re.search(r"name = (\w+) position = \{ x = (-?\d+) y = (-?\d+)", body)
+    if m:
+        if m.groups() in cells:
+            err(f"технологии {tid} и {cells[m.groups()]} в одной клетке {m.groups()}")
+        cells[m.groups()] = tid
 for t in tech_ids:
     need_loc(t, "технология")
     need_loc(t + "_desc", "технология")

@@ -13,6 +13,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import pax_data as D  # noqa: E402
 import pax_eras as E  # noqa: E402
+import family_port as F  # noqa: E402
 
 from PIL import Image, ImageDraw, ImageFilter  # noqa: E402
 
@@ -102,6 +103,7 @@ def build_ideas():
         blocks.append(idea_block(f"PAX_fai_{tag}", fa["modifier"]))
         LOC[f"PAX_fai_{tag}"] = f"Вера: {fa['name']}"
         LOC[f"PAX_fai_{tag}_desc"] = fa["desc"]
+    blocks.append(F.PEACEFUL_SKY)  # из Family (arthur.txt)
     text = "ideas = {\n\tcountry = {\n" + "\n\n".join(indent(b, 2) for b in blocks) + "\n\t}\n}\n"
     w("common/ideas/pax_ideas.txt", text)
 
@@ -239,6 +241,8 @@ def build_setup():
 				limit = { is_ai = yes NOT = { has_country_flag = pax_power } }
 				add_ideas = PAX_far_lands
 			}
+			# «Мирное небо» из Family: быстрое обучение в мирное время, пропадает с войной
+			every_country = { add_ideas = PAX_peaceful_sky }
 			every_country = {
 				limit = { is_ai = no }
 				news_event = { id = pax.1 days = 1 }
@@ -364,14 +368,6 @@ country_event = {
 	}
 }
 
-# Путеводитель (решение «Путеводитель PaxVanila»)
-country_event = {
-	id = pax.20
-	title = pax.20.t
-	desc = pax.20.d
-	is_triggered_only = yes
-	option = { name = pax.20.a }
-}
 
 # Пробуждение Стража-7
 news_event = {
@@ -382,6 +378,7 @@ news_event = {
 	option = { name = pax.12.a }
 }
 """
+    events += F.EVENTS
     w("events/pax_events.txt", events)
     LOC.update({
         "pax.1.t": "Мир между Великими войнами",
@@ -409,8 +406,9 @@ news_event = {
         "pax.30.a": "Готовить войну с Севером.",
         "pax.30.b": "Подождать.",
         "pax.20.t": "Путеводитель PaxVanila",
-        "pax.20.d": D.GUIDE_TEXT,
-        "pax.20.a": "Понятно.",
+        "pax.20.d": "Выберите раздел. Разделы об экономике и армии взяты из гайда Family mod.",
+        "pax.20.a": "Выйти",
+        "pax.21.d": D.GUIDE_TEXT,
     })
 
     categories = """PAX_monolith_category = {
@@ -745,6 +743,7 @@ def main():
     build_characters()
     build_setup()
     build_eras_extra()
+    F.build(w, LOC, indent)
     build_country_names()
     write_loc()
     build_graphics()

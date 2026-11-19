@@ -23,7 +23,7 @@ TECH_2041 = TECH_1962 + """flexible_line2 concentrated_industry5 concentrated_in
 modern_oil_processing improved_modern_oil_processing modern_rubber_processing improved_modern_rubber_processing
 construction5 construction6 excavation5 excavation6 centimetric_radar improved_centimetric_radar advanced_centimetric_radar
 advanced_computing_machine advanced_encryption advanced_decryption improved_rocket_engines advanced_rocket_engines
-nuclear_reactor nukes""".split()
+nuclear_reactor nukes streamlined_line2 modern_equipment_conversion""".split()
 
 # Ветка «Наследие Предтеч» в папке электроники (столбцы x = 6 и 8 свободны в ванили).
 LORE_TECHS = [

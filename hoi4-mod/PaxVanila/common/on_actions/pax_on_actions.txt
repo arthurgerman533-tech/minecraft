@@ -13,6 +13,8 @@ on_actions = {
 				limit = { is_ai = yes NOT = { has_country_flag = pax_power } }
 				add_ideas = PAX_far_lands
 			}
+			# «Мирное небо» из Family: быстрое обучение в мирное время, пропадает с войной
+			every_country = { add_ideas = PAX_peaceful_sky }
 			every_country = {
 				limit = { is_ai = no }
 				news_event = { id = pax.1 days = 1 }
