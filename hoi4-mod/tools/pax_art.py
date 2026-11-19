@@ -260,8 +260,8 @@ SCENES = [
 # Какая сцена у какого события
 EVENT_SCENES = {
     "pax.1": "monolith", "pax.2": "forum", "pax.3": "steppe", "pax.10": "storm", "pax.11": "cold",
-    "pax.12": "seven", "pax.20": "precursors", "pax.21": "monolith", "pax.22": "sea",
-    "pax.23": "north", "pax.30": "north", "pax.40": "storm",
+    "pax.12": "seven", "pax.20": "precursors", "pax.21": "monolith", "pax.22": "forum",
+    "pax.23": "neon", "pax.24": "cold", "pax.25": "seven", "pax.30": "north", "pax.40": "storm",
 }
 
 
