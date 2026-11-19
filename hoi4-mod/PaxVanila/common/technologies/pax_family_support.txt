@@ -1,0 +1,21 @@
+technologies = {
+	# Скрытая технология: открывает роты из Family. Выдаётся всем странам при старте (on_startup).
+	pax_family_support = {
+		enable_subunits = {
+			gunner
+			mortar
+			wardog
+			sniper
+			raider
+			field_hospital
+			flamethrower_sppt
+			light_flame_tank
+			medium_flame_tank
+			heavy_flame_tank
+		}
+		allow = { always = no }
+		research_cost = 1
+		start_year = 1936
+		ai_will_do = { factor = 0 }
+	}
+}

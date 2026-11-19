@@ -60,7 +60,7 @@ FAMILY_TECHS = [
      2.5, 1941, 2, 8, ["industry", "cat_production"], None),
 ]
 
-FAMILY_IN_FILES = {t[0] for t in FAMILY_TECHS}  # эти технологии уже лежат в industry.txt
+FAMILY_IN_FILES = set()  # эти технологии уже лежат в industry.txt
 
 
 TECH_EXTRA = {
@@ -245,7 +245,10 @@ def defines():
         if s.startswith("MAX_AHEAD_RESEARCH_PENALTY"):
             continue
         lines.append(line)
-    return "-- Мультиплеерные defines из «Family Historical MP mod» (Arthur), без изменений.\n" + "\n".join(lines) + "\n"
+    lines.append("")
+    lines.append("-- Из CHADDFIXREBALANCE (Arthur): цены фокусов там урезаны вдвое (cost 10 -> 5), здесь так же для всех деревьев сразу.")
+    lines.append("NDefines.NFocus.FOCUS_POINT_DAYS = 3.5")
+    return "-- Мультиплеерные defines из «Family Historical MP mod» (Arthur).\n" + "\n".join(lines) + "\n"
 
 
 TECH_NAMES = {
@@ -271,18 +274,38 @@ UNIT_NAMES = {
 }
 
 
+SUPPORT_TECH = """technologies = {
+	# Скрытая технология: открывает роты из Family. Выдаётся всем странам при старте (on_startup).
+	pax_family_support = {
+		enable_subunits = {
+			gunner
+			mortar
+			wardog
+			sniper
+			raider
+			field_hospital
+			flamethrower_sppt
+			light_flame_tank
+			medium_flame_tank
+			heavy_flame_tank
+		}
+		allow = { always = no }
+		research_cost = 1
+		start_year = 1936
+		ai_will_do = { factor = 0 }
+	}
+}
+"""
+
+
 def _copy_tree(w):
     """Сквозной перенос файлов Family: доп. роты, их исследования, экономические решения."""
     for fn in sorted(os.listdir(os.path.join(SRC, "units"))):
         w("common/units/" + fn, _read("units/" + fn))
-    # Все файлы технологий Family целиком. Имена те же, что у ванили, поэтому они заменяют ванильные файлы, как в Family.
-    for fn in sorted(os.listdir(os.path.join(SRC, "technologies"))):
-        txt = _read("technologies/" + fn)
-        if fn == "support.txt":
-            # в Family пути к несуществующим tech_Yegerya и tech_wardog (ванильные роты gunner/mortar/wardog открывает support_weapons)
-            txt = re.sub(r"\n\t\tpath = \{\s*leads_to_tech = (tech_Yegerya|tech_wardog)\s*research_cost_coeff = 1\s*\}\n", "\n", txt)
-            assert "tech_Yegerya" not in txt and "tech_wardog" not in txt
-        w("common/technologies/" + fn, txt)
+    # Файлы технологий Family (support, infantry, naval и др.) НЕ копируются: они от старой версии игры, и замена
+    # ванильных файлов убирает новые технологии (cavity_magnatron, rangers_tech...), ломая скрипты ИИ и категории.
+    # Вместо этого роты открывает скрытая технология pax_family_support (см. SUPPORT_TECH).
+    w("common/technologies/pax_family_support.txt", SUPPORT_TECH)
     w("common/decisions/zz_family_economic.txt", _read("decisions/chd_economic.txt"))
 
 
@@ -299,9 +322,8 @@ def _loc_from(path, wanted_text):
 def build(w, LOC, indent):
     _copy_tree(w)
     LOC.update(_loc_from('decisions_l_russian.yml', _read('decisions/chd_economic.txt')))
-    for tid, (n, d) in TECH_NAMES.items():
-        LOC[tid] = n
-        LOC[tid + '_desc'] = d
+    LOC['pax_family_support'] = 'Роты Family'
+    LOC['pax_family_support_desc'] = 'Снайперы, миномётчики, военные псы, огнемётчики и другие роты из Family.'
     for uid, (n, s) in UNIT_NAMES.items():
         LOC[uid] = n
         LOC[uid + '_short'] = s

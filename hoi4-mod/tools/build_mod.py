@@ -317,19 +317,21 @@ def build_setup():
 	on_startup = {
 		effect = {
 			# эпоха выбирается по дате закладки
-			if = { limit = { date > 2095.12.31 } pax_setup_2096 = yes }
-			else_if = { limit = { date > 2040.12.31 } pax_setup_2041 = yes }
-			else_if = { limit = { date > 1962.1.1 } pax_setup_1962 = yes }
-			else_if = { limit = { date > 1939.1.1 } pax_setup_1939 = yes }
+			if = { limit = { date > 2095.12.31 } ITA = { pax_setup_2096 = yes } }
+			else_if = { limit = { date > 2040.12.31 } ITA = { pax_setup_2041 = yes } }
+			else_if = { limit = { date > 1962.1.1 } ITA = { pax_setup_1962 = yes } }
+			else_if = { limit = { date > 1939.1.1 } ITA = { pax_setup_1939 = yes } }
 			# «Без Азии» из Family: та же дата, но на час позже (1936.1.1.13)
-			else_if = { limit = { has_start_date > 1936.1.1.12 } pax_setup_1936e = yes }
-			else = { pax_setup_1936 = yes }
+			else_if = { limit = { has_start_date > 1936.1.1.12 } ITA = { pax_setup_1936e = yes } }
+			else = { ITA = { pax_setup_1936 = yes } }
 			# Как в «Family Historical MP mod»: страны вне лора под управлением ИИ
 			# получают дух «Дальние земли» и не мешают игрокам. Удалите блок, если не нужно.
 			every_country = {
 				limit = { is_ai = yes NOT = { has_country_flag = pax_power } }
 				add_ideas = PAX_far_lands
 			}
+			# роты Family (снайперы, миномёты, псы...) открываются скрытой технологией
+			every_country = { set_technology = { pax_family_support = 1 } }
 			# «Мирное небо» из Family: быстрое обучение в мирное время, пропадает с войной
 			every_country = { add_ideas = PAX_peaceful_sky }
 			every_country = {
@@ -644,8 +646,8 @@ def build_eras_extra():
         if i + 1 < len(E.LORE_TECHS):
             b.append(f"path = {{ leads_to_tech = {E.LORE_TECHS[i + 1]['id']} research_cost_coeff = 1 }}")
         b += [f"research_cost = {t['cost']}", f"start_year = {t['year']}",
-              f"folder = {{ name = electronics_folder position = {{ x = {t['x']} y = {t['y']} }} }}",
-              "categories = { electronics }", "ai_will_do = { factor = 5 }"]
+              "allow = { always = no }",  # скрытая: без клетки в дереве (нет grid box), выдаётся эпохой через set_technology
+              "ai_will_do = { factor = 0 }"]
         blocks.append(f"{t['id']} = {{\n" + indent("\n".join(b), 1) + "\n}")
         LOC[t["id"]] = t["name"]
         LOC[t["id"] + "_desc"] = t["desc"]

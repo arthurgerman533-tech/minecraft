@@ -1,4 +1,4 @@
--- Мультиплеерные defines из «Family Historical MP mod» (Arthur), без изменений.
+-- Мультиплеерные defines из «Family Historical MP mod» (Arthur).
 NDefines.NGame.GAME_SPEED_SECONDS = { 0.5, 0.20, 0.15, 0.05, 0.0 }; -- SPEED 4 IS 0.1 IN VANILLA  game speeds for each level. Must be 5 entries with last one 0 for unbound
 
 NDefines.NGame.LAG_DAYS_FOR_LOWER_SPEED = 100;
@@ -247,3 +247,6 @@ NDefines.NAir.ANTI_AIR_PLANE_DAMAGE_FACTOR = 0.8					-- Anti Air Gun Damage fact
 NDefines.NAir.ANTI_AIR_PLANE_DAMAGE_CHANCE = 0.1					-- Anti Air Gun hit chance
 NDefines.NAir.ANTI_AIR_MAXIMUM_DAMAGE_REDUCTION_FACTOR = 0.75	-- Maximum damage reduction factor applied to incoming air attacks against units with AA.
 NDefines.NAir.ANTI_AIR_ATTACK_TO_DAMAGE_REDUCTION_FACTOR = 1.0	-- Balancing value to convert equipment stat anti_air_attack to the damage reduction modifier apply to incoming air attacks against units with AA.
+
+-- Из CHADDFIXREBALANCE (Arthur): цены фокусов там урезаны вдвое (cost 10 -> 5), здесь так же для всех деревьев сразу.
+NDefines.NFocus.FOCUS_POINT_DAYS = 3.5

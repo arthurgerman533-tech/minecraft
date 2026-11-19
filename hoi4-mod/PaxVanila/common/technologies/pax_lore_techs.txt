@@ -4,9 +4,8 @@ technologies = {
 		path = { leads_to_tech = pax_tech_kaer_copper research_cost_coeff = 1 }
 		research_cost = 1.5
 		start_year = 1936
-		folder = { name = electronics_folder position = { x = 6 y = 0 } }
-		categories = { electronics }
-		ai_will_do = { factor = 5 }
+		allow = { always = no }
+		ai_will_do = { factor = 0 }
 	}
 
 	pax_tech_kaer_copper = {
@@ -14,9 +13,8 @@ technologies = {
 		path = { leads_to_tech = pax_tech_redstone research_cost_coeff = 1 }
 		research_cost = 2
 		start_year = 1936
-		folder = { name = electronics_folder position = { x = 6 y = 2 } }
-		categories = { electronics }
-		ai_will_do = { factor = 5 }
+		allow = { always = no }
+		ai_will_do = { factor = 0 }
 	}
 
 	pax_tech_redstone = {
@@ -24,9 +22,8 @@ technologies = {
 		path = { leads_to_tech = pax_tech_star_shards research_cost_coeff = 1 }
 		research_cost = 2.5
 		start_year = 1939
-		folder = { name = electronics_folder position = { x = 6 y = 4 } }
-		categories = { electronics }
-		ai_will_do = { factor = 5 }
+		allow = { always = no }
+		ai_will_do = { factor = 0 }
 	}
 
 	pax_tech_star_shards = {
@@ -34,9 +31,8 @@ technologies = {
 		path = { leads_to_tech = pax_tech_copper_heart research_cost_coeff = 1 }
 		research_cost = 3
 		start_year = 1945
-		folder = { name = electronics_folder position = { x = 6 y = 6 } }
-		categories = { electronics }
-		ai_will_do = { factor = 5 }
+		allow = { always = no }
+		ai_will_do = { factor = 0 }
 	}
 
 	pax_tech_copper_heart = {
@@ -45,9 +41,8 @@ technologies = {
 		path = { leads_to_tech = pax_tech_copper_legions research_cost_coeff = 1 }
 		research_cost = 3
 		start_year = 1962
-		folder = { name = electronics_folder position = { x = 6 y = 8 } }
-		categories = { electronics }
-		ai_will_do = { factor = 5 }
+		allow = { always = no }
+		ai_will_do = { factor = 0 }
 	}
 
 	pax_tech_copper_legions = {
@@ -56,9 +51,8 @@ technologies = {
 		path = { leads_to_tech = pax_tech_sculk_net research_cost_coeff = 1 }
 		research_cost = 3.5
 		start_year = 2041
-		folder = { name = electronics_folder position = { x = 6 y = 10 } }
-		categories = { electronics }
-		ai_will_do = { factor = 5 }
+		allow = { always = no }
+		ai_will_do = { factor = 0 }
 	}
 
 	pax_tech_sculk_net = {
@@ -66,9 +60,8 @@ technologies = {
 		path = { leads_to_tech = pax_tech_gates research_cost_coeff = 1 }
 		research_cost = 4
 		start_year = 2089
-		folder = { name = electronics_folder position = { x = 6 y = 12 } }
-		categories = { electronics }
-		ai_will_do = { factor = 5 }
+		allow = { always = no }
+		ai_will_do = { factor = 0 }
 	}
 
 	pax_tech_gates = {
@@ -76,8 +69,7 @@ technologies = {
 		consumer_goods_factor = -0.03
 		research_cost = 4.5
 		start_year = 2120
-		folder = { name = electronics_folder position = { x = 6 y = 14 } }
-		categories = { electronics }
-		ai_will_do = { factor = 5 }
+		allow = { always = no }
+		ai_will_do = { factor = 0 }
 	}
 }
