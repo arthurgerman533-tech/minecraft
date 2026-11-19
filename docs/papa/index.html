@@ -73,7 +73,8 @@ details{margin-top:8px}summary{cursor:pointer;color:var(--muted)}
     <div class="btns"><button class="btn" id="add">Добавить</button></div>
     <div class="msg" id="add-msg"></div>
   </div>
-  <div class="card"><h2>За этот день</h2><ul class="list" id="items"></ul></div>
+  <div class="card"><h2>За этот день</h2><ul class="list" id="items"></ul>
+    <label class="check" id="skip-wrap"><input type="checkbox" id="skip-day"> Пар в этот день не было (выходной, болел, отменили)</label></div>
   <div class="card">
     <h2>Превью отчёта</h2>
     <pre id="preview">…</pre>
@@ -103,6 +104,13 @@ details{margin-top:8px}summary{cursor:pointer;color:var(--muted)}
     <div class="msg" id="save-msg"></div>
   </div>
   <div class="card">
+    <h2>Расписание пар</h2>
+    <p class="muted" style="margin:0" id="sched-info">Расписание не добавлено.</p>
+    <label class="check"><input type="checkbox" id="use_schedule"> Добавлять пары в отчёт</label>
+    <label>Где проходят пары (попадёт в «Где я был», можно оставить пустым)</label><input id="school_place" placeholder="Например: университет">
+    <div class="btns"><button class="btn ghost" id="sched-clear">Удалить расписание</button></div>
+  </div>
+  <div class="card">
     <h2>Поделиться приложением</h2>
     <p class="muted" style="margin:0">Отправь ссылку другу: у него будут свои записи, твои он не увидит.</p>
     <div class="btns"><button class="btn ghost" id="share-app">Поделиться ссылкой</button></div>
@@ -122,7 +130,7 @@ details{margin-top:8px}summary{cursor:pointer;color:var(--muted)}
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const KEY='papa-report-v1';
-const DEF={notes:[],reports:[],cfg:{papa_phone:'',greeting:'Привет, папа!',signature:'',remind:false,remind_time:'21:00'}};
+const DEF={notes:[],reports:[],schedule:[],skipDays:{},cfg:{papa_phone:'',greeting:'Привет, папа!',signature:'',remind:false,remind_time:'21:00',use_schedule:true,school_place:''}};
 function load(){try{const d=JSON.parse(localStorage.getItem(KEY));if(d)return{...DEF,...d,cfg:{...DEF.cfg,...(d.cfg||{})}}}catch(e){}return structuredClone(DEF)}
 let S=load();
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){alert('Не получилось сохранить: '+e.message)}}
@@ -140,12 +148,22 @@ document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
 });
 
 function dayNotes(d){return S.notes.filter(n=>n.date===d).sort((a,b)=>(a.time||'99').localeCompare(b.time||'99'))}
+function dayLessons(d){
+  if(!S.cfg.use_schedule||S.skipDays[d])return[];
+  const wd=new Date(d+'T12:00:00').getDay();
+  const ls=S.schedule.filter(l=>l.wd===wd).sort((a,b)=>a.start.localeCompare(b.start));
+  const out=[];// подряд идущие пары одного предмета в одной аудитории склеиваем
+  ls.forEach(l=>{const p=out[out.length-1];if(p&&p.title===l.title&&p.room===l.room){p.end=l.end;p.n++}else out.push({...l,n:1})});
+  return out;
+}
 function report(d){
-  const dt=new Date(d+'T12:00:00');const notes=dayNotes(d);
+  const dt=new Date(d+'T12:00:00');const notes=dayNotes(d);const lessons=dayLessons(d);
   const L=[S.cfg.greeting||'Привет, папа!',`Вот что я делал ${dt.getDate()} ${MO[dt.getMonth()]} (${WD[dt.getDay()]}):`,''];
-  if(notes.length){notes.forEach(n=>L.push(`• ${n.time?n.time+' ':''}${n.text}${n.place?` (${n.place})`:''}`));L.push('')}
-  else{L.push('Пока ничего не записано.');L.push('')}
-  const pl=[];notes.forEach(n=>{if(n.place&&!pl.some(p=>p.toLowerCase()===n.place.toLowerCase()))pl.push(n.place)});
+  if(lessons.length){L.push('📚 Пары:');lessons.forEach(l=>L.push(`• ${l.start}–${l.end} ${l.title}${l.room?` (ауд. ${l.room})`:''}${l.n>1?`, ${l.n} пары`:''}`));L.push('')}
+  if(notes.length){if(lessons.length)L.push('📝 Ещё я:');notes.forEach(n=>L.push(`• ${n.time?n.time+' ':''}${n.text}${n.place?` (${n.place})`:''}`));L.push('')}
+  else if(!lessons.length){L.push('Пока ничего не записано.');L.push('')}
+  const pl=[];if(lessons.length&&S.cfg.school_place)pl.push(S.cfg.school_place);
+  notes.forEach(n=>{if(n.place&&!pl.some(p=>p.toLowerCase()===n.place.toLowerCase()))pl.push(n.place)});
   if(pl.length){L.push('📍 Где я был: '+pl.join(', '));L.push('')}
   if(S.cfg.signature)L.push(S.cfg.signature);
   return L.join('\n').trim();
@@ -155,7 +173,10 @@ function markSent(d,how){S.reports.unshift({date:d,at:new Date().toLocaleString(
 
 function render(){
   const d=$('date').value;const notes=dayNotes(d);
-  $('items').innerHTML=notes.length?notes.map(n=>`<li><span class="t">${esc(n.time||'')}</span><span class="grow">${esc(n.text)}${n.place?`<div class="place">📍 ${esc(n.place)}</div>`:''}</span><button class="x" aria-label="Удалить" data-id="${n.id}">×</button></li>`).join(''):'<li class="muted">Пока пусто. Добавь пометку выше.</li>';
+  const wd=new Date(d+'T12:00:00').getDay();const hasSched=S.cfg.use_schedule&&S.schedule.some(l=>l.wd===wd);
+  $('skip-wrap').style.display=hasSched?'':'none';$('skip-day').checked=!!S.skipDays[d];
+  const les=dayLessons(d).map(l=>`<li><span class="t">${esc(l.start)}</span><span class="grow">📚 ${esc(l.title)}${l.n>1?` · ${l.n} пары`:''}<div class="place">до ${esc(l.end)}${l.room?` · ауд. ${esc(l.room)}`:''}</div></span></li>`).join('');
+  $('items').innerHTML=les+(notes.length?notes.map(n=>`<li><span class="t">${esc(n.time||'')}</span><span class="grow">${esc(n.text)}${n.place?`<div class="place">📍 ${esc(n.place)}</div>`:''}</span><button class="x" aria-label="Удалить" data-id="${n.id}">×</button></li>`).join(''):(les?'':'<li class="muted">Пока пусто. Добавь пометку выше.</li>'));
   $('items').querySelectorAll('.x').forEach(b=>b.onclick=()=>{S.notes=S.notes.filter(n=>n.id!==b.dataset.id);save();render()});
   const text=report(d);$('preview').textContent=text;$('wa').href=waLink(text);
   const pl=[...new Set(S.notes.map(n=>n.place).filter(Boolean))].slice(-30);
@@ -173,6 +194,7 @@ $('add').onclick=()=>{
 };
 $('n-text').addEventListener('keydown',e=>{if(e.key==='Enter')$('add').click()});
 $('date').onchange=render;
+$('skip-day').onchange=()=>{const d=$('date').value;if($('skip-day').checked)S.skipDays[d]=true;else delete S.skipDays[d];save();render()};
 $('wa').onclick=()=>{markSent($('date').value,'WhatsApp');setTimeout(render,300)};
 $('share').onclick=async()=>{
   const text=report($('date').value);
@@ -185,12 +207,14 @@ $('share-app').onclick=async()=>{
   if(navigator.share){try{await navigator.share(data)}catch(e){}}
   else{try{await navigator.clipboard.writeText(APP_URL);alert('Ссылка скопирована: '+APP_URL)}catch(e){prompt('Ссылка на приложение:',APP_URL)}}
 };
-function fillCfg(){['papa_phone','greeting','signature','remind_time'].forEach(k=>$(k).value=S.cfg[k]||'');$('remind').checked=!!S.cfg.remind}
+function fillCfg(){['papa_phone','greeting','signature','remind_time','school_place'].forEach(k=>$(k).value=S.cfg[k]||'');$('remind').checked=!!S.cfg.remind;$('use_schedule').checked=!!S.cfg.use_schedule;
+  const days=[...new Set(S.schedule.map(l=>l.wd))].sort().map(w=>['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ'][w]);$('sched-info').textContent=S.schedule.length?`Добавлено пар: ${S.schedule.length} (${days.join(', ')}).`:'Расписание не добавлено.'}
 $('save').onclick=()=>{
-  ['papa_phone','greeting','signature','remind_time'].forEach(k=>S.cfg[k]=$(k).value.trim());S.cfg.remind=$('remind').checked;save();
+  ['papa_phone','greeting','signature','remind_time','school_place'].forEach(k=>S.cfg[k]=$(k).value.trim());S.cfg.remind=$('remind').checked;S.cfg.use_schedule=$('use_schedule').checked;save();
   if(S.cfg.remind&&'Notification'in window&&Notification.permission==='default')Notification.requestPermission();
   $('save-msg').innerHTML='<span class="ok">Сохранено</span>';render();
 };
+$('sched-clear').onclick=()=>{if(confirm('Удалить расписание пар?')){S.schedule=[];save();fillCfg();render()}};
 $('export').onclick=()=>{
   const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`otchet-papa-${iso(new Date())}.json`;a.click();
@@ -221,9 +245,12 @@ function importFromHash(){
     const b=location.hash.slice(8).replace(/-/g,'+').replace(/_/g,'/');
     const d=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(b),c=>c.charCodeAt(0))));
     const fresh=(d.notes||[]).filter(n=>n&&n.text&&n.date&&!S.notes.some(x=>x.id===n.id));
+    const sched=Array.isArray(d.schedule)?d.schedule.filter(l=>l&&l.title&&l.start&&l.wd>=0&&l.wd<=6):[];
     history.replaceState(null,'',location.pathname);
-    if(!fresh.length){alert('Эти записи уже добавлены');return}
-    if(confirm(`Добавить ${fresh.length} записей в приложение?`)){S.notes.push(...fresh);save();alert('Записи добавлены')}
+    if(!fresh.length&&!sched.length){alert('Эти записи уже добавлены');return}
+    const what=[fresh.length?`${fresh.length} записей`:'',sched.length?`расписание (пар: ${sched.length})`:''].filter(Boolean).join(' и ');
+    if(confirm(`Добавить в приложение: ${what}?`+(sched.length&&S.schedule.length?' Старое расписание заменится.':''))){
+      if(fresh.length)S.notes.push(...fresh);if(sched.length){S.schedule=sched;S.cfg.use_schedule=true}save();alert('Готово')}
   }catch(e){alert('Не получилось прочитать ссылку с записями')}
 }
 importFromHash();
