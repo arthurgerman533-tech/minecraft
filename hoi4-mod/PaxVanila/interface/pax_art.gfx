@@ -152,6 +152,78 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/pax_eco3.tga"
 	}
 	spriteType = {
+		name = "GFX_goal_pax_ind4"
+		texturefile = "gfx/interface/goals/pax_ind4.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_ind4_shine"
+		texturefile = "gfx/interface/goals/pax_ind4.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_ind5"
+		texturefile = "gfx/interface/goals/pax_ind5.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_ind5_shine"
+		texturefile = "gfx/interface/goals/pax_ind5.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_ind6"
+		texturefile = "gfx/interface/goals/pax_ind6.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_ind6_shine"
+		texturefile = "gfx/interface/goals/pax_ind6.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_mil4"
+		texturefile = "gfx/interface/goals/pax_mil4.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_mil4_shine"
+		texturefile = "gfx/interface/goals/pax_mil4.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_mil5"
+		texturefile = "gfx/interface/goals/pax_mil5.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_mil5_shine"
+		texturefile = "gfx/interface/goals/pax_mil5.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_mil6"
+		texturefile = "gfx/interface/goals/pax_mil6.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_mil6_shine"
+		texturefile = "gfx/interface/goals/pax_mil6.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_eco4"
+		texturefile = "gfx/interface/goals/pax_eco4.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_eco4_shine"
+		texturefile = "gfx/interface/goals/pax_eco4.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_eco5"
+		texturefile = "gfx/interface/goals/pax_eco5.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_eco5_shine"
+		texturefile = "gfx/interface/goals/pax_eco5.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_eco6"
+		texturefile = "gfx/interface/goals/pax_eco6.tga"
+	}
+	spriteType = {
+		name = "GFX_goal_pax_eco6_shine"
+		texturefile = "gfx/interface/goals/pax_eco6.tga"
+	}
+	spriteType = {
 		name = "GFX_goal_pax_her_ITA"
 		texturefile = "gfx/interface/goals/pax_her_ITA.tga"
 	}

@@ -17,6 +17,9 @@ import pax_eras as E  # noqa: E402
 import family_port as F  # noqa: E402
 import pax_art as A  # noqa: E402
 import pax_era_focuses as EF  # noqa: E402
+import pax_big as BIG  # noqa: E402
+
+BIG.extend(D)
 
 from PIL import Image, ImageDraw, ImageFilter  # noqa: E402
 

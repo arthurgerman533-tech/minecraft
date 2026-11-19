@@ -117,6 +117,152 @@ ideas = {
 			}
 		}
 
+		PAX_idea_factory_cities = {
+			picture = generic_production_bonus
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.1
+				production_factory_efficiency_gain_factor = 0.05
+			}
+		}
+
+		PAX_idea_age_of_steel = {
+			picture = generic_production_bonus
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.1
+				production_speed_buildings_factor = 0.1
+			}
+		}
+
+		PAX_idea_staff_school = {
+			picture = generic_infantry_bonus
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.05
+				experience_gain_army = 0.15
+			}
+		}
+
+		PAX_idea_hundred_legions = {
+			picture = generic_infantry_bonus
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				conscription = 0.02
+				army_attack_factor = 0.05
+				stability_factor = -0.05
+			}
+		}
+
+		PAX_idea_treaty_web = {
+			picture = generic_constitutional_guarantees
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.15
+				stability_factor = 0.05
+			}
+		}
+
+		PAX_idea_world_power = {
+			picture = italy_control
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.15
+				consumer_goods_factor = -0.05
+			}
+		}
+
+		PAX_idea_cw_bunkers = {
+			picture = generic_constitutional_guarantees
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				industry_air_damage_factor = -0.1
+			}
+		}
+
+		PAX_idea_cw_balance = {
+			picture = generic_constitutional_guarantees
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				war_support_factor = 0.05
+				political_power_gain = 0.1
+			}
+		}
+
+		PAX_idea_auto_factories = {
+			picture = generic_production_bonus
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.1
+				production_factory_efficiency_gain_factor = 0.1
+			}
+		}
+
+		PAX_idea_neuro_link = {
+			picture = SOV_scientist_defect
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.1
+				research_speed_factor = 0.05
+				stability_factor = -0.05
+			}
+		}
+
+		PAX_idea_ad_empire = {
+			picture = free_trade
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.1
+				consumer_goods_factor = -0.05
+			}
+		}
+
+		PAX_idea_comm_monopoly = {
+			picture = SOV_scientist_defect
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.1
+				industrial_capacity_factory = 0.05
+			}
+		}
+
+		PAX_idea_board_of_world = {
+			picture = generic_production_bonus
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				political_power_factor = 0.1
+				industrial_capacity_factory = 0.1
+			}
+		}
+
 		PAX_idea_ITA_tower_law = {
 			picture = generic_infantry_bonus
 			allowed = { always = no }

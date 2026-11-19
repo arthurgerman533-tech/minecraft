@@ -11,6 +11,7 @@
 после выбора дерева фокусов, а дата известна всегда.
 """
 import pax_data as D
+import pax_big as BIG
 
 # условия видимости веток
 EARLY = "date < 1962.1.1"
@@ -124,6 +125,8 @@ def branches(tag):
     f("corp", "co_shadow", "Теневая корпорация",
       "Мы существуем, пока нас не ищут. Чёрные серверы платят дороже.",
       1, 3, "add_ideas = PAX_idea_shadow_corp", prereq=[["co_gates"]], exclusive=["co_loyal"])
+    for era, key, name, desc, x, y, eff, pre, exc, cost in BIG.ERA_EXTRA:
+        f(era, key, name, desc, x, y, BIG.expand(eff, D), prereq=pre, exclusive=exc, cost=cost)
     return out
 
 

@@ -157,6 +157,182 @@ focus_tree = {
 	}
 
 	focus = {
+		id = SOV_pax_ind4
+		icon = GFX_goal_pax_ind4
+		x = 0
+		y = 3
+		cost = 14
+		prerequisite = { focus = SOV_pax_ind3 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+
+	focus = {
+		id = SOV_pax_ind5
+		icon = GFX_goal_pax_ind5
+		x = 0
+		y = 4
+		cost = 14
+		prerequisite = { focus = SOV_pax_ind4 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			add_ideas = PAX_idea_factory_cities
+		}
+	}
+
+	focus = {
+		id = SOV_pax_ind6
+		icon = GFX_goal_pax_ind6
+		x = 0
+		y = 5
+		cost = 14
+		prerequisite = { focus = SOV_pax_ind5 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_research_slot = 1
+			add_ideas = PAX_idea_age_of_steel
+			add_tech_bonus = { name = SOV_pax_ind6 bonus = 0.5 uses = 2 category = industry }
+		}
+	}
+
+	focus = {
+		id = SOV_pax_mil4
+		icon = GFX_goal_pax_mil4
+		x = 2
+		y = 3
+		cost = 14
+		prerequisite = { focus = SOV_pax_mil3 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			army_experience = 50
+			add_manpower = 40000
+			add_tech_bonus = { name = SOV_pax_mil4 bonus = 0.5 uses = 2 category = infantry_weapons }
+		}
+	}
+
+	focus = {
+		id = SOV_pax_mil5
+		icon = GFX_goal_pax_mil5
+		x = 2
+		y = 4
+		cost = 14
+		prerequisite = { focus = SOV_pax_mil4 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			army_experience = 50
+			add_ideas = PAX_idea_staff_school
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = SOV_pax_mil6
+		icon = GFX_goal_pax_mil6
+		x = 2
+		y = 5
+		cost = 14
+		prerequisite = { focus = SOV_pax_mil5 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_manpower = 80000
+			add_ideas = PAX_idea_hundred_legions
+			add_war_support = 0.05
+		}
+	}
+
+	focus = {
+		id = SOV_pax_eco4
+		icon = GFX_goal_pax_eco4
+		x = 4
+		y = 3
+		cost = 14
+		prerequisite = { focus = SOV_pax_eco3 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { is_coastal = yes free_building_slots = { building = dockyard size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = dockyard level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = SOV_pax_eco5
+		icon = GFX_goal_pax_eco5
+		x = 4
+		y = 4
+		cost = 14
+		prerequisite = { focus = SOV_pax_eco4 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_treaty_web
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = SOV_pax_eco6
+		icon = GFX_goal_pax_eco6
+		x = 4
+		y = 5
+		cost = 14
+		prerequisite = { focus = SOV_pax_eco5 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 200
+			add_ideas = PAX_idea_world_power
+		}
+	}
+
+	focus = {
 		id = SOV_pax_her
 		icon = GFX_goal_pax_her_SOV
 		x = 6
@@ -479,6 +655,292 @@ focus_tree = {
 		ai_will_do = { factor = 10 }
 		completion_reward = {
 			add_ideas = PAX_idea_shadow_corp
+		}
+	}
+
+	focus = {
+		id = SOV_pax_cw_arms
+		icon = GFX_goal_pax_nat_SOV
+		x = 14
+		y = 2
+		cost = 14
+		prerequisite = { focus = SOV_pax_cw_intel }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+
+	focus = {
+		id = SOV_pax_cw_spies
+		icon = GFX_goal_pax_nat_SOV
+		x = 16
+		y = 2
+		cost = 14
+		prerequisite = { focus = SOV_pax_cw_intel }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 150
+			add_tech_bonus = { name = SOV_pax_cw_spies bonus = 0.5 uses = 2 category = industry }
+		}
+	}
+
+	focus = {
+		id = SOV_pax_cw_bunkers
+		icon = GFX_goal_pax_nat_SOV
+		x = 14
+		y = 3
+		cost = 14
+		prerequisite = { focus = SOV_pax_cw_arms }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_cw_bunkers
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+
+	focus = {
+		id = SOV_pax_cw_diplo
+		icon = GFX_goal_pax_nat_SOV
+		x = 16
+		y = 3
+		cost = 14
+		prerequisite = { focus = SOV_pax_cw_spies }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = SOV_pax_cw_balance
+		icon = GFX_goal_pax_nat_SOV
+		x = 15
+		y = 4
+		cost = 18
+		prerequisite = { focus = SOV_pax_cw_deter focus = SOV_pax_cw_bunkers focus = SOV_pax_cw_diplo }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			add_ideas = PAX_idea_cw_balance
+		}
+	}
+
+	focus = {
+		id = SOV_pax_rb_factories
+		icon = GFX_goal_pax_nat_SOV
+		x = 17
+		y = 1
+		cost = 14
+		prerequisite = { focus = SOV_pax_rb_net }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			add_ideas = PAX_idea_auto_factories
+		}
+	}
+
+	focus = {
+		id = SOV_pax_rb_labs
+		icon = GFX_goal_pax_nat_SOV
+		x = 21
+		y = 1
+		cost = 14
+		prerequisite = { focus = SOV_pax_rb_net }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_research_slot = 1
+			add_tech_bonus = { name = SOV_pax_rb_labs bonus = 0.5 uses = 2 category = industry }
+		}
+	}
+
+	focus = {
+		id = SOV_pax_rb_drones
+		icon = GFX_goal_pax_nat_SOV
+		x = 17
+		y = 2
+		cost = 14
+		prerequisite = { focus = SOV_pax_rb_factories }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			army_experience = 50
+			add_tech_bonus = { name = SOV_pax_rb_drones bonus = 0.5 uses = 2 category = infantry_weapons }
+		}
+	}
+
+	focus = {
+		id = SOV_pax_rb_cyber
+		icon = GFX_goal_pax_nat_SOV
+		x = 21
+		y = 2
+		cost = 14
+		prerequisite = { focus = SOV_pax_rb_labs }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_neuro_link
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = SOV_pax_rb_peace
+		icon = GFX_goal_pax_nat_SOV
+		x = 19
+		y = 4
+		cost = 18
+		prerequisite = { focus = SOV_pax_rb_war }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_stability = 0.1
+			add_political_power = 200
+		}
+	}
+
+	focus = {
+		id = SOV_pax_co_ads
+		icon = GFX_goal_pax_nat_SOV
+		x = 22
+		y = 1
+		cost = 14
+		prerequisite = { focus = SOV_pax_co_charter }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 150
+			add_ideas = PAX_idea_ad_empire
+		}
+	}
+
+	focus = {
+		id = SOV_pax_co_security
+		icon = GFX_goal_pax_nat_SOV
+		x = 26
+		y = 1
+		cost = 14
+		prerequisite = { focus = SOV_pax_co_charter }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			add_manpower = 30000
+		}
+	}
+
+	focus = {
+		id = SOV_pax_co_monopoly
+		icon = GFX_goal_pax_nat_SOV
+		x = 22
+		y = 2
+		cost = 14
+		prerequisite = { focus = SOV_pax_co_ads }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			add_ideas = PAX_idea_comm_monopoly
+		}
+	}
+
+	focus = {
+		id = SOV_pax_co_black
+		icon = GFX_goal_pax_nat_SOV
+		x = 26
+		y = 2
+		cost = 14
+		prerequisite = { focus = SOV_pax_co_security }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_tech_bonus = { name = SOV_pax_co_black bonus = 0.5 uses = 2 category = industry }
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = SOV_pax_co_summit
+		icon = GFX_goal_pax_nat_SOV
+		x = 24
+		y = 5
+		cost = 21
+		prerequisite = { focus = SOV_pax_co_loyal focus = SOV_pax_co_shadow }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_stability = 0.1
+			add_political_power = 250
+			add_ideas = PAX_idea_board_of_world
 		}
 	}
 }
