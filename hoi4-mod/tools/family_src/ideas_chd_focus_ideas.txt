@@ -1,0 +1,473 @@
+ideas = {
+	hidden_ideas = {
+		# Anti-Exploit
+		CHD_anti_conversion = {
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			modifier = {
+				equipment_conversion_speed = -0.9
+			}
+		}
+		CHD_air_superiority_lowerage = {
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			modifier = {
+				army_bonus_air_superiority_factor = -0.2
+				#enemy_army_bonus_air_superiority_factor = -0.1
+			}
+		}
+		CHI_ai_fix_sorta = {
+			allowed = {
+				always = no
+			}
+			cancel = {
+				is_ai = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			picture = great_depression
+			
+			modifier = {
+				land_doctrine_cost_factor = 0.35
+			}
+		}
+		# Mass Assault Bonus
+		NEU_mass_assault_people_army = {
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			available = {
+				has_tech = human_wave_offensive
+				NOT = {
+					has_idea = disarmed_nation
+					has_idea = volunteer_only
+				}
+			}
+			
+			removal_cost = -1
+			
+			modifier = {
+				conscription = 0.01
+			}
+		}
+		NEU_mass_assault_people_army_2 = {
+			name = NEU_mass_assault_people_army
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			available = {
+				has_tech = human_wave_offensive
+				NOT = {
+					has_idea = disarmed_nation
+					has_idea = volunteer_only
+				}
+			}
+			
+			removal_cost = -1
+			
+			modifier = {
+				conscription = 0.02
+				experience_loss_factor = 0.05
+			}
+		}
+		NEU_mass_assault_people_army_3 = {
+			name = NEU_mass_assault_people_army
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			available = {
+				has_tech = human_wave_offensive
+				NOT = {
+					has_idea = disarmed_nation
+					has_idea = volunteer_only
+				}
+			}
+			
+			removal_cost = -1
+			
+			modifier = {
+				conscription = 0.03
+				experience_loss_factor = 0.1
+			}
+		}
+		NEU_mass_assault_people_army_4 = {
+			name = NEU_mass_assault_people_army
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			available = {
+				has_tech = human_wave_offensive
+				NOT = {
+					has_idea = disarmed_nation
+					has_idea = volunteer_only
+				}
+			}
+			
+			removal_cost = -1
+			
+			modifier = {
+				conscription = 0.04
+				experience_loss_factor = 0.15
+			}
+		}
+	}
+	country = {
+		NEU_free_trade = {
+			name = export_focus
+			picture = free_trade
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			modifier = {
+				min_export = 0.2
+			}
+		}
+		# Specific
+		CHI_economic_problems = {
+			allowed = {
+				always = no
+			}
+			cancel = {
+				surrender_progress > 0.8
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			picture = great_depression
+			
+			modifier = {
+				consumer_goods_factor = 0.2
+				industrial_capacity_factory = -0.25
+			}
+		}
+		CHI_warlord_problems = {
+			allowed = {
+				always = no
+			}
+			cancel = {
+				surrender_progress > 0.15
+			}
+			on_remove = {
+				country_lock_all_division_template = no
+				every_other_country = {
+					limit = {
+						is_ai = no
+						OR = {
+							tag = JAP
+							tag = MAN
+							tag = SOV
+							tag = MON
+						}
+					}
+					country_event = { id = chd_balance.2 hours = 6 }
+				}
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			picture = tfv_can_conscription_crisis
+			
+			modifier = {
+				stability_factor = -0.05
+				custom_modifier_tooltip = SPR_military_disloyalty_tt
+			}
+		}
+		GER_integrated_war_economies_ideas = {
+			allowed = {
+				always = no
+			}
+			available = {
+				GER = { has_capitulated = no }
+				NOT = { has_war_with = GER }
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			picture = hol_caved_to_the_germans
+			
+			targeted_modifier = {
+				tag = GER
+				cic_to_target_factor = 0.1
+				trade_cost_for_target_factor = -0.5
+			}
+		}
+		# Hungary
+		HUN_balanced_budget = {
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			picture = SOV_scientist_defect
+			
+			modifier = {
+				local_resources_factor = 0.10
+				production_speed_buildings_factor = 0.05
+			}
+		}
+		HUN_royal_army_expansion = {
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			picture = generic_infantry_bonus
+			
+			modifier = {
+				army_core_defence_factor = 0.05
+				conscription = 0.01
+			}
+		}
+		HUN_consolidate_the_regency = {
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				tag = HUN
+			}
+			
+			removal_cost = -1
+			
+			picture = generic_intel_bonus
+			
+			modifier = {
+				political_advisor_cost_factor = -0.15
+				offensive_war_stability_factor = 0.1
+				industrial_capacity_factory = 0.05
+			}
+		}
+		# ENG
+		ENG_kickstart_the_war_industry = {
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			picture = generic_production_bonus
+			
+			modifier = {
+				industrial_capacity_factory = 0.05
+				production_factory_efficiency_gain_factor = 0.2
+				production_speed_arms_factory_factor = 0.05
+				production_speed_dockyard_factor = 0.05
+			}
+		}
+		# Spain
+		SPR_revolutionary_volunteer_corps = {
+			name = volunteer_corps_focus
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			picture = generic_volunteer_expedition_bonus
+			
+			modifier = {
+				send_volunteer_size = 2
+				send_volunteer_divisions_required = -1
+				send_volunteers_tension = -0.20
+				conscription_factor = 0.05
+			}
+		}
+		SPR_fighters_of_freedom = {
+			name = foreign_expeditions_focus
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			picture = generic_infantry_bonus
+			
+			modifier = {
+				send_volunteer_size = 2
+				send_volunteer_divisions_required = -1
+				send_volunteers_tension = -0.20
+				army_morale_factor = 0.15
+			}
+		}
+		SPR_why_we_fight = {
+			name = why_we_fight_focus
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			picture = generic_production_bonus
+			
+			modifier = {
+				conscription = 0.005
+				production_speed_arms_factory_factor = 0.1
+				industrial_capacity_factory = 0.05
+			}
+		}
+		SPR_soviet_infiltration = {
+			allowed = {
+				always = no
+			}
+			available = {
+				has_volunteers_amount_from = {
+					tag = SOV
+					count > 0
+				}
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			picture = generic_communist_army
+			
+			modifier = {
+				experience_gain_army_unit_factor = -0.2
+			}
+		}
+		SPR_focus_on_infiltration = {
+			allowed = {
+				always = no
+			}
+			available = {
+				any_other_country = {
+					original_tag = SPR
+					has_volunteers_amount_from = {
+						tag = SOV
+						count > 0
+					}
+				}
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			picture = generic_infantry_bonus
+			
+			modifier = {
+				coordination_bonus = -0.05
+				special_forces_attack_factor = -0.1
+			}
+		}
+		SPR_demotivated_forces = {
+			allowed = {
+				always = no
+			}
+			available = {
+				any_other_country = {
+					original_tag = SPR
+					has_volunteers_amount_from = {
+						tag = SOV
+						count > 0
+					}
+				}
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			
+			removal_cost = -1
+			
+			picture = generic_spy_coup
+			
+			modifier = {
+				army_org = -5
+				army_speed_factor = -0.15
+			}
+		}
+	}
+	industrial_concern = {
+		MEX_los_pollos_hermanos = {
+			picture = mex_chicken
+			allowed = {
+				original_tag = MEX
+			}
+			
+			research_bonus = {
+				industry = 0.10
+				synth_resources = 0.05
+			}
+			
+			cost = 50
+			
+			ai_will_do = {
+				factor = 0.8
+			}
+			
+			modifier = {
+				stability_factor = -0.05
+				political_power_gain = 0.10
+			}
+			
+			traits = { industrial_concern }			
+		}
+	}
+}

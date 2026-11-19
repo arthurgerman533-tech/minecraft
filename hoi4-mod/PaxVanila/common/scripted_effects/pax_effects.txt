@@ -1,5 +1,317 @@
 # Стартовая расстановка мира PaxVanila по эпохам. Вызывается из on_startup.
 
+pax_setup_1241 = {
+	set_global_flag = pax_era_1241
+	set_variable = { var = global.pax_guardians value = 6 }
+	set_variable = { var = global.pax_cracks value = 0 }
+	ITA = {
+		set_popularities = { democratic = 60 fascism = 15 communism = 10 neutrality = 15 }
+		set_politics = { ruling_party = democratic elections_allowed = yes }
+		create_country_leader = {
+			name = "ITA_pax_romul"
+			desc = "ITA_pax_romul_desc"
+			picture = "gfx/leaders/PAX/ITA_pax_romul.tga"
+			expire = "4000.1.1.1"
+			ideology = conservatism
+			traits = { }
+		}
+		add_ideas = PAX_spirit_ITA
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_pax
+	}
+	SPR = {
+		set_popularities = { democratic = 30 fascism = 10 communism = 10 neutrality = 50 }
+		set_politics = { ruling_party = neutrality elections_allowed = no }
+		create_country_leader = {
+			name = "SPR_pax_hannon"
+			desc = "SPR_pax_hannon_desc"
+			picture = "gfx/leaders/PAX/SPR_pax_hannon.tga"
+			expire = "4000.1.1.1"
+			ideology = oligarchism
+			traits = { }
+		}
+		add_ideas = PAX_spirit_SPR
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_pax
+	}
+	GRE = {
+		set_popularities = { democratic = 55 fascism = 15 communism = 15 neutrality = 15 }
+		set_politics = { ruling_party = democratic elections_allowed = yes }
+		create_country_leader = {
+			name = "GRE_pax_pericles"
+			desc = "GRE_pax_pericles_desc"
+			picture = "gfx/leaders/PAX/GRE_pax_pericles.tga"
+			expire = "4000.1.1.1"
+			ideology = liberalism
+			traits = { }
+		}
+		add_ideas = PAX_spirit_GRE
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_pax
+	}
+	FRA = {
+		set_popularities = { democratic = 55 fascism = 10 communism = 20 neutrality = 15 }
+		set_politics = { ruling_party = democratic elections_allowed = yes }
+		create_country_leader = {
+			name = "FRA_pax_ambiorix"
+			desc = "FRA_pax_ambiorix_desc"
+			picture = "gfx/leaders/PAX/FRA_pax_ambiorix.tga"
+			expire = "4000.1.1.1"
+			ideology = conservatism
+			traits = { }
+		}
+		add_ideas = PAX_spirit_FRA
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_pax
+	}
+	ENG = {
+		set_popularities = { democratic = 65 fascism = 10 communism = 10 neutrality = 15 }
+		set_politics = { ruling_party = democratic elections_allowed = yes }
+		create_country_leader = {
+			name = "ENG_pax_elinor"
+			desc = "ENG_pax_elinor_desc"
+			picture = "gfx/leaders/PAX/ENG_pax_elinor.tga"
+			expire = "4000.1.1.1"
+			ideology = liberalism
+			traits = { }
+		}
+		add_ideas = PAX_spirit_ENG
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_pax
+	}
+	GER = {
+		set_popularities = { democratic = 20 fascism = 55 communism = 15 neutrality = 10 }
+		set_politics = { ruling_party = fascism elections_allowed = no }
+		create_country_leader = {
+			name = "GER_pax_arminius"
+			desc = "GER_pax_arminius_desc"
+			picture = "gfx/leaders/PAX/GER_pax_arminius.tga"
+			expire = "4000.1.1.1"
+			ideology = fascism_ideology
+			traits = { }
+		}
+		add_ideas = PAX_spirit_GER
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_steppe
+	}
+	SOV = {
+		set_popularities = { democratic = 15 fascism = 10 communism = 25 neutrality = 50 }
+		set_politics = { ruling_party = neutrality elections_allowed = no }
+		create_country_leader = {
+			name = "SOV_pax_vseslav"
+			desc = "SOV_pax_vseslav_desc"
+			picture = "gfx/leaders/PAX/SOV_pax_vseslav.tga"
+			expire = "4000.1.1.1"
+			ideology = despotism
+			traits = { }
+		}
+		add_ideas = PAX_spirit_SOV
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_steppe
+	}
+	ROM = {
+		set_popularities = { democratic = 25 fascism = 20 communism = 10 neutrality = 45 }
+		set_politics = { ruling_party = neutrality elections_allowed = no }
+		create_country_leader = {
+			name = "ROM_pax_decebal"
+			desc = "ROM_pax_decebal_desc"
+			picture = "gfx/leaders/PAX/ROM_pax_decebal.tga"
+			expire = "4000.1.1.1"
+			ideology = despotism
+			traits = { }
+		}
+		add_ideas = PAX_spirit_ROM
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_steppe
+	}
+	TUR = {
+		set_popularities = { democratic = 15 fascism = 25 communism = 10 neutrality = 50 }
+		set_politics = { ruling_party = neutrality elections_allowed = no }
+		create_country_leader = {
+			name = "TUR_pax_tengiz"
+			desc = "TUR_pax_tengiz_desc"
+			picture = "gfx/leaders/PAX/TUR_pax_tengiz.tga"
+			expire = "4000.1.1.1"
+			ideology = despotism
+			traits = { }
+		}
+		add_ideas = PAX_spirit_TUR
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_steppe
+	}
+	PER = {
+		set_popularities = { democratic = 15 fascism = 15 communism = 15 neutrality = 55 }
+		set_politics = { ruling_party = neutrality elections_allowed = no }
+		create_country_leader = {
+			name = "PER_pax_idanthyrsus"
+			desc = "PER_pax_idanthyrsus_desc"
+			picture = "gfx/leaders/PAX/PER_pax_idanthyrsus.tga"
+			expire = "4000.1.1.1"
+			ideology = despotism
+			traits = { }
+		}
+		add_ideas = PAX_spirit_PER
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_steppe
+	}
+}
+
+pax_setup_1914 = {
+	set_global_flag = pax_era_1914
+	set_variable = { var = global.pax_guardians value = 6 }
+	set_variable = { var = global.pax_cracks value = 0 }
+	ITA = {
+		set_popularities = { democratic = 60 fascism = 15 communism = 10 neutrality = 15 }
+		set_politics = { ruling_party = democratic elections_allowed = yes }
+		create_country_leader = {
+			name = "ITA_pax_romul"
+			desc = "ITA_pax_romul_desc"
+			picture = "gfx/leaders/PAX/ITA_pax_romul.tga"
+			expire = "4000.1.1.1"
+			ideology = conservatism
+			traits = { }
+		}
+		add_ideas = PAX_spirit_ITA
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_pax
+	}
+	SPR = {
+		set_popularities = { democratic = 30 fascism = 10 communism = 10 neutrality = 50 }
+		set_politics = { ruling_party = neutrality elections_allowed = no }
+		create_country_leader = {
+			name = "SPR_pax_hannon"
+			desc = "SPR_pax_hannon_desc"
+			picture = "gfx/leaders/PAX/SPR_pax_hannon.tga"
+			expire = "4000.1.1.1"
+			ideology = oligarchism
+			traits = { }
+		}
+		add_ideas = PAX_spirit_SPR
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_pax
+	}
+	GRE = {
+		set_popularities = { democratic = 55 fascism = 15 communism = 15 neutrality = 15 }
+		set_politics = { ruling_party = democratic elections_allowed = yes }
+		create_country_leader = {
+			name = "GRE_pax_pericles"
+			desc = "GRE_pax_pericles_desc"
+			picture = "gfx/leaders/PAX/GRE_pax_pericles.tga"
+			expire = "4000.1.1.1"
+			ideology = liberalism
+			traits = { }
+		}
+		add_ideas = PAX_spirit_GRE
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_pax
+	}
+	FRA = {
+		set_popularities = { democratic = 55 fascism = 10 communism = 20 neutrality = 15 }
+		set_politics = { ruling_party = democratic elections_allowed = yes }
+		create_country_leader = {
+			name = "FRA_pax_ambiorix"
+			desc = "FRA_pax_ambiorix_desc"
+			picture = "gfx/leaders/PAX/FRA_pax_ambiorix.tga"
+			expire = "4000.1.1.1"
+			ideology = conservatism
+			traits = { }
+		}
+		add_ideas = PAX_spirit_FRA
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_pax
+	}
+	ENG = {
+		set_popularities = { democratic = 65 fascism = 10 communism = 10 neutrality = 15 }
+		set_politics = { ruling_party = democratic elections_allowed = yes }
+		create_country_leader = {
+			name = "ENG_pax_elinor"
+			desc = "ENG_pax_elinor_desc"
+			picture = "gfx/leaders/PAX/ENG_pax_elinor.tga"
+			expire = "4000.1.1.1"
+			ideology = liberalism
+			traits = { }
+		}
+		add_ideas = PAX_spirit_ENG
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_pax
+	}
+	GER = {
+		set_popularities = { democratic = 20 fascism = 55 communism = 15 neutrality = 10 }
+		set_politics = { ruling_party = fascism elections_allowed = no }
+		create_country_leader = {
+			name = "GER_pax_arminius"
+			desc = "GER_pax_arminius_desc"
+			picture = "gfx/leaders/PAX/GER_pax_arminius.tga"
+			expire = "4000.1.1.1"
+			ideology = fascism_ideology
+			traits = { }
+		}
+		add_ideas = PAX_spirit_GER
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_steppe
+	}
+	SOV = {
+		set_popularities = { democratic = 15 fascism = 10 communism = 25 neutrality = 50 }
+		set_politics = { ruling_party = neutrality elections_allowed = no }
+		create_country_leader = {
+			name = "SOV_pax_vseslav"
+			desc = "SOV_pax_vseslav_desc"
+			picture = "gfx/leaders/PAX/SOV_pax_vseslav.tga"
+			expire = "4000.1.1.1"
+			ideology = despotism
+			traits = { }
+		}
+		add_ideas = PAX_spirit_SOV
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_steppe
+	}
+	ROM = {
+		set_popularities = { democratic = 25 fascism = 20 communism = 10 neutrality = 45 }
+		set_politics = { ruling_party = neutrality elections_allowed = no }
+		create_country_leader = {
+			name = "ROM_pax_decebal"
+			desc = "ROM_pax_decebal_desc"
+			picture = "gfx/leaders/PAX/ROM_pax_decebal.tga"
+			expire = "4000.1.1.1"
+			ideology = despotism
+			traits = { }
+		}
+		add_ideas = PAX_spirit_ROM
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_steppe
+	}
+	TUR = {
+		set_popularities = { democratic = 15 fascism = 25 communism = 10 neutrality = 50 }
+		set_politics = { ruling_party = neutrality elections_allowed = no }
+		create_country_leader = {
+			name = "TUR_pax_tengiz"
+			desc = "TUR_pax_tengiz_desc"
+			picture = "gfx/leaders/PAX/TUR_pax_tengiz.tga"
+			expire = "4000.1.1.1"
+			ideology = despotism
+			traits = { }
+		}
+		add_ideas = PAX_spirit_TUR
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_steppe
+	}
+	PER = {
+		set_popularities = { democratic = 15 fascism = 15 communism = 15 neutrality = 55 }
+		set_politics = { ruling_party = neutrality elections_allowed = no }
+		create_country_leader = {
+			name = "PER_pax_idanthyrsus"
+			desc = "PER_pax_idanthyrsus_desc"
+			picture = "gfx/leaders/PAX/PER_pax_idanthyrsus.tga"
+			expire = "4000.1.1.1"
+			ideology = despotism
+			traits = { }
+		}
+		add_ideas = PAX_spirit_PER
+		set_country_flag = pax_power
+		set_country_flag = pax_bloc_steppe
+	}
+}
+
 pax_setup_1936 = {
 	set_global_flag = pax_era_1936
 	set_variable = { var = global.pax_guardians value = 2 }

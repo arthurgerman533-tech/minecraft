@@ -1,9 +1,157 @@
 bookmarks = {
 	bookmark = {
+		name = PAX_BM_1241
+		desc = PAX_BM_1241_DESC
+		date = 1241.12.6.12
+		picture = GFX_pax_bm_1241
+		default_country = ITA
+		ITA = {
+			history = PAX_BM_1241_ITA
+			ideology = democratic
+			ideas = { PAX_spirit_ITA }
+			focuses = { }
+		}
+		SPR = {
+			minor = yes
+			history = PAX_BM_1241_SPR
+			ideology = neutrality
+			ideas = { PAX_spirit_SPR }
+			focuses = { }
+		}
+		GRE = {
+			minor = yes
+			history = PAX_BM_1241_GRE
+			ideology = democratic
+			ideas = { PAX_spirit_GRE }
+			focuses = { }
+		}
+		FRA = {
+			history = PAX_BM_1241_FRA
+			ideology = democratic
+			ideas = { PAX_spirit_FRA }
+			focuses = { }
+		}
+		ENG = {
+			history = PAX_BM_1241_ENG
+			ideology = democratic
+			ideas = { PAX_spirit_ENG }
+			focuses = { }
+		}
+		GER = {
+			history = PAX_BM_1241_GER
+			ideology = fascism
+			ideas = { PAX_spirit_GER }
+			focuses = { }
+		}
+		SOV = {
+			history = PAX_BM_1241_SOV
+			ideology = neutrality
+			ideas = { PAX_spirit_SOV }
+			focuses = { }
+		}
+		ROM = {
+			minor = yes
+			history = PAX_BM_1241_ROM
+			ideology = neutrality
+			ideas = { PAX_spirit_ROM }
+			focuses = { }
+		}
+		TUR = {
+			minor = yes
+			history = PAX_BM_1241_TUR
+			ideology = neutrality
+			ideas = { PAX_spirit_TUR }
+			focuses = { }
+		}
+		PER = {
+			minor = yes
+			history = PAX_BM_1241_PER
+			ideology = neutrality
+			ideas = { PAX_spirit_PER }
+			focuses = { }
+		}
+		"---" = { history = PAX_BM_OTHER }
+		effect = { randomize_weather = 22345 }
+	}
+	bookmark = {
+		name = PAX_BM_1914
+		desc = PAX_BM_1914_DESC
+		date = 1914.7.28.12
+		picture = GFX_pax_bm_1914
+		default_country = ITA
+		ITA = {
+			history = PAX_BM_1914_ITA
+			ideology = democratic
+			ideas = { PAX_spirit_ITA }
+			focuses = { }
+		}
+		SPR = {
+			minor = yes
+			history = PAX_BM_1914_SPR
+			ideology = neutrality
+			ideas = { PAX_spirit_SPR }
+			focuses = { }
+		}
+		GRE = {
+			minor = yes
+			history = PAX_BM_1914_GRE
+			ideology = democratic
+			ideas = { PAX_spirit_GRE }
+			focuses = { }
+		}
+		FRA = {
+			history = PAX_BM_1914_FRA
+			ideology = democratic
+			ideas = { PAX_spirit_FRA }
+			focuses = { }
+		}
+		ENG = {
+			history = PAX_BM_1914_ENG
+			ideology = democratic
+			ideas = { PAX_spirit_ENG }
+			focuses = { }
+		}
+		GER = {
+			history = PAX_BM_1914_GER
+			ideology = fascism
+			ideas = { PAX_spirit_GER }
+			focuses = { }
+		}
+		SOV = {
+			history = PAX_BM_1914_SOV
+			ideology = neutrality
+			ideas = { PAX_spirit_SOV }
+			focuses = { }
+		}
+		ROM = {
+			minor = yes
+			history = PAX_BM_1914_ROM
+			ideology = neutrality
+			ideas = { PAX_spirit_ROM }
+			focuses = { }
+		}
+		TUR = {
+			minor = yes
+			history = PAX_BM_1914_TUR
+			ideology = neutrality
+			ideas = { PAX_spirit_TUR }
+			focuses = { }
+		}
+		PER = {
+			minor = yes
+			history = PAX_BM_1914_PER
+			ideology = neutrality
+			ideas = { PAX_spirit_PER }
+			focuses = { }
+		}
+		"---" = { history = PAX_BM_OTHER }
+		effect = { randomize_weather = 22345 }
+	}
+	bookmark = {
 		name = PAX_BM_1936
 		desc = PAX_BM_1936_DESC
 		date = 1936.1.1.12
-		picture = GFX_select_date_1936
+		picture = GFX_pax_bm_1936
 		default_country = ITA
 		default = yes
 		ITA = {
@@ -78,7 +226,7 @@ bookmarks = {
 		name = PAX_BM_1936e
 		desc = PAX_BM_1936e_DESC
 		date = 1936.1.1.13
-		picture = GFX_select_date_1936
+		picture = GFX_pax_bm_1936e
 		default_country = ITA
 		ITA = {
 			history = PAX_BM_1936e_ITA
@@ -152,7 +300,7 @@ bookmarks = {
 		name = PAX_BM_1939
 		desc = PAX_BM_1939_DESC
 		date = 1939.8.14.12
-		picture = GFX_select_date_1939
+		picture = GFX_pax_bm_1939
 		default_country = ITA
 		ITA = {
 			history = PAX_BM_1939_ITA
@@ -226,7 +374,7 @@ bookmarks = {
 		name = PAX_BM_1962
 		desc = PAX_BM_1962_DESC
 		date = 1962.10.1.12
-		picture = GFX_select_date_1939
+		picture = GFX_pax_bm_1962
 		default_country = ITA
 		ITA = {
 			history = PAX_BM_1962_ITA
@@ -300,7 +448,7 @@ bookmarks = {
 		name = PAX_BM_2041
 		desc = PAX_BM_2041_DESC
 		date = 2041.1.1.12
-		picture = GFX_select_date_1939
+		picture = GFX_pax_bm_2041
 		default_country = ITA
 		ITA = {
 			history = PAX_BM_2041_ITA
@@ -374,7 +522,7 @@ bookmarks = {
 		name = PAX_BM_2096
 		desc = PAX_BM_2096_DESC
 		date = 2096.1.1.12
-		picture = GFX_select_date_1939
+		picture = GFX_pax_bm_2096
 		default_country = ITA
 		ITA = {
 			history = PAX_BM_2096_ITA

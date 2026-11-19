@@ -439,3 +439,35 @@ def portrait(flag_im, color, accent, kind, seed):
 def save_dds(im, path):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     im.convert("RGBA").save(path, pixel_format="DXT1")
+
+
+def bookmark_frame(im, title, date_text, accent=(255, 215, 90)):
+    """Фирменное оформление сценария PaxVanila: тёмная виньетка, двойная золотая рамка, плашка с названием и датой."""
+    im = im.convert("RGBA").copy()
+    w, h = im.size
+    # виньетка
+    vig = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    vd = ImageDraw.Draw(vig)
+    for i in range(60):
+        a = int(150 * (1 - i / 60) ** 2)
+        vd.rectangle([i, i, w - i, h - i], outline=(5, 3, 12, a))
+    im = Image.alpha_composite(im, vig)
+    d = ImageDraw.Draw(im)
+    # двойная рамка
+    d.rectangle([14, 14, w - 15, h - 15], outline=accent, width=4)
+    d.rectangle([28, 28, w - 29, h - 29], outline=(120, 90, 30), width=2)
+    for cx, cy in ((14, 14), (w - 15, 14), (14, h - 15), (w - 15, h - 15)):
+        d.rectangle([cx - 10, cy - 10, cx + 10, cy + 10], fill=(15, 10, 25), outline=accent, width=3)
+    # плашка внизу
+    fb = ImageFont.truetype(FONT, max(36, w // 28))
+    fs = ImageFont.truetype(FONT, max(26, w // 44))
+    bar_h = int(h * 0.2)
+    d.rectangle([28, h - 28 - bar_h, w - 29, h - 29], fill=(15, 10, 25, 225))
+    d.line([28, h - 28 - bar_h, w - 29, h - 28 - bar_h], fill=accent, width=3)
+    d.text((60, h - 28 - bar_h + bar_h * 0.12), title, font=fb, fill=accent)
+    d.text((60, h - 28 - bar_h + bar_h * 0.58), date_text, font=fs, fill=(230, 225, 205))
+    # печать Монолита справа
+    cx, cy = w - 110, h - 28 - bar_h // 2
+    d.rectangle([cx - 18, cy - 38, cx + 18, cy + 38], fill=(20, 18, 28), outline=accent, width=3)
+    d.line([cx, cy - 30, cx, cy - 6], fill=(255, 140, 40), width=3)
+    return im

@@ -307,6 +307,14 @@ def _copy_tree(w):
     # Вместо этого роты открывает скрытая технология pax_family_support (см. SUPPORT_TECH).
     w("common/technologies/pax_family_support.txt", SUPPORT_TECH)
     w("common/decisions/zz_family_economic.txt", _read("decisions/chd_economic.txt"))
+    # Деревья фокусов Arthur из CHADDFIXREBALANCE (его правка Chaddhaus MP): великие державы и лорные страны.
+    # Имена файлов как у ванили, поэтому заменяют ванильные деревья (версия 1.13.7).
+    for fn in sorted(os.listdir(os.path.join(SRC, "national_focus"))):
+        w("common/national_focus/" + fn, _read("national_focus/" + fn))
+    w("common/ideas/chd_focus_ideas.txt", _read("ideas_chd_focus_ideas.txt"))
+    chd = _read("loc/chd_focuses.yml").split("\n", 1)[1]
+    for lang in ("russian", "english"):
+        w(f"localisation/{lang}/chd_focuses_l_{lang}.yml", f"l_{lang}:\n" + chd, bom=True)
 
 
 def _loc_from(path, wanted_text):

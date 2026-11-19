@@ -323,6 +323,8 @@ def build_setup():
 			else_if = { limit = { date > 1939.1.1 } ITA = { pax_setup_1939 = yes } }
 			# «Без Азии» из Family: та же дата, но на час позже (1936.1.1.13)
 			else_if = { limit = { has_start_date > 1936.1.1.12 } ITA = { pax_setup_1936e = yes } }
+			else_if = { limit = { date < 1900.1.1 } ITA = { pax_setup_1241 = yes } }
+			else_if = { limit = { date < 1930.1.1 } ITA = { pax_setup_1914 = yes } }
 			else = { ITA = { pax_setup_1936 = yes } }
 			# Как в «Family Historical MP mod»: страны вне лора под управлением ИИ
 			# получают дух «Дальние земли» и не мешают игрокам. Удалите блок, если не нужно.
@@ -669,7 +671,7 @@ def build_eras_extra():
         marks.append(
             "bookmark = {\n"
             f"\tname = PAX_BM_{era['id']}\n\tdesc = PAX_BM_{era['id']}_DESC\n"
-            f"\tdate = {era['date']}\n\tpicture = {era['picture']}\n\tdefault_country = ITA\n"
+            f"\tdate = {era['date']}\n\tpicture = GFX_pax_bm_{era['id']}\n\tdefault_country = ITA\n"
             + ("\tdefault = yes\n" if era.get("default") else "")
             + indent("\n".join(c), 1) + "\n"
             "\teffect = { randomize_weather = 22345 }\n}"
@@ -879,6 +881,16 @@ def build_art():
     big = {n: A._logo(A.render(n)) for n in scenes}
     for i, name in enumerate(A.LOADING_NAMES):
         A.save_dds(big[scenes[i % len(scenes)]], os.path.join(OUT, f"gfx/loadingscreens/{name}.dds"))
+    # свои картинки сценариев (закладки старта): по сцене на эпоху
+    bm_scene = {"1241": "north", "1914": "storm", "1936": "monolith", "1936e": "sea", "1939": "storm", "1962": "cold", "2041": "seven", "2096": "neon"}
+    bm_sprites = []
+    for eid, sc in bm_scene.items():
+        era = next(e for e in E.ERAS if e["id"] == eid)
+        y, mo, dd = era["date"].split(".")[:3]
+        A.save_dds(A.bookmark_frame(A.render(sc), era["name"], f"{dd}.{mo}.{y}   PaxVanila"),
+                   os.path.join(OUT, f"gfx/interface/bookmarks/pax_bm_{eid}.dds"))
+        bm_sprites.append(f'\tspriteType = {{\n\t\tname = "GFX_pax_bm_{eid}"\n\t\ttexturefile = "gfx/interface/bookmarks/pax_bm_{eid}.dds"\n\t}}')
+    w("interface/pax_bookmarks.gfx", "spriteTypes = {\n" + "\n".join(bm_sprites) + "\n}\n")
     # картинки событий
     for n in scenes:
         im = A.render(n, scale=1)
