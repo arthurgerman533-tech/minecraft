@@ -133,6 +133,17 @@ def load_map(lang):
         tr = lambda L: [{kk: loc(vv) if kk in ("name", "text") else vv for kk, vv in it.items()} for it in L]
         out["nether"] = {"places": tr(N.get("places", [])), "sites": tr(N.get("sites", [])),
                          "roads": N.get("roads", []), "roadName": loc(N.get("roadName", "")), "roadText": loc(N.get("roadText", ""))}
+    # настоящая карта мира (tools/render_world.py): подложка + зоны погоды
+    out["terrain"], out["zones"] = None, None
+    if os.path.exists(os.path.join(ROOT, "content", "world_map.webp")):
+        zp = os.path.join(ROOT, "content", "world_zones.json")
+        Z = json.load(open(zp, encoding="utf-8")) if os.path.exists(zp) else {}
+        R = Z.get("radius", 2048)
+        out["terrain"] = {"src": "img/world_map.webp", "big": "img/world_map_big.webp", "radius": R,
+                          "bounds": Z.get("bounds", [-R, -R, R, R]), "explored": Z.get("generated", 0),
+                          "date": Z.get("date", ""), "seed": Z.get("seedNote", "")}
+        if Z.get("zones"):
+            out["zones"] = {"cell": Z.get("cell", 64), **Z["zones"]}
     out["towns"], out["townsDate"] = [], ""
     tp = os.path.join(ROOT, "content", "map_towns.json")
     if os.path.exists(tp):
@@ -228,6 +239,12 @@ def build(lang, out):
         for d in ("img", "icons"):
             for fn in os.listdir(os.path.join(DOCS, d)):
                 shutil.copy(os.path.join(DOCS, d, fn), os.path.join(out, d, fn))
+
+    # настоящая карта мира
+    for fn in ("world_map.webp", "world_map_big.webp"):
+        fp = os.path.join(ROOT, "content", fn)
+        if os.path.exists(fp):
+            shutil.copy(fp, os.path.join(out, "img", fn))
 
     # клиентская сборка
     mr = os.path.join(ROOT, "PaxVanila_Client_26.2", "PaxVanila_Client_26.2.mrpack")
@@ -338,6 +355,8 @@ def main():
             for g in C.get("guides", []):
                 shutil.copy(src_file(GUIDES, lang, g["file"]), os.path.join(APP_ASSETS, "guides" + sfx, f"{g['id']}.md"))
         for fn in os.listdir(os.path.join(DOCS, "img")):
+            if fn == "world_map_big.webp":  # подробная карта только на сайте, в APK лёгкая
+                continue
             shutil.copy(os.path.join(DOCS, "img", fn), os.path.join(APP_ASSETS, "img", fn))
         make_icon(1024).convert("RGB").save(os.path.join(APP_ASSETS, "icon.png"))
         make_icon(1024, maskable=True, bg=False).save(os.path.join(APP_ASSETS, "icon_fg.png"))

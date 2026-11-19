@@ -172,25 +172,44 @@ function renderMap(C){
   const M=C.map, cfg=C.config, b=cfg.border, st=serverState(cfg);
   const rings=[['start',T('Старт','Start')],['w1',T('Н1','W1')],['w2',T('Н2','W2')],['w3',T('Н3','W3')],['w5',T('Н5','W5')],['w6',T('Н6','W6')]];
   const R=b.w6, ext=R*1.12, NS='http://www.w3.org/2000/svg';
-  const layers={powers:true,ancient:true,towns:true,grid:true,far:true,lore:true}; M.far=M.far||[]; M.lore=M.lore||[];
+  const layers={powers:true,ancient:true,towns:true,grid:true,far:true,lore:true,wx:false,terrain:true}; const TR=M.terrain, Z=M.zones; M.far=M.far||[]; M.lore=M.lore||[];
   let sel=st.started?null:'w6';
   host.innerHTML=`<div class="mtools">
      <div class="chips" id="mLayers">
        <button data-l="powers" class="on">${T('Державы','Powers')}</button><button data-l="ancient" class="on">${T('Древние места','Ancient sites')}</button>
-       <button data-l="towns" class="on">${T('Города','Towns')}${M.towns.length?' ('+M.towns.length+')':''}</button><button data-l="grid" class="on">${T('Сетка','Grid')}</button>${M.lore.length?`<button data-l="lore" class="on">${T('Метки лора','Lore tags')} (${M.lore.length})</button>`:''}${M.far.length?`<button data-l="far" class="on">${T('За границей','Beyond the border')}</button><button id="mAll" class="hl">🌍 ${T('Все миры','All worlds')} (${M.far.length})</button>`:''}</div>
+       <button data-l="towns" class="on">${T('Города','Towns')}${M.towns.length?' ('+M.towns.length+')':''}</button><button data-l="grid" class="on">${T('Сетка','Grid')}</button>${TR?`<button data-l="terrain" class="on">${T('Рельеф','Terrain')}</button>`:''}<button data-l="wx" class="hl">🌦️ ${T('Погода','Weather')}</button>${M.lore.length?`<button data-l="lore" class="on">${T('Метки лора','Lore tags')} (${M.lore.length})</button>`:''}${M.far.length?`<button data-l="far" class="on">${T('За границей','Beyond the border')}</button><button id="mAll" class="hl">🌍 ${T('Все миры','All worlds')} (${M.far.length})</button>`:''}</div>
      <div class="chips" id="mRings"><span class="lbl">${T('Граница','Border')}</span>${rings.map(r=>`<button data-r="${r[0]}">${r[1]}</button>`).join('')}</div>
    </div>
    <div class="mbox"><svg id="msvg" class="msvg" role="img" aria-label="${T('Карта мира PaxVanila','PaxVanila world map')}"></svg>
      <div class="mzoom"><button data-z="0.67" aria-label="${T('Приблизить','Zoom in')}">+</button><button data-z="1.5" aria-label="${T('Отдалить','Zoom out')}">−</button><button data-z="0" aria-label="${T('Сбросить','Reset')}">⟲</button></div>
      <div class="mcoord" id="mcoord">X 0 · Z 0</div><div class="mcomp">${T('С','N')}↑</div></div>
+   <div class="mwx" id="mwx" hidden></div>
    <div class="minfo" id="minfo"></div>
-   <p class="mnote">${T('Державы и древние места показаны схемой по лору: настоящие столицы строят игроки.','Powers and ancient sites are a schematic based on the lore: the real capitals are built by players.')}
+   <p class="mnote">${TR?T(`Рельеф, реки, озёра и леса нарисованы блок в блок с настоящего мира PaxVanila (те же датапаки: Terralith, Towns and Towers, Structory). Разведано ${TR.bounds[2]-TR.bounds[0]}×${TR.bounds[3]-TR.bounds[1]} блоков вокруг спавна, дальше карта показывает схему и будет расти`,`Terrain, rivers, lakes and forests are rendered block by block from the real PaxVanila world (same datapacks: Terralith, Towns and Towers, Structory). ${TR.bounds[2]-TR.bounds[0]}×${TR.bounds[3]-TR.bounds[1]} blocks around spawn are explored; beyond that the map shows the schematic and will grow`)+(TR.date?' · '+esc(TR.date):'')+`. <a href="${esc(TR.big)}" target="_blank" rel="noopener">${T('Подробная карта 1:1','Full-size map 1:1')}</a>. `:''}${T('Державы и древние места показаны схемой по лору: настоящие столицы строят игроки.','Powers and ancient sites are a schematic based on the lore: the real capitals are built by players.')}
      ${M.towns.length?T(' Города Towny выгружены ',' Towny towns exported ')+esc(M.townsDate)+'.':T(' Реальные города появятся после открытия сервера.',' Real towns will appear after the server opens.')}
      ${cfg.mapUrl?` <a class="btn" href="${esc(cfg.mapUrl)}" target="_blank" rel="noopener">🗺️ ${T('Живая карта BlueMap','Live BlueMap')}</a>`:''}</p>`;
   const svg=$('#msvg'), el=(n,a,p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e};
   const cp=el('clipPath',{id:'mclip'},el('defs',{})); el('circle',{cx:0,cy:0,r:R},cp);
-  const g={}; ['base','grid','powers','rings','ancient','towns','lore','far','top'].forEach(k=>g[k]=el('g',{class:'g-'+k}));
-  el('circle',{cx:0,cy:0,r:R,class:'land'},g.base); g.grid.setAttribute('clip-path','url(#mclip)');
+  const g={}; ['base','terrain','wx','grid','powers','rings','ancient','towns','lore','far','top'].forEach(k=>g[k]=el('g',{class:'g-'+k}));
+  el('circle',{cx:0,cy:0,r:R,class:'land'},g.base);
+  if(TR){const [x0,z0,x1,z1]=TR.bounds, q=8000; el('image',{href:TR.src,x:x0,y:z0,width:x1-x0,height:z1-z0,preserveAspectRatio:'none',class:'terr'},g.terrain);
+    el('rect',{x:x0,y:z0,width:x1-x0,height:z1-z0,class:'terrb'},g.terrain);
+    el('path',{d:`M${-q} ${-q}H${q}V${q}H${-q}Z M${R} 0A${R} ${R} 0 1 0 ${-R} 0A${R} ${R} 0 1 0 ${R} 0Z`,'fill-rule':'evenodd',class:'outside'},g.terrain);}
+  // слой погоды: где приходят катаклизмы (данные: content/meteo.json + зоны из настоящего мира)
+  g.wx.style.display='none';
+  const ME=(C.meteo&&C.meteo.events)||[], evk=k=>ME.find(e=>e.id===k)||{icon:'',name:''};
+  const WZ=[['desert','sandstorm','#e8a33d',T('пустыни и бесплодные земли','deserts and badlands')],['peaks','storm','#f5c542',T('вершины выше Y 110: молнии бьют чаще','peaks above Y 110: lightning strikes more often')],
+    ['snow','blizzard','#5fd4e8',T('снежные земли: метель сильнее','snowy lands: the blizzard is harsher')],['water','flood','#3b6fd9',T('океаны, реки, пляжи','oceans, rivers, beaches')]];
+  const wxLegend=[];
+  if(Z){const c=Z.cell||64; WZ.forEach(([k,ev,col,txt])=>{const L=Z[k]||[]; if(!L.length) return;
+    el('path',{d:L.map(([x,z])=>`M${x} ${z}h${c}v${c}h${-c}z`).join(''),fill:col,class:'wxz'},g.wx); const e=evk(ev); wxLegend.push([col,`${e.icon} ${esc(e.name||ev)}`,txt]);});}
+  { const a=evk('ash'); el('circle',{cx:0,cy:0,r:120,class:'wxash'},g.wx); wxLegend.push(['#8b1e1e',`${a.icon} ${esc(a.name||'ash')}`,T('столб огня над Монолитом 0,0','a pillar of fire over the Monolith at 0,0')]);
+    el('rect',{x:-48,y:-48,width:96,height:96,class:'wxsafe'},g.wx); wxLegend.push(['#3fa34d','🛡️ '+T('Безопасная зона','Safe zone'),T('башня новичков ±48 блоков: урона нет','newcomer tower ±48 blocks: no damage')]); }
+  const everywhere=['blizzard','drought','quake','meteor','fog','aurora','storm'].map(evk).filter(e=>e.name).map(e=>`${e.icon} ${esc(e.name)}`);
+  const wxBox=$('#mwx'), iv=(C.meteo&&C.meteo.interval)||{min:45,max:90,warn:60};
+  wxBox.innerHTML=`<div class="wxl">${wxLegend.map(([c,n,t])=>`<span><i style="background:${c}"></i><b>${n}</b> ${t}</span>`).join('')}</div>
+    <p>${T('Везде под открытым небом','Everywhere under open sky')}: ${everywhere.join(', ')}. ${T(`Катаклизм приходит сам раз в ${iv.min}–${iv.max} минут, предупреждение за ${iv.warn} секунд. Блоки не ломаются, урон только при 5+ сердцах, новички первые 48 ч без урона. Живой погоды с сервера здесь нет, это справочник.`,`A cataclysm comes on its own every ${iv.min}–${iv.max} minutes, with a ${iv.warn}-second warning. Blocks are never broken, damage only above 5 hearts, newcomers are safe for 48 h. This is a reference, not live server weather.`)}
+    ${Z?'':T(' Зоны пустынь, гор и морей появятся после рендера мира.',' Desert, mountain and sea zones appear once the world is rendered.')} <a href="#weather">${T('Все катаклизмы и шансы','All cataclysms and chances')} →</a></p>`; g.grid.setAttribute('clip-path','url(#mclip)');
   for(let v=-2000;v<=2000;v+=500){ if(Math.abs(v)>R) continue;
     el('line',{x1:v,y1:-R,x2:v,y2:R,class:'gl'+(v?'':' axis')},g.grid); el('line',{x1:-R,y1:v,x2:R,y2:v,class:'gl'+(v?'':' axis')},g.grid);
     if(v) {el('text',{x:v,y:-6,class:'gt'},g.grid).textContent=v; el('text',{x:6,y:v,class:'gt'},g.grid).textContent=v;} }
@@ -231,7 +250,7 @@ function renderMap(C){
     a.onclick=()=>pick(p,T('центр мира','world centre'));});
   pick(M.places[0],T('центр мира','world centre'));
   // слои и кольца
-  $('#mLayers').onclick=e=>{const k=e.target.dataset.l;if(!k)return;layers[k]=!layers[k];e.target.classList.toggle('on',layers[k]);g[k].style.display=layers[k]?'':'none'};
+  $('#mLayers').onclick=e=>{const k=e.target.dataset.l;if(!k)return;layers[k]=!layers[k];e.target.classList.toggle('on',layers[k]);g[k].style.display=layers[k]?'':'none';if(k==='wx')wxBox.hidden=!layers.wx};
   const markRing=()=>{document.querySelectorAll('#mRings button').forEach(x=>x.classList.toggle('on',x.dataset.r===sel));
     for(const k in ringEls) ringEls[k].forEach(e=>e.classList.toggle('sel',k===sel));};
   $('#mRings').onclick=e=>{const k=e.target.dataset.r;if(!k)return;sel=sel===k?null:k;markRing()}; markRing();
@@ -259,7 +278,8 @@ function renderMap(C){
   const up=e=>{pts.delete(e.pointerId);if(pts.size<2)last=null};
   svg.addEventListener('pointerup',up); svg.addEventListener('pointercancel',up);
   svg.addEventListener('click',e=>{if(moved>4){e.stopPropagation();e.preventDefault()}},true);
-  addEventListener('resize',apply); M.far.length?fitAll():reset();
+  const fitTerrain=()=>{const [x0,z0,x1,z1]=TR.bounds, ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1, cx=(x0+x1)/2, cz=(z0+z1)/2, nw=Math.max(x1-x0,(z1-z0)/ar)*1.7; vb={x:cx-nw/2,y:cz-nw*ar/2,w:nw,h:nw*ar};apply()};
+  addEventListener('resize',apply); TR?fitTerrain():M.far.length?fitAll():reset();
 }
 // ---- карта Незера (данные: C.map.nether из content/map.json; 1 блок Незера = 8 блоков наверху) ----
 function renderNether(C){

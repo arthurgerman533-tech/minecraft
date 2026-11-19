@@ -62,7 +62,7 @@ class LoreDoc {
 
 /// Карта мира: content/map.json (+ map_towns.json), см. tools/build_site.py.
 class MapPoint {
-  final String id, name, text, color, bloc;
+  final String id, name, text, color, bloc, cat, kind, lore;
   final double x, z;
   final List<List<int>> blocks;
   MapPoint(Map<String, dynamic> j)
@@ -71,22 +71,65 @@ class MapPoint {
         text = j['text'] ?? '',
         color = j['color'] ?? '',
         bloc = j['bloc'] ?? '',
+        cat = j['cat'] ?? '',
+        kind = j['kind'] ?? '',
+        lore = j['lore'] ?? '',
         x = (j['x'] as num).toDouble(),
         z = (j['z'] as num).toDouble(),
         blocks = [for (final b in (j['blocks'] ?? []) as List) List<int>.from(b)];
 }
 
+/// Настоящая карта мира (tools/render_world.py): картинка сверху и зоны погоды.
+class Terrain {
+  final String asset, date;
+  /// края картинки в блоках: x0, z0, x1, z1
+  final double x0, z0, x1, z1;
+  Terrain(Map<String, dynamic> j)
+      : asset = 'assets/${j['src']}',
+        date = j['date'] ?? '',
+        x0 = ((j['bounds'] as List)[0] as num).toDouble(),
+        z0 = ((j['bounds'] as List)[1] as num).toDouble(),
+        x1 = ((j['bounds'] as List)[2] as num).toDouble(),
+        z1 = ((j['bounds'] as List)[3] as num).toDouble();
+}
+
+/// Карта Незера: координаты Незера (1 блок = 8 наверху).
+class NetherMap {
+  final List<MapPoint> places, sites, roads;
+  final String roadName, roadText;
+  NetherMap(Map<String, dynamic> j)
+      : places = WorldMap._pts(j['places']),
+        sites = WorldMap._pts(j['sites']),
+        roads = WorldMap._pts(j['roads']),
+        roadName = j['roadName'] ?? '',
+        roadText = j['roadText'] ?? '';
+}
+
 class WorldMap {
-  final List<MapPoint> places, powers, ancient, towns;
+  final List<MapPoint> places, powers, ancient, towns, lore, far;
   final Map<String, String> blocs;
   final String townsDate;
+  final Terrain? terrain;
+  /// зоны 64×64 блока: desert, water, peaks, snow → список [x, z] левого верхнего угла
+  final Map<String, List<List<int>>> zones;
+  final int zoneCell;
+  final NetherMap? nether;
   WorldMap(Map<String, dynamic> j)
       : places = _pts(j['places']),
         powers = _pts(j['powers']),
         ancient = _pts(j['ancient']),
         towns = _pts(j['towns']),
+        lore = _pts(j['lore']),
+        far = _pts(j['far']),
         blocs = Map<String, String>.from(j['blocs'] ?? {}),
-        townsDate = j['townsDate'] ?? '';
+        townsDate = j['townsDate'] ?? '',
+        terrain = j['terrain'] == null ? null : Terrain(j['terrain']),
+        zoneCell = ((j['zones'] ?? {})['cell'] ?? 64) as int,
+        zones = {
+          for (final e in ((j['zones'] ?? {}) as Map<String, dynamic>).entries)
+            if (e.value is List) e.key: [for (final c in e.value as List) List<int>.from(c)],
+        },
+        nether = j['nether'] == null ? null : NetherMap(j['nether']);
   static List<MapPoint> _pts(dynamic l) => [for (final e in (l ?? []) as List) MapPoint(e)];
 }
 

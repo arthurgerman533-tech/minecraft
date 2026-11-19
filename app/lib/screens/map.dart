@@ -20,6 +20,7 @@ class _MapScreenState extends State<MapScreen> {
   final ctrl = TransformationController();
   double side = 1;
   bool powers = true, ancient = true, towns = true;
+  bool relief = true, weather = false, loreTags = true, nether = false;
   String? ring;
   late MapPoint selected = widget.content.map.places.isNotEmpty
       ? widget.content.map.places.first
@@ -27,7 +28,9 @@ class _MapScreenState extends State<MapScreen> {
   String selectedKind = t('центр мира', 'world centre');
   static final _empty = MapPoint({'name': '', 'x': 0, 'z': 0});
 
-  double get extent => widget.content.config.border.w6 * 1.12;
+  double get extent => nether
+      ? widget.content.config.border.w6 / 8 * 1.2
+      : widget.content.config.border.w6 * 1.12;
   double get k => side / (2 * extent); // пикселей карты на блок
   Offset toCanvas(double x, double z) =>
       Offset((x + extent) * k, (z + extent) * k);
@@ -43,6 +46,21 @@ class _MapScreenState extends State<MapScreen> {
     ctrl.dispose();
     super.dispose();
   }
+
+  /// порталы держав в Незере: столица ÷ 8
+  static List<MapPoint> _portals(WorldMap m) => [
+        for (final e in m.powers)
+          MapPoint({
+            'id': e.id,
+            'name': e.name,
+            'color': e.color,
+            'text': t('Портал державы: постройте рамку на этих координатах Незера, и выйдете у столицы. ',
+                    'The power\'s portal: build a frame at these Nether coordinates and you will come out at the capital. ') +
+                e.text,
+            'x': (e.x / 8).round(),
+            'z': (e.z / 8).round(),
+          }),
+      ];
 
   void onTap(Offset p) {
     final m = widget.content.map;
@@ -62,7 +80,21 @@ class _MapScreenState extends State<MapScreen> {
       }
     }
 
+    if (nether && m.nether != null) {
+      final n = m.nether!;
+      test(n.places, t('под Монолитом', 'beneath the Monolith'), true);
+      test(n.sites, t('Незер', 'Nether'), true);
+      test(_portals(m), t('портал державы', 'power\'s portal'), true);
+      if (best != null) {
+        setState(() {
+          selected = best!;
+          selectedKind = kind;
+        });
+      }
+      return;
+    }
     test(m.places, t('центр мира', 'world centre'), true);
+    test(m.lore, t('метка лора', 'lore tag'), loreTags);
     test(m.towns, t('город', 'town'), towns);
     test(m.ancient, t('Предтечи', 'Forerunners'), ancient);
     test(m.powers, '', powers);
@@ -95,10 +127,58 @@ class _MapScreenState extends State<MapScreen> {
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
       children: [
-        Wrap(
+        if (m.nether != null) ...[
+          SegmentedButton<bool>(
+            segments: [
+              ButtonSegment(
+                value: false,
+                icon: const Icon(Icons.public),
+                label: Text(t('Мир', 'World')),
+              ),
+              ButtonSegment(
+                value: true,
+                icon: const Icon(Icons.local_fire_department),
+                label: Text(t('Незер', 'Nether')),
+              ),
+            ],
+            selected: {nether},
+            onSelectionChanged: (v) => setState(() {
+              nether = v.first;
+              ctrl.value = Matrix4.identity();
+              final n = m.nether;
+              if (nether && n != null && n.places.isNotEmpty) {
+                selected = n.places.first;
+                selectedKind = t('под Монолитом', 'beneath the Monolith');
+              } else if (!nether && m.places.isNotEmpty) {
+                selected = m.places.first;
+                selectedKind = t('центр мира', 'world centre');
+              }
+            }),
+          ),
+          const SizedBox(height: 8),
+        ],
+        if (!nether) Wrap(
           spacing: 6,
           runSpacing: 6,
           children: [
+            if (m.terrain != null)
+              FilterChip(
+                label: Text(t('Рельеф', 'Terrain')),
+                selected: relief,
+                onSelected: (v) => setState(() => relief = v),
+              ),
+            FilterChip(
+              avatar: const Icon(Icons.thunderstorm_outlined, size: 18),
+              label: Text(t('Погода', 'Weather')),
+              selected: weather,
+              onSelected: (v) => setState(() => weather = v),
+            ),
+            if (m.lore.isNotEmpty)
+              FilterChip(
+                label: Text(t('Метки лора', 'Lore tags')),
+                selected: loreTags,
+                onSelected: (v) => setState(() => loreTags = v),
+              ),
             FilterChip(
               label: Text(t('Державы', 'Powers')),
               selected: powers,
@@ -125,7 +205,7 @@ class _MapScreenState extends State<MapScreen> {
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             Text(
-              t('Граница', 'Border'),
+              nether ? t('Граница ÷ 8', 'Border ÷ 8') : t('Граница', 'Border'),
               style: TextStyle(color: cs.onSurfaceVariant),
             ),
             for (final r in rings)
@@ -147,7 +227,9 @@ class _MapScreenState extends State<MapScreen> {
                 width: side,
                 height: side,
                 child: Container(
-                  color: Color.alphaBlend(const Color(0x292F7FB5), cs.surface),
+                  color: nether
+                      ? const Color(0xFF2A0F0C)
+                      : Color.alphaBlend(const Color(0x292F7FB5), cs.surface),
                   child: Stack(
                     children: [
                       InteractiveViewer(
@@ -160,8 +242,36 @@ class _MapScreenState extends State<MapScreen> {
                           child: SizedBox(
                             width: side,
                             height: side,
-                            child: CustomPaint(
-                              painter: _MapPainter(
+                            child: Stack(
+                              children: [
+                                if (!nether && relief && m.terrain != null)
+                                  Positioned(
+                                    left: (m.terrain!.x0 + extent) * k,
+                                    top: (m.terrain!.z0 + extent) * k,
+                                    width: (m.terrain!.x1 - m.terrain!.x0) * k,
+                                    height: (m.terrain!.z1 - m.terrain!.z0) * k,
+                                    child: Image.asset(
+                                      m.terrain!.asset,
+                                      fit: BoxFit.fill,
+                                      filterQuality: FilterQuality.low,
+                                      errorBuilder: (_, _, _) =>
+                                          const SizedBox.shrink(),
+                                    ),
+                                  ),
+                                Positioned.fill(
+                                  child: CustomPaint(
+                                    painter: nether
+                                        ? _NetherPainter(
+                                            map: m,
+                                            rings: rings,
+                                            ringSel: ringSel,
+                                            nowRadius: st.started ? st.radius : null,
+                                            extent: extent,
+                                            scale: scale,
+                                            selected: sel,
+                                            cs: cs,
+                                          )
+                                        : _MapPainter(
                                 map: m,
                                 border: b,
                                 rings: rings,
@@ -172,9 +282,15 @@ class _MapScreenState extends State<MapScreen> {
                                 powers: powers,
                                 ancient: ancient,
                                 towns: towns,
+                                relief: relief && m.terrain != null,
+                                weather: weather,
+                                loreTags: loreTags,
                                 selected: sel,
                                 cs: cs,
                               ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -227,7 +343,11 @@ class _MapScreenState extends State<MapScreen> {
                         selectedKind,
                         style: TextStyle(color: cs.onSurfaceVariant),
                       ),
-                    CmdChip('X ${sel.x.round()} · Z ${sel.z.round()}'),
+                    CmdChip(
+                      nether
+                          ? '${t('Незер', 'Nether')} X ${sel.x.round()} · Z ${sel.z.round()} · ${t('наверху', 'above')} X ${(sel.x * 8).round()} · Z ${(sel.z * 8).round()}'
+                          : 'X ${sel.x.round()} · Z ${sel.z.round()}',
+                    ),
                   ],
                 ),
                 if (sel.text.isNotEmpty || sel.blocks.isNotEmpty)
@@ -241,7 +361,54 @@ class _MapScreenState extends State<MapScreen> {
             ),
           ),
         ),
+        if (weather && !nether) ...[
+          const SizedBox(height: 10),
+          _WeatherLegend(content: c),
+        ],
+        if (!nether && m.far.isNotEmpty) ...[
+          const SizedBox(height: 10),
+          Text(
+            t('За границей мира', 'Beyond the world border'),
+            style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+          ),
+          for (final f in m.far)
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.explore_outlined),
+                title: Text(f.name),
+                subtitle: Text(
+                  '${t('≈', '≈')} ${math.sqrt(f.x * f.x + f.z * f.z).round()} ${t('блоков от 0,0', 'blocks from 0,0')} · X ${f.x.round()} · Z ${f.z.round()}\n${f.text}',
+                ),
+                isThreeLine: true,
+                onTap: () => setState(() {
+                  selected = f;
+                  selectedKind = t('за границей мира', 'beyond the border');
+                }),
+              ),
+            ),
+        ],
         const SizedBox(height: 10),
+        if (m.terrain != null && !nether)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 6),
+            child: Text(
+              t(
+                    'Рельеф, реки, озёра и леса нарисованы блок в блок с настоящего мира PaxVanila. Разведана область вокруг спавна, дальше схема.',
+                    'Terrain, rivers, lakes and forests are rendered block by block from the real PaxVanila world. The area around spawn is explored, the rest is a schematic.',
+                  ) +
+                  (m.terrain!.date.isEmpty ? '' : ' ${m.terrain!.date}'),
+              style: TextStyle(color: cs.onSurfaceVariant),
+            ),
+          ),
+        if (nether)
+          Text(
+            t(
+              'Порталы держав посчитаны из карты мира: координаты столицы ÷ 8. Крепости, бастионы и легенды показаны схемой по лору. Кольца это граница мира ÷ 8.',
+              'The powers\' portals are taken from the world map: capital coordinates ÷ 8. Fortresses, bastions and legends are a schematic of the lore. The rings are the world border ÷ 8.',
+            ),
+            style: TextStyle(color: cs.onSurfaceVariant),
+          )
+        else
         Text(
           t(
                 'Державы и древние места показаны схемой по лору: настоящие столицы строят игроки.',
@@ -281,7 +448,7 @@ class _MapPainter extends CustomPainter {
   final String? ringSel;
   final int? nowRadius;
   final double extent, scale;
-  final bool powers, ancient, towns;
+  final bool powers, ancient, towns, relief, weather, loreTags;
   final MapPoint selected;
   final ColorScheme cs;
   _MapPainter({
@@ -295,6 +462,9 @@ class _MapPainter extends CustomPainter {
     required this.powers,
     required this.ancient,
     required this.towns,
+    required this.relief,
+    required this.weather,
+    required this.loreTags,
     required this.selected,
     required this.cs,
   });
@@ -307,11 +477,50 @@ class _MapPainter extends CustomPainter {
     final gold = cs.primary, ink = cs.onSurface, bg = cs.surface;
     final center = p(0, 0), rw = border.w6 * k;
 
-    canvas.drawCircle(
-      center,
-      rw,
-      Paint()..color = Color.alphaBlend(const Color(0x386F9A4A), bg),
-    );
+    if (relief) {
+      // схема суши там, где мир ещё не разведан, а поверх картинки ничего
+      final tr = map.terrain!;
+      canvas.drawPath(
+        Path.combine(
+          PathOperation.difference,
+          Path()..addOval(Rect.fromCircle(center: center, radius: rw)),
+          Path()..addRect(Rect.fromPoints(p(tr.x0, tr.z0), p(tr.x1, tr.z1))),
+        ),
+        Paint()..color = Color.alphaBlend(const Color(0x386F9A4A), bg),
+      );
+      // за самой широкой границей мир темнее
+      canvas.drawPath(
+        Path()
+          ..fillType = PathFillType.evenOdd
+          ..addRect(Offset.zero & size)
+          ..addOval(Rect.fromCircle(center: center, radius: rw)),
+        Paint()..color = const Color(0x6B000000),
+      );
+    } else {
+      canvas.drawCircle(
+        center,
+        rw,
+        Paint()..color = Color.alphaBlend(const Color(0x386F9A4A), bg),
+      );
+    }
+    if (weather) {
+      final c = map.zoneCell.toDouble();
+      for (final z in _weatherZones) {
+        final cells = map.zones[z.$1] ?? const [];
+        if (cells.isEmpty) continue;
+        final path = Path();
+        for (final e in cells) {
+          path.addRect(Rect.fromLTWH(p(e[0].toDouble(), e[1].toDouble()).dx,
+              p(e[0].toDouble(), e[1].toDouble()).dy, c * k, c * k));
+        }
+        canvas.drawPath(path, Paint()..color = z.$2.withValues(alpha: .4));
+      }
+      canvas.drawCircle(center, 120 * k, Paint()..color = const Color(0x4D8B1E1E));
+      canvas.drawRect(
+        Rect.fromCenter(center: center, width: 96 * k, height: 96 * k),
+        Paint()..color = const Color(0x553FA34D),
+      );
+    }
     canvas.save();
     canvas.clipPath(
       Path()..addOval(Rect.fromCircle(center: center, radius: rw)),
@@ -444,6 +653,19 @@ class _MapPainter extends CustomPainter {
         );
       }
     }
+    if (loreTags) {
+      for (final e in map.lore) {
+        final col = switch (e.cat) {
+          'cataclysm' => const Color(0xFFD9534F),
+          'battle' => const Color(0xFFB0362B),
+          'front' => const Color(0xFF8B6B3E),
+          'old' => const Color(0xFF6C7A89),
+          _ => cs.tertiary,
+        };
+        canvas.drawCircle(p(e.x, e.z), math.max(3 * s, 8 * k), Paint()..color = col);
+        label(e.name, p(e.x, e.z) - Offset(0, 6 * s), size: 11, color: col, w: FontWeight.w600, above: true);
+      }
+    }
     if (towns) {
       for (final e in map.towns) {
         final col = _hex(e.color, gold);
@@ -497,7 +719,269 @@ class _MapPainter extends CustomPainter {
       o.powers != powers ||
       o.ancient != ancient ||
       o.towns != towns ||
+      o.relief != relief ||
+      o.weather != weather ||
+      o.loreTags != loreTags ||
       o.ringSel != ringSel ||
       o.selected != selected ||
       o.cs != cs;
+}
+
+/// Зоны погоды на карте: (ключ зоны, цвет, катаклизм)
+const _weatherZones = <(String, Color, String)>[
+  ('desert', Color(0xFFE8A33D), 'sandstorm'),
+  ('peaks', Color(0xFFF5C542), 'storm'),
+  ('snow', Color(0xFF5FD4E8), 'blizzard'),
+  ('water', Color(0xFF3B6FD9), 'flood'),
+];
+
+/// Легенда слоя погоды (данные: content.json → meteo, зоны из настоящего мира).
+class _WeatherLegend extends StatelessWidget {
+  final Content content;
+  const _WeatherLegend({required this.content});
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final events = [
+      for (final e in (content.meteo['events'] ?? const []) as List)
+        Map<String, dynamic>.from(e as Map),
+    ];
+    Map<String, dynamic> ev(String id) =>
+        events.firstWhere((e) => e['id'] == id, orElse: () => {'icon': '', 'name': id});
+    final iv = Map<String, dynamic>.from((content.meteo['interval'] ?? const {}) as Map);
+    final zones = content.map.zones;
+    final rows = <(Color, String, String)>[
+      for (final z in _weatherZones)
+        if ((zones[z.$1] ?? const []).isNotEmpty)
+          (
+            z.$2,
+            '${ev(z.$3)['icon']} ${ev(z.$3)['name']}',
+            switch (z.$1) {
+              'desert' => t('пустыни и бесплодные земли', 'deserts and badlands'),
+              'peaks' => t('вершины выше Y 110: молнии бьют чаще', 'peaks above Y 110: lightning strikes more often'),
+              'snow' => t('снежные земли: метель сильнее', 'snowy lands: the blizzard is harsher'),
+              _ => t('океаны, реки, пляжи', 'oceans, rivers, beaches'),
+            },
+          ),
+      (
+        const Color(0xFF8B1E1E),
+        '${ev('ash')['icon']} ${ev('ash')['name']}',
+        t('столб огня над Монолитом 0,0', 'a pillar of fire over the Monolith at 0,0'),
+      ),
+      (
+        const Color(0xFF3FA34D),
+        t('Безопасная зона', 'Safe zone'),
+        t('башня новичков ±48 блоков: урона нет', 'newcomer tower ±48 blocks: no damage'),
+      ),
+    ];
+    final everywhere = ['blizzard', 'drought', 'quake', 'meteor', 'fog', 'aurora', 'storm']
+        .map(ev)
+        .where((e) => e['name'] != null && e['name'] != e['id'])
+        .map((e) => '${e['icon']} ${e['name']}')
+        .join(', ');
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(14),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              t('Погода на сервере', 'Weather on the server'),
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 8),
+            for (final r in rows)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 14,
+                      height: 14,
+                      margin: const EdgeInsets.only(top: 3, right: 8),
+                      decoration: BoxDecoration(
+                        color: r.$1.withValues(alpha: .8),
+                        borderRadius: BorderRadius.circular(3),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text.rich(TextSpan(children: [
+                        TextSpan(text: r.$2, style: const TextStyle(fontWeight: FontWeight.w700)),
+                        TextSpan(text: ' ${r.$3}'),
+                      ])),
+                    ),
+                  ],
+                ),
+              ),
+            if (everywhere.isNotEmpty)
+              Text('${t('Везде под открытым небом', 'Everywhere under open sky')}: $everywhere.'),
+            const SizedBox(height: 6),
+            Text(
+              t(
+                'Катаклизм приходит сам раз в ${iv['min'] ?? 45}–${iv['max'] ?? 90} минут, предупреждение за ${iv['warn'] ?? 60} секунд. Блоки не ломаются, урон только при 5+ сердцах, новички первые 48 ч без урона. Это справочник, не живая погода.',
+                'A cataclysm comes on its own every ${iv['min'] ?? 45}–${iv['max'] ?? 90} minutes, with a ${iv['warn'] ?? 60}-second warning. Blocks are never broken, damage only above 5 hearts, newcomers are safe for 48 h. This is a reference, not live weather.',
+              ),
+              style: TextStyle(color: cs.onSurfaceVariant),
+            ),
+            if (zones.isEmpty)
+              Text(
+                t('Зоны пустынь, гор и морей появятся после рендера мира.',
+                    'Desert, mountain and sea zones appear once the world is rendered.'),
+                style: TextStyle(color: cs.onSurfaceVariant),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Карта Незера: порталы держав (столица ÷ 8), крепости, бастионы, легенды, тракты.
+class _NetherPainter extends CustomPainter {
+  final WorldMap map;
+  final List<(String, String, int)> rings;
+  final String? ringSel;
+  final int? nowRadius;
+  final double extent, scale;
+  final MapPoint selected;
+  final ColorScheme cs;
+  _NetherPainter({
+    required this.map,
+    required this.rings,
+    required this.ringSel,
+    required this.nowRadius,
+    required this.extent,
+    required this.scale,
+    required this.selected,
+    required this.cs,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final n = map.nether;
+    if (n == null) return;
+    final k = size.width / (2 * extent);
+    Offset p(double x, double z) => Offset((x + extent) * k, (z + extent) * k);
+    final s = 1 / scale;
+    const gold = Color(0xFFF0B84A), ink = Color(0xFFF4E6D0), bg = Color(0xFF2A0F0C);
+    final center = p(0, 0);
+
+    // лава и леса: постоянный узор, как на сайте
+    var seed = 7;
+    double rnd() => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    for (var i = 0; i < 46; i++) {
+      final x = (rnd() * 2 - 1) * extent * 1.5, z = (rnd() * 2 - 1) * extent * 1.5, r = 6 + rnd() * 22, tt = rnd();
+      rnd();
+      if (math.sqrt(x * x + z * z) < 30) continue;
+      final col = tt < .55 ? const Color(0x55E2561B) : tt < .8 ? const Color(0x55A3242C) : const Color(0x55168A7C);
+      canvas.drawOval(Rect.fromCenter(center: p(x, z), width: r * 3 * k, height: r * 2 * k), Paint()..color = col);
+    }
+    final grid = Paint()
+      ..color = const Color(0x33F4E6D0)
+      ..strokeWidth = s;
+    for (var v = -250.0; v <= 250; v += 50) {
+      canvas.drawLine(p(v, -extent), p(v, extent), grid);
+      canvas.drawLine(p(-extent, v), p(extent, v), grid);
+    }
+
+    void label(String txt, Offset at, {double size = 12, Color color = ink, bool above = false}) {
+      final st = TextStyle(fontSize: size * s, fontWeight: FontWeight.w700);
+      final o = TextPainter(
+        text: TextSpan(
+          text: txt,
+          style: st.copyWith(
+            foreground: Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 3 * s
+              ..color = bg,
+          ),
+        ),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      final f = TextPainter(text: TextSpan(text: txt, style: st.copyWith(color: color)), textDirection: TextDirection.ltr)..layout();
+      final at2 = at - Offset(f.width / 2, above ? f.height : 0);
+      o.paint(canvas, at2);
+      f.paint(canvas, at2);
+    }
+
+    for (final r in rings) {
+      final on = r.$1 == ringSel;
+      canvas.drawCircle(
+        center,
+        r.$3 / 8 * k,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = (on ? 3 : 1.2) * s
+          ..color = gold.withValues(alpha: on ? 1 : .45),
+      );
+      if (on) label('${r.$2} · ${(r.$3 / 8).round()}', p(r.$3 / 8 * .7071, -r.$3 / 8 * .7071), color: gold, above: true);
+    }
+    if (nowRadius != null) {
+      canvas.drawCircle(
+        center,
+        nowRadius! / 8 * k,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 3 * s
+          ..color = cs.error,
+      );
+    }
+    for (final r in n.roads) {
+      canvas.drawLine(center, p(r.x, r.z), Paint()
+        ..strokeWidth = 4 * s
+        ..color = const Color(0xFFC07A45));
+    }
+    for (final e in n.sites) {
+      final col = switch (e.kind) {
+        'fortress' => const Color(0xFFB0362B),
+        'bastion' => const Color(0xFF6B6B6B),
+        _ => const Color(0xFFC77DFF),
+      };
+      final c = p(e.x, e.z), d = math.max(6 * s, 10 * k);
+      canvas.drawRect(Rect.fromCenter(center: c, width: d, height: d), Paint()..color = col);
+      if (e == selected) {
+        canvas.drawRect(
+          Rect.fromCenter(center: c, width: d + 6 * s, height: d + 6 * s),
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 2 * s
+            ..color = ink,
+        );
+      }
+      label(e.name, c + Offset(0, d / 2 + 2 * s), size: 11);
+    }
+    for (final e in map.powers) {
+      final c = p((e.x / 8).roundToDouble(), (e.z / 8).roundToDouble());
+      final col = _hex(e.color, gold);
+      canvas.drawCircle(c, math.max(5 * s, 7 * k), Paint()..color = const Color(0xFF7A3CC8));
+      canvas.drawCircle(
+        c,
+        math.max(5 * s, 7 * k),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2 * s
+          ..color = col,
+      );
+      label(e.name, c + Offset(0, 8 * s), size: 12, color: col);
+    }
+    for (final e in n.places) {
+      final c = p(e.x, e.z), d = math.max(8 * s, 16 * k);
+      canvas.drawCircle(c, d, Paint()..color = const Color(0xFF1B1326));
+      canvas.drawCircle(
+        c,
+        d,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2 * s
+          ..color = gold,
+      );
+      label(e.name, c - Offset(0, d + 3 * s), size: 14, color: gold, above: true);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant _NetherPainter o) =>
+      o.scale != scale || o.ringSel != ringSel || o.selected != selected || o.cs != cs;
 }

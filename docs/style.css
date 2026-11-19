@@ -246,3 +246,15 @@ table.wxtable small{color:var(--muted)}
 .nsvg .ngi{fill:#7a2fc0}
 .nsvg .ngt{font-size:calc(var(--k)*15px);font-weight:700;fill:#d6a6ff}
 .nsvg .rt{opacity:0}.nsvg .rt.sel,.nsvg .rt.now{opacity:1}
+/* настоящая карта мира и слой погоды */
+.msvg .terr{image-rendering:pixelated}
+.msvg .outside{fill:#000;fill-opacity:.42;stroke:none;pointer-events:none}
+.msvg .wxz{fill-opacity:.38;stroke:none;pointer-events:none}
+.msvg .wxash{fill:#8b1e1e;fill-opacity:.3;stroke:#8b1e1e;stroke-width:2;stroke-dasharray:4 3;pointer-events:none}
+.msvg .wxsafe{fill:#3fa34d;fill-opacity:.25;stroke:#3fa34d;stroke-width:2;pointer-events:none}
+.mwx{margin:12px 0 0;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card,var(--bg))}
+.mwx .wxl{display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:6px}
+.mwx .wxl span{display:flex;align-items:center;gap:6px;font-size:.92em}
+.mwx .wxl i{width:14px;height:14px;border-radius:3px;flex:none;opacity:.8}
+.mwx p{margin:.3em 0 0;font-size:.92em;color:var(--muted)}
+.msvg .terrb{fill:none;stroke:#000;stroke-opacity:.35;stroke-width:1;pointer-events:none}

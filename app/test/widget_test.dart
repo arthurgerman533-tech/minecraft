@@ -75,6 +75,23 @@ void main() {
     expect(find.text('Карфаген'), findsOneWidget);
   });
 
+  testWidgets('карта: рельеф, погода и Незер', (tester) async {
+    final c = Content(jsonDecode(File('assets/content.json').readAsStringSync()));
+    expect(c.map.terrain, isNotNull);
+    expect(c.map.nether, isNotNull);
+    tester.view.physicalSize = const Size(400, 2400);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(MaterialApp(home: Scaffold(body: MapScreen(content: c))));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Погода'));
+    await tester.pumpAndSettle();
+    expect(find.text('Погода на сервере'), findsOneWidget);
+    await tester.tap(find.text('Незер'));
+    await tester.pumpAndSettle();
+    expect(find.text('Великие врата'), findsOneWidget);
+  });
+
   testWidgets('погода и Вестник показывают демо', (tester) async {
     final c = Content(jsonDecode(File('assets/content.json').readAsStringSync()));
     tester.view.physicalSize = const Size(400, 1400);
