@@ -34,6 +34,62 @@ addEventListener('appinstalled',()=>{deferred=null;['#install','#install2'].forE
   if(isIOS){const a=$('#stepsAndroid'),i=$('#stepsIOS');if(a&&i)i.parentNode.insertBefore(i,a)}
 })();
 
+// ---- телефон: нижняя панель, меню-шторка, оглавление и чтение лора ----
+(function(){
+  const nav=$('nav.main'), header=$('header.top'); if(!nav||!header) return;
+  const U=h=>new URL(h,BASE).href, aside=$('.doc aside'), tocLinks=aside?[...aside.querySelectorAll('a[href^="#"]')]:[];
+  const isIndex=!!$('#pxmap');
+  // шторка снизу: меню разделов или оглавление
+  const sh=document.createElement('div'); sh.className='sheet'; sh.hidden=true;
+  sh.innerHTML=`<div class="sheet-bg" data-close></div><div class="sheet-p" role="dialog" aria-modal="true"><div class="sheet-h"><b></b><button class="iconbtn" data-close aria-label="${T('Закрыть','Close')}">✕</button></div><div class="sheet-c"></div></div>`;
+  document.body.appendChild(sh);
+  let pending=null;
+  const openSheet=(title,links,cls)=>{sh.querySelector('.sheet-h b').textContent=title; const c=sh.querySelector('.sheet-c'); c.className='sheet-c '+(cls||'');
+    c.innerHTML=''; links.forEach(a=>{const n=a.cloneNode(true); n.removeAttribute('id'); c.appendChild(n)});
+    sh.hidden=false; document.body.classList.add('sheetopen'); history.pushState({pxsheet:1},'');
+    const on=c.querySelector('.on'); if(on) on.scrollIntoView({block:'center'});};
+  const closeSheet=go=>{if(sh.hidden) return; sh.hidden=true; document.body.classList.remove('sheetopen'); pending=go||null;
+    if(history.state&&history.state.pxsheet) history.back(); else if(pending){location.href=pending;pending=null}};
+  addEventListener('popstate',()=>{if(!sh.hidden){sh.hidden=true;document.body.classList.remove('sheetopen')} if(pending){const p=pending;pending=null;setTimeout(()=>location.href=p,0)}});
+  sh.addEventListener('click',e=>{if(e.target.closest('[data-close]')) return closeSheet(); const a=e.target.closest('a'); if(a){e.preventDefault(); closeSheet(a.href)}});
+  addEventListener('keydown',e=>{if(e.key==='Escape') closeSheet()});
+  // нижняя панель
+  const items=aside?[[U('./'),'🏠',T('Главная','Home')],[U('lore.html'),'📚',T('Весь лор','All lore')]]
+    .concat(tocLinks.length?[['#toc','📑',T('Оглавление','Contents')]]:[]).concat([['#top','⬆️',T('Наверх','Top')],['#menu','☰',T('Главы','Chapters')]])
+    :[[U('#map'),'🗺️',T('Мир 1','World 1')],[U('#earth'),'🌍',T('Мир 2','World 2')],[U('#nether'),'🔥',T('Незер','Nether')],[U('lore.html'),'📜',T('Лор','Lore')],['#menu','☰',T('Меню','Menu')]];
+  const bar=document.createElement('nav'); bar.className='tabbar'; bar.setAttribute('aria-label',T('Быстрые разделы','Quick sections'));
+  bar.innerHTML=items.map(([h,i,l])=>h[0]==='#'?`<button type="button" data-act="${h.slice(1)}"><span class="i">${i}</span>${esc(l)}</button>`:`<a href="${esc(h)}"><span class="i">${i}</span>${esc(l)}</a>`).join('');
+  document.body.appendChild(bar); document.documentElement.classList.add('hasbar');
+  if(!isIndex&&!aside) bar.querySelectorAll('a').forEach(a=>{if(a.href===U('lore.html')&&/lore\.html$/.test(location.pathname)) a.classList.add('on')});
+  bar.addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return; const k=b.dataset.act;
+    if(k==='menu') openSheet(aside?T('Главы лора','Lore chapters'):T('Разделы','Sections'),[...nav.querySelectorAll('a')],'grid2');
+    else if(k==='toc') openSheet(T('Оглавление','Contents'),tocLinks);
+    else if(k==='top') scrollTo({top:0,behavior:'smooth'});});
+  // где мы сейчас: подсветка на панели, в меню и в оглавлении
+  nav.querySelectorAll('a').forEach(a=>{if(!a.getAttribute('href').startsWith('#')&&a.href.split('#')[0]===location.href.split('#')[0]) a.classList.add('on')});
+  const secs=isIndex?[...nav.querySelectorAll('a[href^="#"]')].map(a=>[a,document.getElementById(a.getAttribute('href').slice(1))]).filter(x=>x[1]):[];
+  const heads=tocLinks.map(a=>[a,document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)))]).filter(x=>x[1]);
+  let bar1=null, resumeKey='pxread:'+location.pathname, saveT=0, saved=null, armed=false;
+  try{saved=JSON.parse(localStorage.getItem(resumeKey)||'null')}catch(e){}
+  if(aside){bar1=document.createElement('div'); bar1.className='readbar'; header.appendChild(bar1)}
+  const spy=()=>{const y=scrollY+innerHeight*.3;
+    if(isIndex){let cur=null; secs.forEach(([a,s])=>{if(s.offsetTop<=y) cur=s.id});
+      secs.forEach(([a,s])=>a.classList.toggle('on',s.id===cur));
+      bar.querySelectorAll('a').forEach(a=>a.classList.toggle('on',!!cur&&a.href.endsWith('#'+cur)));}
+    if(heads.length){let cur=null; heads.forEach(([a,h])=>{if(h.offsetTop<=y) cur=a}); heads.forEach(([a])=>a.classList.toggle('on',a===cur));
+      const max=document.documentElement.scrollHeight-innerHeight; if(bar1) bar1.style.transform=`scaleX(${max>0?Math.min(1,scrollY/max):0})`;
+      const now=Date.now(); if(armed&&now-saveT>800){saveT=now; try{localStorage.setItem(resumeKey,JSON.stringify({y:scrollY,id:cur?cur.getAttribute('href').slice(1):'',t:cur?cur.textContent:''}))}catch(e){}}}};
+  let raf=0; addEventListener('scroll',()=>{if(!raf) raf=requestAnimationFrame(()=>{raf=0;spy()})},{passive:true}); addEventListener('load',spy); spy();
+  setTimeout(()=>{armed=true},1500);
+  // «Продолжить чтение»: глава помнит, где вы остановились
+  if(heads.length&&!location.hash){const s=saved;
+    if(s&&s.y>1200&&scrollY<600){const r=document.createElement('div'); r.className='resume';
+      r.innerHTML=`<button type="button" class="go">▶ ${T('Продолжить','Continue')}${s.t?': <span>'+esc(s.t)+'</span>':''}</button><button type="button" class="x" aria-label="${T('Скрыть','Hide')}">✕</button>`;
+      document.body.appendChild(r); const hide=()=>r.remove(); setTimeout(hide,12000); addEventListener('scroll',()=>{if(scrollY>1500) hide()},{passive:true});
+      r.querySelector('.x').onclick=hide;
+      r.querySelector('.go').onclick=()=>{const h=s.id&&document.getElementById(decodeURIComponent(s.id)); if(h) h.scrollIntoView(); else scrollTo(0,s.y); hide()};}}
+})();
+
 // ---- календарь сервера (та же логика, что в paxborder.sk / paxwar.sk / paxseasons.sk) ----
 function radiusForDay(b,d){
   const r=Math.round;
@@ -250,6 +306,78 @@ function renderNews(C,N){
   draw();
 }
 
+// ---- общий движок карт: мышь, колёсико, жесты на телефоне, кнопки и полный экран ----
+// На телефоне вне полного экрана один палец листает страницу, двумя пальцами двигаем и приближаем карту.
+// В полном экране (кнопка ⛶) карта двигается одним пальцем, двойной тап приближает.
+const TOUCH=matchMedia('(pointer:coarse)').matches;
+const ZOOMBTNS=()=>`<div class="mzoom"><button data-z="0.67" aria-label="${T('Приблизить','Zoom in')}">+</button><button data-z="1.5" aria-label="${T('Отдалить','Zoom out')}">−</button><button data-z="0" aria-label="${T('Сбросить','Reset')}">⟲</button><button data-fs class="fsb" aria-label="${T('На весь экран','Full screen')}">⛶</button></div>`;
+function panZoom(o){
+  const {host,svg,info,minW,maxW,coord}=o; let vb={x:0,y:0,w:1,h:1};
+  const box=host.querySelector('.mbox'), cEl=host.querySelector('.mcoord'), fsBtn=host.querySelector('[data-fs]');
+  const ar=()=>svg.clientHeight/Math.max(1,svg.clientWidth)||1;
+  const apply=()=>{const cy=vb.y+vb.h/2; vb.h=vb.w*ar(); vb.y=cy-vb.h/2;
+    svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`); svg.style.setProperty('--k',vb.w/Math.max(1,svg.clientWidth));};
+  const fit=(x0,y0,x1,y1,pad=1)=>{const a=ar(), nw=Math.max(x1-x0,(y1-y0)/a)*pad; vb={x:(x0+x1)/2-nw/2,y:(y0+y1)/2-nw*a/2,w:nw,h:nw*a}; apply()};
+  const toWorld=(cx,cy)=>{const r=svg.getBoundingClientRect();return [vb.x+(cx-r.left)/r.width*vb.w, vb.y+(cy-r.top)/r.height*vb.h]};
+  const zoom=(f,cx,cy)=>{const nw=Math.min(maxW,Math.max(minW,vb.w*f)); f=nw/vb.w; const [wx,wy]=toWorld(cx,cy);
+    vb.x=wx-(wx-vb.x)*f; vb.y=wy-(wy-vb.y)*f; vb.w=nw; vb.h*=f; apply()};
+  const pan=(dx,dy)=>{const r=svg.getBoundingClientRect(); vb.x-=dx/r.width*vb.w; vb.y-=dy/r.height*vb.h; apply()};
+  const showCoord=(cx,cy)=>{if(cEl){const [x,y]=toWorld(cx,cy); cEl.textContent=coord(x,y)}};
+  const isFs=()=>host.classList.contains('fs');
+  // подсказка «двумя пальцами»
+  const hintEl=document.createElement('div'); hintEl.className='mhint';
+  hintEl.innerHTML=T('Двигай карту <b>двумя пальцами</b><br>или открой её на весь экран <b>⛶</b>','Move the map with <b>two fingers</b><br>or open it full screen <b>⛶</b>'); box.appendChild(hintEl);
+  let hintTO; const hint=()=>{hintEl.classList.add('show'); clearTimeout(hintTO); hintTO=setTimeout(()=>hintEl.classList.remove('show'),1500)};
+  // полный экран: масштаб в блоках на пиксель и центр сохраняются; «Назад» на телефоне закрывает
+  const toggleFs=(on=!isFs(),fromPop)=>{ if(on===isFs()) return;
+    const k=vb.w/Math.max(1,svg.clientWidth), cx=vb.x+vb.w/2, cy=vb.y+vb.h/2;
+    host.classList.toggle('fs',on); document.body.classList.toggle('mapfs',on);
+    fsBtn.textContent=on?'✕':'⛶'; fsBtn.setAttribute('aria-label',on?T('Закрыть полный экран','Exit full screen'):T('На весь экран','Full screen'));
+    vb.w=k*svg.clientWidth; vb.h=vb.w*ar(); vb.x=cx-vb.w/2; vb.y=cy-vb.h/2; apply();
+    if(on&&!fromPop) history.pushState({pxfs:host.id},'');
+    else if(!on&&!fromPop&&history.state&&history.state.pxfs===host.id) history.back();
+    if(!on) host.scrollIntoView({block:'start'});
+  };
+  addEventListener('popstate',()=>{if(isFs()) toggleFs(false,true)});
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&isFs()) toggleFs(false)});
+  host.querySelector('.mzoom').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return;
+    if('fs' in b.dataset) return toggleFs(); const z=+b.dataset.z; if(isNaN(z)) return; if(!z) return o.reset();
+    const r=svg.getBoundingClientRect(); zoom(z,r.left+r.width/2,r.top+r.height/2)});
+  svg.addEventListener('wheel',e=>{e.preventDefault();zoom(e.deltaY>0?1.2:1/1.2,e.clientX,e.clientY)},{passive:false});
+  // мышь и перо
+  let moved=0, lastTouch=0; const pts=new Map();
+  svg.addEventListener('pointerdown',e=>{if(e.pointerType==='touch')return; pts.set(e.pointerId,[e.clientX,e.clientY]); moved=0});
+  svg.addEventListener('pointermove',e=>{if(e.pointerType==='touch')return; showCoord(e.clientX,e.clientY);
+    const p0=pts.get(e.pointerId); if(!p0) return; pts.set(e.pointerId,[e.clientX,e.clientY]);
+    const dx=e.clientX-p0[0], dy=e.clientY-p0[1]; moved+=Math.abs(dx)+Math.abs(dy);
+    if(moved>4){svg.setPointerCapture(e.pointerId); pan(dx,dy)}});
+  const up=e=>pts.delete(e.pointerId); svg.addEventListener('pointerup',up); svg.addEventListener('pointercancel',up);
+  svg.addEventListener('dblclick',e=>{e.preventDefault(); if(Date.now()-lastTouch<800) return; zoom(0.5,e.clientX,e.clientY)});
+  // пальцы
+  let G=null, tapT=0, tapXY=null;
+  const mid=t=>t.length>1?[(t[0].clientX+t[1].clientX)/2,(t[0].clientY+t[1].clientY)/2]:[t[0].clientX,t[0].clientY];
+  const dist=t=>t.length>1?Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY):0;
+  svg.addEventListener('touchstart',e=>{lastTouch=Date.now(); const t=e.touches; if(t.length===1) moved=0; else moved=99; G={m:mid(t),d:dist(t),n:t.length}},{passive:true});
+  svg.addEventListener('touchmove',e=>{const t=e.touches; if(!G||!t.length) return; const m=mid(t);
+    if(t.length!==G.n){G={m,d:dist(t),n:t.length};return}
+    const dx=m[0]-G.m[0], dy=m[1]-G.m[1];
+    if(t.length===1&&!isFs()){moved+=Math.abs(dx)+Math.abs(dy); G.m=m; if(moved>14) hint(); return}
+    if(!e.cancelable) return; e.preventDefault();
+    moved+=Math.abs(dx)+Math.abs(dy); pan(dx,dy);
+    if(t.length>1){const d=dist(t); if(G.d&&d) zoom(G.d/d,m[0],m[1]); G.d=d}
+    G.m=m; showCoord(m[0],m[1]);},{passive:false});
+  svg.addEventListener('touchend',e=>{lastTouch=Date.now(); const t=e.touches; if(t.length){G={m:mid(t),d:dist(t),n:t.length};return} G=null;
+    if(moved<10){const c=e.changedTouches[0], now=Date.now(); showCoord(c.clientX,c.clientY);
+      if(now-tapT<320&&tapXY&&Math.hypot(c.clientX-tapXY[0],c.clientY-tapXY[1])<30){zoom(0.5,c.clientX,c.clientY);tapT=0}
+      else{tapT=now;tapXY=[c.clientX,c.clientY]}}});
+  svg.addEventListener('touchcancel',()=>{G=null});
+  svg.addEventListener('click',e=>{if(moved>8){e.stopPropagation();e.preventDefault();return}
+    // на телефоне после выбора метки показываем карточку под картой
+    if(info&&TOUCH&&!isFs()&&e.target.closest('[tabindex]')) setTimeout(()=>{const r=info.getBoundingClientRect(); if(r.bottom>innerHeight-70) scrollBy({top:Math.min(r.bottom-innerHeight+80,r.top-70),behavior:'smooth'})},30)},true);
+  addEventListener('resize',apply);
+  return {fit,apply,zoom,toWorld,get vb(){return vb},isFs,toggleFs};
+}
+
 // ---- карта мира (данные: C.map из content/map.json и content/map_towns.json) ----
 function renderMap(C){
   const host=$('#pxmap'); if(!host||!C.map) return;
@@ -265,7 +393,7 @@ function renderMap(C){
      <div class="chips" id="mRings"><span class="lbl">${T('Граница','Border')}</span>${rings.map(r=>`<button data-r="${r[0]}">${r[1]}</button>`).join('')}</div>
    </div>
    <div class="mbox"><svg id="msvg" class="msvg" role="img" aria-label="${T('Карта мира PaxVanila','PaxVanila world map')}"></svg>
-     <div class="mzoom"><button data-z="0.67" aria-label="${T('Приблизить','Zoom in')}">+</button><button data-z="1.5" aria-label="${T('Отдалить','Zoom out')}">−</button><button data-z="0" aria-label="${T('Сбросить','Reset')}">⟲</button></div>
+     ${ZOOMBTNS()}
      <div class="mcoord" id="mcoord">X 0 · Z 0</div><div class="mcomp">${T('С','N')}↑</div></div>
    <div class="mwx" id="mwx" hidden></div>
    <div class="mrecent" id="mrecent"></div>
@@ -311,15 +439,15 @@ function renderMap(C){
     el('text',{x:p.x,y:p.z+60,class:'pt'},a).textContent=p.name;
     a.onclick=()=>pick(p,M.blocs[p.bloc]||''); a.onkeydown=e=>{if(e.key==='Enter')pick(p,M.blocs[p.bloc]||'')};});
   M.ancient.forEach(p=>{const a=el('g',{class:'an',tabindex:0},g.ancient);
-    el('rect',{x:p.x-22,y:p.z-22,width:44,height:44,transform:`rotate(45 ${p.x} ${p.z})`,class:'and'},a);
+    el('circle',{cx:p.x,cy:p.z,r:20,class:'hit'},a); el('rect',{x:p.x-22,y:p.z-22,width:44,height:44,transform:`rotate(45 ${p.x} ${p.z})`,class:'and'},a);
     el('text',{x:p.x,y:p.z+62,class:'at'},a).textContent=p.name; a.onclick=()=>pick(p,T('Предтечи','Forerunners'));});
   M.towns.forEach(t=>{const a=el('g',{class:'tw',tabindex:0},g.towns); const col=t.color||'#9a6b12';
     (t.blocks||[]).forEach(([cx,cz])=>el('rect',{x:cx*16,y:cz*16,width:16,height:16,fill:col,class:'tb'},a));
-    el('circle',{cx:t.x,cy:t.z,r:10,fill:col,class:'twd'},a); el('text',{x:t.x,y:t.z+30,class:'tt'},a).textContent=t.name;
+    el('circle',{cx:t.x,cy:t.z,r:20,class:'hit'},a); el('circle',{cx:t.x,cy:t.z,r:10,fill:col,class:'twd'},a); el('text',{x:t.x,y:t.z+30,class:'tt'},a).textContent=t.name;
     a.onclick=()=>pick({...t,text:(t.nation?T('Нация: ','Nation: ')+t.nation+'. ':'')+T('Занято чанков: ','Claimed chunks: ')+(t.blocks||[]).length},T('город','town'));});
   const LC={legend:['✦',T('легенда','legend')],cataclysm:['⚡',T('катаклизм','cataclysm')],battle:['⚔',T('битва','battle')],front:['☠',T('Хроника фронта','Front Chronicle')],old:['◉',T('Старые записи','Old Recordings')]};
   M.lore.forEach(p=>{const c=LC[p.cat]||['•',''], a=el('g',{class:'lt c-'+p.cat,tabindex:0},g.lore);
-    el('circle',{cx:p.x,cy:p.z,r:9,class:'ld'},a); const tx=el('text',{x:p.x,y:p.z-14,class:'ltx'},a); tx.textContent=c[0]+' '+p.name;
+    el('circle',{cx:p.x,cy:p.z,r:20,class:'hit'},a); el('circle',{cx:p.x,cy:p.z,r:9,class:'ld'},a); const tx=el('text',{x:p.x,y:p.z-14,class:'ltx'},a); tx.textContent=c[0]+' '+p.name;
     const go=()=>pick({...p,lore:p.lore||(p.cat==='front'?'front':'')},c[1]); a.onclick=go; a.onkeydown=e=>{if(e.key==='Enter')go()};});
   M.far.forEach(p=>{const a=el('g',{class:'far'+(p.kind?' k-'+p.kind:''),tabindex:0},g.far), d=Math.hypot(p.x,p.z)||1, ex=p.x/d*R, ez=p.z/d*R;
     el('line',{x1:ex,y1:ez,x2:p.x,y2:p.z,class:'fl'},a);
@@ -327,11 +455,11 @@ function renderMap(C){
     el('circle',{cx:p.x,cy:p.z,r:160,class:'fa'},a);
     el('path',{d:`M${p.x-60} ${p.z-60}L${p.x+60} ${p.z+60}M${p.x+60} ${p.z-60}L${p.x-60} ${p.z+60}`,class:'fx'},a);
     el('text',{x:p.x,y:p.z+200,class:'ft'},a).textContent=p.name;
-    const go=()=>{pick(p,p.kind==='old'?T('другой мир · Старые записи','another world · Old Recordings'):T('за границей мира','beyond the border'));const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1, x0=Math.min(-R,p.x-400), x1=Math.max(R,p.x+400), z0=Math.min(-R,p.z-400), z1=Math.max(R,p.z+400), nw=Math.max(x1-x0,(z1-z0)/ar)*1.08;vb={x:(x0+x1)/2-nw/2,y:(z0+z1)/2-nw*ar/2,w:nw,h:nw*ar};apply()};
+    const go=()=>{pick(p,p.kind==='old'?T('другой мир · Старые записи','another world · Old Recordings'):T('за границей мира','beyond the border'));ctl.fit(Math.min(-R,p.x-400),Math.min(-R,p.z-400),Math.max(R,p.x+400),Math.max(R,p.z+400),1.08)};
     a.onclick=go; a.onkeydown=e=>{if(e.key==='Enter')go()};
     if(p.lore) info.dataset.far=p.lore;});
   M.places.forEach(p=>{const a=el('g',{class:'mono',tabindex:0},g.top);
-    el('rect',{x:p.x-18,y:p.z-18,width:36,height:36,class:'md'},a); el('text',{x:p.x,y:p.z-34,class:'mt'},a).textContent=p.name;
+    el('circle',{cx:p.x,cy:p.z,r:20,class:'hit'},a); el('rect',{x:p.x-18,y:p.z-18,width:36,height:36,class:'md'},a); el('text',{x:p.x,y:p.z-34,class:'mt'},a).textContent=p.name;
     a.onclick=()=>pick(p,T('центр мира','world centre'));});
   pick(M.places[0],T('центр мира','world centre'));
   // слои и кольца
@@ -340,33 +468,15 @@ function renderMap(C){
     for(const k in ringEls) ringEls[k].forEach(e=>e.classList.toggle('sel',k===sel));};
   $('#mRings').onclick=e=>{const k=e.target.dataset.r;if(!k)return;sel=sel===k?null:k;markRing()}; markRing();
   // приближение и перетаскивание (viewBox в блоках)
-  let vb={x:-ext,y:-ext,w:2*ext,h:2*ext};
-  const apply=()=>{const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1; vb.h=vb.w*ar;
-    svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`); svg.style.setProperty('--k',vb.w/Math.max(1,svg.clientWidth));};
-  const fitAll=()=>{const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1; let x0=-R,x1=R,z0=-R,z1=R; M.far.forEach(p=>{x0=Math.min(x0,p.x-1700);x1=Math.max(x1,p.x+1700);z0=Math.min(z0,p.z-700);z1=Math.max(z1,p.z+700)});
-    const nw=Math.max(x1-x0,(z1-z0)/ar)*1.05; vb={x:(x0+x1)/2-nw/2,y:(z0+z1)/2-nw*ar/2,w:nw,h:nw*ar}; if(!layers.far){layers.far=true;g.far.style.display='';const b=host.querySelector('[data-l="far"]');b&&b.classList.add('on')} apply()};
+  const fitAll=()=>{let x0=-R,x1=R,z0=-R,z1=R; M.far.forEach(p=>{x0=Math.min(x0,p.x-1700);x1=Math.max(x1,p.x+1700);z0=Math.min(z0,p.z-700);z1=Math.max(z1,p.z+700)});
+    if(!layers.far){layers.far=true;g.far.style.display='';const b=host.querySelector('[data-l="far"]');b&&b.classList.add('on')} ctl.fit(x0,z0,x1,z1,1.05)};
   { const b=host.querySelector('#mAll'); if(b) b.onclick=e=>{e.stopPropagation();fitAll()}; }
-  const reset=()=>{const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1, s=2*ext; vb=ar>1?{x:-ext,y:-ext*ar,w:s,h:s*ar}:{x:-ext/ar,y:-ext,w:s/ar,h:s};apply()};
-  const toWorld=(cx,cy)=>{const r=svg.getBoundingClientRect();return [vb.x+(cx-r.left)/r.width*vb.w, vb.y+(cy-r.top)/r.height*vb.h]};
-  const zoom=(f,cx,cy)=>{const nw=Math.min(14*ext,Math.max(120,vb.w*f)); f=nw/vb.w; const [wx,wy]=toWorld(cx,cy);
-    vb.x=wx-(wx-vb.x)*f; vb.y=wy-(wy-vb.y)*f; vb.w=nw; apply()};
-  host.querySelector('.mzoom').onclick=e=>{const z=+e.target.dataset.z; if(isNaN(z))return; if(!z)return M.far.length?fitAll():reset();
-    const r=svg.getBoundingClientRect(); zoom(z,r.left+r.width/2,r.top+r.height/2)};
-  svg.addEventListener('wheel',e=>{e.preventDefault();zoom(e.deltaY>0?1.2:1/1.2,e.clientX,e.clientY)},{passive:false});
-  const pts=new Map(); let last=null, moved=0;
-  svg.addEventListener('pointerdown',e=>{pts.set(e.pointerId,[e.clientX,e.clientY]);moved=0;last=null});
-  svg.addEventListener('pointermove',e=>{const [wx,wy]=toWorld(e.clientX,e.clientY); $('#mcoord').textContent=`X ${Math.round(wx)} · Z ${Math.round(wy)}`;
-    if(!pts.has(e.pointerId))return; const p0=pts.get(e.pointerId); pts.set(e.pointerId,[e.clientX,e.clientY]);
-    if(pts.size===1){const r=svg.getBoundingClientRect(),dx=e.clientX-p0[0],dy=e.clientY-p0[1];moved+=Math.abs(dx)+Math.abs(dy);
-      if(moved>4){svg.setPointerCapture(e.pointerId);vb.x-=dx/r.width*vb.w;vb.y-=dy/r.height*vb.h;apply()}}
-    else if(pts.size===2){const [a,c]=[...pts.values()],d=Math.hypot(a[0]-c[0],a[1]-c[1]); if(last)zoom(last/d,(a[0]+c[0])/2,(a[1]+c[1])/2); last=d; moved=99}});
-  const up=e=>{pts.delete(e.pointerId);if(pts.size<2)last=null};
-  svg.addEventListener('pointerup',up); svg.addEventListener('pointercancel',up);
-  svg.addEventListener('click',e=>{if(moved>4){e.stopPropagation();e.preventDefault()}},true);
-  const fitTerrain=()=>{const [x0,z0,x1,z1]=TR.bounds, ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1, cx=(x0+x1)/2, cz=(z0+z1)/2, nw=Math.max(x1-x0,(z1-z0)/ar)*1.7; vb={x:cx-nw/2,y:cz-nw*ar/2,w:nw,h:nw*ar};apply()};
-  addEventListener('resize',apply); TR?fitTerrain():M.far.length?fitAll():reset();
+  const reset=()=>ctl.fit(-ext,-ext,ext,ext);
+  const fitTerrain=()=>{const [x0,z0,x1,z1]=TR.bounds; ctl.fit(x0,z0,x1,z1,1.7)};
+  const ctl=panZoom({host,svg,info,minW:120,maxW:14*ext,coord:(x,z)=>`X ${Math.round(x)} · Z ${Math.round(z)}`,reset:()=>M.far.length?fitAll():reset()});
+  TR?fitTerrain():M.far.length?fitAll():reset();
   // слой «Недавние катаклизмы»: журнал meteo.json (живой с сервера или демо) → метки на карте
-  if(C.cata) meteoLive(cfg).then(([lm])=>renderRecent(C,lm||C.meteoDemo,{g:g.recent,el,R,Z,pick,focus:(x,z,w)=>{const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1;vb={x:x-w/2,y:z-w*ar/2,w,h:w*ar};apply()}}));
+  if(C.cata) meteoLive(cfg).then(([lm])=>renderRecent(C,lm||C.meteoDemo,{g:g.recent,el,R,Z,pick,focus:(x,z,w)=>ctl.fit(x-w/2,z,x+w/2,z)}));
 }
 // ---- недавние катаклизмы на карте (справочник: C.cata из content/cataclysms.json ← weather_for_map.json датапака) ----
 const cataEv=n=>((window.__C&&window.__C.cata&&window.__C.cata.events)||[]).find(e=>e.n===n);
@@ -433,7 +543,7 @@ function renderEarth(C){
   host.innerHTML=`<div class="mtools"><div class="chips" id="eLayers"><button data-l="powers" class="on">${T('Державы','Powers')} (${E.powers.length})</button><button data-l="seas" class="on">${T('Моря','Seas')}</button><button data-l="grid" class="on">${T('Параллели','Graticule')}</button></div>
      <div class="chips">${Object.entries(M.blocs).map(([k,v])=>`<span class="pill eb-${k}">${esc(v)}</span>`).join('')}</div></div>
    <div class="mbox ebox"><svg id="esvg" class="msvg esvg" role="img" aria-label="${T('Карта Земли PaxVanila','PaxVanila map of the Earth')}"></svg>
-     <div class="mzoom"><button data-z="0.67" aria-label="${T('Приблизить','Zoom in')}">+</button><button data-z="1.5" aria-label="${T('Отдалить','Zoom out')}">−</button><button data-z="0" aria-label="${T('Сбросить','Reset')}">⟲</button></div>
+     ${ZOOMBTNS()}
      <div class="mcoord" id="ecoord">48° N · 25° E</div><div class="mcomp">${T('С','N')}↑</div></div>
    <div class="minfo" id="einfo"></div>
    <p class="mnote">${T('Мир 2 строится по настоящей Земле. Контуры суши: Natural Earth 1:50 000 000. Державы стоят на местах своих исторических прообразов. В ванильном Мире 1 они стоят вокруг Монолита (карта выше), там у них свои координаты.','World 2 is built on the real Earth. Coastlines: Natural Earth 1:50,000,000. The powers stand where their historical prototypes were. In vanilla World 1 they surround the Monolith (map above) with their own coordinates.')}</p>`;
@@ -455,24 +565,12 @@ function renderEarth(C){
     const go=()=>pick(p); a.onclick=go; a.onkeydown=e=>{if(e.key==='Enter')go()};});
   const rome=pw.find(p=>p.id==='romea')||pw[0]; if(rome) pick(rome);
   $('#eLayers').onclick=e=>{const k=e.target.dataset.l;if(!k)return;layers[k]=!layers[k];e.target.classList.toggle('on',layers[k]);g[k].style.display=layers[k]?'':'none'};
-  let vb={x:bx0,y:by0,w:bx1-bx0,h:by1-by0};
-  const apply=()=>{const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1; vb.h=vb.w*ar; svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`); svg.style.setProperty('--k',vb.w/Math.max(1,svg.clientWidth));};
-  const reset=()=>{const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1, w=bx1-bx0, h=by1-by0, nw=Math.max(w,h/ar); vb={x:(bx0+bx1)/2-nw/2,y:(by0+by1)/2-nw*ar/2,w:nw,h:nw*ar};apply()};
-  const toWorld=(cx,cy)=>{const r=svg.getBoundingClientRect();return [vb.x+(cx-r.left)/r.width*vb.w, vb.y+(cy-r.top)/r.height*vb.h]};
-  const zoom=(f,cx,cy)=>{const nw=Math.min(2*(bx1-bx0),Math.max(300,vb.w*f)); f=nw/vb.w; const [wx,wy]=toWorld(cx,cy); vb.x=wx-(wx-vb.x)*f; vb.y=wy-(wy-vb.y)*f; vb.w=nw; apply()};
-  host.querySelector('.mzoom').onclick=e=>{const z=+e.target.dataset.z; if(isNaN(z))return; if(!z)return reset(); const r=svg.getBoundingClientRect(); zoom(z,r.left+r.width/2,r.top+r.height/2)};
-  svg.addEventListener('wheel',e=>{e.preventDefault();zoom(e.deltaY>0?1.2:1/1.2,e.clientX,e.clientY)},{passive:false});
-  const pts=new Map(); let last=null, moved=0;
-  svg.addEventListener('pointerdown',e=>{pts.set(e.pointerId,[e.clientX,e.clientY]);moved=0;last=null});
-  svg.addEventListener('pointermove',e=>{const [wx,wy]=toWorld(e.clientX,e.clientY), lat=48-wy/111.32, lon=25+wx/K; $('#ecoord').textContent=`${Math.abs(lat).toFixed(1)}° ${lat<0?'S':'N'} · ${Math.abs(lon).toFixed(1)}° ${lon<0?'W':'E'}`;
-    if(!pts.has(e.pointerId))return; const p0=pts.get(e.pointerId); pts.set(e.pointerId,[e.clientX,e.clientY]);
-    if(pts.size===1){const r=svg.getBoundingClientRect(),dx=e.clientX-p0[0],dy=e.clientY-p0[1];moved+=Math.abs(dx)+Math.abs(dy);
-      if(moved>4){svg.setPointerCapture(e.pointerId);vb.x-=dx/r.width*vb.w;vb.y-=dy/r.height*vb.h;apply()}}
-    else if(pts.size===2){const [a,c]=[...pts.values()],d=Math.hypot(a[0]-c[0],a[1]-c[1]); if(last)zoom(last/d,(a[0]+c[0])/2,(a[1]+c[1])/2); last=d; moved=99}});
-  const up=e=>{pts.delete(e.pointerId);if(pts.size<2)last=null};
-  svg.addEventListener('pointerup',up); svg.addEventListener('pointercancel',up);
-  svg.addEventListener('click',e=>{if(moved>4){e.stopPropagation();e.preventDefault()}},true);
-  addEventListener('resize',apply); reset();
+  // на узком экране сразу показываем державы крупно, на широком — всю карту
+  const reset=()=>{const xs=pw.map(p=>p.x), zs=pw.map(p=>p.z), m=420;
+    if(svg.clientWidth<700) ctl.fit(Math.max(bx0,Math.min(...xs)-m),Math.max(by0,Math.min(...zs)-m),Math.min(bx1,Math.max(...xs)+m),Math.min(by1,Math.max(...zs)+m));
+    else ctl.fit(bx0,by0,bx1,by1)};
+  const ctl=panZoom({host,svg,info,minW:300,maxW:2*(bx1-bx0),reset,coord:(wx,wy)=>{const lat=48-wy/111.32, lon=25+wx/K; return `${Math.abs(lat).toFixed(1)}° ${lat<0?'S':'N'} · ${Math.abs(lon).toFixed(1)}° ${lon<0?'W':'E'}`}});
+  reset();
 }
 // ---- карта Незера (данные: C.map.nether из content/map.json; 1 блок Незера = 8 блоков наверху) ----
 function renderNether(C){
@@ -489,7 +587,7 @@ function renderNether(C){
      <div class="chips" id="nRings"><span class="lbl">${T('Граница ÷ 8','Border ÷ 8')}</span>${rings.map(r=>`<button data-r="${r[0]}">${r[1]}</button>`).join('')}</div>
    </div>
    <div class="mbox nbox"><svg id="nsvg" class="msvg nsvg" role="img" aria-label="${T('Карта Незера PaxVanila','PaxVanila Nether map')}"></svg>
-     <div class="mzoom"><button data-z="0.67" aria-label="${T('Приблизить','Zoom in')}">+</button><button data-z="1.5" aria-label="${T('Отдалить','Zoom out')}">−</button><button data-z="0" aria-label="${T('Сбросить','Reset')}">⟲</button></div>
+     ${ZOOMBTNS()}
      <div class="mcoord" id="ncoord">X 0 · Z 0</div><div class="mcomp">${T('С','N')}↑</div></div>
    <div class="minfo" id="ninfo"></div>
    <p class="mnote">${T('Порталы держав посчитаны из карты мира: координаты столицы ÷ 8. Крепости, бастионы и легенды показаны схемой по лору, настоящие генерирует мир. Кольца это граница мира ÷ 8: если уйти дальше, портал выведет к краю границы.','The powers\' portals are taken from the world map: capital coordinates ÷ 8. Fortresses, bastions and legends are a schematic of the lore; the real ones are generated by the world. The rings are the world border ÷ 8: go further and a portal will drop you at the edge of the border.')}</p>`;
@@ -513,41 +611,27 @@ function renderNether(C){
   (N.roads||[]).forEach(r=>{const a=el('g',{class:'rd',tabindex:0},g.roads); el('line',{x1:0,y1:0,x2:r.x,y2:r.z,class:'rdl'},a); el('line',{x1:0,y1:0,x2:r.x,y2:r.z,class:'rdc'},a);
     const go=()=>pick({...roadInfo,x:r.x,z:r.z},T('магистраль','highway')); a.onclick=go; a.onkeydown=e=>{if(e.key==='Enter')go()};});
   sites.forEach(p=>{const k=kinds[p.kind]||['•',''], a=el('g',{class:'ns k-'+p.kind,tabindex:0},p.kind==='legend'?g.legend:g.sites);
+    el('circle',{cx:p.x,cy:p.z,r:8,class:'hit'},a); 
     if(p.kind==='fortress') el('rect',{x:p.x-7,y:p.z-7,width:14,height:14,class:'nsd'},a);
     else if(p.kind==='bastion') el('path',{d:`M${p.x-8} ${p.z+7}L${p.x-8} ${p.z-5}L${p.x-4} ${p.z-5}L${p.x-4} ${p.z-8}L${p.x+4} ${p.z-8}L${p.x+4} ${p.z-5}L${p.x+8} ${p.z-5}L${p.x+8} ${p.z+7}Z`,class:'nsd'},a);
     else el('circle',{cx:p.x,cy:p.z,r:4.5,class:'nsd'},a);
     el('text',{x:p.x,y:p.z+(p.kind==='legend'?-8:13),class:'nst'},a).textContent=(p.kind==='legend'?'✦ ':'')+p.name;
     const go=()=>pick(p,k[1],lk(p.id==='crimson_rift'?'pozdnie':'predtechi')); a.onclick=go; a.onkeydown=e=>{if(e.key==='Enter')go()};});
   portals.forEach(p=>{const a=el('g',{class:'np',tabindex:0},g.portals);
-    el('rect',{x:p.x-4,y:p.z-6,width:8,height:12,rx:1,class:'npf',stroke:p.color},a);
+    el('circle',{cx:p.x,cy:p.z,r:8,class:'hit'},a); el('rect',{x:p.x-4,y:p.z-6,width:8,height:12,rx:1,class:'npf',stroke:p.color},a);
     el('text',{x:p.x,y:p.z+9,class:'npt'},a).textContent=p.name;
     const go=()=>pick({...p,text:T('Портал державы. Встань в Незере на эти координаты и построй рамку: выйдешь у столицы. ','The power\'s portal. Build a frame at these Nether coordinates and you will come out at the capital. ')+(p.text||'')},T('портал','portal')); a.onclick=go; a.onkeydown=e=>{if(e.key==='Enter')go()};});
   (N.places||[]).forEach(p=>{const a=el('g',{class:'ng',tabindex:0},g.top);
-    el('circle',{cx:p.x,cy:p.z,r:10,class:'ngo'},a); el('rect',{x:p.x-4,y:p.z-6,width:8,height:12,class:'ngi'},a);
+    el('circle',{cx:p.x,cy:p.z,r:10,class:'hit'},a); el('circle',{cx:p.x,cy:p.z,r:10,class:'ngo'},a); el('rect',{x:p.x-4,y:p.z-6,width:8,height:12,class:'ngi'},a);
     el('text',{x:p.x,y:p.z-15,class:'ngt'},a).textContent=p.name;
     const go=()=>pick(p,T('под Монолитом','beneath the Monolith'),lk('predtechi')); a.onclick=go; a.onkeydown=e=>{if(e.key==='Enter')go()};});
   if(N.places&&N.places[0]) pick(N.places[0],T('под Монолитом','beneath the Monolith'),lk('predtechi'));
   $('#nLayers').onclick=e=>{const k=e.target.dataset.l;if(!k)return;layers[k]=!layers[k];e.target.classList.toggle('on',layers[k]);g[k].style.display=layers[k]?'':'none'};
   const markRing=()=>{host.querySelectorAll('#nRings button').forEach(x=>x.classList.toggle('on',x.dataset.r===sel)); for(const k in ringEls) ringEls[k].forEach(e=>e.classList.toggle('sel',k===sel));};
   $('#nRings').onclick=e=>{const k=e.target.dataset.r;if(!k)return;sel=sel===k?null:k;markRing()}; markRing();
-  let vb={x:-ext,y:-ext,w:2*ext,h:2*ext};
-  const apply=()=>{const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1; vb.h=vb.w*ar; svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`); svg.style.setProperty('--k',vb.w/Math.max(1,svg.clientWidth));};
-  const reset=()=>{const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1, s=2*ext; vb=ar>1?{x:-ext,y:-ext*ar,w:s,h:s*ar}:{x:-ext/ar,y:-ext,w:s/ar,h:s};apply()};
-  const toWorld=(cx,cy)=>{const r=svg.getBoundingClientRect();return [vb.x+(cx-r.left)/r.width*vb.w, vb.y+(cy-r.top)/r.height*vb.h]};
-  const zoom=(f,cx,cy)=>{const nw=Math.min(6*ext,Math.max(30,vb.w*f)); f=nw/vb.w; const [wx,wy]=toWorld(cx,cy); vb.x=wx-(wx-vb.x)*f; vb.y=wy-(wy-vb.y)*f; vb.w=nw; apply()};
-  host.querySelector('.mzoom').onclick=e=>{const z=+e.target.dataset.z; if(isNaN(z))return; if(!z)return reset(); const r=svg.getBoundingClientRect(); zoom(z,r.left+r.width/2,r.top+r.height/2)};
-  svg.addEventListener('wheel',e=>{e.preventDefault();zoom(e.deltaY>0?1.2:1/1.2,e.clientX,e.clientY)},{passive:false});
-  const pts=new Map(); let last=null, moved=0;
-  svg.addEventListener('pointerdown',e=>{pts.set(e.pointerId,[e.clientX,e.clientY]);moved=0;last=null});
-  svg.addEventListener('pointermove',e=>{const [wx,wy]=toWorld(e.clientX,e.clientY); $('#ncoord').textContent=`X ${Math.round(wx)} · Z ${Math.round(wy)}  →  ${T('наверху','above')} ${Math.round(wx)*8} · ${Math.round(wy)*8}`;
-    if(!pts.has(e.pointerId))return; const p0=pts.get(e.pointerId); pts.set(e.pointerId,[e.clientX,e.clientY]);
-    if(pts.size===1){const r=svg.getBoundingClientRect(),dx=e.clientX-p0[0],dy=e.clientY-p0[1];moved+=Math.abs(dx)+Math.abs(dy);
-      if(moved>4){svg.setPointerCapture(e.pointerId);vb.x-=dx/r.width*vb.w;vb.y-=dy/r.height*vb.h;apply()}}
-    else if(pts.size===2){const [a,c]=[...pts.values()],d=Math.hypot(a[0]-c[0],a[1]-c[1]); if(last)zoom(last/d,(a[0]+c[0])/2,(a[1]+c[1])/2); last=d; moved=99}});
-  const up=e=>{pts.delete(e.pointerId);if(pts.size<2)last=null};
-  svg.addEventListener('pointerup',up); svg.addEventListener('pointercancel',up);
-  svg.addEventListener('click',e=>{if(moved>4){e.stopPropagation();e.preventDefault()}},true);
-  addEventListener('resize',apply); reset();
+  const reset=()=>ctl.fit(-ext,-ext,ext,ext);
+  const ctl=panZoom({host,svg,info,minW:30,maxW:6*ext,reset,coord:(x,z)=>`X ${Math.round(x)} · Z ${Math.round(z)}  →  ${T('наверху','above')} ${Math.round(x)*8} · ${Math.round(z)*8}`});
+  reset();
 }
 // ---- «Новости сервера»: летопись по дням (C.chronicle из content/chronicle.json; живые записи: config.liveUrl → chronicle.json из paxchronicle.sk) ----
 const MSK=3*3600e3, dayKey=ms=>new Date(ms+MSK).toISOString().slice(0,10);

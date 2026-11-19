@@ -91,7 +91,7 @@ def render_lore(md_text, links):
 
 
 PAGE = """<!doctype html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{title}</title><meta name="description" content="{desc}"><meta name="theme-color" content="#14110d">
 <link rel="manifest" href="../manifest.webmanifest"><link rel="icon" href="../icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -329,9 +329,18 @@ def build(lang, out):
     links = {l["file"]: f"{l['id']}.html" for l in C["lore"]}
     nav = "".join(f'<a href="{l["id"]}.html">{html.escape(l["title"])}</a>' for l in C["lore"])
     cards = []
-    for l in C["lore"]:
+    L = C["lore"]
+    for n, l in enumerate(L):
         with open(src_file(LORE, lang, l["file"]), encoding="utf-8") as f:
             body, toc = render_lore(f.read(), links)
+        # соседние главы внизу страницы (на телефоне удобно читать подряд)
+        prev_l, next_l = (L[n - 1] if n else None), (L[n + 1] if n + 1 < len(L) else None)
+        ru = lang == "ru"
+        body += '<nav class="chapnav">' + (
+            f'<a class="prev" href="{prev_l["id"]}.html"><small>{"← Предыдущая глава" if ru else "← Previous chapter"}</small><b>{html.escape(prev_l["title"])}</b></a>' if prev_l else "") + (
+            f'<a class="next" href="{next_l["id"]}.html"><small>{"Следующая глава →" if ru else "Next chapter →"}</small><b>{html.escape(next_l["title"])}</b></a>' if next_l else
+            f'<a class="next" href="../lore.html"><small>{"Это последняя глава" if ru else "This is the last chapter"}</small><b>{"Весь лор" if ru else "All lore"}</b></a>') + '</nav>'
+
         toc_html = "".join(f'<a class="h{lv}" href="#{i}">{t}</a>' for lv, t, i in toc if lv <= 2 or len(toc) < 40)
         write(os.path.join("lore", f"{l['id']}.html"),
               PAGE.format(title=f"{l['title']} — PaxVanila", desc=html.escape(l["subtitle"]), nav=nav, toc=toc_html,
