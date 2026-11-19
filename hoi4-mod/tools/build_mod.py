@@ -17,7 +17,8 @@ import pax_eras as E  # noqa: E402
 import family_port as F  # noqa: E402
 import pax_art as A  # noqa: E402
 import pax_era_focuses as EF  # noqa: E402
-import pax_big as BIG  # noqa: E402
+import pax_big as BIG
+import md_port as MD  # noqa: E402
 
 BIG.extend(D)
 
@@ -595,6 +596,9 @@ def era_effects():
         if era.get("seven_awake"):
             L.append("set_global_flag = pax_seven_awake")
         techs = list(era["techs"]) + [t["id"] for t in E.LORE_TECHS if t["year"] <= era["lore_techs_until"]]
+        md_year = {"2041": 2040, "2096": 2100}.get(era["id"])
+        if md_year:
+            techs += [t["id"] for t in MD.load() if t["year"] <= md_year]
         for tag, p in D.POWERS.items():
             lead = era["leaders"].get(tag)
             if lead:
@@ -657,6 +661,11 @@ def build_eras_extra():
         LOC[t["id"]] = t["name"]
         LOC[t["id"] + "_desc"] = t["desc"]
     w("common/technologies/pax_lore_techs.txt", "technologies = {\n" + "\n\n".join(indent(b, 1) for b in blocks) + "\n}\n")
+
+    mdt = MD.load()
+    w("common/technologies/pax_md_techs.txt", "technologies = {\n" + "\n\n".join(indent(MD.tech_block(t), 1) for t in mdt) + "\n}\n")
+    for t in mdt:
+        LOC[t["id"]] = MD.pretty(t)
 
     # Закладки выбора старта
     marks = []
