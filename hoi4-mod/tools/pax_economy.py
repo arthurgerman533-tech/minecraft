@@ -41,11 +41,12 @@ def build(w, LOC, indent):
             others = [o for o, *_ in modes if o != k]
             rem = "\n".join(f"\t\t\tif = {{ limit = {{ has_dynamic_modifier = {{ modifier = PAX_eco_{gk}_{o} }} }} remove_dynamic_modifier = {{ modifier = PAX_eco_{gk}_{o} }} }}" for o in others)
             decs.append(
-                f"{mid} = {{\n\tcategory = PAX_economy_category\n\ticon = generic_research\n"
+                f"{mid} = {{\n\ticon = generic_research\n"
                 f"\tvisible = {{ is_ai = no }}\n"
                 f"\tavailable = {{ NOT = {{ has_dynamic_modifier = {{ modifier = {mid} }} }} }}\n"
-                f"\t\t\tadd_dynamic_modifier = {{ modifier = {mid} }}\n\t}}\n\tai_will_do = {{ factor = 0 }}\n}}")
+                f"\tcost = 25\n\tcomplete_effect = {{\n{rem}\n"
+                f"\t\tadd_dynamic_modifier = {{ modifier = {mid} }}\n\t}}\n\tai_will_do = {{ factor = 0 }}\n}}")
             LOC[mid + "_desc"] = f"{desc} Режим группы «{gname}»: {name}."
             LOC[mid.replace("PAX_eco", "PAX_eco")] = LOC[mid]
     w("common/dynamic_modifiers/pax_economy_modifiers.txt", "\n\n".join(mods) + "\n")
-    w("common/decisions/pax_economy_decisions.txt", "PAX_economy_decisions = {\n" + "\n\n".join(indent(d, 1) for d in decs) + "\n}\n")
+    w("common/decisions/pax_economy_decisions.txt", "PAX_economy_category = {\n" + "\n\n".join(indent(d, 1) for d in decs) + "\n}\n")

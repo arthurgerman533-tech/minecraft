@@ -63,7 +63,7 @@ def decisions(w, LOC, indent):
     """Скрытые техи MD покупаются как решения (родное дерево исследований требует своего интерфейса)."""
     cats = "\n".join(f"{c} = {{\n\ticon = generic_research\n\tvisible = {{ is_ai = no }}\n}}" for c, _, _ in CATS.values())
     w("common/decisions/categories/pax_md_categories.txt", cats + "\n")
-    out = []
+    out = {c: [] for c, _, _ in CATS.values()}
     for c, ru, en in CATS.values():
         LOC[c] = ru
         LOC[c + "_desc"] = "Технологии из Millennium Dawn. Покупаются за политическую власть, эффекты постоянные."
@@ -71,10 +71,10 @@ def decisions(w, LOC, indent):
         c = CATS[t["file"]][0]
         did = "PAX_buy_" + t["id"]
         cost = 25 + max(0, t["year"] - 1985) // 2
-        out.append(f"{did} = {{\n\tcategory = {c}\n\ticon = generic_research\n"
+        out[c].append(f"{did} = {{\n\ticon = generic_research\n"
                    f"\tvisible = {{ is_ai = no NOT = {{ has_tech = {t['id']} }} }}\n"
                    f"\tcost = {cost}\n\tfire_only_once = yes\n"
                    f"\tcomplete_effect = {{ set_technology = {{ {t['id']} = 1 }} }}\n\tai_will_do = {{ factor = 0 }}\n}}")
         LOC[did] = pretty(t)
         LOC[did + "_desc"] = "Технология Millennium Dawn: " + pretty(t)[4:] + "."
-    w("common/decisions/pax_md_decisions.txt", "PAX_md_decisions = {\n" + "\n\n".join(indent(d, 1) for d in out) + "\n}\n")
+    w("common/decisions/pax_md_decisions.txt", "\n".join(f"{c} = {{\n" + "\n\n".join(indent(d, 1) for d in ds) + "\n}" for c, ds in out.items()) + "\n")
