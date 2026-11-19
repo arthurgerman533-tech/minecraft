@@ -7,6 +7,7 @@
 """
 import math
 import os
+import re
 import shutil
 import sys
 
@@ -644,9 +645,29 @@ def write_loc():
             lines.append(f' {k}:0 "{v}"')
         return "\n".join(lines) + "\n"
 
+    import json
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "en_translations.json"), encoding="utf-8") as fh:
+        EN = json.load(fh)
+    missing = set()
+
+    def to_en(data):
+        out = {}
+        for k, v in data.items():
+            if re.search("[а-яёА-ЯЁ]", v):
+                if v not in EN:
+                    missing.add(v)
+                v = EN.get(v, v)
+            out[k] = v
+        return out
+
     for lang in ["russian", "english"]:
-        w(f"localisation/{lang}/pax_l_{lang}.yml", dump(lang, LOC), bom=True)
-        w(f"localisation/{lang}/replace/pax_countries_l_{lang}.yml", dump(lang, LOC_REPLACE), bom=True)
+        a, b = (LOC, LOC_REPLACE) if lang == "russian" else (to_en(LOC), to_en(LOC_REPLACE))
+        w(f"localisation/{lang}/pax_l_{lang}.yml", dump(lang, a), bom=True)
+        w(f"localisation/{lang}/replace/pax_countries_l_{lang}.yml", dump(lang, b), bom=True)
+    if missing:
+        print("НЕТ английского перевода:", len(missing))
+        for m in sorted(missing)[:10]:
+            print("  ", m[:80])
 
 
 # ---------------------------------------------------------------------------
