@@ -1,6 +1,6 @@
 # PaxVanila для Hearts of Iron IV
 
-Мод переносит лор сервера PaxVanila в Hearts of Iron IV. Версия 0.1.0, рабочий скелет.
+Мод переносит лор сервера PaxVanila в Hearts of Iron IV. Версия 0.1.1, рабочий скелет.
 
 ## Идея
 
