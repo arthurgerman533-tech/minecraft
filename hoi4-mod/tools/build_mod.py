@@ -140,6 +140,63 @@ def focus_block(fid, f, x, y, prereq_ids, excl_ids, effect, allow=None):
     return "focus = {\n" + indent("\n".join(lines), 1) + "\n}"
 
 
+def build_lore_decisions():
+    """Вместо своих деревьев фокусов (у держав остаются ванильные) лорные ветки, Наследие и Вера стали решениями."""
+    cats = ("PAX_lore_category = {\n\tallowed = { OR = { " +
+            " ".join(f"original_tag = {tg}" for tg in D.POWERS) + " } }\n}\n")
+    w("common/decisions/categories/pax_lore_categories.txt", cats)
+    LOC["PAX_lore_category"] = "Лор PaxVanila"
+    LOC["PAX_lore_category_desc"] = "Национальные решения вашей державы: наследие, вера, союзы и пути эпох."
+    out = ["PAX_lore_category = {"]
+    for tg in D.POWERS:  # пустые заглушки: у держав остаются ванильные деревья (и старые файлы версии 0.5 не мешают)
+        w(f"common/national_focus/pax_{tg}.txt", "# Своих деревьев фокусов нет: у державы ванильное дерево. Лорные ветки лежат в решениях (pax_lore_decisions.txt).\n")
+
+    def dec(tag, key, name, desc, cost, effect, prereq=None, excl=None, cond=None, once=True):
+        did = f"PAX_{tag}_{key}"
+        vis = [f"original_tag = {tag}"]
+        if cond:
+            vis.append(cond)
+        for grp in (prereq or []):
+            vis.append("OR = { " + " ".join(f"has_country_flag = {did_flag(tag, g)}" for g in grp) + " }")
+        for e in (excl or []):
+            vis.append(f"NOT = {{ has_country_flag = {did_flag(tag, e)} }}")
+        vis.append(f"NOT = {{ has_country_flag = {did_flag(tag, key)} }}")
+        body = (
+            f"\t{did} = {{\n"
+            "\t\ticon = generic_research\n"
+            "\t\tallowed = { original_tag = " + tag + " }\n"
+            "\t\tvisible = {\n" + "\n".join("\t\t\t" + v.replace("\n\t", " ") for v in vis) + "\n\t\t}\n"
+            f"\t\tcost = {cost}\n"
+            "\t\tfire_only_once = yes\n"
+            "\t\tcomplete_effect = {\n"
+            f"\t\t\tset_country_flag = {did_flag(tag, key)}\n"
+            + indent(effect.replace("{T}", tag).replace("{F}", did), 3) + "\n"
+            "\t\t}\n"
+            "\t\tai_will_do = { factor = 5 }\n"
+            "\t}"
+        )
+        out.append(body)
+        LOC[did] = name
+        LOC[did + "_desc"] = desc
+
+    def did_flag(tag, key):
+        return f"pax_{tag}_{key}"
+
+    for tag, p in D.POWERS.items():
+        h, fa = D.HERITAGE[tag], D.FAITH[tag]
+        eff = f"add_ideas = PAX_her_{tag}" + ("\n" + h["extra"] if h.get("extra") else "")
+        dec(tag, "her", f"Наследие: {h['name']}", h["desc"], 100, eff)
+        dec(tag, "fai", f"Государственная вера: {fa['name']}", fa["desc"], 100, f"add_ideas = PAX_fai_{tag}")
+        for f in D.NATIONAL[tag]:
+            cond = None
+            dec(tag, f["key"], f["name"], f["desc"], f["cost"] * 10, f["effect"],
+                prereq=f.get("prereq"), excl=f.get("exclusive"), cond=EF.EARLY)
+        for ef in EF.branches(tag):
+            dec(tag, ef["key"], ef["name"], ef["desc"], ef["cost"] * 10, ef["effect"],
+                prereq=ef["prereq"], excl=ef["exclusive"], cond=EF.COND[ef["era"]])
+    w("common/decisions/pax_lore_decisions.txt", "\n\n".join(out) + "\n}\n" if False else "\n".join(out) + "\n}\n")
+
+
 def build_focus_trees():
     for tag, p in D.POWERS.items():
         pre = f"{tag}_pax_"
@@ -862,7 +919,7 @@ def main():
     os.makedirs(OUT)
     build_descriptor()
     build_ideas()
-    build_focus_trees()
+    build_lore_decisions()
     build_characters()
     build_setup()
     build_eras_extra()
