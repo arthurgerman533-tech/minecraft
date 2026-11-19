@@ -1,0 +1,111 @@
+characters = {
+	ITA_pax_romul = {
+		name = ITA_pax_romul
+		portraits = { civilian = { large = GFX_portrait_ITA_pax_romul } }
+		country_leader = {
+			ideology = conservatism
+			desc = ITA_pax_romul_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	SPR_pax_hannon = {
+		name = SPR_pax_hannon
+		portraits = { civilian = { large = GFX_portrait_SPR_pax_hannon } }
+		country_leader = {
+			ideology = oligarchism
+			desc = SPR_pax_hannon_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	GRE_pax_pericles = {
+		name = GRE_pax_pericles
+		portraits = { civilian = { large = GFX_portrait_GRE_pax_pericles } }
+		country_leader = {
+			ideology = liberalism
+			desc = GRE_pax_pericles_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	FRA_pax_ambiorix = {
+		name = FRA_pax_ambiorix
+		portraits = { civilian = { large = GFX_portrait_FRA_pax_ambiorix } }
+		country_leader = {
+			ideology = conservatism
+			desc = FRA_pax_ambiorix_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	ENG_pax_elinor = {
+		name = ENG_pax_elinor
+		portraits = { civilian = { large = GFX_portrait_ENG_pax_elinor } }
+		country_leader = {
+			ideology = liberalism
+			desc = ENG_pax_elinor_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	GER_pax_arminius = {
+		name = GER_pax_arminius
+		portraits = { civilian = { large = GFX_portrait_GER_pax_arminius } }
+		country_leader = {
+			ideology = fascism_ideology
+			desc = GER_pax_arminius_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	SOV_pax_vseslav = {
+		name = SOV_pax_vseslav
+		portraits = { civilian = { large = GFX_portrait_SOV_pax_vseslav } }
+		country_leader = {
+			ideology = despotism
+			desc = SOV_pax_vseslav_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	ROM_pax_decebal = {
+		name = ROM_pax_decebal
+		portraits = { civilian = { large = GFX_portrait_ROM_pax_decebal } }
+		country_leader = {
+			ideology = despotism
+			desc = ROM_pax_decebal_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	TUR_pax_tengiz = {
+		name = TUR_pax_tengiz
+		portraits = { civilian = { large = GFX_portrait_TUR_pax_tengiz } }
+		country_leader = {
+			ideology = despotism
+			desc = TUR_pax_tengiz_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	PER_pax_idanthyrsus = {
+		name = PER_pax_idanthyrsus
+		portraits = { civilian = { large = GFX_portrait_PER_pax_idanthyrsus } }
+		country_leader = {
+			ideology = despotism
+			desc = PER_pax_idanthyrsus_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+}

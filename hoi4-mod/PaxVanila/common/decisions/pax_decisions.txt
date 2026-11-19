@@ -1,0 +1,27 @@
+PAX_monolith_category = {
+	PAX_project_seven = {
+		allowed = { original_tag = ITA }
+		available = { has_global_flag = pax_seal_cracked }
+		cost = 150
+		fire_only_once = yes
+		complete_effect = {
+			add_ideas = PAX_idea_guardian_seven
+			set_global_flag = pax_seven_awake
+			every_country = {
+				limit = { is_ai = no }
+				news_event = { id = pax.12 days = 1 }
+			}
+		}
+		ai_will_do = { factor = 10 }
+	}
+	PAX_steal_blueprints = {
+		allowed = { original_tag = SOV }
+		available = { has_global_flag = pax_seven_awake }
+		cost = 100
+		fire_only_once = yes
+		complete_effect = {
+			add_ideas = PAX_idea_kurultai_mind
+		}
+		ai_will_do = { factor = 10 }
+	}
+}

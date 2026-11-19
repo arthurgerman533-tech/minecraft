@@ -1,0 +1,266 @@
+focus_tree = {
+	id = pax_ITA_focus_tree
+	country = {
+		factor = 0
+		modifier = { add = 100 tag = ITA }
+	}
+	default = no
+	reset_on_civilwar = no
+
+	focus = {
+		id = ITA_pax_ind1
+		icon = GFX_goal_generic_construct_civ_factory
+		x = 0
+		y = 0
+		cost = 10
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+
+	focus = {
+		id = ITA_pax_ind2
+		icon = GFX_goal_generic_construction
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = ITA_pax_ind1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_mining_guilds
+		}
+	}
+
+	focus = {
+		id = ITA_pax_ind3
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 0
+		y = 2
+		cost = 10
+		prerequisite = { focus = ITA_pax_ind2 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			add_ideas = PAX_idea_war_economy
+		}
+	}
+
+	focus = {
+		id = ITA_pax_mil1
+		icon = GFX_goal_generic_allies_build_infantry
+		x = 2
+		y = 0
+		cost = 10
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_manpower = 25000
+			add_ideas = PAX_idea_mobilization
+		}
+	}
+
+	focus = {
+		id = ITA_pax_mil2
+		icon = GFX_goal_generic_defence
+		x = 2
+		y = 1
+		cost = 10
+		prerequisite = { focus = ITA_pax_mil1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_fortifications
+		}
+	}
+
+	focus = {
+		id = ITA_pax_mil3
+		icon = GFX_goal_generic_major_war
+		x = 2
+		y = 2
+		cost = 10
+		prerequisite = { focus = ITA_pax_mil2 }
+		mutually_exclusive = { focus = ITA_pax_eco3 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_war_support = 0.1
+			add_ideas = PAX_idea_total_war
+		}
+	}
+
+	focus = {
+		id = ITA_pax_eco1
+		icon = GFX_goal_generic_consumer_goods
+		x = 4
+		y = 0
+		cost = 10
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 75
+			add_ideas = PAX_idea_trade_routes
+		}
+	}
+
+	focus = {
+		id = ITA_pax_eco2
+		icon = GFX_goal_generic_improve_relations
+		x = 4
+		y = 1
+		cost = 10
+		prerequisite = { focus = ITA_pax_eco1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_diplomatic_corps
+		}
+	}
+
+	focus = {
+		id = ITA_pax_eco3
+		icon = GFX_goal_generic_political_pressure
+		x = 4
+		y = 2
+		cost = 10
+		prerequisite = { focus = ITA_pax_eco2 }
+		mutually_exclusive = { focus = ITA_pax_mil3 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_stability = 0.05
+			add_ideas = PAX_idea_hegemony
+		}
+	}
+
+	focus = {
+		id = ITA_pax_her
+		icon = GFX_goal_generic_national_unity
+		x = 6
+		y = 1
+		cost = 14
+		prerequisite = { focus = ITA_pax_ind1 focus = ITA_pax_mil1 focus = ITA_pax_eco1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_her_ITA
+		}
+	}
+
+	focus = {
+		id = ITA_pax_fai
+		icon = GFX_goal_generic_propaganda
+		x = 8
+		y = 1
+		cost = 14
+		prerequisite = { focus = ITA_pax_ind1 focus = ITA_pax_mil1 focus = ITA_pax_eco1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_fai_ITA
+		}
+	}
+
+	focus = {
+		id = ITA_pax_senate
+		icon = GFX_goal_support_democracy
+		x = 10
+		y = 0
+		cost = 7
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = ITA_pax_tower_law
+		icon = GFX_goal_generic_defence
+		x = 10
+		y = 1
+		cost = 10
+		prerequisite = { focus = ITA_pax_senate }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_ITA_tower_law
+		}
+	}
+
+	focus = {
+		id = ITA_pax_tablets
+		icon = GFX_goal_generic_scientific_exchange
+		x = 12
+		y = 1
+		cost = 10
+		prerequisite = { focus = ITA_pax_senate }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_tech_bonus = { name = ITA_pax_tablets bonus = 0.5 uses = 2 category = industry }
+			add_tech_bonus = { name = ITA_pax_tablets bonus = 0.5 uses = 1 category = electronics }
+		}
+	}
+
+	focus = {
+		id = ITA_pax_monolith_pact
+		icon = GFX_goal_generic_major_alliance
+		x = 11
+		y = 2
+		cost = 10
+		prerequisite = { focus = ITA_pax_tower_law }
+		prerequisite = { focus = ITA_pax_tablets }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			if = {
+				limit = { is_in_faction = no }
+				create_faction = PAX_faction_pax
+			}
+			every_country = {
+				limit = { OR = { tag = SPR tag = GRE tag = FRA tag = ENG } exists = yes is_in_faction = no }
+				country_event = { id = pax.2 days = 1 }
+			}
+		}
+	}
+
+	focus = {
+		id = ITA_pax_romul_legacy
+		icon = GFX_goal_generic_national_unity
+		x = 11
+		y = 3
+		cost = 10
+		prerequisite = { focus = ITA_pax_monolith_pact }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_stability = 0.1
+			add_war_support = 0.05
+			army_experience = 25
+		}
+	}
+}

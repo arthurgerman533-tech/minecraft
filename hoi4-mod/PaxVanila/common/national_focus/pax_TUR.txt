@@ -1,0 +1,272 @@
+focus_tree = {
+	id = pax_TUR_focus_tree
+	country = {
+		factor = 0
+		modifier = { add = 100 tag = TUR }
+	}
+	default = no
+	reset_on_civilwar = no
+
+	focus = {
+		id = TUR_pax_ind1
+		icon = GFX_goal_generic_construct_civ_factory
+		x = 0
+		y = 0
+		cost = 10
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+
+	focus = {
+		id = TUR_pax_ind2
+		icon = GFX_goal_generic_construction
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = TUR_pax_ind1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_mining_guilds
+		}
+	}
+
+	focus = {
+		id = TUR_pax_ind3
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 0
+		y = 2
+		cost = 10
+		prerequisite = { focus = TUR_pax_ind2 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			add_ideas = PAX_idea_war_economy
+		}
+	}
+
+	focus = {
+		id = TUR_pax_mil1
+		icon = GFX_goal_generic_allies_build_infantry
+		x = 2
+		y = 0
+		cost = 10
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_manpower = 25000
+			add_ideas = PAX_idea_mobilization
+		}
+	}
+
+	focus = {
+		id = TUR_pax_mil2
+		icon = GFX_goal_generic_defence
+		x = 2
+		y = 1
+		cost = 10
+		prerequisite = { focus = TUR_pax_mil1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_fortifications
+		}
+	}
+
+	focus = {
+		id = TUR_pax_mil3
+		icon = GFX_goal_generic_major_war
+		x = 2
+		y = 2
+		cost = 10
+		prerequisite = { focus = TUR_pax_mil2 }
+		mutually_exclusive = { focus = TUR_pax_eco3 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_war_support = 0.1
+			add_ideas = PAX_idea_total_war
+		}
+	}
+
+	focus = {
+		id = TUR_pax_eco1
+		icon = GFX_goal_generic_consumer_goods
+		x = 4
+		y = 0
+		cost = 10
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 75
+			add_ideas = PAX_idea_trade_routes
+		}
+	}
+
+	focus = {
+		id = TUR_pax_eco2
+		icon = GFX_goal_generic_improve_relations
+		x = 4
+		y = 1
+		cost = 10
+		prerequisite = { focus = TUR_pax_eco1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_diplomatic_corps
+		}
+	}
+
+	focus = {
+		id = TUR_pax_eco3
+		icon = GFX_goal_generic_political_pressure
+		x = 4
+		y = 2
+		cost = 10
+		prerequisite = { focus = TUR_pax_eco2 }
+		mutually_exclusive = { focus = TUR_pax_mil3 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_stability = 0.05
+			add_ideas = PAX_idea_hegemony
+		}
+	}
+
+	focus = {
+		id = TUR_pax_her
+		icon = GFX_goal_generic_national_unity
+		x = 6
+		y = 1
+		cost = 14
+		prerequisite = { focus = TUR_pax_ind1 focus = TUR_pax_mil1 focus = TUR_pax_eco1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_her_TUR
+		}
+	}
+
+	focus = {
+		id = TUR_pax_fai
+		icon = GFX_goal_generic_propaganda
+		x = 8
+		y = 1
+		cost = 14
+		prerequisite = { focus = TUR_pax_ind1 focus = TUR_pax_mil1 focus = TUR_pax_eco1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_fai_TUR
+		}
+	}
+
+	focus = {
+		id = TUR_pax_clans
+		icon = GFX_goal_generic_national_unity
+		x = 11
+		y = 0
+		cost = 7
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = TUR_pax_cavalry
+		icon = GFX_goal_generic_cavalry
+		x = 10
+		y = 1
+		cost = 10
+		prerequisite = { focus = TUR_pax_clans }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			army_experience = 25
+			add_tech_bonus = { name = TUR_pax_cavalry bonus = 0.5 uses = 1 category = land_doctrine }
+		}
+	}
+
+	focus = {
+		id = TUR_pax_sand_roads
+		icon = GFX_goal_generic_construct_infrastructure
+		x = 12
+		y = 1
+		cost = 10
+		prerequisite = { focus = TUR_pax_clans }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+
+	focus = {
+		id = TUR_pax_raid
+		icon = GFX_goal_generic_territory_or_war
+		x = 10
+		y = 2
+		cost = 10
+		prerequisite = { focus = TUR_pax_cavalry }
+		prerequisite = { focus = TUR_pax_sand_roads }
+		mutually_exclusive = { focus = TUR_pax_steppe_peace }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			create_wargoal = { type = puppet_wargoal_focus target = GRE }
+		}
+	}
+
+	focus = {
+		id = TUR_pax_steppe_peace
+		icon = GFX_goal_generic_improve_relations
+		x = 12
+		y = 2
+		cost = 10
+		prerequisite = { focus = TUR_pax_cavalry }
+		prerequisite = { focus = TUR_pax_sand_roads }
+		mutually_exclusive = { focus = TUR_pax_raid }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			if = {
+				limit = { SOV = { is_faction_leader = yes } is_in_faction = no }
+				SOV = { add_to_faction = ROOT }
+			}
+			else = { add_political_power = 75 }
+		}
+	}
+}

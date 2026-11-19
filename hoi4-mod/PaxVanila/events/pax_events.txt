@@ -1,0 +1,73 @@
+add_namespace = pax
+
+# Вступление
+news_event = {
+	id = pax.1
+	title = pax.1.t
+	desc = pax.1.d
+	is_triggered_only = yes
+	option = { name = pax.1.a }
+}
+
+# Приглашение в Союз PAX (FROM = Ромея)
+country_event = {
+	id = pax.2
+	title = pax.2.t
+	desc = pax.2.d
+	is_triggered_only = yes
+	option = {
+		name = pax.2.a
+		ai_chance = { factor = 80 }
+		FROM = { add_to_faction = ROOT }
+	}
+	option = {
+		name = pax.2.b
+		ai_chance = { factor = 20 }
+		add_political_power = 25
+	}
+}
+
+# Приглашение в Степной Пакт (FROM = Северное Царство)
+country_event = {
+	id = pax.3
+	title = pax.3.t
+	desc = pax.3.d
+	is_triggered_only = yes
+	option = {
+		name = pax.3.a
+		ai_chance = { factor = 80 }
+		FROM = { add_to_faction = ROOT }
+	}
+	option = {
+		name = pax.3.b
+		ai_chance = { factor = 20 }
+		add_political_power = 25
+	}
+}
+
+# Пал Страж
+news_event = {
+	id = pax.10
+	title = pax.10.t
+	desc = pax.10.d
+	is_triggered_only = yes
+	option = { name = pax.10.a }
+}
+
+# Стражей больше нет
+news_event = {
+	id = pax.11
+	title = pax.11.t
+	desc = pax.11.d
+	is_triggered_only = yes
+	option = { name = pax.11.a }
+}
+
+# Пробуждение Стража-7
+news_event = {
+	id = pax.12
+	title = pax.12.t
+	desc = pax.12.d
+	is_triggered_only = yes
+	option = { name = pax.12.a }
+}

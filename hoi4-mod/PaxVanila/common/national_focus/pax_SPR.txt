@@ -1,0 +1,284 @@
+focus_tree = {
+	id = pax_SPR_focus_tree
+	country = {
+		factor = 0
+		modifier = { add = 100 tag = SPR }
+	}
+	default = no
+	reset_on_civilwar = no
+
+	focus = {
+		id = SPR_pax_ind1
+		icon = GFX_goal_generic_construct_civ_factory
+		x = 0
+		y = 0
+		cost = 10
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+
+	focus = {
+		id = SPR_pax_ind2
+		icon = GFX_goal_generic_construction
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = SPR_pax_ind1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_mining_guilds
+		}
+	}
+
+	focus = {
+		id = SPR_pax_ind3
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 0
+		y = 2
+		cost = 10
+		prerequisite = { focus = SPR_pax_ind2 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			add_ideas = PAX_idea_war_economy
+		}
+	}
+
+	focus = {
+		id = SPR_pax_mil1
+		icon = GFX_goal_generic_allies_build_infantry
+		x = 2
+		y = 0
+		cost = 10
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_manpower = 25000
+			add_ideas = PAX_idea_mobilization
+		}
+	}
+
+	focus = {
+		id = SPR_pax_mil2
+		icon = GFX_goal_generic_defence
+		x = 2
+		y = 1
+		cost = 10
+		prerequisite = { focus = SPR_pax_mil1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_fortifications
+		}
+	}
+
+	focus = {
+		id = SPR_pax_mil3
+		icon = GFX_goal_generic_major_war
+		x = 2
+		y = 2
+		cost = 10
+		prerequisite = { focus = SPR_pax_mil2 }
+		mutually_exclusive = { focus = SPR_pax_eco3 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_war_support = 0.1
+			add_ideas = PAX_idea_total_war
+		}
+	}
+
+	focus = {
+		id = SPR_pax_eco1
+		icon = GFX_goal_generic_consumer_goods
+		x = 4
+		y = 0
+		cost = 10
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 75
+			add_ideas = PAX_idea_trade_routes
+		}
+	}
+
+	focus = {
+		id = SPR_pax_eco2
+		icon = GFX_goal_generic_improve_relations
+		x = 4
+		y = 1
+		cost = 10
+		prerequisite = { focus = SPR_pax_eco1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_diplomatic_corps
+		}
+	}
+
+	focus = {
+		id = SPR_pax_eco3
+		icon = GFX_goal_generic_political_pressure
+		x = 4
+		y = 2
+		cost = 10
+		prerequisite = { focus = SPR_pax_eco2 }
+		mutually_exclusive = { focus = SPR_pax_mil3 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_stability = 0.05
+			add_ideas = PAX_idea_hegemony
+		}
+	}
+
+	focus = {
+		id = SPR_pax_her
+		icon = GFX_goal_generic_national_unity
+		x = 6
+		y = 1
+		cost = 14
+		prerequisite = { focus = SPR_pax_ind1 focus = SPR_pax_mil1 focus = SPR_pax_eco1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_her_SPR
+			add_tech_bonus = { name = SPR_pax_her bonus = 1.0 uses = 2 category = artillery }
+		}
+	}
+
+	focus = {
+		id = SPR_pax_fai
+		icon = GFX_goal_generic_propaganda
+		x = 8
+		y = 1
+		cost = 14
+		prerequisite = { focus = SPR_pax_ind1 focus = SPR_pax_mil1 focus = SPR_pax_eco1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_fai_SPR
+		}
+	}
+
+	focus = {
+		id = SPR_pax_suffets
+		icon = GFX_goal_generic_political_pressure
+		x = 10
+		y = 0
+		cost = 7
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = SPR_pax_caravan
+		icon = GFX_goal_generic_consumer_goods
+		x = 10
+		y = 1
+		cost = 10
+		prerequisite = { focus = SPR_pax_suffets }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = SPR_pax_new_fleet
+		icon = GFX_goal_generic_build_navy
+		x = 12
+		y = 1
+		cost = 10
+		prerequisite = { focus = SPR_pax_suffets }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { is_coastal = yes free_building_slots = { building = dockyard size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = dockyard level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { is_coastal = yes free_building_slots = { building = dockyard size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = dockyard level = 1 instant_build = yes }
+			}
+			add_tech_bonus = { name = SPR_pax_new_fleet bonus = 0.5 uses = 1 category = naval_doctrine }
+		}
+	}
+
+	focus = {
+		id = SPR_pax_kart_hadasht
+		icon = GFX_goal_generic_construct_civ_factory
+		x = 11
+		y = 2
+		cost = 10
+		prerequisite = { focus = SPR_pax_caravan }
+		prerequisite = { focus = SPR_pax_new_fleet }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+
+	focus = {
+		id = SPR_pax_join_pax
+		icon = GFX_goal_generic_improve_relations
+		x = 11
+		y = 3
+		cost = 10
+		prerequisite = { focus = SPR_pax_kart_hadasht }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			if = {
+				limit = { ITA = { is_faction_leader = yes } is_in_faction = no }
+				ITA = { add_to_faction = ROOT }
+			}
+			else = { add_political_power = 75 }
+		}
+	}
+}

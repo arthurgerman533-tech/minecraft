@@ -1,0 +1,261 @@
+focus_tree = {
+	id = pax_FRA_focus_tree
+	country = {
+		factor = 0
+		modifier = { add = 100 tag = FRA }
+	}
+	default = no
+	reset_on_civilwar = no
+
+	focus = {
+		id = FRA_pax_ind1
+		icon = GFX_goal_generic_construct_civ_factory
+		x = 0
+		y = 0
+		cost = 10
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+
+	focus = {
+		id = FRA_pax_ind2
+		icon = GFX_goal_generic_construction
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = FRA_pax_ind1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_mining_guilds
+		}
+	}
+
+	focus = {
+		id = FRA_pax_ind3
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 0
+		y = 2
+		cost = 10
+		prerequisite = { focus = FRA_pax_ind2 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			add_ideas = PAX_idea_war_economy
+		}
+	}
+
+	focus = {
+		id = FRA_pax_mil1
+		icon = GFX_goal_generic_allies_build_infantry
+		x = 2
+		y = 0
+		cost = 10
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_manpower = 25000
+			add_ideas = PAX_idea_mobilization
+		}
+	}
+
+	focus = {
+		id = FRA_pax_mil2
+		icon = GFX_goal_generic_defence
+		x = 2
+		y = 1
+		cost = 10
+		prerequisite = { focus = FRA_pax_mil1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_fortifications
+		}
+	}
+
+	focus = {
+		id = FRA_pax_mil3
+		icon = GFX_goal_generic_major_war
+		x = 2
+		y = 2
+		cost = 10
+		prerequisite = { focus = FRA_pax_mil2 }
+		mutually_exclusive = { focus = FRA_pax_eco3 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_war_support = 0.1
+			add_ideas = PAX_idea_total_war
+		}
+	}
+
+	focus = {
+		id = FRA_pax_eco1
+		icon = GFX_goal_generic_consumer_goods
+		x = 4
+		y = 0
+		cost = 10
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 75
+			add_ideas = PAX_idea_trade_routes
+		}
+	}
+
+	focus = {
+		id = FRA_pax_eco2
+		icon = GFX_goal_generic_improve_relations
+		x = 4
+		y = 1
+		cost = 10
+		prerequisite = { focus = FRA_pax_eco1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_diplomatic_corps
+		}
+	}
+
+	focus = {
+		id = FRA_pax_eco3
+		icon = GFX_goal_generic_political_pressure
+		x = 4
+		y = 2
+		cost = 10
+		prerequisite = { focus = FRA_pax_eco2 }
+		mutually_exclusive = { focus = FRA_pax_mil3 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_stability = 0.05
+			add_ideas = PAX_idea_hegemony
+		}
+	}
+
+	focus = {
+		id = FRA_pax_her
+		icon = GFX_goal_generic_national_unity
+		x = 6
+		y = 1
+		cost = 14
+		prerequisite = { focus = FRA_pax_ind1 focus = FRA_pax_mil1 focus = FRA_pax_eco1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_her_FRA
+		}
+	}
+
+	focus = {
+		id = FRA_pax_fai
+		icon = GFX_goal_generic_propaganda
+		x = 8
+		y = 1
+		cost = 14
+		prerequisite = { focus = FRA_pax_ind1 focus = FRA_pax_mil1 focus = FRA_pax_eco1 }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_fai_FRA
+		}
+	}
+
+	focus = {
+		id = FRA_pax_druids
+		icon = GFX_goal_generic_national_unity
+		x = 10
+		y = 0
+		cost = 7
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 75
+		}
+	}
+
+	focus = {
+		id = FRA_pax_harvest
+		icon = GFX_goal_generic_consumer_goods
+		x = 10
+		y = 1
+		cost = 10
+		prerequisite = { focus = FRA_pax_druids }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = PAX_idea_FRA_harvest
+		}
+	}
+
+	focus = {
+		id = FRA_pax_forest_forts
+		icon = GFX_goal_generic_defence
+		x = 12
+		y = 1
+		cost = 10
+		prerequisite = { focus = FRA_pax_druids }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			army_experience = 20
+			add_ideas = PAX_idea_FRA_forest_forts
+		}
+	}
+
+	focus = {
+		id = FRA_pax_druidicon
+		icon = GFX_goal_generic_radar
+		x = 11
+		y = 2
+		cost = 10
+		prerequisite = { focus = FRA_pax_harvest }
+		prerequisite = { focus = FRA_pax_forest_forts }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_tech_bonus = { name = FRA_pax_druidicon bonus = 0.5 uses = 2 category = electronics }
+		}
+	}
+
+	focus = {
+		id = FRA_pax_join_pax
+		icon = GFX_goal_generic_improve_relations
+		x = 11
+		y = 3
+		cost = 10
+		prerequisite = { focus = FRA_pax_druidicon }
+		available_if_capitulated = no
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			if = {
+				limit = { ITA = { is_faction_leader = yes } is_in_faction = no }
+				ITA = { add_to_faction = ROOT }
+			}
+			else = { add_political_power = 75 }
+		}
+	}
+}

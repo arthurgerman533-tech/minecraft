@@ -1,0 +1,462 @@
+ideas = {
+	country = {
+		PAX_idea_mining_guilds = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				local_resources_factor = 0.15
+			}
+		}
+
+		PAX_idea_war_economy = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.05
+			}
+		}
+
+		PAX_idea_mobilization = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				conscription = 0.01
+			}
+		}
+
+		PAX_idea_fortifications = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_core_defence_factor = 0.1
+			}
+		}
+
+		PAX_idea_total_war = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_attack_factor = 0.1
+				war_support_factor = 0.05
+			}
+		}
+
+		PAX_idea_trade_routes = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.03
+				trade_opinion_factor = 0.15
+			}
+		}
+
+		PAX_idea_diplomatic_corps = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.15
+			}
+		}
+
+		PAX_idea_hegemony = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				political_power_factor = 0.1
+			}
+		}
+
+		PAX_idea_guardian_seven = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.1
+				army_core_defence_factor = 0.1
+			}
+		}
+
+		PAX_idea_kurultai_mind = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.07
+				army_org_factor = 0.05
+			}
+		}
+
+		PAX_idea_ITA_tower_law = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_core_defence_factor = 0.1
+				stability_factor = 0.03
+			}
+		}
+
+		PAX_idea_GRE_academy = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.05
+			}
+		}
+
+		PAX_idea_FRA_harvest = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.03
+				stability_factor = 0.03
+			}
+		}
+
+		PAX_idea_FRA_forest_forts = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_core_defence_factor = 0.1
+			}
+		}
+
+		PAX_idea_GER_blitz = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_speed_factor = 0.1
+				attrition = 0.05
+			}
+		}
+
+		PAX_idea_GER_winter_coats = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				attrition = -0.1
+				army_org_factor = 0.03
+			}
+		}
+
+		PAX_idea_SOV_winter_campaign = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				attrition = -0.1
+				army_defence_factor = 0.05
+			}
+		}
+
+		PAX_idea_ROM_copper = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				local_resources_factor = 0.1
+			}
+		}
+
+		PAX_spirit_ITA = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				political_power_gain = 0.1
+			}
+		}
+
+		PAX_her_ITA = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_core_defence_factor = 0.1
+				army_core_attack_factor = 0.05
+			}
+		}
+
+		PAX_fai_ITA = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_core_attack_factor = 0.05
+				war_support_factor = 0.05
+			}
+		}
+
+		PAX_spirit_SPR = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.03
+				trade_opinion_factor = 0.2
+			}
+		}
+
+		PAX_her_SPR = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				production_speed_arms_factory_factor = 0.1
+			}
+		}
+
+		PAX_fai_SPR = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.03
+			}
+		}
+
+		PAX_spirit_GRE = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				experience_gain_navy = 0.1
+				research_speed_factor = 0.03
+			}
+		}
+
+		PAX_her_GRE = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				experience_gain_navy = 0.15
+			}
+		}
+
+		PAX_fai_GRE = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				navy_org_factor = 0.05
+			}
+		}
+
+		PAX_spirit_FRA = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				army_core_defence_factor = 0.05
+			}
+		}
+
+		PAX_her_FRA = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.05
+				stability_factor = 0.05
+			}
+		}
+
+		PAX_fai_FRA = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+			}
+		}
+
+		PAX_spirit_ENG = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				experience_gain_navy = 0.05
+			}
+		}
+
+		PAX_her_ENG = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				experience_gain_navy = 0.1
+				production_speed_dockyard_factor = 0.1
+			}
+		}
+
+		PAX_fai_ENG = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.05
+			}
+		}
+
+		PAX_spirit_GER = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				war_support_factor = 0.1
+				stability_factor = -0.05
+			}
+		}
+
+		PAX_her_GER = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.1
+			}
+		}
+
+		PAX_fai_GER = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_attack_factor = 0.05
+			}
+		}
+
+		PAX_spirit_SOV = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				attrition = -0.05
+				army_core_defence_factor = 0.05
+			}
+		}
+
+		PAX_her_SOV = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				attrition = -0.1
+				army_core_defence_factor = 0.1
+			}
+		}
+
+		PAX_fai_SOV = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				political_power_gain = 0.1
+			}
+		}
+
+		PAX_spirit_ROM = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				local_resources_factor = 0.1
+				war_support_factor = 0.05
+			}
+		}
+
+		PAX_her_ROM = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				local_resources_factor = 0.2
+			}
+		}
+
+		PAX_fai_ROM = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_defence_factor = 0.05
+			}
+		}
+
+		PAX_spirit_TUR = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_speed_factor = 0.05
+				army_attack_factor = 0.03
+			}
+		}
+
+		PAX_her_TUR = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_speed_factor = 0.05
+				army_attack_factor = 0.05
+			}
+		}
+
+		PAX_fai_TUR = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_attack_factor = 0.05
+			}
+		}
+
+		PAX_spirit_PER = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.15
+				stability_factor = -0.03
+			}
+		}
+
+		PAX_her_PER = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.2
+			}
+		}
+
+		PAX_fai_PER = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.05
+			}
+		}
+	}
+}
