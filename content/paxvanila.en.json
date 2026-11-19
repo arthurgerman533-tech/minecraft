@@ -485,13 +485,35 @@
  "donate": {
   "title": "Support the server",
   "text": "Donations help pay for hosting, the map and new builds. They give no in-game advantage: no resources, weapons or war privileges. Cosmetics and thanks only.",
-  "rewards": [
-   "\"Patron\" chat prefix",
-   "Coloured nickname",
-   "Your name on a sign in the Hall of Five Lecterns at the tower",
-   "Discord role"
-  ],
   "button": "Support",
-  "soon": "Coming soon — donations open closer to launch"
+  "soon": "Coming soon — donations open closer to launch",
+  "tiers": [
+   {
+    "id": "free",
+    "name": "Citizen",
+    "price": "Free",
+    "items": [
+     "The whole game: towns, nations, trade, diplomacy and wars",
+     "All mechanics, focuses, cataclysms, the Moon and Mars",
+     "48-hour newcomer protection and a starter kit at the tower",
+     "Lore, weekly events and voice chat"
+    ],
+    "button": ""
+   },
+   {
+    "id": "paid",
+    "name": "Patron",
+    "price": "Price coming soon",
+    "items": [
+     "Everything Citizen has",
+     "\"Patron\" chat prefix",
+     "Coloured nickname",
+     "Your name on a sign in the Hall of Five Lecterns at the tower",
+     "\"Patron\" Discord role"
+    ],
+    "button": "Support"
+   }
+  ],
+  "note": "The paid tier gives no in-game advantage: no resources, weapons or war privileges. Cosmetics only."
  }
 }

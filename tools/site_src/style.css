@@ -263,3 +263,9 @@ table.wxtable small{color:var(--muted)}
 .msvg .eland{fill:color-mix(in srgb,#b9a777 55%,var(--bg));stroke:color-mix(in srgb,#6d5f4d 60%,var(--bg));stroke-width:.8}
 .msvg .esn{font-size:calc(var(--k)*12px);font-style:italic;fill:#2f6f9f;font-weight:600;stroke:none}
 .pill.eb-pax{border-color:#b0362b}.pill.eb-steppe{border-color:#6b4c9a}
+.donate .tiers{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin:12px 0}
+.donate .tier{border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column}
+.donate .tier-paid{border-color:var(--gold)}
+.donate .tn{font-weight:700;font-size:1.1rem}
+.donate .tp{color:var(--gold);font-weight:600;margin:2px 0 6px}
+.donate .tier ul{flex:1}
