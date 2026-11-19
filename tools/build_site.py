@@ -259,6 +259,8 @@ def build(lang, out):
     # ПаксГидромет и «Вестник Академии»: справочники + демо-данные (живые пишет paxmeteo.sk)
     C["meteo"] = localize(load_json("meteo.json"), lang)
     C["meteoDemo"] = load_json("meteo_demo.json")
+    # справочник катаклизмов датапака (tools/make_cataclysms.py) для слоя «Недавние катаклизмы» на карте
+    C["cata"] = localize(load_json("cataclysms.json"), lang)
     C["news"] = localize(load_json("news.json"), lang)
     C["newsDemo"] = load_json("news_demo.json")
     tr = translator(lang)

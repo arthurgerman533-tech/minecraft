@@ -336,3 +336,30 @@ table.wxtable small{color:var(--muted)}
 .caltl p{margin:4px 0 0;color:var(--muted);font-size:.93rem}
 .caltl .tag{display:inline-block;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;background:var(--gold);color:var(--ongold,#fff);border-radius:6px;padding:1px 6px;vertical-align:middle}
 @media (max-width:520px){.caltl li{grid-template-columns:1fr;gap:2px}}
+/* недавние катаклизмы на карте мира */
+.msvg .rc{cursor:pointer;outline:none}
+.msvg .rcz{fill:var(--c);fill-opacity:.32;stroke:none}
+.msvg .rcs{fill:var(--c);fill-opacity:.18;stroke:var(--c);stroke-width:1.5;stroke-dasharray:5 3;vector-effect:non-scaling-stroke}
+.msvg .rch{fill:var(--c);fill-opacity:.16;stroke:var(--c);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.msvg .rcd{fill:var(--c);stroke:var(--bg);stroke-width:2;vector-effect:non-scaling-stroke}
+.msvg .rci{font-size:calc(var(--k)*14px);text-anchor:middle;dominant-baseline:central;fill:#fff;font-weight:700;pointer-events:none}
+.msvg .rct{font-size:calc(var(--k)*11px);text-anchor:middle;font-weight:700;fill:var(--c);paint-order:stroke;stroke:var(--bg);stroke-width:3px;vector-effect:non-scaling-stroke}
+.msvg .rc.sel .rcd,.msvg .rc:focus .rcd{stroke:var(--gold);stroke-width:3}
+.msvg .rc.live .rch{animation:rcpulse 1.6s ease-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes rcpulse{0%{transform:scale(.5);opacity:1}100%{transform:scale(1.6);opacity:0}}
+@media (prefers-reduced-motion:reduce){.msvg .rc.live .rch{animation:none}}
+.mrecent{margin:12px 0 0;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card,var(--bg))}
+.mrecent .rhead{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-bottom:8px}
+.mrecent .rhead h3{margin:0;font-size:1.05rem}
+.mrecent .rhead .chips{margin-left:auto}
+.rlist{list-style:none;margin:0;padding:0;display:grid;gap:6px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.rlist button{width:100%;display:grid;grid-template-columns:28px 1fr auto;grid-template-areas:"i n t" "i p p";gap:0 8px;align-items:center;text-align:left;
+  background:var(--bg);color:inherit;border:1px solid var(--line);border-left:4px solid var(--c);border-radius:10px;padding:7px 10px;cursor:pointer;font:inherit}
+.rlist button.on,.rlist button:hover{border-color:var(--c)}
+.rlist i{grid-area:i;font-style:normal;font-size:1.25rem;text-align:center;color:var(--c)}
+.rlist b{grid-area:n;font-size:.95rem}
+.rlist .pl{grid-area:p;color:var(--muted);font-size:.82rem}
+.rlist time{grid-area:t;color:var(--muted);font-size:.8rem;font-variant-numeric:tabular-nums}
+.rlist .now{grid-area:t;justify-self:end;font-size:.7rem;font-weight:700;color:#fff;background:#b0362b;border-radius:6px;padding:1px 6px}
+.rlist .now+.pl+time{display:none}
+.mrecent .mnote{margin-bottom:0}

@@ -1,0 +1,456 @@
+{
+ "_comment": "Создано tools/make_cataclysms.py из PaxVanila_Cataclysms_v2 (weather_for_map.json). Руками не править.",
+ "pack": "PaxVanila_Cataclysms_v2",
+ "safe_zone": {
+  "center": [
+   0,
+   0
+  ],
+  "half_size": 48,
+  "note": "башня новичков, урона нет"
+ },
+ "rules": {
+  "ru": "блоки не ломаются; урон только при 5+ сердцах; новички первые 48 ч без урона",
+  "en": "blocks are never broken; damage only above 5 hearts; newcomers are safe for the first 48 h"
+ },
+ "events": [
+  {
+   "n": 1,
+   "id": "storm",
+   "icon": "⚡",
+   "color": "#f5c542",
+   "world": "earth",
+   "worlds": [
+    "earth"
+   ],
+   "area": "zone:peaks",
+   "dur": [
+    240,
+    360
+   ],
+   "weight": 14,
+   "name": {
+    "ru": "Гроза",
+    "en": "Thunderstorm"
+   },
+   "where": {
+    "ru": "Земля: везде, сильнее на вершинах выше Y 110",
+    "en": "Earth: everywhere, stronger on peaks above Y 110"
+   }
+  },
+  {
+   "n": 2,
+   "id": "blizzard",
+   "icon": "❄",
+   "color": "#5fd4e8",
+   "world": "earth",
+   "worlds": [
+    "earth"
+   ],
+   "area": "zone:snow",
+   "dur": [
+    180,
+    300
+   ],
+   "weight": 10,
+   "name": {
+    "ru": "Метель",
+    "en": "Blizzard"
+   },
+   "where": {
+    "ru": "Земля: везде под открытым небом",
+    "en": "Earth: everywhere under open sky"
+   }
+  },
+  {
+   "n": 3,
+   "id": "drought",
+   "icon": "☀",
+   "color": "#e8a33d",
+   "world": "earth",
+   "worlds": [
+    "earth"
+   ],
+   "area": "zone:desert",
+   "dur": [
+    300,
+    480
+   ],
+   "weight": 10,
+   "name": {
+    "ru": "Засуха",
+    "en": "Drought"
+   },
+   "where": {
+    "ru": "Земля: везде, урон в пустынях",
+    "en": "Earth: everywhere, damage in deserts"
+   }
+  },
+  {
+   "n": 4,
+   "id": "sandstorm",
+   "icon": "≈",
+   "color": "#e8a33d",
+   "world": "earth",
+   "worlds": [
+    "earth"
+   ],
+   "area": "zone:desert",
+   "dur": [
+    180,
+    300
+   ],
+   "weight": 8,
+   "name": {
+    "ru": "Песчаная буря",
+    "en": "Sandstorm"
+   },
+   "where": {
+    "ru": "Земля: пустыни и бесплодные земли (biome desert, badlands, Terralith-пустыни)",
+    "en": "Earth: deserts and badlands (desert, badlands, Terralith deserts)"
+   }
+  },
+  {
+   "n": 5,
+   "id": "quake",
+   "icon": "▲",
+   "color": "#d9534f",
+   "world": "earth",
+   "worlds": [
+    "earth"
+   ],
+   "area": "all",
+   "dur": [
+    60,
+    100
+   ],
+   "weight": 10,
+   "name": {
+    "ru": "Землетрясение",
+    "en": "Earthquake"
+   },
+   "where": {
+    "ru": "Земля: везде, обвалы в шахтах ниже Y 50",
+    "en": "Earth: everywhere, cave-ins in mines below Y 50"
+   }
+  },
+  {
+   "n": 6,
+   "id": "meteor",
+   "icon": "☄",
+   "color": "#c77dff",
+   "world": "earth",
+   "worlds": [
+    "earth"
+   ],
+   "area": "all",
+   "dur": [
+    120,
+    180
+   ],
+   "weight": 12,
+   "name": {
+    "ru": "Звёздный дождь",
+    "en": "Star shower"
+   },
+   "where": {
+    "ru": "Земля: рядом с игроками под открытым небом",
+    "en": "Earth: near players under open sky"
+   }
+  },
+  {
+   "n": 7,
+   "id": "ash",
+   "icon": "☠",
+   "color": "#8b1e1e",
+   "world": "earth",
+   "worlds": [
+    "earth"
+   ],
+   "area": "point:0,0",
+   "dur": [
+    240,
+    300
+   ],
+   "weight": 8,
+   "name": {
+    "ru": "Пепельная ночь",
+    "en": "Ash Night"
+   },
+   "where": {
+    "ru": "Земля: везде, столб огня над Монолитом 0,0",
+    "en": "Earth: everywhere, a pillar of fire over the Monolith at 0,0"
+   }
+  },
+  {
+   "n": 8,
+   "id": "flood",
+   "icon": "≋",
+   "color": "#3b6fd9",
+   "world": "earth",
+   "worlds": [
+    "earth"
+   ],
+   "area": "zone:water",
+   "dur": [
+    180,
+    300
+   ],
+   "weight": 10,
+   "name": {
+    "ru": "Великий шторм",
+    "en": "Great Storm"
+   },
+   "where": {
+    "ru": "Земля: океаны, реки, пляжи",
+    "en": "Earth: oceans, rivers, beaches"
+   }
+  },
+  {
+   "n": 9,
+   "id": "fog",
+   "icon": "?",
+   "color": "#9aa0a6",
+   "world": "earth",
+   "worlds": [
+    "earth"
+   ],
+   "area": "all",
+   "dur": [
+    180,
+    300
+   ],
+   "weight": 8,
+   "name": {
+    "ru": "Туман Безымянных",
+    "en": "Fog of the Nameless"
+   },
+   "where": {
+    "ru": "Земля: везде",
+    "en": "Earth: everywhere"
+   }
+  },
+  {
+   "n": 10,
+   "id": "aurora",
+   "icon": "✦",
+   "color": "#4caf50",
+   "world": "earth",
+   "worlds": [
+    "earth"
+   ],
+   "area": "all",
+   "dur": [
+    180,
+    300
+   ],
+   "weight": 10,
+   "name": {
+    "ru": "Северное сияние",
+    "en": "Northern Lights"
+   },
+   "where": {
+    "ru": "Земля: везде под открытым небом",
+    "en": "Earth: everywhere under open sky"
+   }
+  },
+  {
+   "n": 11,
+   "id": "flare",
+   "icon": "☼",
+   "color": "#f5c542",
+   "world": "space",
+   "worlds": [
+    "moon",
+    "mars"
+   ],
+   "area": "all",
+   "dur": [
+    120,
+    200
+   ],
+   "weight": 14,
+   "name": {
+    "ru": "Солнечная вспышка",
+    "en": "Solar flare"
+   },
+   "where": {
+    "ru": "Луна и Марс, поверхность",
+    "en": "Moon and Mars, surface"
+   }
+  },
+  {
+   "n": 12,
+   "id": "meteorstorm",
+   "icon": "☄",
+   "color": "#c77dff",
+   "world": "space",
+   "worlds": [
+    "moon",
+    "mars"
+   ],
+   "area": "all",
+   "dur": [
+    120,
+    180
+   ],
+   "weight": 14,
+   "name": {
+    "ru": "Метеоритный шторм",
+    "en": "Meteor storm"
+   },
+   "where": {
+    "ru": "Луна и Марс",
+    "en": "Moon and Mars"
+   }
+  },
+  {
+   "n": 13,
+   "id": "duststorm",
+   "icon": "≈",
+   "color": "#d9534f",
+   "world": "space",
+   "worlds": [
+    "mars"
+   ],
+   "area": "all",
+   "dur": [
+    180,
+    300
+   ],
+   "weight": 12,
+   "name": {
+    "ru": "Пылевая буря Марса",
+    "en": "Martian dust storm"
+   },
+   "where": {
+    "ru": "Марс",
+    "en": "Mars"
+   }
+  },
+  {
+   "n": 14,
+   "id": "dustdevil",
+   "icon": "@",
+   "color": "#e8a33d",
+   "world": "space",
+   "worlds": [
+    "mars"
+   ],
+   "area": "all",
+   "dur": [
+    120,
+    180
+   ],
+   "weight": 10,
+   "name": {
+    "ru": "Пыльные вихри",
+    "en": "Dust devils"
+   },
+   "where": {
+    "ru": "Марс",
+    "en": "Mars"
+   }
+  },
+  {
+   "n": 15,
+   "id": "moonquake",
+   "icon": "▲",
+   "color": "#9aa0a6",
+   "world": "space",
+   "worlds": [
+    "moon"
+   ],
+   "area": "all",
+   "dur": [
+    60,
+    100
+   ],
+   "weight": 12,
+   "name": {
+    "ru": "Лунотрясение",
+    "en": "Moonquake"
+   },
+   "where": {
+    "ru": "Луна",
+    "en": "Moon"
+   }
+  },
+  {
+   "n": 16,
+   "id": "lunarnight",
+   "icon": "☾",
+   "color": "#5fd4e8",
+   "world": "space",
+   "worlds": [
+    "moon"
+   ],
+   "area": "all",
+   "dur": [
+    180,
+    300
+   ],
+   "weight": 12,
+   "name": {
+    "ru": "Лунная ночь",
+    "en": "Lunar night"
+   },
+   "where": {
+    "ru": "Луна",
+    "en": "Moon"
+   }
+  },
+  {
+   "n": 17,
+   "id": "magstorm",
+   "icon": "≋",
+   "color": "#1f8a8a",
+   "world": "space",
+   "worlds": [
+    "moon",
+    "mars",
+    "earth"
+   ],
+   "area": "all",
+   "dur": [
+    150,
+    240
+   ],
+   "weight": 12,
+   "name": {
+    "ru": "Магнитная буря",
+    "en": "Magnetic storm"
+   },
+   "where": {
+    "ru": "Луна, Марс и сияние над Землёй",
+    "en": "Moon, Mars and an aurora over Earth"
+   }
+  },
+  {
+   "n": 18,
+   "id": "comet",
+   "icon": "✧",
+   "color": "#5fd4e8",
+   "world": "space",
+   "worlds": [
+    "earth",
+    "moon",
+    "mars"
+   ],
+   "area": "all",
+   "dur": [
+    120,
+    180
+   ],
+   "weight": 10,
+   "name": {
+    "ru": "Комета",
+    "en": "Comet"
+   },
+   "where": {
+    "ru": "Земля, Луна, Марс (осколки падают в космосе)",
+    "en": "Earth, Moon, Mars (fragments fall in space)"
+   }
+  }
+ ]
+}

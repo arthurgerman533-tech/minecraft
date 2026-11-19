@@ -107,7 +107,7 @@ function renderCalendar(C){
 }
 
 async function main(){
-  const C=await (await fetch('content.json?v=20261119225839')).json(), cfg=C.config;
+  const C=await (await fetch('content.json?v=20261119225927')).json(), cfg=C.config; window.__C=C;
   document.querySelectorAll('[data-k]').forEach(e=>{e.textContent=e.dataset.k in C?C[e.dataset.k]:cfg[e.dataset.k]||''});
   // IP и Discord
   const ipBtn=$('#copyip');
@@ -189,11 +189,12 @@ async function liveJson(cfg,name){
   if(!cfg.liveUrl) return null;
   try{const r=await fetch(new URL(name,cfg.liveUrl.replace(/\/?$/,'/')),{cache:'no-store'});return r.ok?await r.json():null}catch(e){return null}
 }
+let _live=null; const meteoLive=cfg=>_live||(_live=Promise.all([liveJson(cfg,'meteo.json'),liveJson(cfg,'news.json')]));
 const fmtTime=t=>new Date(t*1000).toLocaleString(EN?'en-GB':'ru-RU',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
 const mmss=s=>{s=Math.max(0,s|0);return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`};
 async function renderWeather(C){
   const M=C.meteo, cfg=C.config; if(!M||!$('#wxBulletin')) return;
-  const [lm,ln]=await Promise.all([liveJson(cfg,'meteo.json'),liveJson(cfg,'news.json')]);
+  const [lm,ln]=await meteoLive(cfg);
   const D=lm||C.meteoDemo, N=ln||C.newsDemo;
   const all=[...M.events,...M.space], ev=n=>all.find(e=>e.n===n), lv=n=>M.levels[n]||M.levels[0];
   $('#wxDemo').hidden=!D.demo;
@@ -228,7 +229,7 @@ async function renderWeather(C){
   $('#wxTable').innerHTML=`<tr class="th"><td>${T('Катаклизм','Cataclysm')}</td><td>${T('Шанс','Chance')}</td><td>${T('Длится','Lasts')}</td><td>${T('Что делать','What to do')}</td></tr>`+
     [...M.events].sort((a,b)=>b.p-a.p).map(e=>`<tr><td><span class="dot" style="background:${lv(e.level).color}"></span>${e.icon} <b>${esc(e.name)}</b><br><small>${esc(e.text)}</small></td><td>${e.p}%</td><td>${Math.round(e.min/60)}–${Math.round(e.max/60)} ${T('мин','min')}</td><td>${esc(e.advice)}</td></tr>`).join('');
   const h=[...(D.history||[])].sort((a,b)=>b.t-a.t);
-  $('#wxLog').innerHTML=h.length?h.map(x=>{const e=ev(x.n);return `<li><time>${fmtTime(x.t)}</time> ${e?e.icon+' '+esc(e.name):'#'+x.n}</li>`}).join(''):`<li>${T('Пока ни одного катаклизма.','No cataclysms yet.')}</li>`;
+  $('#wxLog').innerHTML=h.length?h.map(x=>{const e=ev(x.n);return `<li><time>${fmtTime(x.t)}</time> ${e?e.icon+' '+esc(e.name):'#'+x.n}${x.w?` <small>· ${esc(cataPlace(x))}</small>`:''}</li>`}).join(''):`<li>${T('Пока ни одного катаклизма.','No cataclysms yet.')}</li>`;
   $('#wxSpace').innerHTML=M.space.map(e=>`<span class="pill">${e.icon} ${esc(e.name)}</span>`).join('');
   renderNews(C,N);
 }
@@ -254,25 +255,26 @@ function renderMap(C){
   const M=C.map, cfg=C.config, b=cfg.border, st=serverState(cfg);
   const rings=[['start',T('Старт','Start')],['w1',T('Н1','W1')],['w2',T('Н2','W2')],['w3',T('Н3','W3')],['w5',T('Н5','W5')],['w6',T('Н6','W6')]];
   const R=b.w6, ext=R*1.12, NS='http://www.w3.org/2000/svg';
-  const layers={powers:true,ancient:true,towns:true,grid:true,far:true,lore:true,wx:false,terrain:true}; const TR=M.terrain, Z=M.zones; M.far=M.far||[]; M.lore=M.lore||[];
+  const layers={powers:true,ancient:true,towns:true,grid:true,far:true,lore:true,wx:false,terrain:true,recent:true}; const TR=M.terrain, Z=M.zones; M.far=M.far||[]; M.lore=M.lore||[];
   let sel=st.started?null:'w6';
   host.innerHTML=`<div class="mtools">
      <div class="chips" id="mLayers">
        <button data-l="powers" class="on">${T('Державы','Powers')}</button><button data-l="ancient" class="on">${T('Древние места','Ancient sites')}</button>
-       <button data-l="towns" class="on">${T('Города','Towns')}${M.towns.length?' ('+M.towns.length+')':''}</button><button data-l="grid" class="on">${T('Сетка','Grid')}</button>${TR?`<button data-l="terrain" class="on">${T('Рельеф','Terrain')}</button>`:''}<button data-l="wx" class="hl">🌦️ ${T('Погода','Weather')}</button>${M.lore.length?`<button data-l="lore" class="on">${T('Метки лора','Lore tags')} (${M.lore.length})</button>`:''}${M.far.length?`<button data-l="far" class="on">${T('За границей','Beyond the border')}</button><button id="mAll" class="hl">🌍 ${T('Все миры','All worlds')} (${M.far.length})</button>`:''}</div>
+       <button data-l="towns" class="on">${T('Города','Towns')}${M.towns.length?' ('+M.towns.length+')':''}</button><button data-l="grid" class="on">${T('Сетка','Grid')}</button>${TR?`<button data-l="terrain" class="on">${T('Рельеф','Terrain')}</button>`:''}<button data-l="wx" class="hl">🌦️ ${T('Погода','Weather')}</button>${C.cata?`<button data-l="recent" class="on" id="mRecBtn">🕒 ${T('Недавние катаклизмы','Recent cataclysms')}</button>`:''}${M.lore.length?`<button data-l="lore" class="on">${T('Метки лора','Lore tags')} (${M.lore.length})</button>`:''}${M.far.length?`<button data-l="far" class="on">${T('За границей','Beyond the border')}</button><button id="mAll" class="hl">🌍 ${T('Все миры','All worlds')} (${M.far.length})</button>`:''}</div>
      <div class="chips" id="mRings"><span class="lbl">${T('Граница','Border')}</span>${rings.map(r=>`<button data-r="${r[0]}">${r[1]}</button>`).join('')}</div>
    </div>
    <div class="mbox"><svg id="msvg" class="msvg" role="img" aria-label="${T('Карта мира PaxVanila','PaxVanila world map')}"></svg>
      <div class="mzoom"><button data-z="0.67" aria-label="${T('Приблизить','Zoom in')}">+</button><button data-z="1.5" aria-label="${T('Отдалить','Zoom out')}">−</button><button data-z="0" aria-label="${T('Сбросить','Reset')}">⟲</button></div>
      <div class="mcoord" id="mcoord">X 0 · Z 0</div><div class="mcomp">${T('С','N')}↑</div></div>
    <div class="mwx" id="mwx" hidden></div>
+   <div class="mrecent" id="mrecent"></div>
    <div class="minfo" id="minfo"></div>
    <p class="mnote">${TR?T(`Рельеф, реки, озёра и леса нарисованы блок в блок с настоящего мира PaxVanila (те же датапаки: Terralith, Towns and Towers, Structory). Разведано ${TR.bounds[2]-TR.bounds[0]}×${TR.bounds[3]-TR.bounds[1]} блоков вокруг спавна, дальше карта показывает схему и будет расти`,`Terrain, rivers, lakes and forests are rendered block by block from the real PaxVanila world (same datapacks: Terralith, Towns and Towers, Structory). ${TR.bounds[2]-TR.bounds[0]}×${TR.bounds[3]-TR.bounds[1]} blocks around spawn are explored; beyond that the map shows the schematic and will grow`)+(TR.date?' · '+esc(TR.date):'')+`. <a href="${esc(TR.big)}" target="_blank" rel="noopener">${T('Подробная карта 1:1','Full-size map 1:1')}</a>. `:''}${T('Державы и древние места показаны схемой по лору: настоящие столицы строят игроки.','Powers and ancient sites are a schematic based on the lore: the real capitals are built by players.')}
      ${M.towns.length?T(' Города Towny выгружены ',' Towny towns exported ')+esc(M.townsDate)+'.':T(' Реальные города появятся после открытия сервера.',' Real towns will appear after the server opens.')}
      ${cfg.mapUrl?` <a class="btn" href="${esc(cfg.mapUrl)}" target="_blank" rel="noopener">🗺️ ${T('Живая карта BlueMap','Live BlueMap')}</a>`:''}</p>`;
   const svg=$('#msvg'), el=(n,a,p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e};
   const cp=el('clipPath',{id:'mclip'},el('defs',{})); el('circle',{cx:0,cy:0,r:R},cp);
-  const g={}; ['base','terrain','wx','grid','powers','rings','ancient','towns','lore','far','top'].forEach(k=>g[k]=el('g',{class:'g-'+k}));
+  const g={}; ['base','terrain','wx','grid','powers','rings','ancient','towns','lore','recent','far','top'].forEach(k=>g[k]=el('g',{class:'g-'+k}));
   el('circle',{cx:0,cy:0,r:R,class:'land'},g.base);
   if(TR){const [x0,z0,x1,z1]=TR.bounds, q=8000; el('image',{href:TR.src,x:x0,y:z0,width:x1-x0,height:z1-z0,preserveAspectRatio:'none',class:'terr'},g.terrain);
     el('rect',{x:x0,y:z0,width:x1-x0,height:z1-z0,class:'terrb'},g.terrain);
@@ -332,7 +334,7 @@ function renderMap(C){
     a.onclick=()=>pick(p,T('центр мира','world centre'));});
   pick(M.places[0],T('центр мира','world centre'));
   // слои и кольца
-  $('#mLayers').onclick=e=>{const k=e.target.dataset.l;if(!k)return;layers[k]=!layers[k];e.target.classList.toggle('on',layers[k]);g[k].style.display=layers[k]?'':'none';if(k==='wx')wxBox.hidden=!layers.wx};
+  $('#mLayers').onclick=e=>{const k=e.target.dataset.l;if(!k)return;layers[k]=!layers[k];e.target.classList.toggle('on',layers[k]);g[k].style.display=layers[k]?'':'none';if(k==='wx')wxBox.hidden=!layers.wx;if(k==='recent')$('#mrecent').hidden=!layers.recent};
   const markRing=()=>{document.querySelectorAll('#mRings button').forEach(x=>x.classList.toggle('on',x.dataset.r===sel));
     for(const k in ringEls) ringEls[k].forEach(e=>e.classList.toggle('sel',k===sel));};
   $('#mRings').onclick=e=>{const k=e.target.dataset.r;if(!k)return;sel=sel===k?null:k;markRing()}; markRing();
@@ -362,6 +364,65 @@ function renderMap(C){
   svg.addEventListener('click',e=>{if(moved>4){e.stopPropagation();e.preventDefault()}},true);
   const fitTerrain=()=>{const [x0,z0,x1,z1]=TR.bounds, ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1, cx=(x0+x1)/2, cz=(z0+z1)/2, nw=Math.max(x1-x0,(z1-z0)/ar)*1.7; vb={x:cx-nw/2,y:cz-nw*ar/2,w:nw,h:nw*ar};apply()};
   addEventListener('resize',apply); TR?fitTerrain():M.far.length?fitAll():reset();
+  // слой «Недавние катаклизмы»: журнал meteo.json (живой с сервера или демо) → метки на карте
+  if(C.cata) meteoLive(cfg).then(([lm])=>renderRecent(C,lm||C.meteoDemo,{g:g.recent,el,R,Z,pick,focus:(x,z,w)=>{const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1;vb={x:x-w/2,y:z-w*ar/2,w,h:w*ar};apply()}}));
+}
+// ---- недавние катаклизмы на карте (справочник: C.cata из content/cataclysms.json ← weather_for_map.json датапака) ----
+const cataEv=n=>((window.__C&&window.__C.cata&&window.__C.cata.events)||[]).find(e=>e.n===n);
+const cataPlace=h=>{
+  if(h.w==='moon') return '🌙 '+T('Луна','Moon');
+  if(h.w==='mars') return '🔴 '+T('Марс','Mars');
+  if(h.x!=null) return `${T('квадрат','square')} X ${h.x}…${h.x+(h.s||128)} · Z ${h.z}…${h.z+(h.s||128)}`;
+  const e=cataEv(h.n); if(e&&e.area==='point:0,0') return T('Монолит 0,0','Monolith 0,0');
+  if(e&&e.area.startsWith('zone:')) return {desert:T('пустыни','deserts'),water:T('моря и реки','seas and rivers'),snow:T('снежные земли','snowy lands'),peaks:T('вершины','peaks')}[e.area.slice(5)];
+  return T('по всему миру','across the world')};
+const agoText=s=>{s=Math.max(0,s);if(s<3600)return T(`${Math.max(1,Math.round(s/60))} мин назад`,`${Math.max(1,Math.round(s/60))} min ago`);
+  if(s<172800)return T(`${Math.round(s/3600)} ч назад`,`${Math.round(s/3600)} h ago`);return T(`${Math.round(s/86400)} дн. назад`,`${Math.round(s/86400)} d ago`)};
+function renderRecent(C,D,m){
+  const host=$('#mrecent'); if(!host) return;
+  const H=[...(D.history||[])].filter(h=>cataEv(h.n)).sort((a,b)=>b.t-a.t);
+  const now=D.demo?D.updated:Date.now()/1000, cur=D.event&&D.event.n>0?D.event.n:0;
+  const periods=[[86400,T('24 часа','24 hours')],[3*86400,T('3 дня','3 days')],[7*86400,T('7 дней','7 days')],[0,T('Все','All')]];
+  let per=H.some(h=>now-h.t<=86400)?3*86400:0, sel=null;
+  // где событие на карте Мира 1: квадрат наблюдения, точка или зона
+  const spot=h=>{const e=cataEv(h.n), s=h.s||128;
+    if(h.w&&h.w!=='earth') return null;
+    if(h.x!=null) return {x:h.x+s/2,z:h.z+s/2,sq:[h.x,h.z,s]};
+    if(e.area.startsWith('point:')){const [x,z]=e.area.slice(6).split(',').map(Number);return {x,z}}
+    if(e.area.startsWith('zone:')&&m.Z){const L=m.Z[e.area.slice(5)]||[],c=m.Z.cell||64; if(!L.length) return null;
+      const x=L.reduce((a,p)=>a+p[0],0)/L.length+c/2, z=L.reduce((a,p)=>a+p[1],0)/L.length+c/2; return {x,z,zone:L,cell:c}}
+    return null};
+  const info=h=>{const e=cataEv(h.n), live=h.n===cur&&h===H[0];
+    return {name:`${e.icon} ${e.name}`,x:h.x??'',z:h.z??'',
+      text:`${live?T('Идёт прямо сейчас. ','Happening right now. '):''}${fmtTime(h.t)} (${agoText(now-h.t)}). ${T('Где','Where')}: ${cataPlace(h)}. ${e.where}. ${T('Длится','Lasts')} ${Math.round(e.dur[0]/60)}–${Math.round(e.dur[1]/60)} ${T('мин','min')}.`+(h.p?` ${T('Игроков в том мире','Players in that world')}: ${h.p}.`:'')}};
+  const show=h=>{sel=h; const e=cataEv(h.n), sp=spot(h), o=info(h);
+    m.pick({name:o.name,x:sp?Math.round(sp.x):'—',z:sp?Math.round(sp.z):'—',text:o.text},T('катаклизм','cataclysm'));
+    if(sp) m.focus(sp.x,sp.z,sp.zone?Math.max(900,m.R*0.9):900); draw()};
+  const draw=()=>{
+    const L=H.filter(h=>!per||now-h.t<=per);
+    m.g.innerHTML='';
+    // старые снизу, свежие сверху; прозрачность по возрасту
+    [...L].reverse().forEach(h=>{const e=cataEv(h.n), sp=spot(h); if(!sp) return;
+      const age=now-h.t, op=Math.max(.35,1-age/(per||7*86400)), live=h.n===cur&&h===H[0];
+      const a=m.el('g',{class:'rc'+(live?' live':'')+(h===sel?' sel':''),tabindex:0,style:`--c:${e.color};opacity:${op.toFixed(2)}`},m.g);
+      if(sp.zone) m.el('path',{d:sp.zone.map(([x,z])=>`M${x} ${z}h${sp.cell}v${sp.cell}h${-sp.cell}z`).join(''),class:'rcz'},a);
+      if(sp.sq) m.el('rect',{x:sp.sq[0],y:sp.sq[1],width:sp.sq[2],height:sp.sq[2],class:'rcs'},a);
+      m.el('circle',{cx:sp.x,cy:sp.z,r:90,class:'rch'},a);
+      m.el('circle',{cx:sp.x,cy:sp.z,r:34,class:'rcd'},a);
+      m.el('text',{x:sp.x,y:sp.z,class:'rci'},a).textContent=e.icon;
+      m.el('text',{x:sp.x,y:sp.z+70,class:'rct'},a).textContent=`${e.name} · ${agoText(age)}`;
+      const go=()=>show(h); a.onclick=go; a.onkeydown=k=>{if(k.key==='Enter')go()};});
+    const off=L.filter(h=>!spot(h)).length, b=$('#mRecBtn'); if(b) b.textContent=`🕒 ${T('Недавние катаклизмы','Recent cataclysms')} (${L.length})`;
+    host.innerHTML=`<div class="rhead"><h3>🕒 ${T('Недавние катаклизмы','Recent cataclysms')}</h3>${D.demo?`<span class="demo">${T('ДЕМО','DEMO')}</span>`:''}
+      <div class="chips">${periods.map(([s,l])=>`<button data-p="${s}" class="${s===per?'on':''}">${l}</button>`).join('')}</div></div>
+      ${L.length?`<ol class="rlist">${L.map((h,i)=>{const e=cataEv(h.n), live=h.n===cur&&h===H[0];
+        return `<li><button data-i="${H.indexOf(h)}" class="${h===sel?'on':''}" style="--c:${e.color}"><i>${e.icon}</i><b>${esc(e.name)}</b>${live?`<span class="now">${T('сейчас','now')}</span>`:''}<span class="pl">${esc(cataPlace(h))}</span><time>${agoText(now-h.t)}</time></button></li>`}).join('')}</ol>`
+        :`<p class="mnote">${T('За это время катаклизмов не было.','No cataclysms in this period.')}</p>`}
+      <p class="mnote">${D.demo?T('Это демо-журнал: настоящий появится, когда сервер начнёт публиковать meteo.json (config.liveUrl). ','This is a demo log: the real one appears once the server publishes meteo.json (config.liveUrl). '):T('Журнал с сервера, последние 20 катаклизмов. ','Log from the server, the last 20 cataclysms. ')}${T('На карте отмечен квадрат 128×128 блоков, где катаклизм наблюдали (точные координаты игроков не публикуются), а для событий без места — их зона или Монолит.','The map marks the 128×128-block square where the cataclysm was observed (exact player coordinates are not published); events without a place show their zone or the Monolith.')}${off?' '+T(`${off} без метки: прошли по всему миру или на Луне и Марсе.`,`${off} without a marker: they swept the whole world or happened on the Moon and Mars.`):''}</p>`;
+  };
+  host.onclick=e=>{const p=e.target.closest('[data-p]'); if(p){per=+p.dataset.p;draw();return}
+    const i=e.target.closest('[data-i]'); if(i) show(H[+i.dataset.i])};
+  draw();
 }
 // ---- карта Земли (данные: C.map.earth из content/earth.json, единица = 1 км) ----
 function renderEarth(C){

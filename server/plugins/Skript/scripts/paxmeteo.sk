@@ -11,7 +11,8 @@
 # (например bluemap/web/live), тогда файлы будут по адресу http://<сервер>:8100/live/meteo.json
 # и liveUrl = "http://<сервер>:8100/live/". Нужен открытый порт веб-карты.
 #
-# В файлы попадают только номера событий, время, число игроков онлайн и ник первооткрывателя.
+# В файлы попадают только номера событий, время, число игроков онлайн, ник первооткрывателя
+# и квадрат 128×128, где наблюдали катаклизм (выключается опцией coords: off).
 #
 #   /meteo                — сводка в чате
 #   /meteo write          — записать файлы сейчас (право paxmeteo.admin)
@@ -28,6 +29,11 @@ options:
 	out: plugins/PaxMeteo
 	world: world
 	history: 20
+	# Карта «Недавние катаклизмы» на сайте: где наблюдали катаклизм.
+	# Пишется квадрат sector×sector блоков, в котором стоял случайный игрок того мира
+	# (точные координаты НЕ публикуются). coords: off — не писать место вообще.
+	coords: on
+	sector: 128
 
 # достижение Minecraft → ключ заметки (шаблоны в content/news.json)
 function meteoKey(a: text) :: text:
@@ -87,6 +93,37 @@ function meteoSave(name: text, body: text):
 	{_w}.write({_body})
 	{_w}.close()
 
+# где наблюдали событие e: "мир|x|z|игроков" (x и z — угол квадрата {@sector}, "-" если не пишем)
+function meteoWhere(e: number) :: text:
+	set {_w} to "earth"
+	clear {_c::*}
+	if {_e} >= 11:
+		loop all players:
+			set {_wn} to name of world of loop-player
+			if {_wn} contains "moon":
+				add loop-player to {_c::*}
+			else if {_wn} contains "mars":
+				add loop-player to {_c::*}
+	if size of {_c::*} is 0:
+		loop all players:
+			if name of world of loop-player is "{@world}":
+				add loop-player to {_c::*}
+	else:
+		set {_w} to "space"
+	set {_p} to size of {_c::*}
+	if {_p} is 0:
+		return "%{_w}%|-|-|0"
+	set {_pl} to random element out of {_c::*}
+	if {_w} is "space":
+		set {_w} to "mars"
+		if name of world of {_pl} contains "moon":
+			set {_w} to "moon"
+	if "{@coords}" is "off":
+		return "%{_w}%|-|-|%{_p}%"
+	set {_x} to floor(x-coordinate of {_pl} / {@sector}) * {@sector}
+	set {_z} to floor(z-coordinate of {_pl} / {@sector}) * {@sector}
+	return "%{_w}%|%{_x}%|%{_z}%|%{_p}%"
+
 function meteoWrite():
 	set {_wd} to Bukkit.getWorld("{@world}")
 	set {_wx} to "clear"
@@ -112,7 +149,12 @@ function meteoWrite():
 	clear {_h::*}
 	loop {meteo::hist::*}:
 		set {_s::*} to split loop-value at "|"
-		add "{""n"":%{_s::1}%,""t"":%{_s::2}%}" to {_h::*}
+		set {_o} to """n"":%{_s::1}%,""t"":%{_s::2}%"
+		if {_s::3} is set:
+			set {_o} to "%{_o}%,""w"":""%{_s::3}%"",""p"":%{_s::6}%"
+			if {_s::4} is not "-":
+				set {_o} to "%{_o}%,""x"":%{_s::4}%,""z"":%{_s::5}%,""s"":{@sector}"
+		add "{%{_o}%}" to {_h::*}
 	set {_hist} to join {_h::*} with ","
 	set {_j} to """demo"":false,""updated"":%meteoNow()%,""day"":%{_day}%,""season"":%{_season}%,""weather"":""%{_wx}%"",""time"":%{_tm}%,""online"":%size of all players%,""auto"":%{_auto}%,"
 	set {_j} to "{%{_j}%""event"":{""n"":%{_ev}%,""left"":%{_left}%},""pending"":{""n"":%{_pe}%,""warn"":%{_warn}%},""next"":%{_next}%,""history"":[%{_hist}%]}"
@@ -137,7 +179,7 @@ every 5 seconds:
 		if {_e} > 0:
 			add 1 to {meteo::hc}
 			set {_i} to mod({meteo::hc}, {@history})
-			set {meteo::hist::%{_i}%} to "%{_e}%|%meteoNow()%"
+			set {meteo::hist::%{_i}%} to "%{_e}%|%meteoNow()%|%meteoWhere({_e})%"
 			meteoWrite()
 
 every 1 minute:
