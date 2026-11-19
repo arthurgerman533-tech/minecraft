@@ -214,6 +214,19 @@ let deferred;
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;$('install').style.display='block'});
 $('install-btn').onclick=async()=>{if(!deferred)return;deferred.prompt();await deferred.userChoice;deferred=null;$('install').style.display='none'};
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+// импорт записей по ссылке вида …/papa/#import=<base64>. Часть после # не уходит на сервер.
+function importFromHash(){
+  if(!location.hash.startsWith('#import='))return;
+  try{
+    const b=location.hash.slice(8).replace(/-/g,'+').replace(/_/g,'/');
+    const d=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(b),c=>c.charCodeAt(0))));
+    const fresh=(d.notes||[]).filter(n=>n&&n.text&&n.date&&!S.notes.some(x=>x.id===n.id));
+    history.replaceState(null,'',location.pathname);
+    if(!fresh.length){alert('Эти записи уже добавлены');return}
+    if(confirm(`Добавить ${fresh.length} записей в приложение?`)){S.notes.push(...fresh);save();alert('Записи добавлены')}
+  }catch(e){alert('Не получилось прочитать ссылку с записями')}
+}
+importFromHash();
 $('date').value=iso(new Date());fillCfg();render();
 </script>
 </body>
