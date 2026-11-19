@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Отчёт для папы</title>
+<meta name="description" content="Записывай, что делал и где был, и отправляй отчёт в WhatsApp. Все записи хранятся только на твоём телефоне.">
+<meta name="theme-color" content="#1f8f5a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--ink:#1d1d1b;--muted:#6b6a65;--line:#e2e0d8;--acc:#1f8f5a;--acc-ink:#fff;--warn:#b5462f;--soft:#eef6f1}
+@media (prefers-color-scheme:dark){:root{--bg:#161615;--card:#212120;--ink:#ecebe6;--muted:#9b9a94;--line:#353431;--acc:#2fb374;--acc-ink:#0d1f15;--warn:#e0735c;--soft:#1d2a22}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:26px;margin:4px 0 2px}
+.sub{color:var(--muted);margin:0 0 18px}
+nav{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+nav button{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:999px;cursor:pointer;font:inherit}
+nav button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+section{display:none}section.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.card h2{font-size:17px;margin:0 0 12px}
+label{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px}
+input,select,textarea{width:100%;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--ink)}
+.row{display:grid;grid-template-columns:110px 1fr;gap:10px}
+@media (max-width:420px){.row{grid-template-columns:1fr}}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.btn{display:inline-block;border:0;background:var(--acc);color:var(--acc-ink);padding:10px 16px;border-radius:10px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.list{list-style:none;padding:0;margin:0}
+.list li{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line)}
+.list li:first-child{border-top:0}
+.t{font-variant-numeric:tabular-nums;color:var(--muted);min-width:46px}
+.grow{flex:1}.place{color:var(--muted);font-size:14px}
+.x{background:none;border:0;color:var(--muted);cursor:pointer;font-size:20px;padding:0 4px}
+pre{white-space:pre-wrap;background:var(--soft);border-radius:10px;padding:14px;margin:0;font:15px/1.5 system-ui,sans-serif}
+.msg{margin-top:10px;font-size:14px}.err{color:var(--warn)}.ok{color:var(--acc)}
+.muted{color:var(--muted);font-size:14px}
+.dates{display:flex;gap:8px;align-items:center}.dates input{width:auto}
+details{margin-top:8px}summary{cursor:pointer;color:var(--muted)}
+.check{display:flex;gap:8px;align-items:center;margin-top:12px}.check input{width:auto}
+#install{display:none}
+</style>
+</head>
+<body>
+<main>
+<h1>Отчёт для папы</h1>
+<p class="sub">Записывай, что делал и где был, и отправляй папе отчёт в WhatsApp. Записи хранятся только на этом телефоне.</p>
+<nav>
+  <button data-tab="day" class="on">Сегодня</button>
+  <button data-tab="history">История</button>
+  <button data-tab="settings">Настройки</button>
+</nav>
+
+<section id="day" class="on">
+  <div class="card" id="install">
+    <h2>Установить на телефон</h2>
+    <p class="muted" style="margin:0">Приложение появится на главном экране и будет работать без интернета.</p>
+    <div class="btns"><button class="btn" id="install-btn">Установить</button></div>
+  </div>
+  <div class="card"><div class="dates"><label style="margin:0">День</label><input type="date" id="date"></div></div>
+  <div class="card">
+    <h2>Добавить пометку</h2>
+    <div class="row">
+      <div><label>Время</label><input type="time" id="n-time"></div>
+      <div><label>Что делал</label><input id="n-text" placeholder="Например: делал уроки, тренировка"></div>
+    </div>
+    <label>Где был (необязательно)</label><input id="n-place" placeholder="Например: дома, школа, у бабушки" list="places">
+    <datalist id="places"></datalist>
+    <div class="btns"><button class="btn" id="add">Добавить</button></div>
+    <div class="msg" id="add-msg"></div>
+  </div>
+  <div class="card"><h2>За этот день</h2><ul class="list" id="items"></ul></div>
+  <div class="card">
+    <h2>Превью отчёта</h2>
+    <pre id="preview">…</pre>
+    <div class="btns">
+      <a class="btn" id="wa" target="_blank" rel="noopener">Отправить папе в WhatsApp</a>
+      <button class="btn ghost" id="share">Поделиться…</button>
+      <button class="btn ghost" id="copy">Скопировать</button>
+    </div>
+    <div class="msg" id="send-msg"></div>
+  </div>
+</section>
+
+<section id="history">
+  <div class="card"><h2>Отправленные отчёты</h2><div id="reports" class="muted">Пока ничего не отправлено.</div></div>
+</section>
+
+<section id="settings">
+  <div class="card">
+    <h2>Кому</h2>
+    <label>Номер папы в WhatsApp (с кодом страны)</label>
+    <input id="papa_phone" inputmode="tel" placeholder="77011234567">
+    <label>Приветствие</label><input id="greeting">
+    <label>Подпись в конце</label><input id="signature">
+    <label class="check"><input type="checkbox" id="remind"> Напоминать вечером (когда приложение открыто)</label>
+    <div class="row"><div><label>Во сколько</label><input type="time" id="remind_time"></div></div>
+    <div class="btns"><button class="btn" id="save">Сохранить</button></div>
+    <div class="msg" id="save-msg"></div>
+  </div>
+  <div class="card">
+    <h2>Поделиться приложением</h2>
+    <p class="muted" style="margin:0">Отправь ссылку другу: у него будут свои записи, твои он не увидит.</p>
+    <div class="btns"><button class="btn ghost" id="share-app">Поделиться ссылкой</button></div>
+  </div>
+  <div class="card">
+    <h2>Резервная копия</h2>
+    <p class="muted" style="margin:0">Записи лежат только в этом браузере. Сохрани копию, если меняешь телефон или чистишь браузер.</p>
+    <div class="btns">
+      <button class="btn ghost" id="export">Сохранить копию</button>
+      <label class="btn ghost" style="margin:0;color:var(--ink);font-size:16px">Загрузить копию<input type="file" id="import" accept="application/json" hidden></label>
+    </div>
+    <div class="msg" id="backup-msg"></div>
+  </div>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const KEY='papa-report-v1';
+const DEF={notes:[],reports:[],cfg:{papa_phone:'',greeting:'Привет, папа!',signature:'',remind:false,remind_time:'21:00'}};
+function load(){try{const d=JSON.parse(localStorage.getItem(KEY));if(d)return{...DEF,...d,cfg:{...DEF.cfg,...(d.cfg||{})}}}catch(e){}return structuredClone(DEF)}
+let S=load();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){alert('Не получилось сохранить: '+e.message)}}
+const pad=n=>String(n).padStart(2,'0');
+const iso=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const WD=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+const MO=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+const uid=()=>Math.random().toString(36).slice(2,10);
+const APP_URL=location.href.split('#')[0].split('?')[0];
+
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===b.dataset.tab));
+  if(b.dataset.tab==='history')renderReports();
+});
+
+function dayNotes(d){return S.notes.filter(n=>n.date===d).sort((a,b)=>(a.time||'99').localeCompare(b.time||'99'))}
+function report(d){
+  const dt=new Date(d+'T12:00:00');const notes=dayNotes(d);
+  const L=[S.cfg.greeting||'Привет, папа!',`Вот что я делал ${dt.getDate()} ${MO[dt.getMonth()]} (${WD[dt.getDay()]}):`,''];
+  if(notes.length){notes.forEach(n=>L.push(`• ${n.time?n.time+' ':''}${n.text}${n.place?` (${n.place})`:''}`));L.push('')}
+  else{L.push('Пока ничего не записано.');L.push('')}
+  const pl=[];notes.forEach(n=>{if(n.place&&!pl.some(p=>p.toLowerCase()===n.place.toLowerCase()))pl.push(n.place)});
+  if(pl.length){L.push('📍 Где я был: '+pl.join(', '));L.push('')}
+  if(S.cfg.signature)L.push(S.cfg.signature);
+  return L.join('\n').trim();
+}
+function waLink(text){const ph=(S.cfg.papa_phone||'').replace(/\D/g,'');return `https://wa.me/${ph}?text=${encodeURIComponent(text)}`}
+function markSent(d,how){S.reports.unshift({date:d,at:new Date().toLocaleString('ru-RU'),how,text:report(d)});S.reports=S.reports.slice(0,500);save()}
+
+function render(){
+  const d=$('date').value;const notes=dayNotes(d);
+  $('items').innerHTML=notes.length?notes.map(n=>`<li><span class="t">${esc(n.time||'')}</span><span class="grow">${esc(n.text)}${n.place?`<div class="place">📍 ${esc(n.place)}</div>`:''}</span><button class="x" aria-label="Удалить" data-id="${n.id}">×</button></li>`).join(''):'<li class="muted">Пока пусто. Добавь пометку выше.</li>';
+  $('items').querySelectorAll('.x').forEach(b=>b.onclick=()=>{S.notes=S.notes.filter(n=>n.id!==b.dataset.id);save();render()});
+  const text=report(d);$('preview').textContent=text;$('wa').href=waLink(text);
+  const pl=[...new Set(S.notes.map(n=>n.place).filter(Boolean))].slice(-30);
+  $('places').innerHTML=pl.map(p=>`<option value="${esc(p)}">`).join('');
+  const sent=S.reports.some(r=>r.date===d);
+  $('send-msg').innerHTML=sent?'<span class="muted">За этот день отчёт уже отправлялся.</span>':(S.cfg.papa_phone?'':'<span class="muted">Номер папы не указан: WhatsApp попросит выбрать чат. Номер можно добавить в «Настройках».</span>');
+}
+function renderReports(){
+  $('reports').innerHTML=S.reports.length?S.reports.map(r=>`<details><summary>${esc(r.date)} · ${esc(r.at)} · ${esc(r.how)}</summary><pre>${esc(r.text)}</pre></details>`).join(''):'Пока ничего не отправлено.';
+}
+$('add').onclick=()=>{
+  const text=$('n-text').value.trim();if(!text){$('add-msg').innerHTML='<span class="err">Напиши, что делал</span>';return}
+  S.notes.push({id:uid(),date:$('date').value,time:$('n-time').value,text:text.slice(0,500),place:$('n-place').value.trim().slice(0,200)});save();
+  $('n-text').value='';$('n-place').value='';$('n-time').value='';$('add-msg').textContent='';render();
+};
+$('n-text').addEventListener('keydown',e=>{if(e.key==='Enter')$('add').click()});
+$('date').onchange=render;
+$('wa').onclick=()=>{markSent($('date').value,'WhatsApp');setTimeout(render,300)};
+$('share').onclick=async()=>{
+  const text=report($('date').value);
+  if(navigator.share){try{await navigator.share({text});markSent($('date').value,'Поделиться');render()}catch(e){}}
+  else{$('copy').click()}
+};
+$('copy').onclick=async()=>{try{await navigator.clipboard.writeText(report($('date').value));$('send-msg').innerHTML='<span class="ok">Скопировано</span>'}catch(e){$('send-msg').innerHTML='<span class="err">Не получилось скопировать</span>'}};
+$('share-app').onclick=async()=>{
+  const data={title:'Отчёт для папы',text:'Приложение, чтобы отправлять родителям отчёт за день в WhatsApp:',url:APP_URL};
+  if(navigator.share){try{await navigator.share(data)}catch(e){}}
+  else{try{await navigator.clipboard.writeText(APP_URL);alert('Ссылка скопирована: '+APP_URL)}catch(e){prompt('Ссылка на приложение:',APP_URL)}}
+};
+function fillCfg(){['papa_phone','greeting','signature','remind_time'].forEach(k=>$(k).value=S.cfg[k]||'');$('remind').checked=!!S.cfg.remind}
+$('save').onclick=()=>{
+  ['papa_phone','greeting','signature','remind_time'].forEach(k=>S.cfg[k]=$(k).value.trim());S.cfg.remind=$('remind').checked;save();
+  if(S.cfg.remind&&'Notification'in window&&Notification.permission==='default')Notification.requestPermission();
+  $('save-msg').innerHTML='<span class="ok">Сохранено</span>';render();
+};
+$('export').onclick=()=>{
+  const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`otchet-papa-${iso(new Date())}.json`;a.click();
+};
+$('import').onchange=async e=>{
+  try{const d=JSON.parse(await e.target.files[0].text());if(!Array.isArray(d.notes))throw 0;
+    if(!confirm('Заменить текущие записи данными из копии?'))return;
+    S={...DEF,...d,cfg:{...DEF.cfg,...(d.cfg||{})}};save();fillCfg();render();$('backup-msg').innerHTML='<span class="ok">Копия загружена</span>'}
+  catch(err){$('backup-msg').innerHTML='<span class="err">Это не похоже на копию отчётов</span>'}
+};
+// напоминание вечером, пока приложение открыто
+let reminded='';
+setInterval(()=>{
+  if(!S.cfg.remind)return;const now=new Date(),t=`${pad(now.getHours())}:${pad(now.getMinutes())}`,d=iso(now);
+  if(t>=S.cfg.remind_time&&reminded!==d&&!S.reports.some(r=>r.date===d)){reminded=d;
+    if('Notification'in window&&Notification.permission==='granted'){navigator.serviceWorker?.ready.then(r=>r.showNotification('Отчёт для папы',{body:'Не забудь отправить отчёт за сегодня',icon:'icon-192.png'})).catch(()=>{})}
+  }
+},30000);
+// установка
+let deferred;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;$('install').style.display='block'});
+$('install-btn').onclick=async()=>{if(!deferred)return;deferred.prompt();await deferred.userChoice;deferred=null;$('install').style.display='none'};
+if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+$('date').value=iso(new Date());fillCfg();render();
+</script>
+</body>
+</html>

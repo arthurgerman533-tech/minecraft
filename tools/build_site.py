@@ -296,6 +296,10 @@ def main():
         shutil.rmtree(DOCS)
     os.makedirs(DOCS)
     open(os.path.join(DOCS, ".nojekyll"), "w").close()
+    # «Отчёт для папы» — отдельное приложение (PWA) из папки papa/, просто копируем как есть
+    papa_dir = os.path.join(ROOT, "papa")
+    if os.path.isdir(papa_dir):
+        shutil.copytree(papa_dir, os.path.join(DOCS, "papa"))
     # пластинки «Архив Монолита»: ресурспак (ссылка в server.properties) → docs/rp/, датапак → docs/files/
     disc_dir = os.path.join(ROOT, "пластинки")
     if os.path.isdir(disc_dir):
