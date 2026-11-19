@@ -460,5 +460,17 @@
    "subtitle": "Every focus, heritage, race and people, what to take before the war, ready-made builds",
    "file": "фокусы.md"
   }
- ]
+ ],
+ "donate": {
+  "title": "Support the server",
+  "text": "Donations help pay for hosting, the map and new builds. They give no in-game advantage: no resources, weapons or war privileges. Cosmetics and thanks only.",
+  "rewards": [
+   "\"Patron\" chat prefix",
+   "Coloured nickname",
+   "Your name on a sign in the Hall of Five Lecterns at the tower",
+   "Discord role"
+  ],
+  "button": "Support",
+  "soon": "Coming soon — donations open closer to launch"
+ }
 }

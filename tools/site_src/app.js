@@ -88,6 +88,7 @@ async function main(){
     <div class="cmds">${w.commands.map(code).join('')}</div></div></div>`).join('');
   const mg=$('#mechGrid'); if(mg) mg.innerHTML=C.mechanics.map(m=>`<details class="card" id="m-${m.id}"><summary><h3><span class="em">${m.icon}</span>${esc(m.title)}</h3><p>${esc(m.summary)}</p></summary>
     <ul>${m.points.map(p=>`<li>${esc(p)}</li>`).join('')}</ul>${m.commands.length?`<div class="cmds">${m.commands.map(code).join('')}</div>`:''}</details>`).join('');
+  const dn=$('#donate'); if(dn&&C.donate){const D=C.donate,u=cfg.donateUrl;dn.innerHTML=`<h3><span class="em">💛</span>${esc(D.title)}</h3><p>${esc(D.text)}</p><ul>${D.rewards.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>`+(u?`<a class="btn primary" href="${esc(u)}" target="_blank" rel="noopener">${esc(D.button)}</a>`:`<button class="btn primary" disabled>${esc(D.button)}</button><p class="soon">${esc(D.soon)}</p>`)} else if(dn) dn.remove();
   const rl=$('#ruleList'); if(rl) rl.innerHTML=C.rules.map(r=>`<div class="rule"><h3>${esc(r.title)}</h3><ul>${r.items.map(i=>`<li>${esc(i)}</li>`).join('')}</ul></div>`).join('');
   // команды
   const rows=[]; C.mechanics.forEach(m=>m.commands.forEach(c=>rows.push([c,m.title,m.icon])));
