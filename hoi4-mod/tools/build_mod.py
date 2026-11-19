@@ -61,8 +61,11 @@ def build_descriptor():
 # Идеи (национальные духи)
 # ---------------------------------------------------------------------------
 def idea_block(iid, mod):
+    pic = D.IDEA_PICTURES.get(iid) or D.IDEA_PICTURES.get(iid.rsplit("_", 1)[0] + "_*", "")
     return (
         f"{iid} = {{\n"
+        + (f"\tpicture = {pic}\n" if pic else "")
+        +
         "\tallowed = { always = no }\n"
         "\tallowed_civil_war = { always = yes }\n"
         "\tremoval_cost = -1\n"
@@ -226,6 +229,12 @@ def build_setup():
 	on_startup = {
 		effect = {
 			pax_setup_world = yes
+			# Как в «Family Historical MP mod»: страны вне лора под управлением ИИ
+			# получают дух «Дальние земли» и не мешают игрокам. Удалите блок, если не нужно.
+			every_country = {
+				limit = { is_ai = yes NOT = { has_country_flag = pax_power } }
+				add_ideas = PAX_far_lands
+			}
 			every_country = {
 				limit = { is_ai = no }
 				news_event = { id = pax.1 days = 1 }
@@ -332,6 +341,15 @@ news_event = {
 	option = { name = pax.11.a }
 }
 
+# Путеводитель (решение «Путеводитель PaxVanila»)
+country_event = {
+	id = pax.20
+	title = pax.20.t
+	desc = pax.20.d
+	is_triggered_only = yes
+	option = { name = pax.20.a }
+}
+
 # Пробуждение Стража-7
 news_event = {
 	id = pax.12
@@ -363,6 +381,9 @@ news_event = {
         "pax.12.t": "Пробуждение",
         "pax.12.d": "Ромейские инженеры спустились под Монолит и нашли седьмого голема. Когда к нему подвели ток, его глаза зажглись медным светом. Первое слово Стража-7 было «PAX».",
         "pax.12.a": "Он помнит, как это заканчивается.",
+        "pax.20.t": "Путеводитель PaxVanila",
+        "pax.20.d": D.GUIDE_TEXT,
+        "pax.20.a": "Понятно.",
     })
 
     categories = """PAX_monolith_category = {
@@ -370,10 +391,16 @@ news_event = {
 	visible = { has_global_flag = pax_seal_cracked }
 }
 """
+    categories += """
+PAX_guide_category = {
+	allowed = { always = yes }
+}
+"""
     w("common/decisions/categories/pax_decision_categories.txt", categories)
     decisions = """PAX_monolith_category = {
 	PAX_project_seven = {
 		allowed = { original_tag = ITA }
+		icon = generic_research
 		available = { has_global_flag = pax_seal_cracked }
 		cost = 150
 		fire_only_once = yes
@@ -389,6 +416,7 @@ news_event = {
 	}
 	PAX_steal_blueprints = {
 		allowed = { original_tag = SOV }
+		icon = generic_operation
 		available = { has_global_flag = pax_seven_awake }
 		cost = 100
 		fire_only_once = yes
@@ -399,8 +427,25 @@ news_event = {
 	}
 }
 """
+    decisions += """
+PAX_guide_category = {
+	PAX_open_guide = {
+		icon = generic_research
+		fire_only_once = no
+		days_re_enable = 1
+		complete_effect = {
+			country_event = { id = pax.20 }
+		}
+		ai_will_do = { factor = 0 }
+	}
+}
+"""
     w("common/decisions/pax_decisions.txt", decisions)
     LOC.update({
+        "PAX_guide_category": "Путеводитель PaxVanila",
+        "PAX_guide_category_desc": "Как устроен этот мир и что даёт каждая ветка фокусов.",
+        "PAX_open_guide": "Открыть путеводитель",
+        "PAX_open_guide_desc": "Короткая справка по моду.",
         "PAX_monolith_category": "Монолит",
         "PAX_monolith_category_desc": "Все шесть Стражей у входа пали. Под башней кто-то ждёт.",
         "PAX_project_seven": "Проект «Седьмой»",
@@ -420,6 +465,9 @@ def build_country_names():
             LOC_REPLACE[key] = p["name"]
             LOC_REPLACE[key + "_DEF"] = p["name"]
             LOC_REPLACE[key + "_ADJ"] = p["adj"]
+    # советы на экране загрузки (как LOADING_TIP в «Family Historical MP mod»)
+    for i, tip in enumerate(D.LOADING_TIPS):
+        LOC_REPLACE[f"LOADING_TIP_{i}"] = tip
 
 
 def write_loc():

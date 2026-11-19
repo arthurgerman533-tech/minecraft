@@ -2,6 +2,12 @@ on_actions = {
 	on_startup = {
 		effect = {
 			pax_setup_world = yes
+			# Как в «Family Historical MP mod»: страны вне лора под управлением ИИ
+			# получают дух «Дальние земли» и не мешают игрокам. Удалите блок, если не нужно.
+			every_country = {
+				limit = { is_ai = yes NOT = { has_country_flag = pax_power } }
+				add_ideas = PAX_far_lands
+			}
 			every_country = {
 				limit = { is_ai = no }
 				news_event = { id = pax.1 days = 1 }

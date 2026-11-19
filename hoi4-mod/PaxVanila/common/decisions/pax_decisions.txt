@@ -1,6 +1,7 @@
 PAX_monolith_category = {
 	PAX_project_seven = {
 		allowed = { original_tag = ITA }
+		icon = generic_research
 		available = { has_global_flag = pax_seal_cracked }
 		cost = 150
 		fire_only_once = yes
@@ -16,6 +17,7 @@ PAX_monolith_category = {
 	}
 	PAX_steal_blueprints = {
 		allowed = { original_tag = SOV }
+		icon = generic_operation
 		available = { has_global_flag = pax_seven_awake }
 		cost = 100
 		fire_only_once = yes
@@ -23,5 +25,17 @@ PAX_monolith_category = {
 			add_ideas = PAX_idea_kurultai_mind
 		}
 		ai_will_do = { factor = 10 }
+	}
+}
+
+PAX_guide_category = {
+	PAX_open_guide = {
+		icon = generic_research
+		fire_only_once = no
+		days_re_enable = 1
+		complete_effect = {
+			country_event = { id = pax.20 }
+		}
+		ai_will_do = { factor = 0 }
 	}
 }

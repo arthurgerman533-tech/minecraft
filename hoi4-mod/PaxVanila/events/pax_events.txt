@@ -63,6 +63,15 @@ news_event = {
 	option = { name = pax.11.a }
 }
 
+# Путеводитель (решение «Путеводитель PaxVanila»)
+country_event = {
+	id = pax.20
+	title = pax.20.t
+	desc = pax.20.d
+	is_triggered_only = yes
+	option = { name = pax.20.a }
+}
+
 # Пробуждение Стража-7
 news_event = {
 	id = pax.12

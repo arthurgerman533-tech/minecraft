@@ -235,6 +235,9 @@ GENERIC_IDEAS = [
          desc="Послы держав знают все старые договоры.", modifier=dict(political_power_gain=0.15)),
     dict(id="PAX_idea_hegemony", name="Гегемония",
          desc="Соседи платят дань и не спорят.", modifier=dict(stability_factor=0.05, political_power_factor=0.1)),
+    dict(id="PAX_far_lands", name="Дальние земли",
+         desc="Лор PaxVanila молчит об этой стране. Мир вращается вокруг Монолита, а не вокруг неё.",
+         modifier=dict(research_speed_factor=-0.1, political_power_gain=-0.1, war_support_factor=-0.1)),
     # Монолит
     dict(id="PAX_idea_guardian_seven", name="Страж-7",
          desc="Под башней проснулся седьмой голем с медным сердцем. Его первое слово было «PAX».",
@@ -564,3 +567,57 @@ FACTIONS = {
 
 MOD_NAME = "PaxVanila"
 MOD_VERSION = "0.1.0"
+
+# Картинки духов. Имена взяты из рабочего мода Arthur «Family Historical MP mod»,
+# там они точно есть в игре. Ключ с * подходит для всех тегов (PAX_her_*, PAX_fai_*).
+IDEA_PICTURES = {
+    "PAX_idea_mining_guilds": "generic_production_bonus",
+    "PAX_idea_war_economy": "generic_production_bonus",
+    "PAX_idea_mobilization": "generic_infantry_bonus",
+    "PAX_idea_fortifications": "generic_infantry_bonus",
+    "PAX_idea_total_war": "generic_acquire_tanks",
+    "PAX_idea_trade_routes": "free_trade",
+    "PAX_idea_diplomatic_corps": "generic_constitutional_guarantees",
+    "PAX_idea_hegemony": "italy_control",
+    "PAX_far_lands": "great_depression",
+    "PAX_idea_guardian_seven": "SOV_scientist_defect",
+    "PAX_idea_kurultai_mind": "SOV_scientist_defect",
+    "PAX_idea_ITA_tower_law": "generic_infantry_bonus",
+    "PAX_idea_GRE_academy": "SOV_scientist_defect",
+    "PAX_idea_FRA_harvest": "free_trade",
+    "PAX_idea_FRA_forest_forts": "generic_infantry_bonus",
+    "PAX_idea_GER_blitz": "generic_acquire_tanks",
+    "PAX_idea_GER_winter_coats": "generic_infantry_bonus",
+    "PAX_idea_SOV_winter_campaign": "generic_communist_army",
+    "PAX_idea_ROM_copper": "generic_production_bonus",
+    "PAX_spirit_ITA": "italy_control",
+    "PAX_spirit_SPR": "free_trade",
+    "PAX_spirit_GRE": "generic_navy_bonus",
+    "PAX_spirit_FRA": "generic_constitutional_guarantees",
+    "PAX_spirit_ENG": "eng_the_sun_never_sets",
+    "PAX_spirit_GER": "generic_fascism_drift_bonus",
+    "PAX_spirit_SOV": "generic_communist_army",
+    "PAX_spirit_ROM": "generic_production_bonus",
+    "PAX_spirit_TUR": "generic_volunteer_expedition_bonus",
+    "PAX_spirit_PER": "german_advisors",
+    "PAX_her_*": "generic_intel_bonus",
+    "PAX_fai_*": "generic_constitutional_guarantees",
+}
+
+GUIDE_TEXT = (
+    "§HМир.§! 1936 год, между Первой и Второй Великими войнами. Десять держав лора сервера PaxVanila заняли страны Европы и Азии. Остальной мир это «Дальние земли».\\n\\n"
+    "§HФокусы.§! Как на сервере: Промышленность, Армия и Экономика. «Тотальная война» и «Гегемония» взаимоисключающие. Фокус «Наследие» даёт бонус вашей державы, фокус «Государственная вера» даёт бонус её богов. Национальная ветка идёт по лору.\\n\\n"
+    "§HМонолит.§! У башни стоят два последних Стража. Когда две великие державы начинают войну, один из них падает. Когда падут оба, Ромея сможет разбудить Стража-7.\\n\\n"
+    "§HБлоки.§! Ромея собирает Союз PAX, Северное Царство собирает Степной Пакт."
+)
+
+LOADING_TIPS = [
+    "«Законы всегда отстают от оружия».\\n- Летописец Форума",
+    "«Зима всегда на стороне того, кто дома».\\n- Летописцы Форума, 1942",
+    "«PAX».\\n- Первое слово Стража-7",
+    "«Пусть все видят, что стражей больше нет. Может быть, это остановит их».\\n- Ромул Двести Шестой",
+    "«История повторяется не потому, что люди глупы».\\n- Летописец Форума",
+    "«У башни не стреляют».\\n- Закон 1529 года",
+    "«Я помню это, потому что уже видел, как это заканчивается».\\n- Страж-7",
+    "«Каждый правитель Ромеи берёт имя Ромул. Так будет всегда».\\n- Сенат, год 12",
+]
