@@ -163,6 +163,47 @@ def load_map(lang):
     return out
 
 
+def load_roster(lang, M):
+    """Таблица «Державы и игроки»: content/players.json (руками) + content/nations_towny.json (Towny, если есть)."""
+    pp = os.path.join(ROOT, "content", "players.json")
+    if not os.path.exists(pp):
+        return None
+    P = json.load(open(pp, encoding="utf-8"))
+    tp = os.path.join(ROOT, "content", "nations_towny.json")
+    TN = json.load(open(tp, encoding="utf-8")) if os.path.exists(tp) else {}
+    towny = {n["name"].lower(): n for n in TN.get("nations", [])}
+    used, rows = set(), []
+    for pw in M["powers"]:
+        e = localize(P["nations"].get(pw["id"], {}), lang)
+        tn = towny.get((e.get("towny") or "").lower())
+        if tn:
+            used.add(tn["name"].lower())
+        players = list(e.get("players") or [])
+        if tn:
+            for t in tn["towns"]:
+                if t["mayor"] and t["mayor"] not in players:
+                    players.append(t["mayor"])
+        ruler = e.get("ruler") or (tn["king"] if tn else "")
+        status = e.get("status") or ("taken" if ruler else "open")
+        if status == "open" and tn and tn["towns"]:
+            status = "taken"
+        rows.append({"id": pw["id"], "name": pw["name"], "full": e.get("full") or pw["name"], "color": pw["color"],
+                     "bloc": pw.get("bloc", ""), "ruler": ruler, "king": tn["king"] if tn else "", "players": players,
+                     "status": status, "note": e.get("note", ""), "towny": e.get("towny", ""),
+                     "towns": tn["towns"] if tn else [], "capital": tn["capital"] if tn else "",
+                     "residents": tn["residents"] if tn else 0})
+    for n in TN.get("nations", []):
+        if n["name"].lower() in used:
+            continue
+        rows.append({"id": "towny-" + n["name"].lower(), "name": n["name"], "full": n["name"], "color": n["color"] or "#888888",
+                     "bloc": "new", "ruler": n["king"], "king": n["king"],
+                     "players": [t["mayor"] for t in n["towns"] if t["mayor"]], "status": "new", "note": "",
+                     "towny": n["name"], "towns": n["towns"], "capital": n["capital"], "residents": n["residents"]})
+    return {"rows": rows, "updated": P.get("updated", ""), "townyDate": TN.get("generated", ""),
+            "freeTowns": TN.get("freeTowns", 0), "freeResidents": TN.get("freeResidents", 0),
+            "text": P.get("text", {}).get(lang) or P.get("text", {}).get("ru", {})}
+
+
 def src_file(base, lang, fname):
     """Перевод лежит в <папка>/<lang>/<тот же файл>; если его нет — русский оригинал."""
     if lang != "ru":
@@ -214,6 +255,7 @@ def load_json(name):
 def build(lang, out):
     C = load_content(lang)
     C["map"] = load_map(lang)
+    C["roster"] = load_roster(lang, C["map"])
     # ПаксГидромет и «Вестник Академии»: справочники + демо-данные (живые пишет paxmeteo.sk)
     C["meteo"] = localize(load_json("meteo.json"), lang)
     C["meteoDemo"] = load_json("meteo_demo.json")

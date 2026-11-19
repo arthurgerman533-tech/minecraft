@@ -1,0 +1,20 @@
+{
+ "_comment": "Таблица «Державы и игроки» на сайте (раздел #nations) и в приложении. Правь руками: ruler — правитель, players — ники игроков, status — open (свободна) | taken (занята) | closed (закрыта). towny — точное имя нации в Towny: по нему build_site.py подтягивает из content/nations_towny.json число городов, жителей, столицу и короля (файл пишет tools/towny_map.py). Если в Towny появилась нация, которой нет здесь, она сама попадёт в таблицу как «Новая держава».",
+ "updated": "2026-11-19",
+ "nations": {
+  "romea":    {"towny": "Romea",    "full": {"ru": "Священная Ромейская Республика", "en": "Holy Romean Republic"}, "ruler": {"ru": "Ромул", "en": "Romulus"}, "status": "taken", "note": {"ru": "Основатель и правитель, главная держава лора.", "en": "Founder and ruler, the main power of the lore."}},
+  "carthage": {"towny": "Carthage", "full": {"ru": "Карфагенская Торговая Держава", "en": "Carthaginian Trade Power"}, "status": "open"},
+  "hellas":   {"towny": "Hellas",   "full": {"ru": "Эллинская Морская Лига", "en": "Hellenic Maritime League"}, "status": "open"},
+  "gaul":     {"towny": "Gaul",     "full": {"ru": "Галльская Конфедерация", "en": "Gallic Confederation"}, "status": "open"},
+  "islands":  {"towny": "Islands",  "full": {"ru": "Островной Союз", "en": "The Island Union"}, "status": "open"},
+  "germany":  {"towny": "Germania", "full": {"ru": "Германский Союз Племён", "en": "Germanic Tribal Union"}, "status": "open"},
+  "north":    {"towny": "North",    "full": {"ru": "Северное Царство", "en": "The Northern Tsardom"}, "status": "open"},
+  "dacia":    {"towny": "Dacia",    "full": {"ru": "Дакийское Царство", "en": "Kingdom of Dacia"}, "status": "open"},
+  "horde":    {"towny": "Horde",    "full": {"ru": "Великая Степная Орда", "en": "The Great Steppe Horde"}, "status": "open"},
+  "scythia":  {"towny": "Scythia",  "full": {"ru": "Скифское Царство", "en": "Kingdom of Scythia"}, "status": "open"}
+ },
+ "text": {
+  "ru": {"title": "Державы и игроки", "kicker": "Кто за кого играет", "sub": "Десять держав лора: кто ими правит, сколько у каждой городов и жителей. Свободную державу можно занять: напиши в Discord, какую берёшь, и создай нацию в игре (/n new). Города считает Towny, таблица обновляется вместе с сайтом.", "join": "Как занять державу: выбери свободную, напиши в Discord в канал наций и создай нацию с тем же именем. Можно играть и за свою новую державу, она тоже появится здесь."},
+  "en": {"title": "Powers and players", "kicker": "Who plays whom", "sub": "The ten powers of the lore: who rules them and how many towns and residents each has. A free power can be claimed: say in Discord which one you take and create the nation in game (/n new). Towns are counted by Towny, the table updates with the site.", "join": "How to claim a power: pick a free one, post in the nations channel on Discord and create a nation with the same name. You can also found a new power of your own, it will show up here too."}
+ }
+}

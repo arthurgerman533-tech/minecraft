@@ -66,7 +66,7 @@ function serverState(cfg,now=new Date()){
 function fmtMin(n){const h=Math.floor(n/60),m=n%60;return EN?(h?`${h} h ${m} min`:`${m} min`):(h?`${h} ч ${m} мин`:`${m} мин`)}
 
 async function main(){
-  const C=await (await fetch('content.json?v=20261119225015')).json(), cfg=C.config;
+  const C=await (await fetch('content.json?v=20261119225718')).json(), cfg=C.config;
   document.querySelectorAll('[data-k]').forEach(e=>{e.textContent=e.dataset.k in C?C[e.dataset.k]:cfg[e.dataset.k]||''});
   // IP и Discord
   const ipBtn=$('#copyip');
@@ -100,8 +100,47 @@ async function main(){
   renderMap(C);
   renderNether(C);
   renderEarth(C);
+  renderRoster(C);
   renderWeather(C);
   checkStatus(cfg);
+}
+// ---- Державы и игроки (C.roster: content/players.json + content/nations_towny.json) ----
+function renderRoster(C){
+  const R=C.roster, host=$('#roster'); if(!R||!host){const s=$('#nations');if(s)s.remove();return}
+  const X=R.text||{}; $('#rsKicker').textContent=X.kicker||''; $('#rsTitle').textContent=X.title||''; $('#rsSub').textContent=X.sub||'';
+  const rows=R.rows, blocs=Object.assign({},C.map&&C.map.blocs||{},{new:T('Новые державы','New powers')});
+  const ST={taken:[T('Занята','Taken'),'ok'],open:[T('Свободна','Free'),'free'],closed:[T('Закрыта','Closed'),'off'],new:[T('Новая','New'),'new']};
+  const sum=k=>rows.reduce((a,r)=>a+(k==='towns'?r.towns.length:r[k]),0);
+  const playersN=new Set(rows.flatMap(r=>r.players)).size, taken=rows.filter(r=>r.status==='taken'||r.status==='new').length;
+  const started=rows.some(r=>r.towns.length);
+  let filt='', sortK='', open=new Set();
+  const tile=(n,l)=>`<div class="rstile"><b>${n}</b><span>${esc(l)}</span></div>`;
+  const fl=[['',T('Все','All')],['open',T('Свободные','Free')],['taken',T('Занятые','Taken')],...Object.entries(blocs).filter(([k])=>rows.some(r=>r.bloc===k)).map(([k,v])=>['b:'+k,v])];
+  const draw=()=>{
+    let L=rows.filter(r=>!filt||(filt.startsWith('b:')?r.bloc===filt.slice(2):filt==='taken'?(r.status==='taken'||r.status==='new'):r.status===filt));
+    if(sortK) L=[...L].sort((a,b)=>sortK==='towns'?b.towns.length-a.towns.length||b.residents-a.residents:sortK==='residents'?b.residents-a.residents:a.name.localeCompare(b.name));
+    const th=(k,l,cls='')=>`<th class="${cls}">${k?`<button data-s="${k}" class="${sortK===k?'on':''}">${esc(l)}${sortK===k?' ↓':''}</button>`:esc(l)}</th>`;
+    host.querySelector('.rsbody').innerHTML=`<table class="rstable"><thead><tr>${th('name',T('Держава','Power'))}${th('',T('Правитель','Ruler'))}${th('',T('Игроки','Players'))}${th('towns',T('Города','Towns'),'n')}${th('residents',T('Жители','Residents'),'n')}${th('',T('Статус','Status'))}</tr></thead><tbody>${L.map(r=>{
+      const [sl,sc]=ST[r.status]||ST.open, isOpen=open.has(r.id), pl=r.players.filter(p=>p!==r.ruler);
+      return `<tr class="rsrow${isOpen?' open':''}" data-id="${esc(r.id)}" tabindex="0" style="--c:${esc(r.color)}">
+        <td data-l="${T('Держава','Power')}"><span class="rsdot"></span><b>${esc(r.name)}</b>${r.full!==r.name?`<small>${esc(r.full)}</small>`:''}<small class="rsbloc">${esc(blocs[r.bloc]||'')}</small></td>
+        <td data-l="${T('Правитель','Ruler')}">${r.ruler?esc(r.ruler):'<span class="muted">—</span>'}${r.king&&r.king!==r.ruler?`<small>${T('король в Towny','Towny king')}: ${esc(r.king)}</small>`:''}</td>
+        <td data-l="${T('Игроки','Players')}">${pl.length?pl.map(esc).join(', '):'<span class="muted">—</span>'}</td>
+        <td data-l="${T('Города','Towns')}" class="n"><b>${r.towns.length}</b></td>
+        <td data-l="${T('Жители','Residents')}" class="n">${r.residents}</td>
+        <td data-l="${T('Статус','Status')}"><span class="rsst rs-${sc}">${esc(sl)}</span></td></tr>
+        ${isOpen?`<tr class="rsdet"><td colspan="6">${r.note?`<p>${esc(r.note)}</p>`:''}${r.towns.length?`<p class="muted">${T('Столица','Capital')}: <b>${esc(r.capital)}</b></p><ul class="rstowns">${r.towns.map(t=>`<li><b>${esc(t.name)}</b>${t.name===r.capital?' ★':''} · ${T('мэр','mayor')} ${esc(t.mayor||'—')} · ${t.residents} ${T('жит.','res.')}</li>`).join('')}</ul>`:`<p class="muted">${r.status==='open'?T('Держава свободна. Её можно занять.','This power is free to claim.'):T('Городов пока нет. Они появятся после старта сервера.','No towns yet. They will appear after the server opens.')}</p>`}${r.towny?`<p class="muted">${T('Нация в Towny','Towny nation')}: ${code(r.towny)}</p>`:''}</td></tr>`:''}`}).join('')}</tbody></table>`;
+  };
+  host.innerHTML=`<div class="rstiles">${tile(`${taken}/${rows.length}`,T('держав занято','powers taken'))}${tile(playersN,T('игроков','players'))}${tile(sum('towns'),T('городов','towns'))}${tile(sum('residents'),T('жителей','residents'))}</div>
+    <div class="chips rsfilt">${fl.map(([k,v])=>`<button data-f="${esc(k)}" class="${k===filt?'on':''}">${esc(v)}</button>`).join('')}</div>
+    <div class="rsbody"></div>
+    <p class="mnote">${esc(X.join||'')} ${started?T('Города из Towny на ','Towny towns as of ')+esc(R.townyDate)+'.':serverState(C.config).started?T('Города появятся в таблице после следующей выгрузки из Towny.','Towns will appear after the next Towny export.'):T('Сервер стартует 1 декабря: до этого городов нет, после старта числа подтянутся из Towny.','The server opens on 1 December: no towns until then, after launch the numbers come from Towny.')}${R.freeTowns?' '+T(`Городов без нации: ${R.freeTowns}.`,`Towns without a nation: ${R.freeTowns}.`):''}</p>`;
+  host.querySelector('.rsfilt').onclick=e=>{const b=e.target.closest('button');if(!b)return;filt=b.dataset.f;host.querySelectorAll('.rsfilt button').forEach(x=>x.classList.toggle('on',x===b));draw()};
+  const body=host.querySelector('.rsbody');
+  const tog=e=>{const s=e.target.closest('th button');if(s){sortK=sortK===s.dataset.s?'':s.dataset.s;draw();return}
+    const tr=e.target.closest('tr.rsrow');if(!tr)return;const id=tr.dataset.id;open.has(id)?open.delete(id):open.add(id);draw();const n=body.querySelector(`tr[data-id="${CSS.escape(id)}"]`);n&&n.focus({preventScroll:true})};
+  body.onclick=tog; body.onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('tr.rsrow')){e.preventDefault();tog(e)}};
+  draw();
 }
 // ---- ПаксГидромет и «Вестник Академии» (C.meteo/C.news — справочники, живые данные: config.liveUrl → meteo.json, news.json из paxmeteo.sk) ----
 async function liveJson(cfg,name){

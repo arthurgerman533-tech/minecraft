@@ -269,3 +269,42 @@ table.wxtable small{color:var(--muted)}
 .donate .tn{font-weight:700;font-size:1.1rem}
 .donate .tp{color:var(--gold);font-weight:600;margin:2px 0 6px}
 .donate .tier ul{flex:1}
+/* Державы и игроки */
+.rstiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 14px}
+.rstile{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;box-shadow:var(--shadow)}
+.rstile b{display:block;font:700 1.6rem/1.1 "Cormorant SC",Georgia,serif;color:var(--gold)}
+.rstile span{color:var(--muted);font-size:.88rem}
+.rsfilt{margin:0 0 12px}
+.rstable{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-size:.95rem}
+.rstable th{text-align:left;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:10px 12px;background:var(--bg2);font-weight:600}
+.rstable th button{all:unset;cursor:pointer;color:inherit}.rstable th button.on,.rstable th button:hover{color:var(--gold)}
+.rstable td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+.rstable .n{text-align:right;font-variant-numeric:tabular-nums}
+.rstable td small{display:block;color:var(--muted);font-size:.8rem;line-height:1.3}
+.rstable .rsbloc{opacity:.8}
+.rsrow{cursor:pointer;box-shadow:inset 4px 0 0 var(--c)}
+.rsrow:hover,.rsrow.open{background:var(--bg2)}
+.rsrow:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.rsdot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--c);margin-right:7px;vertical-align:1px}
+.rsdet td{background:var(--bg2);border-top:0;padding-top:0;box-shadow:inset 4px 0 0 var(--c)}
+.rsdet p{margin:.5em 0}
+.rstowns{margin:.3em 0;padding-left:1.2em}
+.muted{color:var(--muted)}
+.rsst{display:inline-block;border-radius:999px;padding:3px 10px;font-size:.8rem;font-weight:600;border:1px solid var(--line);white-space:nowrap}
+.rs-ok{color:var(--ok);border-color:var(--ok)}.rs-free{color:var(--gold);border-color:var(--gold)}.rs-new{color:var(--accent);border-color:var(--accent)}.rs-off{color:var(--muted)}
+@media (max-width:700px){
+  .rstiles{grid-template-columns:repeat(2,1fr)}
+  .rstable,.rstable tbody,.rstable tr,.rstable td{display:block;width:100%}
+  .rstable thead{display:flex;overflow-x:auto}.rstable thead tr{display:flex;gap:4px;padding:6px 8px}.rstable th{background:none;padding:4px 8px;white-space:nowrap}.rstable th:not(:has(button)){display:none}
+  .rstable{background:none;border:0;box-shadow:none}
+  .rsrow{position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;margin:8px 0 0;display:grid!important;grid-template-columns:1.3fr 1.3fr 1fr 1fr;padding:2px 0 4px}
+  .rsrow.open{border-radius:12px 12px 0 0}
+  .rsrow td{border:0;padding:4px 10px;font-size:.9rem;min-width:0;overflow-wrap:anywhere}
+  .rsrow td:last-child{position:absolute;top:6px;right:0;width:auto!important;padding:4px 10px}.rsrow td:last-child:before{display:none!important}
+  .rsrow td:first-child{padding-right:100px}
+  .rsrow td:first-child{grid-column:1/-1}
+  .rsrow td:not(:first-child):before{content:attr(data-l);display:block;white-space:nowrap;font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .rstable .n{text-align:left}
+  .rsdet{border:1px solid var(--line);border-top:0;border-radius:0 0 12px 12px;overflow:hidden}
+}
+@media (max-width:700px){.rstable thead tr:before{content:"⇅";color:var(--muted);padding:4px 0}}
