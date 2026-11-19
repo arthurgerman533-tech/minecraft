@@ -90,6 +90,9 @@ void main() {
     await tester.tap(find.text('Незер'));
     await tester.pumpAndSettle();
     expect(find.text('Великие врата'), findsOneWidget);
+    await tester.tap(find.text('Земля'));
+    await tester.pumpAndSettle();
+    expect(find.text('В реальной истории: Рим.'), findsOneWidget);
   });
 
   testWidgets('погода и Вестник показывают демо', (tester) async {

@@ -258,3 +258,8 @@ table.wxtable small{color:var(--muted)}
 .mwx .wxl i{width:14px;height:14px;border-radius:3px;flex:none;opacity:.8}
 .mwx p{margin:.3em 0 0;font-size:.92em;color:var(--muted)}
 .msvg .terrb{fill:none;stroke:#000;stroke-opacity:.35;stroke-width:1;pointer-events:none}
+/* карта Земли */
+.msvg .esea{fill:color-mix(in srgb,#2f7fb5 30%,var(--bg))}
+.msvg .eland{fill:color-mix(in srgb,#b9a777 55%,var(--bg));stroke:color-mix(in srgb,#6d5f4d 60%,var(--bg));stroke-width:.8}
+.msvg .esn{font-size:calc(var(--k)*12px);font-style:italic;fill:#2f6f9f;font-weight:600;stroke:none}
+.pill.eb-pax{border-color:#b0362b}.pill.eb-steppe{border-color:#6b4c9a}

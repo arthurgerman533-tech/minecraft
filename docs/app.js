@@ -66,7 +66,7 @@ function serverState(cfg,now=new Date()){
 function fmtMin(n){const h=Math.floor(n/60),m=n%60;return EN?(h?`${h} h ${m} min`:`${m} min`):(h?`${h} ч ${m} мин`:`${m} мин`)}
 
 async function main(){
-  const C=await (await fetch('content.json?v=20261119150840')).json(), cfg=C.config;
+  const C=await (await fetch('content.json?v=20261119163346')).json(), cfg=C.config;
   document.querySelectorAll('[data-k]').forEach(e=>{e.textContent=e.dataset.k in C?C[e.dataset.k]:cfg[e.dataset.k]||''});
   // IP и Discord
   const ipBtn=$('#copyip');
@@ -99,6 +99,7 @@ async function main(){
     (C.guides||[]).map(g=>`<a href="guides/${g.id}.html"><div class="card"><h3>🧭 ${esc(g.title)}</h3><p>${esc(g.subtitle)}</p></div></a>`).join('');
   renderMap(C);
   renderNether(C);
+  renderEarth(C);
   renderWeather(C);
   checkStatus(cfg);
 }
@@ -280,6 +281,55 @@ function renderMap(C){
   svg.addEventListener('click',e=>{if(moved>4){e.stopPropagation();e.preventDefault()}},true);
   const fitTerrain=()=>{const [x0,z0,x1,z1]=TR.bounds, ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1, cx=(x0+x1)/2, cz=(z0+z1)/2, nw=Math.max(x1-x0,(z1-z0)/ar)*1.7; vb={x:cx-nw/2,y:cz-nw*ar/2,w:nw,h:nw*ar};apply()};
   addEventListener('resize',apply); TR?fitTerrain():M.far.length?fitAll():reset();
+}
+// ---- карта Земли (данные: C.map.earth из content/earth.json, единица = 1 км) ----
+function renderEarth(C){
+  const host=$('#pxearth'); if(!host||!C.map||!C.map.earth){const s=$('#earth');if(s)s.remove();return}
+  const E=C.map.earth, M=C.map, NS='http://www.w3.org/2000/svg', [bx0,by0,bx1,by1]=E.box;
+  const layers={powers:true,seas:true,grid:true};
+  host.innerHTML=`<div class="mtools"><div class="chips" id="eLayers"><button data-l="powers" class="on">${T('Державы','Powers')} (${E.powers.length})</button><button data-l="seas" class="on">${T('Моря','Seas')}</button><button data-l="grid" class="on">${T('Параллели','Graticule')}</button></div>
+     <div class="chips">${Object.entries(M.blocs).map(([k,v])=>`<span class="pill eb-${k}">${esc(v)}</span>`).join('')}</div></div>
+   <div class="mbox ebox"><svg id="esvg" class="msvg esvg" role="img" aria-label="${T('Карта Земли PaxVanila','PaxVanila map of the Earth')}"></svg>
+     <div class="mzoom"><button data-z="0.67" aria-label="${T('Приблизить','Zoom in')}">+</button><button data-z="1.5" aria-label="${T('Отдалить','Zoom out')}">−</button><button data-z="0" aria-label="${T('Сбросить','Reset')}">⟲</button></div>
+     <div class="mcoord" id="ecoord">48° N · 25° E</div><div class="mcomp">${T('С','N')}↑</div></div>
+   <div class="minfo" id="einfo"></div>
+   <p class="mnote">${T('Контуры суши: Natural Earth 1:50 000 000. Державы стоят на местах своих исторических прообразов, это отсылка к реальной истории, а не координаты в игре: в игре они вокруг Монолита (карта выше).','Coastlines: Natural Earth 1:50,000,000. The powers stand where their historical prototypes were. This is a nod to real history, not in-game coordinates: in the game they surround the Monolith (map above).')}</p>`;
+  const svg=$('#esvg'), el=(n,a,p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e};
+  const cp=el('clipPath',{id:'eclip'},el('defs',{})); el('rect',{x:bx0,y:by0,width:bx1-bx0,height:by1-by0},cp);
+  const g={}; ['base','grid','seas','powers'].forEach(k=>g[k]=el('g',{class:'g-'+k})); g.base.setAttribute('clip-path','url(#eclip)'); g.grid.setAttribute('clip-path','url(#eclip)');
+  el('rect',{x:bx0,y:by0,width:bx1-bx0,height:by1-by0,class:'esea'},g.base);
+  el('path',{d:E.land.map(r=>{let d='M'+r[0]+' '+r[1];for(let i=2;i<r.length;i+=2)d+='L'+r[i]+' '+r[i+1];return d+'Z'}).join(''),'fill-rule':'evenodd',class:'eland'},g.base);
+  const K=Math.cos(48*Math.PI/180)*111.32, gx=lon=>(lon-25)*K, gy=lat=>-(lat-48)*111.32;
+  for(let lat=30;lat<=70;lat+=10){el('line',{x1:bx0,y1:gy(lat),x2:bx1,y2:gy(lat),class:'gl'},g.grid); el('text',{x:bx0+70,y:gy(lat)-6,class:'gt'},g.grid).textContent=lat+'° N';}
+  for(let lon=-10;lon<=60;lon+=10){el('line',{x1:gx(lon),y1:by0,x2:gx(lon),y2:by1,class:'gl'},g.grid); el('text',{x:gx(lon)+6,y:by1-20,class:'gt'},g.grid).textContent=Math.abs(lon)+'°'+(lon<0?' W':' E');}
+  E.seas.forEach(s=>{el('text',{x:s.x,y:s.z??s.y,class:'esn'},g.seas).textContent=s.name});
+  const info=$('#einfo');
+  const pick=p=>{info.innerHTML=`<b>${esc(p.name)}</b> <span class="mk">${esc(M.blocs[p.bloc]||'')}</span> <code>${p.lat.toFixed(1)}° N · ${p.lon.toFixed(1)}° E</code><div><b>${T('В реальной истории','In real history')}:</b> ${esc(p.real)}.</div><div>${esc(p.text||'')}</div><div class="mk">${T('В игре','In the game')}: X ${p.x0} · Z ${p.z0}</div>`};
+  const pw=E.powers.map(p=>({...p,x0:(M.powers.find(q=>q.id===p.id)||{}).x,z0:(M.powers.find(q=>q.id===p.id)||{}).z}));
+  pw.forEach(p=>{const a=el('g',{class:'pw',tabindex:0},g.powers);
+    el('circle',{cx:p.x,cy:p.z,r:260,fill:p.color,class:'pwa'},a); el('circle',{cx:p.x,cy:p.z,r:34,fill:p.color,class:'pwd'},a);
+    el('text',{x:p.x,y:p.z+60,class:'pt'},a).textContent=p.name;
+    const go=()=>pick(p); a.onclick=go; a.onkeydown=e=>{if(e.key==='Enter')go()};});
+  const rome=pw.find(p=>p.id==='romea')||pw[0]; if(rome) pick(rome);
+  $('#eLayers').onclick=e=>{const k=e.target.dataset.l;if(!k)return;layers[k]=!layers[k];e.target.classList.toggle('on',layers[k]);g[k].style.display=layers[k]?'':'none'};
+  let vb={x:bx0,y:by0,w:bx1-bx0,h:by1-by0};
+  const apply=()=>{const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1; vb.h=vb.w*ar; svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`); svg.style.setProperty('--k',vb.w/Math.max(1,svg.clientWidth));};
+  const reset=()=>{const ar=svg.clientHeight/Math.max(1,svg.clientWidth)||1, w=bx1-bx0, h=by1-by0, nw=Math.max(w,h/ar); vb={x:(bx0+bx1)/2-nw/2,y:(by0+by1)/2-nw*ar/2,w:nw,h:nw*ar};apply()};
+  const toWorld=(cx,cy)=>{const r=svg.getBoundingClientRect();return [vb.x+(cx-r.left)/r.width*vb.w, vb.y+(cy-r.top)/r.height*vb.h]};
+  const zoom=(f,cx,cy)=>{const nw=Math.min(2*(bx1-bx0),Math.max(300,vb.w*f)); f=nw/vb.w; const [wx,wy]=toWorld(cx,cy); vb.x=wx-(wx-vb.x)*f; vb.y=wy-(wy-vb.y)*f; vb.w=nw; apply()};
+  host.querySelector('.mzoom').onclick=e=>{const z=+e.target.dataset.z; if(isNaN(z))return; if(!z)return reset(); const r=svg.getBoundingClientRect(); zoom(z,r.left+r.width/2,r.top+r.height/2)};
+  svg.addEventListener('wheel',e=>{e.preventDefault();zoom(e.deltaY>0?1.2:1/1.2,e.clientX,e.clientY)},{passive:false});
+  const pts=new Map(); let last=null, moved=0;
+  svg.addEventListener('pointerdown',e=>{pts.set(e.pointerId,[e.clientX,e.clientY]);moved=0;last=null});
+  svg.addEventListener('pointermove',e=>{const [wx,wy]=toWorld(e.clientX,e.clientY), lat=48-wy/111.32, lon=25+wx/K; $('#ecoord').textContent=`${Math.abs(lat).toFixed(1)}° ${lat<0?'S':'N'} · ${Math.abs(lon).toFixed(1)}° ${lon<0?'W':'E'}`;
+    if(!pts.has(e.pointerId))return; const p0=pts.get(e.pointerId); pts.set(e.pointerId,[e.clientX,e.clientY]);
+    if(pts.size===1){const r=svg.getBoundingClientRect(),dx=e.clientX-p0[0],dy=e.clientY-p0[1];moved+=Math.abs(dx)+Math.abs(dy);
+      if(moved>4){svg.setPointerCapture(e.pointerId);vb.x-=dx/r.width*vb.w;vb.y-=dy/r.height*vb.h;apply()}}
+    else if(pts.size===2){const [a,c]=[...pts.values()],d=Math.hypot(a[0]-c[0],a[1]-c[1]); if(last)zoom(last/d,(a[0]+c[0])/2,(a[1]+c[1])/2); last=d; moved=99}});
+  const up=e=>{pts.delete(e.pointerId);if(pts.size<2)last=null};
+  svg.addEventListener('pointerup',up); svg.addEventListener('pointercancel',up);
+  svg.addEventListener('click',e=>{if(moved>4){e.stopPropagation();e.preventDefault()}},true);
+  addEventListener('resize',apply); reset();
 }
 // ---- карта Незера (данные: C.map.nether из content/map.json; 1 блок Незера = 8 блоков наверху) ----
 function renderNether(C){

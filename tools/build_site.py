@@ -144,6 +144,16 @@ def load_map(lang):
                           "date": Z.get("date", ""), "seed": Z.get("seedNote", "")}
         if Z.get("zones"):
             out["zones"] = {"cell": Z.get("cell", 64), **Z["zones"]}
+    # карта настоящей Земли (tools/make_earth.py): державы на местах исторических прообразов
+    ep = os.path.join(ROOT, "content", "earth.json")
+    out["earth"] = None
+    if os.path.exists(ep):
+        E = json.load(open(ep, encoding="utf-8"))
+        byid = {p["id"]: p for p in out["powers"]}
+        out["earth"] = {"box": E["box"], "land": E["land"],
+                        "seas": [{**s, "name": loc(s["name"])} for s in E["seas"]],
+                        "powers": [{**byid[p["id"]], "x": p["x"], "z": p["y"], "lon": p["lon"], "lat": p["lat"], "real": loc(p["real"])}
+                                   for p in E["powers"] if p["id"] in byid]}
     out["towns"], out["townsDate"] = [], ""
     tp = os.path.join(ROOT, "content", "map_towns.json")
     if os.path.exists(tp):

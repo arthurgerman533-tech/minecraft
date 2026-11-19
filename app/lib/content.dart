@@ -62,7 +62,7 @@ class LoreDoc {
 
 /// Карта мира: content/map.json (+ map_towns.json), см. tools/build_site.py.
 class MapPoint {
-  final String id, name, text, color, bloc, cat, kind, lore;
+  final String id, name, text, color, bloc, cat, kind, lore, real;
   final double x, z;
   final List<List<int>> blocks;
   MapPoint(Map<String, dynamic> j)
@@ -74,6 +74,7 @@ class MapPoint {
         cat = j['cat'] ?? '',
         kind = j['kind'] ?? '',
         lore = j['lore'] ?? '',
+        real = j['real'] ?? '',
         x = (j['x'] as num).toDouble(),
         z = (j['z'] as num).toDouble(),
         blocks = [for (final b in (j['blocks'] ?? []) as List) List<int>.from(b)];
@@ -91,6 +92,21 @@ class Terrain {
         z0 = ((j['bounds'] as List)[1] as num).toDouble(),
         x1 = ((j['bounds'] as List)[2] as num).toDouble(),
         z1 = ((j['bounds'] as List)[3] as num).toDouble();
+}
+
+/// Карта настоящей Земли (tools/make_earth.py): км от 25°E 48°N, x на восток, z на юг.
+class EarthMap {
+  final List<double> box;
+  final List<List<int>> land;
+  final List<MapPoint> powers, seas;
+  EarthMap(Map<String, dynamic> j)
+      : box = [for (final v in j['box'] as List) (v as num).toDouble()],
+        land = [for (final r in j['land'] as List) List<int>.from(r)],
+        powers = WorldMap._pts(j['powers']),
+        seas = [
+          for (final s in (j['seas'] ?? []) as List)
+            MapPoint({'name': s['name'], 'x': s['x'], 'z': s['z'] ?? s['y']}),
+        ];
 }
 
 /// Карта Незера: координаты Незера (1 блок = 8 наверху).
@@ -114,6 +130,7 @@ class WorldMap {
   final Map<String, List<List<int>>> zones;
   final int zoneCell;
   final NetherMap? nether;
+  final EarthMap? earth;
   WorldMap(Map<String, dynamic> j)
       : places = _pts(j['places']),
         powers = _pts(j['powers']),
@@ -129,7 +146,8 @@ class WorldMap {
           for (final e in ((j['zones'] ?? {}) as Map<String, dynamic>).entries)
             if (e.value is List) e.key: [for (final c in e.value as List) List<int>.from(c)],
         },
-        nether = j['nether'] == null ? null : NetherMap(j['nether']);
+        nether = j['nether'] == null ? null : NetherMap(j['nether']),
+        earth = j['earth'] == null ? null : EarthMap(j['earth']);
   static List<MapPoint> _pts(dynamic l) => [for (final e in (l ?? []) as List) MapPoint(e)];
 }
 
