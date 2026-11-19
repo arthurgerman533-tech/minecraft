@@ -1,7 +1,12 @@
 on_actions = {
 	on_startup = {
 		effect = {
-			pax_setup_world = yes
+			# эпоха выбирается по дате закладки
+			if = { limit = { date > 2095.12.31 } pax_setup_2096 = yes }
+			else_if = { limit = { date > 2040.12.31 } pax_setup_2041 = yes }
+			else_if = { limit = { date > 1962.1.1 } pax_setup_1962 = yes }
+			else_if = { limit = { date > 1939.1.1 } pax_setup_1939 = yes }
+			else = { pax_setup_1936 = yes }
 			# Как в «Family Historical MP mod»: страны вне лора под управлением ИИ
 			# получают дух «Дальние земли» и не мешают игрокам. Удалите блок, если не нужно.
 			every_country = {

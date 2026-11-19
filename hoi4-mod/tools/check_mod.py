@@ -202,9 +202,35 @@ desc = open(os.path.join(ROOT, "descriptor.mod"), encoding="utf-8").read()
 for k in ("name=", "version=", "supported_version="):
     if k not in desc:
         err(f"descriptor.mod: нет {k}")
-if "path=" in desc:
+if re.search(r"^path=", desc, re.M):
     err("descriptor.mod внутри папки мода не должен содержать path=")
 
+tech = scripts[os.path.join(ROOT, "common/technologies/pax_lore_techs.txt")]
+tech_ids = set(re.findall(r"^\t(\w+) = \{", tech, re.M))
+for t in tech_ids:
+    need_loc(t, "технология")
+    need_loc(t + "_desc", "технология")
+for ref in re.findall(r"leads_to_tech = (\w+)", tech):
+    if ref not in tech_ids:
+        err(f"технология ведёт к неизвестной {ref}")
+bm = scripts[os.path.join(ROOT, "common/bookmarks/pax_bookmarks.txt")]
+for k in re.findall(r"(?:name|desc|history) = (PAX_BM_\w+)", bm):
+    need_loc(k, "закладка")
+for era in re.findall(r"^(pax_setup_\d+) = \{", eff, re.M):
+    if not re.search(era + r" = yes", scripts[os.path.join(ROOT, "common/on_actions/pax_on_actions.txt")]):
+        err(f"{era} не вызывается из on_startup")
+for c in sorted(set(re.findall(r"set_cosmetic_tag = (\w+)", eff))):
+    need_loc(c, "косметический тег")
+    for sub, size in sizes.items():
+        path = os.path.join(ROOT, "gfx/flags", sub + c + ".tga")
+        if not os.path.isfile(path) or Image.open(path).size != size:
+            err(f"нет или неверный флаг {rel(path)}")
+for t in re.findall(r"set_technology = \{([^}]*)\}", eff):
+    for name in re.findall(r"(\w+) = 1", t):
+        if name.startswith("pax_") and name not in tech_ids:
+            err(f"set_technology: неизвестная технология {name}")
+
+print(f"Технологий: {len(tech_ids)}, эпох: {len(re.findall(r'bookmark = ', bm))}")
 print(f"Фокусов: {len(all_focus)}, идей: {len(ideas)}, событий: {len(event_ids)}, ключей локализации: {len(loc)}, держав: {len(tags)}")
 if errors:
     print(f"ОШИБОК: {len(errors)}")

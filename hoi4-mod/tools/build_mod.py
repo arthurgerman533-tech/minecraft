@@ -12,6 +12,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import pax_data as D  # noqa: E402
+import pax_eras as E  # noqa: E402
 
 from PIL import Image, ImageDraw, ImageFilter  # noqa: E402
 
@@ -49,6 +50,7 @@ def build_descriptor():
         'tags={\n\t"Alternative History"\n\t"National Focuses"\n\t"Events"\n}\n'
         f'name="{D.MOD_NAME}"\n'
         'picture="thumbnail.png"\n'
+        'replace_path="common/bookmarks"\n'
         'supported_version="1.*"\n'
     )
     w("descriptor.mod", body)
@@ -80,6 +82,13 @@ def build_ideas():
         blocks.append(idea_block(idea["id"], idea["modifier"]))
         LOC[idea["id"]] = idea["name"]
         LOC[idea["id"] + "_desc"] = idea["desc"]
+    for era in E.ERAS:
+        ei = era["era_idea"]
+        if ei:
+            D.IDEA_PICTURES[ei["id"]] = ei["picture"]
+            blocks.append(idea_block(ei["id"], ei["modifier"]))
+            LOC[ei["id"]] = ei["name"]
+            LOC[ei["id"] + "_desc"] = ei["desc"]
     for tag, p in D.POWERS.items():
         s = p["spirit"]
         blocks.append(idea_block(s["id"], s["modifier"]))
@@ -192,6 +201,18 @@ def build_characters():
             f'\t\ttexturefile = "gfx/leaders/PAX/{L["id"]}.tga"\n'
             "\t}"
         )
+    for era in E.ERAS:
+        for tag, (name, ideology, _ruling, desc) in era["leaders"].items():
+            cid = f"{tag}_pax_{era['id']}"
+            base = D.POWERS[tag]["leader"]["id"]
+            blocks.append(
+                f"{cid} = {{\n\tname = {cid}\n"
+                f"\tportraits = {{ civilian = {{ large = GFX_portrait_{base} }} }}\n"
+                f"\tcountry_leader = {{\n\t\tideology = {ideology}\n\t\tdesc = {cid}_desc\n"
+                '\t\texpire = "4000.1.1.1"\n\t\tid = -1\n\t}\n}'
+            )
+            LOC[cid] = name
+            LOC[cid + "_desc"] = desc
     w("common/characters/pax_characters.txt", "characters = {\n" + "\n\n".join(indent(b, 1) for b in blocks) + "\n}\n")
     w("interface/pax_portraits.gfx", "spriteTypes = {\n" + "\n".join(sprites) + "\n}\n")
 
@@ -200,35 +221,18 @@ def build_characters():
 # Стартовая расстановка, события, решения
 # ---------------------------------------------------------------------------
 def build_setup():
-    parts = []
-    for tag, p in D.POWERS.items():
-        L = p["leader"]
-        pops = " ".join(f"{k} = {v}" for k, v in p["popularities"].items())
-        parts.append(
-            f"{tag} = {{\n"
-            f"\tset_popularities = {{ {pops} }}\n"
-            f"\tset_politics = {{ ruling_party = {p['ruling']} elections_allowed = {'yes' if p['ruling'] == 'democratic' else 'no'} }}\n"
-            f"\trecruit_character = {L['id']}\n"
-            f"\tpromote_character = {L['id']}\n"
-            f"\tadd_ideas = {p['spirit']['id']}\n"
-            "\tset_country_flag = pax_power\n"
-            f"\tset_country_flag = pax_bloc_{p['bloc']}\n"
-            "}"
-        )
-    effects = (
-        "# Стартовая расстановка мира PaxVanila. Вызывается из on_startup.\n"
-        "pax_setup_world = {\n"
-        "\tset_variable = { var = global.pax_guardians value = 2 }\n"
-        "\tset_variable = { var = global.pax_cracks value = 1 }\n"
-        + "\n".join(indent(x, 1) for x in parts)
-        + "\n}\n"
-    )
+    effects = "# Стартовая расстановка мира PaxVanila по эпохам. Вызывается из on_startup.\n\n" + era_effects()
     w("common/scripted_effects/pax_effects.txt", effects)
 
     on_actions = """on_actions = {
 	on_startup = {
 		effect = {
-			pax_setup_world = yes
+			# эпоха выбирается по дате закладки
+			if = { limit = { date > 2095.12.31 } pax_setup_2096 = yes }
+			else_if = { limit = { date > 2040.12.31 } pax_setup_2041 = yes }
+			else_if = { limit = { date > 1962.1.1 } pax_setup_1962 = yes }
+			else_if = { limit = { date > 1939.1.1 } pax_setup_1939 = yes }
+			else = { pax_setup_1936 = yes }
 			# Как в «Family Historical MP mod»: страны вне лора под управлением ИИ
 			# получают дух «Дальние земли» и не мешают игрокам. Удалите блок, если не нужно.
 			every_country = {
@@ -341,6 +345,25 @@ news_event = {
 	option = { name = pax.11.a }
 }
 
+# Вторая Великая война: Рейх решает, идти ли на север (старт 1939)
+country_event = {
+	id = pax.30
+	title = pax.30.t
+	desc = pax.30.d
+	is_triggered_only = yes
+	option = {
+		name = pax.30.a
+		ai_chance = { factor = 70 }
+		add_war_support = 0.1
+		create_wargoal = { type = annex_everything target = SOV }
+	}
+	option = {
+		name = pax.30.b
+		ai_chance = { factor = 30 }
+		add_political_power = 50
+	}
+}
+
 # Путеводитель (решение «Путеводитель PaxVanila»)
 country_event = {
 	id = pax.20
@@ -381,6 +404,10 @@ news_event = {
         "pax.12.t": "Пробуждение",
         "pax.12.d": "Ромейские инженеры спустились под Монолит и нашли седьмого голема. Когда к нему подвели ток, его глаза зажглись медным светом. Первое слово Стража-7 было «PAX».",
         "pax.12.a": "Он помнит, как это заканчивается.",
+        "pax.30.t": "За железом на север",
+        "pax.30.d": "Рейху мало земли. Железо и уголь Северного Царства лежат за границей. Генералы говорят, что армия успеет до снега. Летописцы Форума говорят, что зима всегда на стороне того, кто дома.",
+        "pax.30.a": "Готовить войну с Севером.",
+        "pax.30.b": "Подождать.",
         "pax.20.t": "Путеводитель PaxVanila",
         "pax.20.d": D.GUIDE_TEXT,
         "pax.20.a": "Понятно.",
@@ -401,6 +428,7 @@ PAX_guide_category = {
 	PAX_project_seven = {
 		allowed = { original_tag = ITA }
 		icon = generic_research
+		visible = { NOT = { has_global_flag = pax_seven_awake } }
 		available = { has_global_flag = pax_seal_cracked }
 		cost = 150
 		fire_only_once = yes
@@ -417,6 +445,7 @@ PAX_guide_category = {
 	PAX_steal_blueprints = {
 		allowed = { original_tag = SOV }
 		icon = generic_operation
+		visible = { NOT = { has_idea = PAX_idea_kurultai_mind } }
 		available = { has_global_flag = pax_seven_awake }
 		cost = 100
 		fire_only_once = yes
@@ -459,12 +488,115 @@ PAX_guide_category = {
 # ---------------------------------------------------------------------------
 # Названия стран (перекрывают ванильные ключи)
 # ---------------------------------------------------------------------------
+def era_effects():
+    out = []
+    for era in E.ERAS:
+        L = []
+        L.append(f"set_global_flag = pax_era_{era['id']}")
+        L.append(f"set_variable = {{ var = global.pax_guardians value = {era['guardians']} }}")
+        L.append(f"set_variable = {{ var = global.pax_cracks value = {era['cracks']} }}")
+        if era["guardians"] == 0:
+            L.append("set_global_flag = pax_seal_cracked")
+        if era.get("seven_awake"):
+            L.append("set_global_flag = pax_seven_awake")
+        techs = list(era["techs"]) + [t["id"] for t in E.LORE_TECHS if t["year"] <= era["lore_techs_until"]]
+        for tag, p in D.POWERS.items():
+            lead = era["leaders"].get(tag)
+            if lead:
+                cid, ruling = f"{tag}_pax_{era['id']}", lead[2]
+                others = [i for i in ("democratic", "fascism", "communism", "neutrality") if i != ruling]
+                pops = f"{ruling} = 55 " + " ".join(f"{o} = 15" for o in others)
+            else:
+                cid, ruling = p["leader"]["id"], p["ruling"]
+                pops = " ".join(f"{k} = {v}" for k, v in p["popularities"].items())
+            b = [f"set_popularities = {{ {pops} }}",
+                 f"set_politics = {{ ruling_party = {ruling} elections_allowed = {'yes' if ruling == 'democratic' else 'no'} }}",
+                 f"recruit_character = {cid}", f"promote_character = {cid}",
+                 f"add_ideas = {p['spirit']['id']}",
+                 "set_country_flag = pax_power", f"set_country_flag = pax_bloc_{p['bloc']}"]
+            if era["era_idea"]:
+                b.append(f"add_ideas = {era['era_idea']['id']}")
+            if techs:
+                b.append("set_technology = {\n" + "\n".join(f"\t{t} = 1" for t in techs) + "\n}")
+            if era["slots"]:
+                b.append(f"add_research_slot = {era['slots']}")
+            if era.get("corps"):
+                b.append(f"set_cosmetic_tag = PAX_CORP_{tag}")
+            if era.get("seven_awake") and tag == "ITA":
+                b.append("add_ideas = PAX_idea_guardian_seven")
+            if era.get("seven_awake") and tag == "SOV":
+                b.append("add_ideas = PAX_idea_kurultai_mind")
+            L.append(f"{tag} = {{\n" + indent("\n".join(b), 1) + "\n}")
+        if era["factions"]:
+            members = [t for _, (_, ms) in era["factions"].items() for t in ms]
+            for t in members:
+                L.append(f"{t} = {{\n\tif = {{ limit = {{ is_faction_leader = yes }} dismantle_faction = yes }}\n"
+                         f"\telse_if = {{ limit = {{ is_in_faction = yes }} leave_faction = yes }}\n}}")
+            for leader, (fname, ms) in era["factions"].items():
+                adds = "\n".join(f"\tadd_to_faction = {m}" for m in ms if m != leader)
+                L.append(f"{leader} = {{\n\tcreate_faction = {fname}\n{adds}\n}}")
+        if era.get("germany_war"):
+            L.append("GER = { country_event = { id = pax.30 days = 3 } }")
+        out.append(f"pax_setup_{era['id']} = {{\n" + indent("\n".join(L), 1) + "\n}\n")
+    return "\n".join(out)
+
+
+def build_eras_extra():
+    # Технологии ветки «Наследие Предтеч»
+    blocks = []
+    for i, t in enumerate(E.LORE_TECHS):
+        b = [f"{k} = {v}" for k, v in t["mod"].items()]
+        if i + 1 < len(E.LORE_TECHS):
+            b.append(f"path = {{ leads_to_tech = {E.LORE_TECHS[i + 1]['id']} research_cost_coeff = 1 }}")
+        b += [f"research_cost = {t['cost']}", f"start_year = {t['year']}",
+              f"folder = {{ name = electronics_folder position = {{ x = {t['x']} y = {t['y']} }} }}",
+              "categories = { electronics }", "ai_will_do = { factor = 5 }"]
+        blocks.append(f"{t['id']} = {{\n" + indent("\n".join(b), 1) + "\n}")
+        LOC[t["id"]] = t["name"]
+        LOC[t["id"] + "_desc"] = t["desc"]
+    w("common/technologies/pax_lore_techs.txt", "technologies = {\n" + "\n\n".join(indent(b, 1) for b in blocks) + "\n}\n")
+
+    # Закладки выбора старта
+    marks = []
+    for era in E.ERAS:
+        c = []
+        for tag, p in D.POWERS.items():
+            lead = era["leaders"].get(tag)
+            ideology = lead[2] if lead else p["ruling"]
+            key = f"PAX_BM_{era['id']}_{tag}"
+            minor = "" if tag in ("ITA", "GER", "SOV", "FRA", "ENG") else "\tminor = yes\n"
+            c.append(f"{tag} = {{\n{minor}\thistory = {key}\n\tideology = {ideology}\n\tideas = {{ {p['spirit']['id']} }}\n\tfocuses = {{ }}\n}}")
+            who = lead[0] if lead else p["leader"]["name"]
+            LOC[key] = f"{p['short']}. Правитель: {who}. {E.CORPS[tag] + '.' if era.get('corps') else ''}".strip()
+        c.append('"---" = { history = PAX_BM_OTHER }')
+        marks.append(
+            "bookmark = {\n"
+            f"\tname = PAX_BM_{era['id']}\n\tdesc = PAX_BM_{era['id']}_DESC\n"
+            f"\tdate = {era['date']}\n\tpicture = {era['picture']}\n\tdefault_country = ITA\n"
+            + ("\tdefault = yes\n" if era.get("default") else "")
+            + indent("\n".join(c), 1) + "\n"
+            "\teffect = { randomize_weather = 22345 }\n}"
+        )
+        LOC[f"PAX_BM_{era['id']}"] = f"{era['date'][:4]}: {era['name']}"
+        LOC[f"PAX_BM_{era['id']}_DESC"] = era["desc"]
+    LOC["PAX_BM_OTHER"] = "Дальние земли, о которых лор PaxVanila молчит."
+    w("common/bookmarks/pax_bookmarks.txt", "bookmarks = {\n" + "\n".join(indent(m, 1) for m in marks) + "\n}\n")
+
+    # Игра не должна заканчиваться в 1949 году
+    w("common/defines/pax_defines.lua", 'NDefines.NGame.END_DATE = "4000.1.1.1"\n')
+
+
 def build_country_names():
     for tag, p in D.POWERS.items():
         for key in [tag] + [f"{tag}_{i}" for i in IDEOLOGIES]:
             LOC_REPLACE[key] = p["name"]
             LOC_REPLACE[key + "_DEF"] = p["name"]
             LOC_REPLACE[key + "_ADJ"] = p["adj"]
+    for tag, corp in E.CORPS.items():
+        k = f"PAX_CORP_{tag}"
+        LOC_REPLACE[k] = corp
+        LOC_REPLACE[k + "_DEF"] = corp
+        LOC_REPLACE[k + "_ADJ"] = D.POWERS[tag]["adj"]
     # советы на экране загрузки (как LOADING_TIP в «Family Historical MP mod»)
     for i, tip in enumerate(D.LOADING_TIPS):
         LOC_REPLACE[f"LOADING_TIP_{i}"] = tip
@@ -571,6 +703,13 @@ def build_graphics():
             save_tga(big, f"gfx/flags/{tag}{suffix}.tga", (82, 52))
             save_tga(big, f"gfx/flags/medium/{tag}{suffix}.tga", (41, 26))
             save_tga(big, f"gfx/flags/small/{tag}{suffix}.tga", (10, 7))
+        corp = big.copy()
+        ov = Image.new("RGBA", corp.size, (20, 0, 40, 110))
+        corp = Image.alpha_composite(corp, ov)
+        dc = ImageDraw.Draw(corp)
+        dc.rectangle([0, 0, corp.size[0] - 1, corp.size[1] - 1], outline=(0, 255, 230, 255), width=10)
+        for sub, size in (("", (82, 52)), ("medium/", (41, 26)), ("small/", (10, 7))):
+            save_tga(corp, f"gfx/flags/{sub}PAX_CORP_{tag}.tga", size)
         # портрет 156x210: фон цвета державы, силуэт, флаг на груди
         W, H = 156 * 2, 210 * 2
         im = Image.new("RGBA", (W, H), (0, 0, 0, 255))
@@ -605,6 +744,7 @@ def main():
     build_focus_trees()
     build_characters()
     build_setup()
+    build_eras_extra()
     build_country_names()
     write_loc()
     build_graphics()

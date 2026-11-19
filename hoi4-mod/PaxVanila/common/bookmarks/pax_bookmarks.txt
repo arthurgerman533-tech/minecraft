@@ -1,0 +1,373 @@
+bookmarks = {
+	bookmark = {
+		name = PAX_BM_1936
+		desc = PAX_BM_1936_DESC
+		date = 1936.1.1.12
+		picture = GFX_select_date_1936
+		default_country = ITA
+		default = yes
+		ITA = {
+			history = PAX_BM_1936_ITA
+			ideology = democratic
+			ideas = { PAX_spirit_ITA }
+			focuses = { }
+		}
+		SPR = {
+			minor = yes
+			history = PAX_BM_1936_SPR
+			ideology = neutrality
+			ideas = { PAX_spirit_SPR }
+			focuses = { }
+		}
+		GRE = {
+			minor = yes
+			history = PAX_BM_1936_GRE
+			ideology = democratic
+			ideas = { PAX_spirit_GRE }
+			focuses = { }
+		}
+		FRA = {
+			history = PAX_BM_1936_FRA
+			ideology = democratic
+			ideas = { PAX_spirit_FRA }
+			focuses = { }
+		}
+		ENG = {
+			history = PAX_BM_1936_ENG
+			ideology = democratic
+			ideas = { PAX_spirit_ENG }
+			focuses = { }
+		}
+		GER = {
+			history = PAX_BM_1936_GER
+			ideology = fascism
+			ideas = { PAX_spirit_GER }
+			focuses = { }
+		}
+		SOV = {
+			history = PAX_BM_1936_SOV
+			ideology = neutrality
+			ideas = { PAX_spirit_SOV }
+			focuses = { }
+		}
+		ROM = {
+			minor = yes
+			history = PAX_BM_1936_ROM
+			ideology = neutrality
+			ideas = { PAX_spirit_ROM }
+			focuses = { }
+		}
+		TUR = {
+			minor = yes
+			history = PAX_BM_1936_TUR
+			ideology = neutrality
+			ideas = { PAX_spirit_TUR }
+			focuses = { }
+		}
+		PER = {
+			minor = yes
+			history = PAX_BM_1936_PER
+			ideology = neutrality
+			ideas = { PAX_spirit_PER }
+			focuses = { }
+		}
+		"---" = { history = PAX_BM_OTHER }
+		effect = { randomize_weather = 22345 }
+	}
+	bookmark = {
+		name = PAX_BM_1939
+		desc = PAX_BM_1939_DESC
+		date = 1939.8.14.12
+		picture = GFX_select_date_1939
+		default_country = ITA
+		ITA = {
+			history = PAX_BM_1939_ITA
+			ideology = democratic
+			ideas = { PAX_spirit_ITA }
+			focuses = { }
+		}
+		SPR = {
+			minor = yes
+			history = PAX_BM_1939_SPR
+			ideology = neutrality
+			ideas = { PAX_spirit_SPR }
+			focuses = { }
+		}
+		GRE = {
+			minor = yes
+			history = PAX_BM_1939_GRE
+			ideology = democratic
+			ideas = { PAX_spirit_GRE }
+			focuses = { }
+		}
+		FRA = {
+			history = PAX_BM_1939_FRA
+			ideology = democratic
+			ideas = { PAX_spirit_FRA }
+			focuses = { }
+		}
+		ENG = {
+			history = PAX_BM_1939_ENG
+			ideology = democratic
+			ideas = { PAX_spirit_ENG }
+			focuses = { }
+		}
+		GER = {
+			history = PAX_BM_1939_GER
+			ideology = fascism
+			ideas = { PAX_spirit_GER }
+			focuses = { }
+		}
+		SOV = {
+			history = PAX_BM_1939_SOV
+			ideology = neutrality
+			ideas = { PAX_spirit_SOV }
+			focuses = { }
+		}
+		ROM = {
+			minor = yes
+			history = PAX_BM_1939_ROM
+			ideology = neutrality
+			ideas = { PAX_spirit_ROM }
+			focuses = { }
+		}
+		TUR = {
+			minor = yes
+			history = PAX_BM_1939_TUR
+			ideology = neutrality
+			ideas = { PAX_spirit_TUR }
+			focuses = { }
+		}
+		PER = {
+			minor = yes
+			history = PAX_BM_1939_PER
+			ideology = neutrality
+			ideas = { PAX_spirit_PER }
+			focuses = { }
+		}
+		"---" = { history = PAX_BM_OTHER }
+		effect = { randomize_weather = 22345 }
+	}
+	bookmark = {
+		name = PAX_BM_1962
+		desc = PAX_BM_1962_DESC
+		date = 1962.10.1.12
+		picture = GFX_select_date_1939
+		default_country = ITA
+		ITA = {
+			history = PAX_BM_1962_ITA
+			ideology = democratic
+			ideas = { PAX_spirit_ITA }
+			focuses = { }
+		}
+		SPR = {
+			minor = yes
+			history = PAX_BM_1962_SPR
+			ideology = neutrality
+			ideas = { PAX_spirit_SPR }
+			focuses = { }
+		}
+		GRE = {
+			minor = yes
+			history = PAX_BM_1962_GRE
+			ideology = democratic
+			ideas = { PAX_spirit_GRE }
+			focuses = { }
+		}
+		FRA = {
+			history = PAX_BM_1962_FRA
+			ideology = democratic
+			ideas = { PAX_spirit_FRA }
+			focuses = { }
+		}
+		ENG = {
+			history = PAX_BM_1962_ENG
+			ideology = democratic
+			ideas = { PAX_spirit_ENG }
+			focuses = { }
+		}
+		GER = {
+			history = PAX_BM_1962_GER
+			ideology = communism
+			ideas = { PAX_spirit_GER }
+			focuses = { }
+		}
+		SOV = {
+			history = PAX_BM_1962_SOV
+			ideology = communism
+			ideas = { PAX_spirit_SOV }
+			focuses = { }
+		}
+		ROM = {
+			minor = yes
+			history = PAX_BM_1962_ROM
+			ideology = communism
+			ideas = { PAX_spirit_ROM }
+			focuses = { }
+		}
+		TUR = {
+			minor = yes
+			history = PAX_BM_1962_TUR
+			ideology = neutrality
+			ideas = { PAX_spirit_TUR }
+			focuses = { }
+		}
+		PER = {
+			minor = yes
+			history = PAX_BM_1962_PER
+			ideology = neutrality
+			ideas = { PAX_spirit_PER }
+			focuses = { }
+		}
+		"---" = { history = PAX_BM_OTHER }
+		effect = { randomize_weather = 22345 }
+	}
+	bookmark = {
+		name = PAX_BM_2041
+		desc = PAX_BM_2041_DESC
+		date = 2041.1.1.12
+		picture = GFX_select_date_1939
+		default_country = ITA
+		ITA = {
+			history = PAX_BM_2041_ITA
+			ideology = democratic
+			ideas = { PAX_spirit_ITA }
+			focuses = { }
+		}
+		SPR = {
+			minor = yes
+			history = PAX_BM_2041_SPR
+			ideology = neutrality
+			ideas = { PAX_spirit_SPR }
+			focuses = { }
+		}
+		GRE = {
+			minor = yes
+			history = PAX_BM_2041_GRE
+			ideology = democratic
+			ideas = { PAX_spirit_GRE }
+			focuses = { }
+		}
+		FRA = {
+			history = PAX_BM_2041_FRA
+			ideology = democratic
+			ideas = { PAX_spirit_FRA }
+			focuses = { }
+		}
+		ENG = {
+			history = PAX_BM_2041_ENG
+			ideology = democratic
+			ideas = { PAX_spirit_ENG }
+			focuses = { }
+		}
+		GER = {
+			history = PAX_BM_2041_GER
+			ideology = communism
+			ideas = { PAX_spirit_GER }
+			focuses = { }
+		}
+		SOV = {
+			history = PAX_BM_2041_SOV
+			ideology = communism
+			ideas = { PAX_spirit_SOV }
+			focuses = { }
+		}
+		ROM = {
+			minor = yes
+			history = PAX_BM_2041_ROM
+			ideology = communism
+			ideas = { PAX_spirit_ROM }
+			focuses = { }
+		}
+		TUR = {
+			minor = yes
+			history = PAX_BM_2041_TUR
+			ideology = neutrality
+			ideas = { PAX_spirit_TUR }
+			focuses = { }
+		}
+		PER = {
+			minor = yes
+			history = PAX_BM_2041_PER
+			ideology = neutrality
+			ideas = { PAX_spirit_PER }
+			focuses = { }
+		}
+		"---" = { history = PAX_BM_OTHER }
+		effect = { randomize_weather = 22345 }
+	}
+	bookmark = {
+		name = PAX_BM_2096
+		desc = PAX_BM_2096_DESC
+		date = 2096.1.1.12
+		picture = GFX_select_date_1939
+		default_country = ITA
+		ITA = {
+			history = PAX_BM_2096_ITA
+			ideology = democratic
+			ideas = { PAX_spirit_ITA }
+			focuses = { }
+		}
+		SPR = {
+			minor = yes
+			history = PAX_BM_2096_SPR
+			ideology = neutrality
+			ideas = { PAX_spirit_SPR }
+			focuses = { }
+		}
+		GRE = {
+			minor = yes
+			history = PAX_BM_2096_GRE
+			ideology = neutrality
+			ideas = { PAX_spirit_GRE }
+			focuses = { }
+		}
+		FRA = {
+			history = PAX_BM_2096_FRA
+			ideology = neutrality
+			ideas = { PAX_spirit_FRA }
+			focuses = { }
+		}
+		ENG = {
+			history = PAX_BM_2096_ENG
+			ideology = democratic
+			ideas = { PAX_spirit_ENG }
+			focuses = { }
+		}
+		GER = {
+			history = PAX_BM_2096_GER
+			ideology = neutrality
+			ideas = { PAX_spirit_GER }
+			focuses = { }
+		}
+		SOV = {
+			history = PAX_BM_2096_SOV
+			ideology = neutrality
+			ideas = { PAX_spirit_SOV }
+			focuses = { }
+		}
+		ROM = {
+			minor = yes
+			history = PAX_BM_2096_ROM
+			ideology = neutrality
+			ideas = { PAX_spirit_ROM }
+			focuses = { }
+		}
+		TUR = {
+			minor = yes
+			history = PAX_BM_2096_TUR
+			ideology = neutrality
+			ideas = { PAX_spirit_TUR }
+			focuses = { }
+		}
+		PER = {
+			minor = yes
+			history = PAX_BM_2096_PER
+			ideology = neutrality
+			ideas = { PAX_spirit_PER }
+			focuses = { }
+		}
+		"---" = { history = PAX_BM_OTHER }
+		effect = { randomize_weather = 22345 }
+	}
+}

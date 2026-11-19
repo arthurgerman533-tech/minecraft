@@ -1,4 +1,4 @@
-version="0.1.1"
+version="0.2.0"
 tags={
 	"Alternative History"
 	"National Focuses"
@@ -6,5 +6,6 @@ tags={
 }
 name="PaxVanila"
 picture="thumbnail.png"
+replace_path="common/bookmarks"
 supported_version="1.*"
 path="mod/PaxVanila"

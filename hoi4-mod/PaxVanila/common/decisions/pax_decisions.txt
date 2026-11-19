@@ -2,6 +2,7 @@ PAX_monolith_category = {
 	PAX_project_seven = {
 		allowed = { original_tag = ITA }
 		icon = generic_research
+		visible = { NOT = { has_global_flag = pax_seven_awake } }
 		available = { has_global_flag = pax_seal_cracked }
 		cost = 150
 		fire_only_once = yes
@@ -18,6 +19,7 @@ PAX_monolith_category = {
 	PAX_steal_blueprints = {
 		allowed = { original_tag = SOV }
 		icon = generic_operation
+		visible = { NOT = { has_idea = PAX_idea_kurultai_mind } }
 		available = { has_global_flag = pax_seven_awake }
 		cost = 100
 		fire_only_once = yes

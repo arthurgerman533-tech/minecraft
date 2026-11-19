@@ -202,6 +202,40 @@ ideas = {
 			}
 		}
 
+		PAX_era_cold_war = {
+			picture = anti_soviet_pact
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.1
+				war_support_factor = -0.1
+			}
+		}
+
+		PAX_era_robots = {
+			picture = generic_production_bonus
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.15
+				industrial_capacity_factory = 0.15
+			}
+		}
+
+		PAX_era_cyberpunk = {
+			picture = generic_production_bonus
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.2
+				industrial_capacity_factory = 0.2
+				stability_factor = -0.1
+			}
+		}
+
 		PAX_spirit_ITA = {
 			picture = italy_control
 			allowed = { always = no }

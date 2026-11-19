@@ -108,4 +108,334 @@ characters = {
 			id = -1
 		}
 	}
+
+	ITA_pax_1962 = {
+		name = ITA_pax_1962
+		portraits = { civilian = { large = GFX_portrait_ITA_pax_romul } }
+		country_leader = {
+			ideology = conservatism
+			desc = ITA_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	SPR_pax_1962 = {
+		name = SPR_pax_1962
+		portraits = { civilian = { large = GFX_portrait_SPR_pax_hannon } }
+		country_leader = {
+			ideology = oligarchism
+			desc = SPR_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	GRE_pax_1962 = {
+		name = GRE_pax_1962
+		portraits = { civilian = { large = GFX_portrait_GRE_pax_pericles } }
+		country_leader = {
+			ideology = liberalism
+			desc = GRE_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	FRA_pax_1962 = {
+		name = FRA_pax_1962
+		portraits = { civilian = { large = GFX_portrait_FRA_pax_ambiorix } }
+		country_leader = {
+			ideology = conservatism
+			desc = FRA_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	ENG_pax_1962 = {
+		name = ENG_pax_1962
+		portraits = { civilian = { large = GFX_portrait_ENG_pax_elinor } }
+		country_leader = {
+			ideology = liberalism
+			desc = ENG_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	SOV_pax_1962 = {
+		name = SOV_pax_1962
+		portraits = { civilian = { large = GFX_portrait_SOV_pax_vseslav } }
+		country_leader = {
+			ideology = marxism
+			desc = SOV_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	ROM_pax_1962 = {
+		name = ROM_pax_1962
+		portraits = { civilian = { large = GFX_portrait_ROM_pax_decebal } }
+		country_leader = {
+			ideology = marxism
+			desc = ROM_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	TUR_pax_1962 = {
+		name = TUR_pax_1962
+		portraits = { civilian = { large = GFX_portrait_TUR_pax_tengiz } }
+		country_leader = {
+			ideology = despotism
+			desc = TUR_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	PER_pax_1962 = {
+		name = PER_pax_1962
+		portraits = { civilian = { large = GFX_portrait_PER_pax_idanthyrsus } }
+		country_leader = {
+			ideology = despotism
+			desc = PER_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	GER_pax_1962 = {
+		name = GER_pax_1962
+		portraits = { civilian = { large = GFX_portrait_GER_pax_arminius } }
+		country_leader = {
+			ideology = marxism
+			desc = GER_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	ITA_pax_2041 = {
+		name = ITA_pax_2041
+		portraits = { civilian = { large = GFX_portrait_ITA_pax_romul } }
+		country_leader = {
+			ideology = conservatism
+			desc = ITA_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	SPR_pax_2041 = {
+		name = SPR_pax_2041
+		portraits = { civilian = { large = GFX_portrait_SPR_pax_hannon } }
+		country_leader = {
+			ideology = oligarchism
+			desc = SPR_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	GRE_pax_2041 = {
+		name = GRE_pax_2041
+		portraits = { civilian = { large = GFX_portrait_GRE_pax_pericles } }
+		country_leader = {
+			ideology = liberalism
+			desc = GRE_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	FRA_pax_2041 = {
+		name = FRA_pax_2041
+		portraits = { civilian = { large = GFX_portrait_FRA_pax_ambiorix } }
+		country_leader = {
+			ideology = socialism
+			desc = FRA_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	ENG_pax_2041 = {
+		name = ENG_pax_2041
+		portraits = { civilian = { large = GFX_portrait_ENG_pax_elinor } }
+		country_leader = {
+			ideology = liberalism
+			desc = ENG_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	SOV_pax_2041 = {
+		name = SOV_pax_2041
+		portraits = { civilian = { large = GFX_portrait_SOV_pax_vseslav } }
+		country_leader = {
+			ideology = marxism
+			desc = SOV_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	ROM_pax_2041 = {
+		name = ROM_pax_2041
+		portraits = { civilian = { large = GFX_portrait_ROM_pax_decebal } }
+		country_leader = {
+			ideology = marxism
+			desc = ROM_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	TUR_pax_2041 = {
+		name = TUR_pax_2041
+		portraits = { civilian = { large = GFX_portrait_TUR_pax_tengiz } }
+		country_leader = {
+			ideology = despotism
+			desc = TUR_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	PER_pax_2041 = {
+		name = PER_pax_2041
+		portraits = { civilian = { large = GFX_portrait_PER_pax_idanthyrsus } }
+		country_leader = {
+			ideology = despotism
+			desc = PER_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	GER_pax_2041 = {
+		name = GER_pax_2041
+		portraits = { civilian = { large = GFX_portrait_GER_pax_arminius } }
+		country_leader = {
+			ideology = marxism
+			desc = GER_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	ITA_pax_2096 = {
+		name = ITA_pax_2096
+		portraits = { civilian = { large = GFX_portrait_ITA_pax_romul } }
+		country_leader = {
+			ideology = conservatism
+			desc = ITA_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	SPR_pax_2096 = {
+		name = SPR_pax_2096
+		portraits = { civilian = { large = GFX_portrait_SPR_pax_hannon } }
+		country_leader = {
+			ideology = oligarchism
+			desc = SPR_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	GRE_pax_2096 = {
+		name = GRE_pax_2096
+		portraits = { civilian = { large = GFX_portrait_GRE_pax_pericles } }
+		country_leader = {
+			ideology = oligarchism
+			desc = GRE_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	FRA_pax_2096 = {
+		name = FRA_pax_2096
+		portraits = { civilian = { large = GFX_portrait_FRA_pax_ambiorix } }
+		country_leader = {
+			ideology = oligarchism
+			desc = FRA_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	ENG_pax_2096 = {
+		name = ENG_pax_2096
+		portraits = { civilian = { large = GFX_portrait_ENG_pax_elinor } }
+		country_leader = {
+			ideology = liberalism
+			desc = ENG_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	SOV_pax_2096 = {
+		name = SOV_pax_2096
+		portraits = { civilian = { large = GFX_portrait_SOV_pax_vseslav } }
+		country_leader = {
+			ideology = despotism
+			desc = SOV_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	ROM_pax_2096 = {
+		name = ROM_pax_2096
+		portraits = { civilian = { large = GFX_portrait_ROM_pax_decebal } }
+		country_leader = {
+			ideology = oligarchism
+			desc = ROM_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	TUR_pax_2096 = {
+		name = TUR_pax_2096
+		portraits = { civilian = { large = GFX_portrait_TUR_pax_tengiz } }
+		country_leader = {
+			ideology = oligarchism
+			desc = TUR_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	PER_pax_2096 = {
+		name = PER_pax_2096
+		portraits = { civilian = { large = GFX_portrait_PER_pax_idanthyrsus } }
+		country_leader = {
+			ideology = oligarchism
+			desc = PER_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	GER_pax_2096 = {
+		name = GER_pax_2096
+		portraits = { civilian = { large = GFX_portrait_GER_pax_arminius } }
+		country_leader = {
+			ideology = oligarchism
+			desc = GER_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
 }

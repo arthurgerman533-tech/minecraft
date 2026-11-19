@@ -63,6 +63,25 @@ news_event = {
 	option = { name = pax.11.a }
 }
 
+# Вторая Великая война: Рейх решает, идти ли на север (старт 1939)
+country_event = {
+	id = pax.30
+	title = pax.30.t
+	desc = pax.30.d
+	is_triggered_only = yes
+	option = {
+		name = pax.30.a
+		ai_chance = { factor = 70 }
+		add_war_support = 0.1
+		create_wargoal = { type = annex_everything target = SOV }
+	}
+	option = {
+		name = pax.30.b
+		ai_chance = { factor = 30 }
+		add_political_power = 50
+	}
+}
+
 # Путеводитель (решение «Путеводитель PaxVanila»)
 country_event = {
 	id = pax.20
