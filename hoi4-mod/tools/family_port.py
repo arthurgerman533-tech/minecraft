@@ -62,11 +62,25 @@ FAMILY_TECHS = [
 
 TECH_EXTRA = {
     "excavation6": """on_research_complete = {
-	modify_building_resources = { building = aluminum_mill resource = aluminium amount = 4 }
-	modify_building_resources = { building = steel_mill resource = steel amount = 4 }
+	modify_building_resources = {
+		building = aluminum_mill
+		resource = aluminium
+		amount = 4
+	}
+}
+on_research_complete = {
+	modify_building_resources = {
+		building = steel_mill
+		resource = steel
+		amount = 4
+	}
 }""",
     "improved_modern_rubber_processing": """on_research_complete = {
-	modify_building_resources = { building = synthetic_refinery resource = rubber amount = 1 }
+	modify_building_resources = {
+		building = synthetic_refinery
+		resource = rubber
+		amount = 1
+	}
 }
 show_effect_as_desc = yes""",
     "improved_modern_oil_processing": "show_effect_as_desc = yes",
@@ -173,7 +187,7 @@ every_country = {{
 	add_ideas = PAX_small_world
 }}
 ENG = {{ add_ideas = PAX_small_world_ENG }}
-GER = {{ add_ideas = PAX_small_world PAX_small_world_GER }}"""
+GER = {{ add_ideas = {{ PAX_small_world PAX_small_world_GER }} }}"""
 
 
 # Ещё три технологии, у которых в Family осталась только локализация (Family_l_russian.yml).
@@ -231,7 +245,41 @@ def defines():
     return "-- Мультиплеерные defines из «Family Historical MP mod» (Arthur), без изменений.\n" + "\n".join(lines) + "\n"
 
 
+UNIT_NAMES = {
+    "sniper": ("Снайперы", "Снайп."), "mortar": ("Миномётчики", "Мином."), "wardog": ("Военные псы", "Псы"),
+    "gunner": ("Пулемётчики", "Пулем."), "raider": ("Рейдеры", "Рейд."), "field_hospital": ("Полевой госпиталь", "Госп."),
+    "flamethrower_sppt": ("Огнемётчики", "Огнем."), "light_flame_tank": ("Лёгкие огнемётные танки", "Огн.тк"),
+    "medium_flame_tank": ("Средние огнемётные танки", "Огн.тк"), "heavy_flame_tank": ("Тяжёлые огнемётные танки", "Огн.тк"),
+}
+
+
+def _copy_tree(w):
+    """Сквозной перенос файлов Family: доп. роты, их исследования, экономические решения."""
+    for fn in sorted(os.listdir(os.path.join(SRC, "units"))):
+        w("common/units/" + fn, _read("units/" + fn))
+    for fn in ("support.txt", "infantry.txt", "unique.txt"):  # те же имена, что у ванили: заменяют ванильные файлы, как в Family
+        w("common/technologies/" + fn, _read("technologies/" + fn))
+    w("common/decisions/zz_family_economic.txt", _read("decisions/chd_economic.txt"))
+
+
+def _loc_from(path, wanted_text):
+    out = {}
+    with open(os.path.join(SRC, "loc", path), encoding="utf-8-sig") as f:
+        for line in f:
+            m = re.match(r'\s+([A-Za-z0-9_.\-]+):\d*\s+"(.*)"\s*$', line)
+            if m and re.search(r"(?<![A-Za-z0-9_])" + re.escape(m.group(1)) + r"(?![A-Za-z0-9_])", wanted_text):
+                out[m.group(1)] = m.group(2)
+    return out
+
+
 def build(w, LOC, indent):
+    _copy_tree(w)
+    LOC.update(_loc_from('decisions_l_russian.yml', _read('decisions/chd_economic.txt')))
+    for uid, (n, s) in UNIT_NAMES.items():
+        LOC[uid] = n
+        LOC[uid + '_short'] = s
+        LOC[uid + '_desc'] = n
+
     w("common/ideas/_economic.txt", economic_laws())
     w("common/defines/pax_family_defines.lua", defines())
 

@@ -531,14 +531,19 @@ def era_effects():
             lead = era["leaders"].get(tag)
             if lead:
                 cid, ruling = f"{tag}_pax_{era['id']}", lead[2]
+                lsub, lpic = lead[1], p["leader"]["id"]
                 others = [i for i in ("democratic", "fascism", "communism", "neutrality") if i != ruling]
                 pops = f"{ruling} = 55 " + " ".join(f"{o} = 15" for o in others)
             else:
                 cid, ruling = p["leader"]["id"], p["ruling"]
+                lsub, lpic = p["leader"]["ideology"], cid
                 pops = " ".join(f"{k} = {v}" for k, v in p["popularities"].items())
             b = [f"set_popularities = {{ {pops} }}",
                  f"set_politics = {{ ruling_party = {ruling} elections_allowed = {'yes' if ruling == 'democratic' else 'no'} }}",
-                 f"recruit_character = {cid}", f"promote_character = {cid}",
+                 # create_country_leader работает в любой момент игры (recruit_character только в history)
+                 f"create_country_leader = {{\n\tname = \"{cid}\"\n\tdesc = \"{cid}_desc\"\n"
+                 f"\tpicture = \"gfx/leaders/PAX/{lpic}.tga\"\n\texpire = \"4000.1.1.1\"\n"
+                 f"\tideology = {lsub}\n\ttraits = {{ }}\n}}",
                  f"add_ideas = {p['spirit']['id']}",
                  "set_country_flag = pax_power", f"set_country_flag = pax_bloc_{p['bloc']}"]
             if era["era_idea"]:
@@ -783,6 +788,8 @@ def build_art():
 
     def sprite(name, rel):
         sprites.append(f'\tspriteType = {{\n\t\tname = "{name}"\n\t\ttexturefile = "{rel}"\n\t}}')
+        if name.startswith("GFX_goal_pax_"):  # без _shine игра пишет «Missing icon shine»
+            sprites.append(f'\tspriteType = {{\n\t\tname = "{name}_shine"\n\t\ttexturefile = "{rel}"\n\t}}')
 
     # экраны загрузки: 10 своих сцен под всеми ванильными именами
     scenes = [n for n, _, _ in A.SCENES]

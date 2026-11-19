@@ -1,0 +1,2312 @@
+technologies = {
+	
+	@1918 = 0
+	@1936 = 2
+	@1938 = 4
+	@1939 = 6
+	@1940 = 8
+	@1941 = 10
+	@1942 = 12
+	@1943 = 14
+	@1944 = 16
+	@1945 = 18
+	@1946 = 20
+
+
+	tech_support = {
+
+		enable_equipments = {
+			support_equipment_1
+		}
+		
+#mod_start
+		path = {
+			leads_to_tech = tech_sniper
+			research_cost_coeff = 1
+		}		
+		
+		path = {
+			leads_to_tech = tech_Yegerya
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = tech_wardog
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = tech_command
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = tech_raider
+			research_cost_coeff = 1
+		}
+#mod_end
+		
+		path = {
+			leads_to_tech = tech_engineers
+			research_cost_coeff = 1
+		}	
+		
+		path = {
+			leads_to_tech = tech_recon
+			research_cost_coeff = 1
+		}	
+		path = {
+			leads_to_tech = tech_field_hospital
+			research_cost_coeff = 1
+		}					
+
+		path = {
+			leads_to_tech = tech_logistics_company
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = tech_military_police
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = tech_signal_company
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = tech_maintenance_company
+			research_cost_coeff = 1
+		}
+		research_cost = 1.0
+		start_year = 1918
+		folder = {
+			name = support_folder
+			position = { x = 0 y = @1918 }
+		}
+		
+		categories = {
+			support_tech
+		}
+		
+		ai_will_do = {
+			factor = 2
+			
+			modifier = {
+				factor = 4
+				date > "1937.1.1"
+			}
+			
+			modifier = {
+				factor = 4
+				date > "1938.1.1"
+			}
+			
+			modifier = {
+				factor = 4
+				date > "1939.1.1"
+			}
+		}
+	}
+
+	
+	tech_engineers = {
+
+		enable_subunits = {
+			engineer
+		}
+		
+		on_research_complete = {
+			hidden_effect = {
+				army_experience = 10
+			}
+			custom_effect_tooltip = gain_ten_army_xp_research
+		}
+		
+		path = {
+			leads_to_tech = tech_engineers2
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		research_cost = 2
+		xp_research_bonus = 1
+		
+		start_year = 1936
+		folder = {
+			name = support_folder
+			position = { x = 0 y = @1936 }
+		}
+		
+		categories = {
+			support_tech
+			engineers_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1937.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1938.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1939.1.1"
+			}
+			modifier = {
+				factor = 10
+				date > "1940.1.1"
+			}
+		}
+	}
+	
+	tech_engineers2 = {
+
+		engineer = {
+			entrenchment = 2
+			fort = {
+				defence = 0.10
+				attack = 0.05
+			}
+		}
+
+		enable_equipment_modules = {
+			dozer_blade
+			flamethrower
+		}
+
+
+
+		enable_subunits = {				#mod update
+			light_flame_tank
+			medium_flame_tank
+			heavy_flame_tank
+		}		
+		
+		path = {
+			leads_to_tech = tech_engineers3
+			research_cost_coeff = 1
+		}
+
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.25			#modded
+		start_year = 1939
+		folder = {
+			name = support_folder
+			position = { x = 0 y = @1939 }
+		}
+		
+		categories = {
+			support_tech
+			engineers_tech
+		}
+		
+		ai_will_do = {
+			factor = 2
+			
+			modifier = {
+				factor = 1.2
+				date > "1940.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1941.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1942.1.1"
+			}
+		}
+	}
+	
+	tech_engineers3 = {
+
+		engineer = {
+			entrenchment = 2
+			river = {
+				attack = 0.1
+				defence = 0.10
+			}
+		}
+		path = {
+			leads_to_tech = tech_engineers4
+			research_cost_coeff = 1
+		}		
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.25			#modded
+		start_year = 1942
+		folder = {
+			name = support_folder
+			position = { x = 0 y = @1942 }
+		}
+		
+		categories = {
+			support_tech
+			engineers_tech
+		}
+		
+		ai_will_do = {
+			factor = 2
+			
+			modifier = {
+				factor = 1.2
+				date > "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1944.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1945.1.1"
+			}
+		}
+	}
+	
+	tech_engineers4 = {
+		engineer = {
+			entrenchment = 1
+			urban = {
+				attack = 0.1	
+				defence = 0.1
+			}
+		}
+		
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.25			#modded
+		start_year = 1945
+		folder = {
+			name = support_folder
+			position = { x = 0 y = @1945 }
+		}
+		
+		categories = {
+			support_tech
+			engineers_tech
+		}
+		
+		ai_will_do = {
+			factor = 2
+			
+			modifier = {
+				factor = 1.2
+				date > "1946.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1947.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1948.1.1"
+			}
+		}
+	}	
+	
+	tech_recon = {
+
+		enable_subunits = {
+			recon
+			mot_recon
+			armored_car_recon
+			light_tank_recon
+		}
+		
+		on_research_complete = {
+			hidden_effect = {
+				army_experience = 10
+			}
+			custom_effect_tooltip = gain_ten_army_xp_research
+		}
+		
+		path = {
+			leads_to_tech = tech_recon2
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 2
+		start_year = 1936
+		folder = {
+			name = support_folder
+			position = { x = 2 y = @1936 }
+		}
+		
+		categories = {
+			support_tech
+			recon_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1937.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1938.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1939.1.1"
+			}
+			modifier = {
+				factor = 10
+				date > "1940.1.1"
+			}
+		}
+	}
+	
+	tech_recon2 = {
+
+		category_recon = {
+			recon = 2
+		}
+		
+		path = {
+			leads_to_tech = tech_recon3
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.25			#modded
+		start_year = 1939
+		folder = {
+			name = support_folder
+			position = { x = 2 y = @1939 }
+		}
+		
+		categories = {
+			support_tech
+			recon_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1940.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1941.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1942.1.1"
+			}
+		}
+	}
+	
+	tech_recon3 = {
+
+		category_recon = {
+			recon = 2
+		}
+		path = {
+			leads_to_tech = tech_recon4
+			research_cost_coeff = 1
+		}
+
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.25			#modded
+		start_year = 1942
+		folder = {
+			name = support_folder
+			position = { x = 2 y = @1942 }
+		}
+		
+		categories = {
+			support_tech
+			recon_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1944.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1945.1.1"
+			}
+		}
+	}
+	tech_recon4 = {
+
+		category_recon = {
+			recon = 2
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.25			#modded
+		start_year = 1945
+		folder = {
+			name = support_folder
+			position = { x = 2 y = @1945 }
+		}
+		
+		categories = {
+			support_tech
+			recon_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1946.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1947.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1948.1.1"
+			}
+		}
+	}
+	
+	tech_military_police = {
+
+		enable_subunits = {
+			military_police
+		}
+		
+		on_research_complete = {		#modded
+			hidden_effect = {			#modded
+				army_experience = 10	#modded
+			}
+			custom_effect_tooltip = gain_ten_army_xp_research
+		}								#modded
+		
+		path = {
+			leads_to_tech = tech_military_police2
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1				#modded
+		start_year = 1936
+		folder = {
+			name = support_folder
+			position = { x = 4 y = @1936 }
+		}
+		
+		categories = {
+			support_tech
+			military_police_tech
+		}
+		
+		ai_will_do = {
+			factor = 0.5
+			
+			modifier = {
+				factor = 5
+				tag = GER
+			}
+
+			modifier = {
+				factor = 10
+				tag = GER
+
+				POL = { has_capitulated = yes }
+				GER = { has_war = yes }
+			}
+			
+			modifier = {
+				factor = 5
+				tag = JAP
+			}
+			
+			modifier = {
+				factor = 2
+				tag = ITA
+			}
+			
+			modifier = {
+				factor = 2
+				tag = ENG
+			}
+			
+			modifier = {
+				factor = 2
+				tag = USA
+			}
+			
+			modifier = {
+				factor = 2
+				has_war = yes
+			}
+		}
+	}
+	
+	tech_military_police2 = {
+
+		military_police = {
+			suppression_factor = 0.1
+			max_organisation = 15		#mod update
+		}
+		
+		
+		path = {
+			leads_to_tech = tech_military_police3
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1				#modded
+		start_year = 1939
+		folder = {
+			name = support_folder
+			position = { x = 4 y = @1939 }
+		}
+		
+		categories = {
+			support_tech
+			military_police_tech
+		}
+		
+		ai_will_do = {
+			factor = 0.5
+			
+			modifier = {
+				factor = 2
+				has_war = yes
+			}
+		}
+	}
+	
+	tech_military_police3 = {
+
+		military_police = {
+			suppression_factor = 0.1
+			max_organisation = 15		#mod update
+		}
+		path = {
+			leads_to_tech = tech_military_police4
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1				#modded
+		start_year = 1942
+		folder = {
+			name = support_folder
+			position = { x = 4 y = @1942 }
+		}
+		
+		categories = {
+			support_tech
+			military_police_tech
+		}
+		
+		ai_will_do = {
+			factor = 0.5
+			
+			modifier = {
+				factor = 2
+				has_war = yes
+			}
+		}
+	}
+	tech_military_police4 = {
+
+		military_police = {
+			suppression_factor = 0.1
+			max_organisation = 15		#mod update
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.25			#modded
+		start_year = 1945
+		folder = {
+			name = support_folder
+			position = { x = 4 y = @1945 }
+		}
+		
+		categories = {
+			support_tech
+			military_police_tech
+		}
+		
+		ai_will_do = {
+			factor = 0.5
+			
+			modifier = {
+				factor = 2
+				has_war = yes
+			}
+		}
+	}
+
+	tech_maintenance_company = {
+
+		enable_subunits = {
+			maintenance_company
+		}
+		
+		on_research_complete = {
+			hidden_effect = {
+				army_experience = 10
+			}
+			custom_effect_tooltip = gain_ten_army_xp_research
+		}
+		
+		path = {
+			leads_to_tech = tech_maintenance_company2
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 2
+		start_year = 1936
+		folder = {
+			name = support_folder
+			position = { x = 6 y = @1936 }
+		}
+		
+		categories = {
+			support_tech
+			maintenance_company_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1937.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1938.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1939.1.1"
+			}
+		}
+	}
+	
+	tech_maintenance_company2 = {
+
+		maintenance_company = {
+			reliability_factor = 0.05
+			equipment_capture_factor = 0.05
+		}
+		enable_equipment_modules = {
+			easy_maintenance
+		}
+		
+		
+		path = {
+			leads_to_tech = tech_maintenance_company3
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.5
+		start_year = 1939
+		folder = {
+			name = support_folder
+			position = { x = 6 y = @1939 }
+		}
+		
+		categories = {
+			support_tech
+			maintenance_company_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1940.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1941.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1942.1.1"
+			}
+		}
+	}
+	
+	tech_maintenance_company3 = {
+
+		maintenance_company = {
+			reliability_factor = 0.05
+			equipment_capture_factor = 0.05
+		}
+		path = {
+			leads_to_tech = tech_maintenance_company4
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.5
+		start_year = 1942
+		folder = {
+			name = support_folder
+			position = { x = 6 y = @1942 }
+		}
+		
+		categories = {
+			support_tech
+			maintenance_company_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1944.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1945.1.1"
+			}
+		}
+	}
+	tech_maintenance_company4 = {
+
+		maintenance_company = {
+			reliability_factor = 0.05
+			equipment_capture_factor = 0.05
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.5
+		start_year = 1945
+		folder = {
+			name = support_folder
+			position = { x = 6 y = @1945 }
+		}
+		
+		categories = {
+			support_tech
+			maintenance_company_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1946.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1947.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1948.1.1"
+			}
+		}
+	}
+	
+	
+	#SNIPERS 
+	
+	tech_sniper = {
+
+		enable_subunits = {
+			sniper
+		}
+		
+		on_research_complete = {
+			hidden_effect = {
+				army_experience = 10
+			}
+			custom_effect_tooltip = gain_ten_army_xp_research
+		}
+		
+		path = {
+			leads_to_tech = tech_sniper2
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.5				#mod update
+		start_year = 1936
+		folder = {
+			name = support_folder
+			position = { x = 8 y = @1936 }
+		}
+		
+		categories = {
+			support_tech
+			sniper_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1937.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1938.1.1"
+			}
+			
+			modifier = {
+				factor = 3
+				date > "1939.1.1"
+			}
+			modifier = {
+				factor = 10
+				date > "1940.1.1"
+			}
+		}
+	}
+	
+	tech_sniper2 = {
+
+		sniper = {
+			recon = 1
+			max_organisation = 5		#mod update
+			soft_attack = 0.1
+			river = {
+				attack = 0.1
+			}
+			# Did nothing
+			#amphibious = {
+			#	defence = 0.1
+			#}
+		}
+		
+		path = {
+			leads_to_tech = tech_sniper3
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1				#mod update
+		start_year = 1939
+		folder = {
+			name = support_folder
+			position = { x = 8 y = @1939 }
+		}
+		
+		categories = {
+			support_tech
+			sniper_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1940.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1941.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1942.1.1"
+			}
+		}
+	}
+	
+	tech_sniper3 = {
+
+		sniper = {
+			recon  = 1
+			max_organisation = 5		#mod update
+			soft_attack = 0.1
+			forest = {
+				attack = 0.1
+				defence = 0.05
+			}
+			jungle = {
+				attack = 0.1
+				defence = 0.05
+			}
+		}
+		
+		path = {
+			leads_to_tech = tech_sniper4
+			research_cost_coeff = 1
+		}		
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1				#mod update
+		start_year = 1942
+		folder = {
+			name = support_folder
+			position = { x = 8 y = @1942 }
+		}
+		
+		categories = {
+			support_tech
+			sniper_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1944.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1945.1.1"
+			}
+		}
+	}
+	
+	tech_sniper4 = {
+
+		sniper = {
+			recon  = 1
+			max_organisation = 5		#mod update
+			soft_attack = 0.1
+			mountain = {
+				attack = 0.1
+				defence = 0.05
+			}
+			hills = {
+				attack = 0.1	
+				defence = 0.05
+			}
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1				#mod update
+		start_year = 1945
+		folder = {
+			name = support_folder
+			position = { x = 8 y = @1945 }
+		}
+		
+		categories = {
+			support_tech
+			sniper_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1946.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1947.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1948.1.1"
+			}
+		}
+	}
+	
+	#FLAMETHROWERS
+	
+
+	
+	#RAIDERS
+	
+	tech_raider = {
+		enable_subunits = {
+			raider
+		}
+		
+		on_research_complete = {
+			hidden_effect = {
+				army_experience = 10
+			}
+			custom_effect_tooltip = gain_ten_army_xp_research
+		}
+		
+		path = {
+			leads_to_tech = tech_raider2
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.5					#mod update
+		start_year = 1936
+		folder = {
+			name = support_folder
+			position = { x = 10 y = @1936 }
+		}
+		
+		categories = {
+			support_tech
+			raider_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1937.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1938.1.1"
+			}
+			
+			modifier = {
+				factor = 3
+				date > "1939.1.1"
+			}
+			modifier = {
+				factor = 10
+				date > "1940.1.1"
+			}
+		}
+	}
+	
+	tech_raider2 = {
+		raider = {
+			max_organisation = 10			#mod update
+			defense = 0.25
+		}
+		
+		path = {
+			leads_to_tech = tech_raider3
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.5
+		start_year = 1939
+		folder = {
+			name = support_folder
+			position = { x = 10 y = @1939 }
+		}
+		
+		categories = {
+			support_tech
+			raider_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1940.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1941.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1942.1.1"
+			}
+		}
+	}
+	
+	tech_raider3 = {
+		raider = {
+			recon = 1
+			max_organisation = 10			#mod update
+			breakthrough = 0.5
+			soft_attack = 0.1
+		}
+		
+		path = {
+			leads_to_tech = tech_raider4
+			research_cost_coeff = 1
+		}		
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.5
+		start_year = 1942
+		folder = {
+			name = support_folder
+			position = { x = 10 y = @1942 }
+		}
+		
+		categories = {
+			support_tech
+			raider_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1944.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1945.1.1"
+			}
+		}
+	}
+	
+	tech_raider4 = {
+		raider = {
+			max_organisation = 10			#mod update
+			soft_attack = 0.25
+			hard_attack = 0.25
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.5
+		start_year = 1945
+		folder = {
+			name = support_folder
+			position = { x = 10 y = @1945 }
+		}
+		
+		categories = {
+			support_tech
+			raider_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1946.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1947.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1948.1.1"
+			}
+		}
+	}
+
+	tech_field_hospital = {
+
+		enable_subunits = {
+			field_hospital
+		}
+		
+		on_research_complete = {
+			hidden_effect = {
+				army_experience = 10
+			}
+			custom_effect_tooltip = gain_ten_army_xp_research
+		}
+		
+		path = {
+			leads_to_tech = tech_field_hospital2
+			research_cost_coeff = 1
+		}
+
+		dependencies = {
+			motorised_infantry = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 2
+		start_year = 1936
+		folder = {
+			name = support_folder
+			position = { x = 12 y = @1936 }
+		}
+		
+		categories = {
+			support_tech
+			hospital_tech
+			motorized_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1937.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1938.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1939.1.1"
+			}
+		}
+	}
+	
+	tech_field_hospital2 = {
+
+		field_hospital = {
+			casualty_trickleback = 0.15		#mod update
+			experience_loss_factor = -0.20	#mod update
+			max_organisation = 5			#mod update
+		}
+		
+		path = {
+			leads_to_tech = tech_field_hospital3
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1					#mod update
+		start_year = 1939
+		folder = {
+			name = support_folder
+			position = { x = 12 y = @1939 }
+		}
+		
+		categories = {
+			support_tech
+			hospital_tech
+			motorized_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1940.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1941.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1942.1.1"
+			}
+		}
+	}
+	
+	tech_field_hospital3 = {
+
+		field_hospital = {
+			casualty_trickleback = 0.15		#mod update
+			experience_loss_factor = -0.20	#mod update
+			max_organisation = 5			#mod update
+		}
+		path = {
+			leads_to_tech = tech_field_hospital4
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1					#mod update
+		start_year = 1942
+		folder = {
+			name = support_folder
+			position = { x = 12 y = @1942 }
+		}
+		
+		categories = {
+			support_tech
+			hospital_tech
+			motorized_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1944.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1945.1.1"
+			}
+		}
+	}
+	tech_field_hospital4 = {
+
+		field_hospital = {
+			casualty_trickleback = 0.2		#mod update
+			experience_loss_factor = -0.10	#mod update
+			max_organisation = 10			#mod update
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1					#mod update
+		start_year = 1945
+		folder = {
+			name = support_folder
+			position = { x = 12 y = @1945 }
+		}
+		
+		categories = {
+			support_tech
+			hospital_tech
+			motorized_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1946.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1947.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1948.1.1"
+			}
+		}
+	}
+
+	tech_logistics_company = {
+
+		enable_subunits = {
+			logistics_company
+		}
+		
+		on_research_complete = {
+			hidden_effect = {
+				army_experience = 10
+			}
+			custom_effect_tooltip = gain_ten_army_xp_research
+		}
+		
+		path = {
+			leads_to_tech = tech_logistics_company2
+			research_cost_coeff = 1
+		}
+
+		dependencies = {
+			motorised_infantry = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.5					#mod update
+		start_year = 1936
+		folder = {
+			name = support_folder
+			position = { x = 14 y = @1936 }
+		}
+		
+		categories = {
+			support_tech
+			logistics_tech
+			motorized_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1937.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1938.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1939.1.1"
+			}
+			modifier = {
+				factor = 5
+				date > "1940.1.1"
+			}
+		}
+	}
+	
+	tech_logistics_company2 = {
+
+		logistics_company = {
+			supply_consumption_factor = -0.1
+			fuel_consumption_factor = -0.05
+		}
+		
+		
+		path = {
+			leads_to_tech = tech_logistics_company3
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1					#mod update
+		start_year = 1939
+		folder = {
+			name = support_folder
+			position = { x = 14 y = @1939 }
+		}
+		
+		categories = {
+			support_tech
+			logistics_tech
+			motorized_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1940.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1941.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1942.1.1"
+			}
+
+			modifier = {
+				factor = 2
+				tag = GER
+			}
+		}
+	}
+	
+	tech_logistics_company3 = {
+
+		logistics_company = {
+			supply_consumption_factor = -0.1
+			fuel_consumption_factor = -0.05
+		}
+		path = {
+			leads_to_tech = tech_logistics_company4
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1					#mod update
+		start_year = 1942
+		folder = {
+			name = support_folder
+			position = { x = 14 y = @1942 }
+		}
+		
+		categories = {
+			support_tech
+			logistics_tech
+			motorized_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1944.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1945.1.1"
+			}
+		}
+	}
+	tech_logistics_company4 = {
+
+		logistics_company = {
+			supply_consumption_factor = -0.1
+			fuel_consumption_factor = -0.05
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1					#mod update
+		start_year = 1945
+		folder = {
+			name = support_folder
+			position = { x = 14 y = @1945 }
+		}
+		
+		categories = {
+			support_tech
+			logistics_tech
+			motorized_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1946.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1947.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1948.1.1"
+			}
+		}
+	}
+
+
+	tech_signal_company = {
+
+		enable_subunits = {
+			signal_company
+		}
+		
+		on_research_complete = {  		#modded
+			hidden_effect = {  			#modded
+				army_experience = 10  	#modded
+				}
+			custom_effect_tooltip = gain_ten_army_xp_research
+		}  								#modded
+		
+		path = {
+			leads_to_tech = tech_signal_company2
+			research_cost_coeff = 1
+		}
+
+		dependencies = {
+			radio = 1
+			motorised_infantry = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 2
+		start_year = 1936
+		folder = {
+			name = support_folder
+			position = { x = 16 y = @1936 }
+		}
+		
+		categories = {
+			support_tech
+			signal_company_tech
+			electronics
+		}
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 5
+				is_major = yes
+				date > "1940.1.1"
+			}
+		}
+	}
+	
+	tech_signal_company2 = {
+
+		signal_company = {
+			initiative = 0.1				#modded
+			max_organisation = 5  			#modded
+		}
+		
+		
+		path = {
+			leads_to_tech = tech_signal_company3
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.5
+		start_year = 1939
+		folder = {
+			name = support_folder
+			position = { x = 16 y = @1939 }
+		}
+		
+		categories = {
+			support_tech
+			signal_company_tech
+			electronics
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1937.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1938.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1939.1.1"
+			}
+		}
+	}
+	
+	tech_signal_company3 = {
+
+		signal_company = {
+			initiative = 0.1				#modded
+			max_organisation = 5  			#modded
+		}
+		path = {
+			leads_to_tech = tech_signal_company4
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.5
+		start_year = 1942
+		folder = {
+			name = support_folder
+			position = { x = 16 y = @1942 }
+		}
+		
+		categories = {
+			support_tech
+			signal_company_tech
+			electronics
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1944.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1945.1.1"
+			}
+		}
+	}
+	tech_signal_company4 = {
+
+		signal_company = {
+			initiative = 0.2			#modded
+			default_morale = 0.1  		#modded
+			max_organisation = 5  		#modded
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.5
+		start_year = 1945
+		folder = {
+			name = support_folder
+			position = { x = 16 y = @1945 }
+		}
+		
+		categories = {
+			support_tech
+			signal_company_tech
+			electronics
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.2
+				date > "1946.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1947.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1948.1.1"
+			}
+		}
+	}
+	
+	#COMMAND 
+	
+	tech_command = {
+
+		enable_subunits = {
+			command
+		}
+		
+		on_research_complete = {
+			hidden_effect = {
+				army_experience = 10
+				}
+			custom_effect_tooltip = gain_ten_army_xp_research
+		}
+			
+		path = {
+			leads_to_tech = tech_command2
+			research_cost_coeff = 1
+		}
+
+		dependencies = {
+			radio = 1
+			motorised_infantry = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 2
+		start_year = 1936
+		folder = {
+			name = support_folder
+			position = { x = 18 y = @1936 }
+		}
+		
+		categories = {
+			support_tech
+			command_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0.5
+				is_major = yes
+			}
+			
+			modifier = {
+				factor = 1
+				date > "1937.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1938.1.1"
+			}
+			
+			modifier = {
+				factor = 3
+				date > "1939.1.1"
+			}
+			modifier = {
+				factor = 5
+				date > "1940.1.1"
+			}
+		}
+	}
+	
+	tech_command2 = {
+
+		command = {
+		max_organisation = 10
+		default_morale = 0.5
+		combat_width = -1
+		}
+		
+		path = {
+			leads_to_tech = tech_command3
+			research_cost_coeff = 1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.5
+		start_year = 1939
+		folder = {
+			name = support_folder
+			position = { x = 18 y = @1939 }
+		}
+		
+		categories = {
+			support_tech
+			command_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1
+				date > "1940.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1941.1.1"
+			}
+			
+			modifier = {
+				factor = 3
+				date > "1942.1.1"
+			}
+		}
+	}
+	
+	tech_command3 = {
+
+		command = {
+		max_organisation = 10
+		default_morale = 0.5
+		combat_width = -1
+		}
+	
+		path = {
+			leads_to_tech = tech_command4
+			research_cost_coeff = 1
+		}		
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.5
+		start_year = 1942
+		folder = {
+			name = support_folder
+			position = { x = 18 y = @1942 }
+		}
+		
+		categories = {
+			support_tech
+			command_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1
+				date > "1943.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1944.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1945.1.1"
+			}
+		}
+	}
+	
+	tech_command4 = {
+
+		command = {
+		max_organisation = 10
+		default_morale = 0.5
+		combat_width = -1
+		}
+
+		xp_research_type = army
+		xp_boost_cost = 25
+		xp_research_bonus = 1
+		research_cost = 1.5
+		start_year = 1945
+		folder = {
+			name = support_folder
+			position = { x = 18 y = @1945 }
+		}
+		
+		categories = {
+			support_tech
+			command_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1
+				date > "1946.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1947.1.1"
+			}
+			
+			modifier = {
+				factor = 2
+				date > "1948.1.1"
+			}
+		}
+	}
+
+	basic_train = {
+		enable_equipments = {
+			train_equipment_1
+		}
+
+		research_cost = 1.5
+		start_year = 1910
+		folder = {
+			name = support_folder
+			position = { x = 8 y = @1918 }
+		}
+
+		path = {
+			leads_to_tech = wartime_train
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = armored_train
+			research_cost_coeff = 1
+		}
+		
+		categories = {
+			train_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				num_of_factories > 25
+				factor = 100 #might wanna get on that
+			}
+			modifier = {
+				factor = 1.2
+				date > "1936.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1937.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1938.1.1"
+			}
+		}
+	}
+
+	wartime_train = {
+		enable_equipments = {
+			train_equipment_2
+		}
+
+		research_cost = 1.5
+		start_year = 1939
+		folder = {
+			name = support_folder
+			position = { x = 8 y = @1939 }
+		}
+		
+		categories = {
+			train_tech
+		}
+		
+		ai_will_do = {
+			factor = 2
+			
+			modifier = {
+				has_war = yes
+				factor = 20
+			}
+			modifier = {
+				factor = 1.2
+				date > "1940.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1941.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1942.1.1"
+			}
+		}
+	}
+
+	armored_train = {
+		enable_equipments = {
+			train_equipment_3
+		}
+
+		allow_branch = {
+			has_dlc = "No Step Back"
+		}
+
+		path = {
+			leads_to_tech = railway_gun
+			research_cost_coeff = 1
+		}
+		
+		allow_branch = {
+			has_dlc = "No Step Back"
+		}
+		
+		research_cost = 1.5
+		start_year = 1936
+		folder = {
+			name = support_folder
+			position = { x = 10 y = 3 }
+		}
+		
+		categories = {
+			train_tech
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				has_war = yes
+				factor = 20
+			}
+			modifier = {
+				tag = GER
+				factor = 5
+			}
+			modifier = {
+				factor = 1.2
+				date > "1938.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1939.1.1"
+			}
+			
+			modifier = {
+				factor = 1.2
+				date > "1940.1.1"
+			}
+		}
+	}
+
+railway_gun = {
+		enable_equipments = {
+			railway_gun_equipment_1
+		}
+
+		research_cost = 1.5
+		start_year = 1936
+		folder = {
+			name = support_folder
+			position = { x = 13 y = 3 }
+		}
+		
+		categories = {
+			train_tech
+			artillery
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				is_major = yes
+				factor = 2
+			}
+
+			modifier = {
+				OR = {
+					TAG = GER
+					tag = SOV
+				}
+				factor = 1.5
+			}
+		}
+	}
+
+}

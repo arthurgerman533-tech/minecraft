@@ -38,8 +38,18 @@ technologies = {
 		local_resources_factor = 0.1
 		production_lack_of_resource_penalty_factor = -0.05
 		on_research_complete = {
-			modify_building_resources = { building = aluminum_mill resource = aluminium amount = 4 }
-			modify_building_resources = { building = steel_mill resource = steel amount = 4 }
+			modify_building_resources = {
+				building = aluminum_mill
+				resource = aluminium
+				amount = 4
+			}
+		}
+		on_research_complete = {
+			modify_building_resources = {
+				building = steel_mill
+				resource = steel
+				amount = 4
+			}
 		}
 		research_cost = 2.5
 		start_year = 1945
@@ -80,7 +90,11 @@ technologies = {
 
 	improved_modern_rubber_processing = {
 		on_research_complete = {
-			modify_building_resources = { building = synthetic_refinery resource = rubber amount = 1 }
+			modify_building_resources = {
+				building = synthetic_refinery
+				resource = rubber
+				amount = 1
+			}
 		}
 		show_effect_as_desc = yes
 		research_cost = 2
