@@ -587,3 +587,4 @@ body.sheetopen{overflow:hidden}
 .sheet-c a.h1,.sheet-c a.h2,.sheet-c a.h3,.doc aside a.h3{margin:0}
 .doc aside a.h3{padding-left:12px;font-size:.85rem}
 .sheet-c.grid2 a.on{border-color:var(--gold)}
+.donate .tier-god{border-color:var(--gold);border-width:2px;background:linear-gradient(180deg,color-mix(in srgb,var(--gold) 12%,transparent),transparent)}

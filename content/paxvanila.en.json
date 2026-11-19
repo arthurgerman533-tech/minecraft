@@ -607,8 +607,23 @@
      "\"Patron\" Discord role"
     ],
     "button": "Support"
+   },
+   {
+    "id": "god",
+    "name": "God",
+    "price": "Price coming soon",
+    "items": [
+     "Everything Patron has",
+     "\"God\" prefix with a golden nickname",
+     "A personal statue of you at the tower at 0, 0",
+     "Your own entry in the Great Chronicle on the site",
+     "Early access to new videos and epoch covers",
+     "\"God\" Discord role",
+     "A PaxVanila lore figurine, 3D-printed (terms and delivery coming soon)"
+    ],
+    "button": "Become a God"
    }
   ],
-  "note": "The paid tier gives no in-game advantage: no resources, weapons or war privileges. Cosmetics only."
+  "note": "Paid tiers give no in-game advantage: no resources, weapons or war privileges. Cosmetics only."
  }
 }
