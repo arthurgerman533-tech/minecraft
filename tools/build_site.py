@@ -128,6 +128,11 @@ def load_map(lang):
     out["lore"] = [{kk: loc(vv) if kk in ("name", "text") else vv for kk, vv in it.items()} for it in M.get("lore", [])]
     out["far"] = [{kk: loc(vv) if kk in ("name", "text") else vv for kk, vv in it.items()} for it in M.get("far", [])]
     out["blocs"] = {k: loc(v) for k, v in M["blocs"].items()}
+    N = M.get("nether")
+    if N:
+        tr = lambda L: [{kk: loc(vv) if kk in ("name", "text") else vv for kk, vv in it.items()} for it in L]
+        out["nether"] = {"places": tr(N.get("places", [])), "sites": tr(N.get("sites", [])),
+                         "roads": N.get("roads", []), "roadName": loc(N.get("roadName", "")), "roadText": loc(N.get("roadText", ""))}
     out["towns"], out["townsDate"] = [], ""
     tp = os.path.join(ROOT, "content", "map_towns.json")
     if os.path.exists(tp):

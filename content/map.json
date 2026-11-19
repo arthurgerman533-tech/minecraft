@@ -561,5 +561,196 @@
    "ru": "Степной Пакт (восток)",
    "en": "Steppe Pact (east)"
   }
+ },
+ "nether": {
+  "_comment": "Карта Незера. Координаты Незера (1 блок здесь = 8 блоков в верхнем мире). Порталы держав считаются сами из powers (x/8, z/8). Места ниже это СХЕМА по лору: настоящие крепости и бастионы генерирует сид, поправь x/z, когда их найдут.",
+  "places": [
+   {
+    "id": "gates",
+    "kind": "gates",
+    "x": 0,
+    "z": 0,
+    "name": {
+     "ru": "Великие врата",
+     "en": "The Great Gates"
+    },
+    "text": {
+     "ru": "Обратная сторона Монолита. Здесь стояли первые и самые большие врата Предтеч, к ним вели все остальные. С этой стороны печать видна как застывший обсидиановый купол. Ойра Каэр-Тал замкнула её изнутри и не вышла.",
+     "en": "The underside of the Monolith. The first and greatest gates of the Forerunners stood here, and every other gate led to them. From this side the seal is a frozen dome of obsidian. Oira Caer-Tal locked it from within and never came out."
+    }
+   }
+  ],
+  "sites": [
+   {
+    "id": "f_neferu",
+    "kind": "fortress",
+    "x": 60,
+    "z": 172,
+    "name": {
+     "ru": "Крепость Солнценосцев",
+     "en": "Fortress of the Sunborn"
+    },
+    "text": {
+     "ru": "~1800 д.Р.: жрецы Нэферу первыми сложили рамку из обсидиана и вышли сюда. Кладку этой крепости строили не пиглины, а Предтечи.",
+     "en": "~1800 BR: the priests of Neferu were the first to build an obsidian frame and step through. This fortress was built by the Forerunners, not by the piglins."
+    }
+   },
+   {
+    "id": "f_urkadim",
+    "kind": "fortress",
+    "x": 88,
+    "z": 44,
+    "name": {
+     "ru": "Крепость Двух рек",
+     "en": "Fortress of the Two Rivers"
+    },
+    "text": {
+     "ru": "Через эти врата цари Ур-Кадима посылали армии на крепости пиглинов. Отсюда несли золото, кварц и светокамень.",
+     "en": "The kings of Ur-Kadim sent their armies through these gates against the piglin strongholds. Gold, quartz and glowstone were carried out from here."
+    }
+   },
+   {
+    "id": "f_caertal",
+    "kind": "fortress",
+    "x": 150,
+    "z": -92,
+    "name": {
+     "ru": "Медная застава",
+     "en": "The Copper Outpost"
+    },
+    "text": {
+     "ru": "Застава мастеров Каэр-Тала. Ойра писала отсюда: «Каждые врата это дыра в стене нашего дома». Здесь замеряли, как трескается мир.",
+     "en": "An outpost of the Caer-Tal masters. Oira wrote from here: «Every gate is a hole in the wall of our home». Here they measured how the world was cracking."
+    }
+   },
+   {
+    "id": "f_thalassia",
+    "kind": "fortress",
+    "x": -196,
+    "z": 52,
+    "name": {
+     "ru": "Затопленные врата",
+     "en": "The Drowned Gates"
+    },
+    "text": {
+     "ru": "Осень Года Пепла: под главным островом Талассии открылись подводные врата. С этой стороны до сих пор шипит застывшая лава, а в стенах находят ракушки.",
+     "en": "Autumn of the Year of Ash: underwater gates opened beneath the main island of Thalassia. On this side the cooled lava still hisses, and shells are found in the walls."
+    }
+   },
+   {
+    "id": "b_elders",
+    "kind": "bastion",
+    "x": -110,
+    "z": -150,
+    "name": {
+     "ru": "Бастион Старейшин",
+     "en": "Bastion of the Elders"
+    },
+    "text": {
+     "ru": "Дом брутальных пиглинов. Старейшины говорят, что заберут свой мир обратно. Готовый повод для ивента «Возвращение из Незера».",
+     "en": "Home of the piglin brutes. The elders say they will take their world back. A ready hook for the «Return from the Nether» event."
+    }
+   },
+   {
+    "id": "b_treasury",
+    "kind": "bastion",
+    "x": 205,
+    "z": 140,
+    "name": {
+     "ru": "Золотая сокровищница",
+     "en": "The Golden Treasury"
+    },
+    "text": {
+     "ru": "Пиглины свозят сюда всё золото, что вернули после Года Пепла. Они помнят, что Предтечи грабили их пятьсот лет, и не простили.",
+     "en": "The piglins bring here all the gold they took back after the Year of Ash. They remember five hundred years of Forerunner raids, and have not forgiven."
+    }
+   },
+   {
+    "id": "golden_march",
+    "kind": "legend",
+    "x": 130,
+    "z": 95,
+    "name": {
+     "ru": "Где пропал Золотой Поход",
+     "en": "Where the Golden March vanished"
+    },
+    "text": {
+     "ru": "1300 д.Р.: армия Ур-Кадима ушла в Незер грабить крепости пиглинов и не вернулась. Это был первый раз, когда Незер ответил. Говорят, здесь находят незеритовые мечи.",
+     "en": "1300 BR: the army of Ur-Kadim marched into the Nether to plunder piglin strongholds and never returned. It was the first time the Nether struck back. Netherite swords are said to be found here."
+    }
+   },
+   {
+    "id": "weeping",
+    "kind": "legend",
+    "x": -60,
+    "z": 95,
+    "name": {
+     "ru": "Поле плачущих врат",
+     "en": "Field of the Weeping Gates"
+    },
+    "text": {
+     "ru": "Весна Года Пепла: врата начали открываться сами, обсидиан «заплакал» фиолетовыми слезами. Здесь стоят десятки погасших рамок, ветви, которые засохли, когда закрыли ствол на 0, 0.",
+     "en": "Spring of the Year of Ash: the gates began to open on their own and the obsidian wept purple tears. Dozens of dead frames stand here, branches that withered when the trunk at 0, 0 was closed."
+    }
+   },
+   {
+    "id": "ash_sea",
+    "kind": "legend",
+    "x": -40,
+    "z": -235,
+    "name": {
+     "ru": "Море Пепла",
+     "en": "The Sea of Ash"
+    },
+    "text": {
+     "ru": "Лавовое море на севере Незера. Отсюда в Год Пепла поднимался пепел, который затянул небо верхнего мира.",
+     "en": "A sea of lava in the north of the Nether. In the Year of Ash the smoke that darkened the sky of the upper world rose from here."
+    }
+   },
+   {
+    "id": "crimson_rift",
+    "kind": "legend",
+    "x": -210,
+    "z": -60,
+    "name": {
+     "ru": "Багровый разлом",
+     "en": "The Crimson Rift"
+    },
+    "text": {
+     "ru": "Багровый лес, в котором компас крутится как бешеный. Страж-7 записал: здесь тоньше всего стена к Миру Багрового Солнца, где Незер победил.",
+     "en": "A crimson forest where the compass spins wildly. Guardian-7 recorded that here the wall is thinnest to the World of the Crimson Sun, where the Nether won."
+    }
+   }
+  ],
+  "roads": [
+   {
+    "id": "n",
+    "x": 0,
+    "z": -250
+   },
+   {
+    "id": "s",
+    "x": 0,
+    "z": 250
+   },
+   {
+    "id": "w",
+    "x": -250,
+    "z": 0
+   },
+   {
+    "id": "e",
+    "x": 250,
+    "z": 0
+   }
+  ],
+  "roadName": {
+   "ru": "Медный тракт",
+   "en": "Copper Road"
+  },
+  "roadText": {
+   "ru": "Схема магистралей Незера от Великих врат по четырём осям. Их строят игроки: 1 блок тракта = 8 блоков пути наверху.",
+   "en": "A plan of Nether highways from the Great Gates along the four axes. Players build them: 1 block of road = 8 blocks of travel above."
+  }
  }
 }

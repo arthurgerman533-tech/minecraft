@@ -116,30 +116,30 @@ a.iconbtn{display:inline-grid;place-items:center;text-decoration:none;font:700 .
 .chips button{border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:999px;padding:6px 12px;font:600 .85rem Inter,system-ui,sans-serif;cursor:pointer}
 .chips button.on{background:var(--gold);border-color:var(--gold);color:var(--ongold)}
 .mbox{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:color-mix(in srgb,#2f7fb5 16%,var(--bg));box-shadow:var(--shadow)}
-#msvg{display:block;width:100%;height:min(72vh,620px);touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
-#msvg:active{cursor:grabbing}
-#msvg *{vector-effect:non-scaling-stroke}
-#msvg text{font-family:Inter,system-ui,sans-serif;text-anchor:middle;paint-order:stroke;stroke:var(--bg);stroke-width:3px;stroke-linejoin:round;fill:var(--ink)}
-#msvg .land{fill:color-mix(in srgb,#6f9a4a 22%,var(--bg));stroke:var(--line)}
-#msvg .gl{stroke:var(--line);stroke-width:1;opacity:.7}#msvg .gl.axis{stroke:var(--muted);opacity:.5;stroke-dasharray:4 4}
-#msvg .gt{font-size:calc(var(--k)*10px);fill:var(--muted);text-anchor:start}
-#msvg .ring{fill:none;stroke:var(--gold);stroke-width:1.2;stroke-dasharray:6 5;opacity:.55}
-#msvg .ring.sel{stroke-width:3;opacity:1;stroke-dasharray:none}
-#msvg .ring.now{stroke:var(--bad);stroke-width:3;opacity:1;stroke-dasharray:none}
-#msvg .rt{font-size:calc(var(--k)*11px);fill:var(--gold);font-weight:700;text-anchor:start;dominant-baseline:text-after-edge;opacity:.8}
-#msvg .rt.sel{opacity:1;font-size:calc(var(--k)*13px)}#msvg .rt.now{fill:var(--bad);opacity:1;dominant-baseline:text-before-edge}
-#msvg .spawnz{fill:var(--gold);fill-opacity:.12;stroke:var(--gold);stroke-dasharray:3 3}
-#msvg .pw,#msvg .an,#msvg .tw,#msvg .mono{cursor:pointer;outline:none}
-#msvg .pwa{fill-opacity:.2;stroke:none}
-#msvg .pw:hover .pwa,#msvg .pw:focus .pwa{fill-opacity:.36}
-#msvg .pwd{stroke:var(--bg);stroke-width:2}
-#msvg .pt{font-size:calc(var(--k)*14px);font-weight:700;dominant-baseline:hanging}
-#msvg .and{fill:var(--accent);fill-opacity:.85;stroke:var(--bg);stroke-width:1.5}
-#msvg .at{font-size:calc(var(--k)*12px);font-style:italic;fill:var(--accent);dominant-baseline:hanging}
-#msvg .tb{fill-opacity:.55;stroke:none}#msvg .twd{stroke:var(--bg);stroke-width:2}
-#msvg .tt{font-size:calc(var(--k)*12px);font-weight:600;dominant-baseline:hanging}
-#msvg .md{fill:var(--ink);stroke:var(--gold);stroke-width:3}
-#msvg .mt{font-size:calc(var(--k)*15px);font-weight:700;fill:var(--gold)}
+.msvg{display:block;width:100%;height:min(72vh,620px);touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.msvg:active{cursor:grabbing}
+.msvg *{vector-effect:non-scaling-stroke}
+.msvg text{font-family:Inter,system-ui,sans-serif;text-anchor:middle;paint-order:stroke;stroke:var(--bg);stroke-width:3px;stroke-linejoin:round;fill:var(--ink)}
+.msvg .land{fill:color-mix(in srgb,#6f9a4a 22%,var(--bg));stroke:var(--line)}
+.msvg .gl{stroke:var(--line);stroke-width:1;opacity:.7}.msvg .gl.axis{stroke:var(--muted);opacity:.5;stroke-dasharray:4 4}
+.msvg .gt{font-size:calc(var(--k)*10px);fill:var(--muted);text-anchor:start}
+.msvg .ring{fill:none;stroke:var(--gold);stroke-width:1.2;stroke-dasharray:6 5;opacity:.55}
+.msvg .ring.sel{stroke-width:3;opacity:1;stroke-dasharray:none}
+.msvg .ring.now{stroke:var(--bad);stroke-width:3;opacity:1;stroke-dasharray:none}
+.msvg .rt{font-size:calc(var(--k)*11px);fill:var(--gold);font-weight:700;text-anchor:start;dominant-baseline:text-after-edge;opacity:.8}
+.msvg .rt.sel{opacity:1;font-size:calc(var(--k)*13px)}.msvg .rt.now{fill:var(--bad);opacity:1;dominant-baseline:text-before-edge}
+.msvg .spawnz{fill:var(--gold);fill-opacity:.12;stroke:var(--gold);stroke-dasharray:3 3}
+.msvg .pw,.msvg .an,.msvg .tw,.msvg .mono{cursor:pointer;outline:none}
+.msvg .pwa{fill-opacity:.2;stroke:none}
+.msvg .pw:hover .pwa,.msvg .pw:focus .pwa{fill-opacity:.36}
+.msvg .pwd{stroke:var(--bg);stroke-width:2}
+.msvg .pt{font-size:calc(var(--k)*14px);font-weight:700;dominant-baseline:hanging}
+.msvg .and{fill:var(--accent);fill-opacity:.85;stroke:var(--bg);stroke-width:1.5}
+.msvg .at{font-size:calc(var(--k)*12px);font-style:italic;fill:var(--accent);dominant-baseline:hanging}
+.msvg .tb{fill-opacity:.55;stroke:none}.msvg .twd{stroke:var(--bg);stroke-width:2}
+.msvg .tt{font-size:calc(var(--k)*12px);font-weight:600;dominant-baseline:hanging}
+.msvg .md{fill:var(--ink);stroke:var(--gold);stroke-width:3}
+.msvg .mt{font-size:calc(var(--k)*15px);font-weight:700;fill:var(--gold)}
 .mzoom{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px}
 .mzoom button{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:1.2rem;cursor:pointer;box-shadow:var(--shadow)}
 .mcoord,.mcomp{position:absolute;bottom:8px;background:color-mix(in srgb,var(--card) 85%,transparent);border:1px solid var(--line);border-radius:8px;padding:3px 8px;font:600 .78rem ui-monospace,Consolas,monospace;color:var(--muted)}
@@ -148,24 +148,24 @@ a.iconbtn{display:inline-grid;place-items:center;text-decoration:none;font:700 .
 .minfo b{font-family:"Cormorant SC",Georgia,serif;font-size:1.2rem}.minfo .mk{color:var(--muted);font-size:.85rem;margin:0 6px}
 .minfo div{color:var(--muted);margin-top:4px}
 .mnote{color:var(--muted);font-size:.9rem;margin-top:10px}.mnote .btn{margin-top:8px;padding:8px 14px}
-#msvg .rt.st{opacity:0}#msvg .rt.st.sel{opacity:1}
+.msvg .rt.st{opacity:0}.msvg .rt.st.sel{opacity:1}
 
 /* Дальний сектор за границей мира */
-#msvg .far{cursor:pointer;outline:none}
-#msvg .fh{text-anchor:start}
-#msvg .fl{stroke:#d6453b;stroke-width:2;stroke-dasharray:8 6;fill:none}
-#msvg .fa{fill:#d6453b;fill-opacity:.12;stroke:#d6453b;stroke-opacity:.6;stroke-width:1.5}
-#msvg .fx{stroke:#d6453b;stroke-width:5;stroke-linecap:round;fill:none}
-#msvg .ft{font-size:calc(var(--k)*14px);font-weight:700;fill:#d6453b;text-anchor:middle;dominant-baseline:hanging}
-#msvg .fh{font-size:calc(var(--k)*12px);font-weight:700;fill:#d6453b}
-#msvg .lt{cursor:pointer;outline:none}
-#msvg .ld{stroke:var(--bg);stroke-width:1.5}
-#msvg .ltx{font-size:calc(var(--k)*11px);font-weight:600}
-#msvg .c-legend .ld,#msvg .c-legend .ltx{fill:#8a5cc7}
-#msvg .c-cataclysm .ld,#msvg .c-cataclysm .ltx{fill:#2f7fb5}
-#msvg .c-battle .ld,#msvg .c-battle .ltx{fill:#b0362b}
-#msvg .c-front .ld,#msvg .c-front .ltx{fill:#d6453b}
-#msvg .lt:hover .ltx,#msvg .lt:focus .ltx{font-size:calc(var(--k)*13px)}
+.msvg .far{cursor:pointer;outline:none}
+.msvg .fh{text-anchor:start}
+.msvg .fl{stroke:#d6453b;stroke-width:2;stroke-dasharray:8 6;fill:none}
+.msvg .fa{fill:#d6453b;fill-opacity:.12;stroke:#d6453b;stroke-opacity:.6;stroke-width:1.5}
+.msvg .fx{stroke:#d6453b;stroke-width:5;stroke-linecap:round;fill:none}
+.msvg .ft{font-size:calc(var(--k)*14px);font-weight:700;fill:#d6453b;text-anchor:middle;dominant-baseline:hanging}
+.msvg .fh{font-size:calc(var(--k)*12px);font-weight:700;fill:#d6453b}
+.msvg .lt{cursor:pointer;outline:none}
+.msvg .ld{stroke:var(--bg);stroke-width:1.5}
+.msvg .ltx{font-size:calc(var(--k)*11px);font-weight:600}
+.msvg .c-legend .ld,.msvg .c-legend .ltx{fill:#8a5cc7}
+.msvg .c-cataclysm .ld,.msvg .c-cataclysm .ltx{fill:#2f7fb5}
+.msvg .c-battle .ld,.msvg .c-battle .ltx{fill:#b0362b}
+.msvg .c-front .ld,.msvg .c-front .ltx{fill:#d6453b}
+.msvg .lt:hover .ltx,.msvg .lt:focus .ltx{font-size:calc(var(--k)*13px)}
 
 /* приложение на телефон */
 .appcard{grid-column:1/-1;margin-top:16px}
@@ -214,8 +214,35 @@ table.wxtable small{color:var(--muted)}
 .card img.cv{display:block;width:100%;max-width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:10px;margin:0 0 12px}
 .card{min-width:0;overflow:hidden}
 .doc article img{max-width:100%;height:auto;border-radius:10px}
-#msvg .c-old .ld,#msvg .c-old .ltx{fill:#a85cff}
-#msvg .k-old .fa{fill:#a85cff;stroke:#a85cff}#msvg .k-old .fl,#msvg .k-old .fx{stroke:#a85cff}#msvg .k-old .ft,#msvg .k-old .fh{fill:#a85cff}
+.msvg .c-old .ld,.msvg .c-old .ltx{fill:#a85cff}
+.msvg .k-old .fa{fill:#a85cff;stroke:#a85cff}.msvg .k-old .fl,.msvg .k-old .fx{stroke:#a85cff}.msvg .k-old .ft,.msvg .k-old .fh{fill:#a85cff}
 #mAll{border-color:#a85cff;color:#a85cff;font-weight:700}
 .donate{margin-top:18px;border-color:var(--gold)}
 .donate .soon{font-size:.9rem;margin-top:8px}
+
+/* Карта Незера */
+.nbox{background:#2a0d0b}
+.nsvg text{stroke:#1d0807;fill:#f3e2d6}
+.nsvg .nrack{fill:#3a110e}
+.nsvg .nlava{fill:#ff7a1a;fill-opacity:.32;stroke:none}.nsvg .nlava.sea{fill-opacity:.5}
+.nsvg .ncrim{fill:#b3243a;fill-opacity:.3;stroke:none}.nsvg .nwarp{fill:#1f8a80;fill-opacity:.28;stroke:none}
+.nsvg .gl{stroke:#f3e2d6;opacity:.12}.nsvg .gl.axis{stroke:#f3e2d6;opacity:.25}
+.nsvg .gt{fill:#c9a99a}
+.nsvg .ring{stroke:#ffb347}.nsvg .rt{fill:#ffb347}
+.nsvg .rd,.nsvg .ns,.nsvg .np,.nsvg .ng{cursor:pointer;outline:none}
+.nsvg .rdl{stroke:#7a3b17;stroke-width:7;stroke-linecap:round}.nsvg .rdc{stroke:#e08a3c;stroke-width:2;stroke-dasharray:6 6}
+.nsvg .rd:hover .rdl{stroke:#a0522d}
+.nsvg .nsd{stroke:#1d0807;stroke-width:1.5}
+.nsvg .k-fortress .nsd{fill:#6b2a2a;stroke:#e6b0a0}
+.nsvg .k-bastion .nsd{fill:#22201f;stroke:#f2c14e}
+.nsvg .k-legend .nsd{fill:#ffcf6e}
+.nsvg .nst{font-size:calc(var(--k)*12px);font-weight:600;dominant-baseline:hanging}
+.nsvg .k-legend .nst{font-style:italic;fill:#ffcf6e;dominant-baseline:auto}
+.nsvg .k-bastion .nst{fill:#f2c14e}
+.nsvg .npf{fill:#8f3fd6;fill-opacity:.85;stroke-width:3}
+.nsvg .np:hover .npf,.nsvg .np:focus .npf{fill:#b46cff}
+.nsvg .npt{font-size:calc(var(--k)*13px);font-weight:700;dominant-baseline:hanging}
+.nsvg .ngo{fill:#140818;stroke:#b46cff;stroke-width:3}
+.nsvg .ngi{fill:#7a2fc0}
+.nsvg .ngt{font-size:calc(var(--k)*15px);font-weight:700;fill:#d6a6ff}
+.nsvg .rt{opacity:0}.nsvg .rt.sel,.nsvg .rt.now{opacity:1}
