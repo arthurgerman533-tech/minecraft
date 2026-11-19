@@ -163,6 +163,8 @@ class Content {
   final WorldMap map;
   /// ПаксГидромет и «Вестник Академии»: справочники и демо-данные (разбирает screens/meteo.dart).
   final Map<String, dynamic> meteo, meteoDemo, news, newsDemo;
+  /// «Державы и игроки» (content/players.json + Towny), разбирает screens/nations.dart.
+  final Map<String, dynamic> roster;
 
   Content(Map<String, dynamic> j)
       : config = Config(j['config']),
@@ -177,7 +179,8 @@ class Content {
         meteo = Map<String, dynamic>.from(j['meteo'] ?? {}),
         meteoDemo = Map<String, dynamic>.from(j['meteoDemo'] ?? {}),
         news = Map<String, dynamic>.from(j['news'] ?? {}),
-        newsDemo = Map<String, dynamic>.from(j['newsDemo'] ?? {});
+        newsDemo = Map<String, dynamic>.from(j['newsDemo'] ?? {}),
+        roster = Map<String, dynamic>.from(j['roster'] ?? {});
 
   /// Все команды без повторов: (команда, раздел, иконка).
   List<(String, String, String)> get commands {
