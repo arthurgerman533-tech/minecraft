@@ -1377,7 +1377,6 @@ focus_tree = {
 				name = ENG_secure_the_imperial_shipping_routes
 				bonus = 1.0
 				uses = 2
-				category = cl_tech
 			}
 			add_ideas = ENG_secure_the_imperial_shipping_routes
 		}

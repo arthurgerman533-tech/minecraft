@@ -1,0 +1,8 @@
+ideas = {
+	hidden_ideas = {
+		totaler_krieg_economy = {
+			allowed = { always = no }
+			modifier = { }
+		}
+	}
+}

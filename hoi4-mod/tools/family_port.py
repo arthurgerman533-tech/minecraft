@@ -290,7 +290,15 @@ def _copy_tree(w):
     # Деревья фокусов Arthur из CHADDFIXREBALANCE (его правка Chaddhaus MP): великие державы и лорные страны.
     # Имена файлов как у ванили, поэтому заменяют ванильные деревья (версия 1.13.7).
     for fn in sorted(os.listdir(os.path.join(SRC, "national_focus"))):
-        w("common/national_focus/" + fn, _read("national_focus/" + fn))
+        txt = _read("national_focus/" + fn)
+        txt = re.sub(r"[ \t]*category = cl_tech\n", "", txt)  # в 1.20 такой категории нет
+        w("common/national_focus/" + fn, txt)
+    # Заглушки: ванильные файлы (решения, события, персонажи) ссылаются на фокусы старых деревьев.
+    ids = [i for i in open(os.path.join(os.path.dirname(__file__), "missing_focus.txt")).read().split() if i]
+    body = "\n".join(f"\tfocus = {{ id = {i} x = {k % 40} y = {k // 40} cost = 1 }}" for k, i in enumerate(ids))
+    w("common/national_focus/pax_focus_stubs.txt",
+      "focus_tree = {\n\tid = pax_focus_stubs\n\tcountry = {\n\t\tfactor = 0\n\t}\n\tdefault = no\n" + body + "\n}\n")
+    w("common/ideas/pax_stub_ideas.txt", "ideas = {\n\thidden_ideas = {\n\t\ttotaler_krieg_economy = {\n\t\t\tallowed = { always = no }\n\t\t\tmodifier = { }\n\t\t}\n\t}\n}\n")
     w("common/ideas/chd_focus_ideas.txt", _read("ideas_chd_focus_ideas.txt"))
     chd = _read("loc/chd_focuses.yml").split("\n", 1)[1]
     for lang in ("russian", "english"):

@@ -3468,7 +3468,6 @@ shared_focus = {
 			name = CHI_light_cruiser_project
 			bonus = 1.0
 			uses = 1
-			category = cl_tech
 		}
 	}
 }

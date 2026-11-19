@@ -8437,7 +8437,6 @@ focus_tree = {
 				name = FRA_improved_screen_ships
 				bonus = 2.0
 				uses = 1
-				category = cl_tech
 			}
 		}
 	}
