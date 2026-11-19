@@ -154,7 +154,7 @@ class _MapScreenState extends State<MapScreen> {
               ButtonSegment(
                 value: 'world',
                 icon: const Icon(Icons.map_outlined),
-                label: Text(t('Мир', 'World')),
+                label: Text(t('Мир 1', 'World 1')),
               ),
               if (m.nether != null)
                 ButtonSegment(
@@ -166,7 +166,7 @@ class _MapScreenState extends State<MapScreen> {
                 ButtonSegment(
                   value: 'earth',
                   icon: const Icon(Icons.public),
-                  label: Text(t('Земля', 'Earth')),
+                  label: Text(t('Мир 2: Земля', 'World 2: Earth')),
                 ),
             ],
             selected: {mode},
@@ -462,8 +462,8 @@ class _MapScreenState extends State<MapScreen> {
         if (earth)
           Text(
             t(
-              'Контуры суши: Natural Earth. Державы стоят на местах своих исторических прообразов, это отсылка к реальной истории, а не координаты в игре.',
-              'Coastlines: Natural Earth. The powers stand where their historical prototypes were. This is a nod to real history, not in-game coordinates.',
+              'Мир 2 строится по настоящей Земле. Контуры суши: Natural Earth. Державы стоят на местах своих исторических прообразов. В ванильном Мире 1 они вокруг Монолита.',
+              'World 2 is built on the real Earth. Coastlines: Natural Earth. The powers stand where their historical prototypes were. In vanilla World 1 they surround the Monolith.',
             ),
             style: TextStyle(color: cs.onSurfaceVariant),
           )

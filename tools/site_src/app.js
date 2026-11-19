@@ -293,7 +293,7 @@ function renderEarth(C){
      <div class="mzoom"><button data-z="0.67" aria-label="${T('Приблизить','Zoom in')}">+</button><button data-z="1.5" aria-label="${T('Отдалить','Zoom out')}">−</button><button data-z="0" aria-label="${T('Сбросить','Reset')}">⟲</button></div>
      <div class="mcoord" id="ecoord">48° N · 25° E</div><div class="mcomp">${T('С','N')}↑</div></div>
    <div class="minfo" id="einfo"></div>
-   <p class="mnote">${T('Контуры суши: Natural Earth 1:50 000 000. Державы стоят на местах своих исторических прообразов, это отсылка к реальной истории, а не координаты в игре: в игре они вокруг Монолита (карта выше).','Coastlines: Natural Earth 1:50,000,000. The powers stand where their historical prototypes were. This is a nod to real history, not in-game coordinates: in the game they surround the Monolith (map above).')}</p>`;
+   <p class="mnote">${T('Мир 2 строится по настоящей Земле. Контуры суши: Natural Earth 1:50 000 000. Державы стоят на местах своих исторических прообразов. В ванильном Мире 1 они стоят вокруг Монолита (карта выше), там у них свои координаты.','World 2 is built on the real Earth. Coastlines: Natural Earth 1:50,000,000. The powers stand where their historical prototypes were. In vanilla World 1 they surround the Monolith (map above) with their own coordinates.')}</p>`;
   const svg=$('#esvg'), el=(n,a,p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e};
   const cp=el('clipPath',{id:'eclip'},el('defs',{})); el('rect',{x:bx0,y:by0,width:bx1-bx0,height:by1-by0},cp);
   const g={}; ['base','grid','seas','powers'].forEach(k=>g[k]=el('g',{class:'g-'+k})); g.base.setAttribute('clip-path','url(#eclip)'); g.grid.setAttribute('clip-path','url(#eclip)');
@@ -304,7 +304,7 @@ function renderEarth(C){
   for(let lon=-10;lon<=60;lon+=10){el('line',{x1:gx(lon),y1:by0,x2:gx(lon),y2:by1,class:'gl'},g.grid); el('text',{x:gx(lon)+6,y:by1-20,class:'gt'},g.grid).textContent=Math.abs(lon)+'°'+(lon<0?' W':' E');}
   E.seas.forEach(s=>{el('text',{x:s.x,y:s.z??s.y,class:'esn'},g.seas).textContent=s.name});
   const info=$('#einfo');
-  const pick=p=>{info.innerHTML=`<b>${esc(p.name)}</b> <span class="mk">${esc(M.blocs[p.bloc]||'')}</span> <code>${p.lat.toFixed(1)}° N · ${p.lon.toFixed(1)}° E</code><div><b>${T('В реальной истории','In real history')}:</b> ${esc(p.real)}.</div><div>${esc(p.text||'')}</div><div class="mk">${T('В игре','In the game')}: X ${p.x0} · Z ${p.z0}</div>`};
+  const pick=p=>{info.innerHTML=`<b>${esc(p.name)}</b> <span class="mk">${esc(M.blocs[p.bloc]||'')}</span> <code>${p.lat.toFixed(1)}° N · ${p.lon.toFixed(1)}° E</code><div><b>${T('В реальной истории','In real history')}:</b> ${esc(p.real)}.</div><div>${esc(p.text||'')}</div><div class="mk">${T('В Мире 1','In World 1')}: X ${p.x0} · Z ${p.z0}</div>`};
   const pw=E.powers.map(p=>({...p,x0:(M.powers.find(q=>q.id===p.id)||{}).x,z0:(M.powers.find(q=>q.id===p.id)||{}).z}));
   pw.forEach(p=>{const a=el('g',{class:'pw',tabindex:0},g.powers);
     el('circle',{cx:p.x,cy:p.z,r:260,fill:p.color,class:'pwa'},a); el('circle',{cx:p.x,cy:p.z,r:34,fill:p.color,class:'pwd'},a);

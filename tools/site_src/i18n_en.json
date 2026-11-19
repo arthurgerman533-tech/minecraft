@@ -1,5 +1,21 @@
 [
  [
+  "<a href=\"#map\">Мир 1</a>",
+  "<a href=\"#map\">World 1</a>"
+ ],
+ [
+  "<a href=\"#earth\">Мир 2: Земля</a>",
+  "<a href=\"#earth\">World 2: Earth</a>"
+ ],
+ [
+  "Мир 2 · Реальная Земля",
+  "World 2 · The real Earth"
+ ],
+ [
+  "На сервере два мира. Первый ванильный (карта выше), второй построен по настоящей Земле. Здесь державы стоят там, где были их прообразы: Рим, Карфаген, Афины, Галлия, Британия, Германия, Скандинавия, Дакия, Великая степь и Крым. Нажми на державу, чтобы увидеть, кем она была в истории.",
+  "The server has two worlds. The first is vanilla (map above), the second is built on the real Earth. Here the powers stand where their prototypes were: Rome, Carthage, Athens, Gaul, Britain, Germania, Scandinavia, Dacia, the Great Steppe and Crimea. Tap a power to see who it was in history."
+ ],
+ [
   "<html lang=\"ru\">",
   "<html lang=\"en\">"
  ],
@@ -152,8 +168,8 @@
   ">Map</a>"
  ],
  [
-  "<div class=\"kicker\">Мир</div><h2>Карта мира</h2>",
-  "<div class=\"kicker\">World</div><h2>World map</h2>"
+  "<div class=\"kicker\">Мир 1 · Ванильный</div><h2>Карта мира</h2>",
+  "<div class=\"kicker\">World 1 · Vanilla</div><h2>World map</h2>"
  ],
  [
   "Монолит в центре, границы мира по неделям и державы лора. Двигай карту пальцем или мышью, приближай колёсиком, щипком или кнопками.",
@@ -324,19 +340,7 @@
   "One block in the Nether equals eight blocks above. Here are the portals of the powers, the Forerunner fortresses, the piglin bastions and the Great Gates beneath the Monolith. Tap a marker to read what is there."
  ],
  [
-  "<a href=\"#earth\">Земля</a>",
-  "<a href=\"#earth\">Earth</a>"
- ],
- [
-  "Мир из реальной жизни",
-  "The world from real life"
- ],
- [
   "<h2>Карта Земли</h2>",
   "<h2>Map of the Earth</h2>"
- ],
- [
-  "Державы PaxVanila там, где стояли их настоящие прообразы: Рим, Карфаген, Афины, Галлия, Британия, Германия, Скандинавия, Дакия, Великая степь и Крым. Нажми на державу, чтобы увидеть, кем она была в истории.",
-  "The PaxVanila powers where their real prototypes stood: Rome, Carthage, Athens, Gaul, Britain, Germania, Scandinavia, Dacia, the Great Steppe and Crimea. Tap a power to see who it was in history."
  ]
 ]
