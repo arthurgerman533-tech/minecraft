@@ -588,3 +588,55 @@ body.sheetopen{overflow:hidden}
 .doc aside a.h3{padding-left:12px;font-size:.85rem}
 .sheet-c.grid2 a.on{border-color:var(--gold)}
 .donate .tier-god{border-color:var(--gold);border-width:2px;background:linear-gradient(180deg,color-mix(in srgb,var(--gold) 12%,transparent),transparent)}
+
+/* ---- удобная навигация (20.11.2026): группы меню на ПК, поиск, быстрый переход, «Наверх» ---- */
+nav.site{display:none}
+@media (min-width:761px){
+  html.sitenav nav.main{display:none}
+  nav.site{display:flex;align-items:center;gap:2px;margin-left:auto}
+  nav.site .sgo,nav.site .grp>button{display:flex;align-items:center;gap:4px;padding:8px 11px;border:0;border-radius:8px;background:none;color:var(--muted);font:500 .95rem/1.2 Inter,system-ui,sans-serif;text-decoration:none;cursor:pointer;white-space:nowrap}
+  nav.site .sgo:hover,nav.site .grp>button:hover,nav.site .grp.open>button{color:var(--ink);background:var(--bg2)}
+  nav.site .grp.cur>button{color:var(--gold)}
+  nav.site .car{font-size:.7em;opacity:.7;transition:transform .15s}
+  nav.site .grp.open .car{transform:rotate(180deg)}
+  nav.site .grp{position:relative}
+  nav.site .dd{display:none;position:absolute;top:calc(100% + 6px);right:0;min-width:230px;max-height:70vh;overflow:auto;padding:6px;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow),0 12px 30px rgba(0,0,0,.18);z-index:30}
+  nav.site .grp:first-of-type .dd{right:auto;left:0}
+  nav.site .grp.open .dd{display:block;animation:pxfade .12s}
+  nav.site .dd a{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;color:var(--ink);text-decoration:none;font-size:.95rem;white-space:nowrap}
+  nav.site .dd a:hover,nav.site .dd a:focus-visible{background:var(--bg2)}
+  nav.site .dd a.on{color:var(--gold);font-weight:600;background:var(--bg2)}
+  nav.site .dd .i{width:1.4em;text-align:center}
+}
+@media (min-width:761px) and (max-width:980px){nav.site .sgo.home{display:none}nav.site .grp>button{padding:8px 8px;font-size:.9rem}}
+#srch{font-size:1rem}
+/* быстрый переход на главной */
+section.go{padding:22px 0 6px}
+.gogrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.sg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 12px 10px;box-shadow:var(--shadow)}
+.sgh{font-family:"Cormorant SC",Georgia,serif;font-weight:700;font-size:1.15rem;margin:0 2px 8px;color:var(--ink)}
+.sgl{display:flex;flex-wrap:wrap;gap:6px}
+.sgl a{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);text-decoration:none;font-size:.9rem;line-height:1.2}
+.sgl a:hover{border-color:var(--gold);color:var(--gold)}
+@media (max-width:980px){.gogrid{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.gogrid{grid-template-columns:1fr;gap:8px}.sg{padding:10px}.sgl a{padding:9px 11px}}
+/* шторка с группами и поиском */
+.sheet-c.groups,.sheet-c.searchc{padding:12px;display:flex;flex-direction:column;gap:10px}
+.sheet-c.groups .sg,.sres .sg{box-shadow:none;background:var(--bg)}
+.sheet-c.groups .sgl a,.sres .sgl a{display:inline-flex;padding:10px 12px;background:var(--card)}
+.sheet-c.searchc .search{margin:0;width:100%;font-size:16px}
+.sres{display:flex;flex-direction:column;gap:4px}
+.sres>a{display:flex;align-items:flex-start;gap:12px;padding:10px 12px;border-radius:10px;color:var(--ink);text-decoration:none}
+.sres>a:hover,.sres>a:first-child{background:var(--bg2)}
+.sres>a .i{font-size:1.2rem;line-height:1.3;width:1.5em;text-align:center;flex:none}
+.sres .st{display:flex;flex-direction:column;gap:2px;min-width:0}
+.sres .st small{color:var(--muted);font-size:.85rem;line-height:1.35}
+.sres .shint{color:var(--muted);margin:2px 2px 6px;font-size:.92rem}
+.sres .sg+.sg{margin-top:2px}
+.sheet-c.searchc{min-height:55vh}@media (min-width:761px){.sheet-c.searchc{min-height:40vh}}
+/* «Наверх» */
+.totop{position:fixed;right:18px;bottom:18px;z-index:35;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);font:700 1.2rem/1 Inter,system-ui,sans-serif;box-shadow:var(--shadow);cursor:pointer;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s}
+.totop.show{opacity:1;pointer-events:auto;transform:none}
+.totop:hover{border-color:var(--gold);color:var(--gold)}
+@media (max-width:760px){html.hasbar .totop{bottom:calc(68px + env(safe-area-inset-bottom));right:12px;width:40px;height:40px}}
+details.card.flash,.card.flash{outline:2px solid var(--gold);outline-offset:2px}

@@ -370,6 +370,9 @@ def build(lang, out):
                         '<div class="cta qz-cta"><a class="btn primary" href="quiz.html">🧩 Пройти лор-викторину</a></div>'
                         f'<div class="lorelist">{"".join(cards)}</div></div></section><footer><div class="wrap"><a href="./">← На главную</a></div></footer>',
                         idx, flags=re.S)
+    lore_index = tr(lore_index)  # ссылки меню на разделы главной: #now → ./#now (иначе вели в никуда)
+    lore_index = re.sub(r'(<nav class="main">.*?</nav>)', lambda m: m.group(1).replace('href="#', 'href="./#'), lore_index, flags=re.S)
+    lore_index = lore_index.replace('<a href="lore.html">', '<a class="on" href="lore.html">', 1)
     write("lore.html", lore_index.replace("<title>PaxVanila</title>", "<title>Лор — PaxVanila</title>"))
     # «Новости сервера»: отдельная страница, записи рисует app.js (chronicleMain)
     X = C["chronicle"]["ui"]

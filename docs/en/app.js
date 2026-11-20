@@ -39,13 +39,75 @@ addEventListener('appinstalled',()=>{deferred=null;['#install','#install2'].forE
   const nav=$('nav.main'), header=$('header.top'); if(!nav||!header) return;
   const U=h=>new URL(h,BASE).href, aside=$('.doc aside'), tocLinks=aside?[...aside.querySelectorAll('a[href^="#"]')]:[];
   const isIndex=!!$('#pxmap');
+  // карта сайта: одна на все страницы (меню ПК, шторка телефона, быстрый переход, поиск)
+  const SITE=[
+    {t:T('Сервер','Server'),i:'🏰',l:[['#now','⚡',T('Сейчас','Now')],['news.html','📰',T('Новости сервера','Server news')],['#calendar','📅',T('Календарь','Calendar')],['#join','🧭',T('Как зайти','How to join')],['#weeks','📆',T('Недели','Weeks')],['#app','📲',T('Приложение','App')]]},
+    {t:T('Карты','Maps'),i:'🗺️',l:[['#map','🗺️',T('Мир 1 · Ванильный','World 1 · Vanilla')],['#earth','🌍',T('Мир 2 · Земля','World 2 · Earth')],['#nether','🔥',T('Незер','Nether')],['#weather','⛈️',T('Погода и катаклизмы','Weather')]]},
+    {t:T('Мир и лор','World & lore'),i:'📜',l:[['#nations','🏛️',T('Державы','Powers')],['lore.html','📚',T('Лор мира','World lore')],['timeline.html','⏳',T('Хроника держав','Timeline')],['#news','🔬',T('Вестник Академии','Academy herald')],['quiz.html','🧩',T('Викторина','Quiz')]]},
+    {t:T('Как играть','How to play'),i:'⚔️',l:[['#mech','⚙️',T('Механики','Mechanics')],['#rules','📏',T('Правила','Rules')],['#cmds','⌨️',T('Команды','Commands')],['guides/fokusy.html','🎯',T('Гайд по фокусам','Focus guide')],['#donate','💛',T('Поддержать','Support')]]}];
+  const H=h=>U((h[0]==='#'?'./':'')+h);
+  const groupsHTML=G=>G.map(g=>`<div class="sg"><div class="sgh">${g.i} ${esc(g.t)}</div><div class="sgl">${g.l.map(([h,i,l])=>`<a href="${esc(H(h))}"><span class="i">${i}</span>${esc(l)}</a>`).join('')}</div></div>`).join('');
+  const siteNav=true;
+  // ПК: вместо длинной ленты из 18 ссылок четыре группы с выпадающими списками
+  const chapters=[...nav.querySelectorAll('a')].filter(a=>!/#|index\.html|\.\/$/.test(a.getAttribute('href'))&&/lore\//.test(a.href));
+  const sn=document.createElement('nav'); sn.className='site'; sn.setAttribute('aria-label',T('Разделы сайта','Site sections'));
+  const G=SITE.slice(); if(chapters.length>2) G.push({t:T('Главы','Chapters'),i:'📖',l:chapters.map(a=>[a.href,'',a.textContent])});
+  sn.innerHTML=`<a class="sgo home" href="${esc(U('./'))}">${T('Главная','Home')}</a>`+G.map((g,n)=>`<div class="grp"><button type="button" aria-expanded="false" aria-haspopup="true">${esc(g.t)}<span class="car">▾</span></button><div class="dd">${g.l.map(([h,i,l])=>`<a href="${esc(/^https?:/.test(h)?h:H(h))}"${/^https?:/.test(h)&&h.split('#')[0]===location.href.split('#')[0]?' class="on"':''}>${i?`<span class="i">${i}</span>`:''}${esc(l)}</a>`).join('')}</div></div>`).join('');
+  nav.after(sn); document.documentElement.classList.add('sitenav');
+  const here=location.href.split('#')[0]; sn.querySelectorAll('.dd a').forEach(a=>{if(!a.href.includes('#')&&a.href===here) a.classList.add('on')});
+  const closeDD=except=>sn.querySelectorAll('.grp.open').forEach(g=>{if(g!==except){g.classList.remove('open');g.firstElementChild.setAttribute('aria-expanded','false')}});
+  sn.addEventListener('click',e=>{if(e.target.closest('.dd a')) return closeDD(); const b=e.target.closest('.grp>button'); if(!b) return; const g=b.parentNode, o=!g.classList.contains('open'); closeDD(g); g.classList.toggle('open',o); b.setAttribute('aria-expanded',o)});
+  sn.addEventListener('mouseover',e=>{const g=e.target.closest('.grp'); if(g&&matchMedia('(hover:hover)').matches&&sn.querySelector('.grp.open')&&!g.classList.contains('open')){closeDD();g.classList.add('open')}});
+  document.addEventListener('click',e=>{if(!e.target.closest('nav.site')) closeDD()});
+  sn.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDD();const b=e.target.closest('.grp')?.firstElementChild;b&&b.focus()}});
+  // кнопка поиска в шапке
+  const sb=document.createElement('button'); sb.type='button'; sb.className='iconbtn'; sb.id='srch'; sb.title=T('Поиск по сайту (/)','Search the site (/)'); sb.setAttribute('aria-label',T('Поиск','Search')); sb.textContent='🔍';
+  const lang=$('#lang')||$('#theme'); if(lang) lang.before(sb); else header.querySelector('.wrap').appendChild(sb);
+  sb.onclick=()=>openSearch();
+  addEventListener('keydown',e=>{const t=e.target; if(t&&(t.isContentEditable||/INPUT|TEXTAREA|SELECT/.test(t.tagName))) return;
+    if(e.key==='/'||((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k')){e.preventDefault();openSearch()}});
+  // поиск: разделы, главы лора, механики, команды, правила, державы
+  let IDX=null;
+  const norm=s=>String(s||'').toLowerCase().replace(/ё/g,'е');
+  const buildIdx=C=>{const r=[];
+    SITE.forEach(g=>g.l.forEach(([h,i,l])=>r.push({u:H(h),i,t:l,s:g.t,k:''})));
+    (C.lore||[]).forEach(l=>r.push({u:U('lore/'+l.id+'.html'),i:'📜',t:l.title,s:l.subtitle,k:T('лор','lore')}));
+    (C.guides||[]).forEach(l=>r.push({u:U('guides/'+l.id+'.html'),i:'🎯',t:l.title,s:l.subtitle,k:T('гайд','guide')}));
+    (C.mechanics||[]).forEach(m=>{r.push({u:U('./#m-'+m.id),i:m.icon,t:m.title,s:m.summary,k:(m.points||[]).join(' ')+' '+m.commands.join(' ')});
+      m.commands.forEach(c=>r.push({u:U('./#m-'+m.id),i:'⌨️',t:c,s:m.title,k:T('команда','command'),cmd:1}))});
+    (C.rules||[]).forEach(x=>r.push({u:U('./#rules'),i:'📏',t:x.title,s:(x.items||[]).slice(0,2).join(' · '),k:(x.items||[]).join(' ')}));
+    ((C.roster||{}).rows||[]).forEach(x=>r.push({u:U('./#nations'),i:'🏛️',t:x.name,s:x.full,k:[x.ruler,x.note,x.towny].join(' ')}));
+    (C.weeks||[]).forEach(w=>r.push({u:U('./#weeks'),i:'📆',t:T('Неделя ','Week ')+w.n+': '+w.title,s:w.text,k:(w.commands||[]).join(' ')}));
+    const seen=new Set(); return r.filter(x=>{const id=x.u+'|'+x.t; if(seen.has(id)) return false; seen.add(id); x.n=norm(x.t+' '+x.s+' '+x.k); x.nt=norm(x.t); return true})};
+  const loadIdx=()=>IDX?Promise.resolve(IDX):fetch(new URL('content.json',BASE)).then(r=>r.json()).then(C=>IDX=buildIdx(C)).catch(()=>IDX=buildIdx({}));
+  function openSearch(){ closeDD();
+    openSheet(T('Поиск по сайту','Search the site'),`<input class="search" id="sq" type="search" autocomplete="off" placeholder="${T('Карта, война, Ромея, /t new, Предтечи…','Map, war, Romea, /t new, Forerunners…')}"><div class="sres" id="sres"></div>`,'searchc');
+    const q=$('#sq'), out=$('#sres');
+    const draw=()=>{const v=norm(q.value).trim().replace(/^\/town\b/,'/t').replace(/^\/nation\b/,'/n'), w=v.split(/\s+/).filter(Boolean);
+      if(!w.length){out.innerHTML=`<p class="shint">${T('Начните печатать. Подсказка: на ПК поиск открывается клавишей /','Start typing. Tip: on a computer press / to open search')}</p>`+groupsHTML(SITE);return}
+      const hit=(IDX||[]).filter(x=>w.every(t=>x.n.includes(t))).map(x=>[x,(x.nt.startsWith(w[0])?3:x.nt.includes(w[0])?2:0)+(x.cmd&&v[0]==='/'?2:0)]).sort((a,b)=>b[1]-a[1]).slice(0,30);
+      out.innerHTML=hit.length?hit.map(([x])=>`<a href="${esc(x.u)}"><span class="i">${x.i}</span><span class="st"><b>${x.cmd?code(x.t):esc(x.t)}</b><small>${esc(String(x.s||'').slice(0,110))}</small></span></a>`).join('')
+        :`<p class="shint">${T('Ничего не нашлось. Попробуйте другое слово.','Nothing found. Try another word.')}</p>`};
+    q.addEventListener('input',draw);
+    q.addEventListener('keydown',e=>{if(e.key==='Enter'){const a=out.querySelector('a'); if(a){e.preventDefault(); closeSheet(a.href)}}});
+    draw(); loadIdx().then(draw); setTimeout(()=>q.focus(),60);
+  }
+  // главная: блок «Быстрый переход»
+  const go=$('#goGrid'); if(go) go.innerHTML=groupsHTML(SITE);
+  // ссылка на механику (#m-…) раскрывает карточку
+  const openMech=()=>{const h=decodeURIComponent(location.hash.slice(1)); if(!/^m-/.test(h)) return; let n=0;
+    const t=setInterval(()=>{const d=document.getElementById(h); if(d||++n>40){clearInterval(t); if(d){d.open=true; d.scrollIntoView({block:'start'}); d.classList.add('flash'); setTimeout(()=>d.classList.remove('flash'),1600)}}},100)};
+  addEventListener('hashchange',openMech); openMech();
+  // кнопка «Наверх»
+  const tt=document.createElement('button'); tt.type='button'; tt.className='totop'; tt.setAttribute('aria-label',T('Наверх','Back to top')); tt.title=T('Наверх','Back to top'); tt.textContent='↑'; document.body.appendChild(tt);
+  tt.onclick=()=>scrollTo({top:0,behavior:'smooth'});
   // шторка снизу: меню разделов или оглавление
   const sh=document.createElement('div'); sh.className='sheet'; sh.hidden=true;
   sh.innerHTML=`<div class="sheet-bg" data-close></div><div class="sheet-p" role="dialog" aria-modal="true"><div class="sheet-h"><b></b><button class="iconbtn" data-close aria-label="${T('Закрыть','Close')}">✕</button></div><div class="sheet-c"></div></div>`;
   document.body.appendChild(sh);
   let pending=null;
   const openSheet=(title,links,cls)=>{sh.querySelector('.sheet-h b').textContent=title; const c=sh.querySelector('.sheet-c'); c.className='sheet-c '+(cls||'');
-    c.innerHTML=''; links.forEach(a=>{const n=a.cloneNode(true); n.removeAttribute('id'); c.appendChild(n)});
+    c.innerHTML=''; if(typeof links==='string') c.innerHTML=links; else links.forEach(a=>{const n=a.cloneNode(true); n.removeAttribute('id'); c.appendChild(n)});
     sh.hidden=false; document.body.classList.add('sheetopen'); history.pushState({pxsheet:1},'');
     const on=c.querySelector('.on'); if(on) on.scrollIntoView({block:'center'});};
   const closeSheet=go=>{if(sh.hidden) return; sh.hidden=true; document.body.classList.remove('sheetopen'); pending=go||null;
@@ -56,13 +118,16 @@ addEventListener('appinstalled',()=>{deferred=null;['#install','#install2'].forE
   // нижняя панель
   const items=aside?[[U('./'),'🏠',T('Главная','Home')],[U('lore.html'),'📚',T('Весь лор','All lore')]]
     .concat(tocLinks.length?[['#toc','📑',T('Оглавление','Contents')]]:[]).concat([['#top','⬆️',T('Наверх','Top')],['#menu','☰',T('Главы','Chapters')]])
-    :[[U('#map'),'🗺️',T('Мир 1','World 1')],[U('#earth'),'🌍',T('Мир 2','World 2')],[U('#nether'),'🔥',T('Незер','Nether')],[U('lore.html'),'📜',T('Лор','Lore')],['#menu','☰',T('Меню','Menu')]];
+    :[['#maps','🗺️',T('Карты','Maps')],[U('news.html'),'📰',T('Новости','News')],['#search','🔍',T('Поиск','Search')],[U('lore.html'),'📜',T('Лор','Lore')],['#menu','☰',T('Меню','Menu')]];
   const bar=document.createElement('nav'); bar.className='tabbar'; bar.setAttribute('aria-label',T('Быстрые разделы','Quick sections'));
   bar.innerHTML=items.map(([h,i,l])=>h[0]==='#'?`<button type="button" data-act="${h.slice(1)}"><span class="i">${i}</span>${esc(l)}</button>`:`<a href="${esc(h)}"><span class="i">${i}</span>${esc(l)}</a>`).join('');
   document.body.appendChild(bar); document.documentElement.classList.add('hasbar');
   if(!isIndex&&!aside) bar.querySelectorAll('a').forEach(a=>{if(a.href===U('lore.html')&&/lore\.html$/.test(location.pathname)) a.classList.add('on')});
   bar.addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return; const k=b.dataset.act;
-    if(k==='menu') openSheet(aside?T('Главы лора','Lore chapters'):T('Разделы','Sections'),[...nav.querySelectorAll('a')],'grid2');
+    if(k==='menu'){ if(aside||!siteNav) openSheet(aside?T('Главы лора','Lore chapters'):T('Разделы','Sections'),[...nav.querySelectorAll('a')],'grid2');
+      else openSheet(T('Разделы','Sections'),groupsHTML(SITE),'groups'); }
+    else if(k==='maps') openSheet(T('Карты','Maps'),groupsHTML([SITE[1]]),'groups');
+    else if(k==='search') openSearch();
     else if(k==='toc') openSheet(T('Оглавление','Contents'),tocLinks);
     else if(k==='top') scrollTo({top:0,behavior:'smooth'});});
   // где мы сейчас: подсветка на панели, в меню и в оглавлении
@@ -75,7 +140,10 @@ addEventListener('appinstalled',()=>{deferred=null;['#install','#install2'].forE
   const spy=()=>{const y=scrollY+innerHeight*.3;
     if(isIndex){let cur=null; secs.forEach(([a,s])=>{if(s.offsetTop<=y) cur=s.id});
       secs.forEach(([a,s])=>a.classList.toggle('on',s.id===cur));
-      bar.querySelectorAll('a').forEach(a=>a.classList.toggle('on',!!cur&&a.href.endsWith('#'+cur)));}
+      bar.querySelectorAll('a').forEach(a=>a.classList.toggle('on',!!cur&&a.href.endsWith('#'+cur)));
+      sn.querySelectorAll('.grp').forEach(g=>{let on=false; g.querySelectorAll('a').forEach(a=>{const m=!!cur&&a.href.endsWith('#'+cur); a.classList.toggle('on',m); on=on||m}); g.classList.toggle('cur',on)});}
+    else sn.querySelectorAll('.grp').forEach(g=>g.classList.toggle('cur',!!g.querySelector('a.on')));
+    tt.classList.toggle('show',scrollY>900);
     if(heads.length){let cur=null; heads.forEach(([a,h])=>{if(h.offsetTop<=y) cur=a}); heads.forEach(([a])=>a.classList.toggle('on',a===cur));
       const max=document.documentElement.scrollHeight-innerHeight; if(bar1) bar1.style.transform=`scaleX(${max>0?Math.min(1,scrollY/max):0})`;
       const now=Date.now(); if(armed&&now-saveT>800){saveT=now; try{localStorage.setItem(resumeKey,JSON.stringify({y:scrollY,id:cur?cur.getAttribute('href').slice(1):'',t:cur?cur.textContent:''}))}catch(e){}}}};
@@ -163,7 +231,7 @@ function renderCalendar(C){
 }
 
 async function main(){
-  const C=await (await fetch('content.json?v=20261120061859')).json(), cfg=C.config; window.__C=C;
+  const C=await (await fetch('content.json?v=20261120141830')).json(), cfg=C.config; window.__C=C;
   document.querySelectorAll('[data-k]').forEach(e=>{e.textContent=e.dataset.k in C?C[e.dataset.k]:cfg[e.dataset.k]||''});
   // IP и Discord
   const ipBtn=$('#copyip');
@@ -677,7 +745,7 @@ async function renderChronicleTeaser(C){
   host.innerHTML=top.map(i=>{const [d,s]=dayLabel(C,i.key);return chronCard(C,i).replace('<div class="meta">',`<div class="meta"><span class="dd">${esc(d)}</span>`)}).join('');
 }
 async function chronicleMain(){
-  const C=await (await fetch('content.json?v=20261120061859')).json(), X=C.chronicle, cfg=C.config, host=$('#chron'); if(!X||!host) return;
+  const C=await (await fetch('content.json?v=20261120141830')).json(), X=C.chronicle, cfg=C.config, host=$('#chron'); if(!X||!host) return;
   const st=serverState(cfg), items=await loadChronicle(C);
   const bits=[]; if(st.started) bits.push(T(`Сегодня день ${st.day}`,`Today is day ${st.day}`),T(`граница ${st.radius} ${plural(st.radius,'блок','блока','блоков')}`,`border ${st.radius} blocks`)+(st.season?' · '+st.season:''));
   else if(st.until) bits.push(T(`До высадки ${st.until} ${plural(st.until,'день','дня','дней')}`,`Landfall in ${st.until} day${st.until===1?'':'s'}`));
