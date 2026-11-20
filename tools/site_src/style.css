@@ -587,7 +587,7 @@ body.sheetopen{overflow:hidden}
 .sheet-c a.h1,.sheet-c a.h2,.sheet-c a.h3,.doc aside a.h3{margin:0}
 .doc aside a.h3{padding-left:12px;font-size:.85rem}
 .sheet-c.grid2 a.on{border-color:var(--gold)}
-.donate .tier-god{border-color:var(--gold);border-width:2px;background:linear-gradient(180deg,color-mix(in srgb,var(--gold) 12%,transparent),transparent)}
+.donate .tier-angel{border-color:var(--gold);border-width:2px;background:linear-gradient(180deg,color-mix(in srgb,var(--gold) 12%,transparent),transparent)}
 
 /* ---- удобная навигация (20.11.2026): группы меню на ПК, поиск, быстрый переход, «Наверх» ---- */
 nav.site{display:none}
@@ -640,3 +640,5 @@ section.go{padding:22px 0 6px}
 .totop:hover{border-color:var(--gold);color:var(--gold)}
 @media (max-width:760px){html.hasbar .totop{bottom:calc(68px + env(safe-area-inset-bottom));right:12px;width:40px;height:40px}}
 details.card.flash,.card.flash{outline:2px solid var(--gold);outline-offset:2px}
+.donate .tier-satan{border-color:#b3261e;border-width:2px;background:linear-gradient(180deg,rgba(179,38,30,.12),transparent)}
+.donate .tier-satan .tp{color:#c0392b}

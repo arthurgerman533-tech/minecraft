@@ -82,6 +82,8 @@ class DonateCard extends StatelessWidget {
   Widget _tier(BuildContext context, Map<String, dynamic> t, Color gold, String soon) {
     final th = Theme.of(context);
     final id = '${t['id'] ?? ''}';
+    final gold = id == 'satan' ? const Color(0xFFB3261E) : gold0;
+    final big = id == 'angel' || id == 'satan';
     final button = '${t['button'] ?? ''}';
     final items = List<String>.from(t['items'] ?? const []);
     return Container(
@@ -89,8 +91,8 @@ class DonateCard extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: id == 'free' ? th.dividerColor : gold, width: id == 'god' ? 2 : 1),
-        color: id == 'god' ? gold.withValues(alpha: 0.08) : null,
+        border: Border.all(color: id == 'free' ? th.dividerColor : gold, width: big ? 2 : 1),
+        color: big ? gold.withValues(alpha: 0.08) : null,
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text('${t['name'] ?? ''}', style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 17)),

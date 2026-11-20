@@ -376,16 +376,16 @@
   },
   {
    "id": "apotheosis",
-   "icon": "🌟",
-   "title": "Path to Godhood",
-   "summary": "A personal focus branch for every player: five stages from Initiate to God, ending with the Monolith's godlike weapons. Unlocked only by playing, the same for everyone.",
+   "icon": "😇",
+   "title": "Path of the Angel",
+   "summary": "A personal focus branch for every player: five stages from Initiate to Angel, ending with the Monolith's heavenly weapons. Unlocked only by playing, the same for everyone.",
    "points": [
     "1. Initiate: bring the first Star Shards from cataclysms to the Monolith at 0, 0.",
     "2. Chosen: survive three cataclysms and complete a task of your faith.",
-    "3. Demigod: win a war by the rules or defend your town in a siege.",
+    "3. Guardian: win a war by the rules or defend your town in a siege.",
     "4. Ascended: visit the Moon and Mars and bring back Nameless Fragments.",
-    "5. God: the last focus unlocks the godlike weapons — the Hammer of the PAX Seal, the Spear of the Sixth Line and the Crown of the Monolith. The peak of Arcanum, crafted at the Star Altar.",
-    "The branch runs at the same speed for everyone. Donations neither speed it up nor give weapons: the God tier only changes appearance."
+    "5. Angel: the last focus unlocks the heavenly weapons — the Hammer of the PAX Seal, the Spear of the Sixth Line and the Crown of the Monolith. The peak of Arcanum, crafted at the Star Altar.",
+    "The branch runs at the same speed for everyone. Donations neither speed it up nor give weapons: the Angel and Satan tiers only change appearance."
    ],
    "commands": [
     "/apotheosis",
@@ -627,24 +627,42 @@
     "button": "Support"
    },
    {
-    "id": "god",
-    "name": "God",
+    "id": "angel",
+    "name": "Angel",
     "price": "$20",
     "items": [
      "Everything Patron has",
-     "\"God\" prefix with a golden nickname",
-     "Golden aura and particles around you",
-     "A special golden look for the godlike weapons (same power as everyone's)",
-     "\"God\" title above your name",
+     "\"Angel\" prefix with a golden nickname",
+     "Bright aura, halo and golden particles around you",
+     "A special bright look for the heavenly weapons (same power as everyone's)",
+     "\"Angel\" title above your name",
      "A personal statue of you at the tower at 0, 0",
      "Your own entry in the Great Chronicle on the site",
      "Early access to new videos and epoch covers",
-     "\"God\" Discord role",
+     "\"Angel\" Discord role",
      "A PaxVanila lore figurine, 3D-printed (terms and delivery coming soon)"
     ],
-    "button": "Become a God"
+    "button": "Become an Angel"
+   },
+   {
+    "id": "satan",
+    "name": "Satan",
+    "price": "$100",
+    "button": "Become Satan",
+    "items": [
+     "Everything Patron has",
+     "\"Satan\" prefix with a crimson nickname",
+     "Dark aura, horns and fire particles around you",
+     "A special dark look for the heavenly weapons (same power as everyone's)",
+     "\"Satan\" title above your name",
+     "A personal statue of you at the Roots beneath the tower",
+     "Your own entry in the Chronicle of Ash on the site",
+     "Early access to new videos and epoch covers",
+     "\"Satan\" Discord role",
+     "A PaxVanila lore figurine, 3D-printed (terms and delivery coming soon)"
+    ]
    }
   ],
-  "note": "Paid tiers give no in-game advantage: no resources, weapons or war privileges. Cosmetics only."
+  "note": "Paid tiers give no in-game advantage: no resources, weapons, faster focuses or war privileges. Cosmetics only."
  }
 }
