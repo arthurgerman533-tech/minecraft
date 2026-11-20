@@ -55,6 +55,31 @@ def tech_block(t, x=0, y=0):
             f"\tallow = {{ always = no }}\n\tai_will_do = {{ factor = 0 }}\n}}")
 
 
+LAYOUT = {  # папка WA: (файлы MD, y первой строки, число колонок)
+    "industry_folder": (("industry", "infantry"), 1250, 13),
+    "electronics_folder": (("engineering",), 1450, 6),
+}
+GRID_X, GRID_Y = 100, 100
+
+
+def tree_positions():
+    """id -> (папка, x, y) в пикселях внутри окна папки."""
+    out = {}
+    ts = load()
+    for folder, (files, y0, cols) in LAYOUT.items():
+        sel = sorted([t for t in ts if t["file"] in files], key=lambda t: (t["year"], t["id"]))
+        for i, t in enumerate(sel):
+            out[t["id"]] = (folder, 100 + (i % cols) * 90, y0 + (i // cols) * GRID_Y)
+    return out
+
+
+def visible_block(t, folder):
+    body = "\n".join(f"\t{k} = {v}" for k, v in t["eff"])
+    return (f"{t['id']} = {{\n{body}\n\tresearch_cost = 2\n\tstart_year = {t['year']}\n"
+            f"\tfolder = {{\n\t\tname = {folder}\n\t\tposition = {{ x = 0 y = 0 }}\n\t}}\n"
+            f"\tai_will_do = {{ factor = 0 }}\n}}")
+
+
 def pretty(t):
     return "MD: " + t["src"].replace("_", " ")
 

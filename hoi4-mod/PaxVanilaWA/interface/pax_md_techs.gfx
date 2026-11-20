@@ -1,0 +1,446 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_pax_md_nanofibers_1_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_nanofibers_2_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_nanofibers_3_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_nanofibers_4_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_nanofibers_5_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_nanofibers_6_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_printing_1_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_printing_2_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_printing_3_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_printing_4_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_printing_5_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_printing_6_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_printing_7_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_nanofibers_7_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_printing_8_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_printing_9_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_printing_11_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_printing_12_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_printing_13_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_construction1_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_excavation1_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_construction2_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_excavation2_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_construction3_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_excavation3_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_construction4_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_excavation4_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_construction5_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_excavation5_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_construction6_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_excavation6_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_construction7_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_excavation7_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_construction8_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_excavation8_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_construction9_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_excavation9_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_construction10_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_excavation10_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_construction11_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_excavation11_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_construction12_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_excavation12_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_railway_system_01_medium"
+		texturefile = "gfx/interface/technologies/basic_machine_tools.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_augmented_vision_1_medium"
+		texturefile = "gfx/interface/technologies/fra_advanced_infantry_weapons.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_augmented_vision_2_medium"
+		texturefile = "gfx/interface/technologies/fra_advanced_infantry_weapons.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_augmented_vision_3_medium"
+		texturefile = "gfx/interface/technologies/fra_advanced_infantry_weapons.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_augmented_vision_4_medium"
+		texturefile = "gfx/interface/technologies/fra_advanced_infantry_weapons.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_augmented_vision_5_medium"
+		texturefile = "gfx/interface/technologies/fra_advanced_infantry_weapons.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_augmented_vision_6_medium"
+		texturefile = "gfx/interface/technologies/fra_advanced_infantry_weapons.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_exoskeleton_1_medium"
+		texturefile = "gfx/interface/technologies/fra_advanced_infantry_weapons.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_artificial_intelligence_1_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_artificial_intelligence_2_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_artificial_intelligence_3_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_artificial_intelligence_4_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_artificial_intelligence_5_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_artificial_intelligence_6_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_artificial_intelligence_7_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_artificial_intelligence_8_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_artificial_intelligence_9_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_robotics_1_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_robotics_2_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_robotics_3_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_robotics_4_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_robotics_5_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_robotics_6_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_robotics_7_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_robotics_8_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_robotics_9_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_robotics_10_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_robotics_11_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_basic_computing_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_integrated_circuit_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_computing_1_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_decryption_1_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_encryption_1_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_microprocessors_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_computing_2_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_decryption_2_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_encryption_2_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_computing_3_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_decryption_3_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_encryption_3_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_computing_4_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_decryption_4_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_encryption_4_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_computing_5_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_decryption_5_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_encryption_5_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_computing_6_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_decryption_6_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_encryption_6_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_computing_7_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_computing_8_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_computing_9_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_computing_10_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_computing_11_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_gprs_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_edge_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_umts_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_internet_access_1_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_hsupa_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_lte_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_wimax_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_internet_access_2_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_internet_access_3_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_internet_access_4_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_internet_access_5_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_internet_access_6_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_internet_access_7_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_md_internet_access_8_medium"
+		texturefile = "gfx/interface/technologies/advanced_computing_machine.dds"
+	}
+}

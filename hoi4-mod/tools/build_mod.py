@@ -680,7 +680,15 @@ def build_eras_extra():
     w("common/technologies/pax_lore_techs.txt", "technologies = {\n" + "\n\n".join(indent(b, 1) for b in blocks) + "\n}\n")
 
     mdt = MD.load()
-    w("common/technologies/pax_md_techs.txt", "technologies = {\n" + "\n\n".join(indent(MD.tech_block(t, 0, 0), 1) for i, t in enumerate(mdt)) + "\n}\n")
+    if D.BASE == "wa":  # в WA сетка дерева правится отдельно (tools/md_tree_gui.py), техи видимые
+        pos = MD.tree_positions()
+        w("common/technologies/pax_md_techs.txt", "technologies = {\n" + "\n\n".join(indent(MD.visible_block(t, pos[t["id"]][0]), 1) for t in mdt) + "\n}\n")
+        LOC["PAX_MD_TREE_TITLE"] = "Millennium Dawn"
+        tex = {"industry": "basic_machine_tools", "infantry": "fra_advanced_infantry_weapons", "engineering": "advanced_computing_machine"}
+        w("interface/pax_md_techs.gfx", "spriteTypes = {\n" + "\n".join(
+            f'\tspriteType = {{\n\t\tname = "GFX_{t["id"]}_medium"\n\t\ttexturefile = "gfx/interface/technologies/{tex[t["file"]]}.dds"\n\t}}' for t in mdt) + "\n}\n")
+    else:
+        w("common/technologies/pax_md_techs.txt", "technologies = {\n" + "\n\n".join(indent(MD.tech_block(t, 0, 0), 1) for i, t in enumerate(mdt)) + "\n}\n")
     for t in mdt:
         LOC[t["id"]] = MD.pretty(t)
         LOC[t["id"] + "_desc"] = "Технология Millennium Dawn."
@@ -965,7 +973,8 @@ def main():
     build_ideas()
     build_lore_decisions()
     ECO.build(w, LOC, indent)
-    MD.decisions(w, LOC, indent)
+    if D.BASE != "wa":
+        MD.decisions(w, LOC, indent)
     for bm in ('blitzkrieg', 'the_gathering_storm'):  # noqa  # лаунчер стирает replace_path из внешнего .mod, поэтому глушим ванильные закладки
         w(f'common/bookmarks/{bm}.txt', 'bookmarks = {\n}\n')
     build_characters()

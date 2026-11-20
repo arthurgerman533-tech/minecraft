@@ -3,81 +3,108 @@ technologies = {
 		industrial_capacity_factory = 0.10
 		industrial_capacity_dockyard = 0.10
 		production_factory_max_efficiency_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 1985
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_nanofibers_2 = {
 		industrial_capacity_factory = 0.1
 		industrial_capacity_dockyard = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 1990
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_nanofibers_3 = {
 		industrial_capacity_factory = 0.1
 		industrial_capacity_dockyard = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 1995
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_nanofibers_4 = {
 		industrial_capacity_factory = 0.1
 		industrial_capacity_dockyard = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 2000
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_nanofibers_5 = {
 		industrial_capacity_factory = 0.1
 		industrial_capacity_dockyard = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 2005
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_nanofibers_6 = {
 		industrial_capacity_factory = 0.1
 		industrial_capacity_dockyard = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 2010
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_printing_1 = {
 		production_factory_start_efficiency_factor = 0.075
 		line_change_production_efficiency_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 1985
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_printing_2 = {
 		production_factory_start_efficiency_factor = 0.03
 		line_change_production_efficiency_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 1990
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_printing_3 = {
 		production_factory_start_efficiency_factor = 0.03
 		line_change_production_efficiency_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 1995
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -85,18 +112,24 @@ technologies = {
 		production_factory_max_efficiency_factor = 0.05
 		production_factory_start_efficiency_factor = 0.03
 		line_change_production_efficiency_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2000
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_printing_5 = {
 		production_factory_start_efficiency_factor = 0.03
 		line_change_production_efficiency_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2005
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -105,18 +138,24 @@ technologies = {
 		industrial_capacity_dockyard = 0.10
 		production_factory_start_efficiency_factor = 0.03
 		line_change_production_efficiency_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2010
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_printing_7 = {
 		production_factory_start_efficiency_factor = 0.03
 		line_change_production_efficiency_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2015
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -124,9 +163,12 @@ technologies = {
 		industrial_capacity_factory = 0.05
 		industrial_capacity_dockyard = 0.05
 		production_factory_max_efficiency_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 2015
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -136,9 +178,12 @@ technologies = {
 		production_factory_max_efficiency_factor = 0.02
 		production_factory_start_efficiency_factor = 0.02
 		line_change_production_efficiency_factor = 0.02
-		research_cost = 1
+		research_cost = 2
 		start_year = 2025
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -148,9 +193,12 @@ technologies = {
 		production_factory_max_efficiency_factor = 0.02
 		production_factory_start_efficiency_factor = 0.02
 		line_change_production_efficiency_factor = 0.02
-		research_cost = 1
+		research_cost = 2
 		start_year = 2035
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -160,9 +208,12 @@ technologies = {
 		production_factory_max_efficiency_factor = 0.02
 		production_factory_start_efficiency_factor = 0.02
 		line_change_production_efficiency_factor = 0.02
-		research_cost = 1
+		research_cost = 2
 		start_year = 2055
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -172,9 +223,12 @@ technologies = {
 		production_factory_max_efficiency_factor = 0.02
 		production_factory_start_efficiency_factor = 0.02
 		line_change_production_efficiency_factor = 0.02
-		research_cost = 1
+		research_cost = 2
 		start_year = 2065
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -184,18 +238,24 @@ technologies = {
 		production_factory_max_efficiency_factor = 0.02
 		production_factory_start_efficiency_factor = 0.02
 		line_change_production_efficiency_factor = 0.02
-		research_cost = 1
+		research_cost = 2
 		start_year = 2075
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_construction1 = {
 		production_speed_buildings_factor = 0.075
 		industry_repair_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 1985
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -206,18 +266,24 @@ technologies = {
 		local_resources_tungsten_factor = 0.075
 		local_resources_steel_factor = 0.075
 		local_resources_chromium_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 1985
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_construction2 = {
 		production_speed_buildings_factor = 0.075
 		industry_repair_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 1995
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -228,18 +294,24 @@ technologies = {
 		local_resources_tungsten_factor = 0.075
 		local_resources_steel_factor = 0.075
 		local_resources_chromium_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 1995
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_construction3 = {
 		production_speed_buildings_factor = 0.075
 		industry_repair_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2000
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -250,18 +322,24 @@ technologies = {
 		local_resources_tungsten_factor = 0.075
 		local_resources_steel_factor = 0.075
 		local_resources_chromium_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2000
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_construction4 = {
 		production_speed_buildings_factor = 0.075
 		industry_repair_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2005
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -272,18 +350,24 @@ technologies = {
 		local_resources_tungsten_factor = 0.075
 		local_resources_steel_factor = 0.075
 		local_resources_chromium_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2005
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_construction5 = {
 		production_speed_buildings_factor = 0.075
 		industry_repair_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2010
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -294,18 +378,24 @@ technologies = {
 		local_resources_tungsten_factor = 0.075
 		local_resources_steel_factor = 0.075
 		local_resources_chromium_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2010
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_construction6 = {
 		production_speed_buildings_factor = 0.075
 		industry_repair_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2015
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -316,18 +406,24 @@ technologies = {
 		local_resources_tungsten_factor = 0.075
 		local_resources_steel_factor = 0.075
 		local_resources_chromium_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2015
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_construction7 = {
 		production_speed_buildings_factor = 0.075
 		industry_repair_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2025
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -338,18 +434,24 @@ technologies = {
 		local_resources_tungsten_factor = 0.075
 		local_resources_steel_factor = 0.075
 		local_resources_chromium_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2025
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_construction8 = {
 		production_speed_buildings_factor = 0.075
 		industry_repair_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2035
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -360,18 +462,24 @@ technologies = {
 		local_resources_tungsten_factor = 0.075
 		local_resources_steel_factor = 0.075
 		local_resources_chromium_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2035
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_construction9 = {
 		production_speed_buildings_factor = 0.075
 		industry_repair_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2045
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -382,18 +490,24 @@ technologies = {
 		local_resources_tungsten_factor = 0.075
 		local_resources_steel_factor = 0.075
 		local_resources_chromium_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2045
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_construction10 = {
 		production_speed_buildings_factor = 0.075
 		industry_repair_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2055
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -404,18 +518,24 @@ technologies = {
 		local_resources_tungsten_factor = 0.075
 		local_resources_steel_factor = 0.075
 		local_resources_chromium_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2055
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_construction11 = {
 		production_speed_buildings_factor = 0.075
 		industry_repair_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2065
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -426,18 +546,24 @@ technologies = {
 		local_resources_tungsten_factor = 0.075
 		local_resources_steel_factor = 0.075
 		local_resources_chromium_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2065
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_construction12 = {
 		production_speed_buildings_factor = 0.075
 		industry_repair_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2075
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -448,152 +574,206 @@ technologies = {
 		local_resources_tungsten_factor = 0.075
 		local_resources_steel_factor = 0.075
 		local_resources_chromium_factor = 0.075
-		research_cost = 1
+		research_cost = 2
 		start_year = 2075
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_railway_system_01 = {
 		production_speed_buildings_factor = 0.02
-		research_cost = 1
+		research_cost = 2
 		start_year = 1985
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_augmented_vision_1 = {
 		army_attack_factor = 0.1
-		research_cost = 1
+		research_cost = 2
 		start_year = 2025
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_augmented_vision_2 = {
 		army_defence_factor = 0.1
-		research_cost = 1
+		research_cost = 2
 		start_year = 2035
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_augmented_vision_3 = {
 		army_attack_factor = 0.10
-		research_cost = 1
+		research_cost = 2
 		start_year = 2045
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_augmented_vision_4 = {
 		army_defence_factor = 0.10
-		research_cost = 1
+		research_cost = 2
 		start_year = 2055
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_augmented_vision_5 = {
 		army_attack_factor = 0.10
-		research_cost = 1
+		research_cost = 2
 		start_year = 2065
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_augmented_vision_6 = {
 		army_defence_factor = 0.10
-		research_cost = 1
+		research_cost = 2
 		start_year = 2075
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_exoskeleton_1 = {
 		supply_consumption_factor = -0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 2015
-		allow = { always = no }
+		folder = {
+			name = industry_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_artificial_intelligence_1 = {
 		research_speed_factor = 0.05
 		production_factory_max_efficiency_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 1985
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_artificial_intelligence_2 = {
 		research_speed_factor = 0.03
 		production_factory_efficiency_gain_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 1990
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_artificial_intelligence_3 = {
 		research_speed_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 1995
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_artificial_intelligence_4 = {
 		production_factory_max_efficiency_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 2000
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_artificial_intelligence_5 = {
 		industrial_capacity_factory = 0.05
 		production_factory_max_efficiency_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 2005
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_artificial_intelligence_6 = {
 		research_speed_factor = 0.03
 		production_factory_efficiency_gain_factor = 0.10
-		research_cost = 1
+		research_cost = 2
 		start_year = 2010
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_artificial_intelligence_7 = {
 		research_speed_factor = 0.05
 		production_factory_max_efficiency_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 2015
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_artificial_intelligence_8 = {
 		research_speed_factor = 0.03
 		production_factory_max_efficiency_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 2020
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_artificial_intelligence_9 = {
 		industrial_capacity_factory = 0.15
 		production_factory_max_efficiency_factor = 0.03
-		research_cost = 1
+		research_cost = 2
 		start_year = 2030
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
@@ -601,421 +781,574 @@ technologies = {
 		industrial_capacity_factory = 0.05
 		production_factory_efficiency_gain_factor = 0.05
 		production_factory_max_efficiency_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 2005
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_robotics_2 = {
 		production_factory_max_efficiency_factor = 0.05
 		industrial_capacity_factory = 0.15
-		research_cost = 1
+		research_cost = 2
 		start_year = 2010
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_robotics_3 = {
 		recon_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 2015
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_robotics_4 = {
 		recon_factor = 0.10
-		research_cost = 1
+		research_cost = 2
 		start_year = 2020
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_robotics_5 = {
 		recon_factor = 0.10
-		research_cost = 1
+		research_cost = 2
 		start_year = 2025
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_robotics_6 = {
 		recon_factor = 0.10
-		research_cost = 1
+		research_cost = 2
 		start_year = 2030
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_robotics_7 = {
 		recon_factor = 0.10
-		research_cost = 1
+		research_cost = 2
 		start_year = 2040
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_robotics_8 = {
 		recon_factor = 0.10
-		research_cost = 1
+		research_cost = 2
 		start_year = 2050
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_robotics_9 = {
 		recon_factor = 0.10
-		research_cost = 1
+		research_cost = 2
 		start_year = 2060
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_robotics_10 = {
 		recon_factor = 0.10
-		research_cost = 1
+		research_cost = 2
 		start_year = 2070
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_robotics_11 = {
 		recon_factor = 0.10
-		research_cost = 1
+		research_cost = 2
 		start_year = 2080
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_basic_computing = {
 		research_speed_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 1945
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_integrated_circuit = {
 		research_speed_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 1955
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_computing_1 = {
 		research_speed_factor = 0.01
-		research_cost = 1
+		research_cost = 2
 		start_year = 1965
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_decryption_1 = {
 		decryption = 1
-		research_cost = 1
+		research_cost = 2
 		start_year = 1965
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_encryption_1 = {
 		encryption = 1
-		research_cost = 1
+		research_cost = 2
 		start_year = 1965
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_microprocessors = {
 		industrial_capacity_factory = 0.15
 		research_speed_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 1975
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_computing_2 = {
 		research_speed_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 1985
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_decryption_2 = {
 		decryption = 1
-		research_cost = 1
+		research_cost = 2
 		start_year = 1985
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_encryption_2 = {
 		encryption = 1
-		research_cost = 1
+		research_cost = 2
 		start_year = 1985
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_computing_3 = {
 		research_speed_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 1995
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_decryption_3 = {
 		decryption = 1
-		research_cost = 1
+		research_cost = 2
 		start_year = 1995
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_encryption_3 = {
 		encryption = 1
-		research_cost = 1
+		research_cost = 2
 		start_year = 1995
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_computing_4 = {
 		research_speed_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 2005
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_decryption_4 = {
 		decryption = 1
-		research_cost = 1
+		research_cost = 2
 		start_year = 2005
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_encryption_4 = {
 		encryption = 1
-		research_cost = 1
+		research_cost = 2
 		start_year = 2005
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_computing_5 = {
 		research_speed_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 2015
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_decryption_5 = {
 		decryption = 1
-		research_cost = 1
+		research_cost = 2
 		start_year = 2015
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_encryption_5 = {
 		encryption = 1
-		research_cost = 1
+		research_cost = 2
 		start_year = 2015
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_computing_6 = {
 		research_speed_factor = 0.1
-		research_cost = 1
+		research_cost = 2
 		start_year = 2030
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_decryption_6 = {
 		decryption = 1
-		research_cost = 1
+		research_cost = 2
 		start_year = 2030
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_encryption_6 = {
 		encryption = 1
-		research_cost = 1
+		research_cost = 2
 		start_year = 2030
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_computing_7 = {
 		research_speed_factor = 0.1
-		research_cost = 1
+		research_cost = 2
 		start_year = 2040
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_computing_8 = {
 		research_speed_factor = 0.1
-		research_cost = 1
+		research_cost = 2
 		start_year = 2050
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_computing_9 = {
 		research_speed_factor = 0.1
-		research_cost = 1
+		research_cost = 2
 		start_year = 2060
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_computing_10 = {
 		research_speed_factor = 0.1
-		research_cost = 1
+		research_cost = 2
 		start_year = 2070
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_computing_11 = {
 		research_speed_factor = 0.1
-		research_cost = 1
+		research_cost = 2
 		start_year = 2080
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_gprs = {
 		research_speed_factor = 0.05
 		industrial_capacity_factory = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 1995
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_edge = {
 		research_speed_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 2005
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_umts = {
 		industrial_capacity_factory = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 2005
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_internet_access_1 = {
 		research_speed_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 2000
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_hsupa = {
 		research_speed_factor = 0.04
 		industrial_capacity_factory = 0.03
-		research_cost = 1
+		research_cost = 2
 		start_year = 2010
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_lte = {
 		research_speed_factor = 0.05
 		industrial_capacity_factory = 0.10
-		research_cost = 1
+		research_cost = 2
 		start_year = 2015
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_wimax = {
 		research_speed_factor = 0.08
 		industrial_capacity_factory = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 2015
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_internet_access_2 = {
 		research_speed_factor = 0.05
-		research_cost = 1
+		research_cost = 2
 		start_year = 2020
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_internet_access_3 = {
 		research_speed_factor = 0.01
 		industrial_capacity_factory = 0.03
-		research_cost = 1
+		research_cost = 2
 		start_year = 2030
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_internet_access_4 = {
 		research_speed_factor = 0.05
 		industrial_capacity_factory = 0.03
-		research_cost = 1
+		research_cost = 2
 		start_year = 2040
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_internet_access_5 = {
 		research_speed_factor = 0.05
 		industrial_capacity_factory = 0.03
-		research_cost = 1
+		research_cost = 2
 		start_year = 2050
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_internet_access_6 = {
 		research_speed_factor = 0.05
 		industrial_capacity_factory = 0.03
-		research_cost = 1
+		research_cost = 2
 		start_year = 2060
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_internet_access_7 = {
 		research_speed_factor = 0.05
 		industrial_capacity_factory = 0.03
-		research_cost = 1
+		research_cost = 2
 		start_year = 2070
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 
 	pax_md_internet_access_8 = {
 		research_speed_factor = 0.05
 		industrial_capacity_factory = 0.03
-		research_cost = 1
+		research_cost = 2
 		start_year = 2080
-		allow = { always = no }
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 0 }
+		}
 		ai_will_do = { factor = 0 }
 	}
 }
