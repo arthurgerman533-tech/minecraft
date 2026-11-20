@@ -13,7 +13,7 @@ class BorderCfg {
 }
 
 class Config {
-  final String serverName, serverAddress, discordUrl, boostyUrl, mapUrl, launchDate, version, liveUrl;
+  final String serverName, serverAddress, discordUrl, boostyUrl, donateUrl, mapUrl, launchDate, version, liveUrl;
   final int primeFrom, primeTo;
   final BorderCfg border;
   Config(Map<String, dynamic> j)
@@ -21,6 +21,7 @@ class Config {
         serverAddress = j['serverAddress'] ?? '',
         discordUrl = j['discordUrl'] ?? '',
         boostyUrl = j['boostyUrl'] ?? '',
+        donateUrl = j['donateUrl'] ?? '',
         mapUrl = j['mapUrl'] ?? '',
         launchDate = j['launchDate'] ?? '',
         version = j['version'] ?? '',
@@ -167,6 +168,8 @@ class Content {
   final Map<String, dynamic> roster;
   /// «Новости сервера» (content/chronicle.json), разбирает screens/chronicle.dart.
   final Map<String, dynamic> chronicle;
+  /// «Поддержать сервер»: тарифы доната (title, text, tiers[], soon, note), разбирает screens/mechanics.dart.
+  final Map<String, dynamic> donate;
 
   Content(Map<String, dynamic> j)
       : config = Config(j['config']),
@@ -183,7 +186,8 @@ class Content {
         news = Map<String, dynamic>.from(j['news'] ?? {}),
         newsDemo = Map<String, dynamic>.from(j['newsDemo'] ?? {}),
         roster = Map<String, dynamic>.from(j['roster'] ?? {}),
-        chronicle = Map<String, dynamic>.from(j['chronicle'] ?? {});
+        chronicle = Map<String, dynamic>.from(j['chronicle'] ?? {}),
+        donate = Map<String, dynamic>.from(j['donate'] ?? {});
 
   /// Все команды без повторов: (команда, раздел, иконка).
   List<(String, String, String)> get commands {

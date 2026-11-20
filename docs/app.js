@@ -163,7 +163,7 @@ function renderCalendar(C){
 }
 
 async function main(){
-  const C=await (await fetch('content.json?v=20261119230652')).json(), cfg=C.config; window.__C=C;
+  const C=await (await fetch('content.json?v=20261120055845')).json(), cfg=C.config; window.__C=C;
   document.querySelectorAll('[data-k]').forEach(e=>{e.textContent=e.dataset.k in C?C[e.dataset.k]:cfg[e.dataset.k]||''});
   // IP и Discord
   const ipBtn=$('#copyip');
@@ -677,7 +677,7 @@ async function renderChronicleTeaser(C){
   host.innerHTML=top.map(i=>{const [d,s]=dayLabel(C,i.key);return chronCard(C,i).replace('<div class="meta">',`<div class="meta"><span class="dd">${esc(d)}</span>`)}).join('');
 }
 async function chronicleMain(){
-  const C=await (await fetch('content.json?v=20261119230652')).json(), X=C.chronicle, cfg=C.config, host=$('#chron'); if(!X||!host) return;
+  const C=await (await fetch('content.json?v=20261120055845')).json(), X=C.chronicle, cfg=C.config, host=$('#chron'); if(!X||!host) return;
   const st=serverState(cfg), items=await loadChronicle(C);
   const bits=[]; if(st.started) bits.push(T(`Сегодня день ${st.day}`,`Today is day ${st.day}`),T(`граница ${st.radius} ${plural(st.radius,'блок','блока','блоков')}`,`border ${st.radius} blocks`)+(st.season?' · '+st.season:''));
   else if(st.until) bits.push(T(`До высадки ${st.until} ${plural(st.until,'день','дня','дней')}`,`Landfall in ${st.until} day${st.until===1?'':'s'}`));

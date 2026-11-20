@@ -598,7 +598,7 @@
    {
     "id": "paid",
     "name": "Patron",
-    "price": "Price coming soon",
+    "price": "$10",
     "items": [
      "Everything Citizen has",
      "\"Patron\" chat prefix",
@@ -611,7 +611,7 @@
    {
     "id": "god",
     "name": "God",
-    "price": "Price coming soon",
+    "price": "$20",
     "items": [
      "Everything Patron has",
      "\"God\" prefix with a golden nickname",
