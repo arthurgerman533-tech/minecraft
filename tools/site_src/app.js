@@ -614,12 +614,15 @@ function renderEarth(C){
      ${ZOOMBTNS()}
      <div class="mcoord" id="ecoord">48° N · 25° E</div><div class="mcomp">${T('С','N')}↑</div></div>
    <div class="minfo" id="einfo"></div>
-   <p class="mnote">${T('Мир 2 строится по настоящей Земле. Контуры суши: Natural Earth 1:50 000 000. Державы стоят на местах своих исторических прообразов. В ванильном Мире 1 они стоят вокруг Монолита (карта выше), там у них свои координаты.','World 2 is built on the real Earth. Coastlines: Natural Earth 1:50,000,000. The powers stand where their historical prototypes were. In vanilla World 1 they surround the Monolith (map above) with their own coordinates.')}</p>`;
+   <p class="mnote">${T('Мир 2 строится по настоящей Земле. Контуры суши: Natural Earth 1:10 000 000. Державы стоят на местах своих исторических прообразов. В ванильном Мире 1 они стоят вокруг Монолита (карта выше), там у них свои координаты.','World 2 is built on the real Earth. Coastlines: Natural Earth 1:10,000,000. The powers stand where their historical prototypes were. In vanilla World 1 they surround the Monolith (map above) with their own coordinates.')}</p>`;
   const svg=$('#esvg'), el=(n,a,p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e};
   const cp=el('clipPath',{id:'eclip'},el('defs',{})); el('rect',{x:bx0,y:by0,width:bx1-bx0,height:by1-by0},cp);
   const g={}; ['base','grid','seas','powers'].forEach(k=>g[k]=el('g',{class:'g-'+k})); g.base.setAttribute('clip-path','url(#eclip)'); g.grid.setAttribute('clip-path','url(#eclip)');
   el('rect',{x:bx0,y:by0,width:bx1-bx0,height:by1-by0,class:'esea'},g.base);
   el('path',{d:E.land.map(r=>{let d='M'+r[0]+' '+r[1];for(let i=2;i<r.length;i+=2)d+='L'+r[i]+' '+r[i+1];return d+'Z'}).join(''),'fill-rule':'evenodd',class:'eland'},g.base);
+  const pth=(L,z)=>L.map(r=>{let d='M'+r[0]+' '+r[1];for(let i=2;i<r.length;i+=2)d+='L'+r[i]+' '+r[i+1];return d+(z?'Z':'')}).join('');
+  if((E.lakes||[]).length) el('path',{d:pth(E.lakes,1),class:'elake'},g.base);
+  if((E.rivers||[]).length) el('path',{d:pth(E.rivers,0),class:'eriver'},g.base);
   const K=Math.cos(48*Math.PI/180)*111.32, gx=lon=>(lon-25)*K, gy=lat=>-(lat-48)*111.32;
   for(let lat=30;lat<=70;lat+=10){el('line',{x1:bx0,y1:gy(lat),x2:bx1,y2:gy(lat),class:'gl'},g.grid); el('text',{x:bx0+70,y:gy(lat)-6,class:'gt'},g.grid).textContent=lat+'° N';}
   for(let lon=-10;lon<=60;lon+=10){el('line',{x1:gx(lon),y1:by0,x2:gx(lon),y2:by1,class:'gl'},g.grid); el('text',{x:gx(lon)+6,y:by1-20,class:'gt'},g.grid).textContent=Math.abs(lon)+'°'+(lon<0?' W':' E');}

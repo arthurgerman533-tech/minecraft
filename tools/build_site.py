@@ -150,7 +150,7 @@ def load_map(lang):
     if os.path.exists(ep):
         E = json.load(open(ep, encoding="utf-8"))
         byid = {p["id"]: p for p in out["powers"]}
-        out["earth"] = {"box": E["box"], "land": E["land"],
+        out["earth"] = {"box": E["box"], "land": E["land"], "rivers": E.get("rivers", []), "lakes": E.get("lakes", []),
                         "seas": [{**s, "name": loc(s["name"])} for s in E["seas"]],
                         "powers": [{**byid[p["id"]], "x": p["x"], "z": p["y"], "lon": p["lon"], "lat": p["lat"], "real": loc(p["real"])}
                                    for p in E["powers"] if p["id"] in byid]}

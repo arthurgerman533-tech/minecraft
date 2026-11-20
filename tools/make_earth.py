@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """make_earth.py — карта настоящей Земли для сайта и приложения (content/earth.json).
 
-    python3 tools/make_earth.py <land-50m.json из npm-пакета world-atlas>
+    python3 tools/make_earth.py <land-10m.json из npm-пакета world-atlas>   (STEP=3 — шаг упрощения в км)
 
-Берёт контуры суши Natural Earth 1:50m (общественное достояние), вырезает Европу,
+Берёт контуры суши Natural Earth 1:10m (общественное достояние), вырезает Европу,
 Средиземноморье и Великую степь, переводит в километры (равнопромежуточная проекция,
-параллель 48°) и упрощает до шага ~6 км. Державы PaxVanila ставит туда, где их
+параллель 48°) и упрощает до шага ~3 км. Державы PaxVanila ставит туда, где их
 исторические прообразы: Рим, Карфаген, Афины, Алезия, Лондиний, Германия, Уппсала,
 Сармизегетуза, Сарай, Неаполь Скифский.
 """
@@ -62,6 +62,8 @@ def clip(pts, x0, y0, x1, y1):
         pts = cut(pts, inside, inter)
     return pts
 
+STEP = int(os.environ.get("STEP", "3"))  # шаг упрощения, км
+
 def main():
     topo = json.load(open(sys.argv[1]))
     sx, sy = topo["transform"]["scale"]; tx, ty = topo["transform"]["translate"]
@@ -94,10 +96,44 @@ def main():
                 q = []
                 for lon, lat in pts:
                     x, y = proj(lon, lat)
-                    if not q or abs(x - q[-1][0]) + abs(y - q[-1][1]) >= 6:
+                    if not q or abs(x - q[-1][0]) + abs(y - q[-1][1]) >= STEP:
                         q.append((x, y))
                 if len(q) >= 4:
                     polys.append([c for p in q for c in p])
+    rivers, lakes = [], []
+    if len(sys.argv) > 2:  # реки и озёра: world_50m.json из npm-пакета sane-topojson
+        T = json.load(open(sys.argv[2]))
+        tsx, tsy = T["transform"]["scale"]; ttx, tty = T["transform"]["translate"]
+        tarcs = []
+        for a in T["arcs"]:
+            x = y = 0; pts = []
+            for dx, dy in a:
+                x += dx; y += dy; pts.append((x * tsx + ttx, y * tsy + tty))
+            tarcs.append(pts)
+        tarc = lambda i: tarcs[i] if i >= 0 else tarcs[~i][::-1]
+        inb = lambda lo, la: BOX[0] - 1 <= lo <= BOX[2] + 1 and BOX[1] - 1 <= la <= BOX[3] + 1
+        def simp(pts, step):
+            q = []
+            for lon, lat in pts:
+                x, y = proj(lon, lat)
+                if not q or abs(x - q[-1][0]) + abs(y - q[-1][1]) >= step: q.append((x, y))
+            return q
+        for g in T["objects"]["rivers"]["geometries"]:
+            lines = g["arcs"] if g["type"] == "MultiLineString" else [g["arcs"]]
+            for ln in lines:
+                pts = [p for i in ln for p in tarc(i)]
+                seg = []
+                for lo, la in pts + [(999, 999)]:
+                    if inb(lo, la): seg.append((lo, la)); continue
+                    q = simp(seg, STEP)
+                    if len(q) >= 2: rivers.append([c for p in q for c in p])
+                    seg = []
+        for g in T["objects"]["lakes"]["geometries"]:
+            for poly in (g["arcs"] if g["type"] == "MultiPolygon" else [g["arcs"]]):
+                pts = [p for i in poly[0] for p in tarc(i)]
+                if not all(inb(lo, la) for lo, la in pts): continue
+                q = simp(pts, STEP)
+                if len(q) >= 4: lakes.append([c for p in q for c in p])
     x0, y1 = proj(BOX[0], BOX[1]); x1, y0 = proj(BOX[2], BOX[3])
     M = json.load(open(os.path.join(ROOT, "content", "map.json"), encoding="utf-8"))
     powers = []
@@ -106,10 +142,10 @@ def main():
         lon, lat, ru, en = REAL[p["id"]]; x, y = proj(lon, lat)
         powers.append({"id": p["id"], "x": x, "y": y, "lon": lon, "lat": lat, "real": {"ru": ru, "en": en}})
     seas = [{"x": proj(a, b)[0], "y": proj(a, b)[1], "name": {"ru": ru, "en": en}} for a, b, ru, en in SEAS]
-    out = {"_comment": "Сгенерировано tools/make_earth.py из Natural Earth 1:50m (world-atlas). Единица = 1 км, центр 25°E 48°N.",
-           "box": [x0, y0, x1, y1], "lon0": LON0, "lat0": LAT0, "land": polys, "fill": "evenodd", "powers": powers, "seas": seas}
+    out = {"_comment": "Сгенерировано tools/make_earth.py из Natural Earth 1:10m (world-atlas). Единица = 1 км, центр 25°E 48°N.",
+           "box": [x0, y0, x1, y1], "lon0": LON0, "lat0": LAT0, "land": polys, "fill": "evenodd", "rivers": rivers, "lakes": lakes, "powers": powers, "seas": seas}
     json.dump(out, open(os.path.join(ROOT, "content", "earth.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
-    print(f"{len(polys)} контуров, {sum(len(p) for p in polys)//2} точек, box {out['box']}")
+    print(f"{len(rivers)} рек, {len(lakes)} озёр, {len(polys)} контуров, {sum(len(p) for p in polys)//2} точек, box {out['box']}")
 
 if __name__ == "__main__":
     main()

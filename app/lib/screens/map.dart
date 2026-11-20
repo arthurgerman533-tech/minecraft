@@ -1211,6 +1211,30 @@ class _EarthPainter extends CustomPainter {
         ..strokeWidth = .8 * s
         ..color = cs.outline.withValues(alpha: .6),
     );
+    Path lines(List<List<int>> l, bool close) {
+      final path = Path();
+      for (final r in l) {
+        final a = p(r[0].toDouble(), r[1].toDouble());
+        path.moveTo(a.dx, a.dy);
+        for (var i = 2; i + 1 < r.length; i += 2) {
+          final q = p(r[i].toDouble(), r[i + 1].toDouble());
+          path.lineTo(q.dx, q.dy);
+        }
+        if (close) path.close();
+      }
+      return path;
+    }
+
+    final water = Color.alphaBlend(const Color(0x662F7FB5), cs.surface);
+    canvas.drawPath(lines(earth.lakes, true), Paint()..color = water);
+    canvas.drawPath(
+      lines(earth.rivers, false),
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.1 * s
+        ..strokeJoin = StrokeJoin.round
+        ..color = const Color(0xFF5A9CC8),
+    );
     final grid = Paint()
       ..color = cs.outlineVariant.withValues(alpha: .5)
       ..strokeWidth = s;

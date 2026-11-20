@@ -642,3 +642,5 @@ section.go{padding:22px 0 6px}
 details.card.flash,.card.flash{outline:2px solid var(--gold);outline-offset:2px}
 .donate .tier-satan{border-color:#b3261e;border-width:2px;background:linear-gradient(180deg,rgba(179,38,30,.12),transparent)}
 .donate .tier-satan .tp{color:#c0392b}
+.msvg .elake{fill:color-mix(in srgb,#2f7fb5 30%,var(--bg));stroke:none}
+.msvg .eriver{fill:none;stroke:color-mix(in srgb,#2f7fb5 70%,var(--bg));stroke-width:1.1;stroke-linejoin:round;pointer-events:none}

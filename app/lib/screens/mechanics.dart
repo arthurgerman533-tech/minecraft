@@ -79,7 +79,7 @@ class DonateCard extends StatelessWidget {
     );
   }
 
-  Widget _tier(BuildContext context, Map<String, dynamic> t, Color gold, String soon) {
+  Widget _tier(BuildContext context, Map<String, dynamic> t, Color gold0, String soon) {
     final th = Theme.of(context);
     final id = '${t['id'] ?? ''}';
     final gold = id == 'satan' ? const Color(0xFFB3261E) : gold0;
