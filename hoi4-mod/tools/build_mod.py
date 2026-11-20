@@ -53,6 +53,21 @@ def modifier_block(mod, n):
 # ---------------------------------------------------------------------------
 # Описание мода
 # ---------------------------------------------------------------------------
+def wa_replace_paths():
+    """Вариант WA самодостаточный: в него скопированы файлы World Ablaze, поэтому нужны и его replace_path."""
+    if D.BASE != "wa":
+        return ""
+    seen, out = {"common/bookmarks"}, []
+    for line in open(os.path.join(os.path.dirname(__file__), "wa_replace_paths.txt"), encoding="utf-8"):
+        m = re.match(r'replace_path\s*=\s*"([^"]+)"', line.strip())
+        if m:
+            k = m.group(1).rstrip("/")
+            if k not in seen:
+                seen.add(k)
+                out.append(f'replace_path="{k}"\n')
+    return "".join(out)
+
+
 def build_descriptor():
     body = (
         f'version="{D.MOD_VERSION}"\n'
@@ -60,6 +75,7 @@ def build_descriptor():
         f'name="{D.MOD_NAME}"\n'
         'picture="thumbnail.png"\n'
         'replace_path="common/bookmarks"\n'
+        + wa_replace_paths() +
         'supported_version="1.20.*"\n'
     )
     w("descriptor.mod", body)
