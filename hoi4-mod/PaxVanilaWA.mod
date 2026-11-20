@@ -1,4 +1,4 @@
-version="0.8.9"
+version="0.8.10"
 tags={
 	"Alternative History"
 	"National Focuses"
@@ -8,5 +8,4 @@ name="PaxVanilaWA"
 picture="thumbnail.png"
 replace_path="common/bookmarks"
 supported_version="1.20.*"
-dependencies={ "World Ablaze (9.6)" }
 path="mod/PaxVanilaWA"
