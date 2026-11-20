@@ -342,9 +342,10 @@
    "id": "siege",
    "icon": "💣",
    "title": "Siege weapons",
-   "summary": "A mortar, a siege cannon and a demolition charge, bought with money.",
+   "summary": "A mortar, a siege cannon, a super TNT cannon and a demolition charge, bought with money.",
    "points": [
-    "Mortar: 1500$, cannon: 4000$, demolition charge: 250$.",
+    "Mortar: 1500$, cannon: 4000$, super TNT cannon: 9000$, demolition charge: 250$.",
+    "The super TNT cannon fires a volley of 3 TNT, but it cannot fire within 150 blocks of the tower at 0,0, and newbies cannot buy it.",
     "They break blocks only in the wilderness and in the towns of nations at war during a battle.",
     "Chests, shulkers and spawners do not break, blocks do not drop, and everything is restored after 30 minutes."
    ],
@@ -352,6 +353,7 @@
     "/siege",
     "/siege mortar",
     "/siege cannon",
+    "/siege super",
     "/siege charge"
    ]
   },
