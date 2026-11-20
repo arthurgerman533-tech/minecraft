@@ -61,6 +61,7 @@ def build_descriptor():
         'picture="thumbnail.png"\n'
         'replace_path="common/bookmarks"\n'
         'supported_version="1.20.*"\n'
+        + ('dependencies={ "World Ablaze (9.6)" }\n' if D.BASE == "wa" else "")
     )
     w("descriptor.mod", body)
     outer = body + f'path="mod/{D.MOD_NAME}"\n'
@@ -335,7 +336,7 @@ def build_setup():
 				add_ideas = PAX_far_lands
 			}
 			# роты Family (снайперы, миномёты, псы...) открываются скрытой технологией
-			every_country = { set_technology = { pax_family_support = 1 } }
+			""" + ("" if D.BASE == "wa" else "every_country = { set_technology = { pax_family_support = 1 } }") + """
 			# «Мирное небо» из Family: быстрое обучение в мирное время, пропадает с войной
 			every_country = { add_ideas = PAX_peaceful_sky }
 			every_country = {
@@ -950,7 +951,7 @@ def main():
     build_lore_decisions()
     ECO.build(w, LOC, indent)
     MD.decisions(w, LOC, indent)
-    for bm in ('blitzkrieg', 'the_gathering_storm'):  # лаунчер стирает replace_path из внешнего .mod, поэтому глушим ванильные закладки
+    for bm in ('blitzkrieg', 'the_gathering_storm'):  # noqa  # лаунчер стирает replace_path из внешнего .mod, поэтому глушим ванильные закладки
         w(f'common/bookmarks/{bm}.txt', 'bookmarks = {\n}\n')
     build_characters()
     build_setup()

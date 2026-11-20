@@ -565,7 +565,9 @@ FACTIONS = {
     "PAX_faction_steppe": "Степной Пакт",
 }
 
-MOD_NAME = "PaxVanila"
+import os as _os
+BASE = _os.environ.get("PAX_BASE", "vanilla")  # vanilla | wa (лор поверх World Ablaze)
+MOD_NAME = "PaxVanilaWA" if BASE == "wa" else "PaxVanila"
 MOD_VERSION = "0.8.8"
 
 # Картинки духов. Имена взяты из рабочего мода Arthur «Family Historical MP mod»,

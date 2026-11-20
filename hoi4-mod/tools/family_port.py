@@ -291,8 +291,13 @@ SUPPORT_TECH = """technologies = {
 """
 
 
+WA = (os.environ.get("PAX_BASE") == "wa")
+
+
 def _copy_tree(w):
     """Сквозной перенос файлов Family: доп. роты, их исследования, экономические решения."""
+    if WA:  # поверх World Ablaze свои деревья, роты и экономика Family не нужны (у WA всё своё)
+        return
     for fn in sorted(os.listdir(os.path.join(SRC, "units"))):
         w("common/units/" + fn, _read("units/" + fn))
     # Файлы технологий Family (support, infantry, naval и др.) НЕ копируются: они от старой версии игры, и замена
@@ -338,8 +343,9 @@ def build(w, LOC, indent):
         LOC[uid + '_short'] = s
         LOC[uid + '_desc'] = n
 
-    w("common/ideas/_economic.txt", economic_laws())
-    w("common/defines/pax_family_defines.lua", defines())
+    if not WA:
+        w("common/ideas/_economic.txt", economic_laws())
+        w("common/defines/pax_family_defines.lua", defines())
 
     blocks = []
     for tid, name, desc, mod, cost, year, x, y, cats, nxt in FAMILY_TECHS + EXTRA_TECHS:
@@ -359,7 +365,8 @@ def build(w, LOC, indent):
         blocks.append(f"{tid} = {{\n" + indent("\n".join(b), 1) + "\n}")
         LOC[tid] = name
         LOC[tid + "_desc"] = desc
-    w("common/technologies/pax_family_techs.txt",
+    if not WA:
+        w("common/technologies/pax_family_techs.txt",
       "# Технологии из «Family Historical MP mod»\ntechnologies = {\n" + "\n\n".join(indent(b, 1) for b in blocks) + "\n}\n")
 
     LOC.update({
