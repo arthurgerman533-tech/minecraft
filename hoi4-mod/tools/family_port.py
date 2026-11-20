@@ -90,7 +90,7 @@ PEACEFUL_SKY = """PAX_peaceful_sky = {
 		min_export = -1
 		attrition = -1
 		supply_consumption_factor = -0.35
-		supply_factor = 1
+		supply_consumption_factor = -0.5
 	}
 }"""
 
