@@ -351,7 +351,7 @@ def build_setup():
 				add_ideas = PAX_far_lands
 			}
 			# роты Family (снайперы, миномёты, псы...) открываются скрытой технологией
-			""" + ("" if D.BASE == "wa" else "every_country = { set_technology = { pax_family_support = 1 } }") + """
+			""" + ("" if D.BASE != "vanilla" else "every_country = { set_technology = { pax_family_support = 1 } }") + """
 			# «Мирное небо» из Family: быстрое обучение в мирное время, пропадает с войной
 			every_country = { add_ideas = PAX_peaceful_sky }
 			every_country = {
@@ -975,7 +975,7 @@ def main():
     ECO.build(w, LOC, indent)
     if D.BASE != "wa":
         MD.decisions(w, LOC, indent)
-    for bm in ('blitzkrieg', 'the_gathering_storm'):  # noqa  # лаунчер стирает replace_path из внешнего .mod, поэтому глушим ванильные закладки
+    for bm in ('blitzkrieg', 'the_gathering_storm') + (('No_Asia',) if D.BASE == "fam" else ()):  # noqa  # лаунчер стирает replace_path из внешнего .mod, поэтому глушим ванильные закладки
         w(f'common/bookmarks/{bm}.txt', 'bookmarks = {\n}\n')
     build_characters()
     build_setup()

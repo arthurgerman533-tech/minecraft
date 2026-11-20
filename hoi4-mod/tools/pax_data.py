@@ -566,8 +566,8 @@ FACTIONS = {
 }
 
 import os as _os
-BASE = _os.environ.get("PAX_BASE", "vanilla")  # vanilla | wa (лор поверх World Ablaze)
-MOD_NAME = "PaxVanilaWA" if BASE == "wa" else "PaxVanila"
+BASE = _os.environ.get("PAX_BASE", "vanilla")  # vanilla | wa (лор поверх World Ablaze) | fam (лор поверх целого мода Family)
+MOD_NAME = {"wa": "PaxVanilaWA", "fam": "PaxVanilaFamily"}.get(BASE, "PaxVanila")
 MOD_VERSION = "0.9.0"
 
 # Картинки духов. Имена взяты из рабочего мода Arthur «Family Historical MP mod»,
