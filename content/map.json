@@ -319,10 +319,10 @@
     "en": "World of the Sand City"
    },
    "text": {
-    "ru": "Запись Д «Строим город». Градостроители пустыни: склад со стеной из рамок, синий зал из призмарина, башня из песчаника. «Игра сохранена».",
-    "en": "Record E «Building a city». Desert city builders: a store with a wall of item frames, a blue prismarine hall, a sandstone tower. «Game saved»."
+    "ru": "Запись Д «Строим город». Город Дубай у Песчаного моря: Витая башня, склад со стеной из рамок, Белый дом ZAG533, закон «килл и +суд». «Игра сохранена».",
+    "en": "Record E «Building a city». The city of Dubai by the Sand Sea: the Twisted Tower, a warehouse with a wall of item frames, ZAG533's White House, the law «kill and +trial». «Game saved»."
    },
-   "lore": "old_records",
+   "lore": "dubai",
    "kind": "old"
   },
   {

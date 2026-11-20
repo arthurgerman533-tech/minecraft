@@ -566,6 +566,13 @@
    "cover": "lore_old_records.jpg"
   },
   {
+   "id": "dubai",
+   "title": "The City of Dubai",
+   "subtitle": "Record E in full: the Twisted Tower, the frame warehouse, ZAG533's White House and the first law of the world, \"kill and +trial\"",
+   "file": "строим_город.md",
+   "cover": "lore_dubai.jpg"
+  },
+  {
    "id": "filosofy",
    "title": "Philosophers: then and now",
    "subtitle": "Sages of the eight peoples modelled on Socrates, Plato, Diogenes, the Stoics, Confucius and Laozi (Russian text)",
