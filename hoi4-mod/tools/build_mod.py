@@ -53,8 +53,13 @@ def modifier_block(mod, n):
 # ---------------------------------------------------------------------------
 # Описание мода
 # ---------------------------------------------------------------------------
+FAM_REPLACE = ("history/states", "history/countries", "history/units", "history/general", "map/strategicregions")
+
+
 def wa_replace_paths():
     """Вариант WA самодостаточный: в него скопированы файлы World Ablaze, поэтому нужны и его replace_path."""
+    if D.BASE == "fam":  # карта и история Family старые: ванильные состояния 1.20 конфликтуют с ними
+        return "".join(f'replace_path="{k}"\n' for k in FAM_REPLACE)
     if D.BASE != "wa":
         return ""
     seen, out = {"common/bookmarks"}, []
