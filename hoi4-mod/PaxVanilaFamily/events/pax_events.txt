@@ -1,0 +1,171 @@
+add_namespace = pax
+
+# Вступление
+news_event = {
+	id = pax.1
+	title = pax.1.t
+	desc = pax.1.d
+	picture = GFX_news_event_pax_monolith
+	is_triggered_only = yes
+	option = { name = pax.1.a }
+}
+
+# Приглашение в Союз PAX (FROM = Ромея)
+country_event = {
+	id = pax.2
+	title = pax.2.t
+	desc = pax.2.d
+	picture = GFX_report_event_pax_forum
+	is_triggered_only = yes
+	option = {
+		name = pax.2.a
+		ai_chance = { factor = 80 }
+		FROM = { add_to_faction = ROOT }
+	}
+	option = {
+		name = pax.2.b
+		ai_chance = { factor = 20 }
+		add_political_power = 25
+	}
+}
+
+# Приглашение в Степной Пакт (FROM = Северное Царство)
+country_event = {
+	id = pax.3
+	title = pax.3.t
+	desc = pax.3.d
+	picture = GFX_report_event_pax_steppe
+	is_triggered_only = yes
+	option = {
+		name = pax.3.a
+		ai_chance = { factor = 80 }
+		FROM = { add_to_faction = ROOT }
+	}
+	option = {
+		name = pax.3.b
+		ai_chance = { factor = 20 }
+		add_political_power = 25
+	}
+}
+
+# Пал Страж
+news_event = {
+	id = pax.10
+	title = pax.10.t
+	desc = pax.10.d
+	picture = GFX_news_event_pax_storm
+	is_triggered_only = yes
+	option = { name = pax.10.a }
+}
+
+# Стражей больше нет
+news_event = {
+	id = pax.11
+	title = pax.11.t
+	desc = pax.11.d
+	picture = GFX_news_event_pax_cold
+	is_triggered_only = yes
+	option = { name = pax.11.a }
+}
+
+# Вторая Великая война: Рейх решает, идти ли на север (старт 1939)
+country_event = {
+	id = pax.30
+	title = pax.30.t
+	desc = pax.30.d
+	picture = GFX_report_event_pax_north
+	is_triggered_only = yes
+	option = {
+		name = pax.30.a
+		ai_chance = { factor = 70 }
+		add_war_support = 0.1
+		create_wargoal = { type = annex_everything target = SOV }
+	}
+	option = {
+		name = pax.30.b
+		ai_chance = { factor = 30 }
+		add_political_power = 50
+	}
+}
+
+
+# Пробуждение Стража-7
+news_event = {
+	id = pax.12
+	title = pax.12.t
+	desc = pax.12.d
+	picture = GFX_news_event_pax_seven
+	is_triggered_only = yes
+	option = { name = pax.12.a }
+}
+
+# Путеводитель с разделами, как гайд basa_basa в Family
+country_event = {
+	id = pax.20
+	title = pax.20.t
+	desc = pax.20.d
+	picture = GFX_report_event_pax_precursors
+	is_triggered_only = yes
+	option = { name = pax.20.b country_event = { id = pax.21 } }
+	option = { name = pax.20.c country_event = { id = pax.22 } }
+	option = { name = pax.20.e country_event = { id = pax.23 } }
+	option = { name = pax.20.f country_event = { id = pax.24 } }
+	option = { name = pax.20.g country_event = { id = pax.25 } }
+	option = { name = pax.20.a }
+}
+country_event = {
+	id = pax.21
+	title = pax.21.t
+	desc = pax.21.d
+	picture = GFX_report_event_pax_monolith
+	is_triggered_only = yes
+	option = { name = pax.21.a country_event = { id = pax.20 } }
+	option = { name = pax.21.b }
+}
+country_event = {
+	id = pax.22
+	title = pax.22.t
+	desc = pax.22.d
+	picture = GFX_report_event_pax_forum
+	is_triggered_only = yes
+	option = { name = pax.21.a country_event = { id = pax.20 } }
+	option = { name = pax.21.b }
+}
+country_event = {
+	id = pax.23
+	title = pax.23.t
+	desc = pax.23.d
+	picture = GFX_report_event_pax_neon
+	is_triggered_only = yes
+	option = { name = pax.21.a country_event = { id = pax.20 } }
+	option = { name = pax.21.b }
+}
+
+country_event = {
+	id = pax.24
+	title = pax.24.t
+	desc = pax.24.d
+	picture = GFX_report_event_pax_cold
+	is_triggered_only = yes
+	option = { name = pax.21.a country_event = { id = pax.20 } }
+	option = { name = pax.21.b }
+}
+country_event = {
+	id = pax.25
+	title = pax.25.t
+	desc = pax.25.d
+	picture = GFX_report_event_pax_seven
+	is_triggered_only = yes
+	option = { name = pax.21.a country_event = { id = pax.20 } }
+	option = { name = pax.21.b }
+}
+
+# «Вы хотите Тотальной Войны?» (Familyevents.81), приходит после фокуса «Тотальная война»
+country_event = {
+	id = pax.40
+	title = pax.40.t
+	desc = pax.40.d
+	picture = GFX_report_event_pax_storm
+	is_triggered_only = yes
+	option = { name = pax.40.a }
+}

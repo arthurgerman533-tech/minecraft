@@ -1,0 +1,75 @@
+technologies = {
+	pax_tech_tablets = {
+		research_speed_factor = 0.02
+		path = { leads_to_tech = pax_tech_kaer_copper research_cost_coeff = 1 }
+		research_cost = 1.5
+		start_year = 1936
+		allow = { always = no }
+		ai_will_do = { factor = 0 }
+	}
+
+	pax_tech_kaer_copper = {
+		local_resources_factor = 0.05
+		path = { leads_to_tech = pax_tech_redstone research_cost_coeff = 1 }
+		research_cost = 2
+		start_year = 1936
+		allow = { always = no }
+		ai_will_do = { factor = 0 }
+	}
+
+	pax_tech_redstone = {
+		industrial_capacity_factory = 0.05
+		path = { leads_to_tech = pax_tech_star_shards research_cost_coeff = 1 }
+		research_cost = 2.5
+		start_year = 1939
+		allow = { always = no }
+		ai_will_do = { factor = 0 }
+	}
+
+	pax_tech_star_shards = {
+		research_speed_factor = 0.03
+		path = { leads_to_tech = pax_tech_copper_heart research_cost_coeff = 1 }
+		research_cost = 3
+		start_year = 1945
+		allow = { always = no }
+		ai_will_do = { factor = 0 }
+	}
+
+	pax_tech_copper_heart = {
+		research_speed_factor = 0.03
+		army_org_factor = 0.03
+		path = { leads_to_tech = pax_tech_copper_legions research_cost_coeff = 1 }
+		research_cost = 3
+		start_year = 1962
+		allow = { always = no }
+		ai_will_do = { factor = 0 }
+	}
+
+	pax_tech_copper_legions = {
+		army_core_defence_factor = 0.1
+		industrial_capacity_factory = 0.05
+		path = { leads_to_tech = pax_tech_sculk_net research_cost_coeff = 1 }
+		research_cost = 3.5
+		start_year = 2041
+		allow = { always = no }
+		ai_will_do = { factor = 0 }
+	}
+
+	pax_tech_sculk_net = {
+		research_speed_factor = 0.05
+		path = { leads_to_tech = pax_tech_gates research_cost_coeff = 1 }
+		research_cost = 4
+		start_year = 2089
+		allow = { always = no }
+		ai_will_do = { factor = 0 }
+	}
+
+	pax_tech_gates = {
+		production_speed_buildings_factor = 0.1
+		consumer_goods_factor = -0.03
+		research_cost = 4.5
+		start_year = 2120
+		allow = { always = no }
+		ai_will_do = { factor = 0 }
+	}
+}

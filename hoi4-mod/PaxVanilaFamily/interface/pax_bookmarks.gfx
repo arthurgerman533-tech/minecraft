@@ -1,0 +1,34 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_pax_bm_1241"
+		texturefile = "gfx/interface/bookmarks/pax_bm_1241.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_bm_1914"
+		texturefile = "gfx/interface/bookmarks/pax_bm_1914.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_bm_1936"
+		texturefile = "gfx/interface/bookmarks/pax_bm_1936.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_bm_1936e"
+		texturefile = "gfx/interface/bookmarks/pax_bm_1936e.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_bm_1939"
+		texturefile = "gfx/interface/bookmarks/pax_bm_1939.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_bm_1962"
+		texturefile = "gfx/interface/bookmarks/pax_bm_1962.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_bm_2041"
+		texturefile = "gfx/interface/bookmarks/pax_bm_2041.dds"
+	}
+	spriteType = {
+		name = "GFX_pax_bm_2096"
+		texturefile = "gfx/interface/bookmarks/pax_bm_2096.dds"
+	}
+}

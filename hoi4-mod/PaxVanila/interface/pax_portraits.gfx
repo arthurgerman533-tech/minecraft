@@ -1,0 +1,42 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_portrait_ITA_pax_romul"
+		texturefile = "gfx/leaders/PAX/ITA_pax_romul.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_SPR_pax_hannon"
+		texturefile = "gfx/leaders/PAX/SPR_pax_hannon.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_GRE_pax_pericles"
+		texturefile = "gfx/leaders/PAX/GRE_pax_pericles.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_FRA_pax_ambiorix"
+		texturefile = "gfx/leaders/PAX/FRA_pax_ambiorix.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_ENG_pax_elinor"
+		texturefile = "gfx/leaders/PAX/ENG_pax_elinor.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_GER_pax_arminius"
+		texturefile = "gfx/leaders/PAX/GER_pax_arminius.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_SOV_pax_vseslav"
+		texturefile = "gfx/leaders/PAX/SOV_pax_vseslav.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_ROM_pax_decebal"
+		texturefile = "gfx/leaders/PAX/ROM_pax_decebal.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_TUR_pax_tengiz"
+		texturefile = "gfx/leaders/PAX/TUR_pax_tengiz.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_PER_pax_idanthyrsus"
+		texturefile = "gfx/leaders/PAX/PER_pax_idanthyrsus.tga"
+	}
+}

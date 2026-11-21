@@ -1,0 +1,8 @@
+PAX_monolith_category = {
+	allowed = { OR = { original_tag = ITA original_tag = SOV } }
+	visible = { has_global_flag = pax_seal_cracked }
+}
+
+PAX_guide_category = {
+	allowed = { always = yes }
+}
