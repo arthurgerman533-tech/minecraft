@@ -34,7 +34,6 @@ technologies = {
 		categories = {
 			artillery
 			mio_cat_all_artillery_equipment
-			mio_cat_artillery #Only Artillery
 		}
 
 		ai_will_do = {
