@@ -1,0 +1,9 @@
+﻿l_russian:
+ energy_infrastructure:0 "Энергетическая инфраструктура"
+ energy_infrastructure_desc:0 "Электростанции, подстанции и сети, снижающие потребление энергии местными фабриками. Делит слот с промышленной инфраструктурой."
+ industrial_infrastructure:0 "Промышленная инфраструктура"
+ industrial_infrastructure_desc:0 "Дороги, склады и инженерные сети для добычи ресурсов. Делит слот с энергетической инфраструктурой."
+ MODIFIER_LOCAL_FACTORY_ENERGY_CONSUMPTION_PER_INFRASTRUCTURE:0 "Потребление энергии фабриками на ед. инфраструктуры"
+ MODIFIER_LOCAL_RESOURCE_GAIN_EFFICIENCY_PER_INFRASTRUCTURE:0 "Эффективность добычи ресурсов на ед. инфраструктуры"
+ BUILDING_GROUP_TOOLTIP:0 "Общие слоты с:"
+ BUILDING_GROUP_SHARED_NAME_ENTRY:0 "- $NAME$"

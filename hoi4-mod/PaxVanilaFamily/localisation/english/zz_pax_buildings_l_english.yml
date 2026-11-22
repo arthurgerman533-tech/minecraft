@@ -1,0 +1,9 @@
+﻿l_english:
+ energy_infrastructure:0 "Energy Infrastructure"
+ energy_infrastructure_desc:0 "Power plants, substations and grids that cut the energy use of local factories. Shares its slot with Industrial Infrastructure."
+ industrial_infrastructure:0 "Industrial Infrastructure"
+ industrial_infrastructure_desc:0 "Roads, depots and utilities for resource extraction. Shares its slot with Energy Infrastructure."
+ MODIFIER_LOCAL_FACTORY_ENERGY_CONSUMPTION_PER_INFRASTRUCTURE:0 "Factory energy consumption per infrastructure"
+ MODIFIER_LOCAL_RESOURCE_GAIN_EFFICIENCY_PER_INFRASTRUCTURE:0 "Resource gain efficiency per infrastructure"
+ BUILDING_GROUP_TOOLTIP:0 "Shares slots with:"
+ BUILDING_GROUP_SHARED_NAME_ENTRY:0 "- $NAME$"
