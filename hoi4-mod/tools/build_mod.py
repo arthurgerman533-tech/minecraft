@@ -73,6 +73,18 @@ def wa_replace_paths():
     return "".join(out)
 
 
+def build_won():
+    """Мод «Economic System Rework» (Wealth of Nations, workshop 3841374063) целиком: рынок, лига, гонка, сферы."""
+    src = os.path.join(os.path.dirname(os.path.abspath(__file__)), "won_src")
+    for root, _, files in os.walk(src):
+        for fn in files:
+            p = os.path.join(root, fn)
+            rel = os.path.relpath(p, src).replace(os.sep, "/")
+            dst = os.path.join(OUT, rel)
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            shutil.copyfile(p, dst)
+
+
 def build_descriptor():
     body = (
         f'version="{D.MOD_VERSION}"\n'
@@ -982,6 +994,7 @@ def main():
         MD.decisions(w, LOC, indent)
     for bm in ('blitzkrieg', 'the_gathering_storm') + (('No_Asia',) if D.BASE == "fam" else ()):  # noqa  # лаунчер стирает replace_path из внешнего .mod, поэтому глушим ванильные закладки
         w(f'common/bookmarks/{bm}.txt', 'bookmarks = {\n}\n')
+    build_won()
     build_characters()
     build_setup()
     build_eras_extra()

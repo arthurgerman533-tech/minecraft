@@ -1,0 +1,188 @@
+# Wealth of Nations - International Market module (merged from Arsenal of Nations)
+###########################################
+# Arsenal of Nations - AI market behaviour
+#
+# aon_pref_seller_1..3 are set monthly on every AI country by
+# aon_ai_market_preferences: the human players it is willing to buy from.
+###########################################
+
+#------------------------------------------
+# Prefer to buy from players
+#------------------------------------------
+
+aon_buy_from_player_1 = {
+	allowed = { always = yes }
+	enable = { has_variable = aon_pref_seller_1 }
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_market_buy
+		seller = var:aon_pref_seller_1
+		value = 70
+	}
+}
+
+aon_buy_from_player_2 = {
+	allowed = { always = yes }
+	enable = { has_variable = aon_pref_seller_2 }
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_market_buy
+		seller = var:aon_pref_seller_2
+		value = 70
+	}
+}
+
+aon_buy_from_player_3 = {
+	allowed = { always = yes }
+	enable = { has_variable = aon_pref_seller_3 }
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_market_buy
+		seller = var:aon_pref_seller_3
+		value = 70
+	}
+}
+
+# A well-known exporter is preferred even more
+aon_buy_from_renowned_player_1 = {
+	allowed = { always = yes }
+	enable = {
+		has_variable = aon_pref_seller_1
+		var:aon_pref_seller_1 = { check_variable = { aon_tier > 2 } }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_market_buy
+		seller = var:aon_pref_seller_1
+		value = 60
+	}
+}
+
+aon_buy_from_renowned_player_2 = {
+	allowed = { always = yes }
+	enable = {
+		has_variable = aon_pref_seller_2
+		var:aon_pref_seller_2 = { check_variable = { aon_tier > 2 } }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_market_buy
+		seller = var:aon_pref_seller_2
+		value = 60
+	}
+}
+
+aon_buy_from_renowned_player_3 = {
+	allowed = { always = yes }
+	enable = {
+		has_variable = aon_pref_seller_3
+		var:aon_pref_seller_3 = { check_variable = { aon_tier > 2 } }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_market_buy
+		seller = var:aon_pref_seller_3
+		value = 60
+	}
+}
+
+#------------------------------------------
+# Bloc loyalty: faction members buy from their own (AI) faction leader first.
+# Human exporters have to out-compete this with Market Standing.
+#------------------------------------------
+
+aon_buy_from_patron = {
+	allowed = { always = yes }
+	enable = { has_variable = aon_patron }
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_market_buy
+		seller = var:aon_patron
+		value = 100
+	}
+}
+
+#------------------------------------------
+# Subjects of a human player supply their army from the overlord's factories
+#------------------------------------------
+
+aon_subject_buys_from_overlord = {
+	allowed = { always = yes }
+	enable = { has_variable = aon_overlord_seller }
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_market_buy
+		seller = var:aon_overlord_seller
+		value = 1000
+	}
+	ai_strategy = { type = equipment_market_spend_factories value = 50 }
+}
+
+#------------------------------------------
+# Buy more at all
+# Vanilla AI only buys to cover a shortage. In peacetime, an AI with idle
+# civilian factories now builds up reserves through the market.
+#------------------------------------------
+
+aon_market_peacetime_reserves = {
+	allowed = { always = yes }
+	enable = {
+		has_war = no
+		has_variable = aon_pref_seller_1
+		var:aon_pref_seller_1 = { check_variable = { aon_tier > 1 } }
+		num_of_civilian_factories_available_for_projects > 4
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_market_spend_factories value = 30 }
+
+	ai_strategy = { type = equipment_market_buying_threshold id = infantry_equipment value = 400 }
+	ai_strategy = { type = equipment_market_buying_threshold id = support_equipment value = 40 }
+	ai_strategy = { type = equipment_market_buying_threshold id = artillery_equipment value = 80 }
+	ai_strategy = { type = equipment_market_buying_threshold id = anti_tank_equipment value = 40 }
+	ai_strategy = { type = equipment_market_buying_threshold id = anti_air_equipment value = 40 }
+	ai_strategy = { type = equipment_market_buying_threshold id = motorized_equipment value = 60 }
+	ai_strategy = { type = equipment_market_buying_threshold id = train_equipment value = 5 }
+	ai_strategy = { type = equipment_market_buying_threshold id = light_tank_chassis value = 15 }
+	ai_strategy = { type = equipment_market_buying_threshold id = medium_tank_chassis value = 15 }
+	ai_strategy = { type = equipment_market_buying_threshold id = small_plane_airframe value = 25 }
+}
+
+# Tension rising: rearm faster
+aon_market_rearmament = {
+	allowed = { always = yes }
+	enable = {
+		has_war = no
+		threat > 0.3
+		has_variable = aon_pref_seller_1
+		num_of_civilian_factories_available_for_projects > 4
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_market_spend_factories value = 30 }
+
+	ai_strategy = { type = equipment_market_buying_threshold id = infantry_equipment value = 400 }
+	ai_strategy = { type = equipment_market_buying_threshold id = artillery_equipment value = 80 }
+	ai_strategy = { type = equipment_market_buying_threshold id = medium_tank_chassis value = 20 }
+	ai_strategy = { type = equipment_market_buying_threshold id = small_plane_airframe value = 40 }
+}
+
+# At war, shortages are real: spend more on filling them
+aon_market_wartime_purchases = {
+	allowed = { always = yes }
+	enable = {
+		has_war = yes
+		num_of_civilian_factories_available_for_projects > 4
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_market_spend_factories value = 60 }
+}

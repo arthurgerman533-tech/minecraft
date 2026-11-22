@@ -1,0 +1,937 @@
+add_namespace = won
+
+# Welcome
+country_event = {
+	id = won.1
+	title = won.1.t
+	desc = won.1.d
+	picture = GFX_report_event_generic_stock_traders
+	is_triggered_only = yes
+	option = {
+		name = won.1.a
+		set_country_flag = won_show_dash
+	}
+	option = {
+		name = won.1.b
+	}
+}
+
+# Reform the economic system (paid for by the decision)
+country_event = {
+	id = won.2
+	title = won.2.t
+	desc = won.2.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+#BEGIN GENERATED REFORM
+	option = {	# Laissez-Faire Capitalism
+		name = won_sys_opt_1
+		trigger = { won_system_allowed_1 = yes NOT = { check_variable = { won_system = 1 } } }
+		won_set_system_1 = yes
+		won_system_switch_costs = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# Keynesian Mixed Economy
+		name = won_sys_opt_2
+		trigger = { won_system_allowed_2 = yes NOT = { check_variable = { won_system = 2 } } }
+		won_set_system_2 = yes
+		won_system_switch_costs = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# Social Market Economy
+		name = won_sys_opt_3
+		trigger = { won_system_allowed_3 = yes NOT = { check_variable = { won_system = 3 } } }
+		won_set_system_3 = yes
+		won_system_switch_costs = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# Command Economy
+		name = won_sys_opt_4
+		trigger = { won_system_allowed_4 = yes NOT = { check_variable = { won_system = 4 } } }
+		won_set_system_4 = yes
+		won_system_switch_costs = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# Market Socialism
+		name = won_sys_opt_5
+		trigger = { won_system_allowed_5 = yes NOT = { check_variable = { won_system = 5 } } }
+		won_set_system_5 = yes
+		won_system_switch_costs = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# War Communism
+		name = won_sys_opt_6
+		trigger = { won_system_allowed_6 = yes NOT = { check_variable = { won_system = 6 } } }
+		won_set_system_6 = yes
+		won_system_switch_costs = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# Corporatism
+		name = won_sys_opt_7
+		trigger = { won_system_allowed_7 = yes NOT = { check_variable = { won_system = 7 } } }
+		won_set_system_7 = yes
+		won_system_switch_costs = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# Autarky
+		name = won_sys_opt_8
+		trigger = { won_system_allowed_8 = yes NOT = { check_variable = { won_system = 8 } } }
+		won_set_system_8 = yes
+		won_system_switch_costs = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# Defence Economy
+		name = won_sys_opt_9
+		trigger = { won_system_allowed_9 = yes NOT = { check_variable = { won_system = 9 } } }
+		won_set_system_9 = yes
+		won_system_switch_costs = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# State Capitalism
+		name = won_sys_opt_10
+		trigger = { won_system_allowed_10 = yes NOT = { check_variable = { won_system = 10 } } }
+		won_set_system_10 = yes
+		won_system_switch_costs = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# Agrarian Economy
+		name = won_sys_opt_11
+		trigger = { won_system_allowed_11 = yes NOT = { check_variable = { won_system = 11 } } }
+		won_set_system_11 = yes
+		won_system_switch_costs = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# Mercantilism
+		name = won_sys_opt_12
+		trigger = { won_system_allowed_12 = yes NOT = { check_variable = { won_system = 12 } } }
+		won_set_system_12 = yes
+		won_system_switch_costs = yes
+		ai_chance = { factor = 1 }
+	}
+#END GENERATED REFORM
+	option = {
+		name = won.2.x
+		add_political_power = 75
+		ai_chance = { factor = 0 }
+	}
+}
+
+# The regime changed and the old system is gone
+country_event = {
+	id = won.3
+	title = won.3.t
+	desc = won.3.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+#BEGIN GENERATED REGIME
+	option = {	# Laissez-Faire Capitalism
+		name = won_sys_opt_1
+		trigger = { won_system_allowed_1 = yes }
+		won_set_system_1 = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# Keynesian Mixed Economy
+		name = won_sys_opt_2
+		trigger = { won_system_allowed_2 = yes }
+		won_set_system_2 = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# Social Market Economy
+		name = won_sys_opt_3
+		trigger = { won_system_allowed_3 = yes }
+		won_set_system_3 = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# Command Economy
+		name = won_sys_opt_4
+		trigger = { won_system_allowed_4 = yes }
+		won_set_system_4 = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# Market Socialism
+		name = won_sys_opt_5
+		trigger = { won_system_allowed_5 = yes }
+		won_set_system_5 = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# War Communism
+		name = won_sys_opt_6
+		trigger = { won_system_allowed_6 = yes }
+		won_set_system_6 = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# Corporatism
+		name = won_sys_opt_7
+		trigger = { won_system_allowed_7 = yes }
+		won_set_system_7 = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# Autarky
+		name = won_sys_opt_8
+		trigger = { won_system_allowed_8 = yes }
+		won_set_system_8 = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# Defence Economy
+		name = won_sys_opt_9
+		trigger = { won_system_allowed_9 = yes }
+		won_set_system_9 = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# State Capitalism
+		name = won_sys_opt_10
+		trigger = { won_system_allowed_10 = yes }
+		won_set_system_10 = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# Agrarian Economy
+		name = won_sys_opt_11
+		trigger = { won_system_allowed_11 = yes }
+		won_set_system_11 = yes
+		ai_chance = { factor = 1 }
+	}
+	option = {	# Mercantilism
+		name = won_sys_opt_12
+		trigger = { won_system_allowed_12 = yes }
+		won_set_system_12 = yes
+		ai_chance = { factor = 1 }
+	}
+#END GENERATED REGIME
+}
+
+######################################################################
+# Market events
+######################################################################
+country_event = {
+	id = won.10
+	title = won.10.t
+	desc = won.10.d
+	picture = GFX_report_event_generic_stock_traders
+	is_triggered_only = yes
+	option = {	# Let it run
+		name = won.10.a
+		won_conf_up_big = yes
+		won_infl_up = yes
+		ai_chance = { factor = 60 }
+	}
+	option = {	# Cool it down
+		name = won.10.b
+		set_variable = { won_rate = 3 }
+		custom_effect_tooltip = won_tt_rate_high
+		won_conf_up = yes
+		ai_chance = { factor = 40 }
+	}
+}
+
+country_event = {
+	id = won.11
+	title = won.11.t
+	desc = won.11.d
+	picture = GFX_report_event_generic_stock_traders
+	is_triggered_only = yes
+	option = {
+		name = won.11.p
+		trigger = { has_country_flag = won_prog_bank }
+		won_conf_down = yes
+		ai_chance = { factor = 80 }
+	}
+	option = {	# Bail out the banks
+		name = won.11.a
+		won_pay_big = yes
+		won_conf_down = yes
+		ai_chance = { factor = 50 }
+	}
+	option = {	# Let them fail
+		name = won.11.b
+		won_conf_down_big = yes
+		add_timed_idea = { idea = won_bank_crisis days = 180 }
+		add_stability = -0.03
+		ai_chance = { factor = 50 }
+	}
+}
+
+country_event = {
+	id = won.12
+	title = won.12.t
+	desc = won.12.d
+	picture = GFX_report_event_generic_riot
+	is_triggered_only = yes
+	option = {
+		name = won.12.p
+		trigger = { has_country_flag = won_prog_bank }
+		won_conf_up = yes
+		ai_chance = { factor = 80 }
+	}
+	option = {	# Guarantee deposits
+		name = won.12.a
+		won_pay_mid = yes
+		won_conf_up = yes
+	}
+	option = {	# Bank holiday
+		name = won.12.b
+		add_timed_idea = { idea = won_bank_crisis days = 120 }
+		add_stability = -0.05
+	}
+}
+
+country_event = {
+	id = won.13
+	title = won.13.t
+	desc = won.13.d
+	picture = GFX_report_event_generic_riot
+	is_triggered_only = yes
+	option = {	# Price controls
+		name = won.13.a
+		add_timed_idea = { idea = won_price_controls days = 270 }
+		add_to_variable = { won_inflation = -3 }
+		custom_effect_tooltip = won_tt_infl_down_big
+		won_conf_down = yes
+	}
+	option = {	# Tight money
+		name = won.13.b
+		set_variable = { won_rate = 3 }
+		custom_effect_tooltip = won_tt_rate_high
+		won_infl_down = yes
+	}
+	option = {	# Ride it out
+		name = won.13.c
+		add_stability = -0.03
+	}
+}
+
+country_event = {
+	id = won.14
+	title = won.14.t
+	desc = won.14.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {	# Cheap money
+		name = won.14.a
+		set_variable = { won_rate = 1 }
+		custom_effect_tooltip = won_tt_rate_low
+		won_infl_up = yes
+	}
+	option = {	# Public spending
+		name = won.14.b
+		won_pay_mid = yes
+		add_timed_idea = { idea = won_stimulus days = 120 }
+		won_infl_up = yes
+	}
+}
+
+country_event = {
+	id = won.15
+	title = won.15.t
+	desc = won.15.d
+	picture = GFX_report_event_generic_strike
+	is_triggered_only = yes
+	option = {
+		name = won.15.p
+		trigger = { has_country_flag = won_prog_labour }
+		add_political_power = -10
+		ai_chance = { factor = 80 }
+	}
+	option = {	# Negotiate
+		name = won.15.a
+		won_pay_small = yes
+		add_to_variable = { won_inflation = 0.5 }
+		add_stability = 0.02
+	}
+	option = {	# Break the strike
+		name = won.15.b
+		add_stability = -0.05
+		add_war_support = 0.02
+		add_timed_idea = { idea = won_strikes days = 30 }
+	}
+	option = {	# Wait them out
+		name = won.15.c
+		add_timed_idea = { idea = won_strikes days = 90 }
+	}
+}
+
+country_event = {
+	id = won.16
+	title = won.16.t
+	desc = won.16.d
+	picture = GFX_report_event_generic_dancing
+	is_triggered_only = yes
+	option = {	# Export the surplus
+		name = won.16.a
+		won_get_small = yes
+	}
+	option = {	# Cheap bread for all
+		name = won.16.b
+		add_timed_idea = { idea = won_harvest_good days = 180 }
+		won_infl_down = yes
+	}
+}
+
+country_event = {
+	id = won.17
+	title = won.17.t
+	desc = won.17.d
+	picture = GFX_report_event_generic_ruins
+	is_triggered_only = yes
+	option = {
+		name = won.17.p
+		trigger = { has_country_flag = won_prog_farm }
+		add_political_power = 5
+		ai_chance = { factor = 80 }
+	}
+	option = {	# Import grain
+		name = won.17.a
+		won_pay_small = yes
+	}
+	option = {	# Tighten belts
+		name = won.17.b
+		add_timed_idea = { idea = won_harvest_bad days = 180 }
+		set_country_flag = { flag = won_food_stress days = 365 }
+		won_infl_up = yes
+	}
+}
+
+country_event = {
+	id = won.18
+	title = won.18.t
+	desc = won.18.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = won.18.p
+		trigger = { has_country_flag = won_prog_graft }
+		won_get_small = yes
+		ai_chance = { factor = 80 }
+	}
+	option = {	# Crack down
+		name = won.18.a
+		add_political_power = -30
+		add_stability = 0.02
+	}
+	option = {	# Look away
+		name = won.18.b
+		add_timed_idea = { idea = won_black_market days = 180 }
+	}
+}
+
+country_event = {
+	id = won.19
+	title = won.19.t
+	desc = won.19.d
+	picture = GFX_report_event_generic_research_lab
+	is_triggered_only = yes
+	option = {	# Back the inventor
+		name = won.19.a
+		won_pay_small = yes
+		add_timed_idea = { idea = won_entrepreneur days = 365 }
+	}
+	option = {	# Not our business
+		name = won.19.b
+		won_conf_up = yes
+	}
+}
+
+country_event = {
+	id = won.20
+	title = won.20.t
+	desc = won.20.d
+	picture = GFX_report_event_generic_ruins
+	is_triggered_only = yes
+	option = {
+		name = won.20.p
+		trigger = { has_country_flag = won_prog_safety }
+		add_political_power = 5
+		ai_chance = { factor = 80 }
+	}
+	option = {	# Rebuild with state money
+		name = won.20.a
+		won_pay_small = yes
+		add_timed_idea = { idea = won_industrial_accident days = 30 }
+	}
+	option = {	# Leave it to the owners
+		name = won.20.b
+		add_timed_idea = { idea = won_industrial_accident days = 120 }
+		add_stability = -0.02
+	}
+}
+
+country_event = {
+	id = won.21
+	title = won.21.t
+	desc = won.21.d
+	picture = GFX_report_event_generic_dancing
+	is_triggered_only = yes
+	option = {	# Let people spend
+		name = won.21.a
+		add_timed_idea = { idea = won_consumer_boom days = 270 }
+		won_infl_up = yes
+	}
+	option = {	# Tax the boom
+		name = won.21.b
+		won_get_small = yes
+		add_stability = -0.01
+	}
+}
+
+country_event = {
+	id = won.22
+	title = won.22.t
+	desc = won.22.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {	# Ration
+		name = won.22.a
+		add_timed_idea = { idea = won_rationing days = 365 }
+		won_infl_down = yes
+	}
+	option = {	# Keep shelves open
+		name = won.22.b
+		won_infl_up = yes
+		add_war_support = -0.02
+	}
+}
+
+country_event = {
+	id = won.23
+	title = won.23.t
+	desc = won.23.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	option = {
+		name = won.23.p
+		trigger = { has_country_flag = won_prog_graft }
+		add_political_power = 10
+		ai_chance = { factor = 80 }
+	}
+	option = {	# Public inquiry
+		name = won.23.a
+		add_political_power = -40
+		won_conf_up = yes
+	}
+	option = {	# Bury it
+		name = won.23.b
+		add_timed_idea = { idea = won_corruption days = 180 }
+		won_pay_small = yes
+	}
+}
+
+country_event = {
+	id = won.24
+	title = won.24.t
+	desc = won.24.d
+	picture = GFX_report_event_generic_stock_traders
+	is_triggered_only = yes
+	option = {	# Promise reform
+		name = won.24.a
+		set_variable = { won_tax = 3 }
+		custom_effect_tooltip = won_tt_tax_high
+		won_conf_down = yes
+	}
+	option = {	# Ignore the bankers
+		name = won.24.b
+		won_conf_down_big = yes
+	}
+}
+
+country_event = {
+	id = won.25
+	title = won.25.t
+	desc = won.25.d
+	picture = GFX_report_event_generic_stock_traders
+	is_triggered_only = yes
+	option = {
+		name = won.25.a
+		won_conf_up_big = yes
+		add_political_power = 25
+	}
+}
+
+country_event = {
+	id = won.26
+	title = won.26.t
+	desc = won.26.d
+	picture = GFX_report_event_generic_research_lab
+	is_triggered_only = yes
+	option = {	# Welcome them
+		name = won.26.a
+		add_timed_idea = { idea = won_brain_gain days = 365 }
+		won_pay_small = yes
+	}
+	option = {	# Quotas stay
+		name = won.26.b
+		add_political_power = 15
+	}
+}
+
+country_event = {
+	id = won.27
+	title = won.27.t
+	desc = won.27.d
+	picture = GFX_report_event_generic_train
+	is_triggered_only = yes
+	option = {	# Let them go
+		name = won.27.a
+		add_timed_idea = { idea = won_brain_drain days = 365 }
+	}
+	option = {	# Seal the borders
+		name = won.27.b
+		add_political_power = -25
+		add_stability = -0.02
+	}
+}
+
+country_event = {
+	id = won.28
+	title = won.28.t
+	desc = won.28.d
+	picture = GFX_report_event_generic_train
+	is_triggered_only = yes
+	option = {	# Sign the concession
+		name = won.28.a
+		trigger = { check_variable = { won_treasury > won_c_small } }
+		won_pay_small = yes
+		random_owned_controlled_state = {
+			limit = { is_core_of = ROOT free_building_slots = { building = infrastructure size > 0 } }
+			add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+		}
+		random_owned_controlled_state = {
+			limit = { is_core_of = ROOT free_building_slots = { building = infrastructure size > 0 } }
+			add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+		}
+	}
+	option = {	# Too expensive
+		name = won.28.b
+	}
+}
+
+country_event = {
+	id = won.29
+	title = won.29.t
+	desc = won.29.d
+	picture = GFX_report_event_generic_stock_traders
+	is_triggered_only = yes
+	option = {
+		name = won.29.p
+		trigger = { has_country_flag = won_prog_bank }
+		won_conf_down = yes
+		ai_chance = { factor = 80 }
+	}
+	option = {	# Capital controls
+		name = won.29.a
+		set_variable = { won_open = 0 }
+		custom_effect_tooltip = won_tt_closed
+		add_stability = 0.02
+	}
+	option = {	# Raise rates to keep it here
+		name = won.29.b
+		set_variable = { won_rate = 3 }
+		custom_effect_tooltip = won_tt_rate_high
+	}
+	option = {	# Let it go
+		name = won.29.c
+		won_pay_mid = yes
+		won_conf_down = yes
+	}
+}
+
+# var won_ev_partner = the trade partner
+country_event = {
+	id = won.31
+	title = won.31.t
+	desc = won.31.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	option = {	# Give them better terms
+		name = won.31.a
+		won_pay_small = yes
+		var:won_ev_partner = { add_opinion_modifier = { target = ROOT modifier = won_aid_given } }
+	}
+	option = {	# Hold firm
+		name = won.31.b
+		random_list = {
+			50 = { custom_effect_tooltip = won_tt_partner_stays }
+			50 = { var:won_ev_partner = { won_break_agreements = yes } }
+		}
+	}
+}
+
+country_event = {
+	id = won.32
+	title = won.32.t
+	desc = won.32.d
+	picture = GFX_report_event_generic_stock_traders
+	is_triggered_only = yes
+	immediate = { set_country_flag = won_had_1937 }
+	option = {	# Spend our way out
+		name = won.32.a
+		won_pay_mid = yes
+		add_timed_idea = { idea = won_stimulus days = 180 }
+		won_infl_up = yes
+	}
+	option = {	# Balance the budget
+		name = won.32.b
+		won_conf_down_big = yes
+		add_timed_idea = { idea = won_austerity days = 180 }
+		won_get_small = yes
+	}
+}
+
+country_event = {
+	id = won.33
+	title = won.33.t
+	desc = won.33.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	immediate = { set_country_flag = won_had_gold }
+	option = {	# Leave gold, devalue
+		name = won.33.a
+		add_timed_idea = { idea = won_devaluation days = 365 }
+		won_infl_up = yes
+	}
+	option = {	# Hold the gold line
+		name = won.33.b
+		won_conf_up = yes
+		add_to_variable = { won_inflation = -1 }
+	}
+}
+
+country_event = {
+	id = won.34
+	title = won.34.t
+	desc = won.34.d
+	picture = GFX_report_event_generic_dancing
+	is_triggered_only = yes
+	immediate = { set_global_flag = won_world_fair_held }
+	option = {	# Host it in style
+		name = won.34.a
+		trigger = { check_variable = { won_treasury > won_c_mid } }
+		won_pay_mid = yes
+		add_timed_idea = { idea = won_world_fair days = 365 }
+		won_conf_up_big = yes
+	}
+	option = {	# A modest pavilion
+		name = won.34.b
+		add_political_power = 25
+	}
+}
+
+country_event = {
+	id = won.35
+	title = won.35.t
+	desc = won.35.d
+	picture = GFX_report_event_generic_construction_site
+	is_triggered_only = yes
+	option = {	# Public housing
+		name = won.35.a
+		won_pay_small = yes
+		add_stability = 0.03
+	}
+	option = {	# The market will provide
+		name = won.35.b
+		add_stability = -0.02
+		won_infl_up = yes
+	}
+}
+
+country_event = {
+	id = won.36
+	title = won.36.t
+	desc = won.36.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {	# Excess profits tax
+		name = won.36.a
+		won_get_small = yes
+		add_timed_idea = { idea = won_strikes days = 30 }
+	}
+	option = {	# Production comes first
+		name = won.36.b
+		add_stability = -0.03
+		add_war_support = 0.02
+	}
+}
+
+country_event = {
+	id = won.37
+	title = won.37.t
+	desc = won.37.d
+	picture = GFX_report_event_generic_riot
+	is_triggered_only = yes
+	option = {	# Currency reform
+		name = won.37.a
+		add_political_power = -100
+		set_variable = { won_inflation = 6 }
+		set_variable = { won_print_m = 0 }
+		won_conf_down_big = yes
+		add_timed_idea = { idea = won_hyperinflation days = 90 }
+	}
+	option = {	# Keep the presses running
+		name = won.37.b
+		add_timed_idea = { idea = won_hyperinflation days = 365 }
+	}
+}
+
+country_event = {
+	id = won.38
+	title = won.38.t
+	desc = won.38.d
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+	option = {
+		name = won.38.a
+	}
+}
+
+# Our assets abroad were lost (war, nationalisation or the host disappeared)
+country_event = {
+	id = won.40
+	title = won.40.t
+	desc = won.40.d
+	picture = GFX_report_event_generic_ruins
+	is_triggered_only = yes
+	option = {
+		name = won.40.a
+		set_variable = { won_lost_assets = 0 }
+	}
+}
+
+# var won_ev_partner = the would-be investor
+country_event = {
+	id = won.50
+	title = won.50.t
+	desc = won.50.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+	option = {	# Welcome the investment
+		name = won.50.a
+		won_accept_fdi_from_from = yes
+		custom_effect_tooltip = won_tt_fdi_accept
+		won_office_return = yes
+		ai_chance = { factor = 70 }
+	}
+	option = {	# Joint venture: we pay half and keep half
+		name = won.50.b
+		trigger = { check_variable = { won_treasury > 0.75 } }
+		won_accept_joint_venture = yes
+		custom_effect_tooltip = won_tt_fdi_joint
+		won_office_return = yes
+		ai_chance = { factor = 20 }
+	}
+	option = {	# Not for sale
+		name = won.50.c
+		add_political_power = 10
+		won_conf_down = yes
+		won_office_return = yes
+		ai_chance = { factor = 10 }
+	}
+}
+
+######################################################################
+# System events
+######################################################################
+country_event = {
+	id = won.60
+	title = won.60.t
+	desc = won.60.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = won.60.a
+		add_timed_idea = { idea = won_corporate_industry days = 365 }
+	}
+	option = {
+		name = won.60.b
+		add_timed_idea = { idea = won_corporate_labour days = 365 }
+	}
+	option = {
+		name = won.60.c
+		add_timed_idea = { idea = won_corporate_state days = 365 }
+	}
+}
+
+country_event = {
+	id = won.61
+	title = won.61.t
+	desc = won.61.d
+	picture = GFX_report_event_generic_stock_traders
+	is_triggered_only = yes
+	immediate = { clr_country_flag = won_mefo_out }
+	option = {	# Pay them off
+		name = won.61.a
+		trigger = { check_variable = { won_treasury > won_mefo_due } }
+		set_temp_variable = { won_spend = won_mefo_due }
+		won_pay = yes
+		custom_effect_tooltip = won_tt_mefo_pay
+	}
+	option = {	# Roll them over
+		name = won.61.b
+		set_temp_variable = { won_spend = won_mefo_due }
+		multiply_temp_variable = { won_spend = 0.5 }
+		won_pay = yes
+		add_to_variable = { won_print_m = 8 }
+		custom_effect_tooltip = won_tt_mefo_roll
+	}
+	option = {	# Default
+		name = won.61.c
+		add_to_variable = { won_inflation = 6 }
+		won_conf_down_big = yes
+		add_stability = -0.05
+		custom_effect_tooltip = won_tt_infl_up
+		add_timed_idea = { idea = won_default days = 365 }
+		set_country_flag = { flag = won_mefo_banned days = 1095 }
+		custom_effect_tooltip = won_tt_mefo_banned
+	}
+}
+
+country_event = {
+	id = won.62
+	title = won.62.t
+	desc = won.62.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = won.62.a
+		trigger = { check_variable = { var = num_of_factories value = won_fyp_target compare = greater_than_or_equals } }
+		add_timed_idea = { idea = won_fyp_success days = 730 }
+		won_conf_up = yes
+	}
+	option = {
+		name = won.62.b
+		trigger = { NOT = { check_variable = { var = num_of_factories value = won_fyp_target compare = greater_than_or_equals } } }
+		add_timed_idea = { idea = won_fyp_failure days = 365 }
+	}
+}
+
+country_event = {
+	id = won.70
+	title = won.70.t
+	desc = won.70.d
+	picture = GFX_report_event_tur_industry
+	is_triggered_only = yes
+	option = {
+		name = won.70.a
+		add_to_variable = { won_prospect_finds = 1 }
+		random_owned_controlled_state = {
+			limit = { is_core_of = ROOT }
+			random_list = {
+				30 = { add_resource = { type = oil amount = 4 } }
+				25 = { add_resource = { type = steel amount = 6 } }
+				15 = { add_resource = { type = aluminium amount = 4 } }
+				10 = { add_resource = { type = rubber amount = 3 } }
+				10 = { add_resource = { type = tungsten amount = 3 } }
+				10 = { add_resource = { type = chromium amount = 3 } }
+			}
+		}
+		won_conf_up = yes
+	}
+}
+
+country_event = {
+	id = won.71
+	title = won.71.t
+	desc = won.71.d
+	picture = GFX_report_event_generic_construction_site
+	is_triggered_only = yes
+	option = {
+		name = won.71.a
+	}
+}

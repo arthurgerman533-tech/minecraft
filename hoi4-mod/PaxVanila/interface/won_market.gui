@@ -1,0 +1,254 @@
+# Wealth of Nations - International Market window (merged from Arsenal of Nations)
+guiTypes = {
+
+	#------------------------- ARMS TRADE BUTTON (overview tab, under "Auto request access") ----------------------------
+
+	containerWindowType = {
+		name = "aon_bureau_button_window"
+		position = { x = 350 y = 280 }
+
+		buttonType = {
+			name = "aon_bureau_button"
+			position = { x = 0 y = 0 }
+			quadTextureSprite = "GFX_government_button"
+			buttonFont = "hoi_16mbs"
+			Orientation = "UPPER_RIGHT"
+			pdx_tooltip = "AON_BUREAU_BUTTON_TT"
+			clicksound = click_default
+		}
+
+		instantTextboxType = {
+			name = "aon_bureau_button_text"
+			position = { x = 38 y = 9 }
+			font = "hoi_16mbs"
+			text = "AON_BUREAU_BUTTON"
+			Orientation = "UPPER_LEFT"
+			maxWidth = 130
+			alwaystransparent = yes
+			format = left
+		}
+
+		iconType = {
+			name = "aon_bureau_button_icon"
+			spriteType = "GFX_decision_category_generic_arms_trade"
+			position = { x = 2 y = 3 }
+			scale = 0.7
+			alwaystransparent = yes
+		}
+	}
+
+	#------------------------- ARMS TRADE BUREAU PANEL ----------------------------
+
+	containerWindowType = {
+		name = "aon_bureau_panel_window"
+		position = { x = 5 y = 172 }
+		size = { width = 540 height = 460 }
+		clipping = no
+
+		background = {
+			name = "Background"
+			spriteType = "GFX_tiled_window2_1b_border"
+		}
+
+		iconType = {
+			name = "aon_title_bg"
+			quadTextureSprite = "GFX_deployment_binding"
+			position = { x = 4 y = 6 }
+			alwaystransparent = yes
+		}
+
+		instantTextboxType = {
+			name = "aon_title"
+			position = { x = 20 y = 13 }
+			font = "hoi_18mbs"
+			text = "AON_PANEL_TITLE"
+			maxWidth = 440
+			maxHeight = 20
+			fixedsize = yes
+			format = left
+		}
+
+		buttonType = {
+			name = "aon_close_button"
+			position = { x = -42 y = 9 }
+			quadTextureSprite = "GFX_closebutton"
+			Orientation = "UPPER_RIGHT"
+			clicksound = click_close
+			pdx_tooltip = "CLOSE"
+		}
+
+		#--- Market Standing
+
+		iconType = {
+			name = "aon_tier_icon"
+			spriteType = "GFX_idea_generic_industrial_concern_1"
+			position = { x = 20 y = 50 }
+			pdx_tooltip = "AON_PANEL_TIER_TT"
+		}
+
+		instantTextboxType = {
+			name = "aon_tier_name"
+			position = { x = 96 y = 52 }
+			font = "hoi_20bs"
+			text = "AON_PANEL_TIER_NAME"
+			maxWidth = 420
+			maxHeight = 22
+			fixedsize = yes
+			format = left
+			pdx_tooltip = "AON_PANEL_TIER_TT"
+		}
+
+		instantTextboxType = {
+			name = "aon_tier_standing"
+			position = { x = 96 y = 78 }
+			font = "hoi_16mbs"
+			text = "AON_PANEL_STANDING"
+			maxWidth = 420
+			maxHeight = 18
+			fixedsize = yes
+			format = left
+			pdx_tooltip = "AON_PANEL_STANDING_TT"
+		}
+
+		instantTextboxType = {
+			name = "aon_tier_next"
+			position = { x = 96 y = 98 }
+			font = "hoi_16mbs"
+			text = "AON_PANEL_NEXT"
+			maxWidth = 420
+			maxHeight = 18
+			fixedsize = yes
+			format = left
+		}
+
+		#--- Trade flows
+
+		iconType = {
+			name = "aon_flows_header_bg"
+			spriteType = "GFX_category_header"
+			position = { x = 14 y = 124 }
+			alwaystransparent = yes
+		}
+
+		instantTextboxType = {
+			name = "aon_flows_header"
+			position = { x = 30 y = 136 }
+			font = "hoi_18mbs"
+			text = "AON_PANEL_FLOWS_HEADER"
+			maxWidth = 470
+			maxHeight = 20
+			fixedsize = yes
+			format = left
+		}
+
+		instantTextboxType = {
+			name = "aon_exports_text"
+			position = { x = 26 y = 176 }
+			font = "hoi_16mbs"
+			text = "AON_PANEL_EXPORTS"
+			maxWidth = 245
+			maxHeight = 78
+			fixedsize = yes
+			multiline = yes
+			format = left
+			pdx_tooltip = "AON_PANEL_EXPORTS_TT"
+		}
+
+		instantTextboxType = {
+			name = "aon_imports_text"
+			position = { x = 282 y = 176 }
+			font = "hoi_16mbs"
+			text = "AON_PANEL_IMPORTS"
+			maxWidth = 245
+			maxHeight = 78
+			fixedsize = yes
+			multiline = yes
+			format = left
+			pdx_tooltip = "AON_PANEL_IMPORTS_TT"
+		}
+
+		#--- Economic effects
+
+		iconType = {
+			name = "aon_effects_header_bg"
+			spriteType = "GFX_category_header"
+			position = { x = 14 y = 262 }
+			alwaystransparent = yes
+		}
+
+		instantTextboxType = {
+			name = "aon_effects_header"
+			position = { x = 30 y = 274 }
+			font = "hoi_18mbs"
+			text = "AON_PANEL_EFFECTS_HEADER"
+			maxWidth = 470
+			maxHeight = 20
+			fixedsize = yes
+			format = left
+		}
+
+		instantTextboxType = {
+			name = "aon_effects_left"
+			position = { x = 26 y = 316 }
+			font = "hoi_16mbs"
+			text = "AON_PANEL_EFFECTS_LEFT"
+			maxWidth = 245
+			maxHeight = 74
+			fixedsize = yes
+			multiline = yes
+			format = left
+			pdx_tooltip = "AON_PANEL_EFFECTS_TT"
+		}
+
+		instantTextboxType = {
+			name = "aon_effects_right"
+			position = { x = 282 y = 316 }
+			font = "hoi_16mbs"
+			text = "AON_PANEL_EFFECTS_RIGHT"
+			maxWidth = 245
+			maxHeight = 74
+			fixedsize = yes
+			multiline = yes
+			format = left
+			pdx_tooltip = "AON_PANEL_EFFECTS_TT"
+		}
+
+		instantTextboxType = {
+			name = "aon_exhibition_status"
+			position = { x = 26 y = 394 }
+			font = "hoi_16mbs"
+			text = "AON_PANEL_EXHIBITION"
+			maxWidth = 490
+			maxHeight = 18
+			fixedsize = yes
+			format = left
+		}
+
+		iconType = {
+			name = "aon_footer_divider"
+			spriteType = "GFX_divider"
+			position = { x = 13 y = 410 }
+			alwaystransparent = yes
+		}
+
+		buttonType = {
+			name = "won_mkt_office_button"
+			position = { x = 26 y = 418 }
+			quadTextureSprite = "GFX_button_221x34"
+			buttonText = "WON_MKT_OFFICE_BUTTON"
+			buttonFont = "hoi_16mbs"
+			pdx_tooltip = "WON_MKT_OFFICE_BUTTON_TT"
+			clicksound = click_default
+		}
+
+		buttonType = {
+			name = "won_mkt_court_button"
+			position = { x = 290 y = 418 }
+			quadTextureSprite = "GFX_button_221x34"
+			buttonText = "WON_MKT_COURT_BUTTON"
+			buttonFont = "hoi_16mbs"
+			pdx_tooltip = "WON_MKT_COURT_BUTTON_TT"
+			clicksound = click_default
+		}
+	}
+}

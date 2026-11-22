@@ -1,0 +1,54 @@
+# Economic System Rework - State Development (won_modern_effects.txt, events in won_events_dev.txt).
+# FROM = the target state, ROOT = our country. The decision opens a plan where the kind of programme is chosen.
+
+won_cat_modern = {
+
+	won_develop_state = {
+		icon = generic_construction
+		priority = 100
+		state_target = yes
+		target_array = ROOT.core_states
+		on_map_mode = map_and_decisions_view
+		target_root_trigger = { has_country_flag = won_ready }
+		target_trigger = {
+			FROM = {
+				is_owned_by = ROOT
+				is_controlled_by = ROOT
+				NOT = { has_state_flag = won_mod_running }
+				NOT = { check_variable = { won_mod_lvl > 9 } }
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = won_tt_dev_slots
+				check_variable = { var = won_mod_active value = won_dev_max compare = less_than }
+			}
+		}
+		custom_cost_trigger = { check_variable = { won_treasury > won_mod_cost } }
+		custom_cost_text = won_cost_mod
+		fire_only_once = no
+		complete_effect = {
+			set_variable = { won_dev_target = FROM }
+			won_dev_plan = yes
+			country_event = { id = won.260 }
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 4
+				has_war = no
+				check_variable = { won_phase > 2 }
+				check_variable = { var = won_mod_active value = won_dev_max compare = less_than }
+				check_variable = { won_treasury > 2 }
+			}
+			modifier = {
+				factor = 2
+				FROM = { infrastructure < 3 }
+			}
+			modifier = {
+				factor = 1.5
+				FROM = { is_capital = yes }
+			}
+		}
+	}
+}

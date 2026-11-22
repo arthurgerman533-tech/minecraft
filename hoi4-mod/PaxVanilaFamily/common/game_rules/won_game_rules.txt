@@ -1,0 +1,56 @@
+# Wealth of Nations - game rules
+won_ai_offers = {
+	name = "RULE_WON_AI_OFFERS"
+	group = "RULE_GROUP_WON"
+	icon = GFX_wargoals
+	default = {
+		name = WON_OFFERS_ON
+		text = "RULE_WON_OFFERS_ON"
+		desc = "RULE_WON_OFFERS_ON_DESC"
+	}
+	option = {
+		name = WON_OFFERS_OFF
+		text = "RULE_WON_OFFERS_OFF"
+		desc = "RULE_WON_OFFERS_OFF_DESC"
+	}
+}
+won_event_rate = {
+	name = "RULE_WON_EVENT_RATE"
+	group = "RULE_GROUP_WON"
+	icon = GFX_wargoals
+	default = {
+		name = WON_EVENTS_NORMAL
+		text = "RULE_WON_EVENTS_NORMAL"
+		desc = "RULE_WON_EVENTS_NORMAL_DESC"
+	}
+	option = {
+		name = WON_EVENTS_HIGH
+		text = "RULE_WON_EVENTS_HIGH"
+		desc = "RULE_WON_EVENTS_HIGH_DESC"
+	}
+	option = {
+		name = WON_EVENTS_LOW
+		text = "RULE_WON_EVENTS_LOW"
+		desc = "RULE_WON_EVENTS_LOW_DESC"
+	}
+}
+won_system_choice = {
+	name = "RULE_WON_SYSTEM_CHOICE"
+	group = "RULE_GROUP_WON"
+	icon = GFX_wargoals
+	default = {
+		name = WON_SYSTEMS_IDEOLOGICAL
+		text = "RULE_WON_SYSTEMS_IDEOLOGICAL"
+		desc = "RULE_WON_SYSTEMS_IDEOLOGICAL_DESC"
+	}
+	option = {
+		name = WON_SYSTEMS_FREE_PLAYERS
+		text = "RULE_WON_SYSTEMS_FREE_PLAYERS"
+		desc = "RULE_WON_SYSTEMS_FREE_PLAYERS_DESC"
+	}
+	option = {
+		name = WON_SYSTEMS_FREE_ALL
+		text = "RULE_WON_SYSTEMS_FREE_ALL"
+		desc = "RULE_WON_SYSTEMS_FREE_ALL_DESC"
+	}
+}

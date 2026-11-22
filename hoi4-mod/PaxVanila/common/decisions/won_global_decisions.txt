@@ -1,0 +1,168 @@
+# Wealth of Nations - Global Markets: attract foreign capital, export arms, sell licences.
+won_cat_global = {
+
+	won_trade_office = {
+		icon = eng_trade_unions_support
+		priority = 200
+		cost = 0
+		fire_only_once = no
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_flag = won_arms_agency
+				check_variable = { won_q_count > 0 }
+				check_variable = { aon_insight > 39.99 }
+			}
+		}
+		complete_effect = {
+			country_event = { id = won.220 }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	############ Attract foreign capital ############
+	won_publish_growth = {
+		icon = generic_political_address
+		priority = 100
+		custom_cost_trigger = { check_variable = { won_treasury > won_c_small } }
+		custom_cost_text = won_cost_small
+		days_re_enable = 365
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = won_tt_needs_growth
+				check_variable = { won_growth_y > 2 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_needs_open
+				check_variable = { won_open = 1 }
+				won_closed_to_capital = no
+			}
+		}
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_small }
+			won_pay = yes
+			set_country_flag = { flag = won_roadshow days = 180 }
+			custom_effect_tooltip = won_tt_roadshow
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	won_tax_holiday_dec = {
+		icon = generic_fundraising
+		priority = 99
+		cost = 25
+		days_re_enable = 730
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = won_tt_needs_open
+				check_variable = { won_open = 1 }
+				won_closed_to_capital = no
+			}
+		}
+		complete_effect = {
+			set_country_flag = { flag = won_tax_holiday days = 365 }
+			custom_effect_tooltip = won_tt_tax_holiday
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	won_red_tape_dec = {
+		icon = generic_industry
+		priority = 98
+		cost = 50
+		days_re_enable = 730
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = won_tt_needs_open
+				check_variable = { won_open = 1 }
+				won_closed_to_capital = no
+			}
+		}
+		complete_effect = {
+			set_country_flag = { flag = won_red_tape days = 365 }
+			add_timed_idea = { idea = won_red_tape_cut days = 365 }
+			custom_effect_tooltip = won_tt_red_tape
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	won_sez_dec = {
+		icon = generic_construction
+		priority = 97
+		custom_cost_trigger = { check_variable = { won_treasury > won_c_mid } }
+		custom_cost_text = won_cost_mid
+		fire_only_once = yes
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = won_tt_needs_open
+				check_variable = { won_open = 1 }
+				won_closed_to_capital = no
+			}
+		}
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_mid }
+			won_pay = yes
+			set_country_flag = won_sez
+			capital_scope = {
+				add_extra_state_shared_building_slots = 2
+			}
+			custom_effect_tooltip = won_tt_sez
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	won_court_investors = {
+		icon = generic_political_discourse
+		priority = 96
+		cost = 75
+		days_re_enable = 180
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = won_tt_needs_open
+				check_variable = { won_open = 1 }
+				won_closed_to_capital = no
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_investor_exists
+				any_other_country = { won_investor_candidate = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_tray_room
+				check_variable = { won_q_count < 5 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_free_slot
+				any_owned_state = {
+					is_controlled_by = ROOT
+					free_building_slots = { building = industrial_complex size > 0 include_locked = no }
+				}
+			}
+		}
+		complete_effect = {
+			clr_country_flag = won_fdi_offer_cd
+			won_investor_offer = yes
+			custom_effect_tooltip = won_tt_court_investors
+			country_event = { id = won.220 }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	############ Arms exports ############
+	won_found_arms_agency = {
+		icon = generic_military
+		priority = 90
+		cost = 50
+		fire_only_once = yes
+		available = {
+			num_of_military_factories > 4
+		}
+		complete_effect = {
+			set_country_flag = won_arms_agency
+			set_country_flag = won_court_buyers
+			add_to_variable = { aon_rep = 40 }
+			custom_effect_tooltip = won_tt_agency
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+}

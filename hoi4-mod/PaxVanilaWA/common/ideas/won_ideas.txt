@@ -1,0 +1,357 @@
+# Wealth of Nations - economic systems and timed economic spirits.
+ideas = {
+	country = {
+		#################### Economic systems ####################
+		won_sys_1 = {	# Laissez-Faire Capitalism
+			picture = free_trade
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.10
+				consumer_goods_factor = -0.03
+				stability_factor = -0.03
+				political_power_factor = -0.05
+			}
+		}
+		won_sys_2 = {	# Keynesian Mixed Economy
+			picture = generic_economic_recovery
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.03
+				production_speed_buildings_factor = 0.05
+				production_speed_infrastructure_factor = 0.15
+			}
+		}
+		won_sys_3 = {	# Social Market Economy
+			picture = civilian_economy
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.08
+				political_power_factor = 0.05
+				research_speed_factor = 0.03
+				consumer_goods_factor = 0.02
+				war_support_factor = -0.03
+			}
+		}
+		won_sys_4 = {	# Command Economy
+			picture = man_five_year_plan_industry
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.05
+				production_speed_buildings_factor = 0.08
+				consumer_goods_factor = -0.04
+				stability_factor = -0.03
+			}
+		}
+		won_sys_5 = {	# Market Socialism
+			picture = new_economic_policy
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.06
+				consumer_goods_factor = -0.02
+				stability_factor = 0.03
+				research_speed_factor = 0.03
+			}
+		}
+		won_sys_6 = {	# War Communism
+			picture = tot_economic_mobilisation
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.10
+				war_support_factor = 0.05
+				consumer_goods_factor = -0.08
+				stability_factor = -0.10
+			}
+		}
+		won_sys_7 = {	# Corporatism
+			picture = generic_central_management
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				political_power_factor = 0.10
+				production_speed_buildings_factor = 0.03
+				consumer_goods_factor = -0.02
+			}
+		}
+		won_sys_8 = {	# Autarky
+			picture = autarkic_economy
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				local_resources_factor = 0.15
+				industrial_capacity_factory = 0.03
+				production_speed_buildings_factor = -0.05
+				consumer_goods_factor = 0.03
+			}
+		}
+		won_sys_9 = {	# Defence Economy (Wehrwirtschaft)
+			picture = war_economy
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.08
+				production_speed_arms_factory_factor = 0.15
+				war_support_factor = 0.05
+				consumer_goods_factor = 0.04
+			}
+		}
+		won_sys_10 = {	# State Capitalism
+			picture = generic_improved_industries
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				political_power_factor = 0.08
+				production_speed_buildings_factor = 0.06
+				stability_factor = 0.02
+			}
+		}
+		won_sys_11 = {	# Agrarian Economy
+			picture = generic_agrarian_society
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.08
+				consumer_goods_factor = -0.05
+				industrial_capacity_factory = -0.05
+				monthly_population = 0.10
+			}
+		}
+		won_sys_12 = {	# Mercantilism
+			picture = export_focus
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.02
+				industrial_capacity_dockyard = 0.05
+				political_power_factor = 0.03
+			}
+		}
+		won_sys_fyp = {	# A Five-Year Plan is running
+			picture = SOV_second_five_year_plan
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.15
+				consumer_goods_factor = 0.05
+			}
+		}
+
+		#################### Timed spirits from decisions and events ####################
+		won_transition = {
+			picture = generic_disjointed_gov
+			removal_cost = -1
+			modifier = { industrial_capacity_factory = -0.05 stability_factor = -0.03 }
+		}
+		won_stimulus = {
+			picture = generic_economic_increase
+			removal_cost = -1
+			modifier = { production_speed_buildings_factor = 0.10 stability_factor = 0.02 }
+		}
+		won_austerity = {
+			picture = generic_commission
+			removal_cost = -1
+			modifier = { stability_factor = -0.05 production_speed_buildings_factor = -0.05 }
+		}
+		won_consortium = {
+			picture = generic_build_infrastructure
+			removal_cost = -1
+			modifier = { production_speed_buildings_factor = 0.15 }
+		}
+		won_consultants = {
+			picture = generic_production_bonus
+			removal_cost = -1
+			modifier = { production_factory_max_efficiency_factor = 0.08 production_factory_efficiency_gain_factor = 0.10 }
+		}
+		won_institute = {
+			picture = generic_research_bonus
+			removal_cost = -1
+			modifier = { research_speed_factor = 0.05 }
+		}
+		won_export_services = {
+			picture = generic_license_production
+			removal_cost = -1
+			modifier = { civilian_factory_use = 2 }
+		}
+		won_fyp_success = {
+			picture = tur_second_five_year_plan_inonu
+			removal_cost = -1
+			modifier = { industrial_capacity_factory = 0.10 political_power_factor = 0.10 }
+		}
+		won_fyp_failure = {
+			picture = generic_purge
+			removal_cost = -1
+			modifier = { stability_factor = -0.10 political_power_factor = -0.10 }
+		}
+		won_deregulation = {
+			picture = generic_foreign_capital
+			removal_cost = -1
+			modifier = { production_speed_buildings_factor = 0.08 stability_factor = -0.03 }
+		}
+		won_social_insurance = {
+			picture = generic_constitutional_guarantees
+			removal_cost = -1
+			modifier = { stability_factor = 0.06 war_support_factor = -0.02 }
+		}
+		won_requisition = {
+			picture = generic_oppression
+			removal_cost = -1
+			modifier = { industrial_capacity_factory = 0.05 stability_factor = -0.08 }
+		}
+		won_ersatz = {
+			picture = generic_stockpile_fuel
+			removal_cost = -1
+			modifier = { local_resources_factor = 0.20 }
+		}
+		won_mefo = {
+			picture = generic_war_preparation
+			removal_cost = -1
+			modifier = { industrial_capacity_factory = 0.05 production_speed_buildings_factor = 0.05 }
+		}
+		won_strikes = {
+			picture = por_iberian_workers_united
+			removal_cost = -1
+			modifier = { industrial_capacity_factory = -0.10 production_speed_buildings_factor = -0.05 }
+		}
+		won_rationing = {
+			picture = can_wartime_prices_and_trade_board
+			removal_cost = -1
+			modifier = { consumer_goods_factor = -0.05 stability_factor = -0.05 }
+		}
+		won_consumer_boom = {
+			picture = generic_goods_red_bonus
+			removal_cost = -1
+			modifier = { consumer_goods_factor = -0.04 stability_factor = 0.03 }
+		}
+		won_harvest_good = {
+			picture = generic_agrarian_reform
+			removal_cost = -1
+			modifier = { stability_factor = 0.03 monthly_population = 0.05 }
+		}
+		won_harvest_bad = {
+			picture = great_depression
+			removal_cost = -1
+			modifier = { stability_factor = -0.04 consumer_goods_factor = 0.02 }
+		}
+		won_black_market = {
+			picture = chi_army_corruption
+			removal_cost = -1
+			modifier = { stability_factor = -0.02 political_power_factor = -0.05 consumer_goods_factor = -0.02 }
+		}
+		won_corruption = {
+			picture = chi_army_corruption2
+			removal_cost = -1
+			modifier = { political_power_factor = -0.10 }
+		}
+		won_brain_gain = {
+			picture = generic_immigration
+			removal_cost = -1
+			modifier = { research_speed_factor = 0.04 }
+		}
+		won_brain_drain = {
+			picture = generic_disjointed_gov
+			removal_cost = -1
+			modifier = { research_speed_factor = -0.03 }
+		}
+		won_price_controls = {
+			picture = can_wartime_prices_and_trade_board
+			removal_cost = -1
+			modifier = { consumer_goods_factor = -0.02 production_speed_buildings_factor = -0.05 }
+		}
+		won_bank_crisis = {
+			picture = generic_economic_crisis
+			removal_cost = -1
+			modifier = { production_speed_buildings_factor = -0.15 }
+		}
+		won_war_bonds = {
+			picture = generic_political_support
+			removal_cost = -1
+			modifier = { war_support_factor = 0.05 }
+		}
+		won_agri_exports = {
+			picture = bul_tobacco_exports
+			removal_cost = -1
+			modifier = { stability_factor = 0.02 }
+		}
+		won_export_drive = {
+			picture = export_focus
+			removal_cost = -1
+			modifier = { political_power_factor = -0.05 }
+		}
+		won_nationalized = {
+			picture = generic_nationalization
+			removal_cost = -1
+			modifier = { political_power_factor = 0.05 production_factory_efficiency_gain_factor = 0.05 }
+		}
+		won_default = {
+			picture = generic_economic_crisis
+			removal_cost = -1
+			modifier = { stability_factor = -0.08 political_power_factor = -0.15 production_speed_buildings_factor = -0.10 }
+		}
+		won_hyperinflation = {
+			picture = chi_hyper_inflation3
+			removal_cost = -1
+			modifier = { stability_factor = -0.10 consumer_goods_factor = 0.05 political_power_factor = -0.15 }
+		}
+		won_public_works = {
+			picture = generic_railroads
+			removal_cost = -1
+			modifier = { production_speed_infrastructure_factor = 0.25 stability_factor = 0.03 }
+		}
+		won_corporate_industry = {
+			picture = generic_industrial_concern_2
+			removal_cost = -1
+			modifier = { industrial_capacity_factory = 0.06 stability_factor = -0.04 }
+		}
+		won_corporate_labour = {
+			picture = generic_fascist_workers
+			removal_cost = -1
+			modifier = { stability_factor = 0.06 industrial_capacity_factory = -0.03 }
+		}
+		won_corporate_state = {
+			picture = generic_pp_unity_bonus
+			removal_cost = -1
+			modifier = { political_power_factor = 0.12 }
+		}
+		won_lease_concessions = {
+			picture = generic_foreign_capital
+			removal_cost = -1
+			modifier = { production_factory_max_efficiency_factor = 0.05 production_speed_buildings_factor = 0.05 }
+		}
+		won_world_fair = {
+			picture = generic_morale_bonus
+			removal_cost = -1
+			modifier = { stability_factor = 0.05 political_power_factor = 0.05 }
+		}
+		won_devaluation = {
+			picture = generic_devalue_currency
+			removal_cost = -1
+			modifier = { consumer_goods_factor = 0.02 industrial_capacity_factory = 0.03 }
+		}
+		won_entrepreneur = {
+			picture = generic_industrial_concern_1
+			removal_cost = -1
+			modifier = { production_factory_efficiency_gain_factor = 0.08 research_speed_factor = 0.02 }
+		}
+		won_industrial_accident = {
+			picture = industrial_destruction_spirit
+			removal_cost = -1
+			modifier = { industrial_capacity_factory = -0.04 }
+		}
+		won_rural_power = {
+			picture = generic_train_tracks
+			removal_cost = -1
+			modifier = { production_speed_buildings_factor = 0.06 monthly_population = 0.05 }
+		}
+		won_merchant_marine = {
+			picture = generic_convoys
+			removal_cost = -1
+			modifier = { production_speed_dockyard_factor = 0.10 }
+		}
+	}
+}

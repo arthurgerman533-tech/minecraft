@@ -1,0 +1,85 @@
+add_namespace = won
+
+######################################################################
+# Market rivalry and embargoes (won_rival_effects.txt)
+######################################################################
+
+# Our rival undercuts us with one of our customers.
+country_event = {
+	id = won.230
+	title = won.230.t
+	desc = won.230.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	trigger = { has_variable = won_rival has_variable = won_rival_target }
+	immediate = {
+		won_rival_names = yes
+		won_rival_match_cost = yes
+	}
+	option = {	# Match their price
+		name = won.230.a
+		custom_effect_tooltip = won_rival_match_tt
+		set_temp_variable = { won_spend = won_rival_cost }
+		won_pay = yes
+		add_to_variable = { aon_rep = 5 }
+		var:won_rival_target = { add_opinion_modifier = { target = ROOT modifier = won_contract_partner } }
+		ai_chance = { factor = 50 }
+	}
+	option = {	# Lean on them diplomatically
+		name = won.230.b
+		trigger = { has_political_power > 39 }
+		add_political_power = -40
+		random_list = {
+			65 = { custom_effect_tooltip = won_rival_keep_tt }
+			35 = {
+				custom_effect_tooltip = won_rival_lost_tt
+				won_lose_client = yes
+			}
+		}
+		ai_chance = { factor = 30 }
+	}
+	option = {	# Let them go
+		name = won.230.c
+		custom_effect_tooltip = won_rival_lost_tt
+		won_lose_client = yes
+		ai_chance = { factor = 20 }
+	}
+}
+
+# One of the rival's customers wants to switch to us.
+country_event = {
+	id = won.231
+	title = won.231.t
+	desc = won.231.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	trigger = { has_variable = won_rival has_variable = won_rival_target }
+	immediate = { won_rival_names = yes }
+	option = {	# Welcome them
+		name = won.231.a
+		custom_effect_tooltip = won_rival_won_tt
+		var:won_rival_target = {
+			set_country_flag = { flag = aon_won_@ROOT days = 730 }
+			add_opinion_modifier = { target = ROOT modifier = won_contract_partner }
+		}
+		var:won_rival = { add_opinion_modifier = { target = ROOT modifier = won_poached } }
+		add_to_variable = { aon_rep = 10 }
+		ai_chance = { factor = 70 }
+	}
+	option = {	# Not worth angering the rival
+		name = won.231.b
+		ai_chance = { factor = 30 }
+	}
+}
+
+# Someone imposed an embargo on us.
+country_event = {
+	id = won.232
+	title = won.232.t
+	desc = won.232.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	option = {
+		name = won.232.a
+	}
+}

@@ -1,0 +1,242 @@
+# Economic System Rework - State Development (overhauled in 1.9).
+# Every core state can be developed up to level 10 through four kinds of programme:
+#   1 Infrastructure & Rail, 2 Urbanisation, 3 Industrial District, 4 Resource Development.
+# Each finished programme adds a development level. Development levels across the country add
+# 0.3 bn GDP each (counted in won_calc_gdp), and the state keeps permanent bonuses.
+# State variables: won_mod_lvl (0-10), won_dev_n_inf/urb/ind/res (programmes of each kind),
+# won_dev_type and won_dev_days while a programme runs (state flag won_mod_running).
+
+# Country scope, monthly: base price (1.5% of GDP, 0.25 to 1.5 bn) and how many programmes may run.
+won_modern_price = {
+	set_variable = { won_mod_cost = won_gdp }
+	multiply_variable = { won_mod_cost = 0.015 }
+	clamp_variable = { var = won_mod_cost min = 0.25 max = 1.5 }
+	# 2 programmes, +1 per 40 bn of GDP, at most 6
+	set_variable = { won_dev_max = won_gdp }
+	divide_variable = { won_dev_max = 40 }
+	round_variable = won_dev_max
+	add_to_variable = { won_dev_max = 2 }
+	clamp_variable = { var = won_dev_max min = 2 max = 6 }
+	if = {
+		limit = { NOT = { has_variable = won_mod_active } }
+		set_variable = { won_mod_active = 0 }
+	}
+}
+
+# Country scope, monthly: programmes advance; finished ones pay out. Also counts running programmes.
+won_dev_tick = {
+	set_variable = { won_mod_active = 0 }
+	every_owned_state = {
+		limit = { has_state_flag = won_mod_running }
+		# Programmes started before 1.9 had no timer: they finish now as Infrastructure & Rail
+		if = {
+			limit = { NOT = { has_variable = won_dev_days } }
+			set_variable = { won_dev_type = 1 }
+			set_variable = { won_dev_days = 0 }
+		}
+		subtract_from_variable = { won_dev_days = 30 }
+		if = {
+			limit = { check_variable = { won_dev_days < 1 } }
+			won_dev_finish = yes
+		}
+		else = {
+			ROOT = { add_to_variable = { won_mod_active = 1 } }
+			# Something happens on the building site (players only, at most one every two months)
+			if = {
+				limit = { ROOT = { is_ai = no NOT = { has_country_flag = won_dev_ev_cd } } }
+				random_list = {
+					94 = { }
+					2 = {
+						ROOT = { set_variable = { won_dev_ev_state = PREV } set_country_flag = { flag = won_dev_ev_cd days = 60 } country_event = { id = won.261 days = 1 } }
+					}
+					2 = {
+						ROOT = { set_variable = { won_dev_ev_state = PREV } set_country_flag = { flag = won_dev_ev_cd days = 60 } country_event = { id = won.262 days = 1 } }
+					}
+					2 = {
+						ROOT = { set_variable = { won_dev_ev_state = PREV } set_country_flag = { flag = won_dev_ev_cd days = 60 } country_event = { id = won.263 days = 1 } }
+					}
+				}
+			}
+		}
+	}
+}
+
+# Country scope (ROOT), from the decision: price and duration for var:won_dev_target.
+# Price grows 15% per level, duration 120 days + 12 per level.
+won_dev_plan = {
+	var:won_dev_target = { set_temp_variable = { won_t = won_mod_lvl } }
+	set_variable = { won_dev_lvl = won_t }
+	set_variable = { won_dev_cost = won_t }
+	multiply_variable = { won_dev_cost = 0.15 }
+	add_to_variable = { won_dev_cost = 1 }
+	multiply_variable = { won_dev_cost = won_mod_cost }
+	set_variable = { won_dev_dur = won_t }
+	multiply_variable = { won_dev_dur = 12 }
+	add_to_variable = { won_dev_dur = 120 }
+	set_variable = { won_dev_next = won_t }
+	add_to_variable = { won_dev_next = 1 }
+}
+
+# Country scope: start programme type won_dev_pick in var:won_dev_target.
+won_dev_start = {
+	set_temp_variable = { won_spend = won_dev_cost }
+	won_pay = yes
+	add_to_variable = { won_mod_active = 1 }
+	set_temp_variable = { won_t = won_dev_dur }
+	set_temp_variable = { won_k = won_dev_pick }
+	var:won_dev_target = {
+		if = {
+			limit = { NOT = { has_variable = won_mod_lvl } }
+			set_variable = { won_mod_lvl = 0 }
+		}
+		set_state_flag = won_mod_running
+		set_variable = { won_dev_days = won_t }
+		set_variable = { won_dev_type = won_k }
+		won_state_mod_refresh = yes
+	}
+}
+
+# State scope: permanent bonuses. Per level +3% local construction and +2% local manpower;
+# Industrial Districts +5% construction each, Urbanisation +5% manpower each, Resource Development
+# +15% resources each, Infrastructure & Rail +0.2 local supply each; +20% construction while building.
+won_state_mod_refresh = {
+	# States developed before 1.9 count their old levels as Infrastructure & Rail
+	if = {
+		limit = { NOT = { has_variable = won_dev_n_inf } has_variable = won_mod_lvl }
+		set_variable = { won_dev_n_inf = won_mod_lvl }
+	}
+	set_variable = { won_mod_build = won_mod_lvl }
+	multiply_variable = { won_mod_build = 0.03 }
+	set_temp_variable = { won_t = won_dev_n_ind }
+	multiply_temp_variable = { won_t = 0.05 }
+	add_to_variable = { won_mod_build = won_t }
+	if = {
+		limit = { has_state_flag = won_mod_running }
+		add_to_variable = { won_mod_build = 0.2 }
+	}
+	set_variable = { won_mod_mp = won_mod_lvl }
+	multiply_variable = { won_mod_mp = 0.02 }
+	set_temp_variable = { won_t = won_dev_n_urb }
+	multiply_temp_variable = { won_t = 0.05 }
+	add_to_variable = { won_mod_mp = won_t }
+	set_variable = { won_dev_resf = won_dev_n_res }
+	multiply_variable = { won_dev_resf = 0.15 }
+	set_variable = { won_dev_sup = won_dev_n_inf }
+	multiply_variable = { won_dev_sup = 0.2 }
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = won_state_modern } } }
+		add_dynamic_modifier = { modifier = won_state_modern }
+	}
+}
+
+# State scope, ROOT = owner: the programme is finished.
+won_dev_finish = {
+	clr_state_flag = won_mod_running
+	add_to_variable = { won_mod_lvl = 1 }
+	clamp_variable = { var = won_mod_lvl max = 10 }
+	if = {
+		limit = { check_variable = { won_dev_type = 1 } }
+		add_to_variable = { won_dev_n_inf = 1 }
+		if = {
+			limit = { infrastructure < 5 }
+			add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			set_temp_variable = { won_rl = 1 }
+		}
+		else = {
+			# Roads are already the best there are: a double railway upgrade instead
+			set_temp_variable = { won_rl = 2 }
+		}
+		won_dev_railway = yes
+	}
+	else_if = {
+		limit = { check_variable = { won_dev_type = 2 } }
+		add_to_variable = { won_dev_n_urb = 1 }
+		# The state grows into the next size of settlement (up to a metropolis)
+		if = { limit = { has_state_category = pastoral } set_state_category = rural }
+		else_if = { limit = { has_state_category = rural } set_state_category = town }
+		else_if = { limit = { has_state_category = town } set_state_category = large_town }
+		else_if = { limit = { has_state_category = large_town } set_state_category = city }
+		else_if = { limit = { has_state_category = city } set_state_category = large_city }
+		else_if = { limit = { has_state_category = large_city } set_state_category = metropolis }
+		else = { add_extra_state_shared_building_slots = 1 }
+		if = {
+			limit = { state_population_k > 2000 }
+			add_manpower = 120000
+		}
+		else_if = {
+			limit = { state_population_k > 1000 }
+			add_manpower = 60000
+		}
+		else_if = {
+			limit = { state_population_k > 400 }
+			add_manpower = 30000
+		}
+		else = {
+			add_manpower = 12000
+		}
+	}
+	else_if = {
+		limit = { check_variable = { won_dev_type = 3 } }
+		add_to_variable = { won_dev_n_ind = 1 }
+		add_extra_state_shared_building_slots = 1
+	}
+	else = {
+		add_to_variable = { won_dev_n_res = 1 }
+	}
+	won_state_mod_refresh = yes
+	ROOT = {
+		add_to_variable = { won_mod_done = 1 }
+		add_to_variable = { won_conf_shock = 2 }
+	}
+	# A state at level 10 is a model province
+	if = {
+		limit = {
+			check_variable = { won_mod_lvl = 10 }
+			ROOT = { is_ai = no NOT = { has_country_flag = won_dev_m10 } }
+		}
+		ROOT = {
+			set_country_flag = won_dev_m10
+			set_variable = { won_dev_ev_state = PREV }
+			country_event = { id = won.264 days = 1 }
+		}
+	}
+}
+
+# State scope, ROOT = owner, temp won_rl = levels: railway along the line to the capital
+# (or to a neighbour if this is the capital).
+won_dev_railway = {
+	set_variable = { ROOT.won_rail_from = THIS.id }
+	ROOT = { clear_variable = won_rail_to }
+	if = {
+		limit = { is_capital = no }
+		ROOT = {
+			capital_scope = { set_variable = { ROOT.won_rail_to = THIS.id } }
+		}
+	}
+	else = {
+		random_neighbor_state = {
+			limit = { is_owned_by = ROOT is_controlled_by = ROOT }
+			set_variable = { ROOT.won_rail_to = THIS.id }
+		}
+	}
+	ROOT = {
+		if = {
+			limit = { has_variable = won_rail_to }
+			build_railway = {
+				level = 1
+				fallback = yes
+				start_state = var:won_rail_from
+				target_state = var:won_rail_to
+			}
+			if = {
+				limit = { check_variable = { won_rl > 1 } }
+				build_railway = {
+					level = 1
+					fallback = yes
+					start_state = var:won_rail_from
+					target_state = var:won_rail_to
+				}
+			}
+		}
+	}
+}

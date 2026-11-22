@@ -1,0 +1,401 @@
+# Wealth of Nations - event helpers and the monthly event pulse (human players only).
+
+won_pay_small = {
+	set_temp_variable = { won_spend = won_c_small }
+	won_pay = yes
+	custom_effect_tooltip = won_tt_pay_small
+}
+won_pay_mid = {
+	set_temp_variable = { won_spend = won_c_mid }
+	won_pay = yes
+	custom_effect_tooltip = won_tt_pay_mid
+}
+won_pay_big = {
+	set_temp_variable = { won_spend = won_c_big }
+	won_pay = yes
+	custom_effect_tooltip = won_tt_pay_big
+}
+won_get_small = {
+	set_temp_variable = { won_spend = won_c_small }
+	won_receive = yes
+	custom_effect_tooltip = won_tt_receive_small
+}
+won_get_mid = {
+	set_temp_variable = { won_spend = won_c_mid }
+	won_receive = yes
+	custom_effect_tooltip = won_tt_receive_mid
+}
+won_get_big = {
+	set_temp_variable = { won_spend = won_c_big }
+	won_receive = yes
+	custom_effect_tooltip = won_tt_receive_big
+}
+won_conf_up = {
+	add_to_variable = { won_conf_shock = 7 }
+	custom_effect_tooltip = won_tt_conf_up
+}
+won_conf_up_big = {
+	add_to_variable = { won_conf_shock = 14 }
+	custom_effect_tooltip = won_tt_conf_up_big
+}
+won_conf_down = {
+	add_to_variable = { won_conf_shock = -7 }
+	custom_effect_tooltip = won_tt_conf_down
+}
+won_conf_down_big = {
+	add_to_variable = { won_conf_shock = -15 }
+	custom_effect_tooltip = won_tt_conf_down_big
+}
+won_infl_up = {
+	add_to_variable = { won_inflation = 1.5 }
+	custom_effect_tooltip = won_tt_infl_up
+}
+won_infl_down = {
+	add_to_variable = { won_inflation = -1.5 }
+	custom_effect_tooltip = won_tt_infl_down
+}
+
+won_event_pulse = {
+	# Forced warnings first.
+	if = {
+		limit = {
+			check_variable = { won_inflation > 25 }
+			NOT = { has_idea = won_hyperinflation }
+			NOT = { has_country_flag = won_hyper_cd }
+		}
+		set_country_flag = { flag = won_hyper_cd days = 365 }
+		country_event = { id = won.37 }
+	}
+	else_if = {
+		limit = {
+			check_variable = { won_debt_ratio > 1 }
+			NOT = { has_country_flag = won_debt_warned }
+		}
+		set_country_flag = { flag = won_debt_warned days = 540 }
+		country_event = { id = won.38 }
+	}
+	else = {
+		set_temp_variable = { won_chance = 30 }
+		if = {
+			limit = { has_game_rule = { rule = won_event_rate option = WON_EVENTS_HIGH } }
+			set_temp_variable = { won_chance = 45 }
+		}
+		if = {
+			limit = { has_game_rule = { rule = won_event_rate option = WON_EVENTS_LOW } }
+			set_temp_variable = { won_chance = 15 }
+		}
+		set_temp_variable_to_random = { var = won_roll min = 0 max = 100 }
+		if = {
+			limit = {
+				check_variable = { won_roll < won_chance }
+				NOT = { has_country_flag = won_event_cd }
+			}
+			set_country_flag = { flag = won_event_cd days = 25 }
+			random_list = {
+				10 = {	# Stock market rally
+					modifier = { factor = 0 check_variable = { won_phase < 4 } }
+					modifier = { factor = 1.5 check_variable = { won_system = 1 } }
+					country_event = { id = won.10 }
+				}
+				10 = {	# Market crash
+					modifier = { factor = 0.25 has_country_flag = won_prog_bank }
+					modifier = { factor = 0 check_variable = { won_confidence > 45 } NOT = { check_variable = { won_system = 1 } } }
+					modifier = { factor = 0 check_variable = { won_system = 4 } }
+					modifier = { factor = 0 check_variable = { won_system = 6 } }
+					country_event = { id = won.11 }
+				}
+				6 = {	# Bank run
+					modifier = { factor = 0.25 has_country_flag = won_prog_bank }
+					modifier = { factor = 0 check_variable = { won_confidence > 30 } check_variable = { won_debt_ratio < 0.8 } }
+					country_event = { id = won.12 }
+				}
+				10 = {	# Inflation spiral
+					modifier = { factor = 0 check_variable = { won_inflation < 8 } }
+					country_event = { id = won.13 }
+				}
+				8 = {	# Deflation trap
+					modifier = { factor = 0 check_variable = { won_inflation > 0 } }
+					country_event = { id = won.14 }
+				}
+				7 = {	# Strike
+					modifier = { factor = 0.25 has_country_flag = won_prog_labour }
+					modifier = { factor = 0 check_variable = { won_tax < 3 } check_variable = { won_inflation < 6 } }
+					country_event = { id = won.15 }
+				}
+				5 = {	# Bumper harvest
+					modifier = { factor = 2 has_country_flag = won_prog_farm }
+					country_event = { id = won.16 }
+				}
+				5 = {	# Harvest failure
+					modifier = { factor = 0.25 has_country_flag = won_prog_farm }
+					modifier = { factor = 1.5 check_variable = { won_system = 11 } }
+					country_event = { id = won.17 }
+				}
+				7 = {	# Black market
+					modifier = { factor = 0.25 has_country_flag = won_prog_graft }
+					modifier = { factor = 0 has_war = no }
+					country_event = { id = won.18 }
+				}
+				6 = {	# Inventor
+					modifier = { factor = 0 has_war = yes }
+					country_event = { id = won.19 }
+				}
+				4 = {	# Industrial accident
+					modifier = { factor = 0.25 has_country_flag = won_prog_safety }
+					country_event = { id = won.20 }
+				}
+				8 = {	# Consumer boom
+					modifier = { factor = 0 check_variable = { won_phase < 4 } }
+					modifier = { factor = 0 has_war = yes }
+					country_event = { id = won.21 }
+				}
+				7 = {	# Rationing debate
+					modifier = { factor = 0 has_war = no }
+					modifier = { factor = 0 has_idea = won_rationing }
+					country_event = { id = won.22 }
+				}
+				5 = {	# Corruption scandal
+					modifier = { factor = 0.25 has_country_flag = won_prog_graft }
+					modifier = { factor = 0 has_stability > 0.45 check_variable = { won_reserve_ratio < 0.3 } }
+					country_event = { id = won.23 }
+				}
+				6 = {	# Credit rating downgrade
+					modifier = { factor = 0 check_variable = { won_debt_ratio < 0.6 } }
+					country_event = { id = won.24 }
+				}
+				4 = {	# Credit rating upgrade
+					modifier = { factor = 0 check_variable = { won_reserve_ratio < 0.3 } }
+					country_event = { id = won.25 }
+				}
+				5 = {	# Brain gain
+					modifier = { factor = 0 won_is_democratic = no }
+					modifier = { factor = 0 has_war = yes }
+					country_event = { id = won.26 }
+				}
+				5 = {	# Brain drain
+					modifier = { factor = 0 won_is_democratic = yes }
+					modifier = { factor = 0 won_is_nonaligned = yes }
+					country_event = { id = won.27 }
+				}
+				6 = { country_event = { id = won.28 } }	# Railway barons
+				7 = {	# Capital flight
+					modifier = { factor = 0.25 has_country_flag = won_prog_bank }
+					modifier = { factor = 0 check_variable = { won_open = 0 } }
+					modifier = { factor = 0 check_variable = { won_confidence > 35 } }
+					country_event = { id = won.29 }
+				}
+				7 = {	# Trade partner wants better terms
+					modifier = { factor = 0 check_variable = { won_trade_count < 1 } }
+					random_other_country = {
+						limit = { has_country_flag = won_trade_@ROOT }
+						ROOT = { set_variable = { won_ev_partner = PREV } }
+						set_variable = { global.won_ev_partner_name = THIS }
+						ROOT = { country_event = { id = won.31 } }
+					}
+				}
+				60 = {	# The Roosevelt Recession, once
+					modifier = { factor = 0 NOT = { date > 1937.8.1 } }
+					modifier = { factor = 0 date > 1938.6.1 }
+					modifier = { factor = 0 has_country_flag = won_had_1937 }
+					modifier = { factor = 0 won_is_communist = yes }
+					country_event = { id = won.32 }
+				}
+				40 = {	# Gold standard, once
+					modifier = { factor = 0 date > 1937.6.1 }
+					modifier = { factor = 0 has_country_flag = won_had_gold }
+					modifier = { factor = 0 won_is_democratic = no }
+					country_event = { id = won.33 }
+				}
+				4 = {	# World's Fair, once per game
+					modifier = { factor = 0 has_global_flag = won_world_fair_held }
+					modifier = { factor = 0 has_war = yes }
+					modifier = { factor = 0 check_variable = { won_phase < 4 } }
+					country_event = { id = won.34 }
+				}
+				5 = {	# Housing shortage
+					modifier = { factor = 0 check_variable = { won_growth_y < 6 } }
+					country_event = { id = won.35 }
+				}
+				6 = {	# War profiteering
+					modifier = { factor = 0 has_war = no }
+					country_event = { id = won.36 }
+				}
+				#BEGIN GENERATED PULSE
+				6 = {	# Drought
+					modifier = { factor = 0.25 has_country_flag = won_prog_farm }
+					modifier = { factor = 1.5 check_variable = { won_system = 11 } }
+					country_event = { id = won.100 }
+				}
+				5 = {	# Crop Blight
+					modifier = { factor = 0.25 has_country_flag = won_prog_farm }
+					modifier = { factor = 1.5 check_variable = { won_system = 11 } }
+					country_event = { id = won.101 }
+				}
+				4 = {	# Livestock Plague
+					modifier = { factor = 0.25 has_country_flag = won_prog_farm }
+					modifier = { factor = 1.5 check_variable = { won_system = 11 } }
+					country_event = { id = won.102 }
+				}
+				5 = {	# Farmers March on the Capital
+					modifier = { factor = 0.25 has_country_flag = won_prog_farm }
+					modifier = { factor = 0 has_country_flag = won_prog_farm }
+					country_event = { id = won.103 }
+				}
+				30 = {	# Famine
+					modifier = { factor = 0 NOT = { has_country_flag = won_food_stress } }
+					modifier = { factor = 0.25 has_country_flag = won_prog_farm }
+					modifier = { factor = 0 has_country_flag = won_prog_farm }
+					country_event = { id = won.104 }
+				}
+				4 = {	# Tractors for the Farms
+					modifier = { factor = 2 has_country_flag = won_prog_farm }
+					country_event = { id = won.105 }
+				}
+				4 = {	# Rural Exodus
+					modifier = { factor = 0 NOT = { check_variable = { won_growth_y > 3 } } }
+					country_event = { id = won.106 }
+				}
+				5 = {	# Dock Strike
+					modifier = { factor = 0 NOT = { any_owned_state = { is_coastal = yes } } }
+					modifier = { factor = 0.25 has_country_flag = won_prog_labour }
+					country_event = { id = won.110 }
+				}
+				5 = {	# Miners' Strike
+					modifier = { factor = 0.25 has_country_flag = won_prog_labour }
+					country_event = { id = won.111 }
+				}
+				3 = {	# Unions Demand Recognition
+					modifier = { factor = 2 has_country_flag = won_prog_labour }
+					country_event = { id = won.112 }
+				}
+				6 = {	# Labour Shortage
+					modifier = { factor = 0 NOT = { has_war = yes } }
+					country_event = { id = won.113 }
+				}
+				4 = {	# A Swindle Collapses
+					modifier = { factor = 0.25 has_country_flag = won_prog_bank }
+					country_event = { id = won.120 }
+				}
+				3 = {	# Insurance Giant Fails
+					modifier = { factor = 0.25 has_country_flag = won_prog_bank }
+					country_event = { id = won.121 }
+				}
+				4 = {	# Land Speculation Fever
+					modifier = { factor = 0 NOT = { check_variable = { won_phase > 3 } } }
+					modifier = { factor = 0.25 has_country_flag = won_prog_bank }
+					country_event = { id = won.122 }
+				}
+				4 = {	# Foreign Loan Offer
+					modifier = { factor = 0 NOT = { check_variable = { won_credit < 4 } } }
+					country_event = { id = won.124 }
+				}
+				5 = {	# Currency Speculators Attack
+					modifier = { factor = 0 NOT = { check_variable = { won_open = 1 } } }
+					modifier = { factor = 0 NOT = { check_variable = { won_inflation > 6 } } }
+					modifier = { factor = 0.25 has_country_flag = won_prog_bank }
+					country_event = { id = won.126 }
+				}
+				4 = {	# Mine Collapse
+					modifier = { factor = 0.25 has_country_flag = won_prog_safety }
+					country_event = { id = won.130 }
+				}
+				4 = {	# Great Factory Fire
+					modifier = { factor = 0.25 has_country_flag = won_prog_safety }
+					country_event = { id = won.131 }
+				}
+				4 = {	# Blackout
+					modifier = { factor = 0.25 has_country_flag = won_prog_safety }
+					country_event = { id = won.132 }
+				}
+				4 = {	# Railway Disaster
+					modifier = { factor = 0.25 has_country_flag = won_prog_safety }
+					country_event = { id = won.133 }
+				}
+				4 = {	# New Production Technique
+					modifier = { factor = 2 has_country_flag = won_prog_safety }
+					country_event = { id = won.134 }
+				}
+				5 = {	# Influenza Epidemic
+					modifier = { factor = 0.25 has_country_flag = won_prog_health }
+					country_event = { id = won.140 }
+				}
+				6 = {	# Typhus Behind the Lines
+					modifier = { factor = 0 NOT = { has_war = yes } }
+					modifier = { factor = 0.25 has_country_flag = won_prog_health }
+					country_event = { id = won.141 }
+				}
+				4 = {	# Slum Outbreak
+					modifier = { factor = 0 NOT = { check_variable = { won_growth_y > 2 } } }
+					modifier = { factor = 0.25 has_country_flag = won_prog_health }
+					country_event = { id = won.142 }
+				}
+				5 = {	# Smuggling Ring
+					modifier = { factor = 0.25 has_country_flag = won_prog_graft }
+					country_event = { id = won.150 }
+				}
+				5 = {	# Tax Evasion Scandal
+					modifier = { factor = 0.25 has_country_flag = won_prog_graft }
+					country_event = { id = won.151 }
+				}
+				6 = {	# Procurement Bribery
+					modifier = { factor = 0 NOT = { has_war = yes } }
+					modifier = { factor = 0.25 has_country_flag = won_prog_graft }
+					country_event = { id = won.152 }
+				}
+				4 = {	# Great Flood
+					modifier = { factor = 0.25 has_country_flag = won_prog_relief }
+					country_event = { id = won.160 }
+				}
+				2 = {	# Earthquake
+					modifier = { factor = 0.25 has_country_flag = won_prog_relief }
+					country_event = { id = won.161 }
+				}
+				4 = {	# Harsh Winter
+					modifier = { factor = 0.25 has_country_flag = won_prog_relief }
+					country_event = { id = won.162 }
+				}
+				5 = {	# Oil Price Shock
+					modifier = { factor = 0.25 has_country_flag = won_prog_reserves }
+					country_event = { id = won.170 }
+				}
+				4 = {	# Rubber Shortage
+					modifier = { factor = 0.25 has_country_flag = won_prog_reserves }
+					country_event = { id = won.171 }
+				}
+				4 = {	# Commodity Windfall
+					modifier = { factor = 2 has_country_flag = won_prog_reserves }
+					country_event = { id = won.172 }
+				}
+				4 = {	# The Radio Craze
+					modifier = { factor = 0 NOT = { has_war = no } }
+					country_event = { id = won.180 }
+				}
+				4 = {	# Motor Car Fever
+					modifier = { factor = 0 NOT = { has_war = no } }
+					modifier = { factor = 0 NOT = { check_variable = { won_phase > 3 } } }
+					country_event = { id = won.181 }
+				}
+				3 = {	# Tourist Season
+					modifier = { factor = 0 NOT = { has_war = no } }
+					country_event = { id = won.182 }
+				}
+				3 = {	# Paid Holidays Bill
+					modifier = { factor = 0 NOT = { has_war = no } }
+					modifier = { factor = 0 NOT = { NOT = { won_is_fascist = yes } } }
+					country_event = { id = won.183 }
+				}
+				8 = {	# Merchants of Death
+					modifier = { factor = 0 NOT = { won_is_democratic = yes } }
+					modifier = { factor = 0 NOT = { any_other_country = { has_country_flag = won_sc_from_@ROOT OR = { won_is_fascist = yes won_is_communist = yes } } } }
+					country_event = { id = won.215 }
+				}
+				3 = {	# National Industrial Exhibition
+					modifier = { factor = 0 NOT = { has_war = no } }
+					modifier = { factor = 0 NOT = { check_variable = { won_phase > 2 } } }
+					country_event = { id = won.184 }
+				}
+				#END GENERATED PULSE
+			}
+		}
+	}
+}

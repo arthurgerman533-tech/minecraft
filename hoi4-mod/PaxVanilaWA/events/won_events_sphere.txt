@@ -1,0 +1,27 @@
+add_namespace = won
+
+# Economic sphere milestones (sphere.py)
+country_event = {
+	id = won.250
+	title = won.250.t
+	desc = won.250.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	option = {
+		name = won.250.a
+		add_political_power = 50
+	}
+}
+
+country_event = {
+	id = won.251
+	title = won.251.t
+	desc = won.251.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = won.251.a
+		add_political_power = 100
+		add_stability = 0.03
+	}
+}

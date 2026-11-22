@@ -1,0 +1,174 @@
+# Wealth of Nations - economic systems.
+# won_system: 0 none, 1 Laissez-Faire, 2 Keynesian, 3 Social Market, 4 Command, 5 Market Socialism,
+# 6 War Communism, 7 Corporatism, 8 Autarky, 9 Defence Economy, 10 State Capitalism,
+# 11 Agrarian Economy, 12 Mercantilism.
+# The national spirit carries the visible modifiers; the won_sys_* variables drive the engine.
+
+won_clear_system_vars = {
+	set_variable = { won_sys_prod = 0 }
+	set_variable = { won_sys_tax = 0 }
+	set_variable = { won_sys_spend = 0 }
+	set_variable = { won_sys_infl = 0 }
+	set_variable = { won_sys_conf = 0 }
+	set_variable = { won_sys_trade_slots = 0 }
+	set_variable = { won_sys_trade_mult = 1 }
+	set_variable = { won_sys_deficit_k = 1 }
+}
+
+won_remove_system_ideas = {
+	if = { limit = { has_idea = won_sys_1 } remove_ideas = won_sys_1 }
+	if = { limit = { has_idea = won_sys_2 } remove_ideas = won_sys_2 }
+	if = { limit = { has_idea = won_sys_3 } remove_ideas = won_sys_3 }
+	if = { limit = { has_idea = won_sys_4 } remove_ideas = won_sys_4 }
+	if = { limit = { has_idea = won_sys_5 } remove_ideas = won_sys_5 }
+	if = { limit = { has_idea = won_sys_6 } remove_ideas = won_sys_6 }
+	if = { limit = { has_idea = won_sys_7 } remove_ideas = won_sys_7 }
+	if = { limit = { has_idea = won_sys_8 } remove_ideas = won_sys_8 }
+	if = { limit = { has_idea = won_sys_9 } remove_ideas = won_sys_9 }
+	if = { limit = { has_idea = won_sys_10 } remove_ideas = won_sys_10 }
+	if = { limit = { has_idea = won_sys_11 } remove_ideas = won_sys_11 }
+	if = { limit = { has_idea = won_sys_12 } remove_ideas = won_sys_12 }
+	if = { limit = { has_idea = won_sys_fyp } remove_ideas = won_sys_fyp }
+}
+
+won_system_common = {
+	won_remove_system_ideas = yes
+	won_clear_system_vars = yes
+	set_variable = { won_system_cd = 24 }
+	add_to_variable = { won_dirty = 1 }
+}
+
+won_set_system_1 = {
+	won_system_common = yes
+	set_variable = { won_system = 1 }
+	add_ideas = won_sys_1
+	set_variable = { won_sys_prod = 0.05 }
+	set_variable = { won_sys_tax = -0.002 }
+	set_variable = { won_sys_conf = 6 }
+	set_variable = { won_sys_infl = -0.5 }
+}
+won_set_system_2 = {
+	won_system_common = yes
+	set_variable = { won_system = 2 }
+	add_ideas = won_sys_2
+	set_variable = { won_sys_deficit_k = 0.5 }
+	set_variable = { won_sys_infl = 0.5 }
+	set_variable = { won_sys_conf = 2 }
+}
+won_set_system_3 = {
+	won_system_common = yes
+	set_variable = { won_system = 3 }
+	add_ideas = won_sys_3
+	set_variable = { won_sys_tax = 0.002 }
+	set_variable = { won_sys_spend = 0.002 }
+	set_variable = { won_sys_conf = 1 }
+}
+won_set_system_4 = {
+	won_system_common = yes
+	set_variable = { won_system = 4 }
+	set_variable = { won_open = 0 }
+	add_ideas = won_sys_4
+	set_variable = { won_sys_prod = -0.03 }
+	set_variable = { won_sys_tax = 0.003 }
+	set_variable = { won_sys_infl = -1.5 }
+	set_variable = { won_sys_conf = -3 }
+}
+won_set_system_5 = {
+	won_system_common = yes
+	set_variable = { won_system = 5 }
+	add_ideas = won_sys_5
+	set_variable = { won_sys_prod = 0.02 }
+	set_variable = { won_sys_conf = 2 }
+}
+won_set_system_6 = {
+	won_system_common = yes
+	set_variable = { won_system = 6 }
+	set_variable = { won_open = 0 }
+	add_ideas = won_sys_6
+	set_variable = { won_sys_prod = -0.08 }
+	set_variable = { won_sys_tax = 0.004 }
+	set_variable = { won_sys_infl = 3 }
+	set_variable = { won_sys_conf = -10 }
+}
+won_set_system_7 = {
+	won_system_common = yes
+	set_variable = { won_system = 7 }
+	add_ideas = won_sys_7
+	set_variable = { won_sys_tax = 0.001 }
+	set_variable = { won_sys_conf = 1 }
+}
+won_set_system_8 = {
+	won_system_common = yes
+	set_variable = { won_system = 8 }
+	set_variable = { won_open = 0 }
+	add_ideas = won_sys_8
+	set_variable = { won_sys_conf = -3 }
+	set_variable = { won_sys_trade_slots = -10 }
+	set_variable = { won_sys_infl = 0.5 }
+	# Autarky tears up existing trade agreements at once.
+	won_cancel_all_trade = yes
+}
+won_set_system_9 = {
+	won_system_common = yes
+	set_variable = { won_system = 9 }
+	add_ideas = won_sys_9
+	set_variable = { won_sys_infl = 1 }
+	set_variable = { won_sys_spend = 0.001 }
+}
+won_set_system_10 = {
+	won_system_common = yes
+	set_variable = { won_system = 10 }
+	add_ideas = won_sys_10
+	set_variable = { won_sys_tax = 0.001 }
+}
+won_set_system_11 = {
+	won_system_common = yes
+	set_variable = { won_system = 11 }
+	add_ideas = won_sys_11
+	set_variable = { won_sys_tax = -0.001 }
+	set_variable = { won_sys_trade_slots = 1 }
+	set_variable = { won_sys_conf = 2 }
+}
+won_set_system_12 = {
+	won_system_common = yes
+	set_variable = { won_system = 12 }
+	add_ideas = won_sys_12
+	set_variable = { won_sys_trade_slots = 2 }
+	set_variable = { won_sys_trade_mult = 1.5 }
+	set_variable = { won_sys_conf = 2 }
+}
+
+# A player-made switch (not the first assignment): short disruption while ministries reorganise.
+won_system_switch_costs = {
+	add_timed_idea = { idea = won_transition days = 120 }
+	add_to_variable = { won_conf_shock = -6 }
+}
+
+# The regime changed and the old system is no longer legal.
+won_system_lost = {
+	won_remove_system_ideas = yes
+	won_clear_system_vars = yes
+	set_variable = { won_system = 0 }
+	set_variable = { won_system_cd = 0 }
+	if = {
+		limit = { is_ai = yes }
+		won_choose_default_system = yes
+	}
+	else = {
+		country_event = { id = won.3 }
+	}
+}
+
+won_cancel_all_trade = {
+	for_each_loop = {
+		array = won_trade
+		value = won_p
+		var:won_p = {
+			clr_country_flag = won_trade_@PREV
+			remove_from_array = { won_trade = PREV }
+			PREV = { clr_country_flag = won_trade_@PREV }
+		}
+	}
+	clear_array = won_trade
+	set_variable = { won_trade_count = 0 }
+}

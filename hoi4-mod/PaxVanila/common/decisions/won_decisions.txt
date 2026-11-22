@@ -1,0 +1,563 @@
+# Wealth of Nations - decisions
+# Treasury prices are variables refreshed monthly: won_c_small (2% of GDP), won_c_mid (4%), won_c_big (7%),
+# won_c_factory (rising price of a state-funded factory).
+
+won_cat_economy = {
+
+	won_open_dashboard = {
+		icon = generic_fundraising
+		priority = 100
+		cost = 0
+		fire_only_once = no
+		visible = { is_ai = no }
+		complete_effect = {
+			set_country_flag = won_show_dash
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	won_reform_system = {
+		icon = generic_political_address
+		priority = 95
+		cost = 75
+		fire_only_once = no
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = won_tt_system_cooldown
+				check_variable = { won_system_cd < 1 }
+			}
+		}
+		complete_effect = {
+			country_event = { id = won.2 }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	############ Treasury tools ############
+	won_stimulus_package = {
+		icon = generic_construction
+		priority = 90
+		custom_cost_trigger = { check_variable = { won_treasury > won_c_mid } }
+		custom_cost_text = won_cost_mid
+		days_re_enable = 365
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_mid }
+			won_pay = yes
+			add_timed_idea = { idea = won_stimulus days = 180 }
+			add_to_variable = { won_conf_shock = 12 }
+			add_to_variable = { won_inflation = 1 }
+			custom_effect_tooltip = won_tt_conf_up_big
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = { add = 10 check_variable = { won_phase < 3 } }
+		}
+	}
+
+	won_austerity_budget = {
+		icon = generic_consumer_goods
+		priority = 89
+		cost = 25
+		days_re_enable = 365
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_mid }
+			won_receive = yes
+			custom_effect_tooltip = won_tt_receive_mid
+			add_timed_idea = { idea = won_austerity days = 180 }
+			add_to_variable = { won_conf_shock = -8 }
+			add_to_variable = { won_inflation = -1 }
+			custom_effect_tooltip = won_tt_conf_down
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = { add = 10 check_variable = { won_debt_ratio > 0.5 } }
+		}
+	}
+
+	won_print_money = {
+		icon = generic_fundraising
+		priority = 88
+		cost = 25
+		days_re_enable = 365
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_big }
+			won_receive = yes
+			custom_effect_tooltip = won_tt_receive_big
+			add_to_variable = { won_print_m = 12 }
+			add_to_variable = { won_conf_shock = -6 }
+			custom_effect_tooltip = won_tt_print_inflation
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = { add = 5 check_variable = { won_debt_ratio > 1.2 } }
+		}
+	}
+
+	won_issue_war_bonds = {
+		icon = generic_speech
+		priority = 87
+		cost = 25
+		days_re_enable = 180
+		visible = { has_war = yes }
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_mid }
+			won_receive = yes
+			custom_effect_tooltip = won_tt_receive_mid
+			add_timed_idea = { idea = won_war_bonds days = 180 }
+			add_to_variable = { won_inflation = 0.5 }
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = { add = 5 check_variable = { won_treasury < 0 } }
+		}
+	}
+
+	won_sell_gold = {
+		icon = generic_fundraising
+		priority = 86
+		cost = 15
+		days_re_enable = 1095
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_big }
+			won_receive = yes
+			custom_effect_tooltip = won_tt_receive_big
+			add_to_variable = { won_conf_shock = -5 }
+			custom_effect_tooltip = won_tt_conf_down
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	won_devalue_currency = {
+		icon = generic_consumer_goods
+		priority = 85
+		cost = 30
+		days_re_enable = 1095
+		complete_effect = {
+			add_timed_idea = { idea = won_devaluation days = 365 }
+			add_to_variable = { won_inflation = 2 }
+			add_to_variable = { won_conf_shock = -5 }
+			custom_effect_tooltip = won_tt_devalue
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	won_restructure_debt = {
+		icon = generic_confiscation
+		priority = 84
+		cost = 50
+		days_re_enable = 1095
+		visible = { check_variable = { won_debt_ratio > 0.8 } }
+		complete_effect = {
+			set_temp_variable = { won_spend = won_treasury }
+			multiply_temp_variable = { won_spend = -0.35 }
+			won_receive = yes
+			custom_effect_tooltip = won_tt_restructure
+			add_to_variable = { won_conf_shock = -25 }
+			add_stability = -0.05
+			add_timed_idea = { idea = won_default days = 365 }
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = { add = 10 check_variable = { won_debt_ratio > 1.4 } }
+		}
+	}
+
+	############ Signature moves of each economic system ############
+	won_deregulate_markets = {
+		icon = generic_industry
+		priority = 80
+		cost = 50
+		days_re_enable = 365
+		visible = { check_variable = { won_system = 1 } }
+		complete_effect = {
+			add_timed_idea = { idea = won_deregulation days = 365 }
+			add_to_variable = { won_conf_shock = 10 }
+			custom_effect_tooltip = won_tt_conf_up
+		}
+		ai_will_do = { factor = 1 }
+	}
+
+	won_public_works_dec = {
+		icon = generic_train
+		priority = 80
+		custom_cost_trigger = { check_variable = { won_treasury > won_c_mid } }
+		custom_cost_text = won_cost_mid
+		days_re_enable = 365
+		visible = { check_variable = { won_system = 2 } }
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_mid }
+			won_pay = yes
+			add_timed_idea = { idea = won_public_works days = 365 }
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT free_building_slots = { building = infrastructure size > 0 } }
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT free_building_slots = { building = infrastructure size > 0 } }
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT free_building_slots = { building = infrastructure size > 0 } }
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+			add_to_variable = { won_conf_shock = 6 }
+		}
+		ai_will_do = { factor = 1 }
+	}
+
+	won_social_insurance_act = {
+		icon = generic_welfare
+		priority = 80
+		cost = 50
+		days_re_enable = 365
+		visible = { check_variable = { won_system = 3 } }
+		complete_effect = {
+			add_timed_idea = { idea = won_social_insurance days = 365 }
+		}
+		ai_will_do = { factor = 1 }
+	}
+
+	won_five_year_plan = {
+		icon = generic_factory
+		priority = 80
+		cost = 50
+		days_remove = 730
+		days_re_enable = 90
+		visible = { check_variable = { won_system = 4 } }
+		available = { NOT = { has_idea = won_sys_fyp } }
+		complete_effect = {
+			set_variable = { won_fyp_start = num_of_factories }
+			set_variable = { won_fyp_target = num_of_factories }
+			multiply_variable = { won_fyp_target = 0.15 }
+			clamp_variable = { var = won_fyp_target min = 5 }
+			round_variable = won_fyp_target
+			add_to_variable = { won_fyp_target = won_fyp_start }
+			add_ideas = won_sys_fyp
+			custom_effect_tooltip = won_tt_fyp_start
+		}
+		remove_effect = {
+			set_variable = { won_fyp_now = num_of_factories }
+			if = { limit = { has_idea = won_sys_fyp } remove_ideas = won_sys_fyp }
+			country_event = { id = won.62 }
+		}
+		ai_will_do = { factor = 2 }
+	}
+
+	won_lease_concessions_dec = {
+		icon = generic_fundraising
+		priority = 80
+		cost = 25
+		days_re_enable = 365
+		visible = { check_variable = { won_system = 5 } }
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_mid }
+			won_receive = yes
+			custom_effect_tooltip = won_tt_receive_mid
+			add_timed_idea = { idea = won_lease_concessions days = 365 }
+			add_popularity = { ideology = communism popularity = -0.03 }
+		}
+		ai_will_do = { factor = 1 }
+	}
+
+	won_requisition_campaign = {
+		icon = generic_confiscation
+		priority = 80
+		cost = 10
+		days_re_enable = 180
+		visible = { check_variable = { won_system = 6 } }
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_mid }
+			won_receive = yes
+			custom_effect_tooltip = won_tt_receive_mid
+			add_timed_idea = { idea = won_requisition days = 180 }
+		}
+		ai_will_do = { factor = 1 }
+	}
+
+	won_corporate_chambers = {
+		icon = generic_political_discourse
+		priority = 80
+		cost = 25
+		days_re_enable = 365
+		visible = { check_variable = { won_system = 7 } }
+		complete_effect = {
+			country_event = { id = won.60 }
+		}
+		ai_will_do = { factor = 1 }
+	}
+
+	won_ersatz_drive = {
+		icon = oil
+		priority = 80
+		custom_cost_trigger = { check_variable = { won_treasury > won_c_mid } }
+		custom_cost_text = won_cost_mid
+		days_re_enable = 365
+		visible = { check_variable = { won_system = 8 } }
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_mid }
+			won_pay = yes
+			add_timed_idea = { idea = won_ersatz days = 365 }
+		}
+		ai_will_do = { factor = 1 }
+	}
+
+	won_mefo_bills = {
+		icon = generic_fundraising
+		priority = 80
+		cost = 25
+		days_re_enable = 400
+		visible = { check_variable = { won_system = 9 } }
+		available = {
+			NOT = { has_country_flag = won_mefo_out }
+			custom_trigger_tooltip = {
+				tooltip = won_tt_mefo_ban_active
+				NOT = { has_country_flag = won_mefo_banned }
+			}
+		}
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_big }
+			multiply_temp_variable = { won_spend = 2 }
+			set_variable = { won_mefo_due = won_spend }
+			multiply_variable = { won_mefo_due = 1.2 }
+			won_receive = yes
+			custom_effect_tooltip = won_tt_mefo
+			add_timed_idea = { idea = won_mefo days = 365 }
+			set_country_flag = won_mefo_out
+			country_event = { id = won.61 days = 365 }
+		}
+		ai_will_do = { factor = 1 }
+	}
+
+	won_nationalize_industry = {
+		icon = generic_confiscation
+		priority = 80
+		cost = 75
+		fire_only_once = yes
+		visible = { check_variable = { won_system = 10 } }
+		complete_effect = {
+			add_ideas = won_nationalized
+			won_seize_foreign_assets = yes
+			add_to_variable = { won_conf_shock = -15 }
+			custom_effect_tooltip = won_tt_nationalize
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	won_agri_export_drive = {
+		icon = generic_forestry
+		priority = 80
+		cost = 25
+		days_re_enable = 365
+		visible = { check_variable = { won_system = 11 } }
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_mid }
+			won_receive = yes
+			custom_effect_tooltip = won_tt_receive_mid
+			add_timed_idea = { idea = won_agri_exports days = 365 }
+		}
+		ai_will_do = { factor = 1 }
+	}
+
+	won_rural_electrification = {
+		icon = generic_electricity
+		priority = 79
+		custom_cost_trigger = { check_variable = { won_treasury > won_c_mid } }
+		custom_cost_text = won_cost_mid
+		days_re_enable = 365
+		visible = { check_variable = { won_system = 11 } }
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_mid }
+			won_pay = yes
+			add_timed_idea = { idea = won_rural_power days = 365 }
+		}
+		ai_will_do = { factor = 1 }
+	}
+
+	won_export_subsidies = {
+		icon = generic_fundraising
+		priority = 80
+		cost = 50
+		days_re_enable = 365
+		visible = { check_variable = { won_system = 12 } }
+		complete_effect = {
+			add_timed_idea = { idea = won_export_drive days = 365 }
+			custom_effect_tooltip = won_tt_export_drive
+		}
+		ai_will_do = { factor = 1 }
+	}
+
+	won_merchant_marine_dec = {
+		icon = generic_naval
+		priority = 79
+		custom_cost_trigger = { check_variable = { won_treasury > won_c_mid } }
+		custom_cost_text = won_cost_mid
+		days_re_enable = 365
+		visible = { check_variable = { won_system = 12 } }
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_mid }
+			won_pay = yes
+			add_timed_idea = { idea = won_merchant_marine days = 365 }
+		}
+		ai_will_do = { factor = 1 }
+	}
+}
+
+won_cat_business = {
+
+	won_fund_factory = {
+		icon = generic_factory
+		priority = 100
+		custom_cost_trigger = { check_variable = { won_treasury > won_c_factory } }
+		custom_cost_text = won_cost_factory
+		days_re_enable = 30
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = won_tt_core_slot
+				any_owned_state = {
+					is_core_of = ROOT
+					is_controlled_by = ROOT
+					free_building_slots = { building = industrial_complex size > 0 include_locked = no }
+				}
+			}
+		}
+		complete_effect = {
+			won_buy_factory = yes
+			custom_effect_tooltip = won_tt_buy_factory
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = { add = 5 check_variable = { won_reserve_ratio > 0.5 } }
+		}
+	}
+
+	won_fund_railways = {
+		icon = generic_train
+		priority = 95
+		custom_cost_trigger = { check_variable = { won_treasury > won_c_small } }
+		custom_cost_text = won_cost_small
+		days_re_enable = 60
+		available = {
+			any_owned_state = {
+				is_core_of = ROOT
+				is_controlled_by = ROOT
+				free_building_slots = { building = infrastructure size > 0 }
+			}
+		}
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_small }
+			won_pay = yes
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT free_building_slots = { building = infrastructure size > 0 } }
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT free_building_slots = { building = infrastructure size > 0 } }
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = { add = 2 check_variable = { won_reserve_ratio > 0.5 } }
+		}
+	}
+
+	won_hire_consortium = {
+		icon = generic_construction
+		priority = 90
+		custom_cost_trigger = { check_variable = { won_treasury > won_c_small } }
+		custom_cost_text = won_cost_small
+		days_re_enable = 180
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_small }
+			won_pay = yes
+			add_timed_idea = { idea = won_consortium days = 180 }
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = { add = 3 check_variable = { won_reserve_ratio > 0.3 } }
+		}
+	}
+
+	won_hire_consultants = {
+		icon = generic_industry
+		priority = 89
+		custom_cost_trigger = { check_variable = { won_treasury > won_c_small } }
+		custom_cost_text = won_cost_small
+		days_re_enable = 180
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_small }
+			won_pay = yes
+			add_timed_idea = { idea = won_consultants days = 180 }
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = { add = 3 check_variable = { won_reserve_ratio > 0.3 } }
+		}
+	}
+
+	won_hire_institute = {
+		icon = generic_research
+		priority = 88
+		custom_cost_trigger = { check_variable = { won_treasury > won_c_small } }
+		custom_cost_text = won_cost_small
+		days_re_enable = 180
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_small }
+			won_pay = yes
+			add_timed_idea = { idea = won_institute days = 180 }
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = { add = 2 check_variable = { won_reserve_ratio > 0.4 } }
+		}
+	}
+
+	won_hire_prospectors = {
+		icon = oil
+		priority = 87
+		custom_cost_trigger = { check_variable = { won_treasury > won_c_small } }
+		custom_cost_text = won_cost_small
+		days_remove = 90
+		days_re_enable = 270
+		complete_effect = {
+			set_temp_variable = { won_spend = won_c_small }
+			won_pay = yes
+			custom_effect_tooltip = won_tt_prospect
+		}
+		remove_effect = {
+			# 55% for the first strike, 12 points less for every earlier strike (never below 10%).
+			set_temp_variable = { won_pc = won_prospect_finds }
+			multiply_temp_variable = { won_pc = -12 }
+			add_to_temp_variable = { won_pc = 55 }
+			clamp_temp_variable = { var = won_pc min = 10 }
+			set_temp_variable_to_random = { var = won_r min = 0 max = 100 }
+			if = {
+				limit = { check_variable = { won_r < won_pc } }
+				country_event = { id = won.70 }
+			}
+			else = {
+				country_event = { id = won.71 }
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	won_world_contracts = {
+		icon = eng_trade_unions_support
+		priority = 85
+		cost = 10
+		days_re_enable = 180
+		available = {
+			num_of_available_civilian_factories > 5
+		}
+		complete_effect = {
+			add_timed_idea = { idea = won_export_services days = 180 }
+			set_variable = { won_world_contract = 6 }
+			custom_effect_tooltip = won_tt_world_contract
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = { add = 2 check_variable = { won_treasury < 0 } num_of_available_civilian_factories > 12 }
+		}
+	}
+}

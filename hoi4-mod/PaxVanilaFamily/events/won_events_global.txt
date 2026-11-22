@@ -1,0 +1,399 @@
+add_namespace = won
+
+######################################################################
+# The Foreign Trade Office: one place for everything that comes from abroad.
+######################################################################
+country_event = {
+	id = won.220
+	title = won.220.t
+	desc = won.220.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	immediate = { won_office_refresh = yes }
+	option = {	# Next request
+		name = won.220.a
+		trigger = { check_variable = { won_q_count > 0 } }
+		won_q_open_next = yes
+	}
+	option = {	# Sell surplus for cash
+		name = won.220.b
+		trigger = {
+			has_country_flag = won_arms_agency
+			won_has_arms_surplus = yes
+			NOT = { has_country_flag = won_dump_cd }
+		}
+		country_event = { id = won.205 }
+	}
+	option = {	# International arms exhibition (Regional Arms Supplier or better)
+		name = won.220.c
+		trigger = {
+			has_country_flag = won_arms_agency
+			check_variable = { aon_tier > 1 }
+			has_war = no
+			NOT = { has_country_flag = won_fair_cd }
+			check_variable = { won_treasury > won_c_small }
+		}
+		set_temp_variable = { won_spend = won_c_small }
+		won_pay = yes
+		custom_effect_tooltip = won_tt_pay_small
+		aon_hold_exhibition_effect = yes
+		set_country_flag = { flag = won_fair_cd days = 365 }
+		country_event = { id = aon.10 days = 30 }
+		won_office_return = yes
+	}
+	option = {	# Export credit guarantees (Established Arms Exporter or better)
+		name = won.220.e
+		trigger = {
+			has_country_flag = won_arms_agency
+			check_variable = { aon_tier > 2 }
+			NOT = { has_country_flag = won_credit_cd }
+			check_variable = { won_treasury > won_c_mid }
+		}
+		set_temp_variable = { won_spend = won_c_mid }
+		won_pay = yes
+		custom_effect_tooltip = won_tt_pay_mid
+		aon_export_credit_effect = yes
+		set_country_flag = { flag = won_credit_cd days = 365 }
+		won_office_return = yes
+	}
+	option = {	# Study imported equipment
+		name = won.220.s
+		trigger = {
+			check_variable = { aon_insight > 39.99 }
+			aon_has_studiable_imports_trigger = yes
+			NOT = { has_country_flag = won_study_cd }
+		}
+		subtract_from_variable = { aon_insight = 40 }
+		set_country_flag = { flag = won_study_cd days = 90 }
+		custom_effect_tooltip = won_tt_study
+		country_event = { id = aon.20 }
+	}
+	option = {	# Start courting foreign buyers
+		name = won.220.f
+		trigger = {
+			has_country_flag = won_arms_agency
+			NOT = { has_country_flag = won_court_buyers }
+		}
+		set_country_flag = won_court_buyers
+		custom_effect_tooltip = won_tt_court_on
+		won_office_return = yes
+	}
+	option = {	# Stop courting foreign buyers
+		name = won.220.g
+		trigger = { has_country_flag = won_court_buyers }
+		clr_country_flag = won_court_buyers
+		custom_effect_tooltip = won_tt_court_off
+		won_office_return = yes
+	}
+	option = {	# Switch to pop-ups
+		name = won.220.h
+		trigger = { has_country_flag = won_q_manual }
+		clr_country_flag = won_q_manual
+		won_office_return = yes
+	}
+	option = {	# Switch to the in-tray
+		name = won.220.i
+		trigger = { NOT = { has_country_flag = won_q_manual } }
+		set_country_flag = won_q_manual
+		won_office_return = yes
+	}
+	option = {	# Close
+		name = won.220.x
+	}
+}
+
+# Pop-up mode: opens the next request (hidden; won_q_popup checks nothing else is on screen).
+country_event = {
+	id = won.221
+	hidden = yes
+	is_triggered_only = yes
+	immediate = { won_q_popup = yes }
+}
+
+# First request ever: explain the office once.
+country_event = {
+	id = won.219
+	title = won.219.t
+	desc = won.219.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = won.219.a
+		country_event = { id = won.220 }
+	}
+	option = {
+		name = won.219.b
+	}
+}
+
+######################################################################
+# Foreign investors (won.50, the civilian factory, lives in won_events.txt)
+######################################################################
+country_event = {
+	id = won.51
+	title = won.51.t
+	desc = won.51.d
+	picture = GFX_report_event_tank_factory
+	is_triggered_only = yes
+	option = {
+		name = won.51.a
+		trigger = { any_owned_state = { is_controlled_by = ROOT free_building_slots = { building = arms_factory size > 0 include_locked = no } } }
+		won_accept_fdi_military = yes
+		custom_effect_tooltip = won_tt_fdi_mil
+		won_office_return = yes
+		ai_chance = { factor = 80 }
+	}
+	option = {
+		name = won.51.b
+		won_office_return = yes
+		ai_chance = { factor = 20 }
+	}
+}
+
+country_event = {
+	id = won.52
+	title = won.52.t
+	desc = won.52.d
+	picture = GFX_report_event_merchant_ship_01
+	is_triggered_only = yes
+	option = {
+		name = won.52.a
+		trigger = { any_owned_state = { is_controlled_by = ROOT is_coastal = yes free_building_slots = { building = dockyard size > 0 include_locked = no } } }
+		won_accept_fdi_dockyard = yes
+		custom_effect_tooltip = won_tt_fdi_dock
+		won_office_return = yes
+		ai_chance = { factor = 80 }
+	}
+	option = {
+		name = won.52.b
+		won_office_return = yes
+		ai_chance = { factor = 20 }
+	}
+}
+
+######################################################################
+# A government asks for a supply contract. var won_ev_partner = buyer.
+######################################################################
+country_event = {
+	id = won.200
+	title = won.200.t
+	desc = won.200.d
+	picture = GFX_report_event_generic_rifles
+	is_triggered_only = yes
+	option = {	# Sign
+		name = won.200.a
+		trigger = {
+			check_variable = { won_sc_count < won_sc_max }
+			won_pkg_ok_current = yes
+		}
+		won_open_supply_contract = yes
+		custom_effect_tooltip = won_tt_ship
+		won_office_return = yes
+		ai_chance = { factor = 70 }
+	}
+	option = {	# Haggle
+		name = won.200.b
+		trigger = {
+			check_variable = { won_sc_count < won_sc_max }
+			won_pkg_ok_current = yes
+		}
+		random_list = {
+			60 = {
+				set_variable = { won_pkg_rev = won_pkg_rev_hi }
+				won_open_supply_contract = yes
+				custom_effect_tooltip = won_tt_haggle_won
+			}
+			40 = {
+				var:won_ev_partner = { clr_country_flag = won_sc_from_@ROOT }
+				add_to_variable = { aon_rep = -15 }
+				custom_effect_tooltip = won_tt_haggle_lost
+			}
+		}
+		won_office_return = yes
+		ai_chance = { factor = 20 }
+	}
+	option = {	# Decline
+		name = won.200.c
+		var:won_ev_partner = { clr_country_flag = won_sc_from_@ROOT }
+		add_to_variable = { aon_rep = -10 }
+		won_office_return = yes
+		ai_chance = { factor = 10 }
+	}
+}
+
+# They accepted our Offer Arms Deal: choose what we deliver, or sell a licence instead.
+country_event = {
+	id = won.201
+	title = won.201.t
+	desc = won.201.d
+	picture = GFX_report_event_generic_rifles
+	is_triggered_only = yes
+	immediate = { won_price_menu = yes }
+	option = { name = won.201.a trigger = { won_pkg_ok_1 = yes } won_ship_1 = yes won_office_return = yes ai_chance = { factor = 30 } }
+	option = { name = won.201.b trigger = { won_pkg_ok_2 = yes } won_ship_2 = yes won_office_return = yes ai_chance = { factor = 20 } }
+	option = { name = won.201.c trigger = { won_pkg_ok_3 = yes } won_ship_3 = yes won_office_return = yes ai_chance = { factor = 15 } }
+	option = { name = won.201.e trigger = { won_pkg_ok_4 = yes } won_ship_4 = yes won_office_return = yes ai_chance = { factor = 15 } }
+	option = { name = won.201.f trigger = { won_pkg_ok_5 = yes } won_ship_5 = yes won_office_return = yes ai_chance = { factor = 10 } }
+	option = { name = won.201.g trigger = { won_pkg_ok_6 = yes } won_ship_6 = yes won_office_return = yes ai_chance = { factor = 10 } }
+	option = {	# Licence instead
+		name = won.201.l
+		trigger = { var:won_ev_partner = { NOT = { has_country_flag = won_lic_from_@ROOT } } }
+		var:won_ev_partner = { clr_country_flag = won_sc_from_@ROOT }
+		country_event = { id = won.203 }
+		ai_chance = { factor = 0 }
+	}
+	option = {
+		name = won.201.x
+		var:won_ev_partner = { clr_country_flag = won_sc_from_@ROOT }
+		won_office_return = yes
+		ai_chance = { factor = 0 }
+	}
+}
+
+# A government asks for a production licence.
+country_event = {
+	id = won.202
+	title = won.202.t
+	desc = won.202.d
+	picture = GFX_report_event_generic_sign_treaty3
+	is_triggered_only = yes
+	option = {
+		name = won.202.a
+		var:won_ev_partner = { clr_country_flag = won_lic_req_@ROOT }
+		won_grant_licence = yes
+		custom_effect_tooltip = won_tt_licence
+		won_office_return = yes
+		ai_chance = { factor = 70 }
+	}
+	option = {
+		name = won.202.b
+		var:won_ev_partner = { clr_country_flag = won_lic_req_@ROOT }
+		random_list = {
+			55 = {
+				set_variable = { won_lic_fee = won_lic_fee_hi }
+				won_grant_licence = yes
+				custom_effect_tooltip = won_tt_haggle_won
+			}
+			45 = {
+				add_to_variable = { aon_rep = -10 }
+				custom_effect_tooltip = won_tt_haggle_lost
+			}
+		}
+		won_office_return = yes
+		ai_chance = { factor = 20 }
+	}
+	option = {
+		name = won.202.c
+		var:won_ev_partner = { clr_country_flag = won_lic_req_@ROOT }
+		won_office_return = yes
+		ai_chance = { factor = 10 }
+	}
+}
+
+# Choose the design to license (after Offer Arms Deal).
+country_event = {
+	id = won.203
+	title = won.203.t
+	desc = won.203.d
+	picture = GFX_report_event_generic_sign_treaty3
+	is_triggered_only = yes
+	immediate = { won_licence_price = yes }
+	option = { name = won.203.a won_licence_1 = yes won_office_return = yes ai_chance = { factor = 30 } }
+	option = { name = won.203.b won_licence_2 = yes won_office_return = yes ai_chance = { factor = 15 } }
+	option = { name = won.203.c won_licence_3 = yes won_office_return = yes ai_chance = { factor = 5 } }
+	option = { name = won.203.e won_licence_4 = yes won_office_return = yes ai_chance = { factor = 10 } }
+	option = { name = won.203.f won_licence_5 = yes won_office_return = yes ai_chance = { factor = 5 } }
+	option = { name = won.203.g won_licence_6 = yes won_office_return = yes ai_chance = { factor = 10 } }
+	option = { name = won.203.h trigger = { won_lic_ok_7 = yes } won_licence_7 = yes won_office_return = yes ai_chance = { factor = 10 } }
+	option = { name = won.203.i trigger = { won_lic_ok_8 = yes } won_licence_8 = yes won_office_return = yes ai_chance = { factor = 10 } }
+	option = { name = won.203.j trigger = { won_lic_ok_9 = yes } won_licence_9 = yes won_office_return = yes ai_chance = { factor = 10 } }
+	option = { name = won.203.x won_office_return = yes ai_chance = { factor = 0 } }
+}
+
+# Sell surplus on the open world market.
+country_event = {
+	id = won.205
+	title = won.205.t
+	desc = won.205.d
+	picture = GFX_report_event_merchant_ship_01
+	is_triggered_only = yes
+	immediate = { won_price_menu = yes }
+	option = { name = won.205.a trigger = { won_pkg_ok_1 = yes } won_dump_1 = yes set_country_flag = { flag = won_dump_cd days = 60 } won_office_return = yes }
+	option = { name = won.205.b trigger = { won_pkg_ok_2 = yes } won_dump_2 = yes set_country_flag = { flag = won_dump_cd days = 60 } won_office_return = yes }
+	option = { name = won.205.c trigger = { won_pkg_ok_3 = yes } won_dump_3 = yes set_country_flag = { flag = won_dump_cd days = 60 } won_office_return = yes }
+	option = { name = won.205.e trigger = { won_pkg_ok_4 = yes } won_dump_4 = yes set_country_flag = { flag = won_dump_cd days = 60 } won_office_return = yes }
+	option = { name = won.205.f trigger = { won_pkg_ok_5 = yes } won_dump_5 = yes set_country_flag = { flag = won_dump_cd days = 60 } won_office_return = yes }
+	option = { name = won.205.g trigger = { won_pkg_ok_6 = yes } won_dump_6 = yes set_country_flag = { flag = won_dump_cd days = 60 } won_office_return = yes }
+	option = { name = won.205.x won_office_return = yes }
+}
+
+######################################################################
+# A supply contract delivered its last shipment. var won_ev_partner = buyer.
+######################################################################
+country_event = {
+	id = won.210
+	title = won.210.t
+	desc = won.210.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	option = {	# Renew on the same terms
+		name = won.210.a
+		trigger = {
+			check_variable = { won_sc_count < won_sc_max }
+			won_pkg_ok_current = yes
+		}
+		won_open_supply_contract = yes
+		custom_effect_tooltip = won_tt_ship
+		won_office_return = yes
+		ai_chance = { factor = 60 }
+	}
+	option = {	# Renew at a higher price
+		name = won.210.b
+		trigger = {
+			check_variable = { won_sc_count < won_sc_max }
+			won_pkg_ok_current = yes
+		}
+		random_list = {
+			60 = {
+				set_variable = { won_pkg_rev = won_pkg_rev_hi }
+				won_open_supply_contract = yes
+				custom_effect_tooltip = won_tt_haggle_won
+			}
+			40 = {
+				var:won_ev_partner = { clr_country_flag = won_sc_from_@ROOT }
+				add_to_variable = { aon_rep = -10 }
+				custom_effect_tooltip = won_tt_haggle_lost
+			}
+		}
+		won_office_return = yes
+		ai_chance = { factor = 20 }
+	}
+	option = {	# Offer a different package
+		name = won.210.c
+		trigger = {
+			check_variable = { won_sc_count < won_sc_max }
+			won_has_arms_surplus = yes
+		}
+		country_event = { id = won.201 }
+		ai_chance = { factor = 10 }
+	}
+	option = {	# Let it end
+		name = won.210.e
+		var:won_ev_partner = { clr_country_flag = won_sc_from_@ROOT }
+		won_office_return = yes
+		ai_chance = { factor = 10 }
+	}
+}
+
+# Notice: two missed deliveries, the buyer cancelled.
+country_event = {
+	id = won.212
+	title = won.212.t
+	desc = won.212.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	option = {
+		name = won.212.a
+		won_office_return = yes
+	}
+}

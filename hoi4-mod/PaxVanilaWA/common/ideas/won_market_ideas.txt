@@ -1,0 +1,94 @@
+# Wealth of Nations - International Market module (merged from Arsenal of Nations)
+###########################################
+# Arsenal of Nations - national spirits
+###########################################
+
+ideas = {
+	country = {
+
+		# Market Standing, one at a time, earned through exports
+
+		aon_standing_1 = {
+			picture = generic_industrial_concern_1
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			modifier = {
+				consumer_goods_factor = -0.01
+				production_factory_max_efficiency_factor = 0.01
+				trade_opinion_factor = 0.05
+			}
+		}
+
+		aon_standing_2 = {
+			picture = generic_industrial_concern_2
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			modifier = {
+				consumer_goods_factor = -0.02
+				production_factory_max_efficiency_factor = 0.02
+				industrial_capacity_factory = 0.02
+				trade_opinion_factor = 0.10
+			}
+		}
+
+		aon_standing_3 = {
+			picture = generic_industrial_concern_3
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			modifier = {
+				consumer_goods_factor = -0.02
+				production_factory_max_efficiency_factor = 0.03
+				industrial_capacity_factory = 0.03
+				political_power_gain = 0.05
+				trade_opinion_factor = 0.15
+			}
+		}
+
+		aon_standing_4 = {
+			picture = generic_improved_industries
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			modifier = {
+				consumer_goods_factor = -0.03
+				production_factory_max_efficiency_factor = 0.04
+				industrial_capacity_factory = 0.04
+				political_power_gain = 0.10
+				research_speed_factor = 0.02
+				trade_opinion_factor = 0.20
+			}
+		}
+
+		aon_standing_5 = {
+			picture = generic_license_production
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			modifier = {
+				consumer_goods_factor = -0.04
+				production_factory_max_efficiency_factor = 0.05
+				industrial_capacity_factory = 0.06
+				political_power_gain = 0.15
+				research_speed_factor = 0.03
+				stability_factor = 0.03
+				trade_opinion_factor = 0.25
+			}
+		}
+
+		# Timed, from the Export Credit Guarantees decision
+
+		aon_export_credit_guarantees = {
+			picture = generic_economic_increase
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			modifier = {
+				trade_opinion_factor = 0.15
+				ai_license_acceptance = 15
+			}
+		}
+	}
+}

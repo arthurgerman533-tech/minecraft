@@ -1,0 +1,190 @@
+# Wealth of Nations - the vanilla trade and mobilisation laws feed the mod; resource export earnings.
+# Country scope, ROOT = THIS = the country. Runs monthly for every country, before trade and the budget.
+
+###########################################################################
+# Laws. won_law_cl: investment climate points. won_law_trade: trade-agreement value factor.
+# won_law_arms: extra monthly chance (points) of an arms supply request. won_law_res: resource earnings factor.
+###########################################################################
+won_law_tick = {
+	# Months at war: +1 per month at war, -2 per month of peace (0 to 120)
+	if = {
+		limit = { has_war = yes }
+		add_to_variable = { won_war_months = 1 }
+	}
+	else = {
+		subtract_from_variable = { won_war_months = 2 }
+	}
+	clamp_variable = { var = won_war_months min = 0 max = 120 }
+
+	set_variable = { won_law_cl = 0 }
+	set_variable = { won_law_trade = 1 }
+	set_variable = { won_law_arms = 0 }
+	set_variable = { won_law_res = 1 }
+	set_variable = { won_law_kind = 0 }
+	if = {
+		limit = { has_idea = free_trade }
+		set_variable = { won_law_kind = 1 }
+		set_variable = { won_law_cl = 15 }
+		set_variable = { won_law_trade = 1.15 }
+		set_variable = { won_law_arms = 4 }
+		set_variable = { won_law_res = 1.2 }
+	}
+	else_if = {
+		limit = { has_idea = export_focus }
+		set_variable = { won_law_kind = 2 }
+		set_variable = { won_law_cl = 8 }
+		set_variable = { won_law_trade = 1.05 }
+		set_variable = { won_law_arms = 2 }
+		set_variable = { won_law_res = 1.1 }
+	}
+	else_if = {
+		limit = { has_idea = limited_exports }
+		set_variable = { won_law_kind = 3 }
+		set_variable = { won_law_cl = -5 }
+	}
+	else_if = {
+		limit = { has_idea = closed_economy }
+		set_variable = { won_law_kind = 4 }
+		set_variable = { won_law_cl = -25 }
+		set_variable = { won_law_trade = 0.75 }
+		set_variable = { won_law_arms = -4 }
+		set_variable = { won_law_res = 0.5 }
+	}
+	set_variable = { won_law_cl_trade = won_law_cl }
+
+	# Economy (mobilisation) law. won_law_cons: monthly consumer spending income as a share of GDP
+	# (the more industry makes consumer goods, the more people buy and the more the state collects);
+	# won_law_infl: inflation pressure (points the inflation target moves).
+	set_variable = { won_law_cl_eco = 0 }
+	set_variable = { won_law_tax = 0 }
+	set_variable = { won_law_infl = 0 }
+	set_variable = { won_law_cons = 0.0015 }
+	if = {
+		limit = { has_idea = civilian_economy }
+		set_variable = { won_law_cl_eco = 5 }
+		set_variable = { won_law_cons = 0.0035 }
+	}
+	else_if = {
+		limit = { has_idea = low_economic_mobilisation }
+		set_variable = { won_law_cons = 0.0025 }
+	}
+	else_if = {
+		limit = { has_idea = partial_economic_mobilisation }
+		set_variable = { won_law_cons = 0.0015 }
+	}
+	else_if = {
+		limit = { has_idea = war_economy }
+		set_variable = { won_law_cl_eco = -5 }
+		set_variable = { won_law_cons = 0.0007 }
+		set_variable = { won_law_infl = 0.5 }
+	}
+	else_if = {
+		limit = { has_idea = tot_economic_mobilisation }
+		# The state requisitions industry under total mobilisation: private capital stays away.
+		set_variable = { won_law_cl_eco = -10 }
+		set_variable = { won_law_cons = 0.0002 }
+		set_variable = { won_law_infl = 1 }
+	}
+	add_to_variable = { won_law_cl = won_law_cl_eco }
+	set_variable = { won_law_cons_pct = won_law_cons }
+	multiply_variable = { won_law_cons_pct = 100 }
+
+	# Embargoes against us: -8 climate each (at most -24), trade agreements worth 10% less each (at most -50%).
+	# Saves from 1.2/1.3 kept no list: build it once.
+	if = {
+		limit = { NOT = { has_country_flag = won_emb_list } }
+		set_country_flag = won_emb_list
+		clear_array = won_emb_by
+		every_other_country = {
+			limit = { has_country_flag = won_embargo_on_@ROOT }
+			ROOT = { add_to_array = { won_emb_by = PREV } }
+		}
+	}
+	# Only the countries on our list are checked (usually none).
+	set_variable = { won_embargo_n = 0 }
+	clear_array = won_tmp_emb
+	for_each_scope_loop = {
+		array = won_emb_by
+		if = {
+			limit = { exists = yes has_country_flag = won_embargo_on_@ROOT }
+			ROOT = {
+				add_to_array = { won_tmp_emb = PREV }
+				add_to_variable = { won_embargo_n = 1 }
+			}
+		}
+	}
+	clear_array = won_emb_by
+	for_each_scope_loop = {
+		array = won_tmp_emb
+		ROOT = { add_to_array = { won_emb_by = PREV } }
+	}
+	clear_array = won_tmp_emb
+	if = {
+		limit = { check_variable = { won_embargo_n > 0 } }
+		set_temp_variable = { won_t = won_embargo_n }
+		multiply_temp_variable = { won_t = 8 }
+		clamp_temp_variable = { var = won_t max = 24 }
+		subtract_from_variable = { won_law_cl = won_t }
+		set_temp_variable = { won_t = won_embargo_n }
+		multiply_temp_variable = { won_t = -0.1 }
+		add_to_temp_variable = { won_t = 1 }
+		clamp_temp_variable = { var = won_t min = 0.5 }
+		multiply_variable = { won_law_trade = won_t }
+	}
+}
+
+###########################################################################
+# Resource exports (monthly, inside the budget). Whoever buys our resources through the
+# vanilla trade screen already pays us in civilian factories; on top of that our mines and
+# exporters earn a modest cash margin. The importer is NOT charged anything extra.
+# Rates per exported unit per month: steel 0.0008, oil and aluminium 0.001, rubber 0.0012,
+# tungsten and chromium 0.0015 bn. Capped at 0.25 bn a month.
+###########################################################################
+# Consumer spending (monthly, inside the budget): GDP x the economy law's rate, more when people
+# feel secure (x0.7 at 0% stability up to x1.3 at 100%). Civilian Economy earns the most.
+won_consumer_income = {
+	set_temp_variable = { won_t = has_stability }
+	multiply_temp_variable = { won_t = 0.6 }
+	add_to_temp_variable = { won_t = 0.7 }
+	set_variable = { won_inc_cons = won_gdp }
+	multiply_variable = { won_inc_cons = won_law_cons }
+	multiply_variable = { won_inc_cons = won_t }
+	clamp_variable = { var = won_inc_cons min = 0 }
+	add_to_variable = { won_inc_special = won_inc_cons }
+}
+
+won_resource_income = {
+	set_variable = { won_inc_res = 0 }
+	set_variable = { won_res_units = 0 }
+	set_temp_variable = { won_t = resource_exported@steel }
+	add_to_variable = { won_res_units = won_t }
+	multiply_temp_variable = { won_t = 0.0008 }
+	add_to_variable = { won_inc_res = won_t }
+	set_temp_variable = { won_t = resource_exported@oil }
+	add_to_variable = { won_res_units = won_t }
+	multiply_temp_variable = { won_t = 0.001 }
+	add_to_variable = { won_inc_res = won_t }
+	set_temp_variable = { won_t = resource_exported@aluminium }
+	add_to_variable = { won_res_units = won_t }
+	multiply_temp_variable = { won_t = 0.001 }
+	add_to_variable = { won_inc_res = won_t }
+	set_temp_variable = { won_t = resource_exported@rubber }
+	add_to_variable = { won_res_units = won_t }
+	multiply_temp_variable = { won_t = 0.0012 }
+	add_to_variable = { won_inc_res = won_t }
+	set_temp_variable = { won_t = resource_exported@tungsten }
+	add_to_variable = { won_res_units = won_t }
+	multiply_temp_variable = { won_t = 0.0015 }
+	add_to_variable = { won_inc_res = won_t }
+	set_temp_variable = { won_t = resource_exported@chromium }
+	add_to_variable = { won_res_units = won_t }
+	multiply_temp_variable = { won_t = 0.0015 }
+	add_to_variable = { won_inc_res = won_t }
+	clamp_variable = { var = won_res_units min = 0 }
+	multiply_variable = { won_inc_res = won_law_res }
+	set_temp_variable = { won_t = won_sph_res }
+	add_to_temp_variable = { won_t = 1 }
+	multiply_variable = { won_inc_res = won_t }
+	clamp_variable = { var = won_inc_res min = 0 max = 0.25 }
+	add_to_variable = { won_inc_special = won_inc_res }
+}

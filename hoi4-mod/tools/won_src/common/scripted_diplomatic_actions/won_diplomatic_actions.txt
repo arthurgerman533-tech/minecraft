@@ -1,0 +1,797 @@
+# Wealth of Nations - economic diplomacy. Shown in every country's diplomacy screen.
+# In every block ROOT is the country sending the proposal and THIS is the country receiving it.
+scripted_diplomatic_actions = {
+
+	######################################################################
+	# Trade Agreement: cheaper consumer goods, trade income, GDP for both.
+	######################################################################
+	won_trade_agreement = {
+		allowed = { always = yes }
+		visible = {
+			won_pair_can_deal = yes
+			NOT = { won_trade_with_root = yes }
+		}
+		selectable = {
+			custom_trigger_tooltip = {
+				tooltip = won_tt_root_trade_room
+				won_root_trade_room = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_this_trade_room
+				won_this_trade_room = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_no_autarky
+				won_is_autarkic = no
+				ROOT = { won_is_autarkic = no }
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_recently_refused
+				NOT = { has_country_flag = won_refused_@ROOT }
+			}
+		}
+		requires_acceptance = yes
+		show_acceptance_on_action_button = yes
+		cost = 25
+		icon = 1
+		send_description = won_trade_agreement_send
+		receive_description = won_trade_agreement_receive
+		accept_title = won_trade_agreement_accept
+		accept_description = won_trade_agreement_accept_desc
+		reject_title = won_trade_agreement_reject
+		reject_description = won_trade_agreement_reject_desc
+
+		on_sent_effect = {
+			ROOT = { set_country_flag = { flag = won_ai_sent days = 60 } }
+			set_country_flag = { flag = won_got_offer days = 120 }
+		}
+		complete_effect = {
+			won_sign_trade = yes
+		}
+		reject_effect = {
+			set_country_flag = { flag = won_refused_@ROOT days = 120 }
+		}
+
+		ai_acceptance = {
+			won_aia_base = {
+				base = 5
+			}
+			won_aia_opinion = {
+				base = 0
+				modifier = {
+					add = 15
+					has_opinion = { target = ROOT value > 30 }
+				}
+				modifier = {
+					add = -40
+					has_opinion = { target = ROOT value < -25 }
+				}
+			}
+			won_aia_bloc = {
+				base = 0
+				modifier = {
+					add = 20
+					is_in_faction_with = ROOT
+				}
+				modifier = {
+					add = -20
+					is_in_faction = yes
+					ROOT = { is_in_faction = yes }
+					NOT = { is_in_faction_with = ROOT }
+				}
+			}
+			won_aia_ideology = {
+				base = 0
+				modifier = {
+					add = 8
+					OR = {
+						AND = { won_is_democratic = yes ROOT = { won_is_democratic = yes } }
+						AND = { won_is_communist = yes ROOT = { won_is_communist = yes } }
+						AND = { won_is_fascist = yes ROOT = { won_is_fascist = yes } }
+					}
+				}
+				modifier = {
+					add = -25
+					OR = {
+						AND = { won_is_communist = yes ROOT = { won_is_fascist = yes } }
+						AND = { won_is_fascist = yes ROOT = { won_is_communist = yes } }
+					}
+				}
+			}
+			won_aia_market = {
+				base = 0
+				modifier = {
+					add = 10
+					check_variable = { var = won_gdp value = ROOT.won_gdp compare = less_than }
+				}
+			}
+			won_aia_mercantile = {
+				base = 0
+				modifier = {
+					add = 10
+					check_variable = { won_system = 12 }
+				}
+			}
+			won_aia_tradelaw = {
+				base = 0
+				modifier = { add = 10 has_idea = free_trade }
+				modifier = { add = 5 has_idea = export_focus }
+				modifier = { add = -5 has_idea = limited_exports }
+				modifier = { add = -35 has_idea = closed_economy }
+				modifier = { add = -15 ROOT = { has_idea = closed_economy } }
+			}
+		}
+
+		ai_desire = {
+			base = -10
+			modifier = {
+				add = 16
+				is_ai = yes
+				ROOT = {
+					NOT = { has_country_flag = won_ai_sent }
+					won_root_trade_room = yes
+				}
+				won_this_trade_room = yes
+				has_opinion = { target = ROOT value > 0 }
+			}
+			modifier = {
+				add = 16
+				is_ai = no
+				NOT = { has_country_flag = won_got_offer }
+				NOT = { has_game_rule = { rule = won_ai_offers option = WON_OFFERS_OFF } }
+				ROOT = {
+					NOT = { has_country_flag = won_ai_sent }
+					won_root_trade_room = yes
+				}
+				won_this_trade_room = yes
+				has_opinion = { target = ROOT value > 0 }
+			}
+		}
+	}
+
+	######################################################################
+	# Construction & Engineering Pact: needs a trade agreement first.
+	######################################################################
+	won_construction_pact = {
+		allowed = { always = yes }
+		visible = {
+			won_pair_can_deal = yes
+			NOT = { won_pact_with_root = yes }
+		}
+		selectable = {
+			custom_trigger_tooltip = {
+				tooltip = won_tt_needs_trade
+				won_trade_with_root = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_pact_room
+				check_variable = { won_pact_count < 4 }
+				ROOT = { check_variable = { won_pact_count < 4 } }
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_recently_refused
+				NOT = { has_country_flag = won_refused_@ROOT }
+			}
+		}
+		requires_acceptance = yes
+		show_acceptance_on_action_button = yes
+		cost = 40
+		icon = 1
+		send_description = won_construction_pact_send
+		receive_description = won_construction_pact_receive
+		accept_title = won_construction_pact_accept
+		accept_description = won_construction_pact_accept_desc
+		reject_title = won_construction_pact_reject
+		reject_description = won_construction_pact_reject_desc
+
+		on_sent_effect = {
+			ROOT = { set_country_flag = { flag = won_ai_sent days = 60 } }
+			set_country_flag = { flag = won_got_offer days = 120 }
+		}
+		complete_effect = {
+			won_sign_pact = yes
+		}
+		reject_effect = {
+			set_country_flag = { flag = won_refused_@ROOT days = 120 }
+		}
+
+		ai_acceptance = {
+			won_aia_base = {
+				base = 5
+			}
+			won_aia_opinion = {
+				base = 0
+				modifier = {
+					add = 10
+					has_opinion = { target = ROOT value > 40 }
+				}
+				modifier = {
+					add = -30
+					has_opinion = { target = ROOT value < 0 }
+				}
+			}
+			won_aia_bloc = {
+				base = 0
+				modifier = {
+					add = 15
+					is_in_faction_with = ROOT
+				}
+			}
+			won_aia_at_war = {
+				base = 0
+				modifier = {
+					add = 10
+					has_war = yes
+				}
+			}
+		}
+
+		ai_desire = {
+			base = -10
+			modifier = {
+				add = 14
+				is_ai = yes
+				won_trade_with_root = yes
+				check_variable = { won_pact_count < 4 }
+				ROOT = {
+					NOT = { has_country_flag = won_ai_sent }
+					check_variable = { won_pact_count < 4 }
+				}
+				has_opinion = { target = ROOT value > 20 }
+			}
+		}
+	}
+
+	######################################################################
+	# Invest Capital: build a factory there, collect dividends forever.
+	######################################################################
+	won_invest = {
+		allowed = { always = yes }
+		visible = {
+			won_pair_can_deal = yes
+		}
+		selectable = {
+			custom_trigger_tooltip = {
+				tooltip = won_tt_invest_funds
+				ROOT = { check_variable = { won_treasury > 1.5 } }
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_invest_open
+				won_closed_to_capital = no
+				check_variable = { won_open = 1 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_invest_slot
+				any_owned_state = {
+					is_controlled_by = PREV
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = no
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_recently_refused
+				NOT = { has_country_flag = won_refused_@ROOT }
+			}
+		}
+		requires_acceptance = yes
+		show_acceptance_on_action_button = yes
+		cost = 10
+		icon = 1
+		send_description = won_invest_send
+		receive_description = won_invest_receive
+		accept_title = won_invest_accept
+		accept_description = won_invest_accept_desc
+		reject_title = won_invest_reject
+		reject_description = won_invest_reject_desc
+
+		on_sent_effect = {
+			ROOT = { set_country_flag = { flag = won_ai_sent days = 60 } }
+			set_country_flag = { flag = won_got_offer days = 120 }
+		}
+		complete_effect = {
+			won_make_investment = yes
+		}
+		reject_effect = {
+			set_country_flag = { flag = won_refused_@ROOT days = 120 }
+		}
+
+		ai_acceptance = {
+			won_aia_base = {
+				base = 15
+			}
+			won_aia_opinion = {
+				base = 0
+				modifier = {
+					add = -40
+					has_opinion = { target = ROOT value < -20 }
+				}
+			}
+			won_aia_ideology = {
+				base = 0
+				modifier = {
+					add = -30
+					OR = {
+						AND = { won_is_communist = yes ROOT = { won_is_fascist = yes } }
+						AND = { won_is_fascist = yes ROOT = { won_is_communist = yes } }
+					}
+				}
+			}
+			won_aia_sovereignty = {
+				base = 0
+				modifier = {
+					add = -15
+					check_variable = { won_fdi_in > 9 }
+				}
+			}
+		}
+
+		ai_desire = {
+			base = -10
+			modifier = {
+				add = 14
+				ROOT = {
+					is_ai = yes
+					NOT = { has_country_flag = won_ai_sent }
+					check_variable = { won_reserve_ratio > 0.35 }
+					check_variable = { won_treasury > 4 }
+				}
+				is_ai = yes
+				check_variable = { won_open = 1 }
+				has_opinion = { target = ROOT value > 10 }
+			}
+			modifier = {
+				add = 14
+				ROOT = {
+					is_ai = yes
+					NOT = { has_country_flag = won_ai_sent }
+					check_variable = { won_reserve_ratio > 0.35 }
+					check_variable = { won_treasury > 4 }
+				}
+				is_ai = no
+				check_variable = { won_open = 1 }
+				NOT = { has_country_flag = won_got_offer }
+				NOT = { has_game_rule = { rule = won_ai_offers option = WON_OFFERS_OFF } }
+				has_opinion = { target = ROOT value > 10 }
+			}
+		}
+	}
+
+	######################################################################
+	# Hire their Companies: their firms build for us, we pay a monthly fee.
+	######################################################################
+	won_hire_companies = {
+		allowed = { always = yes }
+		visible = {
+			won_pair_can_deal = yes
+			check_variable = { won_gdp > 14.9 }
+			NOT = { ROOT = { has_country_flag = won_hires_@PREV } }
+		}
+		selectable = {
+			custom_trigger_tooltip = {
+				tooltip = won_tt_hire_room
+				ROOT = { check_variable = { won_hire_count < 2 } }
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_hire_funds
+				ROOT = { check_variable = { won_treasury > won_c_fee3 } }
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_provider_busy
+				check_variable = { won_sold_count < 3 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_foreign_firms
+				ROOT = { NOT = { check_variable = { won_system = 6 } } NOT = { check_variable = { won_system = 8 } } }
+			}
+		}
+		requires_acceptance = yes
+		show_acceptance_on_action_button = yes
+		cost = 15
+		icon = 1
+		send_description = won_hire_companies_send
+		receive_description = won_hire_companies_receive
+		accept_title = won_hire_companies_accept
+		accept_description = won_hire_companies_accept_desc
+		reject_title = won_hire_companies_reject
+		reject_description = won_hire_companies_reject_desc
+
+		complete_effect = {
+			# Client = ROOT, provider = THIS
+			ROOT = { won_open_contract_from_prev = yes }
+		}
+
+		ai_acceptance = {
+			won_aia_base = {
+				base = 10
+			}
+			won_aia_opinion = {
+				base = 0
+				modifier = {
+					add = -40
+					has_opinion = { target = ROOT value < -10 }
+				}
+			}
+			won_aia_ideology = {
+				base = 0
+				modifier = {
+					add = -25
+					OR = {
+						AND = { won_is_communist = yes ROOT = { won_is_fascist = yes } }
+						AND = { won_is_fascist = yes ROOT = { won_is_communist = yes } }
+					}
+				}
+			}
+			won_aia_capacity = {
+				base = 0
+				modifier = {
+					add = -20
+					num_of_available_civilian_factories < 4
+				}
+			}
+		}
+
+		ai_desire = {
+			base = -1
+		}
+	}
+
+	######################################################################
+	# Offer our Services: our firms build for them, they pay us monthly.
+	######################################################################
+	won_offer_services = {
+		allowed = { always = yes }
+		visible = {
+			won_pair_can_deal = yes
+			ROOT = { check_variable = { won_gdp > 14.9 } }
+			NOT = { has_country_flag = won_hires_@ROOT }
+		}
+		selectable = {
+			custom_trigger_tooltip = {
+				tooltip = won_tt_our_capacity
+				ROOT = {
+					check_variable = { won_sold_count < 3 }
+					num_of_available_civilian_factories > 3
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_client_room
+				check_variable = { won_hire_count < 2 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_client_funds
+				check_variable = { won_treasury > won_c_fee3 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_client_firms
+				NOT = { check_variable = { won_system = 6 } }
+				NOT = { check_variable = { won_system = 8 } }
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_recently_refused
+				NOT = { has_country_flag = won_refused_@ROOT }
+			}
+		}
+		requires_acceptance = yes
+		show_acceptance_on_action_button = yes
+		cost = 10
+		icon = 1
+		send_description = won_offer_services_send
+		receive_description = won_offer_services_receive
+		accept_title = won_offer_services_accept
+		accept_description = won_offer_services_accept_desc
+		reject_title = won_offer_services_reject
+		reject_description = won_offer_services_reject_desc
+
+		on_sent_effect = {
+			ROOT = { set_country_flag = { flag = won_ai_sent days = 60 } }
+			set_country_flag = { flag = won_got_offer days = 120 }
+		}
+		complete_effect = {
+			# Client = THIS, provider = ROOT
+			won_open_contract_from_root = yes
+		}
+		reject_effect = {
+			set_country_flag = { flag = won_refused_@ROOT days = 120 }
+		}
+
+		ai_acceptance = {
+			won_aia_base = {
+				base = 0
+			}
+			won_aia_need = {
+				base = 0
+				modifier = {
+					add = 10
+					has_war = yes
+				}
+				modifier = {
+					add = 10
+					check_variable = { won_reserve_ratio > 0.2 }
+				}
+				modifier = {
+					add = -15
+					check_variable = { won_debt_ratio > 0.3 }
+				}
+			}
+			won_aia_opinion = {
+				base = 0
+				modifier = {
+					add = 10
+					has_opinion = { target = ROOT value > 30 }
+				}
+				modifier = {
+					add = -40
+					has_opinion = { target = ROOT value < -10 }
+				}
+			}
+			won_aia_ideology = {
+				base = 0
+				modifier = {
+					add = -25
+					OR = {
+						AND = { won_is_communist = yes ROOT = { won_is_fascist = yes } }
+						AND = { won_is_fascist = yes ROOT = { won_is_communist = yes } }
+					}
+				}
+			}
+		}
+
+		ai_desire = {
+			base = -10
+			modifier = {
+				add = 13
+				ROOT = {
+					is_ai = yes
+					NOT = { has_country_flag = won_ai_sent }
+					check_variable = { won_sold_count < 2 }
+					num_of_available_civilian_factories > 8
+				}
+				is_ai = yes
+				check_variable = { won_hire_count < 1 }
+				check_variable = { won_reserve_ratio > 0.2 }
+				has_opinion = { target = ROOT value > 20 }
+			}
+		}
+	}
+
+	######################################################################
+	# Cancel our agreements with them (no acceptance needed).
+	######################################################################
+	won_cancel_agreements = {
+		allowed = { always = yes }
+		visible = {
+			OR = {
+				won_trade_with_root = yes
+				won_pact_with_root = yes
+			}
+		}
+		selectable = { always = yes }
+		requires_acceptance = no
+		show_acceptance_on_action_button = no
+		cost = 0
+		icon = 1
+		send_description = won_cancel_agreements_send
+
+		complete_effect = {
+			won_break_agreements = yes
+		}
+
+		ai_desire = {
+			base = -1
+		}
+	}
+
+	######################################################################
+	# Offer Arms Deal: we sell from our stockpile through the international market.
+	######################################################################
+	won_offer_arms = {
+		allowed = { always = yes }
+		visible = {
+			won_pair_can_deal = yes
+			ROOT = { has_country_flag = won_arms_agency }
+		}
+		selectable = {
+			custom_trigger_tooltip = {
+				tooltip = won_tt_has_surplus
+				ROOT = { won_has_arms_surplus = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_one_contract
+				NOT = { has_country_flag = won_sc_from_@ROOT }
+				NOT = { has_country_flag = won_sc_cancel_@ROOT }
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_contract_cap
+				ROOT = { check_variable = { won_sc_count < won_sc_max } }
+			}
+			custom_trigger_tooltip = {
+				tooltip = won_tt_recently_refused
+				NOT = { has_country_flag = won_refused_@ROOT }
+			}
+		}
+		requires_acceptance = yes
+		show_acceptance_on_action_button = yes
+		cost = 10
+		icon = 1
+		send_description = won_offer_arms_send
+		receive_description = won_offer_arms_receive
+		accept_title = won_offer_arms_accept
+		accept_description = won_offer_arms_accept_desc
+		reject_title = won_offer_arms_reject
+		reject_description = won_offer_arms_reject_desc
+		complete_effect = {
+			ROOT = { set_variable = { won_ev_partner = PREV } }
+			set_variable = { global.won_ev_partner_name = THIS }
+			set_country_flag = won_sc_from_@ROOT
+			ROOT = {
+				if = {
+					limit = { is_ai = no }
+					country_event = { id = won.201 }
+				}
+				else = {
+					won_pick_package = yes
+					won_open_supply_contract = yes
+				}
+			}
+		}
+		reject_effect = {
+			set_country_flag = { flag = won_refused_@ROOT days = 120 }
+		}
+		ai_acceptance = {
+			won_aia_base = {
+				base = -5
+			}
+			won_aia_at_war = {
+				base = 0
+				modifier = {
+					add = 25
+					has_war = yes
+				}
+			}
+			won_aia_tension = {
+				base = 0
+				modifier = {
+					add = 10
+					threat > 0.5
+				}
+			}
+			won_aia_bloc = {
+				base = 0
+				modifier = {
+					add = 20
+					is_in_faction_with = ROOT
+				}
+			}
+			won_aia_trade = {
+				base = 0
+				modifier = {
+					add = 15
+					won_trade_with_root = yes
+				}
+			}
+			won_aia_opinion = {
+				base = 0
+				modifier = {
+					add = 10
+					has_opinion = { target = ROOT value > 40 }
+				}
+				modifier = {
+					add = -40
+					has_opinion = { target = ROOT value < -10 }
+				}
+			}
+			won_aia_ideology = {
+				base = 0
+				modifier = {
+					add = -30
+					OR = {
+						AND = { won_is_communist = yes ROOT = { won_is_fascist = yes } }
+						AND = { won_is_fascist = yes ROOT = { won_is_communist = yes } }
+					}
+				}
+			}
+			won_aia_reputation = {
+				base = 0
+				modifier = {
+					add = 10
+					ROOT = { check_variable = { aon_tier > 2 } }
+				}
+			}
+			won_aia_capacity = {
+				base = 0
+				modifier = {
+					add = -20
+					num_of_civilian_factories < 5
+				}
+			}
+		}
+		ai_desire = {
+			base = -1
+		}
+	}
+
+	######################################################################
+	# Sell Production Licence: they build our design, we take a fee and royalties.
+	######################################################################
+	# End Arms Contract: we stop supplying them (reputation and opinion suffer).
+	######################################################################
+	won_end_arms_contract = {
+		allowed = { always = yes }
+		visible = {
+			has_country_flag = won_sc_from_@ROOT
+			NOT = { has_country_flag = won_sc_cancel_@ROOT }
+		}
+		selectable = { always = yes }
+		requires_acceptance = no
+		show_acceptance_on_action_button = no
+		cost = 0
+		icon = 1
+		send_description = won_end_arms_contract_send
+		complete_effect = {
+			won_cancel_supply_contract = yes
+		}
+		ai_desire = {
+			base = -1
+		}
+	}
+
+	######################################################################
+	# Embargo: no trade, investment or arms with them; their investment climate suffers.
+	######################################################################
+	won_embargo = {
+		allowed = { always = yes }
+		visible = {
+			exists = yes
+			NOT = { tag = ROOT }
+			won_has_economy = yes
+			ROOT = { won_has_economy = yes }
+			ROOT = { NOT = { has_country_flag = won_embargo_on_@PREV } }
+		}
+		selectable = {
+			custom_trigger_tooltip = {
+				tooltip = won_tt_not_allied
+				NOT = { is_in_faction_with = ROOT }
+				NOT = { is_subject_of = ROOT }
+				NOT = { ROOT = { is_subject_of = PREV } }
+			}
+		}
+		requires_acceptance = no
+		show_acceptance_on_action_button = no
+		cost = 25
+		icon = 1
+		send_description = won_embargo_send
+
+		complete_effect = {
+			won_impose_embargo = yes
+		}
+
+		ai_desire = {
+			base = -100
+		}
+	}
+
+	won_lift_embargo = {
+		allowed = { always = yes }
+		visible = {
+			exists = yes
+			ROOT = { has_country_flag = won_embargo_on_@PREV }
+		}
+		selectable = { always = yes }
+		requires_acceptance = no
+		show_acceptance_on_action_button = no
+		cost = 0
+		icon = 1
+		send_description = won_lift_embargo_send
+
+		complete_effect = {
+			won_lift_embargo = yes
+		}
+
+		ai_desire = {
+			base = -100
+		}
+	}
+}

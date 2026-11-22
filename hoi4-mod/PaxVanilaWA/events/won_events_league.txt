@@ -1,0 +1,17 @@
+add_namespace = won
+
+# Once a year: how did we do?
+country_event = {
+	id = won.246
+	title = won.246.t
+	desc = won.246.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {
+		name = won.246.b
+	}
+	option = {
+		name = won.246.a
+		won_lg_open = yes
+	}
+}

@@ -1,0 +1,69 @@
+# Wealth of Nations - International Market module (merged from Arsenal of Nations)
+###########################################
+# Arsenal of Nations - scripted localisation
+###########################################
+
+defined_text = {
+	name = GetAonTierName
+	text = { trigger = { check_variable = { aon_tier = 5 } } localization_key = aon_standing_5 }
+	text = { trigger = { check_variable = { aon_tier = 4 } } localization_key = aon_standing_4 }
+	text = { trigger = { check_variable = { aon_tier = 3 } } localization_key = aon_standing_3 }
+	text = { trigger = { check_variable = { aon_tier = 2 } } localization_key = aon_standing_2 }
+	text = { trigger = { check_variable = { aon_tier = 1 } } localization_key = aon_standing_1 }
+	text = { localization_key = aon_standing_0 }
+}
+
+defined_text = {
+	name = GetAonTierIcon
+	text = { trigger = { check_variable = { aon_tier = 5 } } localization_key = aon_icon_5 }
+	text = { trigger = { check_variable = { aon_tier = 4 } } localization_key = aon_icon_4 }
+	text = { trigger = { check_variable = { aon_tier = 3 } } localization_key = aon_icon_3 }
+	text = { trigger = { check_variable = { aon_tier = 2 } } localization_key = aon_icon_2 }
+	text = { localization_key = aon_icon_1 }
+}
+
+defined_text = {
+	name = GetAonNextTier
+	text = { trigger = { check_variable = { aon_tier = 5 } } localization_key = aon_next_tier_max }
+	text = { localization_key = aon_next_tier }
+}
+
+defined_text = {
+	name = GetAonNextTierName
+	text = { trigger = { check_variable = { aon_tier = 4 } } localization_key = aon_standing_5 }
+	text = { trigger = { check_variable = { aon_tier = 3 } } localization_key = aon_standing_4 }
+	text = { trigger = { check_variable = { aon_tier = 2 } } localization_key = aon_standing_3 }
+	text = { trigger = { check_variable = { aon_tier = 1 } } localization_key = aon_standing_2 }
+	text = { localization_key = aon_standing_1 }
+}
+
+defined_text = {
+	name = GetAonExhibitionStatus
+	text = { trigger = { has_country_flag = aon_exhibition_boost } localization_key = aon_exhibition_status_on }
+	text = { localization_key = aon_empty }
+}
+
+defined_text = {
+	name = GetWonCourtButton
+	text = { trigger = { has_country_flag = won_court_buyers } localization_key = won_court_on_label }
+	text = { localization_key = won_court_off_label }
+}
+
+defined_text = {
+	name = GetWonCourtStatus
+	text = { trigger = { has_country_flag = won_court_buyers } localization_key = won_court_status_on }
+	text = { localization_key = won_court_status_off }
+}
+
+defined_text = {
+	name = GetWonRivalLine
+	text = { trigger = { has_variable = won_rival } localization_key = won_rival_line }
+	text = { localization_key = won_rival_none }
+}
+
+defined_text = {
+	name = GetWonReviewHeadline
+	text = { trigger = { check_variable = { won_rev_change > 0 } } localization_key = won_rev_up }
+	text = { trigger = { check_variable = { won_rev_change < 0 } } localization_key = won_rev_down }
+	text = { localization_key = won_rev_same }
+}

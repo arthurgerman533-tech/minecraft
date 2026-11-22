@@ -1,0 +1,32 @@
+# Wealth of Nations - decision categories
+won_cat_economy = {
+	icon = GFX_decision_category_generic_economy
+	picture = GFX_decision_cat_generic_mefo_bills
+	priority = 120
+	allowed = { always = yes }
+	visible = { has_country_flag = won_ready }
+}
+
+won_cat_business = {
+	icon = GFX_decision_category_generic_trade
+	picture = GFX_decision_cat_generic_mefo_bills
+	priority = 119
+	allowed = { always = yes }
+	visible = { has_country_flag = won_ready }
+}
+
+won_cat_global = {
+	icon = GFX_decision_category_generic_arms_trade
+	picture = GFX_decision_cat_generic_mefo_bills
+	priority = 117
+	allowed = { always = yes }
+	visible = { has_country_flag = won_ready }
+}
+
+won_cat_modern = {
+	icon = GFX_decision_category_generic_industry
+	picture = GFX_decision_cat_generic_mefo_bills
+	priority = 118
+	allowed = { always = yes }
+	visible = { has_country_flag = won_ready }
+}
