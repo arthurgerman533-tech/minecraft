@@ -955,14 +955,14 @@ def build_art():
     for eid, sc in bm_scene.items():
         era = next(e for e in E.ERAS if e["id"] == eid)
         y, mo, dd = era["date"].split(".")[:3]
-        # окно выбора сценария показывает картинку в натуральном размере (~290x430), поэтому делаем портрет
+        # окно выбора сценария показывает картинку в натуральном размере (~232x192), поэтому делаем маленькую
         big_im = A.render(sc)
-        tw, th = 1160, 1720
+        tw, th = 700, 579
         k = max(tw / big_im.width, th / big_im.height)
         big_im = big_im.resize((int(big_im.width * k) + 1, int(big_im.height * k) + 1))
         l, t = (big_im.width - tw) // 2, (big_im.height - th) // 2
         poster = A.bookmark_frame(big_im.crop((l, t, l + tw, t + th)), era["name"], f"{dd}.{mo}.{y}   PaxVanila")
-        A.save_dds(poster.resize((290, 430), A.Image.LANCZOS), os.path.join(OUT, f"gfx/interface/bookmarks/pax_bm_{eid}.dds"))
+        A.save_dds(poster.resize((232, 192), A.Image.LANCZOS), os.path.join(OUT, f"gfx/interface/bookmarks/pax_bm_{eid}.dds"))
         bm_sprites.append(f'\tspriteType = {{\n\t\tname = "GFX_pax_bm_{eid}"\n\t\ttexturefile = "gfx/interface/bookmarks/pax_bm_{eid}.dds"\n\t}}')
     w("interface/pax_bookmarks.gfx", "spriteTypes = {\n" + "\n".join(bm_sprites) + "\n}\n")
     # картинки событий

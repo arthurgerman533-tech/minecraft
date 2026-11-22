@@ -459,7 +459,11 @@ def bookmark_frame(im, title, date_text, accent=(255, 215, 90)):
     for cx, cy in ((14, 14), (w - 15, 14), (14, h - 15), (w - 15, h - 15)):
         d.rectangle([cx - 10, cy - 10, cx + 10, cy + 10], fill=(15, 10, 25), outline=accent, width=3)
     # плашка внизу
-    fb = ImageFont.truetype(FONT, max(36, w // 28))
+    fsz = max(36, w // 28)
+    fb = ImageFont.truetype(FONT, fsz)
+    while d.textlength(title, font=fb) > w - 60 - 170 and fsz > 14:  # название не должно залезать на печать
+        fsz -= 2
+        fb = ImageFont.truetype(FONT, fsz)
     fs = ImageFont.truetype(FONT, max(26, w // 44))
     bar_h = int(h * 0.2)
     d.rectangle([28, h - 28 - bar_h, w - 29, h - 29], fill=(15, 10, 25, 225))
