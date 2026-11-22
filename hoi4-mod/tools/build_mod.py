@@ -85,6 +85,19 @@ def build_won():
             shutil.copyfile(p, dst)
 
 
+def build_extra_mods():
+    """Только для варианта Family: Artillery Designer (3783427912) и Globe Mod (3816496697)."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    for name in ("artdes_src", "globe_src"):
+        src = os.path.join(here, name)
+        for root, _, files in os.walk(src):
+            for fn in files:
+                p = os.path.join(root, fn)
+                dst = os.path.join(OUT, os.path.relpath(p, src))
+                os.makedirs(os.path.dirname(dst), exist_ok=True)
+                shutil.copyfile(p, dst)
+
+
 def build_descriptor():
     body = (
         f'version="{D.MOD_VERSION}"\n'
@@ -995,6 +1008,8 @@ def main():
     for bm in ('blitzkrieg', 'the_gathering_storm') + (('No_Asia',) if D.BASE == "fam" else ()):  # noqa  # лаунчер стирает replace_path из внешнего .mod, поэтому глушим ванильные закладки
         w(f'common/bookmarks/{bm}.txt', 'bookmarks = {\n}\n')
     build_won()
+    if D.BASE == "fam":
+        build_extra_mods()
     build_characters()
     build_setup()
     build_eras_extra()

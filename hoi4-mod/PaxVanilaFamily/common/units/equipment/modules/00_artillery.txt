@@ -1,0 +1,394 @@
+equipment_modules = {
+
+	main_HEI_shell = {
+		category = main_shell_type
+		allow_equipment_type = anti_air
+		add_stats = {
+			#Defensive Abilities
+			soft_attack = 10
+			air_attack = 12
+		}
+
+		forbid_module_categories = {
+			cannon_caliber_type
+		}
+
+		xp_cost = 2
+	}
+
+	main_HE_shell = {
+		category = main_shell_type
+		allow_equipment_type = artillery
+		add_stats = {
+			#Defensive Abilities
+			soft_attack = 20
+		}
+
+		xp_cost = 2
+
+		build_cost_resources = {
+			tungsten = 1
+		}
+	}
+
+	main_HE_shell_time_fuzed = {
+		category = main_shell_type
+		allow_equipment_type = anti_air
+		add_stats = {
+			#Defensive Abilities
+			soft_attack = 15
+			air_attack = 18
+		}
+
+		xp_cost = 5
+
+		add_stats = {
+			build_cost_ic = 1
+		}
+
+		build_cost_resources = {
+			tungsten = 1
+		}
+	}
+
+	main_AP_shell = {
+		category = main_shell_type
+		forbid_equipment_type = anti_tank
+		add_stats = {
+			#Defensive Abilities
+			soft_attack = 5
+			hard_attack = 15
+			ap_attack = 20
+		}
+
+		xp_cost = 2
+
+		build_cost_resources = {
+			tungsten = 1
+		}
+	}
+
+	main_APCR_shell = {
+		category = main_shell_type
+		allow_equipment_type = anti_tank
+		forbid_equipment_type = armor
+		add_stats = {
+			#Defensive Abilities
+			soft_attack = 3
+			hard_attack = 15
+			ap_attack = 30
+		}
+
+		xp_cost = 5
+
+		build_cost_resources = {
+			tungsten = 2
+		}
+	}
+
+	main_APHE_shell = {
+		category = main_shell_type
+		allow_equipment_type = artillery
+		add_stats = {
+			#Defensive Abilities
+			soft_attack = 15
+			hard_attack = 6
+			ap_attack = 10
+		}
+
+		xp_cost = 5
+
+		build_cost_resources = {
+			tungsten = 1
+		}
+
+		multiply_stats = {
+			build_cost_ic = 0.05
+		}
+	}
+
+	main_HEAT_shell = {
+		category = main_shell_type
+		allow_equipment_type = artillery
+		add_stats = {
+			#Defensive Abilities
+			soft_attack = 5
+			hard_attack = 25
+			ap_attack = 35
+		}
+
+		xp_cost = 12
+
+		build_cost_resources = {
+			tungsten = 2
+			chromium = 1
+		}
+
+		multiply_stats = {
+			build_cost_ic = 0.1
+		}
+	}
+
+	short_barrel = {
+		category = artillery_barrel_type
+
+		multiply_stats = {
+			ap_attack = -0.25
+		}
+		multiply_stats = {
+			build_cost_ic = -0.075
+		}
+		xp_cost = 2
+	}
+
+	medium_barrel = {
+		category = artillery_barrel_type
+
+		xp_cost = 2
+
+		build_cost_resources = {
+			steel = 1
+		}
+	}
+
+	long_barrel = {
+		category = artillery_barrel_type
+
+		xp_cost = 2
+
+		multiply_stats = {
+			ap_attack = 0.30
+			air_attack = 0.20
+		}
+
+		build_cost_resources = {
+			steel = 1
+		}
+
+		multiply_stats = {
+			build_cost_ic = 0.1
+		}
+	}
+
+	caliber_25mm = {
+		abbreviation = "caliber_1"
+		category = cannon_small_caliber_type
+		forbid_equipment_type = artillery
+		xp_cost = 2
+
+		multiply_stats = {
+			ap_attack = -0.10
+			soft_attack = -0.4
+			reliability = 0.05
+			maximum_speed = 0.1
+		}
+
+		multiply_stats = {
+			build_cost_ic = -0.25
+		}
+	}
+
+	caliber_a_37mm = {
+		abbreviation = "caliber_2"
+		category = cannon_small_caliber_type
+
+		xp_cost = 2
+
+		multiply_stats = {
+			soft_attack = -0.2
+		}
+
+		multiply_stats = {
+			build_cost_ic = -0.15
+		}
+	}
+
+	caliber_b_50mm = {
+		abbreviation = "caliber_3"
+		category = cannon_caliber_type
+
+		xp_cost = 2
+	}
+
+	caliber_c_75mm = {
+		abbreviation = "caliber_4"
+		category = cannon_caliber_type
+
+
+		multiply_stats = {
+			ap_attack = 0.05
+			air_attack = 0.05
+			hard_attack = 0.1
+			soft_attack = 0.1
+			build_cost_ic = 0.075
+		}
+		xp_cost = 2
+	}
+
+	caliber_d_90mm = {
+		abbreviation = "caliber_5"
+		category = cannon_caliber_type
+
+
+		multiply_stats = {
+			ap_attack = 0.15
+			air_attack = 0.1
+			hard_attack = 0.25
+			soft_attack = 0.25
+			build_cost_ic = 0.15
+			maximum_speed = -0.1
+		}
+		xp_cost = 2
+	}
+
+	caliber_e_120mm = {
+		abbreviation = "caliber_6"
+		category = cannon_caliber_type
+
+
+		multiply_stats = {
+			ap_attack = 0.20
+			air_attack = 0.1
+			soft_attack = 0.35
+			hard_attack = 0.35
+			build_cost_ic = 0.25
+			maximum_speed = -0.2
+		}
+		xp_cost = 2
+	}
+
+	caliber_f_150mm = {
+		abbreviation = "caliber_7"
+		category = cannon_caliber_type
+
+
+		multiply_stats = {
+			ap_attack = 0.25
+			air_attack = 0.1
+			soft_attack = 0.45
+			hard_attack = 0.45
+			build_cost_ic = 0.35
+			maximum_speed = -0.3
+		}
+		xp_cost = 2
+	}
+
+	ccaliber_g_180mm = {
+		abbreviation = "caliber_8"
+		category = cannon_caliber_type
+
+
+		multiply_stats = {
+			ap_attack = 0.30
+			air_attack = 0.1
+			soft_attack = 0.50
+			hard_attack = 0.50
+			build_cost_ic = 0.45
+			maximum_speed = -0.4
+		}
+		xp_cost = 2
+	}
+
+	smoke_shells = {
+		category = artillery_special_type
+
+		add_stats = {
+			#Defensive Abilities
+			build_cost_ic = 0.25
+			breakthrough = 2
+		}
+
+		xp_cost = 2
+	}
+
+	gas_shells = {
+		category = artillery_special_type
+
+		add_stats = {
+			#Defensive Abilities
+			build_cost_ic = 1
+		}
+
+		multiply_stats = {
+			soft_attack = 0.15
+			reliability = -0.2
+		}
+
+		build_cost_resources = {
+			tungsten = 1
+		}
+
+		xp_cost = 2
+	}
+
+	thick_armored_plate = {
+		category = artillery_special_armor_type
+
+		add_stats = {
+			#Defensive Abilities
+			build_cost_ic = 0.3
+			defense = 4
+		}
+
+		xp_cost = 2
+	}
+
+	wide_armored_plate = {
+		category = artillery_special_armor_type
+
+		add_stats = {
+			#Defensive Abilities
+			build_cost_ic = 1
+			defense = 8
+		}
+
+		xp_cost = 2
+	}
+
+	wood_wheels = {
+		category = artillery_mobility_type
+		xp_cost = 2
+	}
+
+	iron_wheels = {
+		category = artillery_mobility_type
+		add_stats = {
+			#Defensive Abilities
+			maximum_speed = 1
+		}
+		multiply_stats = {
+			build_cost_ic = 0.1
+		}
+
+		xp_cost = 2
+	}
+
+	tires_wheels = {
+		category = artillery_mobility_type
+		add_stats = {
+			#Defensive Abilities
+			maximum_speed = 1.5
+		}
+		multiply_stats = {
+			reliability = 0.05
+			build_cost_ic = 0.15
+		}
+
+		xp_cost = 2
+	}
+
+	multi_tired_wheels = {
+		category = artillery_mobility_type
+		add_stats = {
+			#Defensive Abilities
+			maximum_speed = 2
+		}
+		multiply_stats = {
+			reliability = 0.10
+			build_cost_ic = 0.20
+		}
+
+		xp_cost = 2
+	}
+	
+}
