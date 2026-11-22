@@ -98,6 +98,16 @@ def build_extra_mods():
                 shutil.copyfile(p, dst)
 
 
+def build_building_strip():
+    """Лента иконок зданий на 34 кадра: в Family кадры зданий больше, чем в старой ленте на 18 кадров."""
+    import pax_building_strip as BS
+    n, _ = BS.build(os.path.join(OUT, "gfx/interface/buildings/pax_building_icon_strip.dds"))
+    w("interface/pax_buildings_strip.gfx",
+      "spriteTypes = {\n\tspriteType = {\n\t\tname = \"GFX_buildings_strip\"\n"
+      "\t\ttextureFile = \"gfx/interface/buildings/pax_building_icon_strip.dds\"\n"
+      f"\t\tnoOfFrames = {n}\n\t}}\n}}\n")
+
+
 def build_descriptor():
     body = (
         f'version="{D.MOD_VERSION}"\n'
@@ -1016,6 +1026,7 @@ def main():
     build_won()
     if D.BASE == "fam":
         build_extra_mods()
+        build_building_strip()
     build_characters()
     build_setup()
     build_eras_extra()
