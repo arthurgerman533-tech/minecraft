@@ -92,10 +92,10 @@ def render_lore(md_text, links):
 
 PAGE = """<!doctype html>
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{title}</title><meta name="description" content="{desc}"><meta name="theme-color" content="#14110d">
+<title>{title}</title><meta name="description" content="{desc}"><meta name="theme-color" content="#0d0b09">
 <link rel="manifest" href="../manifest.webmanifest"><link rel="icon" href="../icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cormorant+SC:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css"></head><body>
 <header class="top"><div class="wrap"><a class="brand" href="../"><img src="../icons/icon-192.png" alt="">PaxVanila</a>
 <nav class="main">{nav}</nav><a class="iconbtn" id="lang" href="__LANGURL__" hreflang="__LANGCODE__" title="__LANGTITLE__">__LANGLABEL__</a><button class="iconbtn" id="theme" aria-label="Сменить тему">☾</button></div></header>
