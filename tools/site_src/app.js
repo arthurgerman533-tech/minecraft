@@ -73,7 +73,7 @@ addEventListener('appinstalled',()=>{deferred=null;['#install','#install2'].forE
   const SITE=[
     {t:T('Сервер','Server'),i:'🏰',l:[['#now','⚡',T('Сейчас','Now')],['news.html','📰',T('Новости сервера','Server news')],['#calendar','📅',T('Календарь','Calendar')],['join.html','🧭',T('Как зайти','How to join')],['#weeks','📆',T('Недели','Weeks')],['#app','📲',T('Приложение','App')]]},
     {t:T('Карты','Maps'),i:'🗺️',l:[['#map','🗺️',T('Мир 1 · Ванильный','World 1 · Vanilla')],['#earth','🌍',T('Мир 2 · Земля','World 2 · Earth')],['#nether','🔥',T('Незер','Nether')],['#weather','⛈️',T('Погода и катаклизмы','Weather')]]},
-    {t:T('Мир и лор','World & lore'),i:'📜',l:[['#nations','🏛️',T('Державы','Powers')],['lore.html','📚',T('Лор мира','World lore')],['timeline.html','⏳',T('Хроника держав','Timeline')],['#news','🔬',T('Вестник Академии','Academy herald')],['quiz.html','🧩',T('Викторина','Quiz')]]},
+    {t:T('Мир и лор','World & lore'),i:'📜',l:[['#nations','🏛️',T('Державы','Powers')],['lore.html','📚',T('Лор мира','World lore')],['epochs.html','🕰️',T('Хроника эпох','Chronicle of Epochs')],['timeline.html','⏳',T('Хроника держав','Timeline')],['#news','🔬',T('Вестник Академии','Academy herald')],['quiz.html','🧩',T('Викторина','Quiz')]]},
     {t:T('Как играть','How to play'),i:'⚔️',l:[['#mech','⚙️',T('Механики','Mechanics')],['#rules','📏',T('Правила','Rules')],['#cmds','⌨️',T('Команды','Commands')],['guides/fokusy.html','🎯',T('Гайд по фокусам','Focus guide')],['#donate','💛',T('Поддержать','Support')]]}];
   const H=h=>U((h[0]==='#'?'./':'')+h);
   const groupsHTML=G=>G.map(g=>`<div class="sg"><div class="sgh">${g.i} ${esc(g.t)}</div><div class="sgl">${g.l.map(([h,i,l])=>`<a href="${esc(H(h))}"><span class="i">${i}</span>${esc(l)}</a>`).join('')}</div></div>`).join('');
@@ -849,4 +849,15 @@ if(document.getElementById('nowGrid')||document.getElementById('loreList')) main
 else if(document.getElementById('chron')) chronicleMain();
 else if(document.getElementById('joinPage')) joinMain();
 window.PaxCalendar={serverState,radiusForDay};
+})();
+
+// ---- Хроника эпох (epochs.html): подсветка текущей эпохи в полосе сверху ----
+(function(){
+  const rail=document.querySelector('.ep-railin'); if(!rail) return;
+  const links=[...rail.querySelectorAll('a')], eps=links.map(a=>document.getElementById(a.getAttribute('href').slice(1)));
+  let cur=-1, tick=false;
+  const upd=()=>{tick=false; const y=innerHeight*.35; let n=0; eps.forEach((el,i)=>{if(el&&el.getBoundingClientRect().top<y) n=i});
+    if(n===cur) return; if(cur>=0) links[cur].classList.remove('on'); cur=n; const a=links[n]; a.classList.add('on');
+    rail.scrollTo({left:a.offsetLeft-rail.offsetLeft-12,behavior:'smooth'})};
+  addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true}); upd();
 })();

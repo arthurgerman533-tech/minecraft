@@ -869,3 +869,60 @@ footer .fline{max-width:720px}
 .jfaq details p{margin:.6em 0 0;color:var(--muted)}
 @media (max-width:600px){.jstep{gap:12px}.jstep .jn{width:36px;height:36px;font-size:1.05rem}.jstep .card .em,.jstep h3 .em{display:none}.jstep .cta .btn{flex:1 1 100%;justify-content:center}}
 .joinpage #jLocal{display:block}
+/* ---- Хроника эпох (epochs.html): вертикальная лента эпох ---- */
+.ep-hero{padding:40px 0 8px}
+.ep-hero h1{font-size:clamp(2.2rem,6vw,3.6rem)}
+.ep-dates{font-size:.9rem;margin-top:-12px}
+.ep-rail{position:sticky;top:60px;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-block:1px solid var(--line);padding:10px 0}
+
+.ep-railin{display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin;padding-bottom:4px;scroll-snap-type:x proximity}
+.ep-railin a{flex:0 0 auto;scroll-snap-align:start;display:flex;flex-direction:column;gap:1px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:7px 12px;text-decoration:none;font-weight:600;font-size:.88rem;line-height:1.25}
+.ep-railin a .i{font-size:1rem;line-height:1}
+.ep-railin a small{color:var(--muted);font-weight:400;font-size:.74rem}
+.ep-railin a.minor{opacity:.75}
+.ep-railin a:hover{border-color:var(--gold3)}
+.ep-railin a.on{background:var(--gold);border-color:var(--gold);color:var(--ongold)}
+.ep-railin a.on small{color:var(--ongold);opacity:.8}
+.ep-body{padding-top:32px}
+.ep-line{list-style:none;margin:0 0 32px;padding:0;position:relative}
+.ep-line:before{content:"";position:absolute;left:23px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--accent),var(--gold) 18%,var(--gold3) 60%,var(--accent));opacity:.7;border-radius:2px}
+.ep-group{position:relative;margin:8px 0 18px 64px}
+.ep-group span{display:inline-block;font-family:var(--serif);font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);border:1px solid var(--line2);background:var(--bg2);border-radius:999px;padding:5px 14px}
+.ep{position:relative;padding-left:64px;margin:0 0 22px;scroll-margin-top:150px}
+@media (max-width:760px){.ep{scroll-margin-top:110px}}
+.ep-dot{position:absolute;left:2px;top:14px;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:1.25rem;background:var(--card2);border:2px solid var(--gold);box-shadow:var(--glow)}
+.ep.minor .ep-dot{width:30px;height:30px;left:9px;top:12px;font-size:.9rem;border-width:1px;border-color:var(--gold3);box-shadow:none}
+.ep .card{padding:20px 22px}
+.ep.minor .card{padding:14px 18px;background:var(--bg2)}
+.ep-years{color:var(--gold);font-weight:700;font-size:.85rem;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.ep h2{font-size:clamp(1.5rem,3.4vw,2rem);margin:.1em 0 .1em}
+.ep.minor h2{font-size:1.3rem}
+.ep-motto{font-family:"Cormorant SC",Georgia,serif;font-size:1.15rem;color:var(--gold2);margin:0 0 .5em}
+.ep-text{margin:0 0 .8em;max-width:760px}
+.ep h3{font-size:1.05rem;margin:.6em 0 .4em;color:var(--ink)}
+.ep-events{list-style:none;margin:0 0 .8em;padding:0;display:grid;gap:6px}
+.ep-events li{display:grid;grid-template-columns:7.2em minmax(0,1fr);gap:10px;font-size:.93rem;line-height:1.4;padding:6px 0;border-top:1px dashed var(--line)}
+.ep-events li:first-child{border-top:0}
+.ep-events b{color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ep-server{font-size:.9rem;color:var(--muted);margin:.4em 0}
+.ep-server span{font-weight:700;color:var(--ink)}
+.ep-guards{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:.85rem;color:var(--muted);margin:.6em 0}
+.ep-guards .l{font-weight:700;color:var(--ink)}
+.ep-guards .pips{display:inline-flex;gap:4px}
+.ep-guards i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.ep-guards i.up{background:var(--gold);box-shadow:0 0 6px rgba(227,182,90,.45)}
+.ep-guards i.down{background:transparent;border:1px solid color-mix(in srgb,var(--bad) 55%,transparent);opacity:.8}
+.ep-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.ep-links .btn{padding:8px 14px;font-size:.9rem}
+.ep-after .ep-dot{color:var(--gold);border-style:dashed}
+.ep-after .card{border-style:dashed}
+@media (max-width:520px){
+  .ep-line:before{left:15px}
+  .ep,.ep-group{padding-left:0;margin-left:0}
+  .ep{padding-left:42px}.ep-group{margin-left:42px}
+  .ep-dot{width:32px;height:32px;font-size:.95rem;left:0;top:16px}
+  .ep.minor .ep-dot{width:24px;height:24px;left:4px;font-size:.75rem}
+  .ep .card{padding:16px}
+  .ep-events li{grid-template-columns:minmax(0,1fr);gap:0}
+}
+@media (max-width:760px){.ep-rail{top:56px;padding:8px 0}.ep-railin a{flex-direction:row;align-items:center;gap:6px;padding:6px 10px;font-size:.82rem}.ep-railin a small{display:none}}

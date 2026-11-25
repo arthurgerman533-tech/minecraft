@@ -354,6 +354,9 @@ def build(lang, out):
         write(os.path.join("guides", f"{g['id']}.html"),
               PAGE.format(title=f"{g['title']} — PaxVanila", desc=html.escape(g["subtitle"]), nav=nav.replace('href="', 'href="../lore/'), toc=toc_html, body=body), 1)
         cards.append(f'<a href="guides/{g["id"]}.html"><div class="card"><h3>🧭 {html.escape(g["title"])}</h3><p>{html.escape(g["subtitle"])}</p></div></a>')
+    if os.path.exists(os.path.join(ROOT, "content", "epochs.json")):
+        U = localize(load_json("epochs.json")["ui"], lang)
+        cards.insert(0, f'<a href="epochs.html"><div class="card"><h3>⏳ {html.escape(U["title"])}</h3><p>{html.escape(U["lead"])}</p></div></a>')
     if os.path.exists(os.path.join(ROOT, "content", "timeline.json")):
         U = localize(load_json("timeline.json")["ui"], lang)
         cards.insert(0, f'<a href="timeline.html"><div class="card"><h3>🗺️ {html.escape(U["title"])}</h3><p>{html.escape(U["sub"])}</p></div></a>')
@@ -396,6 +399,10 @@ def build(lang, out):
     if C.get("joinPage"):
         write("join.html", join_page(C, idx, tr))
 
+    # «Хроника эпох» (epochs.html): лента эпох от Тех, Кого Нет до сферы Дайсона (content/epochs.json), вёрстка целиком здесь, без JS
+    if os.path.exists(os.path.join(ROOT, "content", "epochs.json")):
+        write("epochs.html", epochs_page(C, lang, idx, tr, links))
+
     # лор-викторина (content/quiz.json): данные вшиты в страницу, чтобы работала и офлайн
     Q = localize(load_json("quiz.json"), lang)
     raw_ranks = load_json("quiz.json")["ui"]["ranks"]
@@ -419,7 +426,7 @@ def build(lang, out):
                   {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}]}
     with open(os.path.join(out, "manifest.webmanifest"), "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=1)
-    core = ["./", "index.html", "lore.html", "quiz.html", "news.html", "join.html", "timeline.html", "timeline.js", "style.css", "app.js", "content.json", "icons/icon-192.png"] + \
+    core = ["./", "index.html", "lore.html", "quiz.html", "news.html", "join.html", "epochs.html", "timeline.html", "timeline.js", "style.css", "app.js", "content.json", "icons/icon-192.png"] + \
            [f"lore/{l['id']}.html" for l in C["lore"]] + [f"guides/{g['id']}.html" for g in C.get("guides", [])] + ["privacy.html"] + \
            [f"img/{w['image'].replace('.png', '.jpg')}" for w in C["weeks"]] + ["img/about.jpg"]
     sw = open(os.path.join(SRC, "sw.js"), encoding="utf-8").read()
@@ -464,6 +471,70 @@ def join_page(C, idx, tr):
     page = page.replace("<title>PaxVanila</title>", f"<title>{e(J['title'])}</title>")
     page = re.sub(r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{e(J["lead"])}">', page)
     return page.replace('<a href="join.html">', '<a class="on" href="join.html">')
+
+
+def epochs_page(C, lang, idx, tr, links):
+    """Хроника эпох: вертикальная лента. Ссылки на главы лора ищутся по началу заголовка в оглавлении нужного языка."""
+    E, e = localize(load_json("epochs.json"), lang), html.escape
+    U, lore = E["ui"], {l["id"]: l for l in C["lore"]}
+    tocs = {}
+
+    def anchor(lk):
+        l = lore.get(lk["lore"])
+        if not l:
+            return None
+        if lk["lore"] not in tocs:
+            with open(src_file(LORE, lang, l["file"]), encoding="utf-8") as f:
+                tocs[lk["lore"]] = render_lore(f.read(), links)[1]
+        i = next((i for _, t, i in tocs[lk["lore"]] if html.unescape(re.sub("<[^>]+>", "", t)).startswith(lk["h"])), None)
+        return f'lore/{l["id"]}.html' + (f"#{i}" if i else "")
+
+    def link_btns(L, cls="btn"):
+        out = []
+        for lk in L:
+            h = anchor(lk)
+            if h:
+                out.append(f'<a class="{cls}" href="{e(h)}">📜 {e(lk["label"])}</a>')
+        return "".join(out)
+
+    groups = {g["id"]: g["name"] for g in E["groups"]}
+    rail, items, last = [], [], None
+    for n, ep in enumerate(E["epochs"]):
+        if ep["group"] != last:
+            last = ep["group"]
+            items.append(f'<li class="ep-group"><span>{e(groups[last])}</span></li>')
+        mc = ' class="minor"' if ep.get("minor") else ""
+        rail.append(f'<a href="#{e(ep["id"])}"{mc}><span class="i">{ep["icon"]}</span>{e(ep["name"])}<small>{e(ep["years"])}</small></a>')
+        ev = "".join(f'<li><b>{e(y)}</b><span>{e(t)}</span></li>' for y, t in ep["events"])
+        g = ep["guards"]
+        pips = "".join(f'<i class="{"down" if k < g else "up"}"></i>' for k in range(7))
+        guards = (f'<div class="ep-guards" title="{e(U["guardsNote"])}"><span class="l">{e(U["guards"])}</span>'
+                  f'<span class="pips" aria-hidden="true">{pips}</span><span class="n">{g} {e(U["guardsOf"])}</span></div>')
+        items.append(
+            f'<li class="ep{" minor" if ep.get("minor") else ""}" id="{e(ep["id"])}"><div class="ep-dot" aria-hidden="true">{ep["icon"]}</div>'
+            f'<article class="card"><div class="ep-years">{e(ep["years"])}</div><h2>{e(ep["name"])}</h2>'
+            f'<p class="ep-motto">{e(ep["motto"])}</p><p class="ep-text">{e(ep["text"])}</p>'
+            + (f'<h3>{e(U["events"])}</h3><ol class="ep-events">{ev}</ol>' if ev else "")
+            + f'<p class="ep-server"><span>{e(U["server"])}:</span> {e(ep["server"])}</p>'
+            + ("" if ep.get("minor") else guards)
+            + f'<div class="ep-links">{link_btns(ep["links"])}</div></article></li>')
+    items.append(f'<li class="ep ep-after" id="after"><div class="ep-dot" aria-hidden="true">✦</div><article class="card">'
+                 f'<h2>{e(U["after"])}</h2><p class="ep-text">{e(U["afterText"])}</p>'
+                 f'<div class="ep-links">{link_btns(E["afterLinks"])}</div></article></li>')
+    body = ('<section class="chronhead ep-hero"><div class="wrap">'
+            f'<div class="kicker">{e(U["kicker"])}</div><h1>{e(U["title"])}</h1><p class="sub">{e(U["lead"])}</p>'
+            f'<p class="sub ep-dates">{e(U["dates"])}</p></div></section>'
+            f'<nav class="ep-rail" aria-label="{e(U["jump"])}"><div class="wrap"><div class="ep-railin">{"".join(rail)}</div></div></nav>'
+            f'<section class="ep-body"><div class="wrap"><ol class="ep-line">{"".join(items)}</ol>'
+            f'<div class="cta"><a class="btn primary" href="timeline.html">🗺️ {e(U["nations"])} →</a><a class="btn" href="lore.html">📚 {e(U["lore"])}</a></div>'
+            f'</div></section><footer><div class="wrap"><a href="./">{e(U["home"])}</a> · <a href="lore.html">{e(U["lore"])}</a> · <a href="#top">{e(U["top"])}</a></div></footer>')
+    page = re.sub(r"<div class=\"hero\">.*?</footer>", lambda m: body, idx, flags=re.S)
+    page = tr(page)
+    page = re.sub(r'(<nav class="main">.*?</nav>)', lambda m: m.group(1).replace('href="#', 'href="./#'), page, flags=re.S)
+    page = page.replace("<title>PaxVanila</title>", f"<title>{e(U['title'])} — PaxVanila</title>")
+    page = re.sub(r'<meta name="description" content="[^"]*">', lambda m: f'<meta name="description" content="{e(U["lead"])}">', page)
+    page = page.replace("<body>", '<body id="top" class="ep-page">', 1)
+    return page.replace('<a href="epochs.html">', '<a class="on" href="epochs.html">')
 
 
 def write_rss(C, lang, out):
