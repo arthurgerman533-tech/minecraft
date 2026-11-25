@@ -673,5 +673,101 @@
    }
   ],
   "note": "Paid tiers give no in-game advantage: no resources, weapons, faster focuses or war privileges. Cosmetics only."
+ },
+ "joinPage": {
+  "kicker": "For newcomers",
+  "title": "How to join PaxVanila",
+  "lead": "Six steps from installing the game to your first day in the world. It takes about ten minutes.",
+  "launchLabel": "Server opening",
+  "launchNote": "1 December 2026, 20:00 Almaty time (UTC+5)",
+  "localLabel": "In your time zone",
+  "liveLabel": "The server is open",
+  "steps": [
+   {
+    "id": "game",
+    "icon": "🎮",
+    "title": "Install Minecraft Java 26.2",
+    "text": "You need the Java edition of Minecraft 26.2 (not Bedrock). Mods are optional: you can join with the vanilla client. Pick version 26.2 in the launcher and start the game once."
+   },
+   {
+    "id": "pack",
+    "icon": "🧩",
+    "title": "Optional: the PaxVanila client pack",
+    "text": "A Fabric pack with optimisation (Sodium), shaders (Complementary, Yukee, Animetro), a minimap without radar, Fresh Animations and Plasmo Voice chat. Download the file and open it in Modrinth App or Prism Launcher with \"Import\". You can play without it, but voice chat needs the Plasmo Voice mod.",
+    "button": "Download the pack (.mrpack)"
+   },
+   {
+    "id": "discord",
+    "icon": "💬",
+    "title": "Join Discord and read the rules",
+    "text": "Wars (24 hours ahead, with a casus belli), treaties and news are announced in Discord. That is also where you ask the admins. A short version of the rules is below, the full rules are on the home page.",
+    "button": "Open Discord"
+   },
+   {
+    "id": "server",
+    "icon": "🌐",
+    "title": "Add the server",
+    "text": "In game: Multiplayer → Add Server → paste the address → Done. The server runs Paper, version 26.2.",
+    "button": "Copy address",
+    "soon": "The address will appear here before launch. Watch Discord."
+   },
+   {
+    "id": "spawn",
+    "icon": "🗼",
+    "title": "First login: the tower at 0, 0",
+    "text": "Every newcomer spawns at the Monolith tower in the centre of the world. The world grows: the border expands every day, so in the first days everyone lives close together. Look around, pick a spot for a home or join a town."
+   },
+   {
+    "id": "shield",
+    "icon": "🛡️",
+    "title": "48 hours of newcomer protection",
+    "text": "For your first 48 hours of play nobody can attack you, and you cannot attack others. Use it to settle in, find a power or found your own town. Cataclysms deal no damage to you during this time either."
+   }
+  ],
+  "rulesTitle": "Rules in short",
+  "rulesMore": "All rules",
+  "faqTitle": "FAQ",
+  "faq": [
+   {
+    "q": "Do I need mods?",
+    "a": "No. The server is Vanilla+, every mechanic works on the vanilla client. The pack is only for looks, performance and voice chat."
+   },
+   {
+    "q": "Can I join from a phone or a console?",
+    "a": "No, only Java edition on a computer. On a phone this site is handy: you can install it as an app."
+   },
+   {
+    "q": "Which mods are allowed?",
+    "a": "Sodium and OptiFine, shaders, a minimap without player radar, Litematica without the printer, Plasmo Voice. Cheats, X-Ray and autoclickers are banned."
+   },
+   {
+    "q": "I arrived after launch. Is it too late?",
+    "a": "No. The 48-hour protection starts at each newcomer's first login, and free powers can be claimed at any time."
+   }
+  ],
+  "next": "What next",
+  "nextLinks": [
+   [
+    "./#nations",
+    "🏛️",
+    "Pick a power"
+   ],
+   [
+    "./#mech",
+    "⚙️",
+    "Mechanics"
+   ],
+   [
+    "./#cmds",
+    "⌨️",
+    "Commands"
+   ],
+   [
+    "lore.html",
+    "📜",
+    "World lore"
+   ]
+  ],
+  "home": "← Back to home"
  }
 }

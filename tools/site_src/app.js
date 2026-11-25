@@ -71,7 +71,7 @@ addEventListener('appinstalled',()=>{deferred=null;['#install','#install2'].forE
   const isIndex=!!$('#pxmap');
   // карта сайта: одна на все страницы (меню ПК, шторка телефона, быстрый переход, поиск)
   const SITE=[
-    {t:T('Сервер','Server'),i:'🏰',l:[['#now','⚡',T('Сейчас','Now')],['news.html','📰',T('Новости сервера','Server news')],['#calendar','📅',T('Календарь','Calendar')],['#join','🧭',T('Как зайти','How to join')],['#weeks','📆',T('Недели','Weeks')],['#app','📲',T('Приложение','App')]]},
+    {t:T('Сервер','Server'),i:'🏰',l:[['#now','⚡',T('Сейчас','Now')],['news.html','📰',T('Новости сервера','Server news')],['#calendar','📅',T('Календарь','Calendar')],['join.html','🧭',T('Как зайти','How to join')],['#weeks','📆',T('Недели','Weeks')],['#app','📲',T('Приложение','App')]]},
     {t:T('Карты','Maps'),i:'🗺️',l:[['#map','🗺️',T('Мир 1 · Ванильный','World 1 · Vanilla')],['#earth','🌍',T('Мир 2 · Земля','World 2 · Earth')],['#nether','🔥',T('Незер','Nether')],['#weather','⛈️',T('Погода и катаклизмы','Weather')]]},
     {t:T('Мир и лор','World & lore'),i:'📜',l:[['#nations','🏛️',T('Державы','Powers')],['lore.html','📚',T('Лор мира','World lore')],['timeline.html','⏳',T('Хроника держав','Timeline')],['#news','🔬',T('Вестник Академии','Academy herald')],['quiz.html','🧩',T('Викторина','Quiz')]]},
     {t:T('Как играть','How to play'),i:'⚔️',l:[['#mech','⚙️',T('Механики','Mechanics')],['#rules','📏',T('Правила','Rules')],['#cmds','⌨️',T('Команды','Commands')],['guides/fokusy.html','🎯',T('Гайд по фокусам','Focus guide')],['#donate','💛',T('Поддержать','Support')]]}];
@@ -778,6 +778,19 @@ async function renderChronicleTeaser(C){
   const items=await loadChronicle(C), top=items.slice(0,3);
   host.innerHTML=top.map(i=>{const [d,s]=dayLabel(C,i.key);return chronCard(C,i).replace('<div class="meta">',`<div class="meta"><span class="dd">${esc(d)}</span>`)}).join('');
 }
+// ---- «Как зайти» (join.html): адрес, Discord и отсчёт до открытия ----
+async function joinMain(){
+  let C; try{C=await (await fetch('content.json')).json()}catch(e){return}
+  const cfg=C.config, t0=new Date(cfg.launchDate||'');
+  const d=$('#jDiscord'); if(d){if(cfg.discordUrl) d.href=cfg.discordUrl; else d.hidden=true}
+  if(cfg.serverAddress){$('#jAddrText').textContent=cfg.serverAddress;$('#jAddr').hidden=false;$('#jSoon').hidden=true;
+    $('#jCopy').onclick=()=>navigator.clipboard.writeText(cfg.serverAddress).then(()=>toast(T('Адрес скопирован','Address copied')))}
+  const box=$('#jLaunch'), cd=$('#jCd'), loc=$('#jLocal'); if(!box||isNaN(t0)) return;
+  loc.textContent=loc.dataset.l+': '+t0.toLocaleString(LOC,{day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'});
+  const tick=()=>{const left=t0-Date.now(); if(left<=0){cd.textContent=box.dataset.live;box.classList.add('live');return false}
+    cd.innerHTML=fmtLeft(left); return true};
+  if(tick()){const id=setInterval(()=>{if(!tick()) clearInterval(id)},1000)}
+}
 async function chronicleMain(){
   const C=await (await fetch('content.json')).json(), X=C.chronicle, cfg=C.config, host=$('#chron'); if(!X||!host) return;
   const st=serverState(cfg), items=await loadChronicle(C);
@@ -834,5 +847,6 @@ async function checkStatus(cfg){
 }
 if(document.getElementById('nowGrid')||document.getElementById('loreList')) main();
 else if(document.getElementById('chron')) chronicleMain();
+else if(document.getElementById('joinPage')) joinMain();
 window.PaxCalendar={serverState,radiusForDay};
 })();

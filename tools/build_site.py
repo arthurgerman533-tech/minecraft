@@ -392,6 +392,10 @@ def build(lang, out):
     write("news.html", news_page.replace('<a href="news.html">', '<a class="on" href="news.html">'))
     write_rss(C, lang, out)
 
+    # «Как зайти» (join.html): пошаговая инструкция для новичков, текст в content.joinPage; адрес, Discord и отсчёт дописывает app.js (joinMain)
+    if C.get("joinPage"):
+        write("join.html", join_page(C, idx, tr))
+
     # лор-викторина (content/quiz.json): данные вшиты в страницу, чтобы работала и офлайн
     Q = localize(load_json("quiz.json"), lang)
     raw_ranks = load_json("quiz.json")["ui"]["ranks"]
@@ -415,7 +419,7 @@ def build(lang, out):
                   {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}]}
     with open(os.path.join(out, "manifest.webmanifest"), "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=1)
-    core = ["./", "index.html", "lore.html", "quiz.html", "news.html", "timeline.html", "timeline.js", "style.css", "app.js", "content.json", "icons/icon-192.png"] + \
+    core = ["./", "index.html", "lore.html", "quiz.html", "news.html", "join.html", "timeline.html", "timeline.js", "style.css", "app.js", "content.json", "icons/icon-192.png"] + \
            [f"lore/{l['id']}.html" for l in C["lore"]] + [f"guides/{g['id']}.html" for g in C.get("guides", [])] + ["privacy.html"] + \
            [f"img/{w['image'].replace('.png', '.jpg')}" for w in C["weeks"]] + ["img/about.jpg"]
     sw = open(os.path.join(SRC, "sw.js"), encoding="utf-8").read()
@@ -423,6 +427,43 @@ def build(lang, out):
     with open(os.path.join(out, "sw.js"), "w", encoding="utf-8") as f:
         f.write(sw)
     return C
+
+
+def join_page(C, idx, tr):
+    J, e = C["joinPage"], html.escape
+    rules = "".join(f'<div class="rule"><h3>{e(r["title"])}</h3><ul>' + "".join(f"<li>{e(i)}</li>" for i in r["items"][:2]) + "</ul></div>"
+                    for r in C["rules"])
+    steps = []
+    for n, st in enumerate(J["steps"], 1):
+        extra = ""
+        if st["id"] == "pack":
+            extra = f'<div class="cta"><a class="btn primary" href="files/PaxVanila_Client_26.2.mrpack" download>⬇️ {e(st["button"])}</a></div>'
+        elif st["id"] == "discord":
+            extra = f'<div class="cta"><a class="btn primary" id="jDiscord" href="#" target="_blank" rel="noopener">💬 {e(st["button"])}</a><a class="btn ghost" href="#jrules">📏 {e(J["rulesTitle"])}</a></div>'
+        elif st["id"] == "server":
+            extra = (f'<div class="jaddr" id="jAddr" hidden><code id="jAddrText"></code><button class="btn primary" id="jCopy" type="button">📋 {e(st["button"])}</button></div>'
+                     f'<p class="jsoon" id="jSoon">⏳ {e(st["soon"])}</p>')
+        steps.append(f'<li class="jstep card" id="step-{e(st["id"])}"><div class="jn" aria-hidden="true">{n}</div><div class="jb">'
+                     f'<h3><span class="em">{st["icon"]}</span>{e(st["title"])}</h3><p>{e(st["text"])}</p>{extra}</div></li>')
+    faq = "".join(f'<details class="card"><summary>{e(f["q"])}</summary><p>{e(f["a"])}</p></details>' for f in J["faq"])
+    links = "".join(f'<a class="btn ghost" href="{e(h)}">{i} {e(t)}</a>' for h, i, t in J["nextLinks"])
+    body = ('<section class="chronhead joinpage" id="joinPage"><div class="wrap">'
+            f'<div class="kicker">{e(J["kicker"])}</div><h1>{e(J["title"])}</h1><p class="sub">{e(J["lead"])}</p>'
+            f'<div class="jlaunch card" id="jLaunch" data-live="{e(J["liveLabel"])}"><div class="l">{e(J["launchLabel"])}</div>'
+            f'<div class="v" id="jCd">{e(J["launchNote"])}</div><div class="s"><span>{e(J["launchNote"])}</span>'
+            f'<span id="jLocal" data-l="{e(J["localLabel"])}"></span></div></div>'
+            f'<ol class="jsteps">{"".join(steps)}</ol>'
+            f'<h2 class="h3" id="jrules">{e(J["rulesTitle"])}</h2><div class="rules">{rules}</div>'
+            f'<div class="cta"><a class="btn" href="./#rules">📏 {e(J["rulesMore"])}</a></div>'
+            f'<h2 class="h3">{e(J["faqTitle"])}</h2><div class="jfaq">{faq}</div>'
+            f'<h2 class="h3">{e(J["next"])}</h2><div class="cta">{links}</div>'
+            f'</div></section><footer><div class="wrap"><a href="./">{e(J["home"])}</a> · <a href="lore.html">Лор</a></div></footer>')
+    page = re.sub(r"<div class=\"hero\">.*?</footer>", lambda m: body, idx, flags=re.S)
+    page = tr(page)
+    page = re.sub(r'(<nav class="main">.*?</nav>)', lambda m: m.group(1).replace('href="#', 'href="./#'), page, flags=re.S)
+    page = page.replace("<title>PaxVanila</title>", f"<title>{e(J['title'])}</title>")
+    page = re.sub(r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{e(J["lead"])}">', page)
+    return page.replace('<a href="join.html">', '<a class="on" href="join.html">')
 
 
 def write_rss(C, lang, out):
