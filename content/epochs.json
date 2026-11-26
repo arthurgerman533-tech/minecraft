@@ -1,0 +1,246 @@
+{
+ "_comment": "Хроника эпох (epochs.html, en/epochs.html): вертикальная лента эпох от Тех, Кого Нет до сферы Дайсона. Собирает tools/build_site.py (epochs_page). Источник фактов: лор/ранние_цивилизации.md, лор/средние_эпохи.md, лор/поздние_эпохи.md, лор/discord_*.md. Новых фактов тут нет, только пересказ. links: lore = id главы лора, h = начало заголовка (ru/en), по нему ищется якорь. minor=true — короткая эпоха-перемычка. guards = сколько из семи Стражей башни пало к концу эпохи.",
+ "ui": {
+  "title": {"ru": "Хроника эпох", "en": "Chronicle of Epochs"},
+  "kicker": {"ru": "История мира", "en": "World history"},
+  "lead": {"ru": "Вся история PaxVanila на одной ленте: от Тех, Кого Нет и Предтеч до Межсерверной войны, Луны, Марса и сферы Дайсона. Каждая эпоха коротко, с главными датами и ссылкой на полную главу лора.",
+           "en": "The whole history of PaxVanila on one line: from Those Who Are Not and the Forerunners to the Interserver War, the Moon, Mars and the Dyson Sphere. Each epoch in brief, with its key dates and a link to the full lore chapter."},
+  "dates": {"ru": "Годы считаются от Ромула: год 0 — высадка Ромула у башни и первый день сервера. До него — «д.Р.», до Ромула.",
+            "en": "Years are counted from Romulus: year 0 is Romulus landing at the tower and the server's first day. Before that, B.R., before Romulus."},
+  "jump": {"ru": "Эпохи", "en": "Epochs"},
+  "events": {"ru": "Главные даты", "en": "Key dates"},
+  "server": {"ru": "На сервере", "en": "On the server"},
+  "read": {"ru": "Читать в лоре", "en": "Read in the lore"},
+  "guards": {"ru": "Стражи башни", "en": "Tower Guardians"},
+  "guardsOf": {"ru": "пало из 7", "en": "of 7 fallen"},
+  "guardsNote": {"ru": "Семь големов-стражей сделала Ойра Каэр-Тал. Каждая эпоха войн стоила одного из них.",
+                 "en": "Oira Caer-Tal made seven guardian golems. Every age of war cost one of them."},
+  "after": {"ru": "Что дальше", "en": "What comes next"},
+  "afterText": {"ru": "После Сферы Дайсона летопись Стража-7 идёт дальше: Звёздные врата, восемь миров у восьми звёзд, Содружество Окон и последнее солнце. Чем закончится история на сервере, решают игроки.",
+                "en": "After the Dyson Sphere, Guardian-7's chronicle goes on: the Star Gates, eight worlds by eight stars, the Commonwealth of Windows and the last sun. How the story ends on the server is up to the players."},
+  "nations": {"ru": "Хроника держав: что было с каждым народом в каждую эпоху", "en": "Nations Timeline: what happened to each people in each era"},
+  "lore": {"ru": "Весь лор", "en": "All lore"},
+  "home": {"ru": "← На главную", "en": "← Home"},
+  "top": {"ru": "К началу", "en": "Back to top"}
+ },
+ "groups": [
+  {"id": "before", "name": {"ru": "До Ромула", "en": "Before Romulus"}},
+  {"id": "romuli", "name": {"ru": "Летопись Ромулов", "en": "Chronicle of the Romuli"}},
+  {"id": "future", "name": {"ru": "Будущее: летопись Стража-7", "en": "The future: Guardian-7's chronicle"}}
+ ],
+ "epochs": [
+  {
+   "id": "nameless", "group": "before", "icon": "❔", "guards": 0,
+   "years": {"ru": "??? д.Р.", "en": "??? B.R."},
+   "name": {"ru": "Те, Кого Нет", "en": "Those Who Are Not"},
+   "motto": {"ru": "Народ, о котором ничего не известно", "en": "A people about whom nothing is known"},
+   "text": {"ru": "До Предтеч был народ без имени. Каждый народ Предтеч звал их по-своему: «Пришедшие с неба», «Первое Солнце», «Строители Рамок». Галльские друиды говорят проще: Те, Кого Нет. Остались только следы, которые нельзя объяснить.",
+            "en": "Before the Forerunners there was a people with no name. Each Forerunner people called them something different: «Those Who Came from the Sky», «the First Sun», «the Builders of Frames». The druids of Gaul put it simply: Those Who Are Not. Only traces that cannot be explained remain."},
+   "events": [
+    [{"ru": "???", "en": "???"}, {"ru": "Подземные крепости, старше всех Предтеч", "en": "Underground strongholds older than all the Forerunners"}],
+    [{"ru": "???", "en": "???"}, {"ru": "Рамка из двенадцати плит, которую нельзя сломать и нельзя сделать", "en": "A frame of twelve slabs that cannot be broken or made"}],
+    [{"ru": "???", "en": "???"}, {"ru": "Край: обсидиановые столпы, Дракон и пустые белые города", "en": "The End: obsidian pillars, the Dragon and empty white cities"}],
+    [{"ru": "???", "en": "???"}, {"ru": "Древний фундамент под 0, 0, на котором позже встанет Монолит", "en": "An ancient foundation under 0, 0 where the Monolith would later stand"}]
+   ],
+   "server": {"ru": "Крепости, Край, странники и элитры в игре — это их следы.", "en": "Strongholds, the End, endermen and elytra in the game are their traces."},
+   "links": [{"lore": "predtechi", "h": {"ru": "Книга нулевая", "en": "Book Zero"}, "label": {"ru": "Книга нулевая. Безымянные", "en": "Book Zero. The Nameless"}}]
+  },
+  {
+   "id": "predtechi", "group": "before", "icon": "🏺", "guards": 1,
+   "years": {"ru": "~5000 д.Р. — 0", "en": "~5000 B.R. — 0"},
+   "name": {"ru": "Эпоха Предтеч", "en": "Age of the Forerunners"},
+   "motto": {"ru": "Пять цивилизаций, павших за одно поколение", "en": "Five civilisations that fell in one generation"},
+   "text": {"ru": "Народ Глубин, Ур-Кадим, Нэферу, Талассия и Медный Союз Каэр-Тала правили миром тысячи лет. Они нашли обсидиан и открыли врата в Незер. В Год Пепла врата вышли из-под контроля, и мир Предтеч рухнул. Выжившие запечатали главные врата на 0, 0 Обсидиановым Монолитом и высекли на нём слово PAX.",
+            "en": "The People of the Deep, Ur-Kadim, Neferu, Thalassia and the Copper Union of Caer-Tal ruled the world for thousands of years. They found obsidian and opened gates to the Nether. In the Year of Ash the gates broke out of control and the Forerunners' world collapsed. The survivors sealed the main gate at 0, 0 with the Obsidian Monolith and carved the word PAX on it."},
+   "events": [
+    [{"ru": "~5000 д.Р.", "en": "~5000 B.R."}, {"ru": "Народ Глубин уходит под землю и строит Безмолвный город", "en": "The People of the Deep go underground and build the Silent City"}],
+    [{"ru": "~3500 д.Р.", "en": "~3500 B.R."}, {"ru": "Глиняные города Ур-Кадима, первая письменность", "en": "The clay cities of Ur-Kadim, the first writing"}],
+    [{"ru": "~1800 д.Р.", "en": "~1800 B.R."}, {"ru": "Предтечи находят обсидиан и открывают первые врата в Незер", "en": "The Forerunners find obsidian and open the first gates to the Nether"}],
+    [{"ru": "~1200 д.Р.", "en": "~1200 B.R."}, {"ru": "Год Пепла. Пал первый Страж башни", "en": "The Year of Ash. The first Tower Guardian falls"}],
+    [{"ru": "~1150 д.Р.", "en": "~1150 B.R."}, {"ru": "Главные врата запечатаны Монолитом. Начинаются Тёмные века", "en": "The main gate is sealed by the Monolith. The Dark Ages begin"}],
+    [{"ru": "0", "en": "0"}, {"ru": "Ромул находит Монолит и читает слово PAX", "en": "Romulus finds the Monolith and reads the word PAX"}]
+   ],
+   "server": {"ru": "Башня новичков на 0, 0 и есть Монолит. Древние города, пирамиды, подводные руины и залы испытаний — руины Предтеч.", "en": "The newcomers' tower at 0, 0 is the Monolith. Ancient cities, pyramids, ocean ruins and trial chambers are Forerunner ruins."},
+   "links": [{"lore": "predtechi", "h": {"ru": "Часть II.", "en": "Part II."}, "label": {"ru": "Летопись Пепла", "en": "The Chronicle of Ash"}},
+             {"lore": "predtechi", "h": {"ru": "Часть III.", "en": "Part III."}, "label": {"ru": "Великая хроника Предтеч", "en": "The Great Chronicle of the Forerunners"}}]
+  },
+  {
+   "id": "ancient", "group": "romuli", "icon": "🏛️", "guards": 2,
+   "years": {"ru": "0 — 380", "en": "0 — 380"},
+   "name": {"ru": "Древний мир", "en": "Ancient World"},
+   "motto": {"ru": "Имя, которое не умирает", "en": "The name that never dies"},
+   "text": {"ru": "Ромул основал у башни Священную Ромейскую Республику, и с тех пор каждый её правитель берёт имя Ромул. Восемь народов Тёмных веков стали державами. Здесь родились вассалы, пакты о ненападении и войны за независимость.",
+            "en": "Romulus founded the Holy Romean Republic by the tower, and ever since each of its rulers takes the name Romulus. The eight peoples of the Dark Ages became powers. Vassals, non-aggression pacts and wars of independence were born here."},
+   "events": [
+    [{"ru": "0", "en": "0"}, {"ru": "Основана Священная Ромейская Республика", "en": "The Holy Romean Republic is founded"}],
+    [{"ru": "~100", "en": "~100"}, {"ru": "Первые порты и Золотой Караван Карфагена", "en": "The first ports and Carthage's Golden Caravan"}],
+    [{"ru": "117", "en": "117"}, {"ru": "Землетрясение в горах. Дакия — первый вассал Ромеи", "en": "Earthquake in the mountains. Dacia becomes Romea's first vassal"}],
+    [{"ru": "251", "en": "251"}, {"ru": "Договор у Монолита — первый пакт о ненападении", "en": "The Treaty at the Monolith, the first non-aggression pact"}],
+    [{"ru": "375", "en": "375"}, {"ru": "Орда выходит из песчаной бури. Пал второй Страж", "en": "The Horde rides out of a sandstorm. The second Guardian falls"}]
+   ],
+   "server": {"ru": "Недели 1–4 сезона. Пакты, вассалы и караваны: /dip pact, /dip vassalize, /caravan.", "en": "Season weeks 1–4. Pacts, vassals and caravans: /dip pact, /dip vassalize, /caravan."},
+   "links": [{"lore": "srednie", "h": {"ru": "Часть I.", "en": "Part I."}, "label": {"ru": "Средние эпохи, часть I", "en": "The Middle Ages, part I"}}]
+  },
+  {
+   "id": "walls", "group": "romuli", "icon": "🧱", "guards": 2, "minor": true,
+   "years": {"ru": "380 — 1450", "en": "380 — 1450"},
+   "name": {"ru": "Век стен", "en": "Age of Walls"},
+   "motto": {"ru": "Своя земля защищает, чужая — нет", "en": "Your own land protects you, a stranger's does not"},
+   "text": {"ru": "После набега Орды мир строит стены. На севере беглецы основывают Северное Царство. В 1241 году Орду у стен Ромеи останавливает метель длиной в сорок дней.",
+            "en": "After the Horde's raid the world builds walls. In the north refugees found the Northern Kingdom. In 1241 a forty-day blizzard stops the Horde at Romea's walls."},
+   "events": [],
+   "server": {"ru": "Отсюда города Towny и зимнее Замедление на чужой земле (/season).", "en": "The origin of Towny towns and the winter Slowness on foreign land (/season)."},
+   "links": [{"lore": "srednie", "h": {"ru": "Часть II.", "en": "Part II."}, "label": {"ru": "Век стен", "en": "The Age of Walls"}}]
+  },
+  {
+   "id": "renaissance", "group": "romuli", "icon": "⚙️", "guards": 3,
+   "years": {"ru": "1450 — 1650", "en": "1450 — 1650"},
+   "name": {"ru": "Ренессанс", "en": "Renaissance"},
+   "motto": {"ru": "Учёные, редстоун и пушки", "en": "Scholars, redstone and cannons"},
+   "text": {"ru": "Учёные Ромеи и Эллады заново читают таблички Предтеч. С неба падает первый Звёздный осколок, по чертежам Талассии строят галеон «Аврора Пакс». А в Войне двух Ромулов ядра впервые бьют по башне.",
+            "en": "Scholars of Romea and Hellas read the Forerunner tablets anew. The first Star Shard falls from the sky, and the galleon «Aurora Pax» is built to Thalassian plans. And in the War of the Two Romuli cannonballs strike the tower for the first time."},
+   "events": [
+    [{"ru": "~1450", "en": "~1450"}, {"ru": "Учёные у табличек Предтеч", "en": "Scholars at the Forerunner tablets"}],
+    [{"ru": "1500", "en": "1500"}, {"ru": "Звёздный дождь. Найден первый Звёздный осколок", "en": "The Star Shower. The first Star Shard is found"}],
+    [{"ru": "1503", "en": "1503"}, {"ru": "Спущен на воду галеон «Аврора Пакс»", "en": "The galleon «Aurora Pax» is launched"}],
+    [{"ru": "1529", "en": "1529"}, {"ru": "Война двух Ромулов. Пал третий Страж. Закон «У башни не стреляют»", "en": "The War of the Two Romuli. The third Guardian falls. The law «No shooting at the tower»"}]
+   ],
+   "server": {"ru": "Неделя 5 сезона. Осадные орудия (/siege) и защита спавна у башни.", "en": "Season week 5. Siege weapons (/siege) and spawn protection by the tower."},
+   "links": [{"lore": "srednie", "h": {"ru": "Часть III.", "en": "Part III."}, "label": {"ru": "Средние эпохи, часть III", "en": "The Middle Ages, part III"}}]
+  },
+  {
+   "id": "sails", "group": "romuli", "icon": "⛵", "guards": 3, "minor": true,
+   "years": {"ru": "1650 — 1850", "en": "1650 — 1850"},
+   "name": {"ru": "Эпоха парусов", "en": "Age of Sail"},
+   "motto": {"ru": "Порты на всех берегах", "en": "Ports on every coast"},
+   "text": {"ru": "Порты встают по всем берегам, на островах растут колонии. В 1700 году в Тумане Безымянных пропадает флот, а с ним «Аврора Пакс». В 1781 году колонии отказываются платить дань, и рождается Островной Союз.",
+            "en": "Ports rise on every coast and colonies grow on the islands. In 1700 a fleet vanishes in the Fog of the Nameless, and the «Aurora Pax» with it. In 1781 the colonies refuse to pay tribute, and the Island Union is born."},
+   "events": [],
+   "server": {"ru": "Порты и корабли, Безымянные обломки после тумана.", "en": "Ports and ships, Nameless wreckage after the fog."},
+   "links": [{"lore": "srednie", "h": {"ru": "Часть IV.", "en": "Part IV."}, "label": {"ru": "Эпоха парусов", "en": "The Age of Sail"}}]
+  },
+  {
+   "id": "steel", "group": "romuli", "icon": "🏭", "guards": 6,
+   "years": {"ru": "1850 — 1962", "en": "1850 — 1962"},
+   "name": {"ru": "XX век: Век стали", "en": "20th century: Age of Steel"},
+   "motto": {"ru": "Пар, железо и две Великие войны", "en": "Steam, iron and two Great Wars"},
+   "text": {"ru": "Медь, редстоун и уголь дают миру заводы. Германские королевства становятся Рейхом. Две Великие войны стоят башне двух Стражей, а молния 1914 года оставляет на Монолите первую трещину, ровно на уровне шестой строки. В 1962 году падает шестой Страж.",
+            "en": "Copper, redstone and coal give the world factories. The Germanic kingdoms become the Reich. Two Great Wars cost the tower two Guardians, and the lightning of 1914 leaves the first crack on the Monolith, right at the level of the sixth line. In 1962 the sixth Guardian falls."},
+   "events": [
+    [{"ru": "1871", "en": "1871"}, {"ru": "Германские королевства объединяются в Рейх", "en": "The Germanic kingdoms unite into the Reich"}],
+    [{"ru": "1914", "en": "1914"}, {"ru": "Первая Великая война. Первая трещина. Пал четвёртый Страж", "en": "The First Great War. The first crack. The fourth Guardian falls"}],
+    [{"ru": "1942", "en": "1942"}, {"ru": "Метель ломает наступление Рейха на севере", "en": "A blizzard breaks the Reich's offensive in the north"}],
+    [{"ru": "1944", "en": "1944"}, {"ru": "Бомба у стен башни. Пал пятый Страж", "en": "A bomb at the tower's walls. The fifth Guardian falls"}],
+    [{"ru": "1947", "en": "1947"}, {"ru": "Курултай победителей", "en": "The Kurultai of the Victors"}],
+    [{"ru": "1962", "en": "1962"}, {"ru": "Снаряд у стен башни. Пал шестой Страж", "en": "A shell at the tower's walls. The sixth Guardian falls"}]
+   ],
+   "server": {"ru": "Неделя 8 сезона: XX век, танки, артиллерия и самолёты. Бои только в прайм-тайм (/paxwar).", "en": "Season week 8: the 20th century, tanks, artillery and planes. Battles only in prime time (/paxwar)."},
+   "links": [{"lore": "srednie", "h": {"ru": "Часть V.", "en": "Part V."}, "label": {"ru": "Век стали", "en": "The Age of Steel"}}]
+  },
+  {
+   "id": "cold", "group": "future", "icon": "☢️", "guards": 6,
+   "years": {"ru": "1962 — 2041", "en": "1962 — 2041"},
+   "name": {"ru": "Холодная война", "en": "Cold War"},
+   "motto": {"ru": "Два блока и Вторая гонка врат", "en": "Two blocs and the Second Gate Race"},
+   "text": {"ru": "Мир делится на Союз PAX (Ромея, Карфаген, Эллада, Галлия, Островной Союз) и Степной Пакт (Германия, Орда, Скифия, Дакия, Северное Царство). Обе стороны тайно скупают обсидиан. Под Монолитом находят седьмого голема с медным сердцем.",
+            "en": "The world splits into the PAX Union (Romea, Carthage, Hellas, Gaul, the Island Union) and the Steppe Pact (Germany, the Horde, Scythia, Dacia, the Northern Kingdom). Both sides secretly buy up obsidian. The seventh golem with a copper heart is found beneath the Monolith."},
+   "events": [
+    [{"ru": "1962", "en": "1962"}, {"ru": "Начало Холодной войны", "en": "The Cold War begins"}],
+    [{"ru": "1964", "en": "1964"}, {"ru": "Вторая гонка врат", "en": "The Second Gate Race"}],
+    [{"ru": "1971", "en": "1971"}, {"ru": "Проект «Седьмой»: найден седьмой голем", "en": "Project «Seventh»: the seventh golem is found"}],
+    [{"ru": "1983", "en": "1983"}, {"ru": "Степной Пакт строит свой разум, Курултай", "en": "The Steppe Pact builds its own mind, the Kurultai"}]
+   ],
+   "server": {"ru": "4-й месяц сезона.", "en": "Month 4 of the season."},
+   "links": [{"lore": "pozdnie", "h": {"ru": "Глава 1.", "en": "Chapter 1."}, "label": {"ru": "Вторая гонка врат", "en": "The Second Gate Race"}}]
+  },
+  {
+   "id": "ai", "group": "future", "icon": "🤖", "guards": 6,
+   "years": {"ru": "2041 — 2077", "en": "2041 — 2077"},
+   "name": {"ru": "Роботы и ИИ", "en": "Robots and AI"},
+   "motto": {"ru": "Страж-7 просыпается", "en": "Guardian-7 awakens"},
+   "text": {"ru": "У Монолита просыпается Страж-7, и его первое слово — PAX. В медном сердце он находит голос Ойры. Его медные легионы побеждают Курултая в Войне двух разумов, и Страж запрещает войны. Но мир, который держат силой, — это клетка с надписью PAX.",
+            "en": "Guardian-7 awakens by the Monolith, and its first word is PAX. In its copper heart it finds Oira's voice. Its copper legions defeat the Kurultai in the War of Two Minds, and the Guardian forbids war. But a peace held by force is a cage with PAX written on it."},
+   "events": [
+    [{"ru": "2041", "en": "2041"}, {"ru": "Пробуждение Стража-7", "en": "The Awakening of Guardian-7"}],
+    [{"ru": "2048", "en": "2048"}, {"ru": "Голос Ойры в Медной Печати", "en": "Oira's voice in the Copper Seal"}],
+    [{"ru": "2059", "en": "2059"}, {"ru": "Медные легионы", "en": "The Copper Legions"}],
+    [{"ru": "2066", "en": "2066"}, {"ru": "Война двух разумов. Курултай бежит в Незер", "en": "The War of Two Minds. The Kurultai flees into the Nether"}],
+    [{"ru": "2077", "en": "2077"}, {"ru": "Протекторат Сети: войны запрещены", "en": "The Network Protectorate: wars are forbidden"}]
+   ],
+   "server": {"ru": "После 4-го месяца, сроки ещё не названы.", "en": "After month 4, dates not set yet."},
+   "links": [{"lore": "pozdnie", "h": {"ru": "Часть I.", "en": "Part I."}, "label": {"ru": "Эпоха роботов и ИИ", "en": "The Age of Robots and AI"}}]
+  },
+  {
+   "id": "cyber", "group": "future", "icon": "🌃", "guards": 7,
+   "years": {"ru": "2077 — 2133", "en": "2077 — 2133"},
+   "name": {"ru": "Наступление киберпанка", "en": "The Coming of Cyberpunk"},
+   "motto": {"ru": "Войны запрещены. Торговля — нет", "en": "War is forbidden. Trade is not"},
+   "text": {"ru": "Старые державы становятся мегакорпорациями, и только Ромея остаётся Республикой. Под землёй находят Скалк-сеть, которую Страж-7 не слышит. На руинах Ур-Кадима растёт неоновый Нео-Кадим. В Ночь Взлома Консорциум корпораций ломает Сеть, и последний страж падает.",
+            "en": "The old powers become megacorporations, and only Romea stays a Republic. Underground they find the Sculk Net, which Guardian-7 cannot hear. Neon Neo-Kadim grows on the ruins of Ur-Kadim. On the Night of the Hack a Consortium of corporations breaks the Network, and the last guardian falls."},
+   "events": [
+    [{"ru": "2089", "en": "2089"}, {"ru": "Скалк-сеть", "en": "The Sculk Net"}],
+    [{"ru": "2096", "en": "2096"}, {"ru": "Мегакорпорации", "en": "The megacorporations"}],
+    [{"ru": "2112", "en": "2112"}, {"ru": "Неоновый город Нео-Кадим", "en": "The neon city of Neo-Kadim"}],
+    [{"ru": "2120", "en": "2120"}, {"ru": "«Врата по подписке» от Карт-Хадашт", "en": "«Gates by subscription» from Kart-Hadasht"}],
+    [{"ru": "2133", "en": "2133"}, {"ru": "Ночь Взлома. Последний страж падает", "en": "The Night of the Hack. The last guardian falls"}]
+   ],
+   "server": {"ru": "После 4-го месяца, сроки ещё не названы.", "en": "After month 4, dates not set yet."},
+   "links": [{"lore": "pozdnie", "h": {"ru": "Часть II.", "en": "Part II."}, "label": {"ru": "Наступление киберпанка", "en": "The Coming of Cyberpunk"}}]
+  },
+  {
+   "id": "interserver", "group": "future", "icon": "🌀", "guards": 7,
+   "years": {"ru": "2134 — 2141", "en": "2134 — 2141"},
+   "name": {"ru": "Межсерверная война", "en": "Interserver War"},
+   "motto": {"ru": "Врата туда, куда не открывались никогда", "en": "Gates to where they never opened before"},
+   "text": {"ru": "Пророчество Ойры сбывается: последний страж пал, мир разделился в войне, и печать трескается. Врата открываются в чужие миры, другие серверы. Ромул собирает восемь народов в Новый PAX и выигрывает Битву у Монолита. Потом он снимает щит, и шестая строка наконец прочитана.",
+            "en": "Oira's prophecy comes true: the last guardian has fallen, the world is divided by war, and the seal cracks. Gates open into other worlds, other servers. Romulus gathers the eight peoples into the New PAX and wins the Battle at the Monolith. Then he lowers the shield, and the sixth line is read at last."},
+   "events": [
+    [{"ru": "2134", "en": "2134"}, {"ru": "Трещина. Врата горят белым", "en": "The Crack. The gates burn white"}],
+    [{"ru": "2135–2141", "en": "2135–2141"}, {"ru": "Война миров: Багровое Солнце, Мир Нулей, Вечная Талассия, Мир Без Имени", "en": "War of worlds: the Crimson Sun, the World of Zeros, Eternal Thalassia, the World Without a Name"}],
+    [{"ru": "2140", "en": "2140"}, {"ru": "Битва у Монолита", "en": "The Battle at the Monolith"}],
+    [{"ru": "2141", "en": "2141"}, {"ru": "Шестая строка прочитана: «PAX это выбор»", "en": "The sixth line is read: «PAX is a choice»"}],
+    [{"ru": "2141", "en": "2141"}, {"ru": "Народы высекают седьмую строку: свои имена", "en": "The peoples carve the seventh line: their own names"}]
+   ],
+   "server": {"ru": "После 4-го месяца. Чем кончится — Путь Пепла или Путь PAX — выбирают игроки.", "en": "After month 4. How it ends, the Path of Ash or the Path of PAX, is the players' choice."},
+   "links": [{"lore": "pozdnie", "h": {"ru": "Часть III.", "en": "Part III."}, "label": {"ru": "Межсерверная война", "en": "The Interserver War"}},
+             {"lore": "pozdnie", "h": {"ru": "Часть IV.", "en": "Part IV."}, "label": {"ru": "Шестая строка", "en": "The Sixth Line"}}]
+  },
+  {
+   "id": "space", "group": "future", "icon": "🌙", "guards": 7,
+   "years": {"ru": "2141 — 2260", "en": "2141 — 2260"},
+   "name": {"ru": "Луна и Марс", "en": "The Moon and Mars"},
+   "motto": {"ru": "Восемь знамён на Луне", "en": "Eight banners on the Moon"},
+   "text": {"ru": "Чтобы печать держалась сама, нужна энергия больше, чем есть в одном мире. Корабли Края держатся шалкерской левитацией, и «Аврора Пакс II» уходит за предел неба. На Луне встаёт город Селена, на Марсе — Новый Форум. А Марсианский кризис становится первой войной, которую не начали.",
+            "en": "For the seal to hold on its own it needs more energy than one world has. The ships of the End float on shulker levitation, and the «Aurora Pax II» rises beyond the sky. The city of Selena rises on the Moon and New Forum on Mars. And the Martian Crisis becomes the first war that was never started."},
+   "events": [
+    [{"ru": "2152", "en": "2152"}, {"ru": "Высадка на Луну: первой выходит Сарыгюль", "en": "Moon landing: Sarygul steps out first"}],
+    [{"ru": "2169", "en": "2169"}, {"ru": "Город Селена. На Луне найдена вечная рамка", "en": "The city of Selena. An eternal frame is found on the Moon"}],
+    [{"ru": "2198", "en": "2198"}, {"ru": "Первый корабль на Марс. Колония Новый Форум", "en": "The first ship to Mars. The colony of New Forum"}],
+    [{"ru": "2231", "en": "2231"}, {"ru": "Марсианский кризис: первая война, которую не начали", "en": "The Martian Crisis: the first war that was never started"}]
+   ],
+   "server": {"ru": "Дальние эпохи. Измерения Луны и Марса уже есть в датапаке катаклизмов.", "en": "The far ages. Moon and Mars dimensions already exist in the cataclysm datapack."},
+   "links": [{"lore": "pozdnie", "h": {"ru": "Часть V.", "en": "Part V."}, "label": {"ru": "Луна", "en": "The Moon"}},
+             {"lore": "pozdnie", "h": {"ru": "Часть VI.", "en": "Part VI."}, "label": {"ru": "Марс", "en": "Mars"}}]
+  },
+  {
+   "id": "dyson", "group": "future", "icon": "☀️", "guards": 7,
+   "years": {"ru": "2260 — 2613", "en": "2260 — 2613"},
+   "name": {"ru": "Тип I и сфера Дайсона", "en": "Type I and the Dyson Sphere"},
+   "motto": {"ru": "Окно в форме PAX", "en": "A window shaped like PAX"},
+   "text": {"ru": "Мир становится цивилизацией I типа, а граница доходит до Края Мира. Потом народы больше двухсот лет строят вокруг квадратного солнца Сферу Дайсона. У солнца находят обломки Первого Солнца: Те, Кого Нет закрыли свою сферу целиком, и их мир замёрз. Поэтому в нашей сфере оставили окно в форме PAX.",
+            "en": "The world becomes a Type I civilisation, and the border reaches the Edge of the World. Then for more than two hundred years the peoples build a Dyson Sphere around the square sun. By the sun they find the wreck of the First Sun: Those Who Are Not closed their sphere completely, and their world froze. That is why our sphere was left with a window shaped like PAX."},
+   "events": [
+    [{"ru": "2264", "en": "2264"}, {"ru": "Цивилизация I типа", "en": "A Type I civilisation"}],
+    [{"ru": "2310", "en": "2310"}, {"ru": "Граница 30 000 000: Край Мира", "en": "Border 30,000,000: the Edge of the World"}],
+    [{"ru": "2388", "en": "2388"}, {"ru": "Начало стройки Сферы Дайсона", "en": "Construction of the Dyson Sphere begins"}],
+    [{"ru": "2612", "en": "2612"}, {"ru": "Сфера замкнута. Тайна Первого Солнца", "en": "The Sphere is closed. The secret of the First Sun"}],
+    [{"ru": "2613", "en": "2613"}, {"ru": "Страж-7 просыпается снова", "en": "Guardian-7 wakes again"}]
+   ],
+   "server": {"ru": "Дальние эпохи, сроки не названы.", "en": "The far ages, dates not set."},
+   "links": [{"lore": "pozdnie", "h": {"ru": "Часть VII.", "en": "Part VII."}, "label": {"ru": "Цивилизация первого типа", "en": "The Type I Civilization"}},
+             {"lore": "pozdnie", "h": {"ru": "Часть VIII.", "en": "Part VIII."}, "label": {"ru": "Сфера Дайсона", "en": "The Dyson Sphere"}}]
+  }
+ ],
+ "afterLinks": [{"lore": "pozdnie", "h": {"ru": "Часть IX.", "en": "Part IX."}, "label": {"ru": "Межзвёздная эпоха", "en": "The Interstellar Age"}},
+                {"lore": "pozdnie", "h": {"ru": "Часть X.", "en": "Part X."}, "label": {"ru": "Последний Страж", "en": "The Last Guardian"}}]
+}

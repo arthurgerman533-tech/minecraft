@@ -73,7 +73,7 @@ addEventListener('appinstalled',()=>{deferred=null;['#install','#install2'].forE
   const SITE=[
     {t:T('Сервер','Server'),i:'🏰',l:[['#now','⚡',T('Сейчас','Now')],['news.html','📰',T('Новости сервера','Server news')],['#calendar','📅',T('Календарь','Calendar')],['join.html','🧭',T('Как зайти','How to join')],['#weeks','📆',T('Недели','Weeks')],['#app','📲',T('Приложение','App')]]},
     {t:T('Карты','Maps'),i:'🗺️',l:[['#map','🗺️',T('Мир 1 · Ванильный','World 1 · Vanilla')],['#earth','🌍',T('Мир 2 · Земля','World 2 · Earth')],['#nether','🔥',T('Незер','Nether')],['#weather','⛈️',T('Погода и катаклизмы','Weather')]]},
-    {t:T('Мир и лор','World & lore'),i:'📜',l:[['#nations','🏛️',T('Державы','Powers')],['lore.html','📚',T('Лор мира','World lore')],['timeline.html','⏳',T('Хроника держав','Timeline')],['#news','🔬',T('Вестник Академии','Academy herald')],['quiz.html','🧩',T('Викторина','Quiz')]]},
+    {t:T('Мир и лор','World & lore'),i:'📜',l:[['#nations','🏛️',T('Державы','Powers')],['lore.html','📚',T('Лор мира','World lore')],['epochs.html','🕰️',T('Хроника эпох','Chronicle of Epochs')],['timeline.html','⏳',T('Хроника держав','Timeline')],['gallery.html','🎨',T('Галерея','Gallery')],['#news','🔬',T('Вестник Академии','Academy herald')],['quiz.html','🧩',T('Викторина','Quiz')]]},
     {t:T('Как играть','How to play'),i:'⚔️',l:[['#mech','⚙️',T('Механики','Mechanics')],['#rules','📏',T('Правила','Rules')],['#cmds','⌨️',T('Команды','Commands')],['guides/fokusy.html','🎯',T('Гайд по фокусам','Focus guide')],['#donate','💛',T('Поддержать','Support')]]}];
   const H=h=>U((h[0]==='#'?'./':'')+h);
   const groupsHTML=G=>G.map(g=>`<div class="sg"><div class="sgh">${g.i} ${esc(g.t)}</div><div class="sgl">${g.l.map(([h,i,l])=>`<a href="${esc(H(h))}"><span class="i">${i}</span>${esc(l)}</a>`).join('')}</div></div>`).join('');
@@ -845,8 +845,43 @@ async function checkStatus(cfg){
   try{const r=await fetch('https://api.mcsrvstat.us/3/'+encodeURIComponent(cfg.serverAddress));const d=await r.json();window._st=d;applyStatus(d)}
   catch(e){const v=$('#stV');if(v)v.innerHTML='<span class="dot"></span>'+T('Нет данных','No data')}
 }
+// ---- «Галерея» (gallery.html): фильтр по разделам и просмотр крупно (стрелки, свайп, Esc) ----
+function galleryMain(){
+  const grid=$('#gGrid'), bar=$('#gCats'), dlg=$('#gLight'), img=$('#gImg'), cap=$('#gCap'); if(!grid) return;
+  const all=[...grid.querySelectorAll('.gitem')]; let vis=all, cur=0;
+  const filter=c=>{all.forEach(f=>f.hidden=!!c&&f.dataset.c!==c); vis=all.filter(f=>!f.hidden);
+    bar.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.c===c))};
+  bar.onclick=e=>{const b=e.target.closest('button'); if(b){filter(b.dataset.c); try{history.replaceState(null,'',b.dataset.c?'#'+b.dataset.c:location.pathname)}catch(_){}}};
+  const h=location.hash.slice(1); if(h&&bar.querySelector(`[data-c="${CSS.escape(h)}"]`)) filter(h);
+  const show=i=>{cur=(i+vis.length)%vis.length; const f=vis[cur], a=f.querySelector('a'), c=f.querySelector('figcaption');
+    img.src=a.getAttribute('href'); img.alt=f.querySelector('img').alt; img.className=f.classList.contains('pix')?'pix':'';
+    cap.innerHTML=c.innerHTML+`<span class="gnum">${cur+1} / ${vis.length}</span>`;
+    const one=vis.length<2; dlg.querySelectorAll('.gp,.gn').forEach(b=>b.hidden=one)};
+  const open=i=>{show(i); if(dlg.showModal){if(!dlg.open) dlg.showModal()} else dlg.setAttribute('open','')};
+  const close=()=>{dlg.close?dlg.close():dlg.removeAttribute('open')};
+  grid.onclick=e=>{const a=e.target.closest('.gitem a'); if(!a) return; e.preventDefault(); open(vis.indexOf(a.closest('.gitem')))};
+  dlg.onclick=e=>{const b=e.target.closest('[data-a]'); if(b){const x=b.dataset.a; x==='close'?close():show(cur+(x==='next'?1:-1)); return}
+    if(e.target===dlg) close()};
+  document.addEventListener('keydown',e=>{if(!dlg.open) return; if(e.key==='ArrowRight') show(cur+1); else if(e.key==='ArrowLeft') show(cur-1)});
+  let x0=null; dlg.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
+  dlg.addEventListener('touchend',e=>{if(x0===null) return; const dx=e.changedTouches[0].clientX-x0; x0=null; if(Math.abs(dx)>50) show(cur+(dx<0?1:-1))});
+  // соседние картинки грузим заранее, чтобы листание было без задержки
+  img.addEventListener('load',()=>[1,-1].forEach(d=>{const f=vis[(cur+d+vis.length)%vis.length]; if(f) new Image().src=f.querySelector('a').getAttribute('href')}));
+}
 if(document.getElementById('nowGrid')||document.getElementById('loreList')) main();
 else if(document.getElementById('chron')) chronicleMain();
 else if(document.getElementById('joinPage')) joinMain();
+else if(document.getElementById('galleryPage')) galleryMain();
 window.PaxCalendar={serverState,radiusForDay};
+})();
+
+// ---- Хроника эпох (epochs.html): подсветка текущей эпохи в полосе сверху ----
+(function(){
+  const rail=document.querySelector('.ep-railin'); if(!rail) return;
+  const links=[...rail.querySelectorAll('a')], eps=links.map(a=>document.getElementById(a.getAttribute('href').slice(1)));
+  let cur=-1, tick=false;
+  const upd=()=>{tick=false; const y=innerHeight*.35; let n=0; eps.forEach((el,i)=>{if(el&&el.getBoundingClientRect().top<y) n=i});
+    if(n===cur) return; if(cur>=0) links[cur].classList.remove('on'); cur=n; const a=links[n]; a.classList.add('on');
+    rail.scrollTo({left:a.offsetLeft-rail.offsetLeft-12,behavior:'smooth'})};
+  addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true}); upd();
 })();
