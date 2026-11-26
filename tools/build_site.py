@@ -396,6 +396,13 @@ def build(lang, out):
     if C.get("joinPage"):
         write("join.html", join_page(C, idx, tr))
 
+    # «Галерея» (gallery.html): свои картинки проекта (content/gallery.json); просмотр крупно и фильтр дописывает app.js (galleryMain)
+    gp = os.path.join(ROOT, "content", "gallery.json")
+    if os.path.exists(gp):
+        GL = localize(load_json("gallery.json"), lang)
+        gallery_images(GL, out if lang == "ru" else None)
+        write("gallery.html", gallery_page(GL, idx, tr))
+
     # лор-викторина (content/quiz.json): данные вшиты в страницу, чтобы работала и офлайн
     Q = localize(load_json("quiz.json"), lang)
     raw_ranks = load_json("quiz.json")["ui"]["ranks"]
@@ -419,7 +426,7 @@ def build(lang, out):
                   {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}]}
     with open(os.path.join(out, "manifest.webmanifest"), "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=1)
-    core = ["./", "index.html", "lore.html", "quiz.html", "news.html", "join.html", "timeline.html", "timeline.js", "style.css", "app.js", "content.json", "icons/icon-192.png"] + \
+    core = ["./", "index.html", "lore.html", "quiz.html", "news.html", "join.html", "gallery.html", "timeline.html", "timeline.js", "style.css", "app.js", "content.json", "icons/icon-192.png"] + \
            [f"lore/{l['id']}.html" for l in C["lore"]] + [f"guides/{g['id']}.html" for g in C.get("guides", [])] + ["privacy.html"] + \
            [f"img/{w['image'].replace('.png', '.jpg')}" for w in C["weeks"]] + ["img/about.jpg"]
     sw = open(os.path.join(SRC, "sw.js"), encoding="utf-8").read()
@@ -464,6 +471,63 @@ def join_page(C, idx, tr):
     page = page.replace("<title>PaxVanila</title>", f"<title>{e(J['title'])}</title>")
     page = re.sub(r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{e(J["lead"])}">', page)
     return page.replace('<a href="join.html">', '<a class="on" href="join.html">')
+
+
+def gallery_images(G, out):
+    """Картинки галереи → img/g_<id>.<jpg|png> (до 1600 px) и миниатюры img/g_<id>_t.* (640 px). en копирует папку img целиком."""
+    for it in G["items"]:
+        pix = it.get("pixel")
+        if out is None:  # en: картинки уже сделаны для ru, нужны только размеры
+            with Image.open(os.path.join(DOCS, "img", f"g_{it['id']}.{'png' if pix else 'jpg'}")) as im:
+                it["w"], it["h"] = im.size
+            continue
+        im = Image.open(os.path.join(ROOT, it["src"])).convert("RGB")
+        rs = Image.NEAREST if pix else Image.LANCZOS
+        ext = "png" if pix else "jpg"
+        full, th = im.copy(), im.copy()
+        full.thumbnail((1600, 1600) if im.width >= im.height else (1200, 3200), rs)
+        th.thumbnail((640, 640) if im.width >= im.height else (480, 1200), rs)
+        for img, suf in ((full, ""), (th, "_t")):
+            fp = os.path.join(out, "img", f"g_{it['id']}{suf}.{ext}")
+            if pix:
+                img.save(fp, optimize=True)
+            else:
+                img.save(fp, quality=82 if suf else 84, optimize=True, progressive=True)
+        it["w"], it["h"] = full.size
+
+
+def gallery_page(G, idx, tr):
+    U, e = G["ui"], html.escape
+    cats = G["categories"]
+    chips = f'<button class="on" data-c="" type="button">{e(U["all"])}</button>' + "".join(
+        f'<button data-c="{e(k)}" type="button">{e(v)}</button>' for k, v in cats.items() if any(i["cat"] == k for i in G["items"]))
+    figs = []
+    for it in G["items"]:
+        ext = "png" if it.get("pixel") else "jpg"
+        full = f"img/g_{it['id']}.{ext}"
+        tall = " tall" if it.get("h", 0) > it.get("w", 1) * 1.2 else ""
+        figs.append(f'<figure class="gitem{tall}{" pix" if it.get("pixel") else ""}" data-c="{e(it["cat"])}" id="g-{e(it["id"])}">'
+                    f'<a href="{full}" data-w="{it.get("w", "")}" data-h="{it.get("h", "")}" aria-label="{e(U["open"])}: {e(it["title"])}">'
+                    f'<img src="img/g_{it["id"]}_t.{ext}" alt="{e(it["title"])}" loading="lazy" decoding="async"></a>'
+                    f'<figcaption><span class="gcat">{e(cats.get(it["cat"], ""))}</span><b>{e(it["title"])}</b><span>{e(it["text"])}</span></figcaption></figure>')
+    body = ('<section class="chronhead gallerypage" id="galleryPage"><div class="wrap">'
+            f'<div class="kicker">{e(U["kicker"])}</div><h1>{e(U["title"])}</h1><p class="sub">{e(U["lead"])}</p>'
+            f'<div class="chips gchips" id="gCats" role="toolbar">{chips}</div>'
+            f'<div class="ggrid" id="gGrid">{"".join(figs)}</div>'
+            f'<p class="sub gnote">{e(U["note"])}</p>'
+            '</div></section>'
+            f'<dialog class="glight" id="gLight" aria-label="{e(U["title"])}" data-prev="{e(U["prev"])}" data-next="{e(U["next"])}">'
+            f'<button class="iconbtn gx" type="button" data-a="close" aria-label="{e(U["close"])}">✕</button>'
+            f'<button class="iconbtn gp" type="button" data-a="prev" aria-label="{e(U["prev"])}">‹</button>'
+            '<figure><img id="gImg" alt=""><figcaption id="gCap"></figcaption></figure>'
+            f'<button class="iconbtn gn" type="button" data-a="next" aria-label="{e(U["next"])}">›</button></dialog>'
+            f'<footer><div class="wrap"><a href="./">{e(U["home"])}</a> · <a href="lore.html">Лор</a></div></footer>')
+    page = re.sub(r"<div class=\"hero\">.*?</footer>", lambda m: body, idx, flags=re.S)
+    page = tr(page)
+    page = re.sub(r'(<nav class="main">.*?</nav>)', lambda m: m.group(1).replace('href="#', 'href="./#'), page, flags=re.S)
+    page = page.replace("<title>PaxVanila</title>", f"<title>{e(U['title'])}</title>")
+    page = re.sub(r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{e(U["lead"])}">', page)
+    return page.replace('<a href="gallery.html">', '<a class="on" href="gallery.html">')
 
 
 def write_rss(C, lang, out):
@@ -531,7 +595,7 @@ def main():
             for g in C.get("guides", []):
                 shutil.copy(src_file(GUIDES, lang, g["file"]), os.path.join(APP_ASSETS, "guides" + sfx, f"{g['id']}.md"))
         for fn in os.listdir(os.path.join(DOCS, "img")):
-            if fn == "world_map_big.webp":  # подробная карта только на сайте, в APK лёгкая
+            if fn == "world_map_big.webp" or fn.startswith("g_"):  # подробная карта и галерея только на сайте, в APK лёгкая карта
                 continue
             shutil.copy(os.path.join(DOCS, "img", fn), os.path.join(APP_ASSETS, "img", fn))
         make_icon(1024).convert("RGB").save(os.path.join(APP_ASSETS, "icon.png"))
