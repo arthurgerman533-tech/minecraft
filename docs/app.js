@@ -261,7 +261,7 @@ function renderCalendar(C){
 }
 
 async function main(){
-  const C=await (await fetch('content.json?v=20261125213521')).json(), cfg=C.config; window.__C=C;
+  const C=await (await fetch('content.json?v=20261126220621')).json(), cfg=C.config; window.__C=C;
   document.querySelectorAll('[data-k]').forEach(e=>{e.textContent=e.dataset.k in C?C[e.dataset.k]:cfg[e.dataset.k]||''});
   // IP и Discord
   const ipBtn=$('#copyip');
@@ -780,7 +780,7 @@ async function renderChronicleTeaser(C){
 }
 // ---- «Как зайти» (join.html): адрес, Discord и отсчёт до открытия ----
 async function joinMain(){
-  let C; try{C=await (await fetch('content.json?v=20261125213521')).json()}catch(e){return}
+  let C; try{C=await (await fetch('content.json?v=20261126220621')).json()}catch(e){return}
   const cfg=C.config, t0=new Date(cfg.launchDate||'');
   const d=$('#jDiscord'); if(d){if(cfg.discordUrl) d.href=cfg.discordUrl; else d.hidden=true}
   if(cfg.serverAddress){$('#jAddrText').textContent=cfg.serverAddress;$('#jAddr').hidden=false;$('#jSoon').hidden=true;
@@ -792,7 +792,7 @@ async function joinMain(){
   if(tick()){const id=setInterval(()=>{if(!tick()) clearInterval(id)},1000)}
 }
 async function chronicleMain(){
-  const C=await (await fetch('content.json?v=20261125213521')).json(), X=C.chronicle, cfg=C.config, host=$('#chron'); if(!X||!host) return;
+  const C=await (await fetch('content.json?v=20261126220621')).json(), X=C.chronicle, cfg=C.config, host=$('#chron'); if(!X||!host) return;
   const st=serverState(cfg), items=await loadChronicle(C);
   const bits=[]; if(st.started) bits.push(T(`Сегодня день ${st.day}`,`Today is day ${st.day}`),T(`граница ${st.radius} ${plural(st.radius,'блок','блока','блоков')}`,`border ${st.radius} blocks`)+(st.season?' · '+st.season:''));
   else if(st.until) bits.push(T(`До высадки ${st.until} ${plural(st.until,'день','дня','дней')}`,`Landfall in ${st.until} day${st.until===1?'':'s'}`));
