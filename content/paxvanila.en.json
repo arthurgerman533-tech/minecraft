@@ -378,14 +378,15 @@
   },
   {
    "id": "apotheosis",
+   "guide": "put_k_angelu",
    "icon": "😇",
    "title": "Path of the Angel",
    "summary": "A personal focus branch for every player: five stages from Initiate to Angel, ending with the Monolith's heavenly weapons. Unlocked only by playing, the same for everyone.",
    "points": [
-    "1. Initiate: bring the first Star Shards from cataclysms to the Monolith at 0, 0.",
+    "1. Initiate: bring five Star Shards from cataclysms to the Monolith at 0, 0.",
     "2. Chosen: survive three cataclysms and complete a task of your faith.",
-    "3. Guardian: win a war by the rules or defend your town in a siege.",
-    "4. Ascended: visit the Moon and Mars and bring back Nameless Fragments.",
+    "3. Guardian: your nation won the Great War, or you killed an attacker while defending your nation, or you won 5 fights in a war by the rules.",
+    "4. Ascended: visit the Moon and Mars and bring 4 Nameless Fragments to the Monolith.",
     "5. Angel: the last focus unlocks the heavenly weapons — the Hammer of the PAX Seal, the Spear of the Sixth Line and the Crown of the Monolith. The peak of Arcanum, crafted at the Star Altar.",
     "The branch runs at the same speed for everyone. Donations neither speed it up nor give weapons: the Angel and Satan tiers only change appearance."
    ],
@@ -602,6 +603,12 @@
    "title": "Focus guide",
    "subtitle": "Every focus, heritage, race and people, what to take before the war, ready-made builds",
    "file": "фокусы.md"
+  },
+  {
+   "id": "put_k_angelu",
+   "title": "Guide: Path of the Angel",
+   "subtitle": "Five stages, faith offerings, heavenly weapons and recipes, what the tiers give",
+   "file": "путь_к_ангелу.md"
   }
  ],
  "donate": {
