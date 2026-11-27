@@ -261,7 +261,7 @@ function renderCalendar(C){
 }
 
 async function main(){
-  const C=await (await fetch('content.json?v=20261125185638')).json(), cfg=C.config; window.__C=C;
+  const C=await (await fetch('content.json?v=20261127143031')).json(), cfg=C.config; window.__C=C;
   document.querySelectorAll('[data-k]').forEach(e=>{e.textContent=e.dataset.k in C?C[e.dataset.k]:cfg[e.dataset.k]||''});
   // IP и Discord
   const ipBtn=$('#copyip');
@@ -284,7 +284,7 @@ async function main(){
     <div class="b"><div class="meta">${T('Неделя','Week')} ${w.n} · ${esc(w.days)} · ${T('граница','border')} ${esc(w.border)}</div><h3>${esc(w.title)}</h3><p>${esc(w.text)}</p>
     <div class="cmds">${w.commands.map(code).join('')}</div></div></div>`).join('');
   const mg=$('#mechGrid'); if(mg) mg.innerHTML=C.mechanics.map(m=>`<details class="card" id="m-${m.id}"><summary><h3><span class="em">${m.icon}</span>${esc(m.title)}</h3><p>${esc(m.summary)}</p></summary>
-    <ul>${m.points.map(p=>`<li>${esc(p)}</li>`).join('')}</ul>${m.commands.length?`<div class="cmds">${m.commands.map(code).join('')}</div>`:''}</details>`).join('');
+    <ul>${m.points.map(p=>`<li>${esc(p)}</li>`).join('')}</ul>${m.commands.length?`<div class="cmds">${m.commands.map(code).join('')}</div>`:''}${m.guide?`<p><a class="btn ghost" href="guides/${m.guide}.html">🧭 ${T('Подробный гайд','Full guide')}</a></p>`:''}</details>`).join('');
   const dn=$('#donate'); if(dn&&C.donate){const D=C.donate,u=cfg.donateUrl;dn.innerHTML=`<h3><span class="em">💛</span>${esc(D.title)}</h3><p>${esc(D.text)}</p><div class="tiers">${(D.tiers||[]).map(t=>`<div class="tier tier-${esc(t.id)}"><div class="tn">${esc(t.name)}</div><div class="tp">${esc(t.price)}</div><ul>${t.items.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>${t.button?(u?`<a class="btn primary" href="${esc(u)}" target="_blank" rel="noopener">${esc(t.button)}</a>`:`<button class="btn primary" disabled>${esc(t.button)}</button><p class="soon">${esc(D.soon)}</p>`):''}</div>`).join('')}</div>${D.note?`<p class="soon">${esc(D.note)}</p>`:''}`} else if(dn) dn.remove();
   const rl=$('#ruleList'); if(rl) rl.innerHTML=C.rules.map(r=>`<div class="rule"><h3>${esc(r.title)}</h3><ul>${r.items.map(i=>`<li>${esc(i)}</li>`).join('')}</ul></div>`).join('');
   // команды
@@ -780,7 +780,7 @@ async function renderChronicleTeaser(C){
 }
 // ---- «Как зайти» (join.html): адрес, Discord и отсчёт до открытия ----
 async function joinMain(){
-  let C; try{C=await (await fetch('content.json?v=20261125185638')).json()}catch(e){return}
+  let C; try{C=await (await fetch('content.json?v=20261127143031')).json()}catch(e){return}
   const cfg=C.config, t0=new Date(cfg.launchDate||'');
   const d=$('#jDiscord'); if(d){if(cfg.discordUrl) d.href=cfg.discordUrl; else d.hidden=true}
   if(cfg.serverAddress){$('#jAddrText').textContent=cfg.serverAddress;$('#jAddr').hidden=false;$('#jSoon').hidden=true;
@@ -792,7 +792,7 @@ async function joinMain(){
   if(tick()){const id=setInterval(()=>{if(!tick()) clearInterval(id)},1000)}
 }
 async function chronicleMain(){
-  const C=await (await fetch('content.json?v=20261125185638')).json(), X=C.chronicle, cfg=C.config, host=$('#chron'); if(!X||!host) return;
+  const C=await (await fetch('content.json?v=20261127143031')).json(), X=C.chronicle, cfg=C.config, host=$('#chron'); if(!X||!host) return;
   const st=serverState(cfg), items=await loadChronicle(C);
   const bits=[]; if(st.started) bits.push(T(`Сегодня день ${st.day}`,`Today is day ${st.day}`),T(`граница ${st.radius} ${plural(st.radius,'блок','блока','блоков')}`,`border ${st.radius} blocks`)+(st.season?' · '+st.season:''));
   else if(st.until) bits.push(T(`До высадки ${st.until} ${plural(st.until,'день','дня','дней')}`,`Landfall in ${st.until} day${st.until===1?'':'s'}`));

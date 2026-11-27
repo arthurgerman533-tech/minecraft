@@ -1,0 +1,718 @@
+# PaxVanila — «Путь к ангелу» (раньше «Путь к божественности»): личная ветка любого игрока.
+# Добавлено 2026-11-20, названия как на сайте — 2026-11-27.
+# Пять ступеней от Посвящённого до Ангела, в конце — небесное оружие Монолита.
+# Ветка у всех одинаковая и открывается только игрой: донат её не ускоряет и оружие не даёт.
+# Тариф «Ангел» (право paxvanila.angel, старое paxvanila.god тоже работает) меняет только внешний вид: золотая аура, золотой облик
+# оружия (сила та же) и титул «Ангел» над ником.
+#
+# Нужны: Skript, skript-reflect, Towny и скрипты paxarcana.sk (осколки, обломки, алтарь, частицы),
+# paxweather_discord.sk (счёт катаклизмов), paxwar.sk (нации и войны), paxfaith.sk (вера).
+# Эти скрипты не меняются, этот только читает их переменные и функции.
+#
+# Ступени (сдаются у Монолита: мир world, не дальше 16 блоков от 0, 0):
+#   1 Посвящённый  — принести 5 Звёздных осколков.
+#   2 Избранный    — пережить 3 катаклизма (быть в игре от начала до конца и не умереть)
+#                    и выполнить задание веры: держать веру (/faith) 24 часа и принести её дар.
+#   3 Страж        — нация победила в Великой войне, ИЛИ убить нападающего, защищая свою нацию,
+#                    ИЛИ 5 побед над врагом в бою войны (всё только в окно боёв по правилам).
+#   4 Вознесённый  — побывать на Луне и на Марсе и принести 4 Безымянных обломка.
+#   5 Ангел        — последний фокус: 8 осколков и звезда Незера, затем 24 часа ожидания.
+# Оружие (после 5-й ступени, у Звёздного алтаря — магнетит в радиусе 4 блоков):
+#   hammer Молот Печати PAX    ПКМ: Удар Печати — волна на 6 блоков, 8 урона, подбрасывает (40 с)
+#   spear  Копьё Шестой строки ПКМ: Строка — пронзает всех на 30 блоков, 7 урона (15 с)
+#   crown  Венец Монолита      надет: Сопротивление I. Shift+ЛКМ пустой рукой: Свет Монолита —
+#                              лечит вас и свою нацию в радиусе 8 на 3 сердца (90 с)
+#
+# Команды:
+#   /apotheosis                  — ваша ступень, что осталось сделать, справка
+#   /apotheosis start <1-5>      — сдать ступень (у Монолита)
+#   /apotheosis info <1-5>       — условия ступени
+#   /apotheosis weapons          — оружие и рецепты
+#   /apotheosis craft <id>       — создать оружие (после 5-й ступени, у алтаря)
+#   /apotheosis aura             — вкл/выкл золотую ауру (тариф «Ангел»)
+#   /apotheosis skin             — обновить облик оружия в руке под ваш тариф
+#   /apotheosis admin set <игрок> <0-5> | give <id> [игрок] | check <игрок>   (право paxapotheosis.admin)
+#
+# Урон оружия идёт от имени игрока (entity.damage(x, игрок)), поэтому Towny, защита новичков
+# и приваты работают как с обычным ударом. Блоки не ломаются.
+
+options:
+	mono_radius: 16
+	need_shards1: 5
+	need_wx: 3
+	faith_hours: 24
+	war_kills: 5
+	need_wrecks4: 4
+	need_shards5: 8
+	focus_hours: 24
+	hammer_cd: 40
+	hammer_dmg: 8
+	spear_cd: 15
+	spear_dmg: 7
+	crown_cd: 90
+	god_perm: paxvanila.god
+	angel_perm: paxvanila.angel
+
+# ---------- ступени ----------
+
+function apoStageName(n: number) :: text:
+	if {_n} is 1:
+		return "Посвящённый"
+	if {_n} is 2:
+		return "Избранный"
+	if {_n} is 3:
+		return "Страж"
+	if {_n} is 4:
+		return "Вознесённый"
+	if {_n} is 5:
+		return "Ангел"
+	return "Смертный"
+
+function apoStage(p: offline player) :: number:
+	return {apo::st::%uuid of {_p}%} ? 0
+
+function apoStageDesc(n: number) :: text:
+	if {_n} is 1:
+		return "Принесите Монолиту на 0, 0 {@need_shards1} Звёздных осколков (добыча катаклизмов)."
+	if {_n} is 2:
+		return "Переживите {@need_wx} катаклизма: будьте в игре от начала до конца и не умрите. Задание веры: держите свою веру (/faith) {@faith_hours} ч и принесите её дар к Монолиту."
+	if {_n} is 3:
+		return "Победите в войне по правилам: ваша нация выиграла Великую войну, или вы убили нападающего, защищая свою нацию, или одержали {@war_kills} побед над врагом в окно боёв."
+	if {_n} is 4:
+		return "Побывайте на Луне и на Марсе и принесите к Монолиту {@need_wrecks4} Безымянных обломка."
+	if {_n} is 5:
+		return "Последний фокус: {@need_shards5} Звёздных осколков и звезда Незера у Монолита, затем {@focus_hours} ч ожидания. Потом открывается небесное оружие."
+	return ""
+
+# дар веры: «предмет|количество»
+function apoOffering(f: text) :: text:
+	if {_f} is "jupiter":
+		return "gold ingot|8"
+	if {_f} is "baal":
+		return "wheat|32"
+	if {_f} is "olymp":
+		return "honey bottle|4"
+	if {_f} is "wotan":
+		return "iron axe|1"
+	if {_f} is "druids":
+		return "oak sapling|16"
+	if {_f} is "zalmox":
+		return "emerald|4"
+	if {_f} is "tengri":
+		return "leather|16"
+	if {_f} is "papai":
+		return "bone|16"
+	if {_f} is "monolith":
+		return "stone bricks|32"
+	if {_f} is "stoa":
+		return "book|4"
+	if {_f} is "academy":
+		return "feather|8"
+	if {_f} is "atom":
+		return "redstone|16"
+	if {_f} is "cynic":
+		return "bread|1"
+	if {_f} is "pythag":
+		return "note block|4"
+	if {_f} is "dao":
+		return "bamboo|32"
+	if {_f} is "kong":
+		return "lantern|4"
+	return ""
+
+function apoAtMonolith(p: player) :: boolean:
+	if "%world of {_p}%" is not "world":
+		return false
+	set {_x} to x-coordinate of {_p}
+	set {_z} to z-coordinate of {_p}
+	if sqrt({_x} * {_x} + {_z} * {_z}) <= {@mono_radius}:
+		return true
+	return false
+
+function apoFaithHours(p: player) :: number:
+	set {_u} to uuid of {_p}
+	if {apo::faithsince::%{_u}%} is not set:
+		return 0
+	return (unix timestamp of now - {apo::faithsince::%{_u}%}) / 3600
+
+function apoWarOk(p: player) :: boolean:
+	set {_u} to uuid of {_p}
+	if {apo::defended::%{_u}%} is true:
+		return true
+	if ({apo::warkills::%{_u}%} ? 0) >= {@war_kills}:
+		return true
+	set {_n} to paxNationOf({_p})
+	if {_n} is set:
+		if {apo::natwin::%{_n}%} is true:
+			return true
+	return false
+
+# строки «что осталось» для текущей следующей ступени
+function apoTodo(p: player, n: number) :: texts:
+	set {_u} to uuid of {_p}
+	if {_n} is 1:
+		add "&7• Звёздные осколки: &f%arcCount({_p}, ""shard"")%/{@need_shards1}" to {_t::*}
+	else if {_n} is 2:
+		add "&7• Пережито катаклизмов: &f%{apo::wx::%{_u}%} ? 0%/{@need_wx}" to {_t::*}
+		set {_f} to faithOf({_p})
+		if {_f} is not set:
+			add "&7• Вера: &cне выбрана (/faith list)" to {_t::*}
+		else:
+			set {_o::*} to apoOffering({_f}) split at "|"
+			add "&7• Вера %faithName({_f})%: &f%floor(apoFaithHours({_p}))%/{@faith_hours} ч" to {_t::*}
+			add "&7• Дар веры: &f%{_o::1}% %arcCount({_p}, {_o::1})%/%{_o::2}%" to {_t::*}
+	else if {_n} is 3:
+		set {_nm} to paxNationOf({_p})
+		if {_nm} is not set:
+			add "&7• Нация: &cнет (вступите в нацию Towny)" to {_t::*}
+		add "&7• Победы над врагом в войне: &f%{apo::warkills::%{_u}%} ? 0%/{@war_kills}" to {_t::*}
+		if {apo::defended::%{_u}%} is true:
+			add "&7• Защита своей нации: &aесть" to {_t::*}
+		else:
+			add "&7• Защита своей нации: &cнет" to {_t::*}
+	else if {_n} is 4:
+		set {_m} to "&cнет"
+		if {apo::moon::%{_u}%} is true:
+			set {_m} to "&aда"
+		set {_r} to "&cнет"
+		if {apo::mars::%{_u}%} is true:
+			set {_r} to "&aда"
+		add "&7• Луна: %{_m}% &7• Марс: %{_r}%" to {_t::*}
+		add "&7• Безымянные обломки: &f%arcCount({_p}, ""wreck"")%/{@need_wrecks4}" to {_t::*}
+	else if {_n} is 5:
+		if {apo::focus::%{_u}%} is set:
+			add "&7• Фокус идёт: прошло &f%difference between {apo::focus::%{_u}%} and now% &7из {@focus_hours} ч" to {_t::*}
+		else:
+			add "&7• Звёздные осколки: &f%arcCount({_p}, ""shard"")%/{@need_shards5} &7• Звезда Незера: &f%arcCount({_p}, ""nether star"")%/1" to {_t::*}
+	return {_t::*}
+
+function apoReach(p: player, n: number):
+	set {apo::st::%uuid of {_p}%} to {_n}
+	set {_c} to location of {_p}
+	play sound "ui.toast.challenge_complete" with volume 1 at {_c}
+	loop 20 times:
+		arcRing({_c}.clone().add(0, loop-number / 8, 0), 1.3, "END_ROD", 10, loop-number * 24)
+		wait 2 ticks
+	arcFx({_c}.clone().add(0, 1.2, 0), "TOTEM_OF_UNDYING", 50, 0.6)
+	send title "&6✦ %apoStageName({_n})% ✦" with subtitle "&7Ступень %{_n}% из 5" to {_p} for 3 seconds
+	broadcast "&6✦ %name of {_p}% проходит ступень «%apoStageName({_n})%» на Пути к ангелу."
+	if {_n} is 5:
+		broadcast "&6&l✦ Монолит признал нового Ангела: %name of {_p}%! &7Открыто небесное оружие (/apotheosis weapons)."
+
+# ---------- оружие ----------
+
+function apoWIds() :: texts:
+	return "hammer", "spear" and "crown"
+
+function apoWName(id: text) :: text:
+	if {_id} is "hammer":
+		return "Молот Печати PAX"
+	if {_id} is "spear":
+		return "Копьё Шестой строки"
+	if {_id} is "crown":
+		return "Венец Монолита"
+	return ""
+
+function apoWDesc(id: text) :: text:
+	if {_id} is "hammer":
+		return "ПКМ — Удар Печати: волна на 6 блоков, {@hammer_dmg} урона, подбрасывает врагов (перезарядка {@hammer_cd} с). Блоки не ломаются."
+	if {_id} is "spear":
+		return "ПКМ — Строка: луч на 30 блоков пронзает всех на пути, {@spear_dmg} урона каждому (перезарядка {@spear_cd} с)."
+	if {_id} is "crown":
+		return "Надетый даёт Сопротивление I. Shift+ЛКМ пустой рукой — Свет Монолита: лечит вас и игроков вашей нации в радиусе 8 на 3 сердца (перезарядка {@crown_cd} с)."
+	return ""
+
+function apoWRecipe(id: text) :: texts:
+	if {_id} is "hammer":
+		return "shard|8", "wreck|4", "netherite ingot|2" and "gold block|4"
+	if {_id} is "spear":
+		return "shard|8", "wreck|4", "trident|1" and "echo shard|4"
+	if {_id} is "crown":
+		return "shard|8", "wreck|4", "gold block|8" and "nether star|1"
+	return ""
+
+# gold = true — золотой облик тарифа «Ангел»: другой цвет и подпись, сила та же
+function apoWItem(id: text, gold: boolean) :: item:
+	set {_c} to "&b"
+	set {_skin} to "&8Облик: обычный"
+	if {_gold} is true:
+		set {_c} to "&6"
+		set {_skin} to "&6Облик: золотой (тариф «Ангел», сила та же)"
+	if {_id} is "hammer":
+		set {_i} to mace named "%{_c}%&lМолот Печати PAX" with lore "&7Им Стражи выбили на Монолите слово PAX." and "&fПКМ: %{_c}%Удар Печати" and {_skin} and "&8pax-apo:hammer"
+	else if {_id} is "spear":
+		set {_i} to trident named "%{_c}%&lКопьё Шестой строки" with lore "&7Остриё из той строки, которую никто не может прочесть." and "&fПКМ: %{_c}%Строка" and {_skin} and "&8pax-apo:spear"
+	else if {_id} is "crown":
+		set {_i} to golden helmet named "%{_c}%&lВенец Монолита" with lore "&7Носящий его слышит, как Монолит считает имена." and "&fНадет: %{_c}%Сопротивление I" and "&fShift+ЛКМ пустой рукой: %{_c}%Свет Монолита" and {_skin} and "&8pax-apo:crown"
+	else:
+		return air
+	set {_i} to unbreakable {_i}
+	if {_gold} is true:
+		# только блеск: на неломаемом предмете «Прочность» ничего не меняет
+		enchant {_i} with unbreaking 1
+	return {_i}
+
+function apoId(i: item) :: text:
+	if lore of {_i} is not set:
+		return ""
+	loop lore of {_i}:
+		set {_u} to uncolored loop-value
+		if {_u} starts with "pax-apo:":
+			return subtext of {_u} from characters 9 to length of {_u}
+	return ""
+
+function apoIsGod(p: player) :: boolean:
+	if {_p} has permission "{@god_perm}":
+		return true
+	if {_p} has permission "{@angel_perm}":
+		return true
+	return false
+
+# частица приёма: обычная или золотая
+function apoPart(p: player) :: text:
+	if apoIsGod({_p}) is true:
+		return "WAX_ON"
+	return "END_ROD"
+
+function apoReady(p: player, k: text, cd: number) :: boolean:
+	set {_last} to {-apo::cd::%uuid of {_p}%::%{_k}%}
+	if {_last} is set:
+		if difference between {_last} and now < {_cd} seconds:
+			send action bar "&cПерезарядка: %apoWName({_k})%" to {_p}
+			return false
+	set {-apo::cd::%uuid of {_p}%::%{_k}%} to now
+	return true
+
+function apoSlam(p: player):
+	set {_c} to location of {_p}
+	set {_pt} to apoPart({_p})
+	play sound "item.mace.smash_ground_heavy" with volume 1.5 and pitch 0.8 at {_c}
+	play sound "block.anvil.land" with volume 0.8 and pitch 0.6 at {_c}
+	loop 6 times:
+		arcRing({_c}.clone().add(0, 0.2, 0), loop-number, {_pt}, 12 + loop-number * 6, loop-number * 15)
+		arcRing({_c}.clone().add(0, 0.2, 0), loop-number, "CRIT", 8 + loop-number * 4, 0)
+		wait 2 ticks
+	arcFx({_c}, "EXPLOSION", 3, 1)
+	set {_ents} to (world of {_c}).getNearbyEntities({_c}, 6, 4, 6)
+	loop ...{_ents}:
+		set {_en} to loop-value
+		if {_en} is a living entity:
+			if {_en} is not {_p}:
+				if {_en} is not an armor stand:
+					{_en}.damage({@hammer_dmg}, {_p})
+					set {_v} to {_en}.getLocation().toVector().subtract({_c}.toVector())
+					if {_v}.length() > 0.1:
+						{_en}.setVelocity({_v}.normalize().multiply(0.6).setY(0.7))
+
+function apoLine(p: player):
+	set {_e} to {_p}'s eye location
+	set {_v} to {_e}.getDirection().multiply(0.5)
+	set {_pt} to apoPart({_p})
+	play sound "item.trident.thunder" with volume 0.9 and pitch 1.6 at {_e}
+	set {_l} to {_e}.clone()
+	loop 60 times:
+		set {_l} to {_l}.add({_v})
+		if block at {_l} is solid:
+			arcFx({_l}, {_pt}, 14, 0.2)
+			stop loop
+		arcFx({_l}, {_pt}, 1, 0)
+		if mod(loop-number, 3) is 0:
+			arcFx({_l}, "ENCHANT", 3, 0.15)
+		set {_ents} to (world of {_l}).getNearbyEntities({_l}, 0.8, 0.8, 0.8)
+		loop ...{_ents}:
+			set {_en} to loop-value-2
+			if {_en} is a living entity:
+				if {_en} is not {_p}:
+					if {_en} is not an armor stand:
+						if {-apo::hit::%uuid of {_p}%::%uuid of {_en}%} is not set:
+							set {-apo::hit::%uuid of {_p}%::%uuid of {_en}%} to true
+							{_en}.damage({@spear_dmg}, {_p})
+							arcFx({_l}, "ENCHANTED_HIT", 16, 0.3)
+	delete {-apo::hit::%uuid of {_p}%::*}
+
+function apoLight(p: player):
+	set {_c} to location of {_p}
+	set {_pt} to apoPart({_p})
+	set {_mn} to paxNationOf({_p})
+	play sound "block.beacon.power_select" with volume 1 and pitch 1.2 at {_c}
+	heal {_p} by 3
+	set {_n} to 1
+	loop all players in radius 8 around {_p}:
+		if loop-player is not {_p}:
+			if {_mn} is set:
+				if paxNationOf(loop-player) is {_mn}:
+					heal loop-player by 3
+					arcFx(location of loop-player, "HEART", 4, 0.4)
+					add 1 to {_n}
+	loop 10 times:
+		arcRing({_c}.clone().add(0, 0.3, 0), loop-number * 0.8, {_pt}, 24, loop-number * 20)
+		wait 2 ticks
+	send action bar "&eСвет Монолита: исцелено %{_n}%" to {_p}
+
+function apoCraftAnim(p: player, id: text):
+	set {_c} to location of {_p}
+	set {_pt} to apoPart({_p})
+	play sound "block.beacon.activate" with volume 1 and pitch 1.2 at {_c}
+	loop 30 times:
+		set {_h} to loop-number / 12
+		arcRing({_c}.clone().add(0, {_h}, 0), 1.4, "ENCHANT", 12, loop-number * 24)
+		arcRing({_c}.clone().add(0, {_h}, 0), 1.6, {_pt}, 3, loop-number * 24)
+		wait 2 ticks
+	arcFx({_c}.clone().add(0, 1.2, 0), "TOTEM_OF_UNDYING", 60, 0.6)
+	play sound "ui.toast.challenge_complete" with volume 1 at {_c}
+	send title "&6✦ %apoWName({_id})% ✦" with subtitle "&7Монолит вручает небесное оружие" to {_p} for 3 seconds
+
+# ---------- прогресс: катаклизмы, вера, Луна и Марс, война, фокус ----------
+
+on load:
+	set {-apo::wxlast} to wxScore("#event")
+	execute console command "team add pxgod"
+	execute console command "team modify pxgod color gold"
+	execute console command "team modify pxgod prefix {""text"":""Ангел "",""color"":""gold"",""bold"":true}"
+
+every 5 seconds:
+	set {_e} to wxScore("#event")
+	{_e} >= 0
+	set {_old} to {-apo::wxlast} ? 0
+	if {_e} is not {_old}:
+		set {-apo::wxlast} to {_e}
+		if {_old} > 0:
+			# катаклизм кончился: кто дожил в игре — пережил
+			loop all players:
+				if {-apo::inwx::%uuid of loop-player%} is true:
+					add 1 to {apo::wx::%uuid of loop-player%}
+					send action bar "&6Путь к ангелу: катаклизм пережит (%{apo::wx::%uuid of loop-player%}%)" to loop-player
+			delete {-apo::inwx::*}
+		if {_e} > 0:
+			loop all players:
+				set {-apo::inwx::%uuid of loop-player%} to true
+	loop all players:
+		set {_w} to "%world of loop-player%"
+		if {_w} contains "moon":
+			if {apo::moon::%uuid of loop-player%} is not set:
+				set {apo::moon::%uuid of loop-player%} to true
+				send "&6[Путь] &eВы ступили на Луну. Это нужно для 4-й ступени." to loop-player
+		if {_w} contains "mars":
+			if {apo::mars::%uuid of loop-player%} is not set:
+				set {apo::mars::%uuid of loop-player%} to true
+				send "&6[Путь] &eВы ступили на Марс. Это нужно для 4-й ступени." to loop-player
+
+every 1 minute:
+	loop all players:
+		set {_p} to loop-player
+		set {_u} to uuid of {_p}
+		# вера: с какого времени держится
+		set {_f} to faithOf({_p})
+		if {_f} is not set:
+			delete {apo::faith::%{_u}%}
+			delete {apo::faithsince::%{_u}%}
+		else if {apo::faith::%{_u}%} is not {_f}:
+			set {apo::faith::%{_u}%} to {_f}
+			set {apo::faithsince::%{_u}%} to unix timestamp of now
+		# последний фокус
+		if {apo::focus::%{_u}%} is set:
+			if difference between {apo::focus::%{_u}%} and now >= {@focus_hours} hours:
+				delete {apo::focus::%{_u}%}
+				apoReach({_p}, 5)
+	# итоги Великой войны (paxwar.sk пишет «A счёт:счёт D»)
+	loop {pax::ev::results::*}:
+		if {apo::seen::%loop-value%} is not set:
+			set {apo::seen::%loop-value%} to true
+			set {_r::*} to loop-value split at " "
+			set {_sc::*} to {_r::2} split at ":"
+			set {_sa} to {_sc::1} parsed as number
+			set {_sd} to {_sc::2} parsed as number
+			if {_sa} is set:
+				if {_sd} is set:
+					if {_sa} > {_sd}:
+						set {apo::natwin::%{_r::1}%} to true
+					else if {_sd} > {_sa}:
+						set {apo::natwin::%{_r::3}%} to true
+
+on join:
+	set {_wl} to {-apo::wxlast} ? 0
+	if {_wl} > 0:
+		set {-apo::inwx::%uuid of player%} to true
+	# титул «Ангел» над ником (команда team), только для тарифа
+	if apoIsGod(player) is true:
+		execute console command "team join pxgod %name of player%"
+		set {apo::inteam::%uuid of player%} to true
+	else if {apo::inteam::%uuid of player%} is true:
+		execute console command "team leave %name of player%"
+		delete {apo::inteam::%uuid of player%}
+
+on quit:
+	delete {-apo::inwx::%uuid of player%}
+	delete {-apo::cd::%uuid of player%::*}
+
+on death of player:
+	delete {-apo::inwx::%uuid of victim%}
+	attacker is a player
+	attacker is not victim
+	set {_kn} to paxNationOf(attacker)
+	set {_vn} to paxNationOf(victim)
+	{_kn} is set
+	{_vn} is set
+	loop {pax::wids::*}:
+		set {_id} to loop-value
+		if {pax::w::%{_id}%::hot} is true:
+			set {_a} to {pax::w::%{_id}%::a}
+			set {_d} to {pax::w::%{_id}%::d}
+			if {_kn} is {_d}:
+				if {_vn} is {_a}:
+					if {apo::defended::%uuid of attacker%} is not set:
+						set {apo::defended::%uuid of attacker%} to true
+						send "&6[Путь] &eВы защитили свою нацию. Условие 3-й ступени выполнено." to attacker
+			if {_kn} is {_a}:
+				if {_vn} is {_d}:
+					add 1 to {apo::warkills::%uuid of attacker%}
+
+# ---------- приёмы оружия ----------
+
+on right click:
+	if "%event.getHand()%" is "OFF_HAND":
+		stop
+	set {_id} to apoId(player's tool)
+	if {_id} is "":
+		stop
+	if {_id} is "crown":
+		# венец надевается как обычный шлем
+		stop
+	cancel event
+	if {_id} is "hammer":
+		if apoReady(player, "hammer", {@hammer_cd}) is true:
+			apoSlam(player)
+	else if {_id} is "spear":
+		if apoReady(player, "spear", {@spear_cd}) is true:
+			apoLine(player)
+
+on left click:
+	player is sneaking
+	player's tool is air
+	apoId(player's helmet) is "crown"
+	if apoReady(player, "crown", {@crown_cd}) is true:
+		apoLight(player)
+
+every 3 seconds:
+	loop all players:
+		if apoId(loop-player's helmet) is "crown":
+			apply resistance of tier 1 to loop-player for 5 seconds
+
+# золотая аура тарифа «Ангел» — только частицы
+every 1 second:
+	loop all players:
+		if apoIsGod(loop-player) is true:
+			if {apo::auraoff::%uuid of loop-player%} is not set:
+				if loop-player is not sneaking:
+					set {_c} to (location of loop-player).add(0, 0.1, 0)
+					arcRing({_c}, 0.8, "WAX_ON", 10, mod(floor(unix timestamp of now) * 30, 360))
+					arcFx({_c}.clone().add(0, 2.3, 0), "END_ROD", 1, 0.2)
+
+# ---------- команда ----------
+
+function apoHelp(p: player):
+	send "&7/apotheosis &f— ваша ступень | &7start <1-5> &f— сдать ступень у Монолита | &7info <1-5>" to {_p}
+	send "&7/apotheosis weapons &f— оружие | &7craft <hammer|spear|crown> &f— создать у алтаря" to {_p}
+	if apoIsGod({_p}) is true:
+		send "&7/apotheosis aura &f— вкл/выкл ауру | &7skin &f— золотой облик оружия в руке" to {_p}
+
+command /apotheosis [<text>] [<text>] [<text>] [<text>]:
+	aliases: /путь, /apo
+	trigger:
+		set {_u} to uuid of player
+		set {_st} to apoStage(player)
+		if arg-1 is not set:
+			send "&6&l✦ Путь к ангелу ✦ &7(у всех одинаковый, донат не ускоряет)"
+			send "&7Ваша ступень: &e%{_st}%/5 — %apoStageName({_st})%"
+			if {_st} < 5:
+				set {_n} to {_st} + 1
+				send "&7Следующая: &e%{_n}% %apoStageName({_n})%&7 — %apoStageDesc({_n})%"
+				loop apoTodo(player, {_n}):
+					send loop-value
+				if {_n} is not 3:
+					send "&7Когда готово: &f/apotheosis start %{_n}% &7у Монолита на 0, 0"
+				else:
+					send "&7Когда готово: &f/apotheosis start 3 &7(где угодно)"
+			else:
+				send "&aВы прошли путь. Божественное оружие: &f/apotheosis weapons"
+			apoHelp(player)
+			stop
+		if arg-1 is "info":
+			set {_n} to (arg-2 ? "") parsed as integer
+			if apoStageDesc({_n} ? 0) is "":
+				send "&cСтупени 1–5. Пример: /apotheosis info 2"
+				stop
+			send "&e%{_n}% %apoStageName({_n})%&7: %apoStageDesc({_n})%"
+			stop
+		if arg-1 is "start":
+			set {_n} to (arg-2 ? "") parsed as integer
+			if {_n} is not set:
+				send "&cУкажите ступень: /apotheosis start %{_st} + 1%"
+				stop
+			if {_n} <= {_st}:
+				send "&eЭта ступень уже пройдена."
+				stop
+			if {_n} > {_st} + 1:
+				send "&cСначала ступень %{_st} + 1% — %apoStageName({_st} + 1)%."
+				stop
+			if {_n} is not 3:
+				if apoAtMonolith(player) is false:
+					send "&cСдавать ступень нужно у Монолита: мир world, не дальше {@mono_radius} блоков от 0, 0."
+					stop
+			if {_n} is 1:
+				if arcCount(player, "shard") < {@need_shards1}:
+					send "&cНужно {@need_shards1} Звёздных осколков, у вас %arcCount(player, ""shard"")%."
+					stop
+				arcTake(player, "shard", {@need_shards1})
+				apoReach(player, 1)
+			else if {_n} is 2:
+				if ({apo::wx::%{_u}%} ? 0) < {@need_wx}:
+					send "&cПережито катаклизмов: %{apo::wx::%{_u}%} ? 0%/{@need_wx}."
+					stop
+				set {_f} to faithOf(player)
+				if {_f} is not set:
+					send "&cСначала выберите веру: /faith list"
+					stop
+				if apoFaithHours(player) < {@faith_hours}:
+					send "&cВеру нужно держать {@faith_hours} ч, прошло %floor(apoFaithHours(player))% ч."
+					stop
+				set {_o::*} to apoOffering({_f}) split at "|"
+				if arcCount(player, {_o::1}) < ({_o::2} parsed as number):
+					send "&cДар веры «%faithName({_f})%»: %{_o::1}% ×%{_o::2}%, у вас %arcCount(player, {_o::1})%."
+					stop
+				arcTake(player, {_o::1}, {_o::2} parsed as number)
+				apoReach(player, 2)
+			else if {_n} is 3:
+				if apoWarOk(player) is false:
+					send "&cПока нет: нужна победа нации в войне, защита своей нации в бою или {@war_kills} побед над врагом (у вас %{apo::warkills::%{_u}%} ? 0%)."
+					stop
+				apoReach(player, 3)
+			else if {_n} is 4:
+				if {apo::moon::%{_u}%} is not set:
+					send "&cВы ещё не были на Луне."
+					stop
+				if {apo::mars::%{_u}%} is not set:
+					send "&cВы ещё не были на Марсе."
+					stop
+				if arcCount(player, "wreck") < {@need_wrecks4}:
+					send "&cНужно {@need_wrecks4} Безымянных обломка, у вас %arcCount(player, ""wreck"")%."
+					stop
+				arcTake(player, "wreck", {@need_wrecks4})
+				apoReach(player, 4)
+			else if {_n} is 5:
+				if {apo::focus::%{_u}%} is set:
+					send "&eФокус уже идёт: прошло %difference between {apo::focus::%{_u}%} and now% из {@focus_hours} ч."
+					stop
+				if arcCount(player, "shard") < {@need_shards5}:
+					send "&cНужно {@need_shards5} Звёздных осколков, у вас %arcCount(player, ""shard"")%."
+					stop
+				if arcCount(player, "nether star") < 1:
+					send "&cНужна звезда Незера."
+					stop
+				arcTake(player, "shard", {@need_shards5})
+				arcTake(player, "nether star", 1)
+				set {apo::focus::%{_u}%} to now
+				play sound "block.end_portal.spawn" with volume 1 and pitch 1.4 at player
+				send "&6[Путь] &eПоследний фокус начат. Через {@focus_hours} ч Монолит признает вас Ангелом (можно быть не в игре)."
+				broadcast "&6✦ %name of player% начинает последний фокус Пути к ангелу."
+			stop
+		if arg-1 is "weapons":
+			send "&6&l✦ Божественное оружие Монолита ✦ &7(после 5-й ступени, крафт у Звёздного алтаря)"
+			loop apoWIds():
+				set {_line} to ""
+				loop apoWRecipe(loop-value-1):
+					set {_part::*} to loop-value-2 split at "|"
+					set {_have} to arcCount(player, {_part::1})
+					set {_col} to "&c"
+					if {_have} >= ({_part::2} parsed as number):
+						set {_col} to "&a"
+					set {_line} to "%{_line}% %{_col}%• %arcIngName({_part::1})% %{_have}%/%{_part::2}%"
+				send "&f%loop-value-1% &e%apoWName(loop-value-1)%&7: %apoWDesc(loop-value-1)%"
+				send "&7   Рецепт:%{_line}%"
+			stop
+		if arg-1 is "craft":
+			set {_id} to arg-2 ? ""
+			if apoWName({_id}) is "":
+				send "&cНет такого оружия: hammer, spear, crown."
+				stop
+			if {_st} < 5:
+				send "&cБожественное оружие открывается на 5-й ступени. У вас %{_st}%/5."
+				stop
+			if arcNearAltar(player) is false:
+				send "&cНужен Звёздный алтарь: магнетит (lodestone) в радиусе 4 блоков."
+				stop
+			if player can't hold 1 structure void:
+				send "&cОсвободите слот в инвентаре."
+				stop
+			loop apoWRecipe({_id}):
+				set {_part::*} to loop-value split at "|"
+				if arcCount(player, {_part::1}) < ({_part::2} parsed as number):
+					send "&cНе хватает: %arcIngName({_part::1})% (%arcCount(player, {_part::1})%/%{_part::2}%)."
+					stop
+			loop apoWRecipe({_id}):
+				set {_part::*} to loop-value split at "|"
+				arcTake(player, {_part::1}, {_part::2} parsed as number)
+			apoCraftAnim(player, {_id})
+			give player apoWItem({_id}, apoIsGod(player))
+			broadcast "&6✦ %name of player% получает «%apoWName({_id})%»."
+			stop
+		if arg-1 is "aura":
+			if apoIsGod(player) is false:
+				send "&7Аура — косметика тарифа «Ангел» на сайте. На игру не влияет."
+				stop
+			if {apo::auraoff::%{_u}%} is set:
+				delete {apo::auraoff::%{_u}%}
+				send "&6Золотая аура включена."
+			else:
+				set {apo::auraoff::%{_u}%} to true
+				send "&7Золотая аура выключена."
+			stop
+		if arg-1 is "skin":
+			set {_id} to apoId(player's tool)
+			if {_id} is "":
+				send "&cВозьмите небесное оружие в руку."
+				stop
+			set player's tool to apoWItem({_id}, apoIsGod(player))
+			send "&eОблик обновлён (сила та же)."
+			stop
+		if arg-1 is "admin":
+			if player doesn't have permission "paxapotheosis.admin":
+				send "&cНет прав."
+				stop
+			set {_t} to player
+			if arg-2 is "give":
+				if arg-4 is set:
+					set {_t} to arg-4 parsed as player
+			else if arg-3 is set:
+				set {_t} to arg-3 parsed as player
+			if {_t} is not set:
+				send "&cИгрок не найден (должен быть в игре)."
+				stop
+			if arg-2 is "set":
+				set {_n} to (arg-4 ? "") parsed as integer
+				if {_n} is not set:
+					send "&7/apotheosis admin set <игрок> <0-5>"
+					stop
+				if {_n} < 0:
+					stop
+				if {_n} > 5:
+					stop
+				set {apo::st::%uuid of {_t}%} to {_n}
+				delete {apo::focus::%uuid of {_t}%}
+				send "&aСтупень %name of {_t}%: %{_n}% (%apoStageName({_n})%)."
+				stop
+			if arg-2 is "give":
+				if apoWName(arg-3 ? "") is "":
+					send "&7/apotheosis admin give <hammer|spear|crown> [игрок]"
+					stop
+				give {_t} apoWItem(arg-3, apoIsGod({_t}))
+				send "&aВыдано: %apoWName(arg-3)% → %name of {_t}%"
+				stop
+			if arg-2 is "check":
+				send "&e%name of {_t}%: ступень %apoStage({_t})%/5"
+				loop apoTodo({_t}, min(apoStage({_t}) + 1, 5)):
+					send loop-value
+				stop
+			send "&7/apotheosis admin set <игрок> <0-5> | give <id> [игрок] | check <игрок>"
+			stop
+		apoHelp(player)
