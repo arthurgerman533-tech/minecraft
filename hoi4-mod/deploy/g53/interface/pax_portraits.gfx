@@ -1,0 +1,162 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_portrait_ITA_pax_romul"
+		texturefile = "gfx/leaders/PAX/ITA_pax_romul.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_SPR_pax_hannon"
+		texturefile = "gfx/leaders/PAX/SPR_pax_hannon.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_GRE_pax_pericles"
+		texturefile = "gfx/leaders/PAX/GRE_pax_pericles.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_FRA_pax_ambiorix"
+		texturefile = "gfx/leaders/PAX/FRA_pax_ambiorix.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_ENG_pax_elinor"
+		texturefile = "gfx/leaders/PAX/ENG_pax_elinor.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_GER_pax_arminius"
+		texturefile = "gfx/leaders/PAX/GER_pax_arminius.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_SOV_pax_vseslav"
+		texturefile = "gfx/leaders/PAX/SOV_pax_vseslav.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_ROM_pax_decebal"
+		texturefile = "gfx/leaders/PAX/ROM_pax_decebal.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_TUR_pax_tengiz"
+		texturefile = "gfx/leaders/PAX/TUR_pax_tengiz.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_PER_pax_idanthyrsus"
+		texturefile = "gfx/leaders/PAX/PER_pax_idanthyrsus.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_GER_pax_player_1"
+		texturefile = "gfx/leaders/PAX/GER_pax_player_1.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_FRA_pax_player_3"
+		texturefile = "gfx/leaders/PAX/FRA_pax_player_3.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_ITA_pax_player_4"
+		texturefile = "gfx/leaders/PAX/ITA_pax_player_4.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_ITA_pax_player_5"
+		texturefile = "gfx/leaders/PAX/ITA_pax_player_5.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_FRA_pax_player_6"
+		texturefile = "gfx/leaders/PAX/FRA_pax_player_6.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_SPR_pax_player_7"
+		texturefile = "gfx/leaders/PAX/SPR_pax_player_7.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_SOV_pax_player_8"
+		texturefile = "gfx/leaders/PAX/SOV_pax_player_8.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_ROM_pax_player_11"
+		texturefile = "gfx/leaders/PAX/ROM_pax_player_11.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_TUR_pax_player_13"
+		texturefile = "gfx/leaders/PAX/TUR_pax_player_13.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_ENG_pax_player_14"
+		texturefile = "gfx/leaders/PAX/ENG_pax_player_14.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_ENG_pax_player_15"
+		texturefile = "gfx/leaders/PAX/ENG_pax_player_15.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_ENG_pax_player_16"
+		texturefile = "gfx/leaders/PAX/ENG_pax_player_16.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_PER_pax_player_18"
+		texturefile = "gfx/leaders/PAX/PER_pax_player_18.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_PER_pax_player_19"
+		texturefile = "gfx/leaders/PAX/PER_pax_player_19.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_ITA_pax_player_20"
+		texturefile = "gfx/leaders/PAX/ITA_pax_player_20.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_ITA_pax_player_21"
+		texturefile = "gfx/leaders/PAX/ITA_pax_player_21.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_GRE_pax_player_22"
+		texturefile = "gfx/leaders/PAX/GRE_pax_player_22.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_ENG_pax_player_23"
+		texturefile = "gfx/leaders/PAX/ENG_pax_player_23.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_ROM_pax_player_24"
+		texturefile = "gfx/leaders/PAX/ROM_pax_player_24.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_ROM_pax_player_25"
+		texturefile = "gfx/leaders/PAX/ROM_pax_player_25.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_SPR_pax_player_26"
+		texturefile = "gfx/leaders/PAX/SPR_pax_player_26.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_GRE_pax_player_27"
+		texturefile = "gfx/leaders/PAX/GRE_pax_player_27.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_TUR_pax_player_28"
+		texturefile = "gfx/leaders/PAX/TUR_pax_player_28.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_TUR_pax_player_30"
+		texturefile = "gfx/leaders/PAX/TUR_pax_player_30.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_ITA_pax_player_31"
+		texturefile = "gfx/leaders/PAX/ITA_pax_player_31.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_ITA_pax_player_32"
+		texturefile = "gfx/leaders/PAX/ITA_pax_player_32.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_MON_pax_player_33"
+		texturefile = "gfx/leaders/PAX/MON_pax_player_33.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_MON_pax_player_34"
+		texturefile = "gfx/leaders/PAX/MON_pax_player_34.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_BUL_pax_player_35"
+		texturefile = "gfx/leaders/PAX/BUL_pax_player_35.tga"
+	}
+	spriteType = {
+		name = "GFX_portrait_ROM_pax_player_36"
+		texturefile = "gfx/leaders/PAX/ROM_pax_player_36.tga"
+	}
+}

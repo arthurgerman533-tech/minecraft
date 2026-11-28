@@ -1,0 +1,1194 @@
+leader_traits = {
+	pax_award_1_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_1_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_1_3 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_1_4 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_1_5 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_1_6 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_1_7 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_2_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_2_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_3_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_3_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_3 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_4_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_4_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_4 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_5_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_5_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_5 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_6_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 2
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_6_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 2
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_6_3 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 2
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_6_4 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 2
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_6 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 2
+		attack_skill = 2
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_7_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_7_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_7 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_8_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_8_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_8_3 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_8_4 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_8_5 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_8_6 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_8_7 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_8_8 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_8_9 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_8_10 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_8 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+	defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_9_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_9_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_9 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+	logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_10_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_10_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_10_3 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_10_4 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_10_5 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_10_6 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_10 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_11_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_11_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_11 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_12_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_12_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_12 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+	planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_13_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_13_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_13 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_14_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_14_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_14 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_15_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_15_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_15_3 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_15 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_16_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_16_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_16 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_17_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_17_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_17 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_18_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_18_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = -1
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_18_3 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_18_4 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_18 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_19_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_19_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_19 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_20_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_20_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_20 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+	defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_21_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_21_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_21_3 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_21 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+	defense_skill = 1
+	planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_22_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_22_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_22 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+	logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_23_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_23_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_23 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_24_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_24_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_24 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+	logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_25_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_25_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_25 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_26_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_26_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_26 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+	defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_27_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_27_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_27_3 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_27 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_28_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_28_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_28 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+	defense_skill = 1
+	planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_29_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_29_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_29 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_30_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_30_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_30_3 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_30 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_31_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_31_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_31 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_32_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_32_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_32_3 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_32_4 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_32_5 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_32_6 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_32_7 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_32_8 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_32_9 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_32 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_33_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		defense_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_33_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_33 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_34_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = -1
+		planning_skill = -1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_34 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_35 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_36_1 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		logistics_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_36_2 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		planning_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_award_36 = {
+		type = all
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		attack_skill = 1
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_fm_mountain = {
+		type = field_marshal
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		modifier = {
+			mountain = {
+				attack = 0.1
+				defence = 0.1
+				movement = 0.05
+			}
+		}
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_fm_winter = {
+		type = field_marshal
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		modifier = {
+			winter_attrition_factor = -0.5
+		}
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_fm_desert = {
+		type = field_marshal
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		modifier = {
+			desert = {
+				attack = 0.1
+				defence = 0.1
+				movement = 0.05
+			}
+		}
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_fm_jungle = {
+		type = field_marshal
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		modifier = {
+			jungle = {
+				attack = 0.1
+				defence = 0.1
+				movement = 0.05
+			}
+		}
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_fm_swamp = {
+		type = field_marshal
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		modifier = {
+			marsh = {
+				attack = 0.1
+				defence = 0.1
+				movement = 0.05
+			}
+		}
+		new_commander_weight = { factor = 0 }
+	}
+
+	pax_fm_hills = {
+		type = field_marshal
+		trait_type = personality_trait
+		gain_xp = { always = no }
+		modifier = {
+			hills = {
+				attack = 0.1
+				defence = 0.1
+				movement = 0.05
+			}
+		}
+		new_commander_weight = { factor = 0 }
+	}
+}
