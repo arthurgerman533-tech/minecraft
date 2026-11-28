@@ -1,0 +1,1 @@
+NDefines.NMilitary.SLOWEST_SPEED = 3 -- Im kind and i allow slower units

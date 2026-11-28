@@ -1,0 +1,222 @@
+equipments = {
+
+	anti_tank_equipment = {
+		year = 1934
+
+		is_archetype = yes
+		picture = archetype_anti_tank_equipment		
+		type = { 
+			motorized
+			anti_tank
+			armor #mandatory to unlock the equipment designer
+		}
+		group_by = archetype
+		
+		is_buildable = no
+		interface_category = interface_category_land
+
+		#Misc Abilities
+		reliability = 0.8
+		maximum_speed = 4
+		#Defensive Abilities
+		defense = 4
+		#breakthrough = 0
+		hardness = 0.1
+		#armor_value = 0
+		ap_attack = 5
+		#Offensive Abilities
+		#soft_attack = 4
+		#hard_attack = 20
+		ap_attack = 10
+		#air_attack = 0
+
+		#Space taken in convoy
+		lend_lease_cost = 3
+
+		build_cost_ic = 3
+		resources = {
+			steel = 1
+		}
+	}
+
+	anti_tank_equipment_1 = {
+		year = 1936
+		module_slots = {
+			main_shell_slot = {
+				required = yes
+				allowed_module_categories = {
+					main_shell_type
+				}
+			}
+			artillery_barrel_slot = {
+				required = yes
+				allowed_module_categories = {
+					artillery_barrel_type
+				}
+			}
+			artillery_caliber_slot = {
+				required = yes
+				allowed_module_categories = {
+					cannon_small_caliber_type
+					cannon_caliber_type
+				}
+			}
+			artillery_mobility_slot = {
+				required = yes
+				allowed_module_categories = {
+					artillery_mobility_type
+				}
+			}
+			artillery_special_slot_1 = {
+				required = no
+				allowed_module_categories = {
+					artillery_special_type
+					artillery_special_armor_type
+				}
+			}
+			artillery_special_slot_2 = {
+				required = no
+				allowed_module_categories = {
+					artillery_special_type
+					artillery_special_armor_type
+				}
+			}
+		}
+				
+		default_modules = {
+			main_shell_slot = main_AP_shell
+			artillery_barrel_slot = medium_barrel
+			artillery_caliber_slot = caliber_a_37mm
+			artillery_mobility_slot = wood_wheels
+			artillery_special_slot_1 = thick_armored_plate
+			artillery_special_slot_2 = empty
+		}
+
+		ap_attack = 15
+		archetype = anti_tank_equipment
+		priority = 90
+		active = yes
+		visual_level = 0
+	}
+	
+	anti_tank_equipment_2 = {
+		year = 1940
+		module_slots = {
+			main_shell_slot = {
+				required = yes
+				allowed_module_categories = {
+					main_shell_type
+				}
+			}
+			artillery_barrel_slot = {
+				required = yes
+				allowed_module_categories = {
+					artillery_barrel_type
+				}
+			}
+			artillery_caliber_slot = {
+				required = yes
+				allowed_module_categories = {
+					cannon_small_caliber_type
+					cannon_caliber_type
+				}
+			}
+			artillery_mobility_slot = {
+				required = yes
+				allowed_module_categories = {
+					artillery_mobility_type
+				}
+			}
+			artillery_special_slot_1 = {
+				required = no
+				allowed_module_categories = {
+					artillery_special_type
+					artillery_special_armor_type
+				}
+			}
+			artillery_special_slot_2 = {
+				required = no
+				allowed_module_categories = {
+					artillery_special_type
+					artillery_special_armor_type
+				}
+			}
+		}
+				
+		default_modules = {
+			main_shell_slot = main_APCR_shell
+			artillery_barrel_slot = long_barrel
+			artillery_caliber_slot = caliber_c_75mm
+			artillery_mobility_slot = wood_wheels
+			artillery_special_slot_1 = thick_armored_plate
+			artillery_special_slot_2 = empty
+		}
+		archetype = anti_tank_equipment
+		parent = anti_tank_equipment_1
+		priority = 90
+		visual_level = 1
+		ap_attack = 30
+		build_cost_ic = 3.5
+
+	}
+	
+	anti_tank_equipment_3 = {
+		year = 1943
+		module_slots = {
+			main_shell_slot = {
+				required = yes
+				allowed_module_categories = {
+					main_shell_type
+				}
+			}
+			artillery_barrel_slot = {
+				required = yes
+				allowed_module_categories = {
+					artillery_barrel_type
+				}
+			}
+			artillery_caliber_slot = {
+				required = yes
+				allowed_module_categories = {
+					cannon_small_caliber_type
+					cannon_caliber_type
+				}
+			}
+			artillery_mobility_slot = {
+				required = yes
+				allowed_module_categories = {
+					artillery_mobility_type
+				}
+			}
+			artillery_special_slot_1 = {
+				required = no
+				allowed_module_categories = {
+					artillery_special_type
+					artillery_special_armor_type
+				}
+			}
+			artillery_special_slot_2 = {
+				required = no
+				allowed_module_categories = {
+					artillery_special_type
+					artillery_special_armor_type
+				}
+			}
+		}
+				
+		default_modules = {
+			main_shell_slot = main_HEAT_shell
+			artillery_barrel_slot = long_barrel
+			artillery_caliber_slot = caliber_d_90mm
+			artillery_mobility_slot = wood_wheels
+			artillery_special_slot_1 = thick_armored_plate
+			artillery_special_slot_2 = empty
+		}
+		archetype = anti_tank_equipment
+		parent = anti_tank_equipment_2
+		priority = 90
+		visual_level = 2
+		build_cost_ic = 4
+		ap_attack = 50
+	}
+}

@@ -1,0 +1,574 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_trait_pax_award_1_1"
+		texturefile = "gfx/interface/leader_traits/award_cd40564f.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_1_2"
+		texturefile = "gfx/interface/leader_traits/award_e77f64ff.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_1_3"
+		texturefile = "gfx/interface/leader_traits/award_fd7b64c6.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_1_4"
+		texturefile = "gfx/interface/leader_traits/award_9e4cdc56.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_1_5"
+		texturefile = "gfx/interface/leader_traits/award_7341e0ee.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_1_6"
+		texturefile = "gfx/interface/leader_traits/award_fa2be6bb.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_1_7"
+		texturefile = "gfx/interface/leader_traits/award_3d9deb95.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_1"
+		texturefile = "gfx/interface/leader_traits/award_a674629a.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_2_1"
+		texturefile = "gfx/interface/leader_traits/award_74613a58.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_2_2"
+		texturefile = "gfx/interface/leader_traits/award_55bdb33a.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_2"
+		texturefile = "gfx/interface/leader_traits/award_f590064c.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_3_1"
+		texturefile = "gfx/interface/leader_traits/award_84f3b4fb.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_3_2"
+		texturefile = "gfx/interface/leader_traits/award_81960276.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_3"
+		texturefile = "gfx/interface/leader_traits/award_f79ded3a.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_4_1"
+		texturefile = "gfx/interface/leader_traits/award_79f31514.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_4_2"
+		texturefile = "gfx/interface/leader_traits/award_abd675f8.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_4"
+		texturefile = "gfx/interface/leader_traits/award_82df5ee7.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_5_1"
+		texturefile = "gfx/interface/leader_traits/award_66d0b7eb.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_5_2"
+		texturefile = "gfx/interface/leader_traits/award_01dbe2a6.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_5"
+		texturefile = "gfx/interface/leader_traits/award_1e7395e6.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_6_1"
+		texturefile = "gfx/interface/leader_traits/award_612d9627.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_6_2"
+		texturefile = "gfx/interface/leader_traits/award_867059bf.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_6_3"
+		texturefile = "gfx/interface/leader_traits/award_da7b575e.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_6_4"
+		texturefile = "gfx/interface/leader_traits/award_f4a427ac.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_6"
+		texturefile = "gfx/interface/leader_traits/award_fb3dd383.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_7_1"
+		texturefile = "gfx/interface/leader_traits/award_63f1a001.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_7_2"
+		texturefile = "gfx/interface/leader_traits/award_8d5e8113.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_7"
+		texturefile = "gfx/interface/leader_traits/award_9f767231.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_8_1"
+		texturefile = "gfx/interface/leader_traits/award_b98d85a6.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_8_2"
+		texturefile = "gfx/interface/leader_traits/award_f59b6539.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_8_3"
+		texturefile = "gfx/interface/leader_traits/award_b433491c.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_8_4"
+		texturefile = "gfx/interface/leader_traits/award_eb84e147.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_8_5"
+		texturefile = "gfx/interface/leader_traits/award_f38c90fe.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_8_6"
+		texturefile = "gfx/interface/leader_traits/award_0a3e6b34.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_8_7"
+		texturefile = "gfx/interface/leader_traits/award_c9de9f3b.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_8_8"
+		texturefile = "gfx/interface/leader_traits/award_6584e882.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_8_9"
+		texturefile = "gfx/interface/leader_traits/award_501c4edf.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_8_10"
+		texturefile = "gfx/interface/leader_traits/award_2da213ac.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_8"
+		texturefile = "gfx/interface/leader_traits/award_9ae35010.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_9_1"
+		texturefile = "gfx/interface/leader_traits/award_1ae284fa.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_9_2"
+		texturefile = "gfx/interface/leader_traits/award_87275068.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_9"
+		texturefile = "gfx/interface/leader_traits/award_75b61b83.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_10_1"
+		texturefile = "gfx/interface/leader_traits/award_da7b575e.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_10_2"
+		texturefile = "gfx/interface/leader_traits/award_ff74dc7b.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_10_3"
+		texturefile = "gfx/interface/leader_traits/award_f8f42c9f.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_10_4"
+		texturefile = "gfx/interface/leader_traits/award_e42601a9.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_10_5"
+		texturefile = "gfx/interface/leader_traits/award_f2447de5.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_10_6"
+		texturefile = "gfx/interface/leader_traits/award_c911e8ef.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_10"
+		texturefile = "gfx/interface/leader_traits/award_f96874c8.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_11_1"
+		texturefile = "gfx/interface/leader_traits/award_d91fe06a.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_11_2"
+		texturefile = "gfx/interface/leader_traits/award_4640b66e.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_11"
+		texturefile = "gfx/interface/leader_traits/award_b9d8cf09.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_12_1"
+		texturefile = "gfx/interface/leader_traits/award_2b1ccfc8.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_12_2"
+		texturefile = "gfx/interface/leader_traits/award_08d04cb9.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_12"
+		texturefile = "gfx/interface/leader_traits/award_4af8d933.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_13_1"
+		texturefile = "gfx/interface/leader_traits/award_f8708d7e.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_13_2"
+		texturefile = "gfx/interface/leader_traits/award_6d159cf0.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_13"
+		texturefile = "gfx/interface/leader_traits/award_4648b3aa.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_14_1"
+		texturefile = "gfx/interface/leader_traits/award_7241dd6d.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_14_2"
+		texturefile = "gfx/interface/leader_traits/award_b02acf02.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_14"
+		texturefile = "gfx/interface/leader_traits/award_0b3b0304.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_15_1"
+		texturefile = "gfx/interface/leader_traits/award_25d3e226.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_15_2"
+		texturefile = "gfx/interface/leader_traits/award_f084e303.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_15_3"
+		texturefile = "gfx/interface/leader_traits/award_53a6496b.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_15"
+		texturefile = "gfx/interface/leader_traits/award_8a2b1c43.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_16_1"
+		texturefile = "gfx/interface/leader_traits/award_1af11329.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_16_2"
+		texturefile = "gfx/interface/leader_traits/award_589cf95c.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_16"
+		texturefile = "gfx/interface/leader_traits/award_85501436.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_17_1"
+		texturefile = "gfx/interface/leader_traits/award_4989c19a.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_17_2"
+		texturefile = "gfx/interface/leader_traits/award_6d01e796.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_17"
+		texturefile = "gfx/interface/leader_traits/award_e4c9ad8e.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_18_1"
+		texturefile = "gfx/interface/leader_traits/award_a473158f.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_18_2"
+		texturefile = "gfx/interface/leader_traits/award_6a0f24bb.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_18_3"
+		texturefile = "gfx/interface/leader_traits/award_31843b86.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_18_4"
+		texturefile = "gfx/interface/leader_traits/award_f2509c2c.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_18"
+		texturefile = "gfx/interface/leader_traits/award_cff2e622.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_19_1"
+		texturefile = "gfx/interface/leader_traits/award_d07dabff.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_19_2"
+		texturefile = "gfx/interface/leader_traits/award_64c64245.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_19"
+		texturefile = "gfx/interface/leader_traits/award_0cdc3f8b.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_20_1"
+		texturefile = "gfx/interface/leader_traits/award_9e265dd5.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_20_2"
+		texturefile = "gfx/interface/leader_traits/award_056379f9.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_20"
+		texturefile = "gfx/interface/leader_traits/award_91a5d246.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_21_1"
+		texturefile = "gfx/interface/leader_traits/award_fd7b64c6.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_21_2"
+		texturefile = "gfx/interface/leader_traits/award_c625d3ab.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_21_3"
+		texturefile = "gfx/interface/leader_traits/award_f1b1a4b4.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_21"
+		texturefile = "gfx/interface/leader_traits/award_f4cdc2c5.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_22_1"
+		texturefile = "gfx/interface/leader_traits/award_67abed73.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_22_2"
+		texturefile = "gfx/interface/leader_traits/award_747c5cb8.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_22"
+		texturefile = "gfx/interface/leader_traits/award_bdc7500d.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_23_1"
+		texturefile = "gfx/interface/leader_traits/award_c2be4542.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_23_2"
+		texturefile = "gfx/interface/leader_traits/award_1ec27863.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_23"
+		texturefile = "gfx/interface/leader_traits/award_d009fa89.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_24_1"
+		texturefile = "gfx/interface/leader_traits/award_76c0a5cf.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_24_2"
+		texturefile = "gfx/interface/leader_traits/award_19b550c1.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_24"
+		texturefile = "gfx/interface/leader_traits/award_4e25c5e6.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_25_1"
+		texturefile = "gfx/interface/leader_traits/award_1a53207b.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_25_2"
+		texturefile = "gfx/interface/leader_traits/award_812f00de.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_25"
+		texturefile = "gfx/interface/leader_traits/award_dced03ec.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_26_1"
+		texturefile = "gfx/interface/leader_traits/award_47a13cc7.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_26_2"
+		texturefile = "gfx/interface/leader_traits/award_2c97cac0.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_26"
+		texturefile = "gfx/interface/leader_traits/award_285a80c8.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_27_1"
+		texturefile = "gfx/interface/leader_traits/award_ae16b7d3.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_27_2"
+		texturefile = "gfx/interface/leader_traits/award_5333f3c8.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_27_3"
+		texturefile = "gfx/interface/leader_traits/award_4ff0aa4c.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_27"
+		texturefile = "gfx/interface/leader_traits/award_f0e6b7d3.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_28_1"
+		texturefile = "gfx/interface/leader_traits/award_cfb8c22d.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_28_2"
+		texturefile = "gfx/interface/leader_traits/award_52efe284.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_28"
+		texturefile = "gfx/interface/leader_traits/award_2c24c774.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_29_1"
+		texturefile = "gfx/interface/leader_traits/award_bc1941d6.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_29_2"
+		texturefile = "gfx/interface/leader_traits/award_7d362796.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_29"
+		texturefile = "gfx/interface/leader_traits/award_0f8bfcbc.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_30_1"
+		texturefile = "gfx/interface/leader_traits/award_ae16b7d3.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_30_2"
+		texturefile = "gfx/interface/leader_traits/award_ba706c2e.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_30_3"
+		texturefile = "gfx/interface/leader_traits/award_3940aa19.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_30"
+		texturefile = "gfx/interface/leader_traits/award_d1faa1ee.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_31_1"
+		texturefile = "gfx/interface/leader_traits/award_c6b60c2d.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_31_2"
+		texturefile = "gfx/interface/leader_traits/award_f7eb9dc7.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_31"
+		texturefile = "gfx/interface/leader_traits/award_89dd4f46.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_32_1"
+		texturefile = "gfx/interface/leader_traits/award_3d9deb95.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_32_2"
+		texturefile = "gfx/interface/leader_traits/award_9e4cdc56.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_32_3"
+		texturefile = "gfx/interface/leader_traits/award_2b1ccfc8.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_32_4"
+		texturefile = "gfx/interface/leader_traits/award_08d04cb9.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_32_5"
+		texturefile = "gfx/interface/leader_traits/award_4af8d933.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_32_6"
+		texturefile = "gfx/interface/leader_traits/award_c2596f25.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_32_7"
+		texturefile = "gfx/interface/leader_traits/award_c17607c0.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_32_8"
+		texturefile = "gfx/interface/leader_traits/award_f40b43f0.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_32_9"
+		texturefile = "gfx/interface/leader_traits/award_78ee136b.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_32"
+		texturefile = "gfx/interface/leader_traits/award_15207f70.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_33_1"
+		texturefile = "gfx/interface/leader_traits/award_7181c78e.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_33_2"
+		texturefile = "gfx/interface/leader_traits/award_67882578.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_33"
+		texturefile = "gfx/interface/leader_traits/award_e449c414.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_34_1"
+		texturefile = "gfx/interface/leader_traits/award_6e352aca.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_34"
+		texturefile = "gfx/interface/leader_traits/award_3d05a8e8.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_35"
+		texturefile = "gfx/interface/leader_traits/award_8e2e3eb7.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_36_1"
+		texturefile = "gfx/interface/leader_traits/award_d3866570.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_36_2"
+		texturefile = "gfx/interface/leader_traits/award_09144ee9.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_award_36"
+		texturefile = "gfx/interface/leader_traits/award_931a3561.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_fm_mountain"
+		texturefile = "gfx/interface/traits/trait_mountaineer.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_fm_winter"
+		texturefile = "gfx/interface/traits/trait_winter_specialist.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_fm_desert"
+		texturefile = "gfx/interface/traits/trait_desert_fox.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_fm_jungle"
+		texturefile = "gfx/interface/traits/trait_jungle_rat.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_fm_swamp"
+		texturefile = "gfx/interface/traits/trait_swamp_fox.dds"
+	}
+	spriteType = {
+		name = "GFX_trait_pax_fm_hills"
+		texturefile = "gfx/interface/traits/trait_hill_fighter.dds"
+	}
+}

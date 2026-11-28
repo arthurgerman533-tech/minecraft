@@ -1,0 +1,17 @@
+spriteTypes = {
+	spriteType = { name = "GFX_won_bars_gdp" texturefile = "gfx/interface/won/won_bars_gdp.dds" noOfFrames = 21 }
+	spriteType = { name = "GFX_won_bars_treasury" texturefile = "gfx/interface/won/won_bars_treasury.dds" noOfFrames = 41 }
+	spriteType = { name = "GFX_won_zero_line" texturefile = "gfx/interface/won/won_zero_line.dds" }
+	spriteType = { name = "GFX_won_conf_gauge" texturefile = "gfx/interface/won/won_conf_gauge.dds" noOfFrames = 21 }
+	spriteType = { name = "GFX_won_hitbox" texturefile = "gfx/interface/won/won_hitbox.dds" effectFile = "gfx/FX/buttonstate.lua" }
+	spriteType = { name = "GFX_won_lg_bar" texturefile = "gfx/interface/won/won_lg_bar.dds" noOfFrames = 21 }
+	spriteType = { name = "GFX_won_lg_row" texturefile = "gfx/interface/won/won_lg_row.dds" }
+	spriteType = { name = "GFX_won_lg_own" texturefile = "gfx/interface/won/won_lg_own.dds" }
+	spriteType = { name = "GFX_won_rc_line0" texturefile = "gfx/interface/won/won_rc_line0.dds" noOfFrames = 50 }
+	spriteType = { name = "GFX_won_rc_line1" texturefile = "gfx/interface/won/won_rc_line1.dds" noOfFrames = 50 }
+	spriteType = { name = "GFX_won_rc_line2" texturefile = "gfx/interface/won/won_rc_line2.dds" noOfFrames = 50 }
+	spriteType = { name = "GFX_won_rc_line3" texturefile = "gfx/interface/won/won_rc_line3.dds" noOfFrames = 50 }
+	spriteType = { name = "GFX_won_rc_line4" texturefile = "gfx/interface/won/won_rc_line4.dds" noOfFrames = 50 }
+	spriteType = { name = "GFX_won_rc_key" texturefile = "gfx/interface/won/won_rc_key.dds" noOfFrames = 6 }
+	spriteType = { name = "GFX_won_rc_grid" texturefile = "gfx/interface/won/won_rc_grid.dds" }
+}

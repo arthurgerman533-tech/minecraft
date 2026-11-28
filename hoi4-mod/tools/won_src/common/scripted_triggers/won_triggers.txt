@@ -1,0 +1,200 @@
+# Wealth of Nations - scripted triggers
+
+# Ideology groups. Anything that is not democratic, communist or fascist
+# (vanilla non-aligned and every modded ideology) uses the non-aligned systems.
+won_is_democratic = { has_government = democratic }
+won_is_communist = { has_government = communism }
+won_is_fascist = { has_government = fascism }
+won_is_nonaligned = {
+	NOT = { has_government = democratic }
+	NOT = { has_government = communism }
+	NOT = { has_government = fascism }
+}
+
+# Game rule "Economic system choice": any system is legal for human players (FREE_PLAYERS)
+# or for every country (FREE_ALL). Default: only the systems of the current ideology.
+won_systems_unlocked = {
+	OR = {
+		has_game_rule = { rule = won_system_choice option = WON_SYSTEMS_FREE_ALL }
+		AND = {
+			is_ai = no
+			has_game_rule = { rule = won_system_choice option = WON_SYSTEMS_FREE_PLAYERS }
+		}
+	}
+}
+
+# Systems that are legal for the current government.
+won_system_allowed_1 = { OR = { won_systems_unlocked = yes won_is_democratic = yes } }   # Laissez-Faire Capitalism
+won_system_allowed_2 = { OR = { won_systems_unlocked = yes won_is_democratic = yes } }   # Keynesian Mixed Economy
+won_system_allowed_3 = { OR = { won_systems_unlocked = yes won_is_democratic = yes } }   # Social Market Economy
+won_system_allowed_4 = { OR = { won_systems_unlocked = yes won_is_communist = yes } }    # Command Economy
+won_system_allowed_5 = { OR = { won_systems_unlocked = yes won_is_communist = yes } }    # Market Socialism
+won_system_allowed_6 = { OR = { won_systems_unlocked = yes won_is_communist = yes } }    # War Communism
+won_system_allowed_7 = { OR = { won_systems_unlocked = yes won_is_fascist = yes } }      # Corporatism
+won_system_allowed_8 = { OR = { won_systems_unlocked = yes won_is_fascist = yes } }      # Autarky
+won_system_allowed_9 = { OR = { won_systems_unlocked = yes won_is_fascist = yes } }      # Defence Economy
+won_system_allowed_10 = { OR = { won_systems_unlocked = yes won_is_nonaligned = yes } }  # State Capitalism
+won_system_allowed_11 = { OR = { won_systems_unlocked = yes won_is_nonaligned = yes } }  # Agrarian Economy
+won_system_allowed_12 = { OR = { won_systems_unlocked = yes won_is_nonaligned = yes } }  # Mercantilism
+
+won_current_system_allowed = {
+	OR = {
+		AND = { check_variable = { won_system = 1 } won_system_allowed_1 = yes }
+		AND = { check_variable = { won_system = 2 } won_system_allowed_2 = yes }
+		AND = { check_variable = { won_system = 3 } won_system_allowed_3 = yes }
+		AND = { check_variable = { won_system = 4 } won_system_allowed_4 = yes }
+		AND = { check_variable = { won_system = 5 } won_system_allowed_5 = yes }
+		AND = { check_variable = { won_system = 6 } won_system_allowed_6 = yes }
+		AND = { check_variable = { won_system = 7 } won_system_allowed_7 = yes }
+		AND = { check_variable = { won_system = 8 } won_system_allowed_8 = yes }
+		AND = { check_variable = { won_system = 9 } won_system_allowed_9 = yes }
+		AND = { check_variable = { won_system = 10 } won_system_allowed_10 = yes }
+		AND = { check_variable = { won_system = 11 } won_system_allowed_11 = yes }
+		AND = { check_variable = { won_system = 12 } won_system_allowed_12 = yes }
+	}
+}
+
+# Autarky refuses ordinary trade agreements.
+won_is_autarkic = { check_variable = { won_system = 8 } }
+
+# Systems that keep foreign capital out (inbound investment and company hiring).
+won_closed_to_capital = {
+	OR = {
+		check_variable = { won_system = 4 }
+		check_variable = { won_system = 6 }
+		check_variable = { won_system = 8 }
+	}
+}
+
+won_has_economy = { has_country_flag = won_ready }
+
+# THIS = target, ROOT = sender. Both must be live, at peace with each other.
+won_pair_can_deal = {
+	exists = yes
+	has_capitulated = no
+	ROOT = { has_capitulated = no }
+	NOT = { tag = ROOT }
+	NOT = { has_war_with = ROOT }
+	won_has_economy = yes
+	ROOT = { won_has_economy = yes }
+	NOT = { won_embargo_between = yes }
+}
+
+won_trade_with_root = { has_country_flag = won_trade_@ROOT }
+won_pact_with_root = { has_country_flag = won_pact_@ROOT }
+
+won_root_trade_room = {
+	ROOT = { check_variable = { won_trade_count < won_trade_max } }
+}
+won_this_trade_room = {
+	check_variable = { won_trade_count < won_trade_max }
+}
+
+won_at_war = { has_war = yes }
+
+won_in_debt_crisis = {
+	check_variable = { won_debt_ratio > 0.8 }
+}
+
+# A wealthy AI country that could plausibly invest in ROOT.
+won_investor_candidate = {
+	is_ai = yes
+	exists = yes
+	has_country_flag = won_ready
+	NOT = { has_war_with = ROOT }
+	check_variable = { won_treasury > 2 }
+	check_variable = { won_reserve_ratio > 0.08 }
+	check_variable = { won_gdp > 12 }
+	NOT = { has_opinion = { target = ROOT value < 0 } }
+	NOT = {
+		AND = { won_is_communist = yes ROOT = { won_is_fascist = yes } }
+	}
+	NOT = {
+		AND = { won_is_fascist = yes ROOT = { won_is_communist = yes } }
+	}
+}
+
+# ---------------- Arms exports: a package needs twice its size in the stockpile (we keep half).
+won_pkg_ok_1 = { has_equipment = { infantry_equipment > 2999 } }
+won_pkg_ok_2 = { has_equipment = { artillery_equipment > 499 } }
+won_pkg_ok_3 = { has_equipment = { support_equipment > 499 } }
+won_pkg_ok_4 = { has_equipment = { anti_tank_equipment > 499 } }
+won_pkg_ok_5 = { has_equipment = { anti_air_equipment > 499 } }
+won_pkg_ok_6 = { has_equipment = { motorized_equipment > 799 } }
+won_has_arms_surplus = {
+	OR = {
+		won_pkg_ok_1 = yes
+		won_pkg_ok_2 = yes
+		won_pkg_ok_3 = yes
+		won_pkg_ok_4 = yes
+		won_pkg_ok_5 = yes
+		won_pkg_ok_6 = yes
+	}
+}
+# Licences for designs we actually field.
+won_lic_ok_7 = { has_equipment = { light_tank_chassis > 0 } }
+won_lic_ok_8 = { has_equipment = { medium_tank_chassis > 0 } }
+won_lic_ok_9 = { has_equipment = { small_plane_airframe > 0 } }
+
+# THIS = would-be buyer, ROOT = the selling country.
+won_arms_buyer_candidate = {
+	is_ai = yes
+	exists = yes
+	has_country_flag = won_ready
+	has_capitulated = no
+	NOT = { has_war_with = ROOT }
+	NOT = { has_opinion = { target = ROOT value < -10 } }
+	NOT = { AND = { won_is_communist = yes ROOT = { won_is_fascist = yes } } }
+	NOT = { AND = { won_is_fascist = yes ROOT = { won_is_communist = yes } } }
+	num_of_civilian_factories > 4
+	NOT = { has_country_flag = won_sc_from_@ROOT }
+	NOT = { has_country_flag = won_sc_cancel_@ROOT }
+	NOT = { has_country_flag = aon_lost_@ROOT }
+	NOT = { won_embargo_between = yes }
+	# Another bloc's members buy from their own leader until we are a world-class exporter.
+	OR = {
+		is_in_faction = no
+		is_in_faction_with = ROOT
+		ROOT = { check_variable = { aon_tier > 3 } }
+	}
+	OR = {
+		has_war = yes
+		has_country_flag = won_trade_@ROOT
+		is_in_faction_with = ROOT
+		threat > 0.3
+	}
+}
+
+# THIS = would-be licensee, ROOT = licensor.
+won_licence_buyer_candidate = {
+	is_ai = yes
+	exists = yes
+	has_country_flag = won_ready
+	has_capitulated = no
+	NOT = { has_war_with = ROOT }
+	NOT = { has_country_flag = won_lic_from_@ROOT }
+	NOT = { has_country_flag = won_lic_req_@ROOT }
+	NOT = { won_embargo_between = yes }
+	NOT = { has_opinion = { target = ROOT value < -10 } }
+	NOT = { AND = { won_is_communist = yes ROOT = { won_is_fascist = yes } } }
+	NOT = { AND = { won_is_fascist = yes ROOT = { won_is_communist = yes } } }
+	num_of_civilian_factories > 4
+	OR = {
+		has_war = yes
+		has_country_flag = won_trade_@ROOT
+		is_in_faction_with = ROOT
+		threat > 0.3
+	}
+}
+
+# We still hold the stock for the package under discussion (won_pkg).
+won_pkg_ok_current = {
+	OR = {
+		AND = { check_variable = { won_pkg = 1 } won_pkg_ok_1 = yes }
+		AND = { check_variable = { won_pkg = 2 } won_pkg_ok_2 = yes }
+		AND = { check_variable = { won_pkg = 3 } won_pkg_ok_3 = yes }
+		AND = { check_variable = { won_pkg = 4 } won_pkg_ok_4 = yes }
+		AND = { check_variable = { won_pkg = 5 } won_pkg_ok_5 = yes }
+		AND = { check_variable = { won_pkg = 6 } won_pkg_ok_6 = yes }
+	}
+}

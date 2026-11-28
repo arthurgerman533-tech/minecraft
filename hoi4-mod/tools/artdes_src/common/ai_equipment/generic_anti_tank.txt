@@ -1,0 +1,56 @@
+generic_anti_tank = {
+	category = land
+
+	roles = {
+		anti_tank
+	}
+
+	priority = {
+		factor = 500
+	}
+
+	anti_tank_default = {
+		priority = {
+			base = 5
+		}
+		target_variant = {
+			match_value = 500
+			type = anti_tank_equipment_1
+			modules = {
+				main_shell_slot = main_AP_shell
+				artillery_barrel_slot = medium_barrel
+				artillery_caliber_slot = caliber_25mm
+				artillery_mobility_slot = tires_wheels
+				artillery_special_slot_1 = smoke_shells
+				artillery_special_slot_2 = empty
+			}
+		}
+
+		allowed_modules = {
+			main_HE_shell
+			main_AP_shell
+			main_APCR_shell
+			main_APHE_shell
+			main_HEAT_shell
+			short_barrel
+			medium_barrel
+			long_barrel
+			caliber_25mm
+			caliber_a_37mm
+			caliber_b_50mm
+			caliber_c_75mm
+			caliber_d_90mm
+			caliber_e_120mm
+			caliber_f_150mm
+			ccaliber_g_180mm
+			smoke_shells
+			gas_shells
+			thick_armored_plate
+			wide_armored_plate
+			wood_wheels
+			iron_wheels
+			tires_wheels
+			multi_tired_wheels
+		}
+	}
+}

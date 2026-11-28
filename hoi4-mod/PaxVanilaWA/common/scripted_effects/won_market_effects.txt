@@ -1,0 +1,615 @@
+# Wealth of Nations - International Market module (merged from Arsenal of Nations)
+###########################################
+# Arsenal of Nations - scripted effects
+#
+# Country variables
+#   aon_exp_n / aon_imp_n         contracts selling / buying (last weekly count)
+#   aon_exp_w / aon_imp_w         trade weight of those contracts this week
+#   aon_exp_flow / aon_imp_flow   rolling trade flow (drives the economic modifier)
+#   aon_rep                       Market Standing (drives the standing spirit)
+#   aon_tier                      0-5 standing tier
+#   cash from market sales goes straight to the Wealth of Nations treasury
+#   aon_insight                   Technical Insight (spent in decisions)
+#   aon_m_*                       values of the dynamic modifier
+###########################################
+
+#------------------------------------------
+# Weekly ledger, called from on_weekly
+#------------------------------------------
+aon_weekly_update = {
+	# Human players every week; AI countries every other week with doubled amounts (half the cost).
+	# Each AI starts on a random week so the load is spread evenly.
+	set_temp_variable = { aon_wk = 1 }
+	if = {
+		limit = { is_ai = yes }
+		if = {
+			limit = { NOT = { has_variable = aon_wk_phase } }
+			set_variable_to_random = { var = aon_wk_phase min = 0 max = 1 }
+			round_variable = aon_wk_phase
+		}
+		add_to_variable = { aon_wk_phase = 1 }
+		if = {
+			limit = { check_variable = { aon_wk_phase > 1 } }
+			set_variable = { aon_wk_phase = 0 }
+		}
+		set_temp_variable = { aon_wk = 0 }
+		if = {
+			limit = { check_variable = { aon_wk_phase = 0 } }
+			set_temp_variable = { aon_wk = 2 }
+		}
+	}
+	if = {
+		limit = { exists = yes check_variable = { aon_wk > 0 } }
+
+		aon_enforce_overlord_supply = yes
+
+		set_temp_variable = { aon_t_exp_n = 0 }
+		set_temp_variable = { aon_t_exp_w = 0 }
+		set_temp_variable = { aon_t_imp_n = 0 }
+		set_temp_variable = { aon_t_imp_w = 0 }
+
+		# Contracts we sell: tanks and aircraft weigh 3, guns and vehicles 1.5, the rest 1
+		every_purchase_contract = {
+			limit = { seller = ROOT }
+			add_to_temp_variable = { aon_t_exp_n = 1 }
+			add_to_temp_variable = { aon_t_exp_w = 1 }
+			if = {
+				limit = { aon_contract_heavy_trigger = yes }
+				add_to_temp_variable = { aon_t_exp_w = 2 }
+			}
+			else_if = {
+				limit = { aon_contract_medium_trigger = yes }
+				add_to_temp_variable = { aon_t_exp_w = 0.5 }
+			}
+		}
+
+		# Contracts we buy: only the first four count towards the weight
+		every_purchase_contract = {
+			limit = { buyer = ROOT }
+			add_to_temp_variable = { aon_t_imp_n = 1 }
+			if = {
+				limit = { check_variable = { aon_t_imp_n < 5 } }
+				add_to_temp_variable = { aon_t_imp_w = 1 }
+				if = {
+					limit = { aon_contract_heavy_trigger = yes }
+					add_to_temp_variable = { aon_t_imp_w = 0.5 }
+				}
+			}
+			if = {
+				limit = { aon_contract_small_arms_trigger = yes }
+				ROOT = { set_country_flag = { flag = aon_imported_small_arms days = 180 value = 1 } }
+			}
+			if = {
+				limit = { aon_contract_artillery_trigger = yes }
+				ROOT = { set_country_flag = { flag = aon_imported_artillery days = 180 value = 1 } }
+			}
+			if = {
+				limit = { aon_contract_armour_trigger = yes }
+				ROOT = { set_country_flag = { flag = aon_imported_armour days = 180 value = 1 } }
+			}
+			if = {
+				limit = { aon_contract_aircraft_trigger = yes }
+				ROOT = { set_country_flag = { flag = aon_imported_aircraft days = 180 value = 1 } }
+			}
+		}
+
+		clamp_temp_variable = { var = aon_t_exp_w min = 0 max = 30 }
+		clamp_temp_variable = { var = aon_t_imp_w min = 0 max = 6 }
+
+		set_variable = { aon_exp_n = aon_t_exp_n }
+		set_variable = { aon_imp_n = aon_t_imp_n }
+		set_variable = { aon_exp_w = aon_t_exp_w }
+		set_variable = { aon_imp_w = aon_t_imp_w }
+
+		# Rolling trade flows
+		multiply_variable = { aon_exp_flow = 0.85 }
+		if = { limit = { check_variable = { aon_wk = 2 } } multiply_variable = { aon_exp_flow = 0.85 } }
+		set_temp_variable = { aon_t = aon_t_exp_w }
+		multiply_temp_variable = { aon_t = 0.15 }
+		if = { limit = { check_variable = { aon_wk = 2 } } multiply_temp_variable = { aon_t = 1.85 } }
+		add_to_variable = { aon_exp_flow = aon_t }
+		if = {
+			limit = { check_variable = { aon_exp_flow < 0.05 } }
+			set_variable = { aon_exp_flow = 0 }
+		}
+
+		multiply_variable = { aon_imp_flow = 0.85 }
+		if = { limit = { check_variable = { aon_wk = 2 } } multiply_variable = { aon_imp_flow = 0.85 } }
+		set_temp_variable = { aon_t = aon_t_imp_w }
+		multiply_temp_variable = { aon_t = 0.15 }
+		if = { limit = { check_variable = { aon_wk = 2 } } multiply_temp_variable = { aon_t = 1.85 } }
+		add_to_variable = { aon_imp_flow = aon_t }
+		if = {
+			limit = { check_variable = { aon_imp_flow < 0.05 } }
+			set_variable = { aon_imp_flow = 0 }
+		}
+
+		# Market Standing grows with every delivery and fades slowly without exports
+		if = {
+			limit = { check_variable = { aon_t_exp_n > 0 } }
+			set_temp_variable = { aon_t = aon_t_exp_w }
+			if = {
+				limit = { has_country_flag = aon_exhibition_boost }
+				multiply_temp_variable = { aon_t = 1.5 }
+			}
+			multiply_temp_variable = { aon_t = aon_wk }
+			add_to_variable = { aon_rep = aon_t }
+		}
+		else = {
+			multiply_variable = { aon_rep = 0.99 }
+			if = { limit = { check_variable = { aon_wk = 2 } } multiply_variable = { aon_rep = 0.99 } }
+		}
+		clamp_variable = { var = aon_rep min = 0 max = 5000 }
+
+		# Export Revenue: +5% per standing tier, +25% under export credit guarantees
+		set_temp_variable = { aon_t = aon_tier }
+		multiply_temp_variable = { aon_t = 0.05 }
+		add_to_temp_variable = { aon_t = 1 }
+		if = {
+			limit = { has_idea = aon_export_credit_guarantees }
+			multiply_temp_variable = { aon_t = 1.25 }
+		}
+		set_temp_variable = { aon_t2 = aon_t_exp_w }
+		multiply_temp_variable = { aon_t2 = aon_t }
+		set_variable = { aon_earn_rate = aon_t2 }
+		# Wealth of Nations: market sales pay the treasury in cash (0.002 bn per point of weighted trade)
+		if = {
+			limit = {
+				has_country_flag = won_ready
+				check_variable = { aon_t2 > 0 }
+			}
+			set_temp_variable = { won_spend = aon_t2 }
+			multiply_temp_variable = { won_spend = 0.002 }
+			multiply_temp_variable = { won_spend = aon_wk }
+			add_to_variable = { won_mkt_acc = won_spend }
+			won_arms_income = yes
+		}
+
+		# Technical Insight from imports
+		set_temp_variable = { aon_t = aon_t_imp_w }
+		multiply_temp_variable = { aon_t = aon_wk }
+		add_to_variable = { aon_insight = aon_t }
+		clamp_variable = { var = aon_insight min = 0 max = 400 }
+
+		aon_update_tier = yes
+		aon_refresh_modifiers = yes
+		aon_count_ai_clients = yes
+		aon_count_supplied_subjects = yes
+
+		add_to_variable = { aon_ui_dirty = 1 }
+	}
+}
+
+#------------------------------------------
+# Standing tiers
+#------------------------------------------
+aon_update_tier = {
+	set_temp_variable = { aon_t_tier = 0 }
+	if = { limit = { check_variable = { aon_rep > 39.99 } } set_temp_variable = { aon_t_tier = 1 } }
+	if = { limit = { check_variable = { aon_rep > 119.99 } } set_temp_variable = { aon_t_tier = 2 } }
+	if = { limit = { check_variable = { aon_rep > 299.99 } } set_temp_variable = { aon_t_tier = 3 } }
+	if = { limit = { check_variable = { aon_rep > 599.99 } } set_temp_variable = { aon_t_tier = 4 } }
+	if = { limit = { check_variable = { aon_rep > 999.99 } } set_temp_variable = { aon_t_tier = 5 } }
+
+	if = {
+		limit = {
+			check_variable = { var = aon_t_tier value = aon_tier compare = greater_than }
+		}
+		set_variable = { aon_tier = aon_t_tier }
+		aon_apply_tier_idea = yes
+		aon_announce_tier = yes
+	}
+	else = {
+		# Demotion only below 75% of the tier's threshold, so standing does not flicker
+		set_temp_variable = { aon_t_demote = 0 }
+		if = {
+			limit = { check_variable = { aon_tier = 5 } check_variable = { aon_rep < 750 } }
+			set_temp_variable = { aon_t_demote = 1 }
+		}
+		else_if = {
+			limit = { check_variable = { aon_tier = 4 } check_variable = { aon_rep < 450 } }
+			set_temp_variable = { aon_t_demote = 1 }
+		}
+		else_if = {
+			limit = { check_variable = { aon_tier = 3 } check_variable = { aon_rep < 225 } }
+			set_temp_variable = { aon_t_demote = 1 }
+		}
+		else_if = {
+			limit = { check_variable = { aon_tier = 2 } check_variable = { aon_rep < 90 } }
+			set_temp_variable = { aon_t_demote = 1 }
+		}
+		else_if = {
+			limit = { check_variable = { aon_tier = 1 } check_variable = { aon_rep < 30 } }
+			set_temp_variable = { aon_t_demote = 1 }
+		}
+		if = {
+			limit = { check_variable = { aon_t_demote = 1 } }
+			subtract_from_variable = { aon_tier = 1 }
+			aon_apply_tier_idea = yes
+			country_event = { id = aon.9 }
+		}
+	}
+
+	if = { limit = { check_variable = { aon_tier = 0 } } set_variable = { aon_rep_next = 40 } }
+	if = { limit = { check_variable = { aon_tier = 1 } } set_variable = { aon_rep_next = 120 } }
+	if = { limit = { check_variable = { aon_tier = 2 } } set_variable = { aon_rep_next = 300 } }
+	if = { limit = { check_variable = { aon_tier = 3 } } set_variable = { aon_rep_next = 600 } }
+	if = { limit = { check_variable = { aon_tier = 4 } } set_variable = { aon_rep_next = 1000 } }
+	if = { limit = { check_variable = { aon_tier = 5 } } set_variable = { aon_rep_next = 1000 } }
+}
+
+aon_apply_tier_idea = {
+	if = { limit = { has_idea = aon_standing_1 } remove_ideas = aon_standing_1 }
+	if = { limit = { has_idea = aon_standing_2 } remove_ideas = aon_standing_2 }
+	if = { limit = { has_idea = aon_standing_3 } remove_ideas = aon_standing_3 }
+	if = { limit = { has_idea = aon_standing_4 } remove_ideas = aon_standing_4 }
+	if = { limit = { has_idea = aon_standing_5 } remove_ideas = aon_standing_5 }
+	if = { limit = { check_variable = { aon_tier = 1 } } add_ideas = aon_standing_1 }
+	if = { limit = { check_variable = { aon_tier = 2 } } add_ideas = aon_standing_2 }
+	if = { limit = { check_variable = { aon_tier = 3 } } add_ideas = aon_standing_3 }
+	if = { limit = { check_variable = { aon_tier = 4 } } add_ideas = aon_standing_4 }
+	if = { limit = { check_variable = { aon_tier = 5 } } add_ideas = aon_standing_5 }
+}
+
+# Each tier is announced once per country; the top tier is world news
+aon_announce_tier = {
+	if = {
+		limit = { check_variable = { aon_tier = 1 } NOT = { has_country_flag = aon_announced_1 } }
+		set_country_flag = aon_announced_1
+		country_event = { id = aon.1 }
+	}
+	else_if = {
+		limit = { check_variable = { aon_tier = 2 } NOT = { has_country_flag = aon_announced_2 } }
+		set_country_flag = aon_announced_2
+		country_event = { id = aon.2 }
+	}
+	else_if = {
+		limit = { check_variable = { aon_tier = 3 } NOT = { has_country_flag = aon_announced_3 } }
+		set_country_flag = aon_announced_3
+		country_event = { id = aon.3 }
+	}
+	else_if = {
+		limit = { check_variable = { aon_tier = 4 } NOT = { has_country_flag = aon_announced_4 } }
+		set_country_flag = aon_announced_4
+		country_event = { id = aon.4 }
+	}
+	else_if = {
+		limit = { check_variable = { aon_tier = 5 } NOT = { has_country_flag = aon_announced_5 } }
+		set_country_flag = aon_announced_5
+		country_event = { id = aon.5 }
+		every_other_country = {
+			limit = { is_ai = no }
+			news_event = { id = aon.6 hours = 6 }
+		}
+	}
+}
+
+#------------------------------------------
+# Economic modifier
+#   exports (full at a flow of 20): output, consumer goods, construction, efficiency, research
+#   imports (full at a flow of 4): efficiency, efficiency cap, research, licence production
+#------------------------------------------
+aon_refresh_modifiers = {
+	set_temp_variable = { aon_f = aon_exp_flow }
+	divide_temp_variable = { aon_f = 20 }
+	clamp_temp_variable = { var = aon_f min = 0 max = 1 }
+	set_temp_variable = { aon_g = aon_imp_flow }
+	divide_temp_variable = { aon_g = 4 }
+	clamp_temp_variable = { var = aon_g min = 0 max = 1 }
+
+	set_variable = { aon_m_output = aon_f }
+	multiply_variable = { aon_m_output = 0.08 }
+
+	set_variable = { aon_m_cg = aon_f }
+	multiply_variable = { aon_m_cg = -0.04 }
+
+	set_variable = { aon_m_build = aon_f }
+	multiply_variable = { aon_m_build = 0.10 }
+
+	set_variable = { aon_m_eff = aon_f }
+	multiply_variable = { aon_m_eff = 0.10 }
+	set_temp_variable = { aon_t = aon_g }
+	multiply_temp_variable = { aon_t = 0.05 }
+	add_to_variable = { aon_m_eff = aon_t }
+
+	set_variable = { aon_m_maxeff = aon_g }
+	multiply_variable = { aon_m_maxeff = 0.03 }
+
+	set_variable = { aon_m_research = aon_f }
+	multiply_variable = { aon_m_research = 0.03 }
+	set_temp_variable = { aon_t = aon_g }
+	multiply_temp_variable = { aon_t = 0.02 }
+	add_to_variable = { aon_m_research = aon_t }
+
+	set_variable = { aon_m_license = aon_g }
+	multiply_variable = { aon_m_license = 0.15 }
+
+	# Wealth of Nations: these values are added to the National Economy spirit by won_recalc_modifiers.
+}
+
+#------------------------------------------
+# Office effects
+#------------------------------------------
+aon_hold_exhibition_effect = {
+	custom_effect_tooltip = aon_gain_rep_30_tt
+	custom_effect_tooltip = aon_exhibition_boost_tt
+	hidden_effect = {
+		add_to_variable = { aon_rep = 30 }
+		set_country_flag = { flag = aon_exhibition_boost days = 180 value = 1 }
+		set_country_flag = { flag = won_arms_fair days = 90 }
+		clr_country_flag = won_arms_order_cd
+	}
+	custom_effect_tooltip = aon_exhibition_opinion_tt
+	hidden_effect = {
+		every_other_country = {
+			limit = {
+				has_market_access_with = ROOT
+				NOT = { has_war_with = ROOT }
+			}
+			add_opinion_modifier = { target = ROOT modifier = aon_arms_exhibition }
+		}
+		add_to_variable = { aon_ui_dirty = 1 }
+	}
+}
+
+aon_export_credit_effect = {
+	add_timed_idea = { idea = aon_export_credit_guarantees days = 180 }
+	set_country_flag = { flag = won_export_credit days = 180 }
+	custom_effect_tooltip = aon_export_credit_ai_tt
+	hidden_effect = {
+		clear_array = aon_credit_partners
+		every_other_country = {
+			limit = {
+				is_ai = yes
+				has_market_access_with = ROOT
+				NOT = { has_war_with = ROOT }
+			}
+			add_ai_strategy = { type = equipment_market_trade_desire id = ROOT value = 50 }
+			ROOT = { add_to_array = { aon_credit_partners = PREV } }
+		}
+		country_event = { id = aon.11 days = 180 }
+	}
+}
+
+#------------------------------------------
+# Monthly flavour events
+#------------------------------------------
+aon_monthly_flavour = {
+	if = {
+		limit = {
+			exists = yes
+			has_country_flag = won_ready
+			NOT = { has_country_flag = aon_flavour_cooldown }
+			NOT = { has_country_flag = won_event_cd }
+			OR = {
+				check_variable = { aon_exp_n > 0 }
+				check_variable = { aon_imp_n > 0 }
+			}
+		}
+		random_list = {
+			8 = { aon_fire_flavour_event = yes }
+			92 = { }
+		}
+	}
+}
+
+aon_fire_flavour_event = {
+	set_country_flag = { flag = aon_flavour_cooldown days = 150 value = 1 }
+	set_country_flag = { flag = won_event_cd days = 25 }
+	random_list = {
+		# Seller events
+		10 = {
+			modifier = { factor = 0 check_variable = { aon_exp_n < 1 } }
+			random_other_country = {
+				limit = { any_purchase_contract = { seller = ROOT } }
+				ROOT = { set_variable = { aon_partner = PREV } country_event = { id = aon.30 days = 1 } }
+			}
+		}
+		8 = {
+			modifier = { factor = 0 check_variable = { aon_exp_n < 1 } }
+			country_event = { id = aon.31 days = 1 }
+		}
+		8 = {
+			modifier = { factor = 0 check_variable = { aon_exp_n < 1 } }
+			random_other_country = {
+				limit = { any_purchase_contract = { seller = ROOT } }
+				ROOT = { set_variable = { aon_partner = PREV } country_event = { id = aon.32 days = 1 } }
+			}
+		}
+		10 = {
+			modifier = { factor = 0 check_variable = { aon_exp_n < 1 } }
+			random_other_country = {
+				limit = { any_purchase_contract = { seller = ROOT } }
+				ROOT = { set_variable = { aon_partner = PREV } country_event = { id = aon.33 days = 1 } }
+			}
+		}
+		6 = {
+			modifier = { factor = 0 check_variable = { aon_exp_n < 1 } }
+			modifier = { factor = 0 NOT = { has_government = democratic } }
+			country_event = { id = aon.34 days = 1 }
+		}
+		# Buyer events
+		10 = {
+			modifier = { factor = 0 check_variable = { aon_imp_n < 1 } }
+			random_other_country = {
+				limit = { any_purchase_contract = { buyer = ROOT } }
+				ROOT = { set_variable = { aon_partner = PREV } country_event = { id = aon.40 days = 1 } }
+			}
+		}
+		8 = {
+			modifier = { factor = 0 check_variable = { aon_imp_n < 1 } }
+			random_other_country = {
+				limit = { any_purchase_contract = { buyer = ROOT } }
+				ROOT = { set_variable = { aon_partner = PREV } country_event = { id = aon.41 days = 1 } }
+			}
+		}
+		8 = {
+			modifier = { factor = 0 check_variable = { aon_imp_n < 1 } }
+			random_other_country = {
+				limit = { any_purchase_contract = { buyer = ROOT } }
+				ROOT = { set_variable = { aon_partner = PREV } country_event = { id = aon.42 days = 1 } }
+			}
+		}
+	}
+}
+
+#------------------------------------------
+# AI willingness to buy from human players (monthly, AI countries)
+#   aon_pref_seller_1..3  players this AI prefers to buy from (read by common/ai_strategy/aon_ai_market.txt)
+#   aon_desire_given      players this AI has been given a trade desire towards
+#------------------------------------------
+aon_ai_market_preferences = {
+	if = {
+		limit = { exists = yes is_ai = yes }
+
+		clear_variable = aon_pref_seller_1
+		clear_variable = aon_pref_seller_2
+		clear_variable = aon_pref_seller_3
+		set_temp_variable = { aon_slot = 0 }
+
+		# Subjects of a human player buy only from their overlord
+		clear_variable = aon_overlord_seller
+		if = {
+			limit = {
+				is_subject = yes
+				OVERLORD = { is_ai = no }
+			}
+			OVERLORD = {
+				ROOT = { set_variable = { aon_overlord_seller = PREV } }
+				if = {
+					limit = { NOT = { has_market_access_with = ROOT } }
+					give_market_access = ROOT
+				}
+			}
+		}
+
+		# Bloc loyalty: an AI faction member buys from its AI faction leader first
+		clear_variable = aon_patron
+		if = {
+			limit = { is_in_faction = yes is_faction_leader = no }
+			random_other_country = {
+				limit = { is_ai = yes is_faction_leader = yes is_in_faction_with = ROOT }
+				ROOT = { set_variable = { aon_patron = PREV } }
+			}
+		}
+
+		# Human exporters: only the customers on their list (aon_pick_clients, capped by Market Standing).
+		# global.won_humans is rebuilt monthly by the World Economic League, so this never scans the world.
+		for_each_scope_loop = {
+			array = global.won_humans
+			if = {
+			limit = {
+				exists = yes
+				is_ai = no
+				is_in_array = { array = aon_clients value = ROOT }
+				NOT = { has_war_with = ROOT }
+			}
+			add_to_temp_variable = { aon_slot = 1 }
+			if = {
+				limit = { check_variable = { aon_slot = 1 } }
+				ROOT = { set_variable = { aon_pref_seller_1 = PREV } }
+			}
+			else_if = {
+				limit = { check_variable = { aon_slot = 2 } }
+				ROOT = { set_variable = { aon_pref_seller_2 = PREV } }
+			}
+			else_if = {
+				limit = { check_variable = { aon_slot = 3 } }
+				ROOT = { set_variable = { aon_pref_seller_3 = PREV } }
+			}
+
+			# Seek market access and accept trade with the player
+			if = {
+				limit = { ROOT = { NOT = { is_in_array = { array = aon_desire_given value = PREV } } } }
+				ROOT = {
+					add_ai_strategy = { type = equipment_market_trade_desire id = PREV value = 60 }
+					add_to_array = { aon_desire_given = PREV }
+				}
+			}
+			}
+		}
+
+		# Customers who are buying from a human player trust them as a supplier
+		for_each_scope_loop = {
+			array = global.won_humans
+			if = {
+				limit = {
+					exists = yes
+					is_ai = no
+					ROOT = { any_purchase_contract = { seller = PREV } }
+				}
+				ROOT = {
+					remove_opinion_modifier = { target = PREV modifier = aon_trusted_supplier }
+					add_opinion_modifier = { target = PREV modifier = aon_trusted_supplier }
+				}
+			}
+		}
+
+		# Withdraw the trade desire from players who no longer qualify
+		for_each_scope_loop = {
+			array = aon_desire_given
+			if = {
+				limit = {
+					OR = {
+						exists = no
+						is_ai = yes
+						has_war_with = ROOT
+						NOT = { is_in_array = { array = aon_clients value = ROOT } }
+					}
+				}
+				ROOT = {
+					add_ai_strategy = { type = equipment_market_trade_desire id = PREV value = -60 }
+					remove_from_array = { aon_desire_given = PREV }
+				}
+			}
+		}
+	}
+}
+
+# Player scope (weekly): how many AI nations currently prefer us as a supplier
+aon_count_ai_clients = {
+	# Customers on our list (aon_pick_clients)
+	set_variable = { aon_ai_clients = aon_client_n }
+}
+
+# AI subject of a human player (weekly): contracts with any seller other than
+# the overlord are cancelled before their first delivery (deliveries every 30 days)
+aon_enforce_overlord_supply = {
+	if = {
+		limit = {
+			is_ai = yes
+			has_variable = aon_overlord_seller
+			is_subject = yes
+			any_purchase_contract = { buyer = ROOT }
+		}
+		every_other_country = {
+			limit = {
+				NOT = { ROOT = { is_subject_of = PREV } }
+				any_purchase_contract = { buyer = ROOT }
+			}
+			every_purchase_contract = {
+				limit = {
+					seller = PREV
+					buyer = ROOT
+				}
+				cancel_purchase_contract = yes
+			}
+		}
+	}
+}
+
+# Player scope (weekly): subjects that buy only from us
+aon_count_supplied_subjects = {
+	set_temp_variable = { aon_t_subjects = 0 }
+	if = {
+		limit = { is_ai = no }
+		every_other_country = {
+			limit = {
+				is_ai = yes
+				is_subject_of = ROOT
+			}
+			add_to_temp_variable = { aon_t_subjects = 1 }
+		}
+	}
+	set_variable = { aon_supplied_subjects = aon_t_subjects }
+}

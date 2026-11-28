@@ -1,0 +1,1098 @@
+characters = {
+	ITA_pax_romul = {
+		name = ITA_pax_romul
+		portraits = { civilian = { large = GFX_portrait_ITA_pax_romul } }
+		country_leader = {
+			ideology = conservatism
+			desc = ITA_pax_romul_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	SPR_pax_hannon = {
+		name = SPR_pax_hannon
+		portraits = { civilian = { large = GFX_portrait_SPR_pax_hannon } }
+		country_leader = {
+			ideology = oligarchism
+			desc = SPR_pax_hannon_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	GRE_pax_pericles = {
+		name = GRE_pax_pericles
+		portraits = { civilian = { large = GFX_portrait_GRE_pax_pericles } }
+		country_leader = {
+			ideology = liberalism
+			desc = GRE_pax_pericles_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	FRA_pax_ambiorix = {
+		name = FRA_pax_ambiorix
+		portraits = { civilian = { large = GFX_portrait_FRA_pax_ambiorix } }
+		country_leader = {
+			ideology = conservatism
+			desc = FRA_pax_ambiorix_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	ENG_pax_elinor = {
+		name = ENG_pax_elinor
+		portraits = { civilian = { large = GFX_portrait_ENG_pax_elinor } }
+		country_leader = {
+			ideology = liberalism
+			desc = ENG_pax_elinor_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	GER_pax_arminius = {
+		name = GER_pax_arminius
+		portraits = { civilian = { large = GFX_portrait_GER_pax_arminius } }
+		country_leader = {
+			ideology = fascism_ideology
+			desc = GER_pax_arminius_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	SOV_pax_vseslav = {
+		name = SOV_pax_vseslav
+		portraits = { civilian = { large = GFX_portrait_SOV_pax_vseslav } }
+		country_leader = {
+			ideology = despotism
+			desc = SOV_pax_vseslav_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	ROM_pax_decebal = {
+		name = ROM_pax_decebal
+		portraits = { civilian = { large = GFX_portrait_ROM_pax_decebal } }
+		country_leader = {
+			ideology = despotism
+			desc = ROM_pax_decebal_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	TUR_pax_tengiz = {
+		name = TUR_pax_tengiz
+		portraits = { civilian = { large = GFX_portrait_TUR_pax_tengiz } }
+		country_leader = {
+			ideology = despotism
+			desc = TUR_pax_tengiz_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	PER_pax_idanthyrsus = {
+		name = PER_pax_idanthyrsus
+		portraits = { civilian = { large = GFX_portrait_PER_pax_idanthyrsus } }
+		country_leader = {
+			ideology = despotism
+			desc = PER_pax_idanthyrsus_desc
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+
+	ITA_pax_scientist_1 = {
+		name = ITA_pax_scientist_1
+		portraits = { civilian = { large = GFX_portrait_ITA_pax_romul } }
+		scientist = {
+			traits = { scientist_trait_nuclear_specialist scientist_trait_brilliant_theorist }
+			skills = { specialization_nuclear = 3 }
+		}
+	}
+
+	ITA_pax_scientist_2 = {
+		name = ITA_pax_scientist_2
+		portraits = { civilian = { large = GFX_portrait_ITA_pax_romul } }
+		scientist = {
+			traits = { scientist_trait_bright }
+			skills = { specialization_land = 2 }
+		}
+	}
+
+	ITA_pax_scientist_3 = {
+		name = ITA_pax_scientist_3
+		portraits = { civilian = { large = GFX_portrait_ITA_pax_romul } }
+		scientist = {
+			traits = { scientist_trait_bright scientist_trait_brilliant_theorist }
+			skills = { specialization_land = 3 }
+		}
+	}
+
+	SPR_pax_scientist_1 = {
+		name = SPR_pax_scientist_1
+		portraits = { civilian = { large = GFX_portrait_SPR_pax_hannon } }
+		scientist = {
+			traits = { scientist_trait_bright }
+			skills = { specialization_naval = 3 }
+		}
+	}
+
+	SPR_pax_scientist_2 = {
+		name = SPR_pax_scientist_2
+		portraits = { civilian = { large = GFX_portrait_SPR_pax_hannon } }
+		scientist = {
+			traits = { scientist_trait_bright }
+			skills = { specialization_land = 2 }
+		}
+	}
+
+	GRE_pax_scientist_1 = {
+		name = GRE_pax_scientist_1
+		portraits = { civilian = { large = GFX_portrait_GRE_pax_pericles } }
+		scientist = {
+			traits = { scientist_trait_brilliant_theorist }
+			skills = { specialization_naval = 3 }
+		}
+	}
+
+	GRE_pax_scientist_2 = {
+		name = GRE_pax_scientist_2
+		portraits = { civilian = { large = GFX_portrait_GRE_pax_pericles } }
+		scientist = {
+			traits = { scientist_trait_nuclear_specialist }
+			skills = { specialization_nuclear = 2 }
+		}
+	}
+
+	FRA_pax_scientist_1 = {
+		name = FRA_pax_scientist_1
+		portraits = { civilian = { large = GFX_portrait_FRA_pax_ambiorix } }
+		scientist = {
+			traits = { scientist_trait_bright }
+			skills = { specialization_land = 3 }
+		}
+	}
+
+	FRA_pax_scientist_2 = {
+		name = FRA_pax_scientist_2
+		portraits = { civilian = { large = GFX_portrait_FRA_pax_ambiorix } }
+		scientist = {
+			traits = { scientist_trait_bright }
+			skills = { specialization_air = 2 }
+		}
+	}
+
+	ENG_pax_scientist_1 = {
+		name = ENG_pax_scientist_1
+		portraits = { civilian = { large = GFX_portrait_ENG_pax_elinor } }
+		scientist = {
+			traits = { scientist_trait_brilliant_theorist }
+			skills = { specialization_naval = 3 }
+		}
+	}
+
+	ENG_pax_scientist_2 = {
+		name = ENG_pax_scientist_2
+		portraits = { civilian = { large = GFX_portrait_ENG_pax_elinor } }
+		scientist = {
+			traits = { scientist_trait_bright }
+			skills = { specialization_air = 2 }
+		}
+	}
+
+	GER_pax_scientist_1 = {
+		name = GER_pax_scientist_1
+		portraits = { civilian = { large = GFX_portrait_GER_pax_arminius } }
+		scientist = {
+			traits = { scientist_trait_bright }
+			skills = { specialization_land = 3 }
+		}
+	}
+
+	GER_pax_scientist_2 = {
+		name = GER_pax_scientist_2
+		portraits = { civilian = { large = GFX_portrait_GER_pax_arminius } }
+		scientist = {
+			traits = { scientist_trait_nuclear_specialist }
+			skills = { specialization_nuclear = 2 }
+		}
+	}
+
+	SOV_pax_scientist_1 = {
+		name = SOV_pax_scientist_1
+		portraits = { civilian = { large = GFX_portrait_SOV_pax_vseslav } }
+		scientist = {
+			traits = { scientist_trait_rocketry_specialist scientist_trait_bright }
+			skills = { specialization_air = 3 }
+		}
+	}
+
+	SOV_pax_scientist_2 = {
+		name = SOV_pax_scientist_2
+		portraits = { civilian = { large = GFX_portrait_SOV_pax_vseslav } }
+		scientist = {
+			traits = { scientist_trait_nuclear_specialist }
+			skills = { specialization_nuclear = 2 }
+		}
+	}
+
+	ROM_pax_scientist_1 = {
+		name = ROM_pax_scientist_1
+		portraits = { civilian = { large = GFX_portrait_ROM_pax_decebal } }
+		scientist = {
+			traits = { scientist_trait_bright }
+			skills = { specialization_land = 3 }
+		}
+	}
+
+	ROM_pax_scientist_2 = {
+		name = ROM_pax_scientist_2
+		portraits = { civilian = { large = GFX_portrait_ROM_pax_decebal } }
+		scientist = {
+			traits = { scientist_trait_bright }
+			skills = { specialization_air = 2 }
+		}
+	}
+
+	TUR_pax_scientist_1 = {
+		name = TUR_pax_scientist_1
+		portraits = { civilian = { large = GFX_portrait_TUR_pax_tengiz } }
+		scientist = {
+			traits = { scientist_trait_bright }
+			skills = { specialization_land = 3 }
+		}
+	}
+
+	TUR_pax_scientist_2 = {
+		name = TUR_pax_scientist_2
+		portraits = { civilian = { large = GFX_portrait_TUR_pax_tengiz } }
+		scientist = {
+			traits = { scientist_trait_bright }
+			skills = { specialization_air = 2 }
+		}
+	}
+
+	PER_pax_scientist_1 = {
+		name = PER_pax_scientist_1
+		portraits = { civilian = { large = GFX_portrait_PER_pax_idanthyrsus } }
+		scientist = {
+			traits = { scientist_trait_bright }
+			skills = { specialization_land = 3 }
+		}
+	}
+
+	PER_pax_scientist_2 = {
+		name = PER_pax_scientist_2
+		portraits = { civilian = { large = GFX_portrait_PER_pax_idanthyrsus } }
+		scientist = {
+			traits = { scientist_trait_nuclear_specialist }
+			skills = { specialization_nuclear = 2 }
+		}
+	}
+
+	GER_pax_player_1 = {
+		name = GER_pax_player_1
+		portraits = { army = { large = GFX_portrait_GER_pax_player_1 } }
+		corps_commander = {
+			traits = { armor_officer pax_award_1_1 pax_award_1_2 pax_award_1_3 pax_award_1_4 pax_award_1_5 pax_award_1_6 pax_award_1_7 panzer_leader panzer_expert trait_engineer organizer trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_1 }
+			skill = 9
+			attack_skill = 4
+			defense_skill = 2
+			planning_skill = 4
+			logistics_skill = 3
+		}
+	}
+
+	GER_pax_player_2 = {
+		name = GER_pax_player_2
+		portraits = { army = { large = GFX_portrait_GER_pax_arminius } }
+		corps_commander = {
+			traits = { infantry_officer pax_award_2_1 pax_award_2_2 scavenger commando ranger trait_engineer trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_2 }
+			skill = 9
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 2
+		}
+	}
+
+	FRA_pax_player_3 = {
+		name = FRA_pax_player_3
+		portraits = { army = { large = GFX_portrait_FRA_pax_player_3 } }
+		corps_commander = {
+			traits = { career_officer pax_award_3_1 pax_award_3_2 trickster skilled_staffer infantry_leader organizer trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_3 }
+			skill = 9
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+		}
+	}
+
+	ITA_pax_player_4 = {
+		name = ITA_pax_player_4
+		portraits = { army = { large = GFX_portrait_ITA_pax_player_4 } }
+		field_marshal = {
+			traits = { offensive_doctrine pax_award_4_1 pax_award_4_2 logistics_wizard defensive_doctrine organisational_leader unyielding_defender pax_fm_mountain pax_fm_winter pax_fm_desert pax_fm_jungle pax_fm_swamp pax_fm_hills pax_award_4 }
+			skill = 9
+			attack_skill = 4
+			defense_skill = 4
+			planning_skill = 3
+			logistics_skill = 3
+		}
+	}
+
+	ITA_pax_player_5 = {
+		name = ITA_pax_player_5
+		portraits = { army = { large = GFX_portrait_ITA_pax_player_5 } }
+		corps_commander = {
+			traits = { organizer pax_award_5_1 pax_award_5_2 ranger ambusher scavenger commando trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_5 }
+			skill = 6
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 4
+			logistics_skill = 3
+		}
+	}
+
+	FRA_pax_player_6 = {
+		name = FRA_pax_player_6
+		portraits = { army = { large = GFX_portrait_FRA_pax_player_6 } }
+		field_marshal = {
+			traits = { defensive_doctrine pax_award_6_1 pax_award_6_2 pax_award_6_3 pax_award_6_4 offensive_doctrine logistics_wizard unyielding_defender aggressive_assaulter pax_fm_mountain pax_fm_winter pax_fm_desert pax_fm_jungle pax_fm_swamp pax_fm_hills pax_award_6 }
+			skill = 9
+			attack_skill = 7
+			defense_skill = 7
+			planning_skill = 7
+			logistics_skill = 7
+		}
+	}
+
+	SPR_pax_player_7 = {
+		name = SPR_pax_player_7
+		portraits = { army = { large = GFX_portrait_SPR_pax_player_7 } }
+		corps_commander = {
+			traits = { career_officer pax_award_7_1 pax_award_7_2 skilled_staffer ranger fortress_buster ambusher trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_7 }
+			skill = 6
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+		}
+	}
+
+	SOV_pax_player_8 = {
+		name = SOV_pax_player_8
+		portraits = { army = { large = GFX_portrait_SOV_pax_player_8 } }
+		field_marshal = {
+			traits = { offensive_doctrine pax_award_8_1 pax_award_8_2 pax_award_8_3 pax_award_8_4 pax_award_8_5 pax_award_8_6 pax_award_8_7 pax_award_8_8 pax_award_8_9 pax_award_8_10 organisational_leader defensive_doctrine fast_planner unyielding_defender pax_fm_mountain pax_fm_winter pax_fm_desert pax_fm_jungle pax_fm_swamp pax_fm_hills pax_award_8 }
+			skill = 9
+			attack_skill = 5
+			defense_skill = 4
+			planning_skill = 4
+			logistics_skill = 4
+		}
+	}
+
+	SOV_pax_player_9 = {
+		name = SOV_pax_player_9
+		portraits = { army = { large = GFX_portrait_SOV_pax_vseslav } }
+		field_marshal = {
+			traits = { defensive_doctrine pax_award_9_1 pax_award_9_2 offensive_doctrine logistics_wizard unyielding_defender organisational_leader pax_fm_mountain pax_fm_winter pax_fm_desert pax_fm_jungle pax_fm_swamp pax_fm_hills pax_award_9 }
+			skill = 6
+			attack_skill = 4
+			defense_skill = 4
+			planning_skill = 4
+			logistics_skill = 3
+		}
+	}
+
+	GRE_pax_player_10 = {
+		name = GRE_pax_player_10
+		portraits = { army = { large = GFX_portrait_GRE_pax_pericles } }
+		corps_commander = {
+			traits = { media_personality pax_award_10_1 pax_award_10_2 pax_award_10_3 pax_award_10_4 pax_award_10_5 pax_award_10_6 scavenger trickster organizer fortress_buster trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_10 }
+			skill = 6
+			attack_skill = 2
+			defense_skill = 3
+			planning_skill = 2
+			logistics_skill = 3
+		}
+	}
+
+	ROM_pax_player_11 = {
+		name = ROM_pax_player_11
+		portraits = { army = { large = GFX_portrait_ROM_pax_player_11 } }
+		field_marshal = {
+			traits = { media_personality pax_award_11_1 pax_award_11_2 inspirational_leader thorough_planner fast_planner organisational_leader pax_fm_mountain pax_fm_winter pax_fm_desert pax_fm_jungle pax_fm_swamp pax_fm_hills pax_award_11 }
+			skill = 6
+			attack_skill = 4
+			defense_skill = 3
+			planning_skill = 4
+			logistics_skill = 3
+		}
+	}
+
+	GER_pax_player_12 = {
+		name = GER_pax_player_12
+		portraits = { army = { large = GFX_portrait_GER_pax_arminius } }
+		field_marshal = {
+			traits = { armor_officer pax_award_12_1 pax_award_12_2 inspirational_leader organisational_leader logistics_wizard offensive_doctrine pax_fm_mountain pax_fm_winter pax_fm_desert pax_fm_jungle pax_fm_swamp pax_fm_hills pax_award_12 }
+			skill = 6
+			attack_skill = 4
+			defense_skill = 4
+			planning_skill = 4
+			logistics_skill = 4
+		}
+	}
+
+	TUR_pax_player_13 = {
+		name = TUR_pax_player_13
+		portraits = { army = { large = GFX_portrait_TUR_pax_player_13 } }
+		corps_commander = {
+			traits = { trait_cautious pax_award_13_1 pax_award_13_2 fortress_buster ambusher trait_engineer urban_assault_specialist trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_13 }
+			skill = 6
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 4
+		}
+	}
+
+	ENG_pax_player_14 = {
+		name = ENG_pax_player_14
+		portraits = { army = { large = GFX_portrait_ENG_pax_player_14 } }
+		corps_commander = {
+			traits = { armor_officer pax_award_14_1 pax_award_14_2 panzer_leader panzer_expert organizer trickster trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_14 }
+			skill = 6
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+		}
+	}
+
+	ENG_pax_player_15 = {
+		name = ENG_pax_player_15
+		portraits = { army = { large = GFX_portrait_ENG_pax_player_15 } }
+		corps_commander = {
+			traits = { infantry_officer pax_award_15_1 pax_award_15_2 pax_award_15_3 panzer_leader panzer_expert fortress_buster scavenger trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_15 }
+			skill = 6
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+		}
+	}
+
+	ENG_pax_player_16 = {
+		name = ENG_pax_player_16
+		portraits = { army = { large = GFX_portrait_ENG_pax_player_16 } }
+		corps_commander = {
+			traits = { career_officer pax_award_16_1 pax_award_16_2 ranger fortress_buster ambusher infantry_leader trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_16 }
+			skill = 4
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 3
+			logistics_skill = 3
+		}
+	}
+
+	ITA_pax_player_17 = {
+		name = ITA_pax_player_17
+		portraits = { army = { large = GFX_portrait_ITA_pax_romul } }
+		navy_leader = {
+			traits = { old_guard_navy pax_award_17_1 pax_award_17_2 torpedo_expert safety_first blue_water_expert pax_award_17 }
+			skill = 6
+			attack_skill = 2
+			defense_skill = 2
+			maneuvering_skill = 3
+			coordination_skill = 3
+		}
+	}
+
+	PER_pax_player_18 = {
+		name = PER_pax_player_18
+		portraits = { army = { large = GFX_portrait_PER_pax_player_18 } }
+		corps_commander = {
+			traits = { organizer pax_award_18_1 pax_award_18_2 pax_award_18_3 pax_award_18_4 fortress_buster infantry_expert commando ambusher trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_18 }
+			skill = 6
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+		}
+	}
+
+	PER_pax_player_19 = {
+		name = PER_pax_player_19
+		portraits = { army = { large = GFX_portrait_PER_pax_player_19 } }
+		corps_commander = {
+			traits = { logistics_wizard pax_award_19_1 pax_award_19_2 trickster urban_assault_specialist skilled_staffer ranger trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_19 }
+			skill = 6
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 4
+		}
+	}
+
+	ITA_pax_player_20 = {
+		name = ITA_pax_player_20
+		portraits = { army = { large = GFX_portrait_ITA_pax_player_20 } }
+		field_marshal = {
+			traits = { media_personality pax_award_20_1 pax_award_20_2 offensive_doctrine defensive_doctrine logistics_wizard inspirational_leader pax_fm_mountain pax_fm_winter pax_fm_desert pax_fm_jungle pax_fm_swamp pax_fm_hills pax_award_20 }
+			skill = 9
+			attack_skill = 4
+			defense_skill = 4
+			planning_skill = 4
+			logistics_skill = 5
+		}
+	}
+
+	ITA_pax_player_21 = {
+		name = ITA_pax_player_21
+		portraits = { army = { large = GFX_portrait_ITA_pax_player_21 } }
+		field_marshal = {
+			traits = { offensive_doctrine pax_award_21_1 pax_award_21_2 pax_award_21_3 inspirational_leader expert_delegator defensive_doctrine unyielding_defender pax_fm_mountain pax_fm_winter pax_fm_desert pax_fm_jungle pax_fm_swamp pax_fm_hills pax_award_21 }
+			skill = 9
+			attack_skill = 5
+			defense_skill = 4
+			planning_skill = 5
+			logistics_skill = 5
+		}
+	}
+
+	GRE_pax_player_22 = {
+		name = GRE_pax_player_22
+		portraits = { army = { large = GFX_portrait_GRE_pax_player_22 } }
+		field_marshal = {
+			traits = { defensive_doctrine pax_award_22_1 pax_award_22_2 fast_planner offensive_doctrine logistics_wizard unyielding_defender pax_fm_mountain pax_fm_winter pax_fm_desert pax_fm_jungle pax_fm_swamp pax_fm_hills pax_award_22 }
+			skill = 9
+			attack_skill = 5
+			defense_skill = 4
+			planning_skill = 5
+			logistics_skill = 4
+		}
+	}
+
+	ENG_pax_player_23 = {
+		name = ENG_pax_player_23
+		portraits = { army = { large = GFX_portrait_ENG_pax_player_23 } }
+		navy_leader = {
+			traits = { old_guard_navy pax_award_23_1 pax_award_23_2 cruiser_captain destroyer_leader safety_first pax_award_23 }
+			skill = 9
+			attack_skill = 3
+			defense_skill = 2
+			maneuvering_skill = 3
+			coordination_skill = 3
+		}
+	}
+
+	ROM_pax_player_24 = {
+		name = ROM_pax_player_24
+		portraits = { army = { large = GFX_portrait_ROM_pax_player_24 } }
+		field_marshal = {
+			traits = { organizer pax_award_24_1 pax_award_24_2 unyielding_defender inspirational_leader fast_planner aggressive_assaulter pax_fm_mountain pax_fm_winter pax_fm_desert pax_fm_jungle pax_fm_swamp pax_fm_hills pax_award_24 }
+			skill = 9
+			attack_skill = 5
+			defense_skill = 4
+			planning_skill = 5
+			logistics_skill = 5
+		}
+	}
+
+	ROM_pax_player_25 = {
+		name = ROM_pax_player_25
+		portraits = { army = { large = GFX_portrait_ROM_pax_player_25 } }
+		corps_commander = {
+			traits = { armor_officer pax_award_25_1 pax_award_25_2 ranger skilled_staffer urban_assault_specialist trait_engineer trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_25 }
+			skill = 9
+			attack_skill = 4
+			defense_skill = 3
+			planning_skill = 4
+			logistics_skill = 3
+		}
+	}
+
+	SPR_pax_player_26 = {
+		name = SPR_pax_player_26
+		portraits = { army = { large = GFX_portrait_SPR_pax_player_26 } }
+		field_marshal = {
+			traits = { offensive_doctrine pax_award_26_1 pax_award_26_2 fast_planner organisational_leader logistics_wizard defensive_doctrine pax_fm_mountain pax_fm_winter pax_fm_desert pax_fm_jungle pax_fm_swamp pax_fm_hills pax_award_26 }
+			skill = 9
+			attack_skill = 5
+			defense_skill = 4
+			planning_skill = 4
+			logistics_skill = 5
+		}
+	}
+
+	GRE_pax_player_27 = {
+		name = GRE_pax_player_27
+		portraits = { army = { large = GFX_portrait_GRE_pax_player_27 } }
+		corps_commander = {
+			traits = { career_officer pax_award_27_1 pax_award_27_2 pax_award_27_3 commando skilled_staffer scavenger ambusher trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_27 }
+			skill = 9
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 4
+			logistics_skill = 3
+		}
+	}
+
+	TUR_pax_player_28 = {
+		name = TUR_pax_player_28
+		portraits = { army = { large = GFX_portrait_TUR_pax_player_28 } }
+		field_marshal = {
+			traits = { defensive_doctrine pax_award_28_1 pax_award_28_2 aggressive_assaulter expert_delegator logistics_wizard organisational_leader pax_fm_mountain pax_fm_winter pax_fm_desert pax_fm_jungle pax_fm_swamp pax_fm_hills pax_award_28 }
+			skill = 9
+			attack_skill = 5
+			defense_skill = 5
+			planning_skill = 4
+			logistics_skill = 4
+		}
+	}
+
+	GER_pax_player_29 = {
+		name = GER_pax_player_29
+		portraits = { army = { large = GFX_portrait_GER_pax_arminius } }
+		corps_commander = {
+			traits = { infantry_officer pax_award_29_1 pax_award_29_2 trickster urban_assault_specialist fortress_buster scavenger trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_29 }
+			skill = 9
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+		}
+	}
+
+	TUR_pax_player_30 = {
+		name = TUR_pax_player_30
+		portraits = { army = { large = GFX_portrait_TUR_pax_player_30 } }
+		corps_commander = {
+			traits = { infantry_officer pax_award_30_1 pax_award_30_2 pax_award_30_3 fortress_buster trickster ambusher trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_30 }
+			skill = 9
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+		}
+	}
+
+	ITA_pax_player_31 = {
+		name = ITA_pax_player_31
+		portraits = { army = { large = GFX_portrait_ITA_pax_player_31 } }
+		corps_commander = {
+			traits = { organizer pax_award_31_1 pax_award_31_2 commando fortress_buster infantry_leader trait_engineer trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_31 }
+			skill = 9
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+		}
+	}
+
+	ITA_pax_player_32 = {
+		name = ITA_pax_player_32
+		portraits = { army = { large = GFX_portrait_ITA_pax_player_32 } }
+		corps_commander = {
+			traits = { armor_officer pax_award_32_1 pax_award_32_2 pax_award_32_3 pax_award_32_4 pax_award_32_5 pax_award_32_6 pax_award_32_7 pax_award_32_8 pax_award_32_9 panzer_leader panzer_expert ranger skilled_staffer trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_32 }
+			skill = 9
+			attack_skill = 4
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 4
+		}
+	}
+
+	MON_pax_player_33 = {
+		name = MON_pax_player_33
+		portraits = { army = { large = GFX_portrait_MON_pax_player_33 } }
+		corps_commander = {
+			traits = { armor_officer pax_award_33_1 pax_award_33_2 panzer_leader panzer_expert fortress_buster urban_assault_specialist trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_33 }
+			skill = 9
+			attack_skill = 4
+			defense_skill = 4
+			planning_skill = 4
+			logistics_skill = 4
+		}
+	}
+
+	MON_pax_player_34 = {
+		name = MON_pax_player_34
+		portraits = { army = { large = GFX_portrait_MON_pax_player_34 } }
+		corps_commander = {
+			traits = { armor_officer pax_award_34_1 panzer_leader panzer_expert trickster infantry_leader trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_34 }
+			skill = 9
+			attack_skill = 4
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 4
+		}
+	}
+
+	BUL_pax_player_35 = {
+		name = BUL_pax_player_35
+		portraits = { army = { large = GFX_portrait_BUL_pax_player_35 } }
+		corps_commander = {
+			traits = { armor_officer panzer_leader panzer_expert fortress_buster ambusher trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_35 }
+			skill = 9
+			attack_skill = 4
+			defense_skill = 4
+			planning_skill = 3
+			logistics_skill = 4
+		}
+	}
+
+	ROM_pax_player_36 = {
+		name = ROM_pax_player_36
+		portraits = { army = { large = GFX_portrait_ROM_pax_player_36 } }
+		corps_commander = {
+			traits = { armor_officer pax_award_36_1 pax_award_36_2 panzer_leader panzer_expert trait_engineer urban_assault_specialist trait_mountaineer winter_specialist desert_fox jungle_rat swamp_fox hill_fighter pax_award_36 }
+			skill = 9
+			attack_skill = 4
+			defense_skill = 4
+			planning_skill = 4
+			logistics_skill = 3
+		}
+	}
+
+	ITA_pax_1962 = {
+		name = ITA_pax_1962
+		portraits = { civilian = { large = GFX_portrait_ITA_pax_romul } }
+		country_leader = {
+			ideology = conservatism
+			desc = ITA_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	SPR_pax_1962 = {
+		name = SPR_pax_1962
+		portraits = { civilian = { large = GFX_portrait_SPR_pax_hannon } }
+		country_leader = {
+			ideology = oligarchism
+			desc = SPR_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	GRE_pax_1962 = {
+		name = GRE_pax_1962
+		portraits = { civilian = { large = GFX_portrait_GRE_pax_pericles } }
+		country_leader = {
+			ideology = liberalism
+			desc = GRE_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	FRA_pax_1962 = {
+		name = FRA_pax_1962
+		portraits = { civilian = { large = GFX_portrait_FRA_pax_ambiorix } }
+		country_leader = {
+			ideology = conservatism
+			desc = FRA_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	ENG_pax_1962 = {
+		name = ENG_pax_1962
+		portraits = { civilian = { large = GFX_portrait_ENG_pax_elinor } }
+		country_leader = {
+			ideology = liberalism
+			desc = ENG_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	SOV_pax_1962 = {
+		name = SOV_pax_1962
+		portraits = { civilian = { large = GFX_portrait_SOV_pax_vseslav } }
+		country_leader = {
+			ideology = marxism
+			desc = SOV_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	ROM_pax_1962 = {
+		name = ROM_pax_1962
+		portraits = { civilian = { large = GFX_portrait_ROM_pax_decebal } }
+		country_leader = {
+			ideology = marxism
+			desc = ROM_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	TUR_pax_1962 = {
+		name = TUR_pax_1962
+		portraits = { civilian = { large = GFX_portrait_TUR_pax_tengiz } }
+		country_leader = {
+			ideology = despotism
+			desc = TUR_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	PER_pax_1962 = {
+		name = PER_pax_1962
+		portraits = { civilian = { large = GFX_portrait_PER_pax_idanthyrsus } }
+		country_leader = {
+			ideology = despotism
+			desc = PER_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	GER_pax_1962 = {
+		name = GER_pax_1962
+		portraits = { civilian = { large = GFX_portrait_GER_pax_arminius } }
+		country_leader = {
+			ideology = marxism
+			desc = GER_pax_1962_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	ITA_pax_2041 = {
+		name = ITA_pax_2041
+		portraits = { civilian = { large = GFX_portrait_ITA_pax_romul } }
+		country_leader = {
+			ideology = conservatism
+			desc = ITA_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	SPR_pax_2041 = {
+		name = SPR_pax_2041
+		portraits = { civilian = { large = GFX_portrait_SPR_pax_hannon } }
+		country_leader = {
+			ideology = oligarchism
+			desc = SPR_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	GRE_pax_2041 = {
+		name = GRE_pax_2041
+		portraits = { civilian = { large = GFX_portrait_GRE_pax_pericles } }
+		country_leader = {
+			ideology = liberalism
+			desc = GRE_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	FRA_pax_2041 = {
+		name = FRA_pax_2041
+		portraits = { civilian = { large = GFX_portrait_FRA_pax_ambiorix } }
+		country_leader = {
+			ideology = socialism
+			desc = FRA_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	ENG_pax_2041 = {
+		name = ENG_pax_2041
+		portraits = { civilian = { large = GFX_portrait_ENG_pax_elinor } }
+		country_leader = {
+			ideology = liberalism
+			desc = ENG_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	SOV_pax_2041 = {
+		name = SOV_pax_2041
+		portraits = { civilian = { large = GFX_portrait_SOV_pax_vseslav } }
+		country_leader = {
+			ideology = marxism
+			desc = SOV_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	ROM_pax_2041 = {
+		name = ROM_pax_2041
+		portraits = { civilian = { large = GFX_portrait_ROM_pax_decebal } }
+		country_leader = {
+			ideology = marxism
+			desc = ROM_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	TUR_pax_2041 = {
+		name = TUR_pax_2041
+		portraits = { civilian = { large = GFX_portrait_TUR_pax_tengiz } }
+		country_leader = {
+			ideology = despotism
+			desc = TUR_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	PER_pax_2041 = {
+		name = PER_pax_2041
+		portraits = { civilian = { large = GFX_portrait_PER_pax_idanthyrsus } }
+		country_leader = {
+			ideology = despotism
+			desc = PER_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	GER_pax_2041 = {
+		name = GER_pax_2041
+		portraits = { civilian = { large = GFX_portrait_GER_pax_arminius } }
+		country_leader = {
+			ideology = marxism
+			desc = GER_pax_2041_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	ITA_pax_2096 = {
+		name = ITA_pax_2096
+		portraits = { civilian = { large = GFX_portrait_ITA_pax_romul } }
+		country_leader = {
+			ideology = conservatism
+			desc = ITA_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	SPR_pax_2096 = {
+		name = SPR_pax_2096
+		portraits = { civilian = { large = GFX_portrait_SPR_pax_hannon } }
+		country_leader = {
+			ideology = oligarchism
+			desc = SPR_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	GRE_pax_2096 = {
+		name = GRE_pax_2096
+		portraits = { civilian = { large = GFX_portrait_GRE_pax_pericles } }
+		country_leader = {
+			ideology = oligarchism
+			desc = GRE_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	FRA_pax_2096 = {
+		name = FRA_pax_2096
+		portraits = { civilian = { large = GFX_portrait_FRA_pax_ambiorix } }
+		country_leader = {
+			ideology = oligarchism
+			desc = FRA_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	ENG_pax_2096 = {
+		name = ENG_pax_2096
+		portraits = { civilian = { large = GFX_portrait_ENG_pax_elinor } }
+		country_leader = {
+			ideology = liberalism
+			desc = ENG_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	SOV_pax_2096 = {
+		name = SOV_pax_2096
+		portraits = { civilian = { large = GFX_portrait_SOV_pax_vseslav } }
+		country_leader = {
+			ideology = despotism
+			desc = SOV_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	ROM_pax_2096 = {
+		name = ROM_pax_2096
+		portraits = { civilian = { large = GFX_portrait_ROM_pax_decebal } }
+		country_leader = {
+			ideology = oligarchism
+			desc = ROM_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	TUR_pax_2096 = {
+		name = TUR_pax_2096
+		portraits = { civilian = { large = GFX_portrait_TUR_pax_tengiz } }
+		country_leader = {
+			ideology = oligarchism
+			desc = TUR_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	PER_pax_2096 = {
+		name = PER_pax_2096
+		portraits = { civilian = { large = GFX_portrait_PER_pax_idanthyrsus } }
+		country_leader = {
+			ideology = oligarchism
+			desc = PER_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+
+	GER_pax_2096 = {
+		name = GER_pax_2096
+		portraits = { civilian = { large = GFX_portrait_GER_pax_arminius } }
+		country_leader = {
+			ideology = oligarchism
+			desc = GER_pax_2096_desc
+			expire = "4000.1.1.1"
+			id = -1
+		}
+	}
+}

@@ -1,0 +1,175 @@
+spriteTypes = {
+ # Main Armament
+
+	spriteType = {
+		name = "GFX_EMI_main_HEI_shell"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/Shells_HEI.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_main_HE_shell_time_fuzed"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/Shells_HE_time_fuzed.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_main_HE_shell"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/Shells_HE.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_main_AP_shell"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/Shells_AP.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_main_APCR_shell"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/Shells_APCR.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_main_APHE_shell"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/Shells_APHE.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_main_HEAT_shell"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/Shells_HEAT.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_artillery_special_type"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/Shells_gas.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_smoke_shells"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/Shells_smoke.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_gas_shells"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/Shells_gas.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_short_barrel"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/main_armament_small_size.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_medium_barrel"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/main_armament_medium_size.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_long_barrel"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/main_armament_long_size.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_artillery_special_armor_type"
+		textureFile = "gfx/interface/equipmentdesigner/tanks/modules/tank_module_riveted_armor.dds"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_thick_armored_plate"
+		textureFile = "gfx/interface/equipmentdesigner/tanks/modules/tank_module_riveted_armor.dds"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_wide_armored_plate"
+		textureFile = "gfx/interface/equipmentdesigner/tanks/modules/tank_module_welded_armor.dds"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_caliber_25mm"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/25mm.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_caliber_25mm"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/25mm.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_caliber_a_37mm"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/37mm.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_caliber_b_50mm"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/50mm.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_caliber_c_75mm"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/75mm.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_caliber_d_90mm"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/90mm.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_caliber_e_120mm"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/120mm.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_caliber_f_150mm"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/150mm.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_ccaliber_g_180mm"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/180mm.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_wood_wheels"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/wood_wheel.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_iron_wheels"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/metal_wheel.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_tires_wheels"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/tires.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_multi_tired_wheels"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/tires2.png"
+	}
+
+	spriteType = {
+		name = "GFX_TC_artillery_equipment"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/GER_artillery_blueprint.png"
+	}
+
+	spriteType = {
+		name = "GFX_TM_artillery_barrel"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/GER_artillery_blueprint_barrel.png"
+	}
+
+	spriteType = {
+		name = "GFX_cannon_small_caliber_type"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/GER_artillery_blueprint_barrel.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_cannon_caliber_type"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/main_armament_long_size.png"
+	}
+
+	spriteType = {
+		name = "GFX_EMI_cannon_small_caliber_type"
+		textureFile = "gfx/interface/equipmentdesigner/artillery/main_armament_small_size.png"
+	}
+	
+
+}

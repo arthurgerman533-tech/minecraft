@@ -1,0 +1,79 @@
+technologies = {
+	guerilla_warfare_tech = {
+		infantry = {
+			urban = {
+				attack = 0.05
+				defence = 0.05
+			}
+			forest = {
+				attack = 0.05
+				defence = 0.05
+			}
+		}
+		raider = {
+			urban = {
+				attack = 0.03
+				defence = 0.05
+			}
+			forest = {
+				attack = 0.03
+				defence = 0.05
+			}
+		}
+		#enable_tactic = tactic_guerrilla_tactics
+		allow = {
+			always = no
+		}
+		ai_will_do = { factor = 0 }
+	}
+	royalist_raider_tech = {
+		raider = {
+			max_organisation = 5
+			hills = {
+				attack = 0.03
+				defence = 0.05
+			}
+			jungle = {
+				attack = 0.05
+				defence = 0.05
+			}
+		}
+		allow = {
+			always = no
+		}
+		ai_will_do = { factor = 0 }
+	}
+	skiing_infantry_tech = {	
+		winter_attrition_factor = -0.1
+		infantry = {
+			snow = {
+				attack = 0.05
+				movement = 0.1
+			}
+		}
+		marine = {
+			snow = {
+				attack = 0.05 
+				movement = 0.1
+			}
+		}
+		mountaineers = {
+			snow = {
+				attack = 0.05
+				defence = 0.05
+				movement = 0.1
+			}
+		}
+		paratrooper = {
+			snow = {
+				attack = 0.05
+				movement = 0.1
+			}
+		}
+		
+		allow = {
+			always = no
+		}
+		ai_will_do = { factor = 0 }
+	}
+}

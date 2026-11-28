@@ -1,0 +1,43 @@
+# Wealth of Nations - opinion modifiers
+opinion_modifiers = {
+	won_trade_partner = {
+		value = 15
+	}
+	won_pact_partner = {
+		value = 10
+	}
+	won_investor = {
+		value = 10
+	}
+	won_contract_partner = {
+		value = 5
+		decay = 0.1
+	}
+	won_deal_cancelled = {
+		value = -20
+		decay = 0.5
+	}
+	won_assets_seized = {
+		value = -40
+		decay = 0.5
+	}
+	won_contract_broken = {
+		value = -15
+		decay = 0.5
+	}
+	won_aid_given = {
+		value = 25
+		decay = 0.25
+	}
+	won_arms_client = {
+		value = 10
+		decay = 0.1
+	}
+	won_embargoed = {
+		value = -40
+	}
+	won_poached = {
+		value = -15
+		decay = 0.1
+	}
+}

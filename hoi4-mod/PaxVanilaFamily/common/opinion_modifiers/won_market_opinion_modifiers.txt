@@ -1,0 +1,36 @@
+# Wealth of Nations - International Market module (merged from Arsenal of Nations)
+###########################################
+# Arsenal of Nations - opinion modifiers
+###########################################
+
+opinion_modifiers = {
+	aon_arms_exhibition = {
+		value = 20
+		months = 12
+		trade = yes
+	}
+
+	aon_generous_terms = {
+		value = 15
+		months = 24
+		trade = yes
+	}
+
+	aon_faulty_shipment = {
+		value = -15
+		months = 12
+		trade = yes
+	}
+
+	aon_valued_customer = {
+		value = 10
+		months = 18
+		trade = yes
+	}
+
+	aon_trusted_supplier = {
+		value = 15
+		months = 2
+		trade = yes
+	}
+}

@@ -1,0 +1,364 @@
+# Wealth of Nations - International Market module (merged from Arsenal of Nations)
+###########################################
+# Arsenal of Nations - events
+###########################################
+
+add_namespace = aon
+
+#------------------------------------------
+# Market Standing
+#------------------------------------------
+
+country_event = {
+	id = aon.1
+	title = aon.1.t
+	desc = aon.1.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+
+	option = {
+		name = aon.1.a
+		show_ideas_tooltip = aon_standing_1
+	}
+}
+
+country_event = {
+	id = aon.2
+	title = aon.2.t
+	desc = aon.2.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = aon.2.a
+		show_ideas_tooltip = aon_standing_2
+		custom_effect_tooltip = won_unlocks_exhibition_tt
+	}
+}
+
+country_event = {
+	id = aon.3
+	title = aon.3.t
+	desc = aon.3.d
+	picture = GFX_report_event_tank_factory
+	is_triggered_only = yes
+
+	option = {
+		name = aon.3.a
+		show_ideas_tooltip = aon_standing_3
+		custom_effect_tooltip = won_unlocks_credit_tt
+	}
+}
+
+country_event = {
+	id = aon.4
+	title = aon.4.t
+	desc = aon.4.d
+	picture = GFX_report_event_airplane_factory
+	is_triggered_only = yes
+
+	option = {
+		name = aon.4.a
+		show_ideas_tooltip = aon_standing_4
+	}
+}
+
+country_event = {
+	id = aon.5
+	title = aon.5.t
+	desc = aon.5.d
+	picture = GFX_report_event_generic_military_parade
+	is_triggered_only = yes
+
+	option = {
+		name = aon.5.a
+		show_ideas_tooltip = aon_standing_5
+	}
+}
+
+news_event = {
+	id = aon.6
+	title = aon.6.t
+	desc = aon.6.d
+	picture = GFX_news_event_generic_lend_lease
+	major = yes
+	is_triggered_only = yes
+
+	option = {
+		name = aon.6.a
+	}
+}
+
+country_event = {
+	id = aon.9
+	title = aon.9.t
+	desc = aon.9.d
+	picture = GFX_report_event_generic_stock_traders
+	is_triggered_only = yes
+
+	option = {
+		name = aon.9.a
+	}
+}
+
+#------------------------------------------
+# Exhibition and export credit
+#------------------------------------------
+
+country_event = {
+	id = aon.10
+	title = aon.10.t
+	desc = aon.10.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+
+	option = {
+		name = aon.10.a
+		custom_effect_tooltip = aon_exhibition_done_tt
+	}
+}
+
+# Export credit guarantees expire
+country_event = {
+	id = aon.11
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+		for_each_scope_loop = {
+			array = aon_credit_partners
+			add_ai_strategy = { type = equipment_market_trade_desire id = ROOT value = -50 }
+		}
+		clear_array = aon_credit_partners
+	}
+}
+
+#------------------------------------------
+# Reverse engineering imported equipment
+#------------------------------------------
+
+country_event = {
+	id = aon.20
+	title = aon.20.t
+	desc = aon.20.d
+	picture = GFX_report_event_generic_research_lab
+	is_triggered_only = yes
+
+	option = {
+		name = aon.20.a
+		trigger = { has_country_flag = aon_imported_small_arms }
+		add_tech_bonus = { name = aon_reverse_engineering bonus = 0.75 uses = 1 category = infantry_weapons }
+		won_office_return = yes
+		ai_chance = { base = 10 }
+	}
+	option = {
+		name = aon.20.b
+		trigger = { has_country_flag = aon_imported_artillery }
+		add_tech_bonus = { name = aon_reverse_engineering bonus = 0.75 uses = 1 category = artillery }
+		won_office_return = yes
+		ai_chance = { base = 10 }
+	}
+	option = {
+		name = aon.20.c
+		trigger = { has_country_flag = aon_imported_armour }
+		add_tech_bonus = { name = aon_reverse_engineering bonus = 0.75 uses = 1 category = armor }
+		won_office_return = yes
+		ai_chance = { base = 15 }
+	}
+	option = {
+		name = aon.20.e
+		trigger = { has_country_flag = aon_imported_aircraft }
+		add_tech_bonus = { name = aon_reverse_engineering bonus = 0.75 uses = 1 category = air_equipment }
+		won_office_return = yes
+		ai_chance = { base = 15 }
+	}
+	option = {
+		name = aon.20.f
+		add_tech_bonus = { name = aon_reverse_engineering bonus = 0.5 uses = 1 category = industry }
+		won_office_return = yes
+		ai_chance = { base = 2 }
+	}
+}
+
+#------------------------------------------
+# Seller flavour
+#------------------------------------------
+
+# An order of unusual size
+country_event = {
+	id = aon.30
+	title = aon.30.t
+	desc = aon.30.d
+	picture = GFX_report_event_generic_sign_treaty2
+	is_triggered_only = yes
+
+	option = {
+		name = aon.30.a
+		won_get_small = yes
+		hidden_effect = { add_to_variable = { aon_rep = 10 } }
+		custom_effect_tooltip = aon_gain_rep_10_tt
+		add_stability = -0.01
+		ai_chance = { base = 70 }
+	}
+	option = {
+		name = aon.30.b
+		army_experience = 10
+		var:aon_partner = { add_opinion_modifier = { target = ROOT modifier = aon_valued_customer } }
+		ai_chance = { base = 30 }
+	}
+}
+
+# Bribery in the procurement office
+country_event = {
+	id = aon.31
+	title = aon.31.t
+	desc = aon.31.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+
+	option = {
+		name = aon.31.a
+		won_pay_small = yes
+		ai_chance = { base = 60 }
+	}
+	option = {
+		name = aon.31.b
+		add_political_power = -40
+		add_stability = 0.02
+		ai_chance = { base = 40 }
+	}
+}
+
+# A customer falls behind on payments
+country_event = {
+	id = aon.32
+	title = aon.32.t
+	desc = aon.32.d
+	picture = GFX_report_event_generic_stock_traders
+	is_triggered_only = yes
+
+	option = {
+		name = aon.32.a
+		var:aon_partner = { add_opinion_modifier = { target = ROOT modifier = aon_generous_terms } }
+		hidden_effect = { add_to_variable = { aon_rep = 15 } }
+		custom_effect_tooltip = aon_gain_rep_15_tt
+		ai_chance = { base = 50 }
+	}
+	option = {
+		name = aon.32.b
+		won_get_small = yes
+		var:aon_partner = { add_opinion_modifier = { target = ROOT modifier = aon_faulty_shipment } }
+		ai_chance = { base = 50 }
+	}
+}
+
+# Feedback from the front
+country_event = {
+	id = aon.33
+	title = aon.33.t
+	desc = aon.33.d
+	picture = GFX_report_event_generic_handshake
+	is_triggered_only = yes
+
+	option = {
+		name = aon.33.a
+		add_tech_bonus = { name = aon_customer_feedback bonus = 0.5 uses = 1 category = industry }
+		ai_chance = { base = 50 }
+	}
+	option = {
+		name = aon.33.b
+		won_get_small = yes
+		ai_chance = { base = 50 }
+	}
+}
+
+# The press against the merchants of war
+country_event = {
+	id = aon.34
+	title = aon.34.t
+	desc = aon.34.d
+	picture = GFX_report_event_journalists_speech
+	is_triggered_only = yes
+
+	option = {
+		name = aon.34.a
+		add_political_power = -30
+		ai_chance = { base = 50 }
+	}
+	option = {
+		name = aon.34.b
+		add_stability = -0.02
+		add_war_support = 0.02
+		ai_chance = { base = 50 }
+	}
+}
+
+#------------------------------------------
+# Buyer flavour
+#------------------------------------------
+
+# Instructors arrive with the shipment
+country_event = {
+	id = aon.40
+	title = aon.40.t
+	desc = aon.40.d
+	picture = GFX_report_event_generic_army
+	is_triggered_only = yes
+
+	option = {
+		name = aon.40.a
+		army_experience = 15
+		ai_chance = { base = 50 }
+	}
+	option = {
+		name = aon.40.b
+		hidden_effect = { add_to_variable = { aon_insight = 20 } }
+		custom_effect_tooltip = aon_gain_insight_20_tt
+		ai_chance = { base = 50 }
+	}
+}
+
+# A faulty batch
+country_event = {
+	id = aon.41
+	title = aon.41.t
+	desc = aon.41.d
+	picture = GFX_report_event_generic_rifles
+	is_triggered_only = yes
+
+	option = {
+		name = aon.41.a
+		var:aon_partner = {
+			PREV = { add_opinion_modifier = { target = PREV modifier = aon_faulty_shipment } }
+		}
+		hidden_effect = { add_to_variable = { aon_insight = 15 } }
+		custom_effect_tooltip = aon_gain_insight_15_tt
+		ai_chance = { base = 50 }
+	}
+	option = {
+		name = aon.41.b
+		add_political_power = 25
+		ai_chance = { base = 50 }
+	}
+}
+
+# Machine tools in the crates
+country_event = {
+	id = aon.42
+	title = aon.42.t
+	desc = aon.42.d
+	picture = GFX_report_event_generic_train
+	is_triggered_only = yes
+
+	option = {
+		name = aon.42.a
+		add_tech_bonus = { name = aon_machine_tools bonus = 0.5 uses = 1 category = industry }
+		ai_chance = { base = 50 }
+	}
+	option = {
+		name = aon.42.b
+		hidden_effect = { add_to_variable = { aon_insight = 25 } }
+		custom_effect_tooltip = aon_gain_insight_25_tt
+		ai_chance = { base = 50 }
+	}
+}

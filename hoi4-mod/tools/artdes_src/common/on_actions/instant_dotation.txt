@@ -1,0 +1,13 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			every_country = {
+				set_technology = {
+					early_artillery_dotation = 1
+					popup = no
+				}
+			}
+		}
+	}
+
+}

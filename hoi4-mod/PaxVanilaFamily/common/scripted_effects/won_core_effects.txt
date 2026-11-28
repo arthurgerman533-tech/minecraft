@@ -1,0 +1,1306 @@
+# Wealth of Nations - core economy engine.
+# Every effect here runs in COUNTRY scope with THIS = ROOT = the country, unless noted.
+# Money is in billions of dollars ($B). GDP is annual, every flow is per month.
+
+###########################################################################
+# Initialisation
+###########################################################################
+won_init = {
+	set_country_flag = won_ready
+	set_variable = { won_tax = 2 }
+	set_variable = { won_tax_low = 2 }
+	set_variable = { won_rate = 2 }
+	set_variable = { won_rate_low = 2 }
+	set_variable = { won_rate_high = 2 }
+	set_variable = { won_trade_weight = 0 }
+	set_variable = { won_pact_weight = 0 }
+	set_variable = { won_prospect_finds = 0 }
+	set_variable = { won_prog_conf = 0 }
+	set_variable = { won_climate = 0 }
+	set_variable = { won_fdi_chance = 0 }
+	set_variable = { won_arms_rep = 0 }
+	set_variable = { aon_rep = 0 }
+	set_variable = { won_arms_rev_12 = 0 }
+	set_variable = { won_acc_arms = 0 }
+	set_variable = { won_inc_corp = 0 }
+	set_variable = { won_inc_roy = 0 }
+	set_variable = { won_arms_deals = 0 }
+	set_variable = { won_licences_sold = 0 }
+	set_variable = { won_sc_count = 0 }
+	set_variable = { won_q_count = 0 }
+	set_variable = { won_mkt_acc = 0 }
+	set_variable = { won_sc_max = 2 }
+	set_variable = { won_sc_income = 0 }
+	set_variable = { won_mkt_income = 0 }
+	set_variable = { won_mkt_contracts = 0 }
+	set_variable = { won_pf = 0.8 }
+	set_variable = { won_pf_pct = 80 }
+	set_variable = { won_exp_prog = 0 }
+	set_variable = { won_prog_count = 0 }
+	won_programme_costs = yes
+	set_variable = { won_budget = 0 }
+	set_variable = { won_open = 1 }
+	set_variable = { won_inflation = 2 }
+	set_variable = { won_confidence = 50 }
+	set_variable = { won_conf_shock = 0 }
+	set_variable = { won_trade_count = 0 }
+	set_variable = { won_trade_value = 0 }
+	set_variable = { won_pact_count = 0 }
+	set_variable = { won_hire_count = 0 }
+	set_variable = { won_sold_count = 0 }
+	set_variable = { won_inv_total = 0 }
+	set_variable = { won_fdi_in = 0 }
+	set_variable = { won_bought_factories = 0 }
+	set_variable = { won_print_m = 0 }
+	set_variable = { won_acc_svc_in = 0 }
+	set_variable = { won_acc_div_out = 0 }
+	set_variable = { won_inc_special = 0 }
+	set_variable = { won_system = 0 }
+	set_variable = { won_growth_m = 0 }
+	set_variable = { won_growth_y = 0 }
+	won_clear_system_vars = yes
+	won_calc_gdp = yes
+	set_variable = { won_gdp_prev = won_gdp }
+	set_variable = { won_treasury = won_gdp }
+	multiply_variable = { won_treasury = 0.12 }
+	won_choose_default_system = yes
+	won_trade_limits = yes
+	# Synthetic history so the charts open with a believable recovery curve.
+	clear_array = won_hist_gdp
+	clear_array = won_hist_tre
+	for_loop_effect = {
+		start = 0
+		end = 24
+		value = won_k
+		set_temp_variable = { won_h = won_k }
+		multiply_temp_variable = { won_h = 0.0045 }
+		add_to_temp_variable = { won_h = 0.8965 }
+		multiply_temp_variable = { won_h = won_gdp }
+		add_to_array = { won_hist_gdp = won_h }
+		set_temp_variable = { won_h = won_k }
+		multiply_temp_variable = { won_h = 0.02 }
+		add_to_temp_variable = { won_h = 0.54 }
+		multiply_temp_variable = { won_h = won_treasury }
+		add_to_array = { won_hist_tre = won_h }
+	}
+	won_update_indicators = yes
+	won_modern_price = yes
+	won_law_tick = yes
+	won_update_climate = yes
+	won_recalc_modifiers = yes
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = won_economy } } }
+		add_dynamic_modifier = { modifier = won_economy }
+	}
+	if = {
+		limit = { is_ai = no }
+		won_update_charts = yes
+	}
+}
+
+won_choose_default_system = {
+	set_temp_variable = { won_r = 100 }
+	if = {
+		limit = {
+			is_ai = yes
+			has_game_rule = { rule = won_system_choice option = WON_SYSTEMS_FREE_ALL }
+		}
+		set_temp_variable_to_random = { var = won_r min = 0 max = 100 }
+	}
+	if = {
+		limit = { check_variable = { won_r < 25 } }
+		random_list = {
+			10 = { won_set_system_1 = yes }
+			10 = { won_set_system_2 = yes }
+			10 = { won_set_system_3 = yes }
+			10 = { won_set_system_4 = yes }
+			8 = { won_set_system_5 = yes }
+			4 = { won_set_system_6 = yes }
+			10 = { won_set_system_7 = yes }
+			4 = { won_set_system_8 = yes }
+			8 = { won_set_system_9 = yes }
+			10 = { won_set_system_10 = yes }
+			8 = { modifier = { factor = 0 num_of_civilian_factories > 20 } won_set_system_11 = yes }
+			8 = { won_set_system_12 = yes }
+		}
+	}
+	else_if = {
+		limit = { tag = ENG won_is_democratic = yes }
+		won_set_system_1 = yes
+	}
+	else_if = {
+		limit = { tag = FRA won_is_democratic = yes }
+		won_set_system_3 = yes
+	}
+	else_if = {
+		limit = { tag = GER won_is_fascist = yes }
+		won_set_system_9 = yes
+	}
+	else_if = {
+		limit = { won_is_democratic = yes }
+		won_set_system_2 = yes
+	}
+	else_if = {
+		limit = { won_is_communist = yes }
+		won_set_system_4 = yes
+	}
+	else_if = {
+		limit = { won_is_fascist = yes }
+		won_set_system_7 = yes
+	}
+	else_if = {
+		limit = { num_of_civilian_factories < 12 }
+		won_set_system_11 = yes
+	}
+	else = {
+		won_set_system_10 = yes
+	}
+}
+
+###########################################################################
+# GDP
+###########################################################################
+won_calc_gdp = {
+	# Population of our states, in thousands
+	set_temp_variable = { won_popk = 0 }
+	set_temp_variable = { won_dl = 0 }
+	every_owned_state = {
+		add_to_temp_variable = { won_popk = state_population_k }
+		add_to_temp_variable = { won_dl = won_mod_lvl }
+	}
+	set_variable = { won_dev_levels = won_dl }
+	set_variable = { won_pop_k = won_popk }
+	set_variable = { won_pop_m = won_popk }
+	divide_variable = { won_pop_m = 1000 }
+
+	set_temp_variable = { won_raw = num_of_civilian_factories }
+	multiply_temp_variable = { won_raw = 0.8 }
+	set_temp_variable = { won_t = num_of_military_factories }
+	add_to_temp_variable = { won_t = num_of_naval_factories }
+	multiply_temp_variable = { won_t = 0.6 }
+	add_to_temp_variable = { won_raw = won_t }
+	set_temp_variable = { won_t = won_trade_value }
+	multiply_temp_variable = { won_t = 0.5 }
+	add_to_temp_variable = { won_raw = won_t }
+	set_temp_variable = { won_t = won_fdi_in }
+	multiply_temp_variable = { won_t = 0.1 }
+	add_to_temp_variable = { won_raw = won_t }
+	# Arms exports over the last year count as exports
+	set_temp_variable = { won_t = won_arms_rev_12 }
+	multiply_temp_variable = { won_t = 0.6 }
+	add_to_temp_variable = { won_raw = won_t }
+	# Resource exports (last month's earnings) count as exports too
+	set_temp_variable = { won_t = won_inc_res }
+	multiply_temp_variable = { won_t = 8 }
+	add_to_temp_variable = { won_raw = won_t }
+	# State Development: 0.3 bn per development level in our states
+	set_temp_variable = { won_t = won_dev_levels }
+	multiply_temp_variable = { won_t = 0.3 }
+	set_variable = { won_dev_gdp = won_t }
+	add_to_temp_variable = { won_raw = won_t }
+	add_to_temp_variable = { won_raw = 1 }
+
+	# Productivity: stability, prices and the economic system.
+	set_temp_variable = { won_p = stability }
+	multiply_temp_variable = { won_p = 0.4 }
+	add_to_temp_variable = { won_p = 0.8 }
+	add_to_temp_variable = { won_p = won_sys_prod }
+	if = {
+		limit = { check_variable = { won_inflation > 6 } }
+		set_temp_variable = { won_t = won_inflation }
+		subtract_from_temp_variable = { won_t = 6 }
+		multiply_temp_variable = { won_t = 0.01 }
+		clamp_temp_variable = { var = won_t max = 0.25 }
+		subtract_from_temp_variable = { won_p = won_t }
+	}
+	if = {
+		limit = { check_variable = { won_inflation < 0 } }
+		set_temp_variable = { won_t = won_inflation }
+		multiply_temp_variable = { won_t = 0.015 }
+		add_to_temp_variable = { won_p = won_t }
+	}
+	if = {
+		limit = { check_variable = { won_phase = 5 } }
+		add_to_temp_variable = { won_p = 0.03 }
+	}
+	if = {
+		limit = { check_variable = { won_phase = 1 } }
+		subtract_from_temp_variable = { won_p = 0.05 }
+	}
+	# Technology: +0.1% productivity per researched technology (at most +15%)
+	set_temp_variable = { won_t = num_researched_technologies }
+	multiply_temp_variable = { won_t = 0.001 }
+	clamp_temp_variable = { var = won_t min = 0 max = 0.15 }
+	add_to_temp_variable = { won_p = won_t }
+	set_variable = { won_p_tech_pct = won_t }
+	multiply_variable = { won_p_tech_pct = 100 }
+	# Long wars wear the economy down: -0.2% per month of war after the first year (at most -8%)
+	set_variable = { won_p_war_pct = 0 }
+	if = {
+		limit = { check_variable = { won_war_months > 12 } }
+		set_temp_variable = { won_t = won_war_months }
+		subtract_from_temp_variable = { won_t = 12 }
+		multiply_temp_variable = { won_t = 0.002 }
+		clamp_temp_variable = { var = won_t max = 0.08 }
+		subtract_from_temp_variable = { won_p = won_t }
+		set_variable = { won_p_war_pct = won_t }
+		multiply_variable = { won_p_war_pct = 100 }
+	}
+	# Economic sphere (sphere.py)
+	add_to_temp_variable = { won_p = won_sph_p }
+	clamp_temp_variable = { var = won_p min = 0.5 max = 1.4 }
+	multiply_temp_variable = { won_raw = won_p }
+	set_variable = { won_gdp = won_raw }
+	clamp_variable = { var = won_gdp min = 0.5 }
+	set_temp_variable = { won_popm = won_pop_m }
+	clamp_temp_variable = { var = won_popm min = 0.05 }
+	set_variable = { won_gdppc = won_gdp }
+	multiply_variable = { won_gdppc = 1000 }
+	divide_variable = { won_gdppc = won_popm }
+	# Estimated military spending: 4 m a year per thousand soldiers, 60 m per arms factory, 80 m per dockyard
+	set_variable = { won_mil_bn = deployed_total_manpower_k }
+	multiply_variable = { won_mil_bn = 0.004 }
+	set_temp_variable = { won_t = num_of_military_factories }
+	multiply_temp_variable = { won_t = 0.06 }
+	add_to_variable = { won_mil_bn = won_t }
+	set_temp_variable = { won_t = num_of_naval_factories }
+	multiply_temp_variable = { won_t = 0.08 }
+	add_to_variable = { won_mil_bn = won_t }
+	set_variable = { won_mil_pct = won_mil_bn }
+	multiply_variable = { won_mil_pct = 100 }
+	divide_variable = { won_mil_pct = won_gdp }
+}
+
+###########################################################################
+# Trade agreements and construction pacts (monthly)
+###########################################################################
+won_trade_limits = {
+	set_variable = { won_trade_max = won_gdp }
+	divide_variable = { won_trade_max = 25 }
+	round_variable = won_trade_max
+	add_to_variable = { won_trade_max = 2 }
+	clamp_variable = { var = won_trade_max max = 7 }
+	add_to_variable = { won_trade_max = won_sys_trade_slots }
+	clamp_variable = { var = won_trade_max min = 0 max = 10 }
+}
+
+won_trade_tick = {
+	won_trade_limits = yes
+	set_variable = { won_trade_value = 0 }
+	set_variable = { won_trade_count = 0 }
+	set_variable = { won_trade_weight = 0 }
+	set_temp_variable = { won_mygdp = won_gdp }
+	# A partner counts fully only if its GDP is at least a quarter of ours.
+	set_temp_variable = { won_quarter = won_gdp }
+	multiply_temp_variable = { won_quarter = 0.25 }
+	clamp_temp_variable = { var = won_quarter min = 0.1 }
+	clear_array = won_tmp_keep
+	for_each_loop = {
+		array = won_trade
+		value = won_p
+		if = {
+			limit = {
+				var:won_p = {
+					exists = yes
+					has_capitulated = no
+					NOT = { has_war_with = ROOT }
+				}
+				has_capitulated = no
+				won_is_autarkic = no
+			}
+			add_to_array = { won_tmp_keep = won_p }
+			add_to_variable = { won_trade_count = 1 }
+			var:won_p = { set_temp_variable = { won_pg = won_gdp } }
+			set_temp_variable = { won_w = won_pg }
+			divide_temp_variable = { won_w = won_quarter }
+			clamp_temp_variable = { var = won_w max = 1 }
+			add_to_variable = { won_trade_weight = won_w }
+			clamp_temp_variable = { var = won_pg max = won_mygdp }
+			multiply_temp_variable = { won_pg = 0.15 }
+			add_to_variable = { won_trade_value = won_pg }
+		}
+		else = {
+			var:won_p = {
+				clr_country_flag = won_trade_@ROOT
+				remove_from_array = { won_trade = ROOT }
+				ROOT = { clr_country_flag = won_trade_@PREV }
+			}
+		}
+	}
+	clear_array = won_trade
+	for_each_loop = {
+		array = won_tmp_keep
+		value = won_p
+		add_to_array = { won_trade = won_p }
+	}
+	multiply_variable = { won_trade_value = won_sys_trade_mult }
+	# Trade law: open economies get more out of each agreement.
+	multiply_variable = { won_trade_value = won_law_trade }
+	set_temp_variable = { won_t = won_sph_trade }
+	add_to_temp_variable = { won_t = 1 }
+	multiply_variable = { won_trade_value = won_t }
+	if = {
+		limit = { has_idea = won_export_drive }
+		multiply_variable = { won_trade_value = 1.5 }
+	}
+	set_variable = { won_inc_trade = won_trade_value }
+	multiply_variable = { won_inc_trade = 0.02 }
+
+	# Construction pacts
+	set_variable = { won_pact_count = 0 }
+	set_variable = { won_pact_weight = 0 }
+	clear_array = won_tmp_keep
+	for_each_loop = {
+		array = won_pacts
+		value = won_p
+		if = {
+			limit = {
+				var:won_p = {
+					exists = yes
+					has_capitulated = no
+					NOT = { has_war_with = ROOT }
+				}
+				has_capitulated = no
+			}
+			add_to_array = { won_tmp_keep = won_p }
+			add_to_variable = { won_pact_count = 1 }
+			var:won_p = { set_temp_variable = { won_w = won_gdp } }
+			divide_temp_variable = { won_w = won_quarter }
+			clamp_temp_variable = { var = won_w max = 1 }
+			add_to_variable = { won_pact_weight = won_w }
+		}
+		else = {
+			var:won_p = {
+				clr_country_flag = won_pact_@ROOT
+				remove_from_array = { won_pacts = ROOT }
+				ROOT = { clr_country_flag = won_pact_@PREV }
+			}
+		}
+	}
+	clear_array = won_pacts
+	for_each_loop = {
+		array = won_tmp_keep
+		value = won_p
+		add_to_array = { won_pacts = won_p }
+	}
+	clear_array = won_tmp_keep
+}
+
+###########################################################################
+# Investments abroad (monthly). Parallel arrays won_inv_who / won_inv_amt.
+###########################################################################
+won_invest_tick = {
+	set_variable = { won_inv_total = 0 }
+	set_variable = { won_inc_div = 0 }
+	clear_array = won_tmp_who
+	clear_array = won_tmp_amt
+	for_each_loop = {
+		array = won_inv_who
+		value = won_p
+		index = won_i
+		set_temp_variable = { won_a = won_inv_amt^won_i }
+		set_temp_variable = { won_ok = 1 }
+		var:won_p = {
+			if = {
+				limit = {
+					OR = {
+						exists = no
+						has_war_with = ROOT
+						ROOT = { has_country_flag = won_seized_by_@PREV }
+					}
+				}
+				set_temp_variable = { won_ok = 0 }
+			}
+		}
+		if = {
+			limit = { check_variable = { won_ok = 1 } }
+			add_to_array = { won_tmp_who = won_p }
+			add_to_array = { won_tmp_amt = won_a }
+			add_to_variable = { won_inv_total = won_a }
+			set_temp_variable = { won_d = won_a }
+			multiply_temp_variable = { won_d = 0.015 }
+			var:won_p = {
+				# A target in deep crisis pays nothing that month (the stake survives).
+				if = {
+					limit = { NOT = { has_capitulated = yes } }
+					subtract_from_variable = { won_treasury = won_d }
+					add_to_variable = { won_acc_div_out = won_d }
+				}
+				else = {
+					set_temp_variable = { won_d = 0 }
+				}
+			}
+			add_to_variable = { won_inc_div = won_d }
+		}
+		else = {
+			add_to_variable = { won_lost_assets = won_a }
+		}
+	}
+	clear_array = won_inv_who
+	clear_array = won_inv_amt
+	for_each_loop = {
+		array = won_tmp_who
+		value = won_p
+		index = won_i
+		add_to_array = { won_inv_who = won_p }
+		set_temp_variable = { won_a = won_tmp_amt^won_i }
+		add_to_array = { won_inv_amt = won_a }
+	}
+	clear_array = won_tmp_who
+	clear_array = won_tmp_amt
+	if = {
+		limit = { check_variable = { won_lost_assets > 0 } }
+		if = {
+			limit = { is_ai = no }
+			country_event = { id = won.40 }
+		}
+		else = {
+			set_variable = { won_lost_assets = 0 }
+		}
+	}
+}
+
+###########################################################################
+# Foreign service contracts we HIRED (monthly). Parallel arrays won_hire_who / won_hire_left.
+###########################################################################
+won_contract_tick = {
+	set_variable = { won_hire_count = 0 }
+	set_variable = { won_exp_svc = 0 }
+	clear_array = won_tmp_who
+	clear_array = won_tmp_amt
+	set_temp_variable = { won_fee = won_gdp }
+	multiply_temp_variable = { won_fee = 0.004 }
+	clamp_temp_variable = { var = won_fee min = 0.02 max = 0.06 }
+	for_each_loop = {
+		array = won_hire_who
+		value = won_p
+		index = won_i
+		set_temp_variable = { won_left = won_hire_left^won_i }
+		subtract_from_temp_variable = { won_left = 1 }
+		set_temp_variable = { won_ok = 1 }
+		if = {
+			limit = { check_variable = { won_left < 0 } }
+			set_temp_variable = { won_ok = 0 }
+		}
+		var:won_p = {
+			if = {
+				limit = {
+					OR = {
+						exists = no
+						has_war_with = ROOT
+						has_capitulated = yes
+					}
+				}
+				set_temp_variable = { won_ok = 0 }
+			}
+		}
+		if = {
+			limit = { check_variable = { won_ok = 1 } }
+			add_to_array = { won_tmp_who = won_p }
+			add_to_array = { won_tmp_amt = won_left }
+			add_to_variable = { won_hire_count = 1 }
+			add_to_variable = { won_exp_svc = won_fee }
+			var:won_p = {
+				add_to_variable = { won_treasury = won_fee }
+				add_to_variable = { won_acc_svc_in = won_fee }
+			}
+		}
+		else = {
+			var:won_p = {
+				ROOT = { clr_country_flag = won_hires_@PREV }
+			}
+		}
+	}
+	clear_array = won_hire_who
+	clear_array = won_hire_left
+	for_each_loop = {
+		array = won_tmp_who
+		value = won_p
+		index = won_i
+		add_to_array = { won_hire_who = won_p }
+		set_temp_variable = { won_left = won_tmp_amt^won_i }
+		add_to_array = { won_hire_left = won_left }
+	}
+	clear_array = won_tmp_who
+	clear_array = won_tmp_amt
+}
+
+###########################################################################
+# Contracts our firms SOLD abroad (provider side, monthly). Arrays won_sold_to / won_sold_left.
+###########################################################################
+won_sold_tick = {
+	set_variable = { won_sold_count = 0 }
+	clear_array = won_tmp_who
+	clear_array = won_tmp_amt
+	for_each_loop = {
+		array = won_sold_to
+		value = won_p
+		index = won_i
+		set_temp_variable = { won_left = won_sold_left^won_i }
+		subtract_from_temp_variable = { won_left = 1 }
+		set_temp_variable = { won_ok = 1 }
+		if = {
+			limit = { check_variable = { won_left < 0 } }
+			set_temp_variable = { won_ok = 0 }
+		}
+		var:won_p = {
+			if = {
+				limit = { OR = { exists = no has_war_with = ROOT has_capitulated = yes } }
+				set_temp_variable = { won_ok = 0 }
+			}
+		}
+		if = {
+			limit = { check_variable = { won_ok = 1 } }
+			add_to_array = { won_tmp_who = won_p }
+			add_to_array = { won_tmp_amt = won_left }
+			add_to_variable = { won_sold_count = 1 }
+		}
+	}
+	clear_array = won_sold_to
+	clear_array = won_sold_left
+	for_each_loop = {
+		array = won_tmp_who
+		value = won_p
+		index = won_i
+		add_to_array = { won_sold_to = won_p }
+		set_temp_variable = { won_left = won_tmp_amt^won_i }
+		add_to_array = { won_sold_left = won_left }
+	}
+	clear_array = won_tmp_who
+	clear_array = won_tmp_amt
+}
+
+###########################################################################
+# Foreign capital invested HERE (host side, monthly). Arrays won_investors / won_inv_from_amt.
+###########################################################################
+won_fdi_tick = {
+	set_variable = { won_fdi_in = 0 }
+	clear_array = won_tmp_who
+	clear_array = won_tmp_amt
+	for_each_loop = {
+		array = won_investors
+		value = won_p
+		index = won_i
+		set_temp_variable = { won_a = won_inv_from_amt^won_i }
+		set_temp_variable = { won_ok = 1 }
+		var:won_p = {
+			if = {
+				limit = { OR = { exists = no has_war_with = ROOT } }
+				set_temp_variable = { won_ok = 0 }
+			}
+		}
+		if = {
+			limit = { check_variable = { won_ok = 1 } }
+			add_to_array = { won_tmp_who = won_p }
+			add_to_array = { won_tmp_amt = won_a }
+			add_to_variable = { won_fdi_in = won_a }
+		}
+	}
+	clear_array = won_investors
+	clear_array = won_inv_from_amt
+	for_each_loop = {
+		array = won_tmp_who
+		value = won_p
+		index = won_i
+		add_to_array = { won_investors = won_p }
+		set_temp_variable = { won_a = won_tmp_amt^won_i }
+		add_to_array = { won_inv_from_amt = won_a }
+	}
+	clear_array = won_tmp_who
+	clear_array = won_tmp_amt
+}
+
+###########################################################################
+# National budget (monthly)
+###########################################################################
+won_budget_tick = {
+	# Taxes
+	# Taxes are collected at the LOWEST rate held since the last budget (no last-day switching).
+	set_temp_variable = { won_taxr = 0.014 }
+	if = {
+		limit = { check_variable = { won_tax_low = 1 } }
+		set_temp_variable = { won_taxr = 0.010 }
+	}
+	if = {
+		limit = { check_variable = { won_tax_low = 3 } }
+		set_temp_variable = { won_taxr = 0.019 }
+	}
+	add_to_temp_variable = { won_taxr = won_sys_tax }
+	add_to_temp_variable = { won_taxr = won_law_tax }
+	set_variable = { won_inc_tax = won_gdp }
+	multiply_variable = { won_inc_tax = won_taxr }
+
+	# Administration and the budget priority
+	set_variable = { won_exp_admin = won_gdp }
+	multiply_variable = { won_exp_admin = 0.012 }
+	set_temp_variable = { won_t = won_gdp }
+	multiply_temp_variable = { won_t = won_sys_spend }
+	add_to_variable = { won_exp_admin = won_t }
+	set_variable = { won_exp_policy = 0 }
+	# Any priority held at any time since the last budget is billed in full.
+	if = {
+		limit = {
+			OR = {
+				check_variable = { won_budget > 0 }
+				has_country_flag = won_budget_used
+			}
+		}
+		set_variable = { won_exp_policy = won_gdp }
+		multiply_variable = { won_exp_policy = 0.003 }
+	}
+	clr_country_flag = won_budget_used
+	if = {
+		limit = { check_variable = { won_budget > 0 } }
+		set_country_flag = won_budget_used
+	}
+
+	# Interest on reserves or on debt
+	set_variable = { won_exp_interest = 0 }
+	set_variable = { won_inc_interest = 0 }
+	if = {
+		limit = { check_variable = { won_treasury < 0 } }
+		# Debt is charged at the HIGHEST rate held since the last budget.
+		set_temp_variable = { won_ir = 0.0045 }
+		if = {
+			limit = { check_variable = { won_rate_high = 1 } }
+			set_temp_variable = { won_ir = 0.003 }
+		}
+		if = {
+			limit = { check_variable = { won_rate_high = 3 } }
+			set_temp_variable = { won_ir = 0.0065 }
+		}
+		if = {
+			limit = { check_variable = { won_debt_ratio > 1 } }
+			add_to_temp_variable = { won_ir = 0.002 }
+		}
+		set_variable = { won_exp_interest = won_treasury }
+		multiply_variable = { won_exp_interest = -1 }
+		multiply_variable = { won_exp_interest = won_ir }
+	}
+	else = {
+		set_variable = { won_inc_interest = won_treasury }
+		multiply_variable = { won_inc_interest = 0.0008 }
+	}
+
+	# Our own flows move the treasury now. Flows other countries pushed to us
+	# (service fees in, dividends out) were applied by their ticks already.
+	set_temp_variable = { won_own = won_inc_tax }
+	add_to_temp_variable = { won_own = won_inc_trade }
+	add_to_temp_variable = { won_own = won_inc_div }
+	add_to_temp_variable = { won_own = won_inc_interest }
+	if = {
+		limit = { check_variable = { won_world_contract > 0 } }
+		set_temp_variable = { won_t = won_gdp }
+		multiply_temp_variable = { won_t = 0.004 }
+		clamp_temp_variable = { var = won_t min = 0.03 max = 0.12 }
+		add_to_variable = { won_inc_special = won_t }
+		subtract_from_variable = { won_world_contract = 1 }
+	}
+	if = {
+		limit = { has_idea = won_nationalized }
+		set_temp_variable = { won_t = won_gdp }
+		multiply_temp_variable = { won_t = 0.002 }
+		add_to_variable = { won_inc_special = won_t }
+	}
+	won_global_income = yes
+	add_to_temp_variable = { won_own = won_inc_special }
+	won_programme_tick = yes
+	subtract_from_temp_variable = { won_own = won_exp_prog }
+	subtract_from_temp_variable = { won_own = won_exp_admin }
+	subtract_from_temp_variable = { won_own = won_exp_policy }
+	subtract_from_temp_variable = { won_own = won_exp_interest }
+	subtract_from_temp_variable = { won_own = won_exp_svc }
+	add_to_variable = { won_treasury = won_own }
+
+	set_variable = { won_inc_svc = won_acc_svc_in }
+	set_variable = { won_exp_div = won_acc_div_out }
+	set_variable = { won_acc_svc_in = 0 }
+	set_variable = { won_acc_div_out = 0 }
+
+	set_variable = { won_balance = won_own }
+	add_to_variable = { won_balance = won_inc_svc }
+	subtract_from_variable = { won_balance = won_exp_div }
+
+	set_variable = { won_income = won_inc_tax }
+	add_to_variable = { won_income = won_inc_trade }
+	add_to_variable = { won_income = won_inc_div }
+	add_to_variable = { won_income = won_inc_svc }
+	add_to_variable = { won_income = won_inc_interest }
+	add_to_variable = { won_income = won_inc_special }
+	set_variable = { won_spending = won_income }
+	subtract_from_variable = { won_spending = won_balance }
+	clamp_variable = { var = won_treasury min = -100000 max = 100000 }
+}
+
+###########################################################################
+# Indicators: debt, credit, growth, inflation, confidence, phase
+###########################################################################
+won_update_indicators = {
+	# Debt ratio (0 when we hold reserves)
+	set_variable = { won_debt_ratio = 0 }
+	set_variable = { won_reserve_ratio = 0 }
+	if = {
+		limit = { check_variable = { won_treasury < 0 } }
+		set_variable = { won_debt_ratio = won_treasury }
+		multiply_variable = { won_debt_ratio = -1 }
+		divide_variable = { won_debt_ratio = won_gdp }
+	}
+	else = {
+		set_variable = { won_reserve_ratio = won_treasury }
+		divide_variable = { won_reserve_ratio = won_gdp }
+	}
+	set_variable = { won_debt_pct = won_debt_ratio }
+	multiply_variable = { won_debt_pct = 100 }
+
+	# Credit rating 1 (AAA) .. 7 (C)
+	set_variable = { won_credit = 7 }
+	if = {
+		limit = { check_variable = { won_reserve_ratio > 0.3 } }
+		set_variable = { won_credit = 1 }
+	}
+	else_if = {
+		limit = { check_variable = { won_treasury > 0 } }
+		set_variable = { won_credit = 2 }
+	}
+	else_if = {
+		limit = { check_variable = { won_debt_ratio < 0.3 } }
+		set_variable = { won_credit = 3 }
+	}
+	else_if = {
+		limit = { check_variable = { won_debt_ratio < 0.6 } }
+		set_variable = { won_credit = 4 }
+	}
+	else_if = {
+		limit = { check_variable = { won_debt_ratio < 1.0 } }
+		set_variable = { won_credit = 5 }
+	}
+	else_if = {
+		limit = { check_variable = { won_debt_ratio < 1.5 } }
+		set_variable = { won_credit = 6 }
+	}
+
+	# Growth: month on month and year on year (history holds the last 24 months, newest last)
+	set_temp_variable = { won_last = won_hist_gdp^23 }
+	set_temp_variable = { won_yago = won_hist_gdp^12 }
+	clamp_temp_variable = { var = won_last min = 0.1 }
+	clamp_temp_variable = { var = won_yago min = 0.1 }
+	set_variable = { won_growth_m = won_gdp }
+	subtract_from_variable = { won_growth_m = won_last }
+	divide_variable = { won_growth_m = won_last }
+	multiply_variable = { won_growth_m = 100 }
+	set_variable = { won_growth_y = won_gdp }
+	subtract_from_variable = { won_growth_y = won_yago }
+	divide_variable = { won_growth_y = won_yago }
+	multiply_variable = { won_growth_y = 100 }
+	clamp_variable = { var = won_growth_y min = -99 max = 999 }
+
+	# Inflation target
+	set_temp_variable = { won_it = 2 }
+	if = {
+		limit = { check_variable = { won_balance < 0 } }
+		set_temp_variable = { won_t = won_balance }
+		multiply_temp_variable = { won_t = -100 }
+		divide_temp_variable = { won_t = won_gdp }
+		multiply_temp_variable = { won_t = 3 }
+		multiply_temp_variable = { won_t = won_sys_deficit_k }
+		clamp_temp_variable = { var = won_t max = 12 }
+		add_to_temp_variable = { won_it = won_t }
+	}
+	if = {
+		limit = { check_variable = { won_rate_low = 1 } }
+		add_to_temp_variable = { won_it = 2.5 }
+	}
+	if = {
+		limit = { check_variable = { won_rate_low = 3 } }
+		subtract_from_temp_variable = { won_it = 2.5 }
+	}
+	if = {
+		limit = { has_war = yes }
+		add_to_temp_variable = { won_it = 1.5 }
+	}
+	# Long wars (+1 per year at war, up to +3), heavy arms imports (+0.15 per contract, up to +2)
+	# and unrest (stability under 30%, up to +3). Together at most +5.
+	set_temp_variable = { won_ip = won_war_months }
+	multiply_temp_variable = { won_ip = 0.0833 }
+	clamp_temp_variable = { var = won_ip max = 3 }
+	set_temp_variable = { won_t = aon_imp_n }
+	multiply_temp_variable = { won_t = 0.15 }
+	clamp_temp_variable = { var = won_t max = 2 }
+	add_to_temp_variable = { won_ip = won_t }
+	if = {
+		limit = { has_stability < 0.3 }
+		set_temp_variable = { won_t = 0.3 }
+		subtract_from_temp_variable = { won_t = stability }
+		multiply_temp_variable = { won_t = 10 }
+		clamp_temp_variable = { var = won_t max = 3 }
+		add_to_temp_variable = { won_ip = won_t }
+	}
+	# Guns over butter: military spending above 25% of GDP (up to +2, inside the same cap)
+	if = {
+		limit = { check_variable = { won_mil_pct > 25 } }
+		set_temp_variable = { won_t = won_mil_pct }
+		subtract_from_temp_variable = { won_t = 25 }
+		multiply_temp_variable = { won_t = 0.05 }
+		clamp_temp_variable = { var = won_t max = 2 }
+		add_to_temp_variable = { won_ip = won_t }
+	}
+	clamp_temp_variable = { var = won_ip min = 0 max = 5 }
+	set_variable = { won_infl_extra = won_ip }
+	add_to_temp_variable = { won_it = won_ip }
+	add_to_temp_variable = { won_it = won_sph_i }
+	if = {
+		limit = { check_variable = { won_print_m > 0 } }
+		add_to_temp_variable = { won_it = 5 }
+		subtract_from_variable = { won_print_m = 1 }
+	}
+	if = {
+		limit = { check_variable = { won_debt_ratio > 0.8 } }
+		add_to_temp_variable = { won_it = 2 }
+	}
+	add_to_temp_variable = { won_it = won_sys_infl }
+	add_to_temp_variable = { won_it = won_law_infl }
+	set_temp_variable = { won_t = won_trade_weight }
+	multiply_temp_variable = { won_t = 0.25 }
+	subtract_from_temp_variable = { won_it = won_t }
+	if = {
+		limit = { check_variable = { won_phase = 5 } }
+		add_to_temp_variable = { won_it = 1 }
+	}
+	if = {
+		limit = { check_variable = { won_phase = 1 } }
+		subtract_from_temp_variable = { won_it = 3 }
+	}
+	set_temp_variable = { won_t = won_it }
+	subtract_from_temp_variable = { won_t = won_inflation }
+	multiply_temp_variable = { won_t = 0.2 }
+	add_to_variable = { won_inflation = won_t }
+	set_temp_variable_to_random = { var = won_r min = -0.3 max = 0.3 }
+	add_to_variable = { won_inflation = won_r }
+	clamp_variable = { var = won_inflation min = -6 max = 60 }
+
+	# Market confidence target
+	set_temp_variable = { won_ct = stability }
+	subtract_from_temp_variable = { won_ct = 0.5 }
+	multiply_temp_variable = { won_ct = 50 }
+	add_to_temp_variable = { won_ct = 50 }
+	set_temp_variable = { won_t = won_growth_y }
+	clamp_temp_variable = { var = won_t min = -10 max = 10 }
+	multiply_temp_variable = { won_t = 1.5 }
+	add_to_temp_variable = { won_ct = won_t }
+	if = {
+		limit = { check_variable = { won_inflation > 4 } }
+		set_temp_variable = { won_t = won_inflation }
+		subtract_from_temp_variable = { won_t = 4 }
+		multiply_temp_variable = { won_t = 1.5 }
+		subtract_from_temp_variable = { won_ct = won_t }
+	}
+	if = {
+		limit = { check_variable = { won_inflation < 0 } }
+		set_temp_variable = { won_t = won_inflation }
+		multiply_temp_variable = { won_t = 2 }
+		add_to_temp_variable = { won_ct = won_t }
+	}
+	if = {
+		limit = { check_variable = { won_treasury > 0 } }
+		set_temp_variable = { won_t = won_reserve_ratio }
+		multiply_temp_variable = { won_t = 25 }
+		clamp_temp_variable = { var = won_t max = 8 }
+		add_to_temp_variable = { won_ct = won_t }
+	}
+	else = {
+		set_temp_variable = { won_t = won_debt_ratio }
+		multiply_temp_variable = { won_t = 20 }
+		clamp_temp_variable = { var = won_t max = 25 }
+		subtract_from_temp_variable = { won_ct = won_t }
+	}
+	set_temp_variable = { won_t = won_trade_weight }
+	multiply_temp_variable = { won_t = 1.5 }
+	add_to_temp_variable = { won_ct = won_t }
+	if = {
+		limit = {
+			check_variable = { won_open = 1 }
+			won_closed_to_capital = no
+		}
+		add_to_temp_variable = { won_ct = 4 }
+	}
+	if = {
+		limit = { check_variable = { won_rate_high = 1 } }
+		add_to_temp_variable = { won_ct = 4 }
+	}
+	if = {
+		limit = { check_variable = { won_rate_high = 3 } }
+		subtract_from_temp_variable = { won_ct = 4 }
+	}
+	if = {
+		limit = { has_war = yes }
+		subtract_from_temp_variable = { won_ct = 4 }
+	}
+	if = {
+		limit = { surrender_progress > 0.25 }
+		subtract_from_temp_variable = { won_ct = 15 }
+	}
+	add_to_temp_variable = { won_ct = won_sys_conf }
+	add_to_temp_variable = { won_ct = won_prog_conf }
+	add_to_temp_variable = { won_ct = won_conf_shock }
+	multiply_variable = { won_conf_shock = 0.75 }
+	set_temp_variable = { won_t = won_ct }
+	subtract_from_temp_variable = { won_t = won_confidence }
+	multiply_temp_variable = { won_t = 0.25 }
+	add_to_variable = { won_confidence = won_t }
+	clamp_variable = { var = won_confidence min = 0 max = 100 }
+
+	# Economic phase 1 Depression .. 5 Boom
+	set_temp_variable = { won_t = won_growth_y }
+	clamp_temp_variable = { var = won_t min = -10 max = 10 }
+	multiply_temp_variable = { won_t = 2.5 }
+	add_to_temp_variable = { won_t = won_confidence }
+	set_variable = { won_phase = 1 }
+	if = {
+		limit = { check_variable = { won_t > 28 } }
+		set_variable = { won_phase = 2 }
+	}
+	if = {
+		limit = { check_variable = { won_t > 42 } }
+		set_variable = { won_phase = 3 }
+	}
+	if = {
+		limit = { check_variable = { won_t > 58 } }
+		set_variable = { won_phase = 4 }
+	}
+	if = {
+		limit = { check_variable = { won_t > 75 } }
+		set_variable = { won_phase = 5 }
+	}
+
+	# Prices for treasury decisions (shown in their cost text)
+	set_variable = { won_c_small = won_gdp }
+	multiply_variable = { won_c_small = 0.02 }
+	clamp_variable = { var = won_c_small min = 0.1 }
+	set_variable = { won_c_mid = won_gdp }
+	multiply_variable = { won_c_mid = 0.04 }
+	clamp_variable = { var = won_c_mid min = 0.2 }
+	set_variable = { won_c_big = won_gdp }
+	multiply_variable = { won_c_big = 0.07 }
+	clamp_variable = { var = won_c_big min = 0.35 }
+	set_variable = { won_c_factory = won_bought_factories }
+	multiply_variable = { won_c_factory = 0.25 }
+	add_to_variable = { won_c_factory = 1.5 }
+	clamp_variable = { var = won_c_factory max = 4 }
+	set_variable = { won_c_invest = 1.5 }
+	set_variable = { won_c_fee = won_gdp }
+	multiply_variable = { won_c_fee = 0.004 }
+	clamp_variable = { var = won_c_fee min = 0.02 max = 0.06 }
+	# One foreign contractor is worth about three civilian factories of building work.
+	set_variable = { won_hire_bonus = num_of_civilian_factories }
+	clamp_variable = { var = won_hire_bonus min = 1 }
+	set_temp_variable = { won_t = 3 }
+	divide_temp_variable = { won_t = won_hire_bonus }
+	clamp_temp_variable = { var = won_t max = 0.10 }
+	set_variable = { won_hire_bonus = won_t }
+	set_variable = { won_hire_bonus_pct = won_t }
+	multiply_variable = { won_hire_bonus_pct = 100 }
+	set_variable = { won_treasury_k = won_treasury }
+	divide_variable = { won_treasury_k = 1000 }
+	set_variable = { won_c_fee3 = won_c_fee }
+	multiply_variable = { won_c_fee3 = 3 }
+	set_variable = { won_inv_div = won_inv_total }
+	multiply_variable = { won_inv_div = 0.015 }
+}
+
+###########################################################################
+# History and charts
+###########################################################################
+won_push_history = {
+	remove_from_array = { array = won_hist_gdp index = 0 }
+	add_to_array = { won_hist_gdp = won_gdp }
+	remove_from_array = { array = won_hist_tre index = 0 }
+	add_to_array = { won_hist_tre = won_treasury }
+}
+
+###########################################################################
+# Modifier engine: rebuilds every variable read by the won_economy dynamic modifier.
+###########################################################################
+won_recalc_modifiers = {
+	set_variable = { won_m_build = 0 }
+	set_variable = { won_m_cg = 0 }
+	set_variable = { won_m_output = 0 }
+	set_variable = { won_m_stab = 0 }
+	set_variable = { won_m_pp = 0 }
+	set_variable = { won_m_research = 0 }
+	set_variable = { won_m_res = 0 }
+	set_variable = { won_m_eff = 0 }
+	set_variable = { won_m_ws = 0 }
+	set_variable = { won_m_infra = 0 }
+	set_variable = { won_m_arms = 0 }
+	set_variable = { won_m_civuse = 0 }
+	set_variable = { won_m_effgain = 0 }
+	set_variable = { won_m_license = 0 }
+
+	# International Market trade flows (set weekly by aon_refresh_modifiers)
+	add_to_variable = { won_m_output = aon_m_output }
+	add_to_variable = { won_m_cg = aon_m_cg }
+	add_to_variable = { won_m_build = aon_m_build }
+	add_to_variable = { won_m_eff = aon_m_maxeff }
+	add_to_variable = { won_m_research = aon_m_research }
+	set_variable = { won_m_effgain = aon_m_eff }
+	set_variable = { won_m_license = aon_m_license }
+
+	# Economic sphere
+	add_to_variable = { won_m_output = won_sph_out }
+	add_to_variable = { won_m_build = won_sph_build }
+
+	# Market confidence
+	set_temp_variable = { won_t = won_confidence }
+	subtract_from_temp_variable = { won_t = 50 }
+	multiply_temp_variable = { won_t = 0.003 }
+	add_to_variable = { won_m_build = won_t }
+	set_temp_variable = { won_t = won_confidence }
+	subtract_from_temp_variable = { won_t = 50 }
+	multiply_temp_variable = { won_t = 0.001 }
+	add_to_variable = { won_m_output = won_t }
+
+	# Phase
+	if = {
+		limit = { check_variable = { won_phase = 5 } }
+		add_to_variable = { won_m_cg = -0.03 }
+		add_to_variable = { won_m_stab = 0.03 }
+	}
+	if = {
+		limit = { check_variable = { won_phase = 2 } }
+		add_to_variable = { won_m_stab = -0.02 }
+	}
+	if = {
+		limit = { check_variable = { won_phase = 1 } }
+		add_to_variable = { won_m_stab = -0.06 }
+		add_to_variable = { won_m_cg = 0.05 }
+	}
+
+	# Inflation
+	if = {
+		limit = { check_variable = { won_inflation > 3 } }
+		set_temp_variable = { won_t = won_inflation }
+		subtract_from_temp_variable = { won_t = 3 }
+		multiply_temp_variable = { won_t = 0.006 }
+		clamp_temp_variable = { var = won_t max = 0.15 }
+		add_to_variable = { won_m_cg = won_t }
+	}
+	if = {
+		limit = { check_variable = { won_inflation > 5 } }
+		set_temp_variable = { won_t = won_inflation }
+		subtract_from_temp_variable = { won_t = 5 }
+		multiply_temp_variable = { won_t = 0.008 }
+		clamp_temp_variable = { var = won_t max = 0.2 }
+		subtract_from_variable = { won_m_stab = won_t }
+	}
+
+	# Tax policy
+	if = {
+		limit = { check_variable = { won_tax = 1 } }
+		add_to_variable = { won_m_stab = 0.05 }
+		add_to_variable = { won_m_build = 0.04 }
+	}
+	if = {
+		limit = { check_variable = { won_tax = 3 } }
+		add_to_variable = { won_m_stab = -0.05 }
+		add_to_variable = { won_m_pp = 0.10 }
+		add_to_variable = { won_m_build = -0.04 }
+	}
+
+	# Interest rates
+	if = {
+		limit = { check_variable = { won_rate = 1 } }
+		add_to_variable = { won_m_build = 0.06 }
+	}
+	if = {
+		limit = { check_variable = { won_rate = 3 } }
+		add_to_variable = { won_m_build = -0.08 }
+		add_to_variable = { won_m_stab = 0.02 }
+	}
+
+	# Budget priority
+	if = {
+		limit = { check_variable = { won_budget = 1 } }
+		add_to_variable = { won_m_output = 0.05 }
+		add_to_variable = { won_m_eff = 0.05 }
+	}
+	if = {
+		limit = { check_variable = { won_budget = 2 } }
+		add_to_variable = { won_m_infra = 0.25 }
+		add_to_variable = { won_m_build = 0.05 }
+	}
+	if = {
+		limit = { check_variable = { won_budget = 3 } }
+		add_to_variable = { won_m_stab = 0.07 }
+		add_to_variable = { won_m_cg = -0.02 }
+	}
+	if = {
+		limit = { check_variable = { won_budget = 4 } }
+		add_to_variable = { won_m_ws = 0.07 }
+		add_to_variable = { won_m_arms = 0.15 }
+	}
+
+	# Debt
+	if = {
+		limit = { check_variable = { won_debt_ratio > 0.8 } }
+		add_to_variable = { won_m_stab = -0.05 }
+		add_to_variable = { won_m_pp = -0.10 }
+	}
+	if = {
+		limit = { check_variable = { won_debt_ratio > 1.5 } }
+		add_to_variable = { won_m_stab = -0.05 }
+		add_to_variable = { won_m_build = -0.10 }
+	}
+	if = {
+		limit = { check_variable = { won_reserve_ratio > 0.3 } }
+		add_to_variable = { won_m_pp = 0.05 }
+	}
+
+	# Trade agreements: cheaper imported consumer goods
+	set_temp_variable = { won_t = won_trade_weight }
+	multiply_temp_variable = { won_t = -0.015 }
+	clamp_temp_variable = { var = won_t min = -0.09 }
+	add_to_variable = { won_m_cg = won_t }
+
+	# Construction pacts
+	set_temp_variable = { won_t = won_pact_weight }
+	multiply_temp_variable = { won_t = 0.03 }
+	clamp_temp_variable = { var = won_t max = 0.12 }
+	add_to_variable = { won_m_build = won_t }
+
+	# Foreign companies working for us
+	set_temp_variable = { won_t = won_hire_count }
+	multiply_temp_variable = { won_t = won_hire_bonus }
+	add_to_variable = { won_m_build = won_t }
+
+	# Our companies working abroad occupy civilian factories
+	set_variable = { won_m_civuse = won_sold_count }
+
+	# Foreign capital invested here
+	set_temp_variable = { won_t = won_fdi_in }
+	multiply_temp_variable = { won_t = 0.005 }
+	clamp_temp_variable = { var = won_t max = 0.10 }
+	add_to_variable = { won_m_eff = won_t }
+
+	# Investments abroad give know-how
+	set_temp_variable = { won_t = won_inv_total }
+	multiply_temp_variable = { won_t = 0.002 }
+	clamp_temp_variable = { var = won_t max = 0.05 }
+	add_to_variable = { won_m_research = won_t }
+
+	# Public programmes
+	won_programme_passives = yes
+
+	# Safety caps
+	clamp_variable = { var = won_m_build min = -0.4 max = 0.6 }
+	clamp_variable = { var = won_m_cg min = -0.2 max = 0.3 }
+	clamp_variable = { var = won_m_stab min = -0.25 max = 0.2 }
+	clamp_variable = { var = won_m_output min = -0.1 max = 0.15 }
+
+	# Percent copies for the dashboard
+	set_variable = { won_pct_build = won_m_build }
+	multiply_variable = { won_pct_build = 100 }
+	set_variable = { won_pct_cg = won_m_cg }
+	multiply_variable = { won_pct_cg = 100 }
+	set_variable = { won_pct_output = won_m_output }
+	multiply_variable = { won_pct_output = 100 }
+	set_variable = { won_pct_stab = won_m_stab }
+	multiply_variable = { won_pct_stab = 100 }
+	add_to_variable = { won_dirty = 1 }
+}
+
+###########################################################################
+# AI fiscal autopilot
+###########################################################################
+won_ai_policy = {
+	if = {
+		limit = { check_variable = { won_inflation > 9 } }
+		set_variable = { won_rate = 3 }
+	}
+	else_if = {
+		limit = { check_variable = { won_inflation < 1 } }
+		set_variable = { won_rate = 1 }
+	}
+	else_if = {
+		limit = { check_variable = { won_inflation < 5 } }
+		set_variable = { won_rate = 2 }
+	}
+	if = {
+		limit = { check_variable = { won_debt_ratio > 0.4 } }
+		set_variable = { won_tax = 3 }
+		set_variable = { won_budget = 0 }
+	}
+	else_if = {
+		limit = { check_variable = { won_reserve_ratio > 0.6 } }
+		set_variable = { won_tax = 1 }
+	}
+	else_if = {
+		limit = { check_variable = { won_reserve_ratio > 0.15 } }
+		set_variable = { won_tax = 2 }
+		if = {
+			limit = { has_war = yes }
+			set_variable = { won_budget = 4 }
+		}
+		else = {
+			set_variable = { won_budget = 1 }
+		}
+	}
+}
+
+###########################################################################
+# The monthly heartbeat (on_monthly, every country)
+###########################################################################
+won_monthly = {
+	if = {
+		limit = { NOT = { has_country_flag = won_ready } }
+		won_init = yes
+	}
+	else = {
+		if = {
+			limit = { NOT = { won_current_system_allowed = yes } check_variable = { won_system > 0 } }
+			won_system_lost = yes
+		}
+		won_world_tick = yes
+		won_modern_price = yes
+		won_dev_tick = yes
+		won_law_tick = yes
+		won_trade_tick = yes
+		won_invest_tick = yes
+		won_contract_tick = yes
+		won_sold_tick = yes
+		won_fdi_tick = yes
+		won_calc_gdp = yes
+		won_budget_tick = yes
+		won_update_indicators = yes
+		won_global_tick = yes
+		won_push_history = yes
+		won_recalc_modifiers = yes
+		set_variable = { won_inc_special = 0 }
+		set_variable = { won_tax_low = won_tax }
+		set_variable = { won_rate_low = won_rate }
+		set_variable = { won_rate_high = won_rate }
+		if = {
+			limit = { is_ai = yes }
+			won_ai_policy = yes
+			set_variable = { won_tax_low = won_tax }
+			set_variable = { won_rate_low = won_rate }
+			set_variable = { won_rate_high = won_rate }
+		}
+		else = {
+			won_update_charts = yes
+			won_lg_monthly = yes
+			# on_startup can run before the human is assigned a country; greet here instead.
+			if = {
+				limit = { NOT = { has_country_flag = won_welcomed } }
+				set_country_flag = won_welcomed
+				country_event = { id = won.1 }
+			}
+			else = {
+				won_event_pulse = yes
+			}
+		}
+		if = {
+			limit = { check_variable = { won_system_cd > 0 } }
+			subtract_from_variable = { won_system_cd = 1 }
+		}
+	}
+}

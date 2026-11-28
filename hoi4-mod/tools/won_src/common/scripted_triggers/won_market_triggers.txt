@@ -1,0 +1,81 @@
+# Wealth of Nations - International Market module (merged from Arsenal of Nations)
+###########################################
+# Arsenal of Nations - scripted triggers
+###########################################
+
+# PURCHASE_CONTRACT scope: tanks and aircraft
+aon_contract_heavy_trigger = {
+	OR = {
+		contract_contains_equipment = light_tank_chassis
+		contract_contains_equipment = medium_tank_chassis
+		contract_contains_equipment = heavy_tank_chassis
+		contract_contains_equipment = modern_tank_chassis
+		contract_contains_equipment = super_heavy_tank_chassis
+		contract_contains_equipment = amphibious_tank_chassis
+		contract_contains_equipment = small_plane_airframe
+		contract_contains_equipment = medium_plane_airframe
+		contract_contains_equipment = large_plane_airframe
+		contract_contains_equipment = cv_small_plane_airframe
+	}
+}
+
+# PURCHASE_CONTRACT scope: guns, vehicles and rolling stock
+aon_contract_medium_trigger = {
+	OR = {
+		contract_contains_equipment = artillery_equipment
+		contract_contains_equipment = rocket_artillery_equipment
+		contract_contains_equipment = anti_tank_equipment
+		contract_contains_equipment = anti_air_equipment
+		contract_contains_equipment = motorized_equipment
+		contract_contains_equipment = mechanized_equipment
+		contract_contains_equipment = armored_car_equipment
+		contract_contains_equipment = train_equipment
+	}
+}
+
+# PURCHASE_CONTRACT scope: categories used for reverse engineering
+aon_contract_small_arms_trigger = {
+	OR = {
+		contract_contains_equipment = infantry_equipment
+		contract_contains_equipment = support_equipment
+	}
+}
+aon_contract_artillery_trigger = {
+	OR = {
+		contract_contains_equipment = artillery_equipment
+		contract_contains_equipment = rocket_artillery_equipment
+		contract_contains_equipment = anti_tank_equipment
+		contract_contains_equipment = anti_air_equipment
+	}
+}
+aon_contract_armour_trigger = {
+	OR = {
+		contract_contains_equipment = light_tank_chassis
+		contract_contains_equipment = medium_tank_chassis
+		contract_contains_equipment = heavy_tank_chassis
+		contract_contains_equipment = modern_tank_chassis
+		contract_contains_equipment = super_heavy_tank_chassis
+		contract_contains_equipment = amphibious_tank_chassis
+		contract_contains_equipment = armored_car_equipment
+	}
+}
+aon_contract_aircraft_trigger = {
+	OR = {
+		contract_contains_equipment = small_plane_airframe
+		contract_contains_equipment = medium_plane_airframe
+		contract_contains_equipment = large_plane_airframe
+		contract_contains_equipment = cv_small_plane_airframe
+	}
+}
+
+
+
+# COUNTRY scope: has imported something that can be studied
+aon_has_studiable_imports_trigger = {
+	OR = {
+		has_country_flag = aon_imported_small_arms
+		has_country_flag = aon_imported_artillery
+		has_country_flag = aon_imported_armour
+		has_country_flag = aon_imported_aircraft
+	}
+}

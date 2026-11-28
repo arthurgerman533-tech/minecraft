@@ -1,0 +1,14 @@
+# Wealth of Nations - World Economic League (won_rank_effects.txt, events in won_events_league.txt)
+won_cat_economy = {
+	won_open_league = {
+		icon = generic_research
+		priority = 98
+		cost = 0
+		fire_only_once = no
+		visible = { is_ai = no }
+		complete_effect = {
+			won_lg_open = yes
+		}
+		ai_will_do = { factor = 0 }
+	}
+}

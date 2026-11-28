@@ -1,0 +1,110 @@
+﻿l_english:
+  equipment_designer_artillery_equipment:1 "Field Gun"
+  EQ_MOD_SLOT_main_shell_slot_TITLE:1 "Main Shells"
+  EQ_MOD_CAT_main_shell_type_TITLE:1 "Main Shells"
+
+  EQ_MOD_SLOT_artillery_barrel_slot_TITLE:1 "Cannon Barrel"
+  EQ_MOD_CAT_artillery_barrel_type_TITLE:1 "Cannon Barrel"
+  
+  EQ_MOD_SLOT_cannon_caliber_type_slot_TITLE:1 "Cannon Caliber"
+  EQ_MOD_CAT_cannon_caliber_type_TITLE:1 "Cannon Caliber"
+  EQ_MOD_SLOT_artillery_caliber_slot_TITLE:1 "Cannon Caliber"
+  EQ_MOD_CAT_artillery_caliber_type_TITLE:1 "Cannon Caliber"
+
+  EQ_MOD_CAT_cannon_small_caliber_type_TITLE:1 "Small cannon Caliber"
+
+  EQ_MOD_SLOT_artillery_special_slot_1_TITLE:1 "Special Slot 1"
+  EQ_MOD_SLOT_artillery_special_slot_2_TITLE:1 "Special Slot 2"
+  EQ_MOD_CAT_artillery_special_type_TITLE:1 "Additional Loadaout"
+  EQ_MOD_CAT_artillery_special_armor_type_TITLE:1 "Frontal Protection"
+
+  EQ_MOD_SLOT_artillery_mobility_slot_TITLE:1 "Mobility"
+  EQ_MOD_CAT_artillery_mobility_type_TITLE:1 "Mobility"
+
+  TANK_DESIGNER_TITLE:0 "Land Equipment Designer"
+  unknown_role_disallowed:0 "Dont pay attention to roles"
+
+  main_HE_shell:0 "HE"
+  main_HE_shell_desc:0 "HE shells contain an explosive charge that detonates on impact or with a delay, causing damage through blast and fragmentation. They are highly effective against infantry, unarmored vehicles, and fortifications. Not suited for penetrating armor, but excellent for general-purpose use. Widely used in artillery and tank guns."
+
+  main_AP_shell:0 "AP"
+  main_AP_shell_desc:0 "AP shells are solid projectiles designed to penetrate armor using mass, shape, and velocity. They lack explosive filler and cause internal damage through kinetic impact and spalling. Effective against tanks and armored vehicles but ineffective against soft targets."
+
+  main_APHE_shell:0 "APHE"
+  main_APHE_shell_desc:0 "APHE shells combine armor penetration with an internal explosive charge. After penetrating armor, the shell explodes inside, increasing damage to crew and components."
+
+  main_HEI_shell:0 "HEI"
+  main_HEI_shell_desc:0 "HEI shells are used on small caliber anti-air guns."
+
+  main_HE_shell_time_fuzed:0 "Time Fuzed HE"
+  main_HE_shell_time_fuzed_desc:0 "He shells using a time based fuze, making it able to explose near by ennemy aircrafts in the air."
+
+  main_HEAT_shell:0 "HEAT"
+  main_HEAT_shell_desc:0 "HEAT shells use a shaped charge to focus explosive energy into a jet that pierces armor, independent of shell velocity. Effective at long range and against thick armor. Vulnerable to reactive armor and spaced armor."
+
+  main_APCR_shell:0 "APCR"
+  main_APCR_shell_desc:0 "APCR shells have a dense tungsten core within a lightweight shell. They travel at high velocity and offer excellent short-range penetration. However, they lose energy quickly over distance and have poor performance against angled or composite armor."
+
+  main_APDS_shell:0 "APDS"
+  main_APDS_shell_desc:0 "APDS shells consist of a dense sub-caliber core (usually tungsten) surrounded by a discarding sabot. Upon firing, the sabot falls away, leaving the core to fly at high velocity. Offers superior penetration compared to APCR, especially at longer ranges."
+
+  main_HESH_shell:0 "HESH"
+  main_HESH_shell_desc:0 "HESH shells spread a plastic explosive on impact, which detonates to generate shockwaves through the armor, causing internal spalling without penetration. Effective against thin or rolled armor and fortifications. Less effective against modern composite or reactive armor."
+
+  smoke_shells:0 "Smoke Shells"
+  smoke_shells_desc:0 "Smoke shells disperse chemicals (usually white phosphorus or HC) to create a visual smoke screen. Used to obscure vision, mark targets, or signal. They contain little or no explosive and are not intended for damage. Useful in tactical maneuvers, cover, and deception."
+
+  gas_shells:0 "Gas Shells"
+  gas_shells_desc:0 "Gas shells deliver chemical agents such as chlorine, phosgene, or mustard gas. They were designed to incapacitate or kill enemy troops. Effects range from choking and blindness to fatal poisoning."
+
+  thick_armored_plate:0 "Thick Armored Plate"
+  thick_armored_plate_desc:0 "A small protection Plate for the gun crew. Its thickness allows it to stop some low caliber shots and explosives"
+
+  wide_armored_plate:0 "Reinforced Armored Plate"
+  wide_armored_plate_desc:0 "A large and heavy armored Plate for the gun crew, capable of blocking light weapons shots and most of low caliber shots."
+
+  wood_wheels:0 "Wood Wheels"
+  wood_wheels_desc:0 "Traditional wooden wheels, often with iron rims. Cheap and easy to produce, but fragile and poorly suited for rough terrain. Limited speed and high maintenance. Suitable for early-era artillery and transport on flat, dry roads. Ineffective in mud, snow, or extended campaigns."
+
+  iron_wheels:0 "Iron Wheels"
+  iron_wheels_desc:0 "Wheels made entirely or mostly of iron, offering increased durability and load capacity. Better suited for heavy artillery than wood, but still uncomfortable on uneven ground. No suspension, poor shock absorption, and limited speed."
+
+  tires_wheels:0 "Rubber-tired Wheels"
+  tires_wheels_desc:0 "Rubber-tired wheels, offering greatly improved mobility and shock absorption. Allows faster towing over roads and moderate off-road terrain. Reduces wear on the gun and improves crew comfort."
+
+  multi_tired_wheels:0 "Dual-tire System"
+  multi_tired_wheels_desc:0 "Advanced multi-axle or dual-tire systems, often seen on modern self-propelled or motor-towed artillery. Excellent for off-road conditions, heavy loads, and high-speed transport. Offers the best performance in terms of traction, durability, and versatility. "
+
+  caliber_25mm:0 "25mm"
+  caliber_25mm_desc:0 "A light autocannon caliber used for infantry support, anti-aircraft, or vehicle-mounted rapid-fire guns. High rate of fire but low penetration and damage."
+
+  caliber_a_37mm:0 "37mm"
+  caliber_a_37mm_desc:0 "Early anti-tank and aircraft gun caliber. Effective against light vehicles and aircraft but quickly outclassed by heavier armor."
+
+  caliber_b_50mm:0 "50mm"
+  caliber_b_50mm_desc:0 "Intermediate anti-tank caliber. Balanced penetration and mobility. Common in early to mid-war tank and AT guns."
+
+  caliber_c_75mm:0 "75mm"
+  caliber_c_75mm_desc:0 "Versatile caliber used in both artillery and tank guns. Good mix of firepower, penetration, and logistics efficiency."
+
+  caliber_d_90mm:0 "90mm"
+  caliber_d_90mm_desc:0 "Heavy AT and AA caliber. Excellent penetration and explosive power. Requires robust chassis or mountings."
+
+  caliber_e_120mm:0 "120mm"
+  caliber_e_120mm_desc:0 "High-explosive artillery caliber. Ideal for indirect fire, fortification busting, and large-scale bombardments."
+
+  caliber_f_150mm:0 "150mm"
+  caliber_f_150mm_desc:0 "Very heavy artillery caliber. Devastating impact on structures and infantry. Slower rate of fire and heavy logistics burden."
+
+  ccaliber_g_180mm:0 "180mm"
+  ccaliber_g_180mm_desc:0 "Super-heavy artillery caliber. Used for strategic bombardment and counter-battery roles. Immense power but limited mobility."
+
+  short_barrel:0 "Short Barrel"
+  short_barrel_desc:0 "Compact barrel optimized for mobility and close-range fire. Faster to traverse and reload but less accurate and with lower muzzle velocity."
+
+  medium_barrel:0 "Medium Barrel"
+  medium_barrel_desc:0 "Balanced barrel length offering good compromise between range, accuracy, and mobility. Standard configuration for most artillery and tank guns."
+
+  long_barrel:0 "Long Barrel"
+  long_barrel_desc:0 "Extended barrel providing higher muzzle velocity and better armor penetration or range. Increases accuracy and power but adds weight and reduces handling speed."
+

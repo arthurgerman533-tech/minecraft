@@ -1,0 +1,248 @@
+# Wealth of Nations - deals. Called from diplomatic actions and events.
+# Convention: THIS = the receiving country, ROOT = the country that proposed.
+
+won_sign_trade = {
+	set_country_flag = won_trade_@ROOT
+	add_to_array = { won_trade = ROOT }
+	add_to_variable = { won_trade_count = 1 }
+	add_opinion_modifier = { target = ROOT modifier = won_trade_partner }
+	won_recalc_modifiers = yes
+	ROOT = {
+		set_country_flag = won_trade_@PREV
+		add_to_array = { won_trade = PREV }
+		add_to_variable = { won_trade_count = 1 }
+		add_opinion_modifier = { target = PREV modifier = won_trade_partner }
+		won_recalc_modifiers = yes
+	}
+}
+
+won_sign_pact = {
+	set_country_flag = won_pact_@ROOT
+	add_to_array = { won_pacts = ROOT }
+	add_to_variable = { won_pact_count = 1 }
+	add_opinion_modifier = { target = ROOT modifier = won_pact_partner }
+	won_recalc_modifiers = yes
+	ROOT = {
+		set_country_flag = won_pact_@PREV
+		add_to_array = { won_pacts = PREV }
+		add_to_variable = { won_pact_count = 1 }
+		add_opinion_modifier = { target = PREV modifier = won_pact_partner }
+		won_recalc_modifiers = yes
+	}
+}
+
+# THIS = host country, ROOT = investor.
+won_make_investment = {
+	ROOT = {
+		subtract_from_variable = { won_treasury = 1.5 }
+		add_to_array = { won_inv_who = PREV }
+		add_to_array = { won_inv_amt = 1.5 }
+		add_to_variable = { won_inv_total = 1.5 }
+		won_update_indicators_light = yes
+	}
+	add_to_variable = { won_fdi_in = 1.5 }
+	add_to_array = { won_investors = ROOT }
+	add_to_array = { won_inv_from_amt = 1.5 }
+	add_opinion_modifier = { target = ROOT modifier = won_investor }
+	random_owned_controlled_state = {
+		limit = {
+			free_building_slots = {
+				building = industrial_complex
+				size > 0
+				include_locked = no
+			}
+		}
+		add_building_construction = {
+			type = industrial_complex
+			level = 1
+			instant_build = yes
+		}
+	}
+	won_recalc_modifiers = yes
+}
+
+# Scope = client, PREV = provider.
+won_open_contract_from_prev = {
+	add_to_array = { won_hire_who = PREV }
+	add_to_array = { won_hire_left = 12 }
+	add_to_variable = { won_hire_count = 1 }
+	set_country_flag = won_hires_@PREV
+	add_opinion_modifier = { target = PREV modifier = won_contract_partner }
+	won_recalc_modifiers = yes
+	PREV = {
+		add_to_array = { won_sold_to = PREV }
+		add_to_array = { won_sold_left = 12 }
+		add_to_variable = { won_sold_count = 1 }
+		won_recalc_modifiers = yes
+	}
+}
+
+# Scope = client (THIS), ROOT = provider.
+won_open_contract_from_root = {
+	add_to_array = { won_hire_who = ROOT }
+	add_to_array = { won_hire_left = 12 }
+	add_to_variable = { won_hire_count = 1 }
+	set_country_flag = won_hires_@ROOT
+	add_opinion_modifier = { target = ROOT modifier = won_contract_partner }
+	won_recalc_modifiers = yes
+	ROOT = {
+		add_to_array = { won_sold_to = PREV }
+		add_to_array = { won_sold_left = 12 }
+		add_to_variable = { won_sold_count = 1 }
+		won_recalc_modifiers = yes
+	}
+}
+
+# THIS = partner, ROOT = the country cancelling.
+won_break_agreements = {
+	if = {
+		limit = { won_trade_with_root = yes }
+		clr_country_flag = won_trade_@ROOT
+		remove_from_array = { won_trade = ROOT }
+		subtract_from_variable = { won_trade_count = 1 }
+		ROOT = {
+			clr_country_flag = won_trade_@PREV
+			remove_from_array = { won_trade = PREV }
+			subtract_from_variable = { won_trade_count = 1 }
+		}
+	}
+	if = {
+		limit = { won_pact_with_root = yes }
+		clr_country_flag = won_pact_@ROOT
+		remove_from_array = { won_pacts = ROOT }
+		subtract_from_variable = { won_pact_count = 1 }
+		ROOT = {
+			clr_country_flag = won_pact_@PREV
+			remove_from_array = { won_pacts = PREV }
+			subtract_from_variable = { won_pact_count = 1 }
+		}
+	}
+	clamp_variable = { var = won_trade_count min = 0 }
+	clamp_variable = { var = won_pact_count min = 0 }
+	add_opinion_modifier = { target = ROOT modifier = won_deal_cancelled }
+	won_recalc_modifiers = yes
+	ROOT = {
+		clamp_variable = { var = won_trade_count min = 0 }
+		clamp_variable = { var = won_pact_count min = 0 }
+		won_recalc_modifiers = yes
+	}
+}
+
+# Cheap refresh of the numbers the dashboard shows right after a purchase.
+won_update_indicators_light = {
+	set_variable = { won_debt_ratio = 0 }
+	set_variable = { won_reserve_ratio = 0 }
+	if = {
+		limit = { check_variable = { won_treasury < 0 } }
+		set_variable = { won_debt_ratio = won_treasury }
+		multiply_variable = { won_debt_ratio = -1 }
+		divide_variable = { won_debt_ratio = won_gdp }
+	}
+	else = {
+		set_variable = { won_reserve_ratio = won_treasury }
+		divide_variable = { won_reserve_ratio = won_gdp }
+	}
+	set_variable = { won_debt_pct = won_debt_ratio }
+	multiply_variable = { won_debt_pct = 100 }
+	set_variable = { won_inv_div = won_inv_total }
+	multiply_variable = { won_inv_div = 0.015 }
+	set_variable = { won_treasury_k = won_treasury }
+	divide_variable = { won_treasury_k = 1000 }
+	add_to_variable = { won_dirty = 1 }
+}
+
+# Spend from the treasury: amounts are read from temp variable won_spend.
+won_pay = {
+	subtract_from_variable = { won_treasury = won_spend }
+	won_update_indicators_light = yes
+}
+won_receive = {
+	add_to_variable = { won_treasury = won_spend }
+	won_update_indicators_light = yes
+}
+
+# Buy one civilian factory in our best core state with a free slot.
+won_buy_factory = {
+	set_temp_variable = { won_spend = won_c_factory }
+	won_pay = yes
+	add_to_variable = { won_bought_factories = 1 }
+	random_owned_controlled_state = {
+		limit = {
+			is_core_of = ROOT
+			free_building_slots = {
+				building = industrial_complex
+				size > 0
+				include_locked = no
+			}
+		}
+		add_building_construction = {
+			type = industrial_complex
+			level = 1
+			instant_build = yes
+		}
+	}
+	set_variable = { won_c_factory = won_bought_factories }
+	multiply_variable = { won_c_factory = 0.25 }
+	add_to_variable = { won_c_factory = 1.5 }
+	clamp_variable = { var = won_c_factory max = 4 }
+}
+
+# Nationalisation: every foreign stake in us is seized (they stop collecting).
+won_seize_foreign_assets = {
+	for_each_scope_loop = {
+		array = won_investors
+		set_country_flag = { flag = won_seized_by_@ROOT days = 40 }
+		add_opinion_modifier = { target = ROOT modifier = won_assets_seized }
+	}
+	clear_array = won_investors
+	clear_array = won_inv_from_amt
+	set_variable = { won_fdi_in = 0 }
+}
+
+# Event won.50: ROOT = host, var won_ev_partner = investor.
+won_build_civ_here = {
+	random_owned_controlled_state = {
+		limit = {
+			free_building_slots = {
+				building = industrial_complex
+				size > 0
+				include_locked = no
+			}
+		}
+		add_building_construction = {
+			type = industrial_complex
+			level = 1
+			instant_build = yes
+		}
+	}
+}
+won_accept_fdi_from_from = {
+	var:won_ev_partner = {
+		subtract_from_variable = { won_treasury = 1.5 }
+		add_to_array = { won_inv_who = ROOT }
+		add_to_array = { won_inv_amt = 1.5 }
+		add_to_variable = { won_inv_total = 1.5 }
+	}
+	add_to_variable = { won_fdi_in = 1.5 }
+	add_to_array = { won_investors = won_ev_partner }
+	add_to_array = { won_inv_from_amt = 1.5 }
+	var:won_ev_partner = { reverse_add_opinion_modifier = { target = ROOT modifier = won_investor } }
+	won_build_civ_here = yes
+	won_recalc_modifiers = yes
+}
+won_accept_joint_venture = {
+	var:won_ev_partner = {
+		subtract_from_variable = { won_treasury = 0.75 }
+		add_to_array = { won_inv_who = ROOT }
+		add_to_array = { won_inv_amt = 0.75 }
+		add_to_variable = { won_inv_total = 0.75 }
+	}
+	set_temp_variable = { won_spend = 0.75 }
+	won_pay = yes
+	add_to_variable = { won_fdi_in = 0.75 }
+	add_to_array = { won_investors = won_ev_partner }
+	add_to_array = { won_inv_from_amt = 0.75 }
+	var:won_ev_partner = { reverse_add_opinion_modifier = { target = ROOT modifier = won_investor } }
+	won_build_civ_here = yes
+	won_recalc_modifiers = yes
+}

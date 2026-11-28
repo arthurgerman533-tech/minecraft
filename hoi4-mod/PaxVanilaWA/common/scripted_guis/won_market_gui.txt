@@ -1,0 +1,73 @@
+# Wealth of Nations - International Market window (merged from Arsenal of Nations)
+###########################################
+# Arsenal of Nations - International Market window additions
+# Both windows live inside the market's overview tab, so they
+# hide together with it.
+###########################################
+
+scripted_gui = {
+
+	aon_bureau_button = {
+		context_type = player_context
+		window_name = "aon_bureau_button_window"
+		parent_window_name = "overview_specific_tab_window"
+
+		visible = { always = yes }
+
+		effects = {
+			aon_bureau_button_click = {
+				hidden_effect = {
+					if = {
+						limit = { has_country_flag = aon_panel_open }
+						clr_country_flag = aon_panel_open
+					}
+					else = {
+						set_country_flag = aon_panel_open
+					}
+					add_to_variable = { aon_ui_dirty = 1 }
+				}
+			}
+		}
+	}
+
+	aon_bureau_panel = {
+		context_type = player_context
+		window_name = "aon_bureau_panel_window"
+		parent_window_name = "overview_specific_tab_window"
+		dirty = aon_ui_dirty
+
+		visible = { has_country_flag = aon_panel_open }
+
+		effects = {
+			aon_close_button_click = {
+				hidden_effect = {
+					clr_country_flag = aon_panel_open
+					add_to_variable = { aon_ui_dirty = 1 }
+				}
+			}
+			won_mkt_office_button_click = {
+				country_event = { id = won.220 }
+			}
+			won_mkt_court_button_click = {
+				if = {
+					limit = { has_country_flag = won_court_buyers }
+					clr_country_flag = won_court_buyers
+				}
+				else = {
+					set_country_flag = won_court_buyers
+				}
+				add_to_variable = { aon_ui_dirty = 1 }
+			}
+		}
+
+		triggers = {
+			won_mkt_court_button_click_enabled = { has_country_flag = won_arms_agency }
+		}
+
+		properties = {
+			aon_tier_icon = {
+				image = "[GetAonTierIcon]"
+			}
+		}
+	}
+}

@@ -1,0 +1,49 @@
+# Wealth of Nations - arms customers, market rivals and embargoes.
+
+# THIS = an AI country, ROOT = the human exporter. Could THIS ever buy our weapons?
+aon_client_base = {
+	is_ai = yes
+	exists = yes
+	has_capitulated = no
+	has_country_flag = won_ready
+	NOT = { has_war_with = ROOT }
+	NOT = { is_subject_of = ROOT }
+	NOT = { has_opinion = { target = ROOT value < -10 } }
+	NOT = { AND = { won_is_communist = yes ROOT = { won_is_fascist = yes } } }
+	NOT = { AND = { won_is_fascist = yes ROOT = { won_is_communist = yes } } }
+	NOT = { has_country_flag = aon_lost_@ROOT }
+	NOT = { won_embargo_between = yes }
+	num_of_civilian_factories > 2
+}
+
+# Close partners come first: allies, trade partners, existing buyers, friends, countries we won over.
+aon_client_close = {
+	OR = {
+		is_in_faction_with = ROOT
+		has_country_flag = won_trade_@ROOT
+		has_country_flag = aon_won_@ROOT
+		any_purchase_contract = { seller = ROOT }
+		has_opinion = { target = ROOT value > 49 }
+	}
+}
+
+# Everyone else: members of another bloc stay with their own suppliers until we are a
+# world-class exporter; strangers need either a good opinion of us or a known name.
+aon_client_open = {
+	OR = {
+		is_in_faction = no
+		ROOT = { check_variable = { aon_tier > 3 } }
+	}
+	OR = {
+		has_opinion = { target = ROOT value > 19 }
+		ROOT = { check_variable = { aon_tier > 1 } }
+	}
+}
+
+# THIS and ROOT: either one has an embargo on the other.
+won_embargo_between = {
+	OR = {
+		has_country_flag = won_embargo_on_@ROOT
+		ROOT = { has_country_flag = won_embargo_on_@PREV }
+	}
+}

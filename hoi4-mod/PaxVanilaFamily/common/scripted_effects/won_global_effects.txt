@@ -1,0 +1,970 @@
+# Wealth of Nations - global markets: investment climate, foreign investors, arms exports, licences.
+# Country scope, ROOT = THIS = the country, unless noted.
+
+###########################################################################
+# Investment climate 0..100 (monthly, every country, after indicators)
+###########################################################################
+won_update_climate = {
+	set_temp_variable = { won_cl = 30 }
+	set_temp_variable = { won_t = won_confidence }
+	subtract_from_temp_variable = { won_t = 50 }
+	multiply_temp_variable = { won_t = 0.5 }
+	add_to_temp_variable = { won_cl = won_t }
+	set_temp_variable = { won_t = won_growth_y }
+	clamp_temp_variable = { var = won_t min = -7.5 max = 7.5 }
+	multiply_temp_variable = { won_t = 2 }
+	add_to_temp_variable = { won_cl = won_t }
+	set_temp_variable = { won_t = stability }
+	subtract_from_temp_variable = { won_t = 0.5 }
+	multiply_temp_variable = { won_t = 30 }
+	add_to_temp_variable = { won_cl = won_t }
+	set_temp_variable = { won_t = won_trade_weight }
+	multiply_temp_variable = { won_t = 2 }
+	add_to_temp_variable = { won_cl = won_t }
+	if = { limit = { check_variable = { won_credit = 1 } } add_to_temp_variable = { won_cl = 15 } }
+	if = { limit = { check_variable = { won_credit = 2 } } add_to_temp_variable = { won_cl = 10 } }
+	if = { limit = { check_variable = { won_credit = 3 } } add_to_temp_variable = { won_cl = 5 } }
+	if = { limit = { check_variable = { won_credit = 5 } } subtract_from_temp_variable = { won_cl = 5 } }
+	if = { limit = { check_variable = { won_credit = 6 } } subtract_from_temp_variable = { won_cl = 10 } }
+	if = { limit = { check_variable = { won_credit = 7 } } subtract_from_temp_variable = { won_cl = 20 } }
+	if = { limit = { has_war = yes } subtract_from_temp_variable = { won_cl = 15 } }
+	# Vanilla trade and mobilisation laws (won_law_effects.txt)
+	add_to_temp_variable = { won_cl = won_law_cl }
+	# A place in the World Economic League (won_rank_effects.txt)
+	won_rank_climate = yes
+	add_to_temp_variable = { won_cl = won_rank_cl }
+	add_to_temp_variable = { won_cl = won_sph_cl }
+	if = { limit = { has_country_flag = won_prog_bank } add_to_temp_variable = { won_cl = 5 } }
+	if = { limit = { check_variable = { won_system = 1 } } add_to_temp_variable = { won_cl = 10 } }
+	if = { limit = { check_variable = { won_system = 5 } } add_to_temp_variable = { won_cl = 5 } }
+	if = { limit = { check_variable = { won_system = 12 } } add_to_temp_variable = { won_cl = 5 } }
+	if = { limit = { check_variable = { won_system = 10 } } subtract_from_temp_variable = { won_cl = 5 } }
+	if = { limit = { has_country_flag = won_roadshow } add_to_temp_variable = { won_cl = 15 } }
+	if = { limit = { has_country_flag = won_tax_holiday } add_to_temp_variable = { won_cl = 20 } }
+	if = { limit = { has_country_flag = won_red_tape } add_to_temp_variable = { won_cl = 10 } }
+	if = { limit = { has_country_flag = won_sez } add_to_temp_variable = { won_cl = 10 } }
+	if = { limit = { has_idea = won_nationalized } subtract_from_temp_variable = { won_cl = 15 } }
+	if = { limit = { has_idea = won_default } subtract_from_temp_variable = { won_cl = 20 } }
+	if = {
+		limit = {
+			OR = {
+				check_variable = { won_open = 0 }
+				won_closed_to_capital = yes
+			}
+		}
+		set_temp_variable = { won_cl = 0 }
+	}
+	clamp_temp_variable = { var = won_cl min = 0 max = 100 }
+	set_variable = { won_climate = won_cl }
+	# Monthly chance (percent) that a foreign investor knocks: a quarter of the climate.
+	set_variable = { won_fdi_chance = won_cl }
+	multiply_variable = { won_fdi_chance = 0.25 }
+}
+
+###########################################################################
+# Foreign investors arrive (monthly, every country). ROOT = THIS = host.
+###########################################################################
+won_pick_investor = {
+	set_temp_variable = { won_found = 0 }
+	set_temp_variable_to_random = { var = won_r min = 0 max = 100 }
+	if = {
+		limit = {
+			check_variable = { won_r < 60 }
+			any_other_country = { won_investor_candidate = yes has_country_flag = won_trade_@ROOT }
+		}
+		random_other_country = {
+			limit = { won_investor_candidate = yes has_country_flag = won_trade_@ROOT }
+			ROOT = { set_variable = { won_ev_partner = PREV } }
+			set_variable = { global.won_ev_partner_name = THIS }
+		}
+		set_temp_variable = { won_found = 1 }
+	}
+	else_if = {
+		limit = { any_other_country = { won_investor_candidate = yes } }
+		random_other_country = {
+			limit = { won_investor_candidate = yes }
+			ROOT = { set_variable = { won_ev_partner = PREV } }
+			set_variable = { global.won_ev_partner_name = THIS }
+		}
+		set_temp_variable = { won_found = 1 }
+	}
+}
+
+# Fires the right offer for a human host, or settles it at once for an AI host.
+won_investor_offer = {
+	won_pick_investor = yes
+	if = {
+		limit = { check_variable = { won_found = 1 } }
+		if = {
+			limit = { is_ai = no }
+			set_country_flag = { flag = won_fdi_offer_cd days = 90 }
+			set_temp_variable = { won_qk = 3 }
+			random_list = {
+				60 = { set_temp_variable = { won_qk = 3 } }
+				25 = {
+					modifier = { factor = 0 NOT = { any_owned_state = { is_controlled_by = ROOT free_building_slots = { building = arms_factory size > 0 include_locked = no } } } }
+					set_temp_variable = { won_qk = 4 }
+				}
+				15 = {
+					modifier = { factor = 0 NOT = { any_owned_state = { is_controlled_by = ROOT is_coastal = yes free_building_slots = { building = dockyard size > 0 include_locked = no } } } }
+					set_temp_variable = { won_qk = 5 }
+				}
+			}
+			set_temp_variable = { won_qv = 0 }
+			set_temp_variable = { won_qp = 1.5 }
+			won_enqueue = yes
+		}
+		else = {
+			set_country_flag = { flag = won_fdi_offer_cd days = 150 }
+			won_accept_fdi_from_from = yes
+		}
+	}
+}
+
+won_fdi_inflow = {
+	if = {
+		limit = {
+			check_variable = { won_climate > 0 }
+			check_variable = { won_q_count < 5 }
+			NOT = { has_country_flag = won_fdi_offer_cd }
+			any_owned_state = {
+				is_controlled_by = ROOT
+				free_building_slots = { building = industrial_complex size > 0 include_locked = no }
+			}
+		}
+		set_temp_variable_to_random = { var = won_roll min = 0 max = 100 }
+		if = {
+			limit = { check_variable = { won_roll < won_fdi_chance } }
+			won_investor_offer = yes
+		}
+	}
+}
+
+# Event won.51 / won.52: same deal as won_accept_fdi_from_from, different building.
+won_fdi_bookkeeping = {
+	var:won_ev_partner = {
+		subtract_from_variable = { won_treasury = 1.5 }
+		add_to_array = { won_inv_who = ROOT }
+		add_to_array = { won_inv_amt = 1.5 }
+		add_to_variable = { won_inv_total = 1.5 }
+	}
+	add_to_variable = { won_fdi_in = 1.5 }
+	add_to_array = { won_investors = won_ev_partner }
+	add_to_array = { won_inv_from_amt = 1.5 }
+	var:won_ev_partner = {
+		PREV = { add_opinion_modifier = { target = PREV modifier = won_investor } }
+	}
+	won_recalc_modifiers = yes
+}
+won_accept_fdi_military = {
+	random_owned_controlled_state = {
+		limit = { free_building_slots = { building = arms_factory size > 0 include_locked = no } }
+		add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+	}
+	won_fdi_bookkeeping = yes
+}
+won_accept_fdi_dockyard = {
+	random_owned_controlled_state = {
+		limit = { is_coastal = yes free_building_slots = { building = dockyard size > 0 include_locked = no } }
+		add_building_construction = { type = dockyard level = 1 instant_build = yes }
+	}
+	won_fdi_bookkeeping = yes
+}
+
+###########################################################################
+# Income from global markets (inside the budget, before the monthly sum)
+###########################################################################
+won_global_income = {
+	# Corporate tax paid by foreign-owned firms here
+	set_variable = { won_inc_corp = won_fdi_in }
+	multiply_variable = { won_inc_corp = 0.008 }
+	if = {
+		limit = { has_country_flag = won_sez }
+		multiply_variable = { won_inc_corp = 0.5 }
+	}
+	if = {
+		limit = { has_country_flag = won_tax_holiday }
+		set_variable = { won_inc_corp = 0 }
+		set_temp_variable = { won_t = won_gdp }
+		multiply_temp_variable = { won_t = 0.001 }
+		subtract_from_variable = { won_inc_special = won_t }
+	}
+	add_to_variable = { won_inc_special = won_inc_corp }
+	won_resource_income = yes
+	won_consumer_income = yes
+	won_royalty_tick = yes
+}
+
+###########################################################################
+# Arms exports
+###########################################################################
+# Packages: 1 rifles, 2 artillery, 3 support, 4 anti-tank, 5 anti-air, 6 trucks.
+won_pick_package = {
+	set_variable = { won_pkg = 1 }
+	random_list = {
+		30 = { modifier = { factor = 0 won_pkg_ok_1 = no } set_variable = { won_pkg = 1 } }
+		20 = { modifier = { factor = 0 won_pkg_ok_2 = no } set_variable = { won_pkg = 2 } }
+		15 = { modifier = { factor = 0 won_pkg_ok_3 = no } set_variable = { won_pkg = 3 } }
+		15 = { modifier = { factor = 0 won_pkg_ok_4 = no } set_variable = { won_pkg = 4 } }
+		10 = { modifier = { factor = 0 won_pkg_ok_5 = no } set_variable = { won_pkg = 5 } }
+		10 = { modifier = { factor = 0 won_pkg_ok_6 = no } set_variable = { won_pkg = 6 } }
+	}
+	won_package_price = yes
+}
+
+# One monthly delivery (a "tranche") is half a package: 750 rifles, 125 artillery, support,
+# anti-tank or anti-air guns, or 200 trucks. Price per delivery = base x reputation x world tension.
+won_package_price = {
+	set_variable = { won_pkg_rev = 0.10 }
+	if = { limit = { check_variable = { won_pkg = 2 } } set_variable = { won_pkg_rev = 0.15 } }
+	if = { limit = { check_variable = { won_pkg = 3 } } set_variable = { won_pkg_rev = 0.10 } }
+	if = { limit = { check_variable = { won_pkg = 4 } } set_variable = { won_pkg_rev = 0.125 } }
+	if = { limit = { check_variable = { won_pkg = 5 } } set_variable = { won_pkg_rev = 0.125 } }
+	if = { limit = { check_variable = { won_pkg = 6 } } set_variable = { won_pkg_rev = 0.15 } }
+	won_price_factor = yes
+	multiply_variable = { won_pkg_rev = won_pf }
+	set_variable = { won_pkg_rev_hi = won_pkg_rev }
+	multiply_variable = { won_pkg_rev_hi = 1.15 }
+}
+
+# Reputation (0.8 to 1.2) times world tension (x1.1 above 25%, x1.2 above 50%). Stored in won_pf.
+won_price_factor = {
+	won_sync_reputation = yes
+	set_variable = { won_pf = won_arms_rep }
+	divide_variable = { won_pf = 250 }
+	add_to_variable = { won_pf = 0.8 }
+	if = {
+		limit = { threat > 0.5 }
+		multiply_variable = { won_pf = 1.2 }
+	}
+	else_if = {
+		limit = { threat > 0.25 }
+		multiply_variable = { won_pf = 1.1 }
+	}
+	set_variable = { won_pf_pct = won_pf }
+	multiply_variable = { won_pf_pct = 100 }
+}
+
+# How many supply contracts we can run at once: 2, +1 per 25 reputation, at most 6.
+# Arms reputation 0..100 = Market Standing / 10 (the International Market module's standing).
+won_sync_reputation = {
+	clamp_variable = { var = aon_rep min = 0 }
+	set_variable = { won_arms_rep = aon_rep }
+	divide_variable = { won_arms_rep = 10 }
+	clamp_variable = { var = won_arms_rep min = 0 max = 100 }
+}
+
+won_contract_cap = {
+	won_sync_reputation = yes
+	set_variable = { won_sc_max = won_arms_rep }
+	divide_variable = { won_sc_max = 25 }
+	round_variable = won_sc_max
+	add_to_variable = { won_sc_max = 2 }
+	clamp_variable = { var = won_sc_max max = 6 }
+}
+
+# Seller = ROOT = THIS, buyer = var:won_ev_partner, package won_pkg, price per delivery won_pkg_rev.
+# Six monthly deliveries, each paid when it arrives.
+won_open_supply_contract = {
+	add_to_array = { won_sc_who = won_ev_partner }
+	add_to_array = { won_sc_pkg = won_pkg }
+	add_to_array = { won_sc_price = won_pkg_rev }
+	add_to_array = { won_sc_left = 6 }
+	add_to_array = { won_sc_miss = 0 }
+	add_to_variable = { won_sc_count = 1 }
+	add_to_variable = { aon_rep = 15 }
+	add_to_variable = { won_arms_deals = 1 }
+	var:won_ev_partner = {
+		set_country_flag = won_sc_from_@ROOT
+		add_opinion_modifier = { target = ROOT modifier = won_arms_client }
+	}
+}
+
+# One delivery of package won_k to var:won_p, if our stockpile can cover it. Sets won_delivered.
+won_try_delivery = {
+	set_temp_variable = { won_delivered = 0 }
+	if = {
+		limit = { check_variable = { won_k = 1 } has_equipment = { infantry_equipment > 749 } }
+		var:won_p = { ROOT = { send_equipment = { equipment = infantry_equipment amount = 750 target = PREV } } }
+		set_temp_variable = { won_delivered = 1 }
+	}
+	if = {
+		limit = { check_variable = { won_k = 2 } has_equipment = { artillery_equipment > 124 } }
+		var:won_p = { ROOT = { send_equipment = { equipment = artillery_equipment amount = 125 target = PREV } } }
+		set_temp_variable = { won_delivered = 1 }
+	}
+	if = {
+		limit = { check_variable = { won_k = 3 } has_equipment = { support_equipment > 124 } }
+		var:won_p = { ROOT = { send_equipment = { equipment = support_equipment amount = 125 target = PREV } } }
+		set_temp_variable = { won_delivered = 1 }
+	}
+	if = {
+		limit = { check_variable = { won_k = 4 } has_equipment = { anti_tank_equipment > 124 } }
+		var:won_p = { ROOT = { send_equipment = { equipment = anti_tank_equipment amount = 125 target = PREV } } }
+		set_temp_variable = { won_delivered = 1 }
+	}
+	if = {
+		limit = { check_variable = { won_k = 5 } has_equipment = { anti_air_equipment > 124 } }
+		var:won_p = { ROOT = { send_equipment = { equipment = anti_air_equipment amount = 125 target = PREV } } }
+		set_temp_variable = { won_delivered = 1 }
+	}
+	if = {
+		limit = { check_variable = { won_k = 6 } has_equipment = { motorized_equipment > 199 } }
+		var:won_p = { ROOT = { send_equipment = { equipment = motorized_equipment amount = 200 target = PREV } } }
+		set_temp_variable = { won_delivered = 1 }
+	}
+}
+
+# Keeps contract k (temp vars) for next month.
+won_keep_contract = {
+	add_to_array = { won_tsw = won_p }
+	add_to_array = { won_tsp = won_k }
+	add_to_array = { won_tspr = won_pr }
+	add_to_array = { won_tsl = won_left }
+	add_to_array = { won_tsm = won_miss }
+}
+
+# Monthly, every country that sells: deliver, get paid, end, renew or break contracts.
+won_supply_tick = {
+	set_variable = { won_sc_income = 0 }
+	clear_array = won_tsw
+	clear_array = won_tsp
+	clear_array = won_tspr
+	clear_array = won_tsl
+	clear_array = won_tsm
+	for_each_loop = {
+		array = won_sc_who
+		value = won_p
+		index = won_i
+		set_temp_variable = { won_k = won_sc_pkg^won_i }
+		set_temp_variable = { won_pr = won_sc_price^won_i }
+		set_temp_variable = { won_left = won_sc_left^won_i }
+		set_temp_variable = { won_miss = won_sc_miss^won_i }
+		set_temp_variable = { won_ok = 1 }
+		var:won_p = {
+			if = {
+				limit = {
+					OR = {
+						exists = no
+						has_war_with = ROOT
+						has_capitulated = yes
+						has_country_flag = won_sc_cancel_@ROOT
+					}
+				}
+				set_temp_variable = { won_ok = 0 }
+			}
+		}
+		if = {
+			limit = { check_variable = { won_ok = 1 } }
+			won_try_delivery = yes
+			if = {
+				limit = { check_variable = { won_delivered = 1 } }
+				var:won_p = { subtract_from_variable = { won_treasury = won_pr } }
+				set_temp_variable = { won_spend = won_pr }
+				won_arms_income = yes
+				add_to_variable = { won_sc_income = won_pr }
+				add_to_variable = { aon_rep = 6 }
+				subtract_from_temp_variable = { won_left = 1 }
+				set_temp_variable = { won_miss = 0 }
+			}
+			else = {
+				add_to_temp_variable = { won_miss = 1 }
+			}
+			if = {
+				limit = { check_variable = { won_miss > 1 } }
+				# Two missed deliveries in a row: the buyer tears up the contract.
+				var:won_p = {
+					clr_country_flag = won_sc_from_@ROOT
+					add_opinion_modifier = { target = ROOT modifier = won_contract_broken }
+				}
+				add_to_variable = { aon_rep = -40 }
+				if = {
+					limit = { is_ai = no }
+					set_variable = { won_ev_partner = won_p }
+					set_temp_variable = { won_qk = 7 }
+					set_temp_variable = { won_qv = won_k }
+					set_temp_variable = { won_qp = 0 }
+					won_enqueue = yes
+				}
+			}
+			else_if = {
+				limit = { check_variable = { won_left < 1 } }
+				if = {
+					limit = { is_ai = no }
+					# Completed: the renewal waits in the Foreign Trade Office (the buyer stays reserved).
+					set_variable = { won_ev_partner = won_p }
+					set_temp_variable = { won_qk = 6 }
+					set_temp_variable = { won_qv = won_k }
+					set_temp_variable = { won_qp = won_pr }
+					won_enqueue = yes
+				}
+				else = {
+					random_list = {
+						50 = {
+							set_temp_variable = { won_left = 6 }
+							won_keep_contract = yes
+						}
+						50 = {
+							var:won_p = { clr_country_flag = won_sc_from_@ROOT }
+						}
+					}
+				}
+			}
+			else = {
+				won_keep_contract = yes
+			}
+		}
+		else = {
+			var:won_p = {
+				clr_country_flag = won_sc_from_@ROOT
+				clr_country_flag = won_sc_cancel_@ROOT
+			}
+		}
+	}
+	clear_array = won_sc_who
+	clear_array = won_sc_pkg
+	clear_array = won_sc_price
+	clear_array = won_sc_left
+	clear_array = won_sc_miss
+	set_variable = { won_sc_count = 0 }
+	for_each_loop = {
+		array = won_tsw
+		value = won_p
+		index = won_i
+		add_to_array = { won_sc_who = won_p }
+		set_temp_variable = { won_t = won_tsp^won_i }
+		add_to_array = { won_sc_pkg = won_t }
+		set_temp_variable = { won_t = won_tspr^won_i }
+		add_to_array = { won_sc_price = won_t }
+		set_temp_variable = { won_t = won_tsl^won_i }
+		add_to_array = { won_sc_left = won_t }
+		set_temp_variable = { won_t = won_tsm^won_i }
+		add_to_array = { won_sc_miss = won_t }
+		add_to_variable = { won_sc_count = 1 }
+	}
+	clear_array = won_tsw
+	clear_array = won_tsp
+	clear_array = won_tspr
+	clear_array = won_tsl
+	clear_array = won_tsm
+}
+
+
+# Cancellation through diplomacy (THIS = buyer, ROOT = seller): the seller tick drops it next month.
+won_cancel_supply_contract = {
+	set_country_flag = { flag = won_sc_cancel_@ROOT days = 45 }
+	clr_country_flag = won_sc_from_@ROOT
+	add_opinion_modifier = { target = ROOT modifier = won_contract_broken }
+	ROOT = {
+		add_to_variable = { aon_rep = -25 }
+	}
+}
+
+# Treasury and export statistics; amount in temp var won_spend.
+won_arms_income = {
+	won_receive = yes
+	add_to_variable = { won_acc_arms = won_spend }
+}
+
+# Monthly: reputation fades, exports roll into a yearly figure, contracts deliver, offers arrive.
+won_arms_tick = {
+	if = {
+		limit = { is_ai = no }
+		aon_pick_clients = yes
+		won_rival_tick = yes
+	}
+	won_contract_cap = yes
+	won_supply_tick = yes
+	# International Market cash is paid weekly by the ledger (won_market_effects.txt); show last month's total.
+	set_variable = { won_mkt_income = won_mkt_acc }
+	set_variable = { won_mkt_acc = 0 }
+	set_variable = { won_mkt_contracts = aon_exp_n }
+	if = {
+		limit = { is_ai = no }
+		won_queue_tick = yes
+		# Older saves: undo the market preference that flooded the player with vanilla purchase requests.
+		every_other_country = {
+			limit = { has_country_flag = won_mkt_pref_@ROOT }
+			add_ai_strategy = { type = equipment_market_trade_desire id = ROOT value = -50 }
+			clr_country_flag = won_mkt_pref_@ROOT
+		}
+	}
+	multiply_variable = { won_arms_rev_12 = 0.9167 }
+	add_to_variable = { won_arms_rev_12 = won_acc_arms }
+	set_variable = { won_acc_arms = 0 }
+	if = {
+		limit = {
+			is_ai = no
+			has_country_flag = won_arms_agency
+			won_has_arms_surplus = yes
+			check_variable = { won_sc_count < won_sc_max }
+			check_variable = { won_q_count < 5 }
+			NOT = { has_country_flag = won_arms_order_cd }
+		}
+		set_temp_variable = { won_ac = won_arms_rep }
+		multiply_temp_variable = { won_ac = 0.2 }
+		add_to_temp_variable = { won_ac = 6 }
+		if = { limit = { has_country_flag = won_export_credit } add_to_temp_variable = { won_ac = 6 } }
+		if = { limit = { has_country_flag = won_arms_fair } add_to_temp_variable = { won_ac = 12 } }
+		if = { limit = { threat > 0.5 } add_to_temp_variable = { won_ac = 5 } }
+		add_to_temp_variable = { won_ac = won_law_arms }
+		clamp_temp_variable = { var = won_ac min = 1 }
+		set_variable = { won_arms_chance = won_ac }
+		set_temp_variable_to_random = { var = won_roll min = 0 max = 100 }
+		if = {
+			limit = { check_variable = { won_roll < won_ac } }
+			won_pick_arms_buyer = yes
+			if = {
+				limit = { check_variable = { won_found = 1 } }
+				set_country_flag = { flag = won_arms_order_cd days = 30 }
+				won_pick_package = yes
+				var:won_ev_partner = { set_country_flag = won_sc_from_@ROOT }
+				set_temp_variable = { won_qk = 1 }
+				set_temp_variable = { won_qv = won_pkg }
+				set_temp_variable = { won_qp = won_pkg_rev }
+				won_enqueue = yes
+			}
+		}
+	}
+	if = {
+		limit = {
+			is_ai = no
+			has_country_flag = won_arms_agency
+			check_variable = { won_q_count < 5 }
+			NOT = { has_country_flag = won_licence_cd }
+		}
+		set_temp_variable = { won_ac = won_arms_rep }
+		multiply_temp_variable = { won_ac = 0.1 }
+		add_to_temp_variable = { won_ac = 3 }
+		set_temp_variable_to_random = { var = won_roll min = 0 max = 100 }
+		if = {
+			limit = { check_variable = { won_roll < won_ac } }
+			won_pick_licence_buyer = yes
+			if = {
+				limit = { check_variable = { won_found = 1 } }
+				set_country_flag = { flag = won_licence_cd days = 60 }
+				won_pick_licence = yes
+				var:won_ev_partner = { set_country_flag = won_lic_req_@ROOT }
+				set_temp_variable = { won_qk = 2 }
+				set_temp_variable = { won_qv = won_lic }
+				set_temp_variable = { won_qp = won_lic_fee }
+				won_enqueue = yes
+			}
+		}
+	}
+}
+
+# Licence buyer: any AI that could buy arms from us and has not licensed from us this year.
+won_pick_licence_buyer = {
+	set_temp_variable = { won_found = 0 }
+	if = {
+		limit = { any_other_country = { won_licence_buyer_candidate = yes } }
+		random_other_country = {
+			limit = { won_licence_buyer_candidate = yes }
+			ROOT = { set_variable = { won_ev_partner = PREV } }
+			set_variable = { global.won_ev_partner_name = THIS }
+		}
+		set_temp_variable = { won_found = 1 }
+	}
+}
+
+# Buyer: a trade partner 70% of the time when one qualifies, otherwise any qualifying AI.
+won_pick_arms_buyer = {
+	set_temp_variable = { won_found = 0 }
+	set_temp_variable_to_random = { var = won_r min = 0 max = 100 }
+	if = {
+		limit = {
+			check_variable = { won_r < 70 }
+			any_other_country = { won_arms_buyer_candidate = yes has_country_flag = won_trade_@ROOT }
+		}
+		random_other_country = {
+			limit = { won_arms_buyer_candidate = yes has_country_flag = won_trade_@ROOT }
+			ROOT = { set_variable = { won_ev_partner = PREV } }
+			set_variable = { global.won_ev_partner_name = THIS }
+		}
+		set_temp_variable = { won_found = 1 }
+	}
+	else_if = {
+		limit = { any_other_country = { won_arms_buyer_candidate = yes } }
+		random_other_country = {
+			limit = { won_arms_buyer_candidate = yes }
+			ROOT = { set_variable = { won_ev_partner = PREV } }
+			set_variable = { global.won_ev_partner_name = THIS }
+		}
+		set_temp_variable = { won_found = 1 }
+	}
+}
+
+###########################################################################
+# Production licences. 1 rifles, 2 artillery, 3 support, 4 anti-tank, 5 anti-air, 6 trucks,
+# 7 light tanks, 8 medium tanks, 9 fighters. Licensor = ROOT, licensee = var:won_ev_partner.
+###########################################################################
+won_pick_licence = {
+	set_variable = { won_lic = 1 }
+	random_list = {
+		25 = { set_variable = { won_lic = 1 } }
+		15 = { set_variable = { won_lic = 2 } }
+		10 = { set_variable = { won_lic = 3 } }
+		10 = { set_variable = { won_lic = 4 } }
+		8 = { set_variable = { won_lic = 5 } }
+		10 = { set_variable = { won_lic = 6 } }
+		8 = { modifier = { factor = 0 won_lic_ok_7 = no } set_variable = { won_lic = 7 } }
+		6 = { modifier = { factor = 0 won_lic_ok_8 = no } set_variable = { won_lic = 8 } }
+		8 = { modifier = { factor = 0 won_lic_ok_9 = no } set_variable = { won_lic = 9 } }
+	}
+	won_licence_price = yes
+}
+
+# Fee 0.10 bn + 0.2% of the licensee's GDP (max 0.4); royalties 0.015 bn a month for 24 months.
+won_licence_price = {
+	var:won_ev_partner = { set_temp_variable = { won_t = won_gdp } }
+	multiply_temp_variable = { won_t = 0.002 }
+	add_to_temp_variable = { won_t = 0.10 }
+	clamp_temp_variable = { var = won_t max = 0.4 }
+	set_variable = { won_lic_fee = won_t }
+	set_variable = { won_lic_fee_hi = won_t }
+	multiply_variable = { won_lic_fee_hi = 1.5 }
+}
+
+won_grant_licence = {
+	var:won_ev_partner = {
+		ROOT = {
+			if = { limit = { check_variable = { won_lic = 1 } } create_production_license = { target = PREV equipment = { type = infantry_equipment } } }
+			if = { limit = { check_variable = { won_lic = 2 } } create_production_license = { target = PREV equipment = { type = artillery_equipment } } }
+			if = { limit = { check_variable = { won_lic = 3 } } create_production_license = { target = PREV equipment = { type = support_equipment } } }
+			if = { limit = { check_variable = { won_lic = 4 } } create_production_license = { target = PREV equipment = { type = anti_tank_equipment } } }
+			if = { limit = { check_variable = { won_lic = 5 } } create_production_license = { target = PREV equipment = { type = anti_air_equipment } } }
+			if = { limit = { check_variable = { won_lic = 6 } } create_production_license = { target = PREV equipment = { type = motorized_equipment } } }
+			if = { limit = { check_variable = { won_lic = 7 } } create_production_license = { target = PREV equipment = { type = light_tank_chassis } } }
+			if = { limit = { check_variable = { won_lic = 8 } } create_production_license = { target = PREV equipment = { type = medium_tank_chassis } } }
+			if = { limit = { check_variable = { won_lic = 9 } } create_production_license = { target = PREV equipment = { type = small_plane_airframe } } }
+		}
+		add_opinion_modifier = { target = ROOT modifier = won_arms_client }
+	}
+	var:won_ev_partner = { set_country_flag = { flag = won_lic_from_@ROOT days = 365 } }
+	set_temp_variable = { won_spend = won_lic_fee }
+	won_arms_income = yes
+	add_to_array = { won_roy_who = won_ev_partner }
+	add_to_array = { won_roy_left = 24 }
+	add_to_variable = { aon_rep = 20 }
+	add_to_variable = { won_licences_sold = 1 }
+}
+
+# Royalties: 0.015 bn a month from every licensee still at peace with us, for 24 months.
+won_royalty_tick = {
+	set_variable = { won_inc_roy = 0 }
+	clear_array = won_tmp_who
+	clear_array = won_tmp_amt
+	for_each_loop = {
+		array = won_roy_who
+		value = won_p
+		index = won_i
+		set_temp_variable = { won_left = won_roy_left^won_i }
+		subtract_from_temp_variable = { won_left = 1 }
+		set_temp_variable = { won_ok = 1 }
+		if = {
+			limit = { check_variable = { won_left < 0 } }
+			set_temp_variable = { won_ok = 0 }
+		}
+		var:won_p = {
+			if = {
+				limit = { OR = { exists = no has_war_with = ROOT } }
+				set_temp_variable = { won_ok = 0 }
+			}
+		}
+		if = {
+			limit = { check_variable = { won_ok = 1 } }
+			add_to_array = { won_tmp_who = won_p }
+			add_to_array = { won_tmp_amt = won_left }
+			add_to_variable = { won_inc_roy = 0.015 }
+			var:won_p = { subtract_from_variable = { won_treasury = 0.015 } }
+		}
+	}
+	clear_array = won_roy_who
+	clear_array = won_roy_left
+	for_each_loop = {
+		array = won_tmp_who
+		value = won_p
+		index = won_i
+		add_to_array = { won_roy_who = won_p }
+		set_temp_variable = { won_left = won_tmp_amt^won_i }
+		add_to_array = { won_roy_left = won_left }
+	}
+	clear_array = won_tmp_who
+	clear_array = won_tmp_amt
+	add_to_variable = { won_inc_special = won_inc_roy }
+	add_to_variable = { won_acc_arms = won_inc_roy }
+}
+
+###########################################################################
+# Selling surplus on the open world market (60% of the deal price, no factories)
+###########################################################################
+won_dump_package = {
+	if = { limit = { check_variable = { won_pkg = 1 } } add_equipment_to_stockpile = { type = infantry_equipment amount = -1500 } }
+	if = { limit = { check_variable = { won_pkg = 2 } } add_equipment_to_stockpile = { type = artillery_equipment amount = -250 } }
+	if = { limit = { check_variable = { won_pkg = 3 } } add_equipment_to_stockpile = { type = support_equipment amount = -250 } }
+	if = { limit = { check_variable = { won_pkg = 4 } } add_equipment_to_stockpile = { type = anti_tank_equipment amount = -250 } }
+	if = { limit = { check_variable = { won_pkg = 5 } } add_equipment_to_stockpile = { type = anti_air_equipment amount = -250 } }
+	if = { limit = { check_variable = { won_pkg = 6 } } add_equipment_to_stockpile = { type = motorized_equipment amount = -400 } }
+	won_package_price = yes
+	set_temp_variable = { won_spend = won_pkg_rev }
+	multiply_temp_variable = { won_spend = 1.2 }
+	won_arms_income = yes
+	add_to_variable = { aon_rep = 5 }
+}
+won_dump_1 = { set_variable = { won_pkg = 1 } won_dump_package = yes }
+won_dump_2 = { set_variable = { won_pkg = 2 } won_dump_package = yes }
+won_dump_3 = { set_variable = { won_pkg = 3 } won_dump_package = yes }
+won_dump_4 = { set_variable = { won_pkg = 4 } won_dump_package = yes }
+won_dump_5 = { set_variable = { won_pkg = 5 } won_dump_package = yes }
+won_dump_6 = { set_variable = { won_pkg = 6 } won_dump_package = yes }
+
+# Seller chooses the package (event won.201) or the licence (won.203).
+won_ship_1 = { set_variable = { won_pkg = 1 } won_package_price = yes won_open_supply_contract = yes }
+won_ship_2 = { set_variable = { won_pkg = 2 } won_package_price = yes won_open_supply_contract = yes }
+won_ship_3 = { set_variable = { won_pkg = 3 } won_package_price = yes won_open_supply_contract = yes }
+won_ship_4 = { set_variable = { won_pkg = 4 } won_package_price = yes won_open_supply_contract = yes }
+won_ship_5 = { set_variable = { won_pkg = 5 } won_package_price = yes won_open_supply_contract = yes }
+won_ship_6 = { set_variable = { won_pkg = 6 } won_package_price = yes won_open_supply_contract = yes }
+won_licence_1 = { set_variable = { won_lic = 1 } won_licence_price = yes won_grant_licence = yes }
+won_licence_2 = { set_variable = { won_lic = 2 } won_licence_price = yes won_grant_licence = yes }
+won_licence_3 = { set_variable = { won_lic = 3 } won_licence_price = yes won_grant_licence = yes }
+won_licence_4 = { set_variable = { won_lic = 4 } won_licence_price = yes won_grant_licence = yes }
+won_licence_5 = { set_variable = { won_lic = 5 } won_licence_price = yes won_grant_licence = yes }
+won_licence_6 = { set_variable = { won_lic = 6 } won_licence_price = yes won_grant_licence = yes }
+won_licence_7 = { set_variable = { won_lic = 7 } won_licence_price = yes won_grant_licence = yes }
+won_licence_8 = { set_variable = { won_lic = 8 } won_licence_price = yes won_grant_licence = yes }
+won_licence_9 = { set_variable = { won_lic = 9 } won_licence_price = yes won_grant_licence = yes }
+
+###########################################################################
+# Monthly entry point (every country)
+###########################################################################
+won_global_tick = {
+	won_update_climate = yes
+	won_rank_rewards = yes
+	if = {
+		limit = { won_closed_to_capital = no check_variable = { won_open = 1 } }
+		won_fdi_inflow = yes
+	}
+	won_arms_tick = yes
+}
+
+# Prices shown in the contract and surplus menus: per delivery (won_p*) and per surplus lot (won_d*).
+won_price_menu = {
+	won_price_factor = yes
+	won_contract_cap = yes
+	set_variable = { won_p1 = 0.10 }
+	set_variable = { won_p2 = 0.15 }
+	set_variable = { won_p3 = 0.10 }
+	set_variable = { won_p4 = 0.125 }
+	set_variable = { won_p5 = 0.125 }
+	set_variable = { won_p6 = 0.15 }
+	multiply_variable = { won_p1 = won_pf }
+	multiply_variable = { won_p2 = won_pf }
+	multiply_variable = { won_p3 = won_pf }
+	multiply_variable = { won_p4 = won_pf }
+	multiply_variable = { won_p5 = won_pf }
+	multiply_variable = { won_p6 = won_pf }
+	set_variable = { won_d1 = won_p1 }
+	set_variable = { won_d2 = won_p2 }
+	set_variable = { won_d3 = won_p3 }
+	set_variable = { won_d4 = won_p4 }
+	set_variable = { won_d5 = won_p5 }
+	set_variable = { won_d6 = won_p6 }
+	multiply_variable = { won_d1 = 1.2 }
+	multiply_variable = { won_d2 = 1.2 }
+	multiply_variable = { won_d3 = 1.2 }
+	multiply_variable = { won_d4 = 1.2 }
+	multiply_variable = { won_d5 = 1.2 }
+	multiply_variable = { won_d6 = 1.2 }
+}
+
+###########################################################################
+# Foreign Trade Office: one in-tray for every request from abroad (human players).
+# Parallel arrays won_q_who / won_q_kind / won_q_val / won_q_price / won_q_age.
+# Kinds: 1 supply contract offer, 2 licence request, 3 civilian factory investment,
+#        4 arms plant investment, 5 shipyard investment, 6 contract up for renewal,
+#        7 contract cancelled (notice). Requests wait 3 months, at most 5 at a time.
+###########################################################################
+# Needs var won_ev_partner and temp vars won_qk (kind), won_qv (package/licence), won_qp (price).
+won_enqueue = {
+	add_to_array = { won_q_who = won_ev_partner }
+	add_to_array = { won_q_kind = won_qk }
+	add_to_array = { won_q_val = won_qv }
+	add_to_array = { won_q_price = won_qp }
+	add_to_array = { won_q_age = 0 }
+	set_variable = { won_q_count = won_q_who^num }
+	if = {
+		limit = { is_ai = no }
+		if = {
+			limit = { has_country_flag = won_q_manual }
+			if = {
+				limit = { NOT = { has_country_flag = won_q_tutorial } }
+				set_country_flag = won_q_tutorial
+				country_event = { id = won.219 days = 1 }
+			}
+		}
+		else = {
+			# Pop-up mode (default): the request opens as an event right away, one at a time.
+			set_country_flag = won_q_tutorial
+			country_event = { id = won.221 hours = 2 }
+		}
+	}
+}
+
+# Pop-up mode: opens the oldest waiting request unless one is already on screen.
+won_q_popup = {
+	if = {
+		limit = {
+			is_ai = no
+			check_variable = { won_q_count > 0 }
+			NOT = { has_country_flag = won_q_manual }
+			NOT = { has_country_flag = won_q_busy }
+		}
+		won_q_open_next = yes
+	}
+}
+
+# Releases the buyer's "pending" flag when a request lapses unanswered.
+won_queue_release = {
+	if = {
+		limit = { OR = { check_variable = { won_k = 1 } check_variable = { won_k = 6 } } }
+		var:won_p = { clr_country_flag = won_sc_from_@ROOT }
+	}
+	if = {
+		limit = { check_variable = { won_k = 2 } }
+		var:won_p = { clr_country_flag = won_lic_req_@ROOT }
+	}
+}
+
+# Monthly: requests age; after 3 months or if the other country is gone or at war with us, they lapse.
+won_queue_tick = {
+	clear_array = won_tq1
+	clear_array = won_tq2
+	clear_array = won_tq3
+	clear_array = won_tq4
+	clear_array = won_tq5
+	for_each_loop = {
+		array = won_q_who
+		value = won_p
+		index = won_i
+		set_temp_variable = { won_k = won_q_kind^won_i }
+		set_temp_variable = { won_qv = won_q_val^won_i }
+		set_temp_variable = { won_qp = won_q_price^won_i }
+		set_temp_variable = { won_age = won_q_age^won_i }
+		add_to_temp_variable = { won_age = 1 }
+		set_temp_variable = { won_ok = 1 }
+		if = {
+			limit = { check_variable = { won_age > 3 } }
+			set_temp_variable = { won_ok = 0 }
+		}
+		var:won_p = {
+			if = {
+				limit = { OR = { exists = no has_war_with = ROOT } }
+				set_temp_variable = { won_ok = 0 }
+			}
+		}
+		if = {
+			limit = { check_variable = { won_ok = 1 } }
+			add_to_array = { won_tq1 = won_p }
+			add_to_array = { won_tq2 = won_k }
+			add_to_array = { won_tq3 = won_qv }
+			add_to_array = { won_tq4 = won_qp }
+			add_to_array = { won_tq5 = won_age }
+		}
+		else = {
+			won_queue_release = yes
+		}
+	}
+	clear_array = won_q_who
+	clear_array = won_q_kind
+	clear_array = won_q_val
+	clear_array = won_q_price
+	clear_array = won_q_age
+	for_each_loop = {
+		array = won_tq1
+		value = won_p
+		index = won_i
+		add_to_array = { won_q_who = won_p }
+		set_temp_variable = { won_t = won_tq2^won_i }
+		add_to_array = { won_q_kind = won_t }
+		set_temp_variable = { won_t = won_tq3^won_i }
+		add_to_array = { won_q_val = won_t }
+		set_temp_variable = { won_t = won_tq4^won_i }
+		add_to_array = { won_q_price = won_t }
+		set_temp_variable = { won_t = won_tq5^won_i }
+		add_to_array = { won_q_age = won_t }
+	}
+	clear_array = won_tq1
+	clear_array = won_tq2
+	clear_array = won_tq3
+	clear_array = won_tq4
+	clear_array = won_tq5
+	set_variable = { won_q_count = won_q_who^num }
+	won_q_popup = yes
+}
+
+# Takes the oldest request out of the in-tray and opens its event.
+won_q_open_next = {
+	set_temp_variable = { won_t = won_q_who^0 }
+	set_variable = { won_ev_partner = won_t }
+	var:won_ev_partner = { set_variable = { global.won_ev_partner_name = THIS } }
+	set_temp_variable = { won_k = won_q_kind^0 }
+	set_temp_variable = { won_qv = won_q_val^0 }
+	set_temp_variable = { won_qp = won_q_price^0 }
+	remove_from_array = { array = won_q_who index = 0 }
+	remove_from_array = { array = won_q_kind index = 0 }
+	remove_from_array = { array = won_q_val index = 0 }
+	remove_from_array = { array = won_q_price index = 0 }
+	remove_from_array = { array = won_q_age index = 0 }
+	set_variable = { won_q_count = won_q_who^num }
+	set_country_flag = { flag = won_q_busy days = 20 }
+	if = {
+		limit = { OR = { check_variable = { won_k = 1 } check_variable = { won_k = 6 } check_variable = { won_k = 7 } } }
+		set_variable = { won_pkg = won_qv }
+		set_variable = { won_pkg_rev = won_qp }
+		set_variable = { won_pkg_rev_hi = won_qp }
+		multiply_variable = { won_pkg_rev_hi = 1.15 }
+		won_contract_cap = yes
+	}
+	if = {
+		limit = { check_variable = { won_k = 2 } }
+		set_variable = { won_lic = won_qv }
+		set_variable = { won_lic_fee = won_qp }
+		set_variable = { won_lic_fee_hi = won_qp }
+		multiply_variable = { won_lic_fee_hi = 1.5 }
+	}
+	if = { limit = { check_variable = { won_k = 1 } } country_event = { id = won.200 } }
+	if = { limit = { check_variable = { won_k = 2 } } country_event = { id = won.202 } }
+	if = { limit = { check_variable = { won_k = 3 } } country_event = { id = won.50 } }
+	if = { limit = { check_variable = { won_k = 4 } } country_event = { id = won.51 } }
+	if = { limit = { check_variable = { won_k = 5 } } country_event = { id = won.52 } }
+	if = { limit = { check_variable = { won_k = 6 } } country_event = { id = won.210 } }
+	if = { limit = { check_variable = { won_k = 7 } } country_event = { id = won.212 } }
+}
+
+# After answering a request: back to the office while more are waiting.
+won_office_return = {
+	clr_country_flag = won_q_busy
+	if = {
+		limit = {
+			is_ai = no
+			check_variable = { won_q_count > 0 }
+		}
+		if = {
+			limit = { has_country_flag = won_q_manual }
+			country_event = { id = won.220 }
+		}
+		else = {
+			country_event = { id = won.221 hours = 1 }
+		}
+	}
+}
+
+# Office summary numbers.
+won_office_refresh = {
+	won_contract_cap = yes
+	won_price_factor = yes
+	won_price_menu = yes
+}
+

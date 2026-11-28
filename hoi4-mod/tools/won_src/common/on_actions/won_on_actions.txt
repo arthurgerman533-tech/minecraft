@@ -1,0 +1,41 @@
+# Wealth of Nations - on_actions
+on_actions = {
+	on_startup = {
+		effect = {
+			every_country = {
+				limit = { NOT = { has_country_flag = won_ready } }
+				won_init = yes
+			}
+			# The World Economic League is ready before the first month ends
+			random_country = {
+				limit = { exists = yes }
+				won_world_rank = yes
+				if = {
+					limit = { check_variable = { global.won_hs_n < 1 } }
+					won_race_sample = yes
+				}
+			}
+			every_country = {
+				limit = { is_ai = no }
+				if = {
+					limit = { NOT = { has_country_flag = won_welcomed } }
+					set_country_flag = won_welcomed
+					country_event = { id = won.1 days = 1 }
+				}
+				won_update_charts = yes
+			}
+		}
+	}
+	on_weekly = {
+		effect = {
+			aon_weekly_update = yes
+		}
+	}
+	on_monthly = {
+		effect = {
+			won_monthly = yes
+			aon_monthly_flavour = yes
+			aon_ai_market_preferences = yes
+		}
+	}
+}

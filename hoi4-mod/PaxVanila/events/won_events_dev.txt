@@ -1,0 +1,139 @@
+add_namespace = won
+
+######################################################################
+# State Development (won_modern_effects.txt)
+######################################################################
+
+# The development plan: choose what kind of programme var:won_dev_target gets.
+country_event = {
+	id = won.260
+	title = won.260.t
+	desc = won.260.d
+	picture = GFX_report_event_generic_construction_site
+	is_triggered_only = yes
+	option = {	# Infrastructure & Rail
+		name = won.260.a
+		trigger = { check_variable = { var = won_treasury value = won_dev_cost compare = greater_than } }
+		custom_effect_tooltip = won_dev_inf_tt
+		set_variable = { won_dev_pick = 1 }
+		won_dev_start = yes
+		ai_chance = {
+			base = 30
+			modifier = { factor = 2 var:won_dev_target = { infrastructure < 4 } }
+		}
+	}
+	option = {	# Urbanisation
+		name = won.260.b
+		trigger = { check_variable = { var = won_treasury value = won_dev_cost compare = greater_than } }
+		custom_effect_tooltip = won_dev_urb_tt
+		set_variable = { won_dev_pick = 2 }
+		won_dev_start = yes
+		ai_chance = {
+			base = 25
+			modifier = { factor = 1.5 var:won_dev_target = { state_population_k > 1000 } }
+		}
+	}
+	option = {	# Industrial District
+		name = won.260.c
+		trigger = { check_variable = { var = won_treasury value = won_dev_cost compare = greater_than } }
+		custom_effect_tooltip = won_dev_ind_tt
+		set_variable = { won_dev_pick = 3 }
+		won_dev_start = yes
+		ai_chance = { base = 30 }
+	}
+	option = {	# Resource Development
+		name = won.260.e
+		trigger = {
+			check_variable = { var = won_treasury value = won_dev_cost compare = greater_than }
+			var:won_dev_target = {
+				OR = {
+					has_resources_amount = { resource = oil amount > 0 }
+					has_resources_amount = { resource = steel amount > 0 }
+					has_resources_amount = { resource = aluminium amount > 0 }
+					has_resources_amount = { resource = rubber amount > 0 }
+					has_resources_amount = { resource = tungsten amount > 0 }
+					has_resources_amount = { resource = chromium amount > 0 }
+				}
+			}
+		}
+		custom_effect_tooltip = won_dev_res_tt
+		set_variable = { won_dev_pick = 4 }
+		won_dev_start = yes
+		ai_chance = { base = 40 }
+	}
+	option = {	# Not now
+		name = won.260.x
+		ai_chance = { base = 0 }
+	}
+}
+
+# Construction boom: the programme finishes sooner.
+country_event = {
+	id = won.261
+	title = won.261.t
+	desc = won.261.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = won.261.a
+		custom_effect_tooltip = won_dev_boom_tt
+		var:won_dev_ev_state = { subtract_from_variable = { won_dev_days = 45 } }
+	}
+}
+
+# Budget overrun: pay or wait.
+country_event = {
+	id = won.262
+	title = won.262.t
+	desc = won.262.d
+	picture = GFX_report_event_generic_construction_site
+	is_triggered_only = yes
+	immediate = {
+		set_variable = { won_dev_ev_cost = won_mod_cost }
+		multiply_variable = { won_dev_ev_cost = 0.4 }
+	}
+	option = {	# Pay the difference
+		name = won.262.a
+		set_temp_variable = { won_spend = won_dev_ev_cost }
+		won_pay = yes
+	}
+	option = {	# Slow the work down
+		name = won.262.b
+		custom_effect_tooltip = won_dev_delay60_tt
+		var:won_dev_ev_state = { add_to_variable = { won_dev_days = 60 } }
+	}
+}
+
+# Local opposition: spend political capital or wait.
+country_event = {
+	id = won.263
+	title = won.263.t
+	desc = won.263.d
+	picture = GFX_report_event_generic_conference
+	is_triggered_only = yes
+	option = {	# Push it through
+		name = won.263.a
+		trigger = { has_political_power > 24 }
+		add_political_power = -25
+	}
+	option = {	# Negotiate with the locals
+		name = won.263.b
+		custom_effect_tooltip = won_dev_delay45_tt
+		var:won_dev_ev_state = { add_to_variable = { won_dev_days = 45 } }
+		add_stability = 0.01
+	}
+}
+
+# The first state to reach level 10.
+country_event = {
+	id = won.264
+	title = won.264.t
+	desc = won.264.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = won.264.a
+		add_political_power = 75
+		add_stability = 0.02
+	}
+}

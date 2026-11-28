@@ -1,0 +1,125 @@
+# Технологии из «Family Historical MP mod»
+technologies = {
+	concentrated_industry6 = {
+		industrial_capacity_factory = 0.05
+		industrial_capacity_dockyard = 0.1
+		global_building_slots_factor = 0.2
+		research_cost = 2.5
+		start_year = 1945
+		folder = { name = industry_folder position = { x = 4 y = 12 } }
+		categories = { industry concentrated_industry_category }
+		ai_will_do = { factor = 5 modifier = { factor = 10 date > "1943.1.1" } }
+	}
+
+	dispersed_industry6 = {
+		line_change_production_efficiency_factor = 0.05
+		production_factory_start_efficiency_factor = 0.05
+		industry_air_damage_factor = -0.1
+		production_factory_efficiency_gain_factor = 0.1
+		research_cost = 2.5
+		start_year = 1946
+		folder = { name = industry_folder position = { x = 6 y = 12 } }
+		categories = { industry dispersed_industry_category }
+		ai_will_do = { factor = 5 modifier = { factor = 10 date > "1943.1.1" } }
+	}
+
+	construction6 = {
+		production_speed_buildings_factor = 0.1
+		industry_repair_factor = 0.05
+		path = { leads_to_tech = excavation6 research_cost_coeff = 1 }
+		research_cost = 2.5
+		start_year = 1945
+		folder = { name = industry_folder position = { x = 0 y = 10 } }
+		categories = { industry construction_tech }
+		ai_will_do = { factor = 5 modifier = { factor = 10 date > "1943.1.1" } }
+	}
+
+	excavation6 = {
+		local_resources_factor = 0.1
+		production_lack_of_resource_penalty_factor = -0.05
+		show_effect_as_desc = yes
+		research_cost = 2.5
+		start_year = 1945
+		folder = { name = industry_folder position = { x = 2 y = 10 } }
+		categories = { industry construction_tech excavation_tech }
+		ai_will_do = { factor = 5 modifier = { factor = 10 date > "1943.1.1" } }
+	}
+
+	flexible_line2 = {
+		production_factory_max_efficiency_factor = 0.1
+		line_change_production_efficiency_factor = 0.15
+		research_cost = 2.5
+		start_year = 1945
+		folder = { name = industry_folder position = { x = -1 y = 12 } }
+		categories = { industry cat_production }
+		ai_will_do = { factor = 5 modifier = { factor = 10 date > "1943.1.1" } }
+	}
+
+	streamlined_line2 = {
+		production_factory_max_efficiency_factor = 0.1
+		production_factory_efficiency_gain_factor = 0.05
+		research_cost = 2.5
+		start_year = 1945
+		folder = { name = industry_folder position = { x = 1 y = 12 } }
+		categories = { industry cat_production }
+		ai_will_do = { factor = 5 modifier = { factor = 10 date > "1943.1.1" } }
+	}
+
+	improved_modern_oil_processing = {
+		fuel_gain_factor_from_states = 0.5
+		show_effect_as_desc = yes
+		research_cost = 1.75
+		start_year = 1945
+		folder = { name = industry_folder position = { x = -1 y = 13 } }
+		categories = { industry synth_resources cat_synth_oil }
+		ai_will_do = { factor = 5 modifier = { factor = 10 date > "1943.1.1" } }
+	}
+
+	improved_modern_rubber_processing = {
+		show_effect_as_desc = yes
+		research_cost = 2
+		start_year = 1945
+		folder = { name = industry_folder position = { x = 1 y = 13 } }
+		categories = { industry synth_resources cat_synth_rubber }
+		ai_will_do = { factor = 5 modifier = { factor = 10 date > "1943.1.1" } }
+	}
+
+	modern_equipment_conversion = {
+		equipment_conversion_speed = 0.25
+		refit_speed = 0.1
+		repair_speed_factor = 0.05
+		research_cost = 2.5
+		start_year = 1941
+		folder = { name = industry_folder position = { x = 2 y = 8 } }
+		categories = { industry cat_production }
+		ai_will_do = { factor = 5 modifier = { factor = 10 date > "1943.1.1" } }
+	}
+
+	modern_fire_control_system = {
+		naval_hit_chance = 0.05
+		naval_torpedo_hit_chance_factor = 0.05
+		research_cost = 2.5
+		start_year = 1946
+		folder = { name = electronics_folder position = { x = 8 y = 10 } }
+		categories = { electronics }
+		ai_will_do = { factor = 5 modifier = { factor = 10 date > "1943.1.1" } }
+	}
+
+	modern_encryption = {
+		encryption_factor = 0.5
+		research_cost = 2.5
+		start_year = 1947
+		folder = { name = electronics_folder position = { x = 8 y = 12 } }
+		categories = { electronics }
+		ai_will_do = { factor = 5 modifier = { factor = 10 date > "1943.1.1" } }
+	}
+
+	modern_decryption = {
+		decryption_factor = 0.5
+		research_cost = 2.5
+		start_year = 1947
+		folder = { name = electronics_folder position = { x = 8 y = 14 } }
+		categories = { electronics }
+		ai_will_do = { factor = 5 modifier = { factor = 10 date > "1943.1.1" } }
+	}
+}
